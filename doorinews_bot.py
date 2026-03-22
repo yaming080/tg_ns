@@ -1029,6 +1029,7 @@ def main():
         log(f"  └ 시그니처: {signature}")
 
         new_stories.append(s)
+        update_posted(title, posted)
         seen_titles.append(norm_title)
         seen_signatures.append(signature)
 
