@@ -1,15 +1,14 @@
 name: Telegram News Bot
 permissions:
   contents: write
+  actions: write
+
 on:
-  schedule:
-    - cron: "2,7,12,17,22,27,32,37,42,47,52,57 * * * *"
   workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-
     steps:
       - name: 코드 가져오기
         uses: actions/checkout@v4
@@ -30,6 +29,7 @@ jobs:
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           INITIAL_RUN: "false"
         run: python doorinews_bot.py
+
       - name: news state 저장
         run: |
           if [ ! -f news_state.json ]; then
