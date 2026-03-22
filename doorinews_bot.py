@@ -349,8 +349,8 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
 
             desc_clean = re.sub(r'<[^>]+>', ' ', unescape(desc))
             desc_clean = re.sub(r'\s+', ' ', desc_clean).strip()
-
-                        image_url = ''
+			
+            image_url = ''
             try:
                 media = item.find('{http://search.yahoo.com/mrss/}content') or item.find('{http://search.yahoo.com/mrss/}thumbnail')
                 if media is not None and media.attrib.get('url'):
