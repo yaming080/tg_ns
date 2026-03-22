@@ -328,7 +328,7 @@ def extract_meta(html_text: str, names: list[str]) -> str:
 
 def fetch_article_meta(url: str) -> tuple[str, str]:
     try:
-        html_text = http_get(url, timeout=20)
+        html_text = http_get(url, timeout=8)
     except Exception:
         return "", ""
     return (
@@ -350,7 +350,7 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
             desc_clean = re.sub(r'<[^>]+>', ' ', unescape(desc))
             desc_clean = re.sub(r'\s+', ' ', desc_clean).strip()
 
-            image_url = ''
+                        image_url = ''
             try:
                 media = item.find('{http://search.yahoo.com/mrss/}content') or item.find('{http://search.yahoo.com/mrss/}thumbnail')
                 if media is not None and media.attrib.get('url'):
@@ -359,6 +359,15 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
                     enclosure = item.find('enclosure')
                     if enclosure is not None and enclosure.attrib.get('url'):
                         image_url = enclosure.attrib['url']
+
+                if not image_url:
+                    for child in item:
+                        tag = str(child.tag).lower()
+                        if 'thumbnail' in tag or 'content' in tag:
+                            cand = child.attrib.get('url', '').strip()
+                            if cand.startswith('http'):
+                                image_url = cand
+                                break
             except Exception:
                 image_url = ''
 
@@ -957,6 +966,7 @@ def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) 
         log("Telegram token or channel not set")
         return False
     if not image_url:
+        log("No image_url -> text message로 전송")
         return send_telegram_message(token, channel, caption)
     while len(caption.encode('utf-8')) > 1000:
         caption = caption[:-1]
