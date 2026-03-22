@@ -253,7 +253,7 @@ SITE_NAMES = {
 CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAUT',
     'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI'}
 STATE_FILE = 'news_state.json'
-MAX_ITEMS_PER_FEED = 3
+MAX_ITEMS_PER_FEED = 5
 SUMMARY_SENTENCES = 2
 
 def log(msg: str) -> None:
