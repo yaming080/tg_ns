@@ -1029,9 +1029,8 @@ def main():
         log(f"  └ 시그니처: {signature}")
 
         new_stories.append(s)
-
-		seen_titles.append(norm_title)
-		seen_signatures.append(signature)
+        seen_titles.append(norm_title)
+        seen_signatures.append(signature)
 
     log(f"중복 제거 후 {len(new_stories)}개")
     state['posted'] = posted
