@@ -14,8 +14,8 @@ from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
 
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
-TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
 
 FEEDS = [
@@ -253,7 +253,7 @@ SITE_NAMES = {
 CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAUT',
     'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI'}
 STATE_FILE = 'news_state.json'
-MAX_ITEMS_PER_FEED = 12
+MAX_ITEMS_PER_FEED = 3
 SUMMARY_SENTENCES = 2
 
 def log(msg: str) -> None:
@@ -339,15 +339,17 @@ def fetch_article_meta(url: str) -> tuple[str, str]:
 def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
     stories = []
     try:
-        data = http_get(url, timeout=20)
+        data = http_get(url, timeout=12)
         root = ET.fromstring(data)
         for item in root.findall('.//item')[:max_items]:
             title = (item.findtext('title') or '').strip()
             link = (item.findtext('link') or '').strip()
             desc = (item.findtext('description') or '').strip()
             pub = (item.findtext('pubDate') or '').strip()
+
             desc_clean = re.sub(r'<[^>]+>', ' ', unescape(desc))
             desc_clean = re.sub(r'\s+', ' ', desc_clean).strip()
+
             image_url = ''
             try:
                 media = item.find('{http://search.yahoo.com/mrss/}content') or item.find('{http://search.yahoo.com/mrss/}thumbnail')
@@ -359,15 +361,24 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
                         image_url = enclosure.attrib['url']
             except Exception:
                 image_url = ''
-            article_desc, article_img = ('','')
-            if link:
-                article_desc, article_img = fetch_article_meta(link)
+
+            # 속도 개선용: 기사 원문 메타 추가 수집 비활성화
+            article_desc, article_img = ('', '')
+
             if not image_url and article_img:
                 image_url = article_img
+
             if is_weak_text(desc_clean) and article_desc:
                 desc_clean = article_desc
+
             if title and link:
-                stories.append({'title': unescape(title), 'url': link, 'desc': desc_clean, 'pub': pub, 'image_url': image_url})
+                stories.append({
+                    'title': unescape(title),
+                    'url': link,
+                    'desc': desc_clean,
+                    'pub': pub,
+                    'image_url': image_url
+                })
     except Exception as e:
         log(f"Error fetching {url}: {e}")
     return stories
@@ -1012,21 +1023,27 @@ def main():
         seen_titles.append(norm_title)
         seen_signatures.append(signature)
 
-
     log(f"중복 제거 후 {len(new_stories)}개")
     state['posted'] = posted
     save_state(STATE_FILE, state)
+
+    if INITIAL_RUN:
+        log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
+        return
+
     for story in new_stories:
-        if INITIAL_RUN:
-            log(f"Initial run skip: {story['title']}")
-            continue
         msg = build_message(story)
-        ok = send_telegram_photo(TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID, story.get('image_url', ''), msg)
+        ok = send_telegram_photo(
+            TELEGRAM_BOT_TOKEN,
+            TELEGRAM_CHANNEL_ID,
+            story.get('image_url', ''),
+            msg
+        )
         if ok:
             log(f"Posted: {story['title']}")
         else:
             log(f"Failed: {story['title']}")
-        time.sleep(1)
+        time.sleep(0.3)
 
 if __name__ == '__main__':
     main()
