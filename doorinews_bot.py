@@ -1049,14 +1049,17 @@ def main():
             story.get('image_url', ''),
             msg
         )
+
         if ok:
-  		  update_posted(story['title'], posted)
- 		  state['posted'] = posted
-  		  save_state(STATE_FILE, state)
-  		  log(f"Posted: {story['title']}")
-		else:
-  		  log(f"Failed: {story['title']}")
+            update_posted(story['title'], posted)
+            state['posted'] = posted
+            save_state(STATE_FILE, state)
+            log(f"Posted: {story['title']}")
+        else:
+            log(f"Failed: {story['title']}")
+
         time.sleep(0.3)
+
 
 if __name__ == '__main__':
     main()
