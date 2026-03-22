@@ -14,8 +14,8 @@ from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
 
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8347089705:AAHyKhlvRCNOY5wJqbg8yDvSuQWHSS1zTVs")
-TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "@YamingNews")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID")
 INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
 
 FEEDS = [
