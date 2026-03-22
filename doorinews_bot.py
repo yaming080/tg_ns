@@ -265,7 +265,11 @@ def http_get(url: str, timeout: int = 20) -> str:
         return resp.read().decode('utf-8', errors='ignore')
 
 def normalize_text(text: str) -> str:
-    return re.sub(r'[^a-zA-Z0-9 ]+', ' ', text).lower()
+    text = text.lower()
+    text = re.sub(r'https?://\S+', ' ', text)
+    text = re.sub(r'[^a-z0-9가-힣\s]', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
     # 일반 군더더기 표현 제거
     noise_words = [
@@ -636,14 +640,13 @@ def cleanup_text(text: str) -> str:
 def fix_translation_terms(text: str) -> str:
     replacements = {
         
-	'시바견': '#시바이누',
+		'시바견': '#시바이누',
         '시바이누 은': '#시바이누 는',
         '시바이누 는': '#시바이누 는',
         '시바이누 가': '#시바이누 가',
         '톰 리': '#톰리',
         '제롬 파월': '#제롬파월',
         '연방 준비 제도': '#연방준비제도',
-        '규제에': '규제에',
         '네비다주는': '#네비다주 는',
         '네비다주가': '#네비다주 가',
         'DeFi가': '#DeFi 가',
@@ -661,15 +664,15 @@ def fix_translation_terms(text: str) -> str:
         '연준이': '#연준 이',
         '테더의': '#테더 의',
         '테더는': '#테더 는',
-	'환율이': '#환율 이',
-	'환율은': '#환율 은',
+		'환율이': '#환율 이',
+		'환율은': '#환율 은',
         '골드만 삭스': '골드만삭스',
         '골드만삭스는': '#골드만삭스 는',
         '스트래티지는': '#스트래티지 는',
         '스트래티지가': '#스트래티지 가',
         '도널드트럼프는': '#도널드트럼프 는',
-	'도널드트럼프가': '#도널드트럼프 가',
-	'도널드 트럼프': '#도널드트럼프',
+		'도널드트럼프가': '#도널드트럼프 가',
+		'도널드 트럼프': '#도널드트럼프',
         '제롬파월은': '#제롬파월 은',
         '제롬파월이': '#제롬파월 이',
         'SoftBank는': '#SoftBank 는',
@@ -685,30 +688,30 @@ def fix_translation_terms(text: str) -> str:
         '빗썸은': '#빗썸 은',
         '빗썸이': '#빗썸 이',
         '빗썸의': '#빗썸 의',
-	'바이낸스는': '#바이낸스 는',
-	'바이낸스가': '#바이낸스 가',
-	'Apple은': '#Apple 은',
-	'Apple이': '#Apple 이',
-	'애플은': '#Apple 은',
-	'애플이': '#Apple 이',
-	'갈링하우스는': '#갈링하우스 는',
-	'갈링하우스가': '#갈링하우스 가',
-	'데이비드슈워츠는': '#데이비드슈워츠 는',
-	'데이비드슈워츠가': '#데이비드슈워츠 가',
-	'모니카롱은': '#모니카롱 은',
-	'모니카롱이': '#모니카롱 이',
-	'비탈릭부텔린은': '#비탈릭부텔린 은',
-	'비탈릭부텔린이': '#비탈릭부텔린 이',
-	'사토시나카모토는': '#사토시나카모토 는',
-	'사토시나카모토가': '#사토시나카모토 가',
-	'일론머스크는': '#일론머스크 는',
-	'일론머스크가': '#일론머스크 가',
-	'저스틴썬은': '#저스틴썬 은',
-	'저스틴썬이': '#저스틴썬 이',
-	'제드맥케일럽은': '#제드맥케일럽 은',
-	'제드맥케일럽이': '#제드맥케일럽 이',
-	'찰스호스킨슨은': '#찰스호스킨슨 은',
-	'찰스호스킨슨이': '#찰스호스킨슨 이',
+		'바이낸스는': '#바이낸스 는',
+		'바이낸스가': '#바이낸스 가',
+		'Apple은': '#Apple 은',
+		'Apple이': '#Apple 이',
+		'애플은': '#Apple 은',
+		'애플이': '#Apple 이',
+		'갈링하우스는': '#갈링하우스 는',
+		'갈링하우스가': '#갈링하우스 가',
+		'데이비드슈워츠는': '#데이비드슈워츠 는',
+		'데이비드슈워츠가': '#데이비드슈워츠 가',
+		'모니카롱은': '#모니카롱 은',
+		'모니카롱이': '#모니카롱 이',
+		'비탈릭부텔린은': '#비탈릭부텔린 은',
+		'비탈릭부텔린이': '#비탈릭부텔린 이',
+		'사토시나카모토는': '#사토시나카모토 는',
+		'사토시나카모토가': '#사토시나카모토 가',
+		'일론머스크는': '#일론머스크 는',
+		'일론머스크가': '#일론머스크 가',
+		'저스틴썬은': '#저스틴썬 은',
+		'저스틴썬이': '#저스틴썬 이',
+		'제드맥케일럽은': '#제드맥케일럽 은',
+		'제드맥케일럽이': '#제드맥케일럽 이',
+		'찰스호스킨슨은': '#찰스호스킨슨 은',
+		'찰스호스킨슨이': '#찰스호스킨슨 이',
     }
     for old, new in replacements.items():
         text = text.replace(old, new)
@@ -716,7 +719,7 @@ def fix_translation_terms(text: str) -> str:
 
 def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
-        '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum'
+        '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum',
         '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley',
         '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#CFTC','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
@@ -783,7 +786,7 @@ def build_story_signature(story: dict) -> str:
 
         'tom lee', 'jerome powell', 'time traveler', 'john squire',
         'brad garlinghouse', 'david schwartz', 'monica long', 'vitalik buterin',
-        'satoshi nakamoto', 'elon musk', 'justin sun', 'jed mccaleb', 'charles hoskinson','openai', 'anthropic', 'google', 'xai', 'grok','x','github', 'phishing', 'wallet', 'openclaw', 'developer', 'developers', 'scam'
+        'satoshi nakamoto', 'elon musk', 'justin sun', 'jed mccaleb', 'charles hoskinson','openai', 'anthropic', 'google', 'xai', 'grok','x','github', 'phishing', 'wallet', 'openclaw', 'developer', 'developers', 'scam',
 
         'donald trump', 'trump', 'strategy', 'evernorth','brazil', 'finance minister', 'crypto tax', 'election',
     ]
@@ -855,7 +858,7 @@ def build_message(story: dict) -> str:
         'tom lee': '#TomLee',
         'strategy': '#Strategy',
         'donald trump': '#DonaldTrump',
-	'Trump':'#Trump',
+		'trump':'#Trump',
         'iran': '#Iran',
         'israel': '#Israel',
         'robinhood': '#Robinhood',
@@ -871,24 +874,22 @@ def build_message(story: dict) -> str:
         'ripple': '#Ripple',
         'xrpl': '#XRPL',
         'sec': '#SEC',
-	'binance': '#Binance',
-	'apple': '#Apple',
+		'binance': '#Binance',
+		'apple': '#Apple',
         'vr': '#VR',
         'time traveler': '#TimeTraveler',
-	'upbit': '#Upbit',
-	'bithumb': '#Bithumb',
-	'brad garlinghouse': '#BradGarlinghouse',
-	'david schwartz': '#DavidSchwartz',
-	'monica long': '#MonicaLong',
-	'vitalik buterin': '#VitalikButerin',
-	'satoshi nakamoto': '#SatoshiNakamoto',
-	'elon musk': '#ElonMusk',
-	'justin sun': '#JustinSun',
-	'jed mccaleb': '#JedMcCaleb',
-	'charles hoskinson': '#CharlesHoskinson',
-	'upbit': '#Upbit',
-	'bithumb': '#Bithumb',
-	'ledger': '#Ledger',
+		'upbit': '#Upbit',
+		'bithumb': '#Bithumb',
+		'brad garlinghouse': '#BradGarlinghouse',
+		'david schwartz': '#DavidSchwartz',
+		'monica long': '#MonicaLong',
+		'vitalik buterin': '#VitalikButerin',
+		'satoshi nakamoto': '#SatoshiNakamoto',
+		'elon musk': '#ElonMusk',
+		'justin sun': '#JustinSun',
+		'jed mccaleb': '#JedMcCaleb',
+		'charles hoskinson': '#CharlesHoskinson',
+		'ledger': '#Ledger',
     }
 
     for key, tag in footer_map.items():
@@ -1028,10 +1029,9 @@ def main():
         log(f"  └ 시그니처: {signature}")
 
         new_stories.append(s)
-        update_posted(title, posted)
 
-        seen_titles.append(norm_title)
-        seen_signatures.append(signature)
+		seen_titles.append(norm_title)
+		seen_signatures.append(signature)
 
     log(f"중복 제거 후 {len(new_stories)}개")
     state['posted'] = posted
@@ -1050,9 +1050,12 @@ def main():
             msg
         )
         if ok:
-            log(f"Posted: {story['title']}")
-        else:
-            log(f"Failed: {story['title']}")
+  		  update_posted(story['title'], posted)
+ 		  state['posted'] = posted
+  		  save_state(STATE_FILE, state)
+  		  log(f"Posted: {story['title']}")
+		else:
+  		  log(f"Failed: {story['title']}")
         time.sleep(0.3)
 
 if __name__ == '__main__':
