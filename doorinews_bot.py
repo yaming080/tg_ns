@@ -1010,55 +1010,88 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 def headline_char_len(text: str) -> int:
     return len(re.sub(r'\s+', '', text))
 
+def is_complete_headline(text: str) -> bool:
+    text = text.strip().rstrip('.,;:!؟。')
+    if not text:
+        return False
+    complete_endings = (
+        '함','됨','임','중','예정','전망','주목','부각','강조','확대','축소','추진','진출','합류','발표','출시','공개',
+        '상승','하락','반등','급등','급락','확보','투자','매수','매도','인수','제휴','협력','완료','시작','재개',
+        '유지','검토','논의','확정','진행','압박','확산','회복','제한','경고','전환','현대화','연장','마무리'
+    )
+    if text.endswith(complete_endings):
+        return True
+    if re.search(r'(했음|나섬|밝힘|보임|커짐|이어짐|전해짐|나타남|늘어남|줄어듦)$', text):
+        return True
+    return False
+
+def trim_to_headline_limit(text: str, limit: int = 60) -> str:
+    text = re.sub(r'\s+', ' ', text).strip().rstrip(' ,.;:')
+    if headline_char_len(text) <= limit:
+        return text
+    best = text
+    count = 0
+    last_break = -1
+    for i, ch in enumerate(text):
+        if not ch.isspace():
+            count += 1
+        if ch.isspace() or ch in ',·;:/)]】':
+            last_break = i
+        if count >= limit:
+            best = text[:last_break] if last_break > 10 else text[:i+1]
+            break
+    return best.strip().rstrip(' ,.;:')
+
+def finalize_headline(text: str, fallback: str = '') -> str:
+    text = trim_to_headline_limit(text, 60)
+    text = re.sub(r'\s+', ' ', text).strip().rstrip(' ,.;:')
+
+    if is_complete_headline(text):
+        return text
+
+    fb = trim_to_headline_limit(fallback, 60) if fallback else ''
+    fb = re.sub(r'\s+', ' ', fb).strip().rstrip(' ,.;:')
+    if fb and 20 <= headline_char_len(fb) <= 60 and is_complete_headline(fb):
+        return fb
+
+    if headline_char_len(text) < 20 and fb:
+        merged = trim_to_headline_limit((text + ' ' + fb).strip(), 60)
+        if is_complete_headline(merged):
+            return merged
+        text = merged
+
+    if not is_complete_headline(text):
+        text = re.sub(r'(?:은|는|이|가|을|를|의|와|과|도|만|에서|에게|까지|로|으로)$', '', text).strip()
+        text = trim_to_headline_limit((text + ' 주목').strip(), 60)
+    return text
+
 def make_headline(text: str, fallback: str = "") -> str:
     text = cleanup_text(text)
-    text = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'\1', text)
-    text = re.sub(r'[\"“”‘’\']', '', text)
+    text = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'', text)
+    text = re.sub(r'["“”‘’']', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
 
-    parts = [p.strip() for p in re.split(r'(?<=[.!?])\s+|,|·|;|\n+', text) if p.strip()]
-    candidate = parts[0] if parts else text
+    fb = cleanup_text(fallback)
+    fb = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'', fb)
+    fb = re.sub(r'["“”‘’']', '', fb)
+    fb = re.sub(r'\s+', ' ', fb).strip()
 
-    if headline_char_len(candidate) < 20 and fallback:
-        fb = cleanup_text(fallback)
-        fb = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'\1', fb)
-        fb = re.sub(r'\s+', ' ', fb).strip()
-        if headline_char_len(fb) >= headline_char_len(candidate):
-            candidate = fb
+    primary_parts = [p.strip() for p in re.split(r'(?<=[.!?])\s+|,|·|;|
++', text) if p.strip()]
+    fallback_parts = [p.strip() for p in re.split(r'(?<=[.!?])\s+|,|·|;|
++', fb) if p.strip()]
 
-    if headline_char_len(candidate) > 60:
-        out = []
-        count = 0
-        for ch in candidate:
-            out.append(ch)
-            if not ch.isspace():
-                count += 1
-            if count >= 60:
-                break
-        candidate = ''.join(out).rstrip(' ,.;:')
+    candidates = []
+    candidates.extend(primary_parts[:3] if primary_parts else ([text] if text else []))
+    candidates.extend(fallback_parts[:3] if fallback_parts else ([fb] if fb else []))
 
-    if headline_char_len(candidate) < 20 and len(parts) > 1:
-        merged = candidate + ' ' + parts[1]
-        if headline_char_len(merged) >= 20:
-            candidate = merged
+    for cand in candidates:
+        cand = finalize_headline(cand, fallback=fb)
+        if 20 <= headline_char_len(cand) <= 60 and is_complete_headline(cand):
+            return cand
 
-    if headline_char_len(candidate) < 20 and fallback:
-        fb = cleanup_text(fallback)
-        fb = re.sub(r'\s+', ' ', fb).strip()
-        if headline_char_len(fb) > 60:
-            out = []
-            count = 0
-            for ch in fb:
-                out.append(ch)
-                if not ch.isspace():
-                    count += 1
-                if count >= 60:
-                    break
-            fb = ''.join(out).rstrip(' ,.;:')
-        if headline_char_len(fb) >= 20:
-            candidate = fb
-
-    return candidate.strip()
+    base = primary_parts[0] if primary_parts else (text or (fallback_parts[0] if fallback_parts else fb))
+    return finalize_headline(base, fallback=fb)
 
 
 def build_message(story: dict) -> str:
@@ -1194,7 +1227,7 @@ def build_message(story: dict) -> str:
 
     dynamic_tags = filter_final_tags(dynamic_tags)
 
-    headline = make_headline(summary_ko, fallback=title_ko)
+    headline = make_headline(title_ko, fallback=summary_ko)
     headline, extra_tags = inject_entity_hashtags(headline, entities)
     for t in extra_tags:
         if t not in dynamic_tags:
