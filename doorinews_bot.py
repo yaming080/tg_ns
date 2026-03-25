@@ -1155,7 +1155,7 @@ for s in filtered:
 
     if INITIAL_RUN:
         log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
-        return
+    return
 
     for story in new_stories:
         msg = build_message(story)
