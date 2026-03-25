@@ -42,7 +42,7 @@ OTHER_COINS = [
     'HYPE','HYPERLIQUID','SOL','DOGE','AVAX','DOT','MATIC','POL','LINK','LTC','ATOM',
     'ARB','OP','SUI','APT','PEPE','WIF','BONK','INJ','RNDR','NEAR',
     'FIL','HBAR','TIA','KAS','TAO','ICP','UNI','AAVE','MKR','TRUMP',
-    'METAWIN','PI','WLD','RIVER','G COIN','PLAYNANCES'
+    'METAWIN','PI','WLD','RIVER','G COIN','PLAYNANCES','LDO', 'LIDO', 'AKT', 'AKASH', 'AKASH NETWORK'
 ]
 
 ECON_KEYWORDS = ['sec','etf','regulation','law','bill','inflation','interest rate','economy','government','bank','approval','legislation','policy','tariff','Fed','korea','stablecoin','tokenization','custody','seed phrase','treasury','cftc','occ','ipo',
@@ -67,27 +67,36 @@ KOREAN_KEYWORDS = [
 
 NEGATIVE_KEYWORDS = [
     'newsletter', 'the daily', '더데일리', '뉴스레터', '발췌', '발췌한 것임',
-    '다음은', '게스트 게시물','오늘의 토큰운세',
-    '토큰운세',
-    '띠별 토큰 운세',
+    '다음은', '게스트 게시물', '오늘의 토큰운세',
+    '토큰운세', '띠별 토큰 운세',
     '투자참고용이 아닌',
     '심리적 환기와 재미를 위해',
-    '투자 조언도 아님','일일 동향 및 이벤트','토큰포스트마켓에 따르면',
-	'소식통에 따르면',
-	'관계자에 따르면',
-	'업계에 따르면',
-	'시장에 따르면',
-	'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며',
-	'변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다',
-	'심리적 환기 목적으로 제공됩니다',
-	'daily events',
-	'crypto today',
-	'what happened in crypto today', 'guest post', 'guest article', 'op-ed', 'analysis by',
-    'daily update', 'economic update', 'market update','how to build', 'platform infrastructure', 'investment platform',
+    '투자 조언도 아님',
+    '일일 동향 및 이벤트',
+    '토큰포스트마켓에 따르면',
+    '소식통에 따르면',
+    '관계자에 따르면',
+    '업계에 따르면',
+    '시장에 따르면',
+    '본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며',
+    '변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다',
+    '심리적 환기 목적으로 제공됩니다',
+    'daily events',
+    'crypto today',
+    'what happened in crypto today',
+    'guest post', 'guest article', 'op-ed', 'analysis by',
+    'daily update', 'economic update', 'market update',
+    'how to build', 'platform infrastructure', 'investment platform',
     'price prediction', 'forecast', 'will it reach', 'can it reach',
     'presale', 'pre-sale', 'launch week', 'turns launch week',
-    'pi network', 'g coin', 'playnances', 'metawin', 'river', 'wld', 'avax', 'solana', 'dogwifhat', 'wif','hyperliquid','hype token','hype etf',
-    'alex bores', 'sam bankman-fried', 'democratic primary'
+    'pi network', 'g coin', 'playnances', 'metawin', 'river', 'wld', 'avax', 'solana', 'dogwifhat', 'wif',
+    'hyperliquid', 'hype token', 'hype etf',
+    'alex bores', 'sam bankman-fried', 'democratic primary',
+    'first appeared on',
+    '처음 게재되었',
+    '처음 게재되었습니다',
+    'times tabloid에 처음 게재',
+    'timestabloid에 처음 게재'
 ]
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
 MANUAL_TRANSLATIONS = {
@@ -423,20 +432,21 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[허용코인 통과] {story.get('title', '')}")
         return True
 
+    other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
+    if other_coin_found:
+        print(f"[기타코인 제외] {story.get('title', '')}")
+        return False
+
     ai_allow_terms = ['openai', 'nvidia', 'amazon', 'google', 'alphabet', 'meta', 'anthropic', 'xai', 'grok']
     if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
         print(f"[AI/기업기사 통과] {story.get('title', '')}")
         return True
 
     policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
-    if any(contains_exact_term(raw_text, term) for term in policy_allow_terms):
+    policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
+    if policy_hits >= 2:
         print(f"[정책/거시 통과] {story.get('title', '')}")
         return True
-
-    other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
-    if other_coin_found:
-        print(f"[기타코인 제외] {story.get('title', '')}")
-        return False
 
     for kw in econ_keywords:
         if normalize_text(kw) in text:
@@ -450,7 +460,7 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     print(f"[필터미통과] {story.get('title', '')}")
     return False
-
+	
 def is_bad_line(line: str) -> bool:
     low = line.lower().strip()
     return (not low) or ('visit website' in low) or ('웹사이트 방문' in low) or ('?' in line) or ('？' in line) or bool(re.fullmatch(r'https?://\S+', low))
