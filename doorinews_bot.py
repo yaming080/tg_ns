@@ -72,10 +72,17 @@ NEGATIVE_KEYWORDS = [
     '띠별 토큰 운세',
     '투자참고용이 아닌',
     '심리적 환기와 재미를 위해',
-    '투자 조언도 아님','일일 동향 및 이벤트',
-'daily events',
-'crypto today',
-'what happened in crypto today', 'guest post', 'guest article', 'op-ed', 'analysis by',
+    '투자 조언도 아님','일일 동향 및 이벤트','토큰포스트마켓에 따르면',
+	'소식통에 따르면',
+	'관계자에 따르면',
+	'업계에 따르면',
+	'시장에 따르면',
+	'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며',
+	'변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다',
+	'심리적 환기 목적으로 제공됩니다',
+	'daily events',
+	'crypto today',
+	'what happened in crypto today', 'guest post', 'guest article', 'op-ed', 'analysis by',
     'daily update', 'economic update', 'market update','how to build', 'platform infrastructure', 'investment platform',
     'price prediction', 'forecast', 'will it reach', 'can it reach',
     'presale', 'pre-sale', 'launch week', 'turns launch week',
@@ -268,10 +275,7 @@ def normalize_text(text: str) -> str:
     text = text.lower()
     text = re.sub(r'https?://\S+', ' ', text)
     text = re.sub(r'[^a-z0-9가-힣\s]', ' ', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
 
-    # 일반 군더더기 표현 제거
     noise_words = [
         'says', 'said', 'claims', 'claim', 'predicts', 'predict', 'analyst', 'analysts',
         'expert', 'experts', 'report', 'reports', 'reported',
@@ -284,8 +288,6 @@ def normalize_text(text: str) -> str:
     for w in noise_words:
         text = text.replace(w, ' ')
 
-    text = re.sub(r'https?://\S+', ' ', text)
-    text = re.sub(r'[^a-z0-9가-힣\s]', ' ', text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
@@ -515,15 +517,23 @@ def normalize_style(text: str) -> str:
         (r'입니다\.?', '임'),
         (r'이었습니다\.?', '임'),
         (r'이다\.?', '임'),
+		(r'습니다\.?', ''),
     ]
+
     leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
     if leftovers:
         log("말투 치환 추가 필요 후보: " + ", ".join(leftovers[:10]))
+
     for pat, rep in rules:
         text = re.sub(pat, rep, text)
+
     text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
     text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
+    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
+    text = re.sub(r'([가-힣])(#)', r'\1 #', text)
+    text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
     text = re.sub(r'\s+', ' ', text).strip()
+
     return text
 
 def fix_truncated_phrases(text: str) -> str:
@@ -540,7 +550,7 @@ def fix_truncated_phrases(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-def extract_entities(story: dict, max_tags: int = 5) -> list[str]:
+def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     title = story.get('title', '')
     desc = story.get('desc', '')
     text = title + " " + desc
@@ -620,18 +630,20 @@ def cleanup_text(text: str) -> str:
     for p in bad_phrases:
         text = text.replace(p, '')
 
-    # Crypto Briefing / 크립토 브리핑 꼬리문장 제거
     text = re.sub(r'.*?Crypto Briefing에 처음 등장(?:함|했다)\.?', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?크립토 브리핑\(Crypto Briefing\)에 처음 등장(?:함|했다)\.?', '', text)
     text = re.sub(r'.*?Crypto Briefing에 처음 게재되(?:었음|었다|었습니?다)\.?', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?크립토 브리핑\(Crypto Briefing\)에 처음 게재되(?:었음|었다|었습니?다)\.?', '', text)
 
-    # 남는 찌꺼기 제거
     text = text.replace('포스트가 ', '')
     text = text.replace('게시물이 ', '')
     text = text.replace('게재물이 ', '')
     text = text.replace('라는 포스트가 ', '')
     text = text.replace('라는 게시물이 ', '')
+
+    text = re.sub(r'^[^.!?\n]{0,40}에 따르면[, ]*', '', text)
+    text = re.sub(r'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며[^.!?\n]*', '', text)
+    text = re.sub(r'변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다[^.!?\n]*', '', text)
 
     text = re.sub(r'\s+', ' ', text).strip()
     return text
@@ -639,8 +651,7 @@ def cleanup_text(text: str) -> str:
 
 def fix_translation_terms(text: str) -> str:
     replacements = {
-        
-		'시바견': '#시바이누',
+        '시바견': '#시바이누',
         '시바이누 은': '#시바이누 는',
         '시바이누 는': '#시바이누 는',
         '시바이누 가': '#시바이누 가',
@@ -664,15 +675,15 @@ def fix_translation_terms(text: str) -> str:
         '연준이': '#연준 이',
         '테더의': '#테더 의',
         '테더는': '#테더 는',
-		'환율이': '#환율 이',
-		'환율은': '#환율 은',
+        '환율이': '#환율 이',
+        '환율은': '#환율 은',
         '골드만 삭스': '골드만삭스',
         '골드만삭스는': '#골드만삭스 는',
         '스트래티지는': '#스트래티지 는',
         '스트래티지가': '#스트래티지 가',
         '도널드트럼프는': '#도널드트럼프 는',
-		'도널드트럼프가': '#도널드트럼프 가',
-		'도널드 트럼프': '#도널드트럼프',
+        '도널드트럼프가': '#도널드트럼프 가',
+        '도널드 트럼프': '#도널드트럼프',
         '제롬파월은': '#제롬파월 은',
         '제롬파월이': '#제롬파월 이',
         'SoftBank는': '#SoftBank 는',
@@ -688,33 +699,41 @@ def fix_translation_terms(text: str) -> str:
         '빗썸은': '#빗썸 은',
         '빗썸이': '#빗썸 이',
         '빗썸의': '#빗썸 의',
-		'바이낸스는': '#바이낸스 는',
-		'바이낸스가': '#바이낸스 가',
-		'Apple은': '#Apple 은',
-		'Apple이': '#Apple 이',
-		'애플은': '#Apple 은',
-		'애플이': '#Apple 이',
-		'갈링하우스는': '#갈링하우스 는',
-		'갈링하우스가': '#갈링하우스 가',
-		'데이비드슈워츠는': '#데이비드슈워츠 는',
-		'데이비드슈워츠가': '#데이비드슈워츠 가',
-		'모니카롱은': '#모니카롱 은',
-		'모니카롱이': '#모니카롱 이',
-		'비탈릭부텔린은': '#비탈릭부텔린 은',
-		'비탈릭부텔린이': '#비탈릭부텔린 이',
-		'사토시나카모토는': '#사토시나카모토 는',
-		'사토시나카모토가': '#사토시나카모토 가',
-		'일론머스크는': '#일론머스크 는',
-		'일론머스크가': '#일론머스크 가',
-		'저스틴썬은': '#저스틴썬 은',
-		'저스틴썬이': '#저스틴썬 이',
-		'제드맥케일럽은': '#제드맥케일럽 은',
-		'제드맥케일럽이': '#제드맥케일럽 이',
-		'찰스호스킨슨은': '#찰스호스킨슨 은',
-		'찰스호스킨슨이': '#찰스호스킨슨 이',
+        '바이낸스는': '#바이낸스 는',
+        '바이낸스가': '#바이낸스 가',
+        'Apple은': '#Apple 은',
+        'Apple이': '#Apple 이',
+        '애플은': '#Apple 은',
+        '애플이': '#Apple 이',
+        '갈링하우스는': '#갈링하우스 는',
+        '갈링하우스가': '#갈링하우스 가',
+        '데이비드슈워츠는': '#데이비드슈워츠 는',
+        '데이비드슈워츠가': '#데이비드슈워츠 가',
+        '모니카롱은': '#모니카롱 은',
+        '모니카롱이': '#모니카롱 이',
+        '비탈릭부텔린은': '#비탈릭부텔린 은',
+        '비탈릭부텔린이': '#비탈릭부텔린 이',
+        '사토시나카모토는': '#사토시나카모토 는',
+        '사토시나카모토가': '#사토시나카모토 가',
+        '일론머스크는': '#일론머스크 는',
+        '일론머스크가': '#일론머스크 가',
+        '저스틴썬은': '#저스틴썬 은',
+        '저스틴썬이': '#저스틴썬 이',
+        '제드맥케일럽은': '#제드맥케일럽 은',
+        '제드맥케일럽이': '#제드맥케일럽 이',
+        '찰스호스킨슨은': '#찰스호스킨슨 은',
+        '찰스호스킨슨이': '#찰스호스킨슨 이',
     }
+
     for old, new in replacements.items():
         text = text.replace(old, new)
+
+    text = re.sub(r'([가-힣])(#)', r'\1 #', text)
+    text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
+    text = re.sub(r'([a-zA-Z0-9])([가-힣])', r'\1 \2', text)
+    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+
     return text
 
 def filter_final_tags(tags: list[str]) -> list[str]:
@@ -723,7 +742,8 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley',
         '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#CFTC','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
-'#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle',
+'#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
+'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA'
     }
 
     blocked_contains = [
@@ -841,12 +861,11 @@ def build_message(story: dict) -> str:
     summary_ko = normalize_style(summary_ko)
     summary_ko = cleanup_text(summary_ko)
 
-    entities = extract_entities(story, max_tags=5)
+    entities = extract_entities(story, max_tags=8)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     dynamic_tags = filter_final_tags(dynamic_tags)
 
     extra_footer_tags = []
-
     title_text = (story.get('title', '') + ' ' + story.get('desc', '')).lower()
 
     footer_map = {
@@ -858,7 +877,7 @@ def build_message(story: dict) -> str:
         'tom lee': '#TomLee',
         'strategy': '#Strategy',
         'donald trump': '#DonaldTrump',
-		'trump':'#Trump',
+        'trump': '#Trump',
         'iran': '#Iran',
         'israel': '#Israel',
         'robinhood': '#Robinhood',
@@ -874,22 +893,78 @@ def build_message(story: dict) -> str:
         'ripple': '#Ripple',
         'xrpl': '#XRPL',
         'sec': '#SEC',
-		'binance': '#Binance',
-		'apple': '#Apple',
+        'binance': '#Binance',
+        'apple': '#Apple',
         'vr': '#VR',
         'time traveler': '#TimeTraveler',
-		'upbit': '#Upbit',
-		'bithumb': '#Bithumb',
-		'brad garlinghouse': '#BradGarlinghouse',
-		'david schwartz': '#DavidSchwartz',
-		'monica long': '#MonicaLong',
-		'vitalik buterin': '#VitalikButerin',
-		'satoshi nakamoto': '#SatoshiNakamoto',
-		'elon musk': '#ElonMusk',
-		'justin sun': '#JustinSun',
-		'jed mccaleb': '#JedMcCaleb',
-		'charles hoskinson': '#CharlesHoskinson',
-		'ledger': '#Ledger',
+        'upbit': '#Upbit',
+        'bithumb': '#Bithumb',
+        'brad garlinghouse': '#BradGarlinghouse',
+        'david schwartz': '#DavidSchwartz',
+        'monica long': '#MonicaLong',
+        'vitalik buterin': '#VitalikButerin',
+        'satoshi nakamoto': '#SatoshiNakamoto',
+        'elon musk': '#ElonMusk',
+        'justin sun': '#JustinSun',
+        'jed mccaleb': '#JedMcCaleb',
+        'charles hoskinson': '#CharlesHoskinson',
+        'ledger': '#Ledger',
+        'blackrock': '#BlackRock',
+        'fed': '#Fed',
+        'federal reserve': '#Fed',
+        'treasury': '#Treasury',
+        'rwa': '#RWA',
+        'mining': '#Mining',
+        'miner': '#Mining',
+        'blockchain': '#Blockchain',
+        'crypto': '#Crypto',
+        'altcoin': '#Altcoin',
+        'liquidity': '#Liquidity',
+        'financial supervisory service': '#FSS',
+        '금융감독원': '#FSS',
+        '환율': '#FX',
+    }
+
+    korean_to_english_footer = {
+        '#미국': '#US',
+        '#이란': '#Iran',
+        '#이스라엘': '#Israel',
+        '#일본': '#Japan',
+        '#한국': '#Korea',
+        '#연준': '#Fed',
+        '#재무부': '#Treasury',
+        '#금': '#Gold',
+        '#은': '#Silver',
+        '#바이낸스': '#Binance',
+        '#코인베이스': '#Coinbase',
+        '#업비트': '#Upbit',
+        '#빗썸': '#Bithumb',
+        '#로빈후드': '#Robinhood',
+        '#골드만삭스': '#GoldmanSachs',
+        '#스트래티지': '#Strategy',
+        '#도널드트럼프': '#DonaldTrump',
+        '#갈링하우스': '#BradGarlinghouse',
+        '#데이비드슈워츠': '#DavidSchwartz',
+        '#모니카롱': '#MonicaLong',
+        '#비탈릭부텔린': '#VitalikButerin',
+        '#사토시나카모토': '#SatoshiNakamoto',
+        '#일론머스크': '#ElonMusk',
+        '#저스틴썬': '#JustinSun',
+        '#제드맥케일럽': '#JedMcCaleb',
+        '#찰스호스킨슨': '#CharlesHoskinson',
+        '#OpenAI': '#OpenAI',
+        '#JPMorgan': '#JPMorgan',
+        '#BlackRock': '#BlackRock',
+        '#환율': '#FX',
+        '#RWA': '#RWA',
+        '#ETF': '#ETF',
+        '#채굴': '#Mining',
+        '#마이닝': '#Mining',
+        '#블록체인': '#Blockchain',
+        '#암호화폐': '#Crypto',
+        '#알트코인': '#Altcoin',
+        '#유동성': '#Liquidity',
+        '#금융감독원': '#FSS',
     }
 
     for key, tag in footer_map.items():
@@ -897,6 +972,10 @@ def build_message(story: dict) -> str:
             extra_footer_tags.append(tag)
 
     dynamic_tags = list(dict.fromkeys(dynamic_tags + extra_footer_tags))
+
+    for kr_tag, en_tag in korean_to_english_footer.items():
+        if kr_tag in summary_ko and en_tag not in dynamic_tags:
+            dynamic_tags.append(en_tag)
 
     lines = []
     for line in re.split(r'(?<=[.!?])\s+|\n+', summary_ko):
@@ -914,8 +993,6 @@ def build_message(story: dict) -> str:
         ]
 
     summary = re.sub(r'\s+', ' ', '\n'.join(lines)).strip()
-
-    # 불필요한 문구 제거
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
@@ -1010,28 +1087,27 @@ def main():
     seen_signatures = []
 
     for s in filtered:
-        title = s.get('title', '')
-        norm_title = normalize_for_duplicate(title)
-        signature = build_story_signature(s)
+    title = s.get('title', '')
+    norm_title = normalize_for_duplicate(title)
+    signature = build_story_signature(s)
 
-        if is_duplicate(title, posted):
-            log(f"[제목중복 제외] {title}")
-            continue
+    if is_duplicate(title, posted):
+        log(f"[제목중복 제외] {title}")
+        continue
 
-        if is_semantically_duplicate(s, seen_signatures, seen_titles):
-            log(f"[의미중복 제외] {title}")
-            log(f"  └ 정규화제목: {norm_title}")
-            log(f"  └ 시그니처: {signature}")
-            continue
-
-        log(f"[통과] {title}")
+    if is_semantically_duplicate(s, seen_signatures, seen_titles):
+        log(f"[의미중복 제외] {title}")
         log(f"  └ 정규화제목: {norm_title}")
         log(f"  └ 시그니처: {signature}")
+        continue
 
-        new_stories.append(s)
-        update_posted(title, posted)
-        seen_titles.append(norm_title)
-        seen_signatures.append(signature)
+    log(f"[통과] {title}")
+    log(f"  └ 정규화제목: {norm_title}")
+    log(f"  └ 시그니처: {signature}")
+
+    new_stories.append(s)
+    seen_titles.append(norm_title)
+    seen_signatures.append(signature)
 
     log(f"중복 제거 후 {len(new_stories)}개")
     state['posted'] = posted
