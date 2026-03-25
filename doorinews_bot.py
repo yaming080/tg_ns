@@ -140,7 +140,7 @@ PERSON_TAGS = {
 }
 TOPIC_KR_TO_EN = {
     '연준':'Fed','금융감독원':'FSS','환율':'FX','블록체인':'Blockchain','암호화폐':'Crypto','알트코인':'Altcoin',
-    '채굴':'Mining','마이닝':'Mining','유동성':'Liquidity','연방준비제도':'Fed','금':'Gold','은':'Silver',
+    '채굴':'Mining','마이닝':'Mining','유동성':'Liquidity','연방준비제도':'Fed',
     'ETF':'ETF','RWA':'RWA','코인베이스':'Coinbase','바이낸스':'Binance'
 }
 MANUAL_TRANSLATIONS = {
@@ -931,6 +931,19 @@ def fix_translation_terms(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+
+def is_real_metal_context(text: str, metal: str) -> bool:
+    low = (text or '').lower()
+    if metal == 'gold':
+        if re.search(r'\bgold\b', low):
+            return True
+        kr_patterns = [r'금\s*(가격|시세|현물|선물|etf|광산|광물|채굴|매입|보유|랠리)', r'금광', r'금괴', r'귀금속']
+    else:
+        if re.search(r'\bsilver\b', low):
+            return True
+        kr_patterns = [r'은\s*(가격|시세|현물|선물|etf|광산|광물|채굴|매입|보유|랠리)', r'은광', r'귀금속', r'은\-?구리']
+    return any(re.search(p, text) for p in kr_patterns)
+
 def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
         '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#ENA','#USDC','#USDT',
@@ -1052,11 +1065,12 @@ def is_complete_headline(text: str) -> bool:
     complete_endings = (
         '함','됨','임','음','했음','됐음','중','예정','전망','부각','강조','확대','축소','추진','진출','합류','발표','출시','공개',
         '상승','하락','반등','급등','급락','확보','투자','매수','매도','인수','제휴','협력','완료','시작','재개',
-        '유지','검토','논의','확정','진행','압박','확산','회복','제한','경고','전환','현대화','연장','마무리'
+        '유지','검토','논의','확정','진행','압박','확산','회복','제한','경고','전환','현대화','연장','마무리',
+        '균형','불러일으킴','이어감','지속','가속','둔화','필요성','가능성','기대감','관심','변화'
     )
     if text.endswith(complete_endings):
         return True
-    if re.search(r'(했음|됐음|나섬|밝힘|보임|커짐|이어짐|전해짐|나타남|늘어남|줄어듦)$', text):
+    if re.search(r'(했음|됐음|나섬|밝힘|보임|커짐|이어짐|전해짐|나타남|늘어남|줄어듦|불러일으킴|이어감)$', text):
         return True
     return False
 
@@ -1080,6 +1094,12 @@ def trim_to_headline_limit(text: str, limit: int = 60) -> str:
 def finalize_headline(text: str, fallback: str = '') -> str:
     text = trim_to_headline_limit(text, 60)
     text = re.sub(r'\s+', ' ', text).strip().rstrip(' ,.;:')
+    text = re.sub(r'(불러일으킴|균형|회복|확대|축소|전환|가속|지속)\s+임$', r'', text)
+    text = re.sub(r'이어가며\s+임$', '이어감', text)
+    text = re.sub(r'이어가며$', '이어감', text)
+    text = re.sub(r'필요성이며\s+임$', '필요성 부각', text)
+    text = re.sub(r'필요성이며$', '필요성 부각', text)
+    text = re.sub(r'\s+', ' ', text).strip()
 
     if is_complete_headline(text):
         return text
@@ -1095,11 +1115,10 @@ def finalize_headline(text: str, fallback: str = '') -> str:
             return merged
         text = merged
 
-    if not is_complete_headline(text):
-        text = re.sub(r'(?:은|는|이|가|을|를|의|와|과|도|만|에서|에게|까지|로|으로)$', '', text).strip()
-        # 기존 축약 톤 유지: 문장 끝은 임/함/했음/됨 계열로 마무리
-        if re.search(r'[가-힣]$', text) and not re.search(r'(임|함|했음|됨|중|예정|전망|부각|확대|축소|추진|진행|상승|하락|확보|투자|인수|제휴|발표|출시|공개)$', text):
-            text = trim_to_headline_limit((text + ' 임').strip(), 60)
+    text = re.sub(r'(?:은|는|이|가|을|를|의|와|과|도|만|에서|에게|까지|로|으로)$', '', text).strip()
+    text = re.sub(r'(불러일으킴|균형|회복|확대|축소|전환|가속|지속)\s+임$', r'', text)
+    text = re.sub(r'이어가며$', '이어감', text)
+    text = re.sub(r'필요성이며$', '필요성 부각', text)
     return text
 
 def make_headline(text: str, fallback: str = "") -> str:
@@ -1167,8 +1186,6 @@ def build_message(story: dict) -> str:
         'fed': '#Fed',
         'federal reserve': '#Fed',
         'treasury': '#Treasury',
-        'gold': '#Gold',
-        'silver': '#Silver',
         'liquidity': '#Liquidity',
         'rwa': '#RWA',
         'etf': '#ETF',
@@ -1235,6 +1252,12 @@ def build_message(story: dict) -> str:
     for key, tag in footer_map.items():
         if key in title_text and tag not in dynamic_tags:
             dynamic_tags.append(tag)
+
+    metal_text = ' '.join([story.get('title', ''), story.get('desc', ''), summary_ko, title_ko])
+    if is_real_metal_context(metal_text, 'gold') and '#Gold' not in dynamic_tags:
+        dynamic_tags.append('#Gold')
+    if is_real_metal_context(metal_text, 'silver') and '#Silver' not in dynamic_tags:
+        dynamic_tags.append('#Silver')
 
     combined_map = {}
     combined_map.update(COUNTRY_TAGS)
