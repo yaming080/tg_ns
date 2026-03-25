@@ -280,24 +280,41 @@ def http_get(url: str, timeout: int = 20) -> str:
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read().decode('utf-8', errors='ignore')
 
-def normalize_text(text: str) -> str:
-    text = text.lower()
-    text = re.sub(r'https?://\S+', ' ', text)
-    text = re.sub(r'[^a-z0-9가-힣\s]', ' ', text)
-
-    noise_words = [
-        'says', 'said', 'claims', 'claim', 'predicts', 'predict', 'analyst', 'analysts',
-        'expert', 'experts', 'report', 'reports', 'reported',
-        'according to', 'could', 'may', 'might', 'will',
-        'price prediction', 'forecast', 'outlook',
-        'surges', 'jumps', 'rises', 'falls', 'drops',
-        'here is', 'here’s', 'what this means', 'what it means'
+def normalize_style(text: str) -> str:
+    rules = [
+        (r'사용됩니다\.?', '사용됨'),
+        (r'있습니다\.?', '있음'),
+        (r'내렸다\.?', '내림'),
+        (r'늘렸습니다\.?', '늘림'),
+        (r'불러일으킵니다\.?', '불러일으킴'),
+        (r'미칩니다\.?', '미침'),
+        (r'나타냅니다\.?', '나타냄'),
+        (r'했습니다\.?', '함'),
+        (r'하였습니다\.?', '함'),
+        (r'합니다\.?', '함'),
+        (r'하고 있습니다\.?', '하고 있음'),
+        (r'하고 있다\.?', '하고 있음'),
+        (r'기록했습니다\.?', '기록'),
+        (r'승인했습니다\.?', '승인'),
+        (r'였습니다\.?', '임'),
+        (r'입니다\.?', '임'),
+        (r'이었습니다\.?', '임'),
+        (r'이다\.?', '임'),
     ]
 
-    for w in noise_words:
-        text = text.replace(w, ' ')
+    leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
+    if leftovers:
+        log("말투 치환 추가 필요 후보: " + ", ".join(leftovers[:10]))
 
+    for pat, rep in rules:
+        text = re.sub(pat, rep, text)
+
+    text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
+    text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
     text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
+    text = re.sub(r'([가-힣])(#)', r'\1 #', text)
+    text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
     return text
 
 def story_hash(title: str) -> str:
@@ -644,7 +661,8 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'.*?크립토 브리핑\(Crypto Briefing\)에 처음 등장(?:함|했다)\.?', '', text)
     text = re.sub(r'.*?Crypto Briefing에 처음 게재되(?:었음|었다|었습니?다)\.?', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?크립토 브리핑\(Crypto Briefing\)에 처음 게재되(?:었음|었다|었습니?다)\.?', '', text)
-	text = re.sub(r'.*?first appeared on.*', '', text, flags=re.IGNORECASE)
+
+    text = re.sub(r'.*?first appeared on.*', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?처음 게재되(?:었|었습|었음).*', '', text)
     text = re.sub(r'.*?Times Tabloid에 처음 게재되(?:었|었습|었음).*', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?TimesTabloid에 처음 게재되(?:었|었습|었음).*', '', text, flags=re.IGNORECASE)
