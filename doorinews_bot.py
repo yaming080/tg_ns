@@ -34,8 +34,6 @@ FEEDS = [
     ('뉴스비트코인', 'https://news.bitcoin.com/rss'),
     ('코인터크', 'https://en.coin-turk.com/feed/'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
-	('이투데이', 'https://rss.etoday.co.kr/eto/economy_news.xml'),
-	('이투데이', 'https://rss.etoday.co.kr/eto/finance_news.xml')
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ETNA','ENA','USDC','USDT']
@@ -393,6 +391,7 @@ def normalize_style(text: str) -> str:
         (r'입니다\.?', '임'),
         (r'이었습니다\.?', '임'),
         (r'이다\.?', '임'),
+        (r'습니다\.?', ''),
     ]
 
     leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
@@ -405,11 +404,10 @@ def normalize_style(text: str) -> str:
     text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
     text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
     text = re.sub(r'\s+', ' ', text).strip()
-    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
-    text = re.sub(r'([가-힣])(#)', r'\1 #', text)
-    text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
+    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r' ', text)
+    text = re.sub(r'([가-힣])(#)', r' #', text)
+    text = re.sub(r'(#\w+)([가-힣])', r' ', text)
     return text
-
 def story_hash(title: str) -> str:
     clean = re.sub(r'[^a-z0-9 ]', '', title.lower().strip())
     return hashlib.md5(clean.encode('utf-8')).hexdigest()[:12]
