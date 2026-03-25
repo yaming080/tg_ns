@@ -1067,19 +1067,17 @@ def finalize_headline(text: str, fallback: str = '') -> str:
 
 def make_headline(text: str, fallback: str = "") -> str:
     text = cleanup_text(text)
-    text = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'', text)
-    text = re.sub(r'["“”‘’']', '', text)
+    text = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'\1', text)
+    text = re.sub(r"[\"“”‘’']", "", text)
     text = re.sub(r'\s+', ' ', text).strip()
 
     fb = cleanup_text(fallback)
-    fb = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'', fb)
-    fb = re.sub(r'["“”‘’']', '', fb)
+    fb = re.sub(r'(?<!\w)#([가-힣A-Za-z0-9_]+)', r'\1', fb)
+    fb = re.sub(r"[\"“”‘’']", "", fb)
     fb = re.sub(r'\s+', ' ', fb).strip()
 
-    primary_parts = [p.strip() for p in re.split(r'(?<=[.!?])\s+|,|·|;|
-+', text) if p.strip()]
-    fallback_parts = [p.strip() for p in re.split(r'(?<=[.!?])\s+|,|·|;|
-+', fb) if p.strip()]
+    primary_parts = [p.strip() for p in re.split(r'(?<=[.!?])\s+|,|·|;|\n+', text) if p.strip()]
+    fallback_parts = [p.strip() for p in re.split(r'(?<=[.!?])\s+|,|·|;|\n+', fb) if p.strip()]
 
     candidates = []
     candidates.extend(primary_parts[:3] if primary_parts else ([text] if text else []))
