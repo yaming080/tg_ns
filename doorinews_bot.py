@@ -36,7 +36,7 @@ FEEDS = [
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
 ]
 
-PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ETNA','USDC','USDT']
+PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ETNA','ENA','USDC','USDT']
 
 OTHER_COINS = [
     'HYPE','HYPERLIQUID','SOL','DOGE','AVAX','DOT','MATIC','POL','LINK','LTC','ATOM',
@@ -235,7 +235,37 @@ MANUAL_TRANSLATIONS = {
     'BIP360': 'BIP360',
     'OpenAI': 'OpenAI',
     'Anthropic': 'Anthropic',
-    'Google': 'Google',
+    'Google': '구글',
+    'CNBC': 'CNBC',
+    'Jim Cramer': '짐크레이머',
+    'Franklin Templeton': '프랭클린템플턴',
+    'Franklin': '프랭클린',
+    'Templeton': '템플턴',
+    'Larry Fink': '래리핑크',
+    'BlackRock': '블랙록',
+    'Kraken': '크라켄',
+    'Peru': '페루',
+    'Singapore': '싱가포르',
+    'Polymarket': '폴리마켓',
+    'CLARITY': 'CLARITY',
+    'RLUSD': 'RLUSD',
+    'Broadcom': '브로드컴',
+    'UK': '영국',
+    'United Kingdom': '영국',
+    'Britain': '영국',
+    'Turkey': '터키',
+    'Türkiye': '터키',
+    'Canada': '캐나다',
+    'Mexico': '멕시코',
+    'France': '프랑스',
+    'Germany': '독일',
+    'Russia': '러시아',
+    'Ukraine': '우크라이나',
+    'India': '인도',
+    'Saudi Arabia': '사우디아라비아',
+    'UAE': 'UAE',
+    'United Arab Emirates': 'UAE',
+    'Dubai': '두바이',
     'Super Micro': '슈퍼마이크로',
     'AI': 'AI',
     'LNG': 'LNG',
@@ -268,17 +298,6 @@ SITE_NAMES = {
 }
 CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAUT',
     'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI'}
-
-INLINE_BLOCKED_ENTITIES = {
-    'Gold', 'Silver', 'Liquidity', 'AI', 'DeFi', 'NFT', 'Web3', 'Stablecoin',
-    'ETF', 'SEC', 'Fed', 'Treasury', 'FX', 'RWA', 'Mining', 'Blockchain',
-    'Crypto', 'Altcoin'
-}
-
-FOOTER_ONLY_TAGS = {'#Liquidity'}
-
-KOREAN_PARTICLES = ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']
-
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 5
 SUMMARY_SENTENCES = 2
@@ -606,53 +625,53 @@ def fix_truncated_phrases(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-
-def _has_term(text: str, term: str) -> bool:
-    if not term:
-        return False
-    return contains_exact_term(text, term)
-
-def should_inline_tag_entity(entity: str, korean: str) -> bool:
-    if entity in INLINE_BLOCKED_ENTITIES:
-        return False
-    if korean in {'금', '은'}:
-        return False
-    if len(korean.strip()) <= 1:
-        return False
-    return True
-
-def replace_first_entity_with_hashtag(text: str, base: str, tag_text: str) -> tuple[str, bool]:
-    if not base:
-        return text, False
-
-    # 조사 붙은 형태 먼저 처리
-    for p in KOREAN_PARTICLES:
-        pattern = rf'(?<![#\w가-힣]){re.escape(base)}{re.escape(p)}(?![\w가-힣])'
-        repl = f'{tag_text} {p}'
-        new_text, count = re.subn(pattern, repl, text, count=1)
-        if count:
-            return new_text, True
-
-    # 단독 단어 처리
-    pattern = rf'(?<![#\w가-힣]){re.escape(base)}(?![\w가-힣])'
-    new_text, count = re.subn(pattern, tag_text, text, count=1)
-    if count:
-        return new_text, True
-
-    return text, False
-
-def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
+def extract_entities(story: dict, max_tags: int = 10) -> list[str]:
     title = story.get('title', '')
     desc = story.get('desc', '')
     text = title + " " + desc
     entities = []
+
+    alias_patterns = {
+        'Jim Cramer': [r'jim\s+cramer', r'짐\s*크레이머'],
+        'CNBC': [r'\bcnbc\b'],
+        'Franklin Templeton': [r'franklin\s+templeton', r'프랭클린\s*템플턴'],
+        'BlackRock': [r'\bblackrock\b', r'블랙록'],
+        'Larry Fink': [r'larry\s+fink', r'래리\s*핑크'],
+        'Kraken': [r'\bkraken\b', r'크라켄'],
+        'BitMine': [r'\bbitmine\b', r'비트마인'],
+        'Trump': [r'\btrump\b', r'트럼프'],
+        'Peru': [r'\bperu\b', r'페루'],
+        'Polymarket': [r'\bpolymarket\b', r'폴리마켓'],
+        'Google': [r'\bgoogle\b', r'구글'],
+        'US': [r'\bu\.?s\.?a?\b', r'\bunited states\b', r'미국'],
+        'Iran': [r'\biran\b', r'이란'],
+        'CLARITY': [r'\bclarity\b'],
+        'Circle': [r'\bcircle\b', r'서클'],
+        'Ripple': [r'\bripple\b', r'리플'],
+        'Ledger': [r'\bledger\b'],
+        'XRP': [r'\bxrp\b'],
+        'RLUSD': [r'\brlusd\b'],
+        'Singapore': [r'\bsingapore\b', r'싱가포르'],
+        'Tether': [r'\btether\b', r'테더'],
+        'Bithumb': [r'\bbithumb\b', r'빗썸'],
+        'Upbit': [r'\bupbit\b', r'업비트'],
+        'Broadcom': [r'\bbroadcom\b', r'브로드컴'],
+        'Silver': [r'\bsilver\b', r'(?<![가-힣A-Za-z0-9])은(?=[\s·,./)])', r'(?<![가-힣A-Za-z0-9])은(?![가-힣A-Za-z0-9])'],
+        'Gold': [r'\bgold\b', r'(?<![가-힣A-Za-z0-9])금(?=[\s·,./)])', r'(?<![가-힣A-Za-z0-9])금(?![가-힣A-Za-z0-9])'],
+    }
+
+    for canonical, patterns in alias_patterns.items():
+        if any(re.search(p, text, re.I) for p in patterns):
+            entities.append(canonical)
+
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
-        if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
+        if re.search(r'(?<![A-Za-z])' + re.escape(key) + r'(?![A-Za-z])', text, re.I):
             entities.append(key)
     for coin in PORTFOLIO_COINS:
-        if re.search(r'\b' + re.escape(coin) + r'\b', text, re.I):
+        if re.search(r'(?<![A-Za-z0-9])' + re.escape(coin) + r'(?![A-Za-z0-9])', text, re.I):
             entities.append(coin)
-    grouped = re.findall(r'\b(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|[A-Z]{2,6})\b', title)
+
+    grouped = re.findall(r'\b(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|[A-Z]{2,8})\b', title)
     for token in grouped:
         if token in SITE_NAMES or token.lower() in {w.lower() for w in IGNORED_WORDS}:
             continue
@@ -676,6 +695,28 @@ def entity_korean_name(entity: str) -> str:
 def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
     text = summary
     final_tags = []
+    particles = ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']
+    inline_blocked = {'Gold', 'Silver'}
+
+    def replace_first_entity(src: str, base: str, tag_text: str) -> tuple[str, bool]:
+        if base in {'금', '은'}:
+            patterns = [
+                rf'(?<![가-힣A-Za-z0-9]){re.escape(base)}(?=[\s·,./)])',
+                rf'(?<![가-힣A-Za-z0-9]){re.escape(base)}(?![가-힣A-Za-z0-9])'
+            ]
+            for pat in patterns:
+                new_src, count = re.subn(pat, tag_text, src, count=1)
+                if count:
+                    return new_src, True
+            return src, False
+
+        for p in particles:
+            new_src, count = re.subn(re.escape(base + p), f'{tag_text} {p}', src, count=1)
+            if count:
+                return new_src, True
+        new_src, count = re.subn(re.escape(base), tag_text, src, count=1)
+        return new_src, bool(count)
+
     for ent in sorted(entities, key=len, reverse=True):
         ent_upper = ent.upper()
         if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
@@ -685,17 +726,17 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
             continue
 
         korean = entity_korean_name(ent).replace(' ', '')
+        tag_text = '#' + korean
         eng_tag = '#' + ent.replace(' ', '')
         if eng_tag not in final_tags:
             final_tags.append(eng_tag)
 
-        if not should_inline_tag_entity(ent, korean):
+        if ent in inline_blocked:
             continue
 
-        tag_text = '#' + korean
         replaced = False
         for base in [korean, ent]:
-            text, replaced = replace_first_entity_with_hashtag(text, base, tag_text)
+            text, replaced = replace_first_entity(text, base, tag_text)
             if replaced:
                 break
     return text, final_tags
@@ -715,15 +756,19 @@ def cleanup_text(text: str) -> str:
     for p in bad_phrases:
         text = text.replace(p, '')
 
-    text = re.sub(r'.*?Crypto Briefing에 처음 등장(?:함|했다)\.?', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'.*?Crypto Briefing에 처음 등장(?:함|했다|했음)?\.?', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?크립토 브리핑\(Crypto Briefing\)에 처음 등장(?:함|했다)\.?', '', text)
-    text = re.sub(r'.*?Crypto Briefing에 처음 게재되(?:었음|었다|었습니?다)\.?', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'.*?Crypto Briefing에 처음 게재되(?:었음|었다|었습니?다)?\.?', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?크립토 브리핑\(Crypto Briefing\)에 처음 게재되(?:었음|었다|었습니?다)\.?', '', text)
 
-    text = re.sub(r'.*?first appeared on.*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'.*?(?:first appeared on|first published on).*', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?처음 게재되(?:었|었습|었음).*', '', text)
     text = re.sub(r'.*?Times Tabloid에 처음 게재되(?:었|었습|었음).*', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?TimesTabloid에 처음 게재되(?:었|었습|었음).*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'.*?Crypto Briefing에 처음 등장함.*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'.*?Crypto Briefing에 처음 등장했다.*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'.*?Crypto Briefing에 처음 게재.*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'.*?처음 등장함.*', '', text)
 
     text = text.replace('포스트가 ', '')
     text = text.replace('게시물이 ', '')
@@ -735,7 +780,6 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며[^.!?\n]*', '', text)
     text = re.sub(r'변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다[^.!?\n]*', '', text)
 
-    text = re.sub(r'\[\s*\]|\[\.\.\.\]', ' ', text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
@@ -780,8 +824,6 @@ def fix_translation_terms(text: str) -> str:
         'SoftBank는': '#SoftBank 는',
         'JPMorgan은': '#JPMorgan 은',
         'JPMorgan이': '#JPMorgan 이',
-        '금은': '#금 은',
-        '은은': '#은 은',
         '업비트에서': '#업비트 에서',
         '업비트는': '#업비트 는',
         '업비트가': '#업비트 가',
@@ -814,6 +856,29 @@ def fix_translation_terms(text: str) -> str:
         '제드맥케일럽이': '#제드맥케일럽 이',
         '찰스호스킨슨은': '#찰스호스킨슨 은',
         '찰스호스킨슨이': '#찰스호스킨슨 이',
+        '짐크레이머는': '#짐크레이머 는',
+        '짐크레이머가': '#짐크레이머 가',
+        '프랭클린템플턴은': '#프랭클린템플턴 은',
+        '프랭클린템플턴이': '#프랭클린템플턴 이',
+        '블랙록은': '#블랙록 은',
+        '블랙록이': '#블랙록 이',
+        '크라켄은': '#크라켄 은',
+        '크라켄이': '#크라켄 이',
+        '비트마인은': '#비트마인 은',
+        '비트마인이': '#비트마인 이',
+        '트럼프는': '#트럼프 는',
+        '트럼프가': '#트럼프 가',
+        '페루는': '#페루 는',
+        '페루가': '#페루 가',
+        '폴리마켓은': '#폴리마켓 은',
+        '폴리마켓이': '#폴리마켓 이',
+        '구글은': '#구글 은',
+        '구글이': '#구글 이',
+        '싱가포르는': '#싱가포르 는',
+        '싱가포르가': '#싱가포르 가',
+        '서클은': '#서클 은',
+        '서클이': '#서클 이',
+        '브로드컴': '#브로드컴',
     }
 
     for old, new in replacements.items():
@@ -829,31 +894,26 @@ def fix_translation_terms(text: str) -> str:
 
 def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
-        '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum',
+        '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#ENA','#USDC','#USDT','#Ethereum',
         '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley',
-        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#CFTC','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
-        '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
-        '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
-        '#Crypto', '#Altcoin', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA'
+        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood','#Japan','#Tether','#Evernorth','#Upbit','#Bithumb','#BradGarlinghouse','#DavidSchwartz','#MonicaLong',
+        '#VitalikButerin','#SatoshiNakamoto','#ElonMusk','#JustinSun','#JedMcCaleb','#CharlesHoskinson','#Ledger','#Circle','#Fed','#Treasury','#BlackRock','#Binance','#Mining','#Blockchain','#Crypto','#Altcoin','#FSS','#OpenAI','#FX','#RWA',
+        '#CNBC','#JimCramer','#FranklinTempleton','#LarryFink','#Kraken','#Peru','#Polymarket','#Google','#Singapore','#CLARITY','#RLUSD','#Broadcom',
+        '#UK','#Turkey','#Canada','#Mexico','#France','#Germany','#Russia','#Ukraine','#India','#SaudiArabia','#UAE','#Dubai',
+        '#미국','#이란','#이스라엘','#일본','#한국','#연준','#재무부','#금','#은','#업비트','#빗썸','#바이낸스','#리플','#서클','#테더','#블랙록','#짐크레이머','#프랭클린템플턴','#래리핑크','#크라켄','#비트마인','#트럼프','#페루','#폴리마켓','#구글','#싱가포르','#브로드컴','#터키','#캐나다','#멕시코','#프랑스','#독일','#러시아','#우크라이나','#인도','#사우디아라비아','#UAE','#두바이','#영국','#CLARITY'
     }
 
     blocked_contains = [
-        'Highlights','Surprise','Underpriced','Needs','Run','Hitting','Fall',
-        'Mean','Errors','Peak','Insufficient','Deals','Game','Escrow','Top',
-        'Early','About','What','Will','Passes','Says','This','Hard',
-        'Level','Trigger','Million','Long','Squeeze','Could'
+        'Highlights','Surprise','Underpriced','Needs','Run','Hitting','Fall','Mean','Errors','Peak','Insufficient','Deals','Game','Escrow','Top',
+        'Early','About','What','Will','Passes','Says','This','Hard','Level','Trigger','Million','Long','Squeeze','Could','Liquidity'
     ]
     cleaned = []
     for tag in tags:
         tag = tag.replace('.', '')
-        if tag in FOOTER_ONLY_TAGS:
-            continue
         if any(b.lower() in tag.lower() for b in blocked_contains):
             continue
         if tag in allowed_exact:
             cleaned.append(tag)
-            continue
-
     return list(dict.fromkeys(cleaned))
 
 def normalize_for_duplicate(text: str) -> str:
@@ -884,7 +944,7 @@ def build_story_signature(story: dict) -> str:
     important_terms = []
 
     term_pool = [
-        'btc', 'eth', 'xrp', 'xlm', 'ada', 'trx', 'bnb', 'bch', 'shib', 'etc', 'flr', 'athena', 'etna', 'usdc', 'usdt',
+        'btc', 'eth', 'xrp', 'xlm', 'ada', 'trx', 'bnb', 'bch', 'shib', 'etc', 'flr', 'athena', 'etna', 'ena', 'usdc', 'usdt',
         'ethereum', 'cardano', 'stablecoin', 'tether',
 
         'softbank', 'jpmorgan', 'morgan stanley', 'goldman sachs', 'coinbase',
@@ -899,7 +959,7 @@ def build_story_signature(story: dict) -> str:
         'brad garlinghouse', 'david schwartz', 'monica long', 'vitalik buterin',
         'satoshi nakamoto', 'elon musk', 'justin sun', 'jed mccaleb', 'charles hoskinson','openai', 'anthropic', 'google', 'xai', 'grok','x','github', 'phishing', 'wallet', 'openclaw', 'developer', 'developers', 'scam',
 
-        'donald trump', 'trump', 'strategy', 'evernorth','brazil', 'finance minister', 'crypto tax', 'election',
+        'donald trump', 'trump', 'strategy', 'evernorth','brazil', 'finance minister', 'crypto tax', 'election', 'cnbc', 'jim cramer', 'franklin templeton', 'blackrock', 'larry fink', 'kraken', 'peru', 'polymarket', 'google', 'singapore', 'clarity', 'rlusd', 'broadcom', 'circle',
     ]
 
     for term in term_pool:
@@ -979,6 +1039,33 @@ def build_message(story: dict) -> str:
         'web3': '#Web3',
         'silver': '#Silver',
         'gold': '#Gold',
+        'silver': '#Silver',
+        'cnbc': '#CNBC',
+        'jim cramer': '#JimCramer',
+        'franklin templeton': '#FranklinTempleton',
+        'blackrock': '#BlackRock',
+        'larry fink': '#LarryFink',
+        'kraken': '#Kraken',
+        'peru': '#Peru',
+        'polymarket': '#Polymarket',
+        'google': '#Google',
+        'singapore': '#Singapore',
+        'clarity': '#CLARITY',
+        'rlusd': '#RLUSD',
+        'broadcom': '#Broadcom',
+        'uk': '#UK',
+        'turkey': '#Turkey',
+        'türkiye': '#Turkey',
+        'canada': '#Canada',
+        'mexico': '#Mexico',
+        'france': '#France',
+        'germany': '#Germany',
+        'russia': '#Russia',
+        'ukraine': '#Ukraine',
+        'india': '#India',
+        'saudi arabia': '#SaudiArabia',
+        'uae': '#UAE',
+        'dubai': '#Dubai',
         'bitmine': '#BitMine',
         'uniswap': '#Uniswap',
         'ripple': '#Ripple',
@@ -1054,18 +1141,45 @@ def build_message(story: dict) -> str:
         '#암호화폐': '#Crypto',
         '#알트코인': '#Altcoin',
         '#금융감독원': '#FSS',
+        '#짐크레이머': '#JimCramer',
+        '#프랭클린템플턴': '#FranklinTempleton',
+        '#블랙록': '#BlackRock',
+        '#래리핑크': '#LarryFink',
+        '#크라켄': '#Kraken',
+        '#비트마인': '#BitMine',
+        '#트럼프': '#Trump',
+        '#페루': '#Peru',
+        '#폴리마켓': '#Polymarket',
+        '#구글': '#Google',
+        '#싱가포르': '#Singapore',
+        '#브로드컴': '#Broadcom',
+        '#영국': '#UK',
+        '#터키': '#Turkey',
+        '#캐나다': '#Canada',
+        '#멕시코': '#Mexico',
+        '#프랑스': '#France',
+        '#독일': '#Germany',
+        '#러시아': '#Russia',
+        '#우크라이나': '#Ukraine',
+        '#인도': '#India',
+        '#사우디아라비아': '#SaudiArabia',
+        '#UAE': '#UAE',
+        '#두바이': '#Dubai',
+        '#CLARITY': '#CLARITY',
+        '#RLUSD': '#RLUSD',
     }
 
-    raw_text_for_footer = story.get('title', '') + ' ' + story.get('desc', '')
     for key, tag in footer_map.items():
-        if _has_term(raw_text_for_footer, key) and tag not in dynamic_tags and tag not in FOOTER_ONLY_TAGS:
+        if key in title_text and tag not in dynamic_tags:
             extra_footer_tags.append(tag)
 
-    dynamic_tags = list(dict.fromkeys(dynamic_tags + extra_footer_tags))
-
     for kr_tag, en_tag in korean_to_english_footer.items():
-        if kr_tag in summary_ko and en_tag not in dynamic_tags and en_tag not in FOOTER_ONLY_TAGS:
-            dynamic_tags.append(en_tag)
+        if kr_tag in summary_ko and kr_tag not in dynamic_tags:
+            dynamic_tags.append(kr_tag)
+        if kr_tag in summary_ko and en_tag not in dynamic_tags and en_tag not in extra_footer_tags:
+            extra_footer_tags.append(en_tag)
+
+    dynamic_tags = list(dict.fromkeys(dynamic_tags + extra_footer_tags))
 
     lines = []
     for line in re.split(r'(?<=[.!?])\s+|\n+', summary_ko):
