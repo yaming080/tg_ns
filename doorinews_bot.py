@@ -1149,32 +1149,32 @@ for s in filtered:
     if url:
         seen_urls.add(url)
 
-    log(f"중복 제거 후 {len(new_stories)}개")
-    state['posted'] = posted
-    save_state(STATE_FILE, state)
+log(f"중복 제거 후 {len(new_stories)}개")
+state['posted'] = posted
+save_state(STATE_FILE, state)
 
-    if INITIAL_RUN:
-        log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
+if INITIAL_RUN:
+    log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
     return
 
-    for story in new_stories:
-        msg = build_message(story)
-        ok = send_telegram_photo(
-            TELEGRAM_BOT_TOKEN,
-            TELEGRAM_CHANNEL_ID,
-            story.get('image_url', ''),
-            msg
-        )
+for story in new_stories:
+    msg = build_message(story)
+    ok = send_telegram_photo(
+        TELEGRAM_BOT_TOKEN,
+        TELEGRAM_CHANNEL_ID,
+        story.get('image_url', ''),
+        msg
+    )
 
-        if ok:
-            update_posted(story['title'], posted)
-            state['posted'] = posted
-            save_state(STATE_FILE, state)
-            log(f"Posted: {story['title']}")
-        else:
-            log(f"Failed: {story['title']}")
+    if ok:
+        update_posted(story['title'], posted)
+        state['posted'] = posted
+        save_state(STATE_FILE, state)
+        log(f"Posted: {story['title']}")
+    else:
+        log(f"Failed: {story['title']}")
 
-        time.sleep(0.3)
+    time.sleep(0.3)
 
     for story in new_stories:
         msg = build_message(story)
