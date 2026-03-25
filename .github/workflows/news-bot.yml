@@ -1,4 +1,9 @@
 name: Telegram News Bot
+
+concurrency:
+  group: telegram-news-bot
+  cancel-in-progress: false
+
 permissions:
   contents: write
   actions: write
