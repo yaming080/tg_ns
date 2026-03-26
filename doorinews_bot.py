@@ -1135,66 +1135,47 @@ def main():
     log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
 
     new_stories = []
-seen_titles = []
-seen_signatures = []
-seen_urls = set()
+    seen_titles = []
+    seen_signatures = []
+    seen_urls = set()
 
-for s in filtered:
-    title = s.get('title', '')
-    norm_title = normalize_for_duplicate(title)
-    signature = build_story_signature(s)
-    url = s.get('url', '').strip()
+    for s in filtered:
+        title = s.get('title', '')
+        norm_title = normalize_for_duplicate(title)
+        signature = build_story_signature(s)
+        url = s.get('url', '').strip()
 
-    if url and url in seen_urls:
-        log(f"[URL중복 제외] {title}")
-        continue
+        if url and url in seen_urls:
+            log(f"[URL중복 제외] {title}")
+            continue
 
-    if is_duplicate(title, posted):
-        log(f"[제목중복 제외] {title}")
-        continue
+        if is_duplicate(title, posted):
+            log(f"[제목중복 제외] {title}")
+            continue
 
-    if is_semantically_duplicate(s, seen_signatures, seen_titles):
-        log(f"[의미중복 제외] {title}")
+        if is_semantically_duplicate(s, seen_signatures, seen_titles):
+            log(f"[의미중복 제외] {title}")
+            log(f"  └ 정규화제목: {norm_title}")
+            log(f"  └ 시그니처: {signature}")
+            continue
+
+        log(f"[통과] {title}")
         log(f"  └ 정규화제목: {norm_title}")
         log(f"  └ 시그니처: {signature}")
-        continue
 
-    log(f"[통과] {title}")
-    log(f"  └ 정규화제목: {norm_title}")
-    log(f"  └ 시그니처: {signature}")
+        new_stories.append(s)
+        seen_titles.append(norm_title)
+        seen_signatures.append(signature)
+        if url:
+            seen_urls.add(url)
 
-    new_stories.append(s)
-    seen_titles.append(norm_title)
-    seen_signatures.append(signature)
-    if url:
-        seen_urls.add(url)
+    log(f"중복 제거 후 {len(new_stories)}개")
+    state['posted'] = posted
+    save_state(STATE_FILE, state)
 
-log(f"중복 제거 후 {len(new_stories)}개")
-state['posted'] = posted
-save_state(STATE_FILE, state)
-
-if INITIAL_RUN:
-    log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
-    return
-
-for story in new_stories:
-    msg = build_message(story)
-    ok = send_telegram_photo(
-        TELEGRAM_BOT_TOKEN,
-        TELEGRAM_CHANNEL_ID,
-        story.get('image_url', ''),
-        msg
-    )
-
-    if ok:
-        update_posted(story['title'], posted)
-        state['posted'] = posted
-        save_state(STATE_FILE, state)
-        log(f"Posted: {story['title']}")
-    else:
-        log(f"Failed: {story['title']}")
-
-    time.sleep(0.3)
+    if INITIAL_RUN:
+        log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
+        return
 
     for story in new_stories:
         msg = build_message(story)
