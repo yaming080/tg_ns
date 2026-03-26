@@ -424,6 +424,26 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
         log(f"Error fetching {url}: {e}")
     return stories
 
+def normalize_text(text: str) -> str:
+    text = text.lower()
+    text = re.sub(r'https?://\S+', ' ', text)
+    text = re.sub(r'[^a-z0-9가-힣\s]', ' ', text)
+
+    noise_words = [
+        'says', 'said', 'claims', 'claim', 'predicts', 'predict', 'analyst', 'analysts',
+        'expert', 'experts', 'report', 'reports', 'reported',
+        'according to', 'could', 'may', 'might', 'will',
+        'price prediction', 'forecast', 'outlook',
+        'surges', 'jumps', 'rises', 'falls', 'drops',
+        'here is', 'here’s', 'what this means', 'what it means'
+    ]
+
+    for w in noise_words:
+        text = text.replace(w, ' ')
+
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
 def contains_exact_term(text: str, term: str) -> bool:
     norm_text = normalize_text(text)
     norm_term = normalize_text(term)
