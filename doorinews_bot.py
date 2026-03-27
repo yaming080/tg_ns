@@ -100,7 +100,7 @@ NEGATIVE_KEYWORDS = [
     '처음 게재되었',
     '처음 게재되었습니다',
     'times tabloid에 처음 게재',
-    'timestabloid에 처음 게재'
+    'timestabloid에 처음 게재',
     'ATH 대비',
     '토큰포스트',
     '투자 심리',
@@ -518,22 +518,33 @@ def summarize_text(text: str, title: str = "", max_sentences: int = SUMMARY_SENT
         text = title
 
     sentences = re.split(r'(?<=[.!?])\s+|\n+', text)
-    picked = []
+    usable = []
 
     for s in sentences:
         s = s.strip()
         if not s or is_bad_line(s):
             continue
-        picked.append(s)
+        usable.append(s)
+
+    if not usable:
+        return title
+
+    # 중요도 높은 문장부터 정렬
+    usable.sort(key=lambda s: score_sentence(s, title), reverse=True)
+
+    picked = []
+    for s in usable:
+        if s not in picked:
+            picked.append(s)
         if len(picked) >= max_sentences:
             break
 
-    summary = ' '.join(picked) if picked else title
+    summary = ' '.join(picked)
     summary = re.sub(r'\s+', ' ', summary).strip()
 
-    # 너무 길면 90자 정도에서 자르고 끝맺음 정리
-    if len(summary) > 60:
-        summary = summary[:60].rsplit(' ', 1)[0].strip()
+    # 너무 길 때만 완화된 제한
+    if len(summary) > 220:
+        summary = summary[:220].rsplit(' ', 1)[0].strip()
 
     return summary
 def translate_text_to_korean(text: str) -> str:
@@ -923,6 +934,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     return False
 def build_message(story: dict) -> str:
+	raw_source = f"{story.get('title', '')}. {story.get('desc', '')}"
     raw_summary = summarize_text(
         story.get('desc', ''),
         title=story.get('title', ''),
