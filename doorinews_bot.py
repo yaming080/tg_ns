@@ -512,6 +512,38 @@ def is_bad_line(line: str) -> bool:
     low = line.lower().strip()
     return (not low) or ('visit website' in low) or ('웹사이트 방문' in low) or ('?' in line) or ('？' in line) or bool(re.fullmatch(r'https?://\S+', low))
 
+def score_sentence(s: str, title: str = "") -> int:
+    low = s.lower()
+    score = 0
+
+    important_terms = [
+        'bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple',
+        'etf', 'sec', 'fed', 'inflation', 'interest rate',
+        'stablecoin', 'tokenization', 'lawsuit', 'approval',
+        'exchange', 'binance', 'coinbase', 'blackrock'
+    ]
+
+    for term in important_terms:
+        if term in low:
+            score += 3
+
+    if re.search(r'\d', s):
+        score += 2
+
+    if len(s) < 25:
+        score -= 1
+    if len(s) > 140:
+        score -= 1
+
+    title_words = set(re.findall(r'[A-Za-z0-9가-힣]+', title.lower()))
+    sent_words = set(re.findall(r'[A-Za-z0-9가-힣]+', low))
+    score += len(title_words & sent_words)
+
+    if 'according to' in low or 'first appeared' in low:
+        score -= 5
+
+    return score
+
 def summarize_text(text: str, title: str = "", max_sentences: int = 2) -> str:
     text = cleanup_text(text)
     title = cleanup_text(title)
