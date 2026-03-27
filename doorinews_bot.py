@@ -954,6 +954,18 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
             return True
 
     return False
+
+def finalize_summary_ending(text: str) -> str:
+    text = re.sub(r'좋은\s*덩어리$', '', text)
+    text = re.sub(r'([가-힣]+)음고 말함$', r'\1음', text)
+    text = re.sub(r'([가-힣]+)음고 밝힘$', r'\1음', text)
+    text = re.sub(r'([가-힣]+)고 말함$', r'\1', text)
+    text = re.sub(r'([가-힣]+)고 밝힘$', r'\1', text)
+    text = re.sub(r'매도가 있었음.*$', '매도가 있었음', text)
+    text = re.sub(r'커졌음.*$', '커졌음', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+	
 def build_message(story: dict) -> str:
     raw_source = f"{story.get('title', '')}. {story.get('desc', '')}"
     raw_summary = summarize_text(
