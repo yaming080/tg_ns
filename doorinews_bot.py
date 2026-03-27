@@ -37,6 +37,7 @@ FEEDS = [
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
     ('이투데이경제', 'https://rss.etoday.co.kr/eto/economy_news.xml'),
     ('이투데이정치', 'https://rss.etoday.co.kr/eto/politics_news.xml'),
+	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
