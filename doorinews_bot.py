@@ -101,7 +101,7 @@ NEGATIVE_KEYWORDS = [
     'ATH 대비'
     '토큰포스트'
     '투자 심리',
-    '본 콘텐츠는','과매수 신호가','과매도 신호가',CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
+    '본 콘텐츠는','과매수 신호가','과매도 신호가','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
     'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
     
 ]
@@ -552,7 +552,7 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
             # 속도 개선용: 기사 원문 메타 추가 수집 비활성화
             article_desc, article_img = ('', '')
             if (not image_url) or is_weak_text(desc_clean):
-            article_desc, article_img = fetch_article_meta(link)
+                article_desc, article_img = fetch_article_meta(link)
 
             if not image_url and article_img:
                 image_url = article_img
@@ -715,16 +715,16 @@ def normalize_style(text: str) -> str:
         (r'이었습니다\.?', '임'),
         (r'이다\.?', '임'),
 	(r'습니다\.?', '음'),
-        (r'알려졌습니다\.?', '알려짐')
-        (r'알려졌다\.?', '알려짐')
-        (r'밀렸다\.?', '밀림')
-        (r'밀렸습니다\.?', '밀림')
-        (r'했다\.?', '했음')
-        (r'됐다\.?', '됨')
-        (r'알려졌습니다\.?', '알려짐')
-        (r'졌다\.?', '졌음')
-        (r'됩니다\.?', '됨')
-        (r'있다\.?', '있음')
+        (r'알려졌습니다\.?', '알려짐'),
+        (r'알려졌다\.?', '알려짐'),
+        (r'밀렸다\.?', '밀림'),
+        (r'밀렸습니다\.?', '밀림'),
+        (r'했다\.?', '했음'),
+        (r'됐다\.?', '됨'),
+        (r'알려졌습니다\.?', '알려짐'),
+        (r'졌다\.?', '졌음'),
+        (r'됩니다\.?', '됨'),
+        (r'있다\.?', '있음'),
     ]
 
     leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
