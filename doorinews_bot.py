@@ -598,7 +598,7 @@ def normalize_style(text: str) -> str:
         (r'입니다\.?', '임'),
         (r'이었습니다\.?', '임'),
         (r'이다\.?', '임'),
-	(r'습니다\.?', '음'),
+        (r'습니다\.?', '음'),
         (r'알려졌습니다\.?', '알려짐'),
         (r'알려졌다\.?', '알려짐'),
         (r'밀렸다\.?', '밀림'),
@@ -624,7 +624,8 @@ def normalize_style(text: str) -> str:
     text = re.sub(r'([가-힣])(#)', r'\1 #', text)
     text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
     text = re.sub(r'\s+', ' ', text).strip()
-	text = re.sub(r'([가-힣]+)음고 말함', r'\1음', text)
+
+    text = re.sub(r'([가-힣]+)음고 말함', r'\1음', text)
     text = re.sub(r'([가-힣]+)음고 밝힘', r'\1음', text)
     text = re.sub(r'([가-힣]+)다고 말함', r'\1', text)
     text = re.sub(r'([가-힣]+)다고 밝힘', r'\1', text)
