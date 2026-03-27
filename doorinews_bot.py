@@ -1023,6 +1023,7 @@ def build_message(story: dict) -> str:
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
+    summary_ko = finalize_summary_ending(summary_ko)
 
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
 
