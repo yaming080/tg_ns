@@ -936,9 +936,9 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     return False
 def build_message(story: dict) -> str:
-	raw_source = f"{story.get('title', '')}. {story.get('desc', '')}"
+    raw_source = f"{story.get('title', '')}. {story.get('desc', '')}"
     raw_summary = summarize_text(
-        story.get('desc', ''),
+        raw_source,
         title=story.get('title', ''),
         max_sentences=SUMMARY_SENTENCES
     )
@@ -1004,83 +1004,15 @@ def build_message(story: dict) -> str:
         'treasury': '#Treasury',
         'rwa': '#RWA',
         'mining': '#Mining',
-        'miner': '#Mining',
-        'blockchain': '#Blockchain',
-        'crypto': '#Crypto',
-        'altcoin': '#Altcoin',
-        'liquidity': '#Liquidity',
-        'financial supervisory service': '#FSS',
-        '금융감독원': '#FSS',
-        '환율': '#FX',
-    }
-
-    korean_to_english_footer = {
-        '#미국': '#US',
-        '#이란': '#Iran',
-        '#이스라엘': '#Israel',
-        '#일본': '#Japan',
-        '#한국': '#Korea',
-        '#연준': '#Fed',
-        '#재무부': '#Treasury',
-        '#금': '#Gold',
-        '#은': '#Silver',
-        '#바이낸스': '#Binance',
-        '#코인베이스': '#Coinbase',
-        '#업비트': '#Upbit',
-        '#빗썸': '#Bithumb',
-        '#로빈후드': '#Robinhood',
-        '#골드만삭스': '#GoldmanSachs',
-        '#스트래티지': '#Strategy',
-        '#도널드트럼프': '#DonaldTrump',
-        '#갈링하우스': '#BradGarlinghouse',
-        '#데이비드슈워츠': '#DavidSchwartz',
-        '#모니카롱': '#MonicaLong',
-        '#비탈릭부텔린': '#VitalikButerin',
-        '#사토시나카모토': '#SatoshiNakamoto',
-        '#일론머스크': '#ElonMusk',
-        '#저스틴썬': '#JustinSun',
-        '#제드맥케일럽': '#JedMcCaleb',
-        '#찰스호스킨슨': '#CharlesHoskinson',
-        '#OpenAI': '#OpenAI',
-        '#JPMorgan': '#JPMorgan',
-        '#BlackRock': '#BlackRock',
-        '#환율': '#FX',
-        '#RWA': '#RWA',
-        '#ETF': '#ETF',
-        '#채굴': '#Mining',
-        '#마이닝': '#Mining',
-        '#블록체인': '#Blockchain',
-        '#암호화폐': '#Crypto',
-        '#알트코인': '#Altcoin',
-        '#유동성': '#Liquidity',
-        '#금융감독원': '#FSS',
     }
 
     for key, tag in footer_map.items():
-        if key in title_text and tag not in dynamic_tags:
+        if contains_exact_term(title_text, key) and tag not in dynamic_tags:
             extra_footer_tags.append(tag)
 
-    dynamic_tags = list(dict.fromkeys(dynamic_tags + extra_footer_tags))
+    dynamic_tags.extend(extra_footer_tags)
 
-    for kr_tag, en_tag in korean_to_english_footer.items():
-        if kr_tag in summary_ko and en_tag not in dynamic_tags:
-            dynamic_tags.append(en_tag)
-
-    lines = []
-    for line in re.split(r'(?<=[.!?])\s+|\n+', summary_ko):
-        line = line.strip()
-        if line and not is_bad_line(line):
-            lines.append(line)
-
-    if not lines:
-        lines = [
-            normalize_style(
-                translate_text_to_korean(
-                    cleanup_text(story.get('title', ''))
-                )
-            )
-        ]
-
+    lines = [summary_ko] if summary_ko else [story.get('title', '')]
     summary = re.sub(r'\s+', ' ', '\n'.join(lines)).strip()
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
