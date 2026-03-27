@@ -114,7 +114,7 @@ NEGATIVE_KEYWORDS = [
     'ATH 대비',
     '토큰포스트',
     '투자 심리',
-    '본 콘텐츠는','과매수 신호가','과매도 신호,가','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
+    '본 콘텐츠는','과매수 신호가','과매도 신호가','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
     'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
     
 ]
