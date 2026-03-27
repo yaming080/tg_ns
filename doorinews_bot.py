@@ -38,6 +38,8 @@ FEEDS = [
     ('이투데이경제', 'https://rss.etoday.co.kr/eto/economy_news.xml'),
     ('이투데이정치', 'https://rss.etoday.co.kr/eto/politics_news.xml'),
 	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
+	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
+	('비트코이니스트', 'https://bitcoinist.com/feed/'),
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
