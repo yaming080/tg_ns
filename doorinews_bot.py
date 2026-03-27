@@ -267,7 +267,7 @@ MANUAL_TRANSLATIONS = {
     'Super Micro': '슈퍼마이크로',
     'AI': 'AI',
     'LNG': 'LNG',
-    'BAZAN': '바잔'
+    'BAZAN': '바잔',
     'California': '캘리포니아',
     'Morgan Stanley': '모건스탠리',
     'Kraken': '크라켄',
