@@ -35,9 +35,8 @@ FEEDS = [
     ('뉴스비트코인', 'https://news.bitcoin.com/rss'),
     ('코인터크', 'https://en.coin-turk.com/feed/'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
-	('이투데이경제','https://rss.etoday.co.kr/eto/economy_news.xml'),
-    ('이투데이정치','https://rss.etoday.co.kr/eto/politics_news.xml'),
-
+    ('이투데이경제', 'https://rss.etoday.co.kr/eto/economy_news.xml'),
+    ('이투데이정치', 'https://rss.etoday.co.kr/eto/politics_news.xml'),
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
@@ -101,10 +100,10 @@ NEGATIVE_KEYWORDS = [
     '처음 게재되었습니다',
     'times tabloid에 처음 게재',
     'timestabloid에 처음 게재'
-    'ATH 대비'
-    '토큰포스트'
+    'ATH 대비',
+    '토큰포스트',
     '투자 심리',
-    '본 콘텐츠는','과매수 신호가','과매도 신호가','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
+    '본 콘텐츠는','과매수 신호가','과매도 신호,가','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
     'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
     
 ]
@@ -281,7 +280,7 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 }
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 8
-SUMMARY_SENTENCES = 4
+SUMMARY_SENTENCES = 3
 
 def log(msg: str) -> None:
     print(msg, flush=True)
@@ -290,55 +289,6 @@ def http_get(url: str, timeout: int = 20) -> str:
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (compatible; DooriNewsBot/2.1)'})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read().decode('utf-8', errors='ignore')
-
-def normalize_style(text: str) -> str:
-    rules = [
-        (r'사용됩니다\.?', '사용됨'),
-        (r'있습니다\.?', '있음'),
-        (r'내렸다\.?', '내림'),
-        (r'늘렸습니다\.?', '늘림'),
-        (r'불러일으킵니다\.?', '불러일으킴'),
-        (r'미칩니다\.?', '미침'),
-        (r'나타냅니다\.?', '나타냄'),
-        (r'했습니다\.?', '함'),
-        (r'하였습니다\.?', '함'),
-        (r'합니다\.?', '함'),
-        (r'하고 있습니다\.?', '하고 있음'),
-        (r'하고 있다\.?', '하고 있음'),
-        (r'기록했습니다\.?', '기록'),
-        (r'승인했습니다\.?', '승인'),
-        (r'였습니다\.?', '임'),
-        (r'입니다\.?', '임'),
-        (r'이었습니다\.?', '임'),
-        (r'이다\.?', '임'),
-	(r'습니다\.?', '음'),
-        (r'알려졌습니다\.?', '알려짐'),
-        (r'알려졌다\.?', '알려짐'),
-        (r'밀렸다\.?', '밀림'),
-        (r'밀렸습니다\.?', '밀림'),
-        (r'했다\.?', '했음'),
-        (r'됐다\.?', '됨'),
-        (r'알려졌습니다\.?', '알려짐'),
-        (r'졌다\.?', '졌음'),
-        (r'됩니다\.?', '됨'),
-        (r'있다\.?', '있음'),
-        (r'된다\.?', '됨'),
-    ]
-
-    leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
-    if leftovers:
-        log("말투 치환 추가 필요 후보: " + ", ".join(leftovers[:10]))
-
-    for pat, rep in rules:
-        text = re.sub(pat, rep, text)
-
-    text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
-    text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
-    text = re.sub(r'([가-힣])(#)', r'\1 #', text)
-    text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
-    return text
 
 def story_hash(title: str) -> str:
     clean = re.sub(r'[^a-z0-9 ]', '', title.lower().strip())
@@ -559,7 +509,7 @@ def score_sentence(s: str, title: str = "") -> int:
 
     return score
 
-def summarize_text(text: str, title: str = "", max_sentences: int = 1) -> str:
+def summarize_text(text: str, title: str = "", max_sentences: int = SUMMARY_SENTENCES) -> str:
     text = cleanup_text(text)
     title = cleanup_text(title)
 
@@ -986,7 +936,7 @@ def build_message(story: dict) -> str:
     summary_ko = cleanup_text(summary_ko)
 
     entities = extract_entities(story, max_tags=8)
-    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    _, dynamic_tags = inject_entity_hashtags("", entities)
     dynamic_tags = filter_final_tags(dynamic_tags)
 
     extra_footer_tags = []
