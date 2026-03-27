@@ -308,6 +308,18 @@ def normalize_style(text: str) -> str:
         (r'입니다\.?', '임'),
         (r'이었습니다\.?', '임'),
         (r'이다\.?', '임'),
+	(r'습니다\.?', '음'),
+        (r'알려졌습니다\.?', '알려짐'),
+        (r'알려졌다\.?', '알려짐'),
+        (r'밀렸다\.?', '밀림'),
+        (r'밀렸습니다\.?', '밀림'),
+        (r'했다\.?', '했음'),
+        (r'됐다\.?', '됨'),
+        (r'알려졌습니다\.?', '알려짐'),
+        (r'졌다\.?', '졌음'),
+        (r'됩니다\.?', '됨'),
+        (r'있다\.?', '있음'),
+        (r'된다\.?', '됨'),
     ]
 
     leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
@@ -544,29 +556,32 @@ def score_sentence(s: str, title: str = "") -> int:
 
     return score
 
-def summarize_text(text: str, title: str = "", max_sentences: int = 2) -> str:
+def summarize_text(text: str, title: str = "", max_sentences: int = 1) -> str:
     text = cleanup_text(text)
     title = cleanup_text(title)
 
+    if is_weak_text(text):
+        text = title
+
     sentences = re.split(r'(?<=[.!?])\s+|\n+', text)
-    usable = [s.strip() for s in sentences if s.strip() and not is_bad_line(s)]
-
-    if not usable:
-        return title
-
-    usable.sort(key=lambda s: score_sentence(s, title), reverse=True)
-
     picked = []
-    if title:
-        picked.append(title)
 
-    for s in usable:
-        if s not in picked:
-            picked.append(s)
+    for s in sentences:
+        s = s.strip()
+        if not s or is_bad_line(s):
+            continue
+        picked.append(s)
         if len(picked) >= max_sentences:
             break
 
-    return ' '.join(picked[:max_sentences])
+    summary = ' '.join(picked) if picked else title
+    summary = re.sub(r'\s+', ' ', summary).strip()
+
+    # 너무 길면 90자 정도에서 자르고 끝맺음 정리
+    if len(summary) > 60:
+        summary = summary[:60].rsplit(' ', 1)[0].strip()
+
+    return summary
 def translate_text_to_korean(text: str) -> str:
     if not text:
         return ""
@@ -846,10 +861,10 @@ def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
         '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum',
         '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley',
-        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#CFTC','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
+        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether',''#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
-'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup','#Mastercard','#NYSE','#',
+'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup','#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS'
     }
 
     blocked_contains = [
