@@ -164,7 +164,7 @@ MANUAL_TRANSLATIONS = {
     'DooriNews': '도리뉴스',
     'Shiba Inu': '시바이누',
     '시바견':'시바이누',
-    'Shibarium':시바리움,
+    'Shibarium':'시바리움',
     'Swift': 'SWIFT',
 
     'Fed': '연준',
