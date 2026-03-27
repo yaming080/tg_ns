@@ -40,6 +40,14 @@ FEEDS = [
 	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
 	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
 	('비트코이니스트', 'https://bitcoinist.com/feed/'),
+	('크립토뉴스', 'https://cryptonews.com/rss/'),
+	('코인에디션', 'https://coinedition.com/feed/'),
+	('크립토포테이토', 'https://cryptopotato.com/feed/'),
+	('크립토뉴스플레쉬', 'https://crypto-news-flash.com/feed/'),
+	('파이넥스트라', 'https://news.google.com/rss/search?q=site:finextra.com&hl=en-US'),
+	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
+	('유투데이', 'https://u.today/rss.php'),
+	('비트저널', 'https://thebitjournal.com/feed/'),
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
