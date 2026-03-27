@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 import asyncio
 import hashlib
@@ -36,7 +37,7 @@ FEEDS = [
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
 ]
 
-PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ETNA','USDC','USDT']
+PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
 
 OTHER_COINS = [
     'HYPE','HYPERLIQUID','SOL','DOGE','AVAX','DOT','MATIC','POL','LINK','LTC','ATOM',
@@ -52,7 +53,7 @@ ECON_KEYWORDS = ['sec','etf','regulation','law','bill','inflation','interest rat
     'ipo','lawsuit','treasury strategy','predictive market']
 
 KOREAN_KEYWORDS = [
-    '비트코인','이더리움','리플','스텔라','에이다','트론','바이낸스코인','비트코인캐시','시바이누','스테이블코인','토큰화','수탁','시드문구',
+    '비트코인','이더리움','리플','스텔라','에이다','트론','바이낸스코인','비트코인캐시','시바이누','시바','스테이블코인','토큰화','수탁','시드문구',
     'ETF','현물 ETF','SEC','CFTC','OCC',
     '규제','법안','입법','정책','승인','소송',
     '연준','금리','금리인상','금리인하','인플레이션',
@@ -97,6 +98,12 @@ NEGATIVE_KEYWORDS = [
     '처음 게재되었습니다',
     'times tabloid에 처음 게재',
     'timestabloid에 처음 게재'
+    'ATH 대비'
+    '토큰포스트'
+    '투자 심리',
+    '본 콘텐츠는','과매수 신호가','과매도 신호가',CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
+    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
+    
 ]
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
 MANUAL_TRANSLATIONS = {
@@ -152,7 +159,7 @@ MANUAL_TRANSLATIONS = {
     'Iran': '이란',
     'Israel': '이스라엘',
     'Qatar': '카타르',
-
+    'mastercard': '마스터카드',
 
     'SEC': 'SEC',
     'CFTC': 'CFTC',
@@ -267,10 +274,149 @@ SITE_NAMES = {
     'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk'
 }
 CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAUT',
-    'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI'}
+    'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI',    'Vorhees': '보어히스',
+    'Erik Vorhees': '에릭보어히스',
+    'Michael Saylor': '마이클세일러',
+    'Saylor': '세일러',
+    'Robert Kiyosaki': '로버트기요사키',
+    'Paul Atkins': '폴앳킨스',
+    'David Schwartz': '데이비드슈워츠',
+    'Mike Novogratz': '마이크노보그라츠',
+    'Sam Altman': '샘알트만',
+    'Elon Musk': '일론머스크',
+    'ShapeShift': '셰이프시프트',
+    'Brad Garlinghouse': '갈링하우스',
+    'David Schwartz': '데이비드슈워츠',
+    'Monica Long': '모니카롱',
+    'Vitalik Buterin': '비탈릭부텔린',
+    'Satoshi Nakamoto': '사토시나카모토',
+    'Elon Musk': '일론머스크',
+    'Justin Sun': '저스틴썬',
+    'Jed McCaleb': '제드맥케일럽',
+    'Charles Hoskinson': '찰스호스킨슨',    
+    'Goldman Sachs': '골드만삭스',
+    'Strategy': '스트래티지',
+    'Donald Trump': '도널드트럼프',
+    'Trump': '트럼프',
+    'Robinhood': '로빈후드',
+    'Tether': '테더',
+    'Ripple': '리플',
+    'Flare': '플레어',
+    'FLR': 'FLR',
+    'ATHENA': '아테나',
+    'ENA': '에테나',
+    'Ethena': '에테나',
+    'Metaplanet': '메타플래닛',
+    'DooriNews': '도리뉴스',
+    'Shiba Inu': '시바이누',
+    '시바견':'시바이누',
+    'Swift': 'SWIFT',
+
+    'Fed': '연준',
+    'Federal Reserve': '연준',
+    'Treasury': '재무부',
+    'White House': '백악관',
+    'Brazil': '브라질',
+    'China': '중국',
+    'Japan': '일본',
+    'Korea': '한국',
+    'South Korea': '한국',
+    'United States': '미국',
+    'Iran': '이란',
+    'Israel': '이스라엘',
+    'Qatar': '카타르',
+    'mastercard': '마스터카드',
+
+    'SEC': 'SEC',
+    'CFTC': 'CFTC',
+    'OCC': 'OCC',
+    'ETF': 'ETF',
+    'IPO': 'IPO',
+    'CTO': 'CTO',
+    'XRP': 'XRP',
+    'XLM': 'XLM',
+    'BTC': 'BTC',
+    'ETH': 'ETH',
+    'SHIB': 'SHIB',
+    'USDC': 'USDC',
+    'USDT': 'USDT',
+    'XAUT': 'XAUT',
+    'SOL': 'SOL',
+    'DOGE': 'DOGE',
+
+    'Bitcoin': '비트코인',
+    'Ethereum': '이더리움',
+    'Stablecoin': '스테이블코인',
+    'Tokenization': '토큰화',
+    'Custody': '수탁',
+    'Seed Phrase': '시드문구',
+    'Lawsuit': '소송',
+    'Regulation': '규제',
+    'Interpretation': '해석',
+
+    'DeFi': 'DeFi',
+    'NFT': 'NFT',
+    'Web3': 'Web3',
+
+    'BitMine': 'BitMine',
+    'Tom Lee': '톰리',
+    'Thomasg.eth': 'Thomasgeth',
+    'Time Traveler': 'TimeTraveler',
+    'John Squire': 'JohnSquire',
+
+    'Uniswap': '유니스왑',
+    'Hayden Adams': 'HaydenAdams',
+
+    'Jerome Powell': '제롬파월',
+    'Powell': '파월',
+    
+    'Japan': '일본',
+    'United States': '미국',
+    'US': '미국',
+    'America': 'America',
+    '미국': '미국',
+
+    'Nevada': '네비다주',
+
+    'J.P. Morgan': 'JPMorgan',
+    'JP Morgan': 'JPMorgan',
+    'JPMorgan': 'JPMorgan',
+    'Ryde': '라이드',
+    'Bybit': '바이비트',
+    'Tether': '테더',
+    'Ledger': 'Ledger',
+    'Circle': '서클',
+    'MoneyGram': '머니그램',
+    'Upbit': '업비트',
+    'Bithumb': '빗썸',    
+    'Binance': '바이낸스',
+    'Apple': 'Apple',
+    'PayPal': '페이팔',
+    'Robinhood': '로빈후드',
+    'Stripe': '스트라이프',
+    'Gemini': '제미니',
+    'Kalshi': '칼시',
+    'Zedxion': '제드시온',
+    'Evernorth Holdings': '에버노스',
+    'Evernorth': '에버노스',
+    'XRPLedger': 'XRPLedger',
+    'World Gold Council': '세계금협회',
+    'Gold': '금',
+    'Digital Gold': '디지털금',
+    'Silver':'은',
+    'Bitcoin Quantum': '비트코인퀀텀',
+    'BIP360': 'BIP360',
+    'OpenAI': 'OpenAI',
+    'Anthropic': 'Anthropic',
+    'Google': 'Google',
+    'Super Micro': '슈퍼마이크로',
+    'AI': 'AI',
+    'LNG': 'LNG',
+    'BAZAN': '바잔'
+}
 STATE_FILE = 'news_state.json'
-MAX_ITEMS_PER_FEED = 5
-SUMMARY_SENTENCES = 2
+MAX_ITEMS_PER_FEED = 8
+SUMMARY_SENTENCES = 4
 
 def log(msg: str) -> None:
     print(msg, flush=True)
@@ -405,6 +551,8 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
 
             # 속도 개선용: 기사 원문 메타 추가 수집 비활성화
             article_desc, article_img = ('', '')
+            if (not image_url) or is_weak_text(desc_clean):
+            article_desc, article_img = fetch_article_meta(link)
 
             if not image_url and article_img:
                 image_url = article_img
@@ -502,27 +650,29 @@ def is_bad_line(line: str) -> bool:
     low = line.lower().strip()
     return (not low) or ('visit website' in low) or ('웹사이트 방문' in low) or ('?' in line) or ('？' in line) or bool(re.fullmatch(r'https?://\S+', low))
 
-def summarize_text(text: str, title: str = "", max_sentences: int = SUMMARY_SENTENCES) -> str:
+def summarize_text(text: str, title: str = "", max_sentences: int = 2) -> str:
     text = cleanup_text(text)
+    title = cleanup_text(title)
 
-    if is_weak_text(text):
-        text = title
+    sentences = re.split(r'(?<=[.!?])\s+|\n+', text)
+    usable = [s.strip() for s in sentences if s.strip() and not is_bad_line(s)]
 
-    sentences = re.split(r'(?<=[.!?])\s+', text)
+    if not usable:
+        return title
+
+    usable.sort(key=lambda s: score_sentence(s, title), reverse=True)
+
     picked = []
+    if title:
+        picked.append(title)
 
-    for s in sentences:
-        s = s.strip()
-        if not s or is_bad_line(s):
-            continue
-
-        picked.append(s)
-
+    for s in usable:
+        if s not in picked:
+            picked.append(s)
         if len(picked) >= max_sentences:
             break
 
-    return ' '.join(picked) if picked else cleanup_text(title)
-
+    return ' '.join(picked[:max_sentences])
 def translate_text_to_korean(text: str) -> str:
     if not text:
         return ""
@@ -564,7 +714,17 @@ def normalize_style(text: str) -> str:
         (r'입니다\.?', '임'),
         (r'이었습니다\.?', '임'),
         (r'이다\.?', '임'),
-		(r'습니다\.?', ''),
+	(r'습니다\.?', '음'),
+        (r'알려졌습니다\.?', '알려짐')
+        (r'알려졌다\.?', '알려짐')
+        (r'밀렸다\.?', '밀림')
+        (r'밀렸습니다\.?', '밀림')
+        (r'했다\.?', '했음')
+        (r'됐다\.?', '됨')
+        (r'알려졌습니다\.?', '알려짐')
+        (r'졌다\.?', '졌음')
+        (r'됩니다\.?', '됨')
+        (r'있다\.?', '있음')
     ]
 
     leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
@@ -703,7 +863,7 @@ def cleanup_text(text: str) -> str:
 
 def fix_translation_terms(text: str) -> str:
     replacements = {
-        '시바견': '#시바이누',
+        '시바견': '#시바이누 는',
         '시바이누 은': '#시바이누 는',
         '시바이누 는': '#시바이누 는',
         '시바이누 가': '#시바이누 가',
@@ -795,7 +955,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#CFTC','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
-'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA'
+'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup','#Mastercard','#NYSE','#',
     }
 
     blocked_contains = [
