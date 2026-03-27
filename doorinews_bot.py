@@ -622,6 +622,10 @@ def normalize_style(text: str) -> str:
     text = re.sub(r'([가-힣]+)다고 밝힘', r'\1', text)
     text = re.sub(r'([가-힣]+)라고 말함', r'\1', text)
     text = re.sub(r'([가-힣]+)라고 밝힘', r'\1', text)
+    text = re.sub(r'했다고 말함$', '했음', text)
+    text = re.sub(r'했다고 밝힘$', '했음', text)
+    text = re.sub(r'했다고 전함$', '했음', text)
+    text = re.sub(r'이어질 것으로 봄고 말함$', '이어질 것으로 봄', text)
 
     return text
 
