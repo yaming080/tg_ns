@@ -280,7 +280,7 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 }
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 8
-SUMMARY_SENTENCES = 3
+SUMMARY_SENTENCES = 4
 
 def log(msg: str) -> None:
     print(msg, flush=True)
