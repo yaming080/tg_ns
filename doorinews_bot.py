@@ -114,7 +114,14 @@ NEGATIVE_KEYWORDS = [
     'ATH 대비',
     '토큰포스트',
     '투자 심리',
-    '본 콘텐츠는','과매수 신호가','과매도 신호가','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
+    '본 콘텐츠는','과매수 신호가','과매도 신호,'코인데스크에 따르면',
+    'coindesk에 따르면',
+    'cryptonews 에 처음 등장함',
+    'cryptonews에 처음 등장함',
+    'crypto biz:',
+    'crypto biz',
+    'coindesk according to',
+    'cryptonews first appeared','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
     'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
     
 ]
@@ -157,6 +164,7 @@ MANUAL_TRANSLATIONS = {
     'DooriNews': '도리뉴스',
     'Shiba Inu': '시바이누',
     '시바견':'시바이누',
+    'Shibarium':시바리움,
     'Swift': 'SWIFT',
 
     'Fed': '연준',
@@ -260,6 +268,9 @@ MANUAL_TRANSLATIONS = {
     'AI': 'AI',
     'LNG': 'LNG',
     'BAZAN': '바잔'
+    'California': '캘리포니아',
+    'Morgan Stanley': '모건스탠리',
+    'Kraken': '크라켄',
 }
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
@@ -741,6 +752,9 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'.*?처음 게재되(?:었|었습|었음).*', '', text)
     text = re.sub(r'.*?Times Tabloid에 처음 게재되(?:었|었습|었음).*', '', text, flags=re.IGNORECASE)
     text = re.sub(r'.*?TimesTabloid에 처음 게재되(?:었|었습|었음).*', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'코인데스크에 따르면[, ]*', '', text, flags=re.I)
+    text = re.sub(r'cryptonews\s*에?\s*처음 등장함', '', text, flags=re.I)
+    text = re.sub(r'crypto\s*biz:\s*', '', text, flags=re.I)
 
     text = text.replace('포스트가 ', '')
     text = text.replace('게시물이 ', '')
@@ -846,7 +860,7 @@ def fix_translation_terms(text: str) -> str:
 def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
         '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum',
-        '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley',
+        '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley','#shibarium',
         '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether',''#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
@@ -982,7 +996,7 @@ def build_message(story: dict) -> str:
     summary_ko = cleanup_text(summary_ko)
 
     entities = extract_entities(story, max_tags=8)
-    _, dynamic_tags = inject_entity_hashtags("", entities)
+    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     dynamic_tags = filter_final_tags(dynamic_tags)
 
     extra_footer_tags = []
@@ -1035,6 +1049,9 @@ def build_message(story: dict) -> str:
         'treasury': '#Treasury',
         'rwa': '#RWA',
         'mining': '#Mining',
+        'california': '#California',
+        'morgan stanley': '#MorganStanley',
+        'kraken': '#Kraken',
     }
 
     for key, tag in footer_map.items():
