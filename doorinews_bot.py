@@ -529,18 +529,18 @@ def score_sentence(s: str, title: str = "") -> int:
 
     return score
 
-def summarize_text(text: str, title: str = "", max_sentences: int = SUMMARY_SENTENCES) -> str:
+def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
     text = cleanup_text(text)
     title = cleanup_text(title)
 
     if is_weak_text(text):
         text = title
 
-    sentences = re.split(r'(?<=[.!?])\s+|\n+', text)
-    usable = []
+    sentences = re.split(r'(?<=[.!?])\s+|\n+|(?<=다)\s+|(?<=임)\s+|(?<=음)\s+', text)
 
+    usable = []
     for s in sentences:
-        s = s.strip()
+        s = s.strip(" ,")
         if not s or is_bad_line(s):
             continue
         usable.append(s)
@@ -548,23 +548,27 @@ def summarize_text(text: str, title: str = "", max_sentences: int = SUMMARY_SENT
     if not usable:
         return title
 
-    # 중요도 높은 문장부터 정렬
     usable.sort(key=lambda s: score_sentence(s, title), reverse=True)
 
     picked = []
+    total_len = 0
+
     for s in usable:
-        if s not in picked:
-            picked.append(s)
+        if s in picked:
+            continue
+
+        # 너무 길어지면 문장 단위로 멈춤
+        if total_len + len(s) > 180 and picked:
+            break
+
+        picked.append(s)
+        total_len += len(s)
+
         if len(picked) >= max_sentences:
             break
 
     summary = ' '.join(picked)
     summary = re.sub(r'\s+', ' ', summary).strip()
-
-    # 너무 길 때만 완화된 제한
-    if len(summary) > 220:
-        summary = summary[:220].rsplit(' ', 1)[0].strip()
-
     return summary
 def translate_text_to_korean(text: str) -> str:
     if not text:
