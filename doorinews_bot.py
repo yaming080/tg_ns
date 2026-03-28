@@ -279,6 +279,8 @@ MANUAL_TRANSLATIONS = {
 	'coinbase':'코인베이스',
     'Hidden Road': '히든로드',
     'MorganStanley':'모건스탠리',
+	'GameStop':'게임스탑',
+	'Google':'구글',
 
 }
 IGNORED_WORDS = {
