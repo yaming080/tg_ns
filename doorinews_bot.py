@@ -35,14 +35,13 @@ FEEDS = [
     ('뉴스비트코인', 'https://news.bitcoin.com/rss'),
     ('코인터크', 'https://en.coin-turk.com/feed/'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
-    ('이투데이경제', 'https://rss.etoday.co.kr/eto/economy_news.xml'),
-    ('이투데이정치', 'https://rss.etoday.co.kr/eto/politics_news.xml'),
 	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
 	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
 	('비트코이니스트', 'https://bitcoinist.com/feed/'),
 	('크립토뉴스', 'https://cryptonews.com/rss/'),
 	('코인에디션', 'https://coinedition.com/feed/'),
 	('크립토포테이토', 'https://cryptopotato.com/feed/'),
+	('크립토뉴스플레쉬', 'https://crypto-news-flash.com/feed/'),
 	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
 	('유투데이', 'https://u.today/rss.php'),
 	('비트저널', 'https://thebitjournal.com/feed/'),
@@ -119,13 +118,13 @@ NEGATIVE_KEYWORDS = [
     'crypto biz:',
     'crypto biz',
     'coindesk according to',
-    'cryptonews first appeared','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
-    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
+    'cryptonews first appeared','CryptoBriefing','Crypto Briefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan','처음으로 게재되었음','데드크로스','Death Cross',
+    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News', '코인 소식 중 중요한 내용만 PiCK 해서 보세요', '뉴스 속보를 제공해요','게시물임','청산','하락','급락','Crypto Briefing 에서','황정수의 글로벌 체크인','defillama.com','하락함','청산됨','매도 압력',
     
 ]
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
 MANUAL_TRANSLATIONS = {
-'Ironlight': '아이언라이트',
+ 'Ironlight': '아이언라이트',
     'Vorhees': '보어히스',
     'Erik Vorhees': '에릭보어히스',
     'Michael Saylor': '마이클세일러',
@@ -147,6 +146,8 @@ MANUAL_TRANSLATIONS = {
     'Jed McCaleb': '제드맥케일럽',
     'Charles Hoskinson': '찰스호스킨슨',    
     'Goldman Sachs': '골드만삭스',
+    'Goldman':'골드만',
+    'coinbase':'코인베이스',
     'Strategy': '스트래티지',
     'Donald Trump': '도널드트럼프',
     'Trump': '트럼프',
@@ -162,8 +163,19 @@ MANUAL_TRANSLATIONS = {
     'DooriNews': '도리뉴스',
     'Shiba Inu': '시바이누',
     '시바견':'시바이누',
+    '시바 이누':'시바이누',
+    '시바 이 누':'시바이누',
+    '시바이 누':'시바이누',
     'Shibarium':'시바리움',
     'Swift': 'SWIFT',
+    'Genius Act':'지니어스법안',
+    'ICE':'ICE',
+    'CLARITY':'클래리티',
+    'stablecoin':'스테이블코인',
+    'Blackrock':'블랙록',
+	'MoonPay':'문페이',
+    
+    
 
     'Fed': '연준',
     'Federal Reserve': '연준',
@@ -178,7 +190,12 @@ MANUAL_TRANSLATIONS = {
     'Iran': '이란',
     'Israel': '이스라엘',
     'Qatar': '카타르',
+    'india':'인도',
+    'myanmar':'미얀마',
     'mastercard': '마스터카드',
+    'Google':'구글',
+    'Genius Act':'지니어스 법안',
+    
 
     'SEC': 'SEC',
     'CFTC': 'CFTC',
@@ -269,6 +286,9 @@ MANUAL_TRANSLATIONS = {
     'California': '캘리포니아',
     'Morgan Stanley': '모건스탠리',
     'Kraken': '크라켄',
+    'coinbase':'코인베이스',
+    'Hidden Road': '히든로드',
+    'MorganStanley':'모건스탠리',
 }
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
@@ -763,10 +783,12 @@ def cleanup_text(text: str) -> str:
     text = text.replace('게재물이 ', '')
     text = text.replace('라는 포스트가 ', '')
     text = text.replace('라는 게시물이 ', '')
+    text = text.replace('Crypto Briefing 에 처음 등장함', '')
 
     text = re.sub(r'^[^.!?\n]{0,40}에 따르면[, ]*', '', text)
     text = re.sub(r'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며[^.!?\n]*', '', text)
     text = re.sub(r'변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다[^.!?\n]*', '', text)
+
 
     text = re.sub(r'\s+', ' ', text).strip()
     return text
@@ -807,6 +829,7 @@ def fix_translation_terms(text: str) -> str:
         '도널드트럼프는': '#도널드트럼프 는',
         '도널드트럼프가': '#도널드트럼프 가',
         '도널드 트럼프': '#도널드트럼프',
+        '트럼프':'#트럼프',
         '제롬파월은': '#제롬파월 은',
         '제롬파월이': '#제롬파월 이',
         'SoftBank는': '#SoftBank 는',
@@ -846,6 +869,46 @@ def fix_translation_terms(text: str) -> str:
         '제드맥케일럽이': '#제드맥케일럽 이',
         '찰스호스킨슨은': '#찰스호스킨슨 은',
         '찰스호스킨슨이': '#찰스호스킨슨 이',
+        '크라켄에': '#크라켄 에',
+        '월스트리트':'#월스트리트',
+        '월스트리트가':'#월스트리트 가',
+        '월스트리트는':'#월스트리트 는',
+        '월스트리트에서':'#월스트리트 에서',
+        '월스트 리 트':'#월스트리트',
+        '월스트리 트':'#월스트리트',
+        '월스트 리트':'#월스트리트',
+        '월스트리트저널은':'#월스트리트 저널은',
+		'히든로드':'#히든로드',
+		'히든로드 가':'#히든로드 가',
+		'히든로드 는':'#히든로드 는',
+		'히든로드에서':'#히든로드 에서',
+        '갈링하 우스': '#갈링하우스',
+        '#갈링하 우스': '#갈링하우스',
+        '갈링하 우 스': '#갈링하우스',
+
+        '히든 로드': '#히든로드',
+        '히든 로 드': '#히든로드',
+        'CLARITY':'#클래리티',
+        'CLARITY Act':'#클래리티법안',
+		'클래 리 티':'#클래리티',
+		'클래리 티':'#클래리티',
+        '코인베이스는':'#코인베이스 는',
+        '코인베이스가':'#코인베이스 가',    
+        '코인베이스 에서':'#코인베이스 에서',
+        '마이크로소프트':'#마이크로소프트',
+        'Google':'#구글',
+        '비트메인에':'#비트메인 에',
+        '현물':'#현물',
+        'Cynthia Lummis':'#신시아루미스',
+        '신시아루미스는':'#신시아루미스 는',
+        '신시아루미스가':'#신시아루미스 가',
+        'BRICS':'#브릭스',
+        'Wells Fago':'#웰스파고',
+        'gamestop':'#게임스탑',
+        'game stop':'#게임스탑',
+        'ChatGPT':'#ChatGPT',
+        'David Sacks':'#데이비드삭스',
+        'DavidSacks':'#데이비드삭스',
     }
 
     for old, new in replacements.items():
@@ -1054,6 +1117,9 @@ def build_message(story: dict) -> str:
         'california': '#California',
         'morgan stanley': '#MorganStanley',
         'kraken': '#Kraken',
+        'india':'#India',
+        'myanmar':'#Myanmar',
+        '미국':'#US',
     }
 
     for key, tag in footer_map.items():
