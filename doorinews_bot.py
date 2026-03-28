@@ -170,9 +170,7 @@ MANUAL_TRANSLATIONS = {
     '시바이 누':'시바이누',
     'Shibarium':'시바리움',
     'Swift': 'SWIFT',
-    'Genius Act':'지니어스법안',
-	'Genius':'지니어스',
-	'Act':'법안',
+    'Genius Act':'지니어스법안'
     'ICE':'ICE',
     'CLARITY':'클래리티',
     'stablecoin':'스테이블코인',
@@ -197,7 +195,6 @@ MANUAL_TRANSLATIONS = {
     'india':'인도',
     'myanmar':'미얀마',
     'mastercard': '마스터카드',
-    'Google':'구글',
     'SEC': 'SEC',
     'CFTC': 'CFTC',
     'OCC': 'OCC',
@@ -860,7 +857,7 @@ def fix_translation_terms(text: str) -> str:
         '디파이가': '#DeFi 가',
         '이란은': '#이란 은',
         '이란이': '#이란 이',
-        '이란':'#이란',
+        
 		'이 란':'#이란',
 		'이란에':'#이란 에',
         '호주에':'#호주 에',
@@ -942,7 +939,7 @@ def fix_translation_terms(text: str) -> str:
         '찰스호스킨슨은': '#찰스호스킨슨 은',
         '찰스호스킨슨이': '#찰스호스킨슨 이',
         '크라켄에': '#크라켄 에',
-        '월스트리트':'#월스트리트',
+        
         '월스트리트가':'#월스트리트 가',
         '월스트리트는':'#월스트리트 는',
         '월스트리트에서':'#월스트리트 에서',
@@ -950,7 +947,7 @@ def fix_translation_terms(text: str) -> str:
         '월스트리 트':'#월스트리트',
         '월스트 리트':'#월스트리트',
         '월스트리트저널은':'#월스트리트 저널은',
-		'히든로드':'#히든로드',
+		
 		'히든로드 가':'#히든로드 가',
 		'히든로드 는':'#히든로드 는',
 		'히든로드에서':'#히든로드 에서',
@@ -970,7 +967,7 @@ def fix_translation_terms(text: str) -> str:
         '마이크로소프트':'#마이크로소프트',
         'Google':'#구글',
         '비트메인에':'#비트메인 에',
-        '현물':'#현물',
+        
         'Cynthia Lummis':'#신시아루미스',
         '신시아루미스는':'#신시아루미스 는',
         '신시아루미스가':'#신시아루미스 가',
@@ -1138,9 +1135,9 @@ def build_message(story: dict) -> str:
 
     entities = extract_entities(story, max_tags=8)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
-    dynamic_tags = filter_final_tags(dynamic_tags)
-    summary_ko = fix_translation_terms(summary_ko)
     summary_ko = cleanup_text(summary_ko)
+    summary_ko = fix_translation_terms(summary_ko)
+    dynamic_tags = filter_final_tags(dynamic_tags)
 
     extra_footer_tags = []
     title_text = (story.get('title', '') + ' ' + story.get('desc', '')).lower()
