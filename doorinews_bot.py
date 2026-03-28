@@ -1,19 +1,4 @@
 
-#!/usr/bin/env python3
-import asyncio
-import hashlib
-import html
-import json
-import os
-import re
-import time
-import urllib.error
-import urllib.request
-import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
-from html import unescape
-from inspect import iscoroutine
-from difflib import SequenceMatcher
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
