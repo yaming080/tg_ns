@@ -119,13 +119,15 @@ NEGATIVE_KEYWORDS = [
     'crypto biz:',
     'crypto biz',
     'coindesk according to',
-    'cryptonews first appeared','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
-    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News', '코인 소식 중 중요한 내용만 PiCK 해서 보세요', '뉴스 속보를 제공해요','게시물임','청산','하락','급락'
+    'cryptonews first appeared','CryptoBriefing','Crypto Briefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan','처음으로 게재되었음','데드크로스','Death Cross',
+    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News', '코인 소식 중 중요한 내용만 PiCK 해서 보세요', '뉴스 속보를 제공해요','게시물임','청산','하락','급락','Crypto Briefing 에서','황정수의 글로벌 체크인','defillama.com','하락함','청산됨','매도 압력',
     
 ]
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
+
+
 MANUAL_TRANSLATIONS = {
-'Ironlight': '아이언라이트',
+    'Ironlight': '아이언라이트',
     'Vorhees': '보어히스',
     'Erik Vorhees': '에릭보어히스',
     'Michael Saylor': '마이클세일러',
@@ -147,6 +149,8 @@ MANUAL_TRANSLATIONS = {
     'Jed McCaleb': '제드맥케일럽',
     'Charles Hoskinson': '찰스호스킨슨',    
     'Goldman Sachs': '골드만삭스',
+    'Goldman':'골드만',
+    'coinbase':'코인베이스',
     'Strategy': '스트래티지',
     'Donald Trump': '도널드트럼프',
     'Trump': '트럼프',
@@ -164,13 +168,15 @@ MANUAL_TRANSLATIONS = {
     '시바견':'시바이누',
     '시바 이누':'시바이누',
     '시바 이 누':'시바이누',
-	'시바이 누':'시바이누',
+    '시바이 누':'시바이누',
     'Shibarium':'시바리움',
     'Swift': 'SWIFT',
     'Genius Act':'지니어스법안',
     'ICE':'ICE',
-    'CLARITY':'클래리',
-	'stablecoin':'스테이블코인',
+    'CLARITY':'클래리티',
+    'stablecoin':'스테이블코인',
+    'Blackrock':'블랙록',
+    
     
 
     'Fed': '연준',
@@ -190,6 +196,8 @@ MANUAL_TRANSLATIONS = {
     'myanmar':'미얀마',
     'mastercard': '마스터카드',
     'Google':'구글',
+    'Genius Act':'지니어스 법안',
+    
 
     'SEC': 'SEC',
     'CFTC': 'CFTC',
@@ -281,6 +289,10 @@ MANUAL_TRANSLATIONS = {
     'Morgan Stanley': '모건스탠리',
     'Kraken': '크라켄',
     'coinbase':'코인베이스',
+    'Hidden Road': '히든로드',
+    'MorganStanley':'모건스탠리',
+
+
 }
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
@@ -708,18 +720,31 @@ def entity_korean_name(entity: str) -> str:
 def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
     text = summary
     final_tags = []
+
+    NO_TAG_WORDS = {'데이터','환','새로운','계략','가격','천재','행동','등장함','선도적인','올해에도','더','소송','승인','솔라나','SOL','수요','세부','연구원','실패','북극성','개선','경고하는','순간','역할','여기요','피바다','실행자'}
+
     for ent in sorted(entities, key=len, reverse=True):
+        ent = ent.strip()
+        if not ent:
+            continue
+
+        if ent.lower() in {w.lower() for w in NO_TAG_WORDS}:
+            continue
+
         ent_upper = ent.upper()
         if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
             tag = f'#{ent_upper}'
             if tag not in final_tags:
                 final_tags.append(tag)
             continue
+
         korean = entity_korean_name(ent)
         tag_text = '#' + korean.replace(' ', '')
         eng_tag = '#' + ent.replace(' ', '')
+
         if eng_tag not in final_tags:
             final_tags.append(eng_tag)
+
         replaced = False
         for base in [korean, ent]:
             for p in ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']:
@@ -730,12 +755,14 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
                     break
             if replaced:
                 break
+
         if not replaced:
             for base in [korean, ent]:
                 new_text, count = re.subn(re.escape(base), tag_text, text, count=1)
                 if count:
                     text = new_text
                     break
+
     return text, final_tags
 
 def cleanup_text(text: str) -> str:
@@ -771,6 +798,7 @@ def cleanup_text(text: str) -> str:
     text = text.replace('게재물이 ', '')
     text = text.replace('라는 포스트가 ', '')
     text = text.replace('라는 게시물이 ', '')
+    text = text.replace('Crypto Briefing 에 처음 등장함', '')
 
     text = re.sub(r'^[^.!?\n]{0,40}에 따르면[, ]*', '', text)
     text = re.sub(r'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며[^.!?\n]*', '', text)
@@ -778,6 +806,15 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]+', '', text)
     text = re.sub(r'\[\s*\]', '', text)     # [ ] 또는 [] 제거
     text = re.sub(r'\[[^\]]{0,3}\]', '', text)  # 너무 짧은 괄호 찌꺼기 제거
+    text = re.sub(r'#시바\s*이\s*누', '#시바이누', text)
+    text = re.sub(r'시바\s*이\s*누', '시바이누', text)
+    text = re.sub(r'#시바리\s*움', '#시바리움', text)
+    text = re.sub(r'시바리\s*움', '시바리움', text)
+    text = re.sub(r'#바이\s*낸\s*스', '#바이낸스', text)
+    text = re.sub(r'바이\s*낸\s*스', '바이낸스', text)
+    text = re.sub(r'#바이낸\s*스', '#바이낸스, text)
+    text = re.sub(r'바이낸\s*스', '바이낸스', text)
+    
     text = re.sub(r'\s+', ' ', text).strip()
 
     text = re.sub(r'\s+', ' ', text).strip()
@@ -790,6 +827,7 @@ def remove_cjk_hanja(text: str) -> str:
 
 def fix_translation_terms(text: str) -> str:
     replacements = {
+        '비트코인에':'#비트코인 에',
         '시바견': '#시바이누',
         '시바이누 은': '#시바이누 는',
         '시바이누 는': '#시바이누 는',
@@ -800,6 +838,7 @@ def fix_translation_terms(text: str) -> str:
         '연방 준비 제도': '#연방준비제도',
         '네비다주는': '#네비다주 는',
         '네비다주가': '#네비다주 가',
+        'Google':'#구글',
         'DeFi가': '#DeFi 가',
         'DeFi는': '#DeFi 는',
         'NFT가': '#NFT 가',
@@ -809,13 +848,24 @@ def fix_translation_terms(text: str) -> str:
         '디파이가': '#DeFi 가',
         '이란은': '#이란 은',
         '이란이': '#이란 이',
+        '이란':'#이란',
 		'이란에':'#이란 에',
+        '호주에':'#호주 에',
+        '호주는':'#호주 는',
+        '호주가':'#호주 가',
+        '호주의':'#호주 의',
+        '부탄은':'#부탄 은',
+        '부탄이':'#부탄 이',
+
+
         '미국은': '#미국 은',
         '미국이': '#미국 이',
 		'미국에':'#미국 에',
+        '미 국':'#미국',
 		'영국은':'#영국 은',
 		'영국이':'#영국 이',
 		'영국에':'#영국 에',
+        '영 국':'#영국',
         '연준은': '#연준 은',
         '연준이': '#연준 이',
 		'연준에':'#연준 에',
@@ -852,6 +902,9 @@ def fix_translation_terms(text: str) -> str:
 		'빗썹에':'#빗썸 에',
         '바이낸스는': '#바이낸스 는',
         '바이낸스가': '#바이낸스 가',
+        '바이 낸 스':'#바이낸스',
+        '바이낸 스':'#바이낸스',
+        '바이 낸스':'#바이낸스',
 		'바이낸스에':'#바이낸스 에',
         'Apple은': '#Apple 은',
         'Apple이': '#Apple 이',
@@ -876,18 +929,45 @@ def fix_translation_terms(text: str) -> str:
         '찰스호스킨슨은': '#찰스호스킨슨 은',
         '찰스호스킨슨이': '#찰스호스킨슨 이',
         '크라켄에': '#크라켄 에',
-		'월스트리트':'#월스트리트',
+        '월스트리트':'#월스트리트',
         '월스트리트가':'#월스트리트 가',
         '월스트리트는':'#월스트리트 는',
         '월스트리트에서':'#월스트리트 에서',
+        '월스트 리 트':'#월스트리트',
+        '월스트리 트':'#월스트리트',
+        '월스트 리트':'#월스트리트',
+        '월스트리트저널은':'#월스트리트 저널은',
 		'히든로드':'#히든로드',
 		'히든로드 가':'#히든로드 가',
 		'히든로드 는':'#히든로드 는',
 		'히든로드에서':'#히든로드 에서',
-        'CLARITY':'#CLARITY',
+        '갈링하 우스': '#갈링하우스',
+        '#갈링하 우스': '#갈링하우스',
+        '갈링하 우 스': '#갈링하우스',
+
+        '히든 로드': '#히든로드',
+        '히든 로 드': '#히든로드',
+        'CLARITY':'#클래리티',
+        'CLARITY Act':'#클래리티법안',
         '코인베이스는':'#코인베이스 는',
         '코인베이스가':'#코인베이스 가',    
         '코인베이스 에서':'#코인베이스 에서',
+        '마이크로소프트':'#마이크로소프트',
+        'Google':'#구글',
+        '비트메인에':'#비트메인 에',
+        '현물':'#현물',
+        'Cynthia Lummis':'#신시아루미스',
+        '신시아루미스는':'#신시아루미스 는',
+        '신시아루미스가':'#신시아루미스 가',
+        'BRICS':'#브릭스',
+        'Wells Fago':'#웰스파고',
+        'gamestop':'#게임스탑',
+        'game stop':'#게임스탑',
+        'ChatGPT':'#ChatGPT',
+        'David Sacks':'#데이비드삭스',
+        'DavidSacks':'#데이비드삭스',
+
+
 }
 
     for old, new in replacements.items():
@@ -908,7 +988,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether',''#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
-'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup','#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS'
+'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup','#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#WellsFago','#MIcrosoft'
     }
 
     blocked_contains = [
@@ -1100,6 +1180,8 @@ def build_message(story: dict) -> str:
         'india':'#india',
         '미얀마':'#Myanmar',
         '미국':'#us'
+        '디르함으로':'#디르함 으로',
+        
     }
 
     for key, tag in footer_map.items():
