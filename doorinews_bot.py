@@ -172,10 +172,13 @@ MANUAL_TRANSLATIONS = {
     'Shibarium':'시바리움',
     'Swift': 'SWIFT',
     'Genius Act':'지니어스법안',
+	'Genius':'지니어스',
+	'Act':'법안',
     'ICE':'ICE',
     'CLARITY':'클래리티',
     'stablecoin':'스테이블코인',
     'Blackrock':'블랙록',
+	'MoonPay':'문페이',
     
     
 
@@ -196,9 +199,6 @@ MANUAL_TRANSLATIONS = {
     'myanmar':'미얀마',
     'mastercard': '마스터카드',
     'Google':'구글',
-    'Genius Act':'지니어스 법안',
-    
-
     'SEC': 'SEC',
     'CFTC': 'CFTC',
     'OCC': 'OCC',
@@ -850,6 +850,7 @@ def fix_translation_terms(text: str) -> str:
         '이란은': '#이란 은',
         '이란이': '#이란 이',
         '이란':'#이란',
+		'이 란':'#이란',
 		'이란에':'#이란 에',
         '호주에':'#호주 에',
         '호주는':'#호주 는',
@@ -969,6 +970,7 @@ def fix_translation_terms(text: str) -> str:
         'ChatGPT':'#ChatGPT',
         'David Sacks':'#데이비드삭스',
         'DavidSacks':'#데이비드삭스',
+		'천재 행동':'#지니어스법안',
 
 
 }
