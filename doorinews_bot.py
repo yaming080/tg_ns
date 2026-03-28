@@ -170,7 +170,8 @@ MANUAL_TRANSLATIONS = {
     'Swift': 'SWIFT',
     'Genius Act':'지니어스법안',
     'ICE':'ICE',
-    
+    'CLARITY':'클래리',
+	'stablecoin':'스테이블코인',
     
 
     'Fed': '연준',
@@ -870,7 +871,7 @@ def fix_translation_terms(text: str) -> str:
 		'히든로드 가':'#히든로드 가',
 		'히든로드 는':'#히든로드 는',
 		'히든로드에서':'#히든로드 에서',
-
+        'CLARITY':'#CLARITY',
         '코인베이스는':'#코인베이스 는',
         '코인베이스가':'#코인베이스 가',    
         '코인베이스 에서':'#코인베이스 에서',
@@ -1074,7 +1075,7 @@ def build_message(story: dict) -> str:
         'jed mccaleb': '#JedMcCaleb',
         'charles hoskinson': '#CharlesHoskinson',
         'ledger': '#Ledger',
-        'blackrock': '#BlackRock',
+        'blackrock': '#blackrock',
         'fed': '#Fed',
         'federal reserve': '#Fed',
         'treasury': '#Treasury',
@@ -1083,9 +1084,9 @@ def build_message(story: dict) -> str:
         'california': '#California',
         'morgan stanley': '#MorganStanley',
         'kraken': '#Kraken',
-        '인도':'#인도',
-        '미얀마':'#미얀마',
-        '미국':'#미국'
+        'india':'#india',
+        '미얀마':'#Myanmar',
+        '미국':'#us'
     }
 
     for key, tag in footer_map.items():
