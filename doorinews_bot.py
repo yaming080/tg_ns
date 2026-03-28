@@ -35,7 +35,7 @@ FEEDS = [
     ('뉴스비트코인', 'https://news.bitcoin.com/rss'),
     ('코인터크', 'https://en.coin-turk.com/feed/'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
-    ('이투데이정치', 'https://rss.etoday.co.kr/eto/politics_news.xml'),
+    ('이투데이전체', 'https://rss.etoday.co.kr/eto/etoday_news_all.xml'),
 	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
 	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
 	('비트코이니스트', 'https://bitcoinist.com/feed/'),
@@ -89,7 +89,7 @@ NEGATIVE_KEYWORDS = [
     '소식통에 따르면',
     '관계자에 따르면',
     '업계에 따르면',
-    '시장에 따르면',
+    '시장에 따르면', '처음 등장함',
     '본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며',
     '변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다',
     '심리적 환기 목적으로 제공됩니다',
@@ -776,6 +776,8 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며[^.!?\n]*', '', text)
     text = re.sub(r'변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다[^.!?\n]*', '', text)
     text = re.sub(r'[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]+', '', text)
+    text = re.sub(r'\[\s*\]', '', text)     # [ ] 또는 [] 제거
+    text = re.sub(r'\[[^\]]{0,3}\]', '', text)  # 너무 짧은 괄호 찌꺼기 제거
     text = re.sub(r'\s+', ' ', text).strip()
 
     text = re.sub(r'\s+', ' ', text).strip()
