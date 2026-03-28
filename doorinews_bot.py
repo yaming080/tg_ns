@@ -119,8 +119,8 @@ NEGATIVE_KEYWORDS = [
     'crypto biz:',
     'crypto biz',
     'coindesk according to',
-    'cryptonews first appeared','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
-    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
+    'cryptonews first appeared','CryptoBriefing','Crypto Briefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan','처음으로 게재되었음','데드크로스','Death Cross',
+    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News', '코인 소식 중 중요한 내용만 PiCK 해서 보세요', '뉴스 속보를 제공해요','게시물임','청산','하락','급락','Crypto Briefing 에서','황정수의 글로벌 체크인','defillama.com','하락함','청산됨','매도 압력',  
     
 ]
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
@@ -261,7 +261,6 @@ MANUAL_TRANSLATIONS = {
     'BIP360': 'BIP360',
     'OpenAI': 'OpenAI',
     'Anthropic': 'Anthropic',
-    'Google': 'Google',
     'Super Micro': '슈퍼마이크로',
     'AI': 'AI',
     'LNG': 'LNG',
@@ -269,6 +268,18 @@ MANUAL_TRANSLATIONS = {
     'California': '캘리포니아',
     'Morgan Stanley': '모건스탠리',
     'Kraken': '크라켄',
+	'Genius Act':'지니어스법안',
+	'Genius':'지니어스',
+	'Act':'법안',
+    'ICE':'ICE',
+    'CLARITY':'클래리티',
+    'stablecoin':'스테이블코인',
+    'Blackrock':'블랙록',
+	'MoonPay':'문페이',
+	'coinbase':'코인베이스',
+    'Hidden Road': '히든로드',
+    'MorganStanley':'모건스탠리',
+
 }
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
