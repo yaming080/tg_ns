@@ -812,7 +812,7 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'시바리\s*움', '시바리움', text)
     text = re.sub(r'#바이\s*낸\s*스', '#바이낸스', text)
     text = re.sub(r'바이\s*낸\s*스', '바이낸스', text)
-    text = re.sub(r'#바이낸\s*스', '#바이낸스, text)
+    text = re.sub(r'#바이낸\s*스', '#바이낸스', text)
     text = re.sub(r'바이낸\s*스', '바이낸스', text)
     
     text = re.sub(r'\s+', ' ', text).strip()
@@ -985,10 +985,10 @@ def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
         '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum',
         '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley','#shibarium',
-        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether',''#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
+        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
-'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup','#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#WellsFago','#MIcrosoft'
+'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup','#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#WellsFago','#Microsoft'
     }
 
     blocked_contains = [
@@ -1168,7 +1168,7 @@ def build_message(story: dict) -> str:
         'jed mccaleb': '#JedMcCaleb',
         'charles hoskinson': '#CharlesHoskinson',
         'ledger': '#Ledger',
-        'blackrock': '#blackrock',
+        'blackrock': '#Blackrock',
         'fed': '#Fed',
         'federal reserve': '#Fed',
         'treasury': '#Treasury',
@@ -1177,9 +1177,9 @@ def build_message(story: dict) -> str:
         'california': '#California',
         'morgan stanley': '#MorganStanley',
         'kraken': '#Kraken',
-        'india':'#india',
+        'india':'#India',
         '미얀마':'#Myanmar',
-        '미국':'#us'
+        '미국':'#US',
         '디르함으로':'#디르함 으로',
         
     }
