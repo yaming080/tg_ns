@@ -35,7 +35,6 @@ FEEDS = [
     ('뉴스비트코인', 'https://news.bitcoin.com/rss'),
     ('코인터크', 'https://en.coin-turk.com/feed/'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
-    ('이투데이전체', 'https://rss.etoday.co.kr/eto/etoday_news_all.xml'),
 	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
 	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
 	('비트코이니스트', 'https://bitcoinist.com/feed/'),
@@ -46,6 +45,7 @@ FEEDS = [
 	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
 	('유투데이', 'https://u.today/rss.php'),
 	('비트저널', 'https://thebitjournal.com/feed/'),
+	
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
