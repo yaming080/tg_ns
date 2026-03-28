@@ -28,7 +28,6 @@ FEEDS = [
     ('크립토폴리탄', 'https://www.cryptopolitan.com/feed/'),
     ('더크립토베이식', 'https://thecryptobasic.com/feed/'),
     ('코인게이프', 'https://coingape.com/feed/'),
-    ('타입스베틀로이드', 'https://timestabloid.com/feed/'),
     ('데일리호들', 'https://dailyhodl.com/feed/'),
     ('베인크립토', 'https://beincrypto.com/feed/'),
     ('블루밍비트', 'https://bloomingbit.io/rss.xml'),
