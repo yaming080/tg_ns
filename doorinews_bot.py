@@ -166,7 +166,7 @@ MANUAL_TRANSLATIONS = {
     '시바견':'시바이누',
     '시바 이누':'시바이누',
     '시바 이 누':'시바이누',
-    'Shibarium':시바리움,
+    'Shibarium':'시바리움',
     'Swift': 'SWIFT',
     'Genius Act':'지니어스법안',
     'ICE':'ICE',
