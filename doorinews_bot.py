@@ -170,7 +170,7 @@ MANUAL_TRANSLATIONS = {
     '시바이 누':'시바이누',
     'Shibarium':'시바리움',
     'Swift': 'SWIFT',
-    'Genius Act':'지니어스법안'
+    'Genius Act':'지니어스법안',
     'ICE':'ICE',
     'CLARITY':'클래리티',
     'stablecoin':'스테이블코인',
