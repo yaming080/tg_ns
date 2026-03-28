@@ -782,8 +782,6 @@ def cleanup_text(text: str) -> str:
     text = text.replace('게재물이 ', '')
     text = text.replace('라는 포스트가 ', '')
     text = text.replace('라는 게시물이 ', '')
-	text = text.replace('전체 기사 읽기 ', '')
-    text = text.replace('[] ', '')
 
     text = re.sub(r'^[^.!?\n]{0,40}에 따르면[, ]*', '', text)
     text = re.sub(r'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며[^.!?\n]*', '', text)
