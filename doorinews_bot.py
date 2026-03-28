@@ -281,6 +281,8 @@ MANUAL_TRANSLATIONS = {
     'MorganStanley':'모건스탠리',
 	'GameStop':'게임스탑',
 	'Google':'구글',
+	'India':'인도',
+	
 
 }
 IGNORED_WORDS = {
