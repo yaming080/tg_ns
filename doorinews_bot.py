@@ -279,7 +279,6 @@ MANUAL_TRANSLATIONS = {
     'BIP360': 'BIP360',
     'OpenAI': 'OpenAI',
     'Anthropic': 'Anthropic',
-    'Google': 'Google',
     'Super Micro': '슈퍼마이크로',
     'AI': 'AI',
     'LNG': 'LNG',
@@ -720,15 +719,21 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
     text = summary
     final_tags = []
 
-    NO_TAG_WORDS = {'데이터','환','새로운','계략','가격','천재','행동','등장함','선도적인','올해에도','더','소송','승인','솔라나',
-					'SOL','수요','세부','연구원','실패','북극성','개선','경고하는','순간','역할','여기요','피바다','실행자'}
+    NO_TAG_WORDS = {
+        '데이터','환','새로운','계략','가격','천재','행동','등장함','선도적인',
+        '올해에도','더','소송','승인','솔라나','SOL','수요','세부','연구원',
+        '실패','북극성','개선','경고하는','순간','역할','여기요','피바다','실행자'
+    }
+    no_tag_lower = {w.lower() for w in NO_TAG_WORDS}
 
     for ent in sorted(entities, key=len, reverse=True):
         ent = ent.strip()
         if not ent:
             continue
 
-        if ent.lower() in {w.lower() for w in NO_TAG_WORDS}:
+        korean = entity_korean_name(ent).strip()
+
+        if ent.lower() in no_tag_lower or korean.lower() in no_tag_lower:
             continue
 
         ent_upper = ent.upper()
@@ -738,7 +743,6 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
                 final_tags.append(tag)
             continue
 
-        korean = entity_korean_name(ent)
         tag_text = '#' + korean.replace(' ', '')
         eng_tag = '#' + ent.replace(' ', '')
 
@@ -763,6 +767,14 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
                     text = new_text
                     break
 
+    text = re.sub(r'#현\s*물', '#현물', text)
+    text = re.sub(r'#구\s*글', '#구글', text)
+    text = re.sub(r'#이\s*란', '#이란', text)
+    text = re.sub(r'#미\s*국', '#미국', text)
+    text = re.sub(r'#월스트\s*리\s*트', '#월스트리트', text)
+    text = re.sub(r'#월\s*스\s*트\s*리\s*트', '#월스트리트', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+	
     return text, final_tags
 
 def cleanup_text(text: str) -> str:
@@ -1127,6 +1139,8 @@ def build_message(story: dict) -> str:
     entities = extract_entities(story, max_tags=8)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     dynamic_tags = filter_final_tags(dynamic_tags)
+    summary_ko = fix_translation_terms(summary_ko)
+    summary_ko = cleanup_text(summary_ko)
 
     extra_footer_tags = []
     title_text = (story.get('title', '') + ' ' + story.get('desc', '')).lower()
