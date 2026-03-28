@@ -1,4 +1,19 @@
 
+#!/usr/bin/env python3
+import asyncio
+import hashlib
+import html
+import json
+import os
+import re
+import time
+import urllib.error
+import urllib.request
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
+from html import unescape
+from inspect import iscoroutine
+from difflib import SequenceMatcher
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
@@ -28,6 +43,8 @@ FEEDS = [
 	('크립토뉴스', 'https://cryptonews.com/rss/'),
 	('코인에디션', 'https://coinedition.com/feed/'),
 	('크립토포테이토', 'https://cryptopotato.com/feed/'),
+	('크립토뉴스플레쉬', 'https://crypto-news-flash.com/feed/'),
+	('파이넥스트라', 'https://news.google.com/rss/search?q=site:finextra.com&hl=en-US'),
 	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
 	('유투데이', 'https://u.today/rss.php'),
 	('비트저널', 'https://thebitjournal.com/feed/'),
@@ -97,7 +114,7 @@ NEGATIVE_KEYWORDS = [
     'ATH 대비',
     '토큰포스트',
     '투자 심리',
-    '본 콘텐츠는','과매수 신호가','과매도 신호','코인데스크에 따르면',
+    '본 콘텐츠는','과매수 신호가','과매도 신호,'코인데스크에 따르면',
     'coindesk에 따르면',
     'cryptonews 에 처음 등장함',
     'cryptonews에 처음 등장함',
@@ -105,7 +122,7 @@ NEGATIVE_KEYWORDS = [
     'crypto biz',
     'coindesk according to',
     'cryptonews first appeared','CryptoBriefing','Cointelegraph','CryptoSlate','TheBlock','WatcherGuru','Cryptopolitan',
-    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News',
+    'TheCryptoBasic','CoinGape','TimesTabloid','DailyHodl','BeInCrypto','BloomingBit','NewsBitcoin','CoinTurk', '.com News', '코인 소식 중 중요한 내용만 PiCK 해서 보세요', '뉴스 속보를 제공해요','게시물임','청산','하락','급락'
     
 ]
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
@@ -147,8 +164,14 @@ MANUAL_TRANSLATIONS = {
     'DooriNews': '도리뉴스',
     'Shiba Inu': '시바이누',
     '시바견':'시바이누',
-    'Shibarium':'시바리움',
+    '시바 이누':'시바이누',
+    '시바 이 누':'시바이누',
+    'Shibarium':시바리움,
     'Swift': 'SWIFT',
+    'Genius Act':'지니어스법안',
+    'ICE':'ICE',
+    
+    
 
     'Fed': '연준',
     'Federal Reserve': '연준',
@@ -163,7 +186,10 @@ MANUAL_TRANSLATIONS = {
     'Iran': '이란',
     'Israel': '이스라엘',
     'Qatar': '카타르',
+    'india':'인도',
+    'myanmar':'미얀마',
     'mastercard': '마스터카드',
+    'Google':'구글',
 
     'SEC': 'SEC',
     'CFTC': 'CFTC',
@@ -250,10 +276,11 @@ MANUAL_TRANSLATIONS = {
     'Super Micro': '슈퍼마이크로',
     'AI': 'AI',
     'LNG': 'LNG',
-    'BAZAN': '바잔',
+    'BAZAN': '바잔'
     'California': '캘리포니아',
     'Morgan Stanley': '모건스탠리',
     'Kraken': '크라켄',
+    'coinbase':'코인베이스',
 }
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
@@ -514,18 +541,18 @@ def score_sentence(s: str, title: str = "") -> int:
 
     return score
 
-def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
+def summarize_text(text: str, title: str = "", max_sentences: int = SUMMARY_SENTENCES) -> str:
     text = cleanup_text(text)
     title = cleanup_text(title)
 
     if is_weak_text(text):
         text = title
 
-    sentences = re.split(r'(?<=[.!?])\s+|\n+|(?<=다)\s+|(?<=임)\s+|(?<=음)\s+', text)
-
+    sentences = re.split(r'(?<=[.!?])\s+|\n+', text)
     usable = []
+
     for s in sentences:
-        s = s.strip(" ,")
+        s = s.strip()
         if not s or is_bad_line(s):
             continue
         usable.append(s)
@@ -533,27 +560,23 @@ def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
     if not usable:
         return title
 
+    # 중요도 높은 문장부터 정렬
     usable.sort(key=lambda s: score_sentence(s, title), reverse=True)
 
     picked = []
-    total_len = 0
-
     for s in usable:
-        if s in picked:
-            continue
-
-        # 너무 길어지면 문장 단위로 멈춤
-        if total_len + len(s) > 180 and picked:
-            break
-
-        picked.append(s)
-        total_len += len(s)
-
+        if s not in picked:
+            picked.append(s)
         if len(picked) >= max_sentences:
             break
 
     summary = ' '.join(picked)
     summary = re.sub(r'\s+', ' ', summary).strip()
+
+    # 너무 길 때만 완화된 제한
+    if len(summary) > 220:
+        summary = summary[:220].rsplit(' ', 1)[0].strip()
+
     return summary
 def translate_text_to_korean(text: str) -> str:
     if not text:
@@ -752,17 +775,24 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'^[^.!?\n]{0,40}에 따르면[, ]*', '', text)
     text = re.sub(r'본 콘텐츠는 특정 종목이나 자산에 대한 투자 조언이 아니며[^.!?\n]*', '', text)
     text = re.sub(r'변동성 높은 시장에서 흔들리지 않는 투자 마인드를 가꾸기 위한 심리적 환기 목적으로 제공됩니다[^.!?\n]*', '', text)
+    text = re.sub(r'[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]+', '', text)
+    text = re.sub(r'\s+', ' ', text).strip()
 
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+def remove_cjk_hanja(text: str) -> str:
+    text = re.sub(r'[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]+', '', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
 def fix_translation_terms(text: str) -> str:
     replacements = {
-        '시바견': '#시바이누 는',
+        '시바견': '#시바이누',
         '시바이누 은': '#시바이누 는',
         '시바이누 는': '#시바이누 는',
         '시바이누 가': '#시바이누 가',
+        '시바 이 누':'#시바이누',
         '톰 리': '#톰리',
         '제롬 파월': '#제롬파월',
         '연방 준비 제도': '#연방준비제도',
@@ -831,7 +861,15 @@ def fix_translation_terms(text: str) -> str:
         '제드맥케일럽이': '#제드맥케일럽 이',
         '찰스호스킨슨은': '#찰스호스킨슨 은',
         '찰스호스킨슨이': '#찰스호스킨슨 이',
-    }
+        '크라켄에': '#크라켄 에',
+        '월스트리트가':'월스트리트 가',
+        '월스트리트는':'월스트리트 는',
+        '월스트리트에서':'월스트리트 에서',
+
+        '코인베이스는':'#코인베이스 는',
+        '코인베이스가':'#코인베이스 가',    
+        '코인베이스 에서':'#코인베이스 에서',
+}
 
     for old, new in replacements.items():
         text = text.replace(old, new)
@@ -981,6 +1019,7 @@ def build_message(story: dict) -> str:
     summary_ko = fix_truncated_phrases(summary_ko)
     summary_ko = normalize_style(summary_ko)
     summary_ko = cleanup_text(summary_ko)
+    summary_ko = remove_cjk_hanja(summary_ko)
 
     entities = extract_entities(story, max_tags=8)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
@@ -1039,6 +1078,9 @@ def build_message(story: dict) -> str:
         'california': '#California',
         'morgan stanley': '#MorganStanley',
         'kraken': '#Kraken',
+        '인도':'#인도',
+        '미얀마':'#미얀마',
+        '미국':'#미국'
     }
 
     for key, tag in footer_map.items():
