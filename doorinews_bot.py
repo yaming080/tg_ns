@@ -148,7 +148,7 @@ NEGATIVE_KEYWORDS = [
 	'코인 소식 중 중요한 내용만 PiCK 해서 보세요', '뉴스 속보를 제공해요','게시물임','청산','하락','급락','Crypto Briefing 에서',
 	'황정수의 글로벌 체크인','defillama.com','하락함','청산됨','매도 압력', '이 작성함', '이재명','bristol myers squibb', 'bmy', 'biopharma', 'pharma', 'pharmaceutical',
 'drug', 'therapy', 'treatment', 'clinical', 'trial', 'patient',
-'medicine', 'healthcare', 'biotech', 'phase 1', 'phase 2', 'phase 3','제약', '바이오', '임상', '치료제', '약물', '환자', '의약품', '헬스케어','price drop', 'market drop', 'drops below', 'decline', 'declined','fell', 'fall below', 'slump', 'sell-off', 'bearish'
+'medicine', 'healthcare', 'biotech', 'phase 1', 'phase 2', 'phase 3','제약', '바이오', '임상', '치료제', '약물', '환자', '의약품', '헬스케어','price drop', 'market drop', 'drops below', 'decline', 'declined','fell', 'fall below', 'slump', 'sell-off', 'bearish','극단적인 공포','extreme fear','Conjecture',
     
 ]
 
@@ -775,6 +775,15 @@ def score_sentence(s: str, title: str = "") -> int:
 
     return score
 
+def has_weak_reference(text: str) -> bool:
+    low = f" {text.lower()} "
+    weak_refs = [
+        ' it ', ' they ', ' them ', ' this ', ' that ', ' these ', ' those ',
+        ' its ', ' their ', ' his ', ' her ',
+        '그것', '그들이', '그들', '이는', '이것', '저것', '해당', '이를', '그의', '그녀의'
+    ]
+    return any(x in low for x in weak_refs)
+
 def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
     text = cleanup_text(text)
     title = cleanup_text(title)
@@ -782,40 +791,68 @@ def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
     if is_weak_text(text):
         text = title
 
-    sentences = re.split(r'(?<=[.!?])\s+|\n+|(?<=다)\s+|(?<=임)\s+|(?<=음)\s+', text)
+    raw_sentences = re.split(r'(?<=[.!?])\s+|\n+|(?<=다)\s+|(?<=임)\s+|(?<=음)\s+', text)
 
-    usable = []
-    for s in sentences:
+    indexed_sentences = []
+    for idx, s in enumerate(raw_sentences):
         s = s.strip(" ,")
         if not s or is_bad_line(s):
             continue
-        usable.append(s)
+        indexed_sentences.append((idx, s))
 
-    if not usable:
+    if not indexed_sentences:
         return title
 
-    usable.sort(key=lambda s: score_sentence(s, title), reverse=True)
+    ranked = sorted(
+        indexed_sentences,
+        key=lambda x: score_sentence(x[1], title),
+        reverse=True
+    )
 
     picked = []
+    picked_idx = set()
     total_len = 0
+    max_len = 180
 
-    for s in usable:
-        if s in picked:
-            continue
+    for idx, s in ranked:
+        candidates = []
 
-        # 너무 길어지면 문장 단위로 멈춤
-        if total_len + len(s) > 180 and picked:
+        if has_weak_reference(s) and idx > 0:
+            prev_s = raw_sentences[idx - 1].strip(" ,")
+            if prev_s and not is_bad_line(prev_s):
+                candidates.append((idx - 1, prev_s))
+
+        candidates.append((idx, s))
+
+        stop_outer = False
+
+        for cand_idx, cand_s in candidates:
+            if cand_idx in picked_idx:
+                continue
+
+            if total_len + len(cand_s) > max_len and picked:
+                stop_outer = True
+                break
+
+            picked.append((cand_idx, cand_s))
+            picked_idx.add(cand_idx)
+            total_len += len(cand_s)
+
+            if len(picked) >= max_sentences:
+                stop_outer = True
+                break
+
+        if stop_outer:
             break
 
-        picked.append(s)
-        total_len += len(s)
+    if not picked:
+        return title
 
-        if len(picked) >= max_sentences:
-            break
-
-    summary = ' '.join(picked)
+    picked.sort(key=lambda x: x[0])
+    summary = ' '.join(s for _, s in picked)
     summary = re.sub(r'\s+', ' ', summary).strip()
     return summary
+
 def translate_text_to_korean(text: str) -> str:
     if not text:
         return ""
