@@ -97,7 +97,7 @@ KOREAN_TAG_KEYWORDS = [
 '서클', '머니그램', 'Apple', '페이팔', '스트라이프', '제미니', '칼시', '제드시온', '에버노스',
 'XRPLedger', '세계금협회', '디지털금', '비트코인퀀텀', 'BIP360', 'OpenAI', 'Anthropic',
 '슈퍼마이크로', 'AI', 'LNG', '바잔', '캘리포니아', '지니어스법안', '지니어스', '법안', 'ICE',
-'클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '구글', '인도', '웰스파고'
+'클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '구글', '인도', '웰스파고', '피터쉬프', '패니매'
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -506,8 +506,15 @@ MANUAL_TRANSLATIONS = {
 
     'Wells Fargo': '웰스파고',
     '웰스파고': '웰스파고',
+
+    'Peter Schiff':'Peter Schiff', 
+    '피터 쉬프':'피터쉬프'
+
+    'Fannie Mae':'FannieMae', 
+    '패니 매':'패니매'
 }
 
+}
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
     'acquires','funds','boosts','first','second','third','study','trial','trials','tests',
@@ -1311,6 +1318,8 @@ def build_message(story: dict) -> str:
         'california': '#California',
         'morgan stanley': '#MorganStanley',
         'kraken': '#Kraken',
+        'Fannie Mae':'#FannieMae',
+        'Peter Shiff':'#PeterShiff',
     }
 
     for key, tag in footer_map.items():
