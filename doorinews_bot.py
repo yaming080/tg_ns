@@ -954,7 +954,22 @@ def build_story_signature(story: dict) -> str:
         'brad garlinghouse', 'david schwartz', 'monica long', 'vitalik buterin',
         'satoshi nakamoto', 'elon musk', 'justin sun', 'jed mccaleb', 'charles hoskinson','openai', 'anthropic', 'google', 'xai', 'grok','x','github', 'phishing', 'wallet', 'openclaw', 'developer', 'developers', 'scam',
 
-        'donald trump', 'trump', 'strategy', 'evernorth','brazil', 'finance minister', 'crypto tax', 'election',
+        'donald trump', 'trump', 'strategy', 'evernorth','brazil', 'finance minister', 'crypto tax', 'election','비트코인', '이더리움', '리플', '스텔라', '에이다', '트론', '바이낸스코인', '비트코인캐시', '시바이누', '이더리움클래식', '플레어', '아테나', '에테나', '유에스디씨', '유에스디티',
+'이더리움', '카르다노', '스테이블코인', '테더',
+
+'소프트뱅크', '제이피모건', '모건스탠리', '골드만삭스', '코인베이스',
+'로빈후드', '업비트', '빗썸', '비트마인', '유니스왑', '리플', '엑스알피레저', '엑스알피레저',
+
+'엔비디아', '오하이오', '한국', '일본', '이란', '이스라엘',
+
+'디파이', '엔에프티', '웹3', '이티에프', '에스이씨', '씨에프티씨', '아이피오', '브이알',
+'연준', '연방준비제도', '금', '은',
+
+'톰리', '제롬파월', '타임트래블러', '존스콰이어',
+'브래드갈링하우스', '데이비드슈워츠', '모니카롱', '비탈릭부테린',
+'사토시나카모토', '일론머스크', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '오픈에이아이', '앤트로픽', '구글', '엑스에이아이', '그록', '엑스', '깃허브', '피싱', '지갑', '오픈클로', '개발자', '개발자들', '사기',
+
+'도널드트럼프', '트럼프', '스트래티지', '에버노스', '브라질', '재무장관', '암호화폐세금', '선거',
     ]
 
     for term in term_pool:
