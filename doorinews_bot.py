@@ -130,7 +130,7 @@ NEGATIVE_KEYWORDS = [
     'first appeared on',
     '처음 게재되었',
     '처음 게재되었습니다',
-    'times tabloid에 처음 게재',
+    'times tabloid에 처음 게재', 'Times Tabloid 에 처음으로 게재되었음',
     'timestabloid에 처음 게재',
     'ATH 대비',
     '토큰포스트',
@@ -148,7 +148,15 @@ NEGATIVE_KEYWORDS = [
 	'코인 소식 중 중요한 내용만 PiCK 해서 보세요', '뉴스 속보를 제공해요','게시물임','청산','하락','급락','Crypto Briefing 에서',
 	'황정수의 글로벌 체크인','defillama.com','하락함','청산됨','매도 압력', '이 작성함', '이재명','bristol myers squibb', 'bmy', 'biopharma', 'pharma', 'pharmaceutical',
 'drug', 'therapy', 'treatment', 'clinical', 'trial', 'patient',
-'medicine', 'healthcare', 'biotech', 'phase 1', 'phase 2', 'phase 3','제약', '바이오', '임상', '치료제', '약물', '환자', '의약품', '헬스케어','price drop', 'market drop', 'drops below', 'decline', 'declined','fell', 'fall below', 'slump', 'sell-off', 'bearish','극단적인 공포','extreme fear','Conjecture',
+'medicine', 'healthcare', 'biotech', 'phase 1', 'phase 2', 'phase 3','제약', '바이오', '임상', '치료제', '약물', '환자',
+	'의약품', '헬스케어','price drop', 'market drop', 'drops below', 'decline', 'declined','fell', 'fall below', 'slump',
+	'sell-off', 'bearish','극단적인 공포','extreme fear','Conjecture',
+	'first appeared on times tabloid',
+    'appeared first on times tabloid',
+    'published first on times tabloid',
+    'first published on times tabloid',
+    'first appeared on timestabloid',
+    'appeared first on timestabloid',
     
 ]
 
