@@ -153,10 +153,12 @@ NEGATIVE_KEYWORDS = [
 	'sell-off', 'bearish','극단적인 공포','extreme fear','Conjecture',
 	'first appeared on times tabloid',
     'appeared first on times tabloid',
-    'published first on times tabloid',
     'first published on times tabloid',
+    'published first on times tabloid',
     'first appeared on timestabloid',
     'appeared first on timestabloid',
+    'first published on timestabloid',
+    'published first on timestabloid',
     
 ]
 
