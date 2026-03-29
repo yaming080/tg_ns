@@ -155,7 +155,6 @@ FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','
 
 
 MANUAL_TRANSLATIONS = {
-MANUAL_TRANSLATIONS = {
     'Ironlight': '아이언라이트',
     '아이언라이트': '아이언라이트',
 
