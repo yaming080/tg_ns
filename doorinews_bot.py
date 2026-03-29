@@ -286,7 +286,7 @@ MANUAL_TRANSLATIONS = {
 	'Google':'구글',
 	'India':'인도',
 	'Wells Fargo':'웰스파고'
-	
+
 
 }
 IGNORED_WORDS = {
@@ -692,6 +692,9 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
         if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
             entities.append(key)
+	for kw in KOREAN_KEYWORDS:
+    if kw in text:
+        entities.append(kw)
     for coin in PORTFOLIO_COINS:
         if re.search(r'\b' + re.escape(coin) + r'\b', text, re.I):
             entities.append(coin)
