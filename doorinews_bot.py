@@ -159,7 +159,12 @@ NEGATIVE_KEYWORDS = [
     'appeared first on timestabloid',
     'first published on timestabloid',
     'published first on timestabloid',
-    
+    'morning crypto report',
+'weak price action',
+'rising leverage',
+'unstable setup',
+'가격조정', '가격 조정',
+'레버리지',
 ]
 
 
