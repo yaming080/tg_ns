@@ -693,8 +693,8 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
         if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
             entities.append(key)
 	for kw in KOREAN_KEYWORDS:
-    if kw in text:
-        entities.append(kw)
+        if kw in text:
+            entities.append(kw)
     for coin in PORTFOLIO_COINS:
         if re.search(r'\b' + re.escape(coin) + r'\b', text, re.I):
             entities.append(coin)
