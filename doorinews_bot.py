@@ -563,6 +563,12 @@ STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 8
 SUMMARY_SENTENCES = 4
 
+def normalize_url(url: str) -> str:
+    url = (url or '').strip().lower()
+    url = re.sub(r'^https?://', '', url)
+    url = url.rstrip('/')
+    return url
+
 def log(msg: str) -> None:
     print(msg, flush=True)
 
@@ -588,11 +594,26 @@ def save_state(path: str, state: dict):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
-def is_duplicate(title: str, posted: dict) -> bool:
-    return story_hash(title) in posted
+def is_duplicate(title: str, posted: dict, url: str = "") -> bool:
+    title_key = story_hash(title)
+    if title_key in posted:
+        return True
 
-def update_posted(title: str, posted: dict):
-    posted[story_hash(title)] = {'title': title, 'ts': datetime.now(timezone.utc).isoformat()}
+    norm_url = normalize_url(url)
+    if norm_url:
+        for item in posted.values():
+            old_url = normalize_url(item.get('url', ''))
+            if old_url and old_url == norm_url:
+                return True
+
+    return False
+
+def update_posted(title: str, posted: dict, url: str = ""):
+    posted[story_hash(title)] = {
+        'title': title,
+        'url': normalize_url(url),
+        'ts': datetime.now(timezone.utc).isoformat()
+    }
 
 def is_weak_text(text: str) -> bool:
     low = text.lower().strip()
@@ -1489,8 +1510,8 @@ def main():
             log(f"[URL중복 제외] {title}")
             continue
 
-        if is_duplicate(title, posted):
-            log(f"[제목중복 제외] {title}")
+        if is_duplicate(title, posted, url):
+            log(f"[제목/URL중복 제외] {title}")
             continue
 
         if is_semantically_duplicate(s, seen_signatures, seen_titles):
@@ -1527,7 +1548,7 @@ def main():
         )
 
         if ok:
-            update_posted(story['title'], posted)
+            update_posted(story['title'], posted, story.get('url', ''))
             state['posted'] = posted
             save_state(STATE_FILE, state)
             log(f"Posted: {story['title']}")
