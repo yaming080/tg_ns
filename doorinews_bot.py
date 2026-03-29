@@ -511,8 +511,7 @@ MANUAL_TRANSLATIONS = {
     '피터 쉬프':'피터쉬프'
 
     'Fannie Mae':'FannieMae', 
-    '패니 매':'패니매'
-}
+    '패니 매':'패니매
 
 }
 IGNORED_WORDS = {
