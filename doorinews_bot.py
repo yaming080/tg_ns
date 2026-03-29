@@ -76,6 +76,29 @@ KOREAN_KEYWORDS = [
     '양자','컴퓨팅','공격','방지','배포','금','디지털 금','세계금협회',
     '예측시장','차량공유','카풀','거래소','감독'
 ]
+KOREAN_TAG_KEYWORDS = [
+    '비트코인', '이더리움', '리플', '스텔라', '에이다', '트론',
+'시바이누', '스테이블코인',
+'미국', '이란', '이스라엘', '일본', '한국', '중국', '브라질',
+'연준', '환율', '유동성', '금', '은', '재무부',
+'ETF', 'SEC', 'CFTC', 'OCC',
+'업비트', '빗썸', '바이낸스', '코인베이스',
+'모건스탠리', '골드만삭스', '크라켄', '로빈후드',
+'일론머스크', '갈링하우스', '제롬파월', '트럼프',
+'아이언라이트', '보어히스', '에릭보어히스', '마이클세일러', '세일러', '로버트기요사키', '폴앳킨스',
+'데이비드슈워츠', '마이크노보그라츠', '샘알트만', '셰이프시프트', '브래드갈링하우스', '모니카롱',
+'비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
+'스트래티지', '도널드트럼프', '테더', '플레어', 'FLR', '아테나', '에테나', '메타플래닛', '도리뉴스',
+'시바리움', 'SWIFT', '백악관', '카타르', '마스터카드',
+'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+'토큰화', '수탁', '시드문구', '소송', '규제', '해석',
+'DeFi', 'NFT', 'Web3', 'BitMine', '톰리', 'Thomasgeth', 'TimeTraveler', 'JohnSquire',
+'유니스왑', 'HaydenAdams', '파월', 'America', '네비다주', 'JPMorgan', '라이드', '바이비트', 'Ledger',
+'서클', '머니그램', 'Apple', '페이팔', '스트라이프', '제미니', '칼시', '제드시온', '에버노스',
+'XRPLedger', '세계금협회', '디지털금', '비트코인퀀텀', 'BIP360', 'OpenAI', 'Anthropic',
+'슈퍼마이크로', 'AI', 'LNG', '바잔', '캘리포니아', '지니어스법안', '지니어스', '법안', 'ICE',
+'클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '구글', '인도', '웰스파고'
+]
 
 NEGATIVE_KEYWORDS = [
     'newsletter', 'the daily', '더데일리', '뉴스레터', '발췌', '발췌한 것임',
@@ -126,62 +149,156 @@ NEGATIVE_KEYWORDS = [
 	'황정수의 글로벌 체크인','defillama.com','하락함','청산됨','매도 압력', '이 작성함', '이재명',
     
 ]
+
+
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
+
+
 MANUAL_TRANSLATIONS = {
-'Ironlight': '아이언라이트',
+MANUAL_TRANSLATIONS = {
+    'Ironlight': '아이언라이트',
+    '아이언라이트': '아이언라이트',
+
     'Vorhees': '보어히스',
+    '보어히스': '보어히스',
+
     'Erik Vorhees': '에릭보어히스',
+    '에릭보어히스': '에릭보어히스',
+
     'Michael Saylor': '마이클세일러',
+    '마이클세일러': '마이클세일러',
+
     'Saylor': '세일러',
+    '세일러': '세일러',
+
     'Robert Kiyosaki': '로버트기요사키',
+    '로버트기요사키': '로버트기요사키',
+
     'Paul Atkins': '폴앳킨스',
+    '폴앳킨스': '폴앳킨스',
+
     'David Schwartz': '데이비드슈워츠',
+    '데이비드슈워츠': '데이비드슈워츠',
+
     'Mike Novogratz': '마이크노보그라츠',
+    '마이크노보그라츠': '마이크노보그라츠',
+
     'Sam Altman': '샘알트만',
+    '샘알트만': '샘알트만',
+
     'Elon Musk': '일론머스크',
+    '일론머스크': '일론머스크',
+
     'ShapeShift': '셰이프시프트',
-    'Brad Garlinghouse': '브래드갈링하우스',
-    'David Schwartz': '데이비드슈워츠',
+    '셰이프시프트': '셰이프시프트',
+
+    'Brad Garlinghouse': '갈링하우스',
+    '갈링하우스': '갈링하우스',
+
     'Monica Long': '모니카롱',
+    '모니카롱': '모니카롱',
+
     'Vitalik Buterin': '비탈릭부텔린',
+    '비탈릭부텔린': '비탈릭부텔린',
+
     'Satoshi Nakamoto': '사토시나카모토',
-    'Elon Musk': '일론머스크',
+    '사토시나카모토': '사토시나카모토',
+
     'Justin Sun': '저스틴썬',
+    '저스틴썬': '저스틴썬',
+
     'Jed McCaleb': '제드맥케일럽',
-    'Charles Hoskinson': '찰스호스킨슨',    
+    '제드맥케일럽': '제드맥케일럽',
+
+    'Charles Hoskinson': '찰스호스킨슨',
+    '찰스호스킨슨': '찰스호스킨슨',
+
     'Goldman Sachs': '골드만삭스',
+    '골드만삭스': '골드만삭스',
+
     'Strategy': '스트래티지',
+    '스트래티지': '스트래티지',
+
     'Donald Trump': '도널드트럼프',
+    '도널드트럼프': '도널드트럼프',
+
     'Trump': '트럼프',
+    '트럼프': '트럼프',
+
     'Robinhood': '로빈후드',
+    '로빈후드': '로빈후드',
+
     'Tether': '테더',
+    '테더': '테더',
+
     'Ripple': '리플',
+    '리플': '리플',
+
     'Flare': '플레어',
+    '플레어': '플레어',
+
     'FLR': 'FLR',
     'ATHENA': '아테나',
+    '아테나': '아테나',
+
     'ENA': '에테나',
     'Ethena': '에테나',
+    '에테나': '에테나',
+
     'Metaplanet': '메타플래닛',
+    '메타플래닛': '메타플래닛',
+
     'DooriNews': '도리뉴스',
+    '도리뉴스': '도리뉴스',
+
     'Shiba Inu': '시바이누',
-    '시바견':'시바이누',
-    'Shibarium':'시바리움',
+    '시바이누': '시바이누',
+    '시바견': '시바이누',
+
+    'Shibarium': '시바리움',
+    '시바리움': '시바리움',
+
     'Swift': 'SWIFT',
 
     'Fed': '연준',
     'Federal Reserve': '연준',
+    '연준': '연준',
+
     'Treasury': '재무부',
+    '재무부': '재무부',
+
     'White House': '백악관',
+    '백악관': '백악관',
+
     'Brazil': '브라질',
+    '브라질': '브라질',
+
     'China': '중국',
+    '중국': '중국',
+
     'Japan': '일본',
+    '일본': '일본',
+
     'Korea': '한국',
     'South Korea': '한국',
+    '한국': '한국',
+
     'United States': '미국',
+    'US': '미국',
+    '미국': '미국',
+
     'Iran': '이란',
+    '이란': '이란',
+
     'Israel': '이스라엘',
+    '이스라엘': '이스라엘',
+
     'Qatar': '카타르',
+    '카타르': '카타르',
+
     'mastercard': '마스터카드',
+    'Mastercard': '마스터카드',
+    '마스터카드': '마스터카드',
 
     'SEC': 'SEC',
     'CFTC': 'CFTC',
@@ -201,92 +318,196 @@ MANUAL_TRANSLATIONS = {
     'DOGE': 'DOGE',
 
     'Bitcoin': '비트코인',
+    '비트코인': '비트코인',
+
     'Ethereum': '이더리움',
+    '이더리움': '이더리움',
+
     'Stablecoin': '스테이블코인',
+    'stablecoin': '스테이블코인',
+    '스테이블코인': '스테이블코인',
+
     'Tokenization': '토큰화',
+    '토큰화': '토큰화',
+
     'Custody': '수탁',
+    '수탁': '수탁',
+
     'Seed Phrase': '시드문구',
+    '시드문구': '시드문구',
+
     'Lawsuit': '소송',
+    '소송': '소송',
+
     'Regulation': '규제',
+    '규제': '규제',
+
     'Interpretation': '해석',
+    '해석': '해석',
 
     'DeFi': 'DeFi',
+    '디파이': 'DeFi',
+
     'NFT': 'NFT',
     'Web3': 'Web3',
 
     'BitMine': 'BitMine',
+    '비트마인': 'BitMine',
+
     'Tom Lee': '톰리',
+    '톰리': '톰리',
+
     'Thomasg.eth': 'Thomasgeth',
     'Time Traveler': 'TimeTraveler',
     'John Squire': 'JohnSquire',
 
     'Uniswap': '유니스왑',
+    '유니스왑': '유니스왑',
+
     'Hayden Adams': 'HaydenAdams',
 
     'Jerome Powell': '제롬파월',
     'Powell': '파월',
-    
-    'Japan': '일본',
-    'United States': '미국',
-    'US': '미국',
-    'America': 'America',
-    '미국': '미국',
+    '제롬파월': '제롬파월',
+    '파월': '파월',
+
+    'America': '미국',
 
     'Nevada': '네비다주',
+    '네비다주': '네비다주',
 
     'J.P. Morgan': 'JPMorgan',
     'JP Morgan': 'JPMorgan',
     'JPMorgan': 'JPMorgan',
+    '제이피모건': 'JPMorgan',
+
     'Ryde': '라이드',
+    '라이드': '라이드',
+
     'Bybit': '바이비트',
-    'Tether': '테더',
+    '바이비트': '바이비트',
+
     'Ledger': 'Ledger',
+    '서클': '서클',
     'Circle': '서클',
+
     'MoneyGram': '머니그램',
+    '머니그램': '머니그램',
+
     'Upbit': '업비트',
-    'Bithumb': '빗썸',    
+    '업비트': '업비트',
+
+    'Bithumb': '빗썸',
+    '빗썸': '빗썸',
+
     'Binance': '바이낸스',
-    'Apple': 'Apple',
+    '바이낸스': '바이낸스',
+
+    'Apple': '애플',
+    '애플': '애플',
+
     'PayPal': '페이팔',
-    'Robinhood': '로빈후드',
+    '페이팔': '페이팔',
+
     'Stripe': '스트라이프',
+    '스트라이프': '스트라이프',
+
     'Gemini': '제미니',
+    '제미니': '제미니',
+
     'Kalshi': '칼시',
+    '칼시': '칼시',
+
     'Zedxion': '제드시온',
+    '제드시온': '제드시온',
+
     'Evernorth Holdings': '에버노스',
     'Evernorth': '에버노스',
+    '에버노스': '에버노스',
+
     'XRPLedger': 'XRPLedger',
+    'XRP Ledger': 'XRPLedger',
+
     'World Gold Council': '세계금협회',
+    '세계금협회': '세계금협회',
+
     'Gold': '금',
+    '금': '금',
+
     'Digital Gold': '디지털금',
-    'Silver':'은',
+    '디지털금': '디지털금',
+
+    'Silver': '은',
+    '은': '은',
+
     'Bitcoin Quantum': '비트코인퀀텀',
+    '비트코인퀀텀': '비트코인퀀텀',
+
     'BIP360': 'BIP360',
+
     'OpenAI': 'OpenAI',
+    '오픈에이아이': 'OpenAI',
+
     'Anthropic': 'Anthropic',
+    '앤트로픽': 'Anthropic',
+
     'Super Micro': '슈퍼마이크로',
+    '슈퍼마이크로': '슈퍼마이크로',
+
     'AI': 'AI',
     'LNG': 'LNG',
-    'BAZAN': '바잔',
-    'California': '캘리포니아',
-    'Morgan Stanley': '모건스탠리',
-    'Kraken': '크라켄',
-	'Genius Act':'지니어스법안',
-	'Genius':'지니어스',
-	'Act':'법안',
-    'ICE':'ICE',
-    'CLARITY':'클래리티',
-    'stablecoin':'스테이블코인',
-    'Blackrock':'블랙록',
-	'MoonPay':'문페이',
-	'coinbase':'코인베이스',
-    'Hidden Road': '히든로드',
-    'MorganStanley':'모건스탠리',
-	'GameStop':'게임스탑',
-	'Google':'구글',
-	'India':'인도',
-	'Wells Fargo':'웰스파고'
 
+    'BAZAN': '바잔',
+    '바잔': '바잔',
+
+    'California': '캘리포니아',
+    '캘리포니아': '캘리포니아',
+
+    'Morgan Stanley': '모건스탠리',
+    'MorganStanley': '모건스탠리',
+    '모건스탠리': '모건스탠리',
+
+    'Kraken': '크라켄',
+    '크라켄': '크라켄',
+
+    'Genius Act': '지니어스법안',
+    '지니어스법안': '지니어스법안',
+    'Genius': '지니어스',
+    '지니어스': '지니어스',
+    'Act': '법안',
+    '법안': '법안',
+
+    'ICE': 'ICE',
+
+    'CLARITY': '클래리티',
+    '클래리티': '클래리티',
+
+    'Blackrock': '블랙록',
+    'BlackRock': '블랙록',
+    '블랙록': '블랙록',
+
+    'MoonPay': '문페이',
+    '문페이': '문페이',
+
+    'coinbase': '코인베이스',
+    'Coinbase': '코인베이스',
+    '코인베이스': '코인베이스',
+
+    'Hidden Road': '히든로드',
+    '히든로드': '히든로드',
+
+    'GameStop': '게임스탑',
+    '게임스탑': '게임스탑',
+
+    'Google': '구글',
+    '구글': '구글',
+
+    'India': '인도',
+    '인도': '인도',
+
+    'Wells Fargo': '웰스파고',
+    '웰스파고': '웰스파고',
+}
 
 }
 IGNORED_WORDS = {
@@ -692,7 +913,7 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
         if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
             entities.append(key)
-    for kw in KOREAN_KEYWORDS:
+    for kw in KOREAN_TAG_KEYWORDS:
         if kw in text:
             entities.append(kw)
     for coin in PORTFOLIO_COINS:
