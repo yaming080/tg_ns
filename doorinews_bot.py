@@ -508,7 +508,6 @@ MANUAL_TRANSLATIONS = {
     '웰스파고': '웰스파고',
 }
 
-}
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
     'acquires','funds','boosts','first','second','third','study','trial','trials','tests',
