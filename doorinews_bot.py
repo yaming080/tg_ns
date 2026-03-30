@@ -203,11 +203,8 @@ NEGATIVE_KEYWORDS = [
 '리스크 오프',
 'test support', '지지선 시험대',
 'entry zone', '진입 구역',
-'monthly chart', '월간 차트','reason', 'reasons', 'why', '이유',,
+'monthly chart', '월간 차트','reason', 'reasons',
 'uncertain', 'uncertainty', '불확실', '불확실성','reason', 'reasons', 'why', '이유',
-'strategy', 'strategic', '전략', '전략적',
-'uncertain', 'uncertainty', '불확실', '불확실성',
-
 	
 ]
 
