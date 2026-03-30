@@ -208,7 +208,8 @@ NEGATIVE_KEYWORDS = [
 'test support', '지지선 시험대',
 'entry zone', '진입 구역',
 'monthly chart', '월간 차트','reason', 'reasons',
-'uncertain', 'uncertainty', '불확실', '불확실성','reason', 'reasons', 'why', '이유',
+'uncertain', 'uncertainty', '불확실', '불확실성','reason', 'reasons', 'why', '이유', 'oil', 'solar', 'renewable', 'dividend', 'shareholder', 'board reshuffle',
+'주주총회', '배당', '태양광', '에너지 전환', '중장기 성장 전략',
 	
 ]
 
@@ -672,7 +673,7 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
     'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI',
 }
 STATE_FILE = 'news_state.json'
-MAX_ITEMS_PER_FEED = 4
+MAX_ITEMS_PER_FEED = 8
 SUMMARY_SENTENCES = 4
 GEMINI_INPUT_COST_PER_1M = 0.30
 GEMINI_OUTPUT_COST_PER_1M = 2.50
@@ -1557,7 +1558,7 @@ def build_message(story: dict) -> str:
         summary_ko = normalize_style(summary_ko)
         summary_ko = cleanup_text(summary_ko)
 
-    entities = extract_entities(story, max_tags=4)
+    entities = extract_entities(story, max_tags=8)
     entities = [e for e in entities if e in INLINE_TAG_WHITELIST]
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
