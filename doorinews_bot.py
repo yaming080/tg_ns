@@ -1,4 +1,8 @@
-
+#!/usr/bin/env python3
+import asyncio
+import hashlib
+import html
+import json
 import os
 import re
 import time
@@ -9,6 +13,7 @@ from datetime import datetime, timezone
 from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
+
 from google import genai
 
 
@@ -1329,8 +1334,11 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 규칙:
 - 텔레그램 업로드용 짧은 문장으로 작성
 - 첫 문장부터 핵심 키워드를 강하게 시작
-- 본문 해시태그는 정말 핵심 키워드만 사용(예:사람이름, 기관, 코인명)
-- 모든 핵심 단어를 해시태그로 만들지 말 것
+- 본문에는 해시태그를 넣지 말 것
+- 해시태그는 마지막 footer에서만 사용됨
+- 사람 이름, 기관명, 코인명도 일반 텍스트로 자연스럽게 작성
+- 해시태그 사용하면 띄어쓰기 필수
+- 한국어 띄어쓰기를 자연스럽게 유지할 것
 - 본문은 1~3문단 정도로 짧게 작성
 - 필요하면 불릿(- 또는 ➖) 사용 가능
 - 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
