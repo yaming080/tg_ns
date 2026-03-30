@@ -1366,10 +1366,8 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = normalize_style(text)
         text = cleanup_text(text)
         text = re.sub(r'\s+', ' ', text).strip()
-		
-		log_gemini_cost(title, prompt, text)
-		
-return text
+
+        return text
 
     except Exception as e:
         log(f"Gemini 요약 실패: {e}")
