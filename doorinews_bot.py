@@ -1677,8 +1677,8 @@ def main():
     filtered = [s for s in collected if matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)]
     log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
 
-    new_stories = []
-    seen_titles = [
+new_stories = []
+seen_titles = [
     normalize_for_duplicate(item.get('title', ''))
     for item in posted.values()
     if item.get('title')
@@ -1733,24 +1733,24 @@ seen_urls = {
         return
 
     for story in new_stories:
-    msg = build_message(story)
-    ok = send_telegram_photo(
-        TELEGRAM_BOT_TOKEN,
-        TELEGRAM_CHANNEL_ID,
-        story.get('image_url', ''),
-        msg
-    )
+        msg = build_message(story)
+        ok = send_telegram_photo(
+            TELEGRAM_BOT_TOKEN,
+            TELEGRAM_CHANNEL_ID,
+            story.get('image_url', ''),
+            msg
+        )
 
-    if ok:
-        signature = build_story_signature(story)
-        update_posted(story['title'], posted, story.get('url', ''), signature)
-        state['posted'] = posted
-        save_state(STATE_FILE, state)
-        log(f"Posted: {story['title']}")
-    else:
-        log(f"Failed: {story['title']}")
+        if ok:
+            signature = build_story_signature(story)
+            update_posted(story['title'], posted, story.get('url', ''), signature)
+            state['posted'] = posted
+            save_state(STATE_FILE, state)
+            log(f"Posted: {story['title']}")
+        else:
+            log(f"Failed: {story['title']}")
 
-    time.sleep(0.3)
+        time.sleep(0.3)
 
 
 if __name__ == '__main__':
