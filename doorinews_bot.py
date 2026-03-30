@@ -1638,8 +1638,9 @@ def build_message(story: dict) -> str:
 
     summary_ko = finalize_summary_ending(summary_ko)
 
-    lines = [summary_ko] if summary_ko else [story.get('title', '')]
-    summary = '\n\n'.join(line.strip() for line in lines if line.strip())
+    summary = summary_ko if summary_ko else story.get('title', '')
+    summary = summary.replace('\r\n', '\n').replace('\r', '\n')
+    summary = '\n\n'.join(line.strip() for line in summary.split('\n') if line.strip())
     summary = re.sub(r'[ \t]+', ' ', summary).strip()
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
