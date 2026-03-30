@@ -1475,13 +1475,23 @@ def finalize_summary_ending(text: str) -> str:
     return text
 	
 def build_message(story: dict) -> str:
-    raw_source = f"{story.get('title', '')}. {story.get('desc', '')}"
+   title = story.get('title', '')
+desc = story.get('desc', '')
+article_text = fetch_article_text(story.get('url', ''))
+
+summary_ko = rewrite_summary_with_gemini(
+    title=title,
+    article_text=article_text,
+    fallback_text=desc
+)
+
+if not summary_ko:
+    raw_source = f"{title}. {desc}"
     raw_summary = summarize_text(
         raw_source,
-        title=story.get('title', ''),
+        title=title,
         max_sentences=SUMMARY_SENTENCES
     )
-
     summary_ko = translate_text_to_korean(raw_summary)
     summary_ko = cleanup_text(summary_ko)
     summary_ko = fix_translation_terms(summary_ko)
