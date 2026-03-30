@@ -1084,8 +1084,7 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
 def entity_korean_name(entity: str) -> str:
     if entity in MANUAL_TRANSLATIONS:
         return MANUAL_TRANSLATIONS[entity]
-    translated = translate_text_to_korean(entity).replace(' ', '')
-    return translated or entity.replace(' ', '')
+    return entity.replace(' ', '')
 
 def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
     text = summary
