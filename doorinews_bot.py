@@ -1168,13 +1168,54 @@ def entity_korean_name(entity: str) -> str:
 def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
     text = summary
     final_tags = []
+
+    coin_inline_map = {
+        'BTC': '비트코인',
+        'ETH': '이더리움',
+        'XRP': '리플',
+        'XLM': '스텔라',
+        'ADA': '에이다',
+        'TRX': '트론',
+        'BNB': '바이낸스',
+        'BCH': '비트코인캐시',
+        'SHIB': '시바이누',
+        'USDC': 'USDC',
+        'USDT': 'USDT',
+    }
+
     for ent in sorted(entities, key=len, reverse=True):
         ent_upper = ent.upper()
+
         if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
-            tag = f'#{ent_upper}'
-            if tag not in final_tags:
-                final_tags.append(tag)
+            if f'#{ent_upper}' not in final_tags:
+                final_tags.append(f'#{ent_upper}')
+
+            korean_name = coin_inline_map.get(ent_upper, ent_upper)
+            tag_text = f'#{korean_name}'
+
+            if tag_text in text:
+                continue
+
+            replaced = False
+            for base in [korean_name, ent, ent_upper]:
+                for p in ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']:
+                    new_text, count = re.subn(re.escape(base + p), f'{tag_text} {p}', text, count=1)
+                    if count:
+                        text = new_text
+                        replaced = True
+                        break
+                if replaced:
+                    break
+
+            if not replaced:
+                for base in [korean_name, ent, ent_upper]:
+                    new_text, count = re.subn(re.escape(base), tag_text, text, count=1)
+                    if count:
+                        text = new_text
+                        break
+
             continue
+
         korean = entity_korean_name(ent)
         tag_text = '#' + korean.replace(' ', '')
         eng_tag = '#' + ent.replace(' ', '')
@@ -1186,6 +1227,7 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
 
         if normalized_korean_tag in text or normalized_eng_tag in text:
             continue
+
         replaced = False
         for base in [korean, ent]:
             for p in ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']:
@@ -1196,12 +1238,14 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
                     break
             if replaced:
                 break
+
         if not replaced:
             for base in [korean, ent]:
                 new_text, count = re.subn(re.escape(base), tag_text, text, count=1)
                 if count:
                     text = new_text
                     break
+
     return text, final_tags
 
 def fix_broken_inline_hashtags(text: str) -> str:
