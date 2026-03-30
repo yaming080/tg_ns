@@ -1408,9 +1408,9 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = fix_truncated_phrases(text)
         text = normalize_style(text)
         text = cleanup_text(text)
-text = text.replace('\r\n', '\n').replace('\r', '\n')
-text = re.sub(r'[ \t]+', ' ', text)
-text = re.sub(r'\n{3,}', '\n\n', text).strip()
+        text = text.replace('\r\n', '\n').replace('\r', '\n')
+        text = re.sub(r'[ \t]+', ' ', text)
+        text = re.sub(r'\n{3,}', '\n\n', text).strip()
 
         log_gemini_cost(title, prompt, text)
 
