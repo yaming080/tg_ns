@@ -596,7 +596,6 @@ MANUAL_TRANSLATIONS = {
     '오픈크레딧': '오픈크레딧',
     'Smart Contract': '스마트계약',
     'Smart Contracts': '스마트계약',
-    '스마트계약': '스마트계약',
     'Private Credit': '프라이빗크레딧',
     'Private Credits': '프라이빗크레딧',
     '프라이빗크레딧': '프라이빗크레딧',
@@ -1325,7 +1324,7 @@ def fix_translation_terms(text: str) -> str:
         'DeFi': '#디파이',
         'Open Credit': '#오픈크레딧',
         'Smart Contract': '#스마트계약',
-        'Smart Contracts': '#스마트계약',,
+        'Smart Contracts': '#스마트계약',
         'Private Credit': '#프라이빗크레딧',
         'Institutional Capital': '#기관자금',
 		
