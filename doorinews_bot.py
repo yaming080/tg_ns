@@ -838,37 +838,49 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     text = normalize_text(raw_text)
     raw_lower = raw_text.lower()
     url = (story.get('url', '') or '').lower()
-    title = (story.get('title', '') or '').lower()
-    desc = (story.get('desc', '') or '').lower()
 
     if 'tokenpost.kr/news/tech/' in url:
-        crypto_keep_terms = [
-            'btc', 'bitcoin', '비트코인',
-            'eth', 'ethereum', '이더리움',
-            'xrp', 'ripple', '리플',
-            'xlm', 'stellar', '스텔라',
-            'ada', 'cardano', '에이다',
-            'trx', 'tron', '트론',
-            'bnb', 'bch', 'shib', 'flr', 'usdc', 'usdt',
-            'etf', 'sec', 'cftc', 'stablecoin', '스테이블코인',
-            '암호화폐', '블록체인', '토큰화', '수탁', '시드문구'
-        ]
-        if not any(term in raw_text.lower() for term in crypto_keep_terms):
-            print(f"[토큰포스트 tech 제외] {story.get('title', '')}")
-            return False
+        print(f"[토큰포스트 tech 제외] {story.get('title', '')}")
+        return False
 
     for neg in NEGATIVE_KEYWORDS:
         if neg.lower() in raw_lower:
             print(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
             return False
-	raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
-    text = normalize_text(raw_text)
-    raw_lower = raw_text.lower()
 
-    for neg in NEGATIVE_KEYWORDS:
-        if neg.lower() in raw_lower:
-            print(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
-            return False
+    allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
+    if allowed_coin_found:
+        print(f"[허용코인 통과] {story.get('title', '')}")
+        return True
+
+    other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
+    if other_coin_found:
+        print(f"[기타코인 제외] {story.get('title', '')}")
+        return False
+
+    ai_allow_terms = ['openai', 'nvidia', 'google', 'alphabet', 'meta', 'anthropic', 'xai', 'grok']
+    if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
+        print(f"[AI/기업기사 통과] {story.get('title', '')}")
+        return True
+
+    policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
+    policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
+    if policy_hits >= 2:
+        print(f"[정책/거시 통과] {story.get('title', '')}")
+        return True
+
+    for kw in econ_keywords:
+        if normalize_text(kw) in text:
+            print(f"[경제키워드 통과] {story.get('title', '')} / {kw}")
+            return True
+
+    for kw in korean_keywords:
+        if kw.lower() in raw_lower:
+            print(f"[한글키워드 통과] {story.get('title', '')} / {kw}")
+            return True
+
+    print(f"[필터미통과] {story.get('title', '')}")
+    return False
 
     allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
     if allowed_coin_found:
