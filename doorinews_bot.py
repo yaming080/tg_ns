@@ -1560,6 +1560,13 @@ def build_message(story: dict) -> str:
 
     entities = extract_entities(story, max_tags=8)
     entities = [e for e in entities if e in INLINE_TAG_WHITELIST]
+
+    full_text = f"{title} {desc} {summary_ko}"
+    for forced in INLINE_TAG_WHITELIST:
+        if forced in full_text and forced not in entities:
+            entities.append(forced)
+
+    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
     dynamic_tags = filter_final_tags(dynamic_tags)
