@@ -1136,6 +1136,12 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
         eng_tag = '#' + ent.replace(' ', '')
         if eng_tag not in final_tags:
             final_tags.append(eng_tag)
+			
+	    normalized_korean_tag = '#' + korean.replace(' ', '')
+        normalized_eng_tag = '#' + ent.replace(' ', '')
+
+        if normalized_korean_tag in text or normalized_eng_tag in text:
+            continue
         replaced = False
         for base in [korean, ent]:
             for p in ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']:
@@ -1153,6 +1159,34 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
                     text = new_text
                     break
     return text, final_tags
+
+def fix_broken_inline_hashtags(text: str) -> str:
+    text = re.sub(r'#+', '#', text)
+    text = re.sub(r'#\s+', '#', text)
+
+    prev = None
+    while prev != text:
+        prev = text
+        # #미 국 -> #미국 / #비트 코 인 -> #비트코인
+        text = re.sub(r'#([가-힣A-Za-z0-9]+)\s+([가-힣A-Za-z0-9]+)', r'#\1\2', text)
+
+    return text
+
+
+def remove_duplicate_inline_hashtags(text: str) -> str:
+    seen = set()
+
+    def repl(match):
+        tag = match.group(0)
+        key = tag.lower()
+        if key in seen:
+            return ''
+        seen.add(key)
+        return tag
+
+    text = re.sub(r'#[가-힣A-Za-z0-9]+', repl, text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
 
 def cleanup_text(text: str) -> str:
     text = re.sub(r'@([A-Za-z0-9_\.]+)', r'\1', text)
@@ -1584,6 +1618,8 @@ def build_message(story: dict) -> str:
 
     entities = extract_entities(story, max_tags=8)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    summary_ko = fix_broken_inline_hashtags(summary_ko)
+    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     dynamic_tags = filter_final_tags(dynamic_tags)
 
     extra_footer_tags = []
