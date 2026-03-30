@@ -209,7 +209,8 @@ NEGATIVE_KEYWORDS = [
 'entry zone', '진입 구역',
 'monthly chart', '월간 차트','reason', 'reasons',
 'uncertain', 'uncertainty', '불확실', '불확실성','reason', 'reasons', 'why', '이유', 'oil', 'solar', 'renewable', 'dividend', 'shareholder', 'board reshuffle',
-'주주총회', '배당', '태양광', '에너지 전환', '중장기 성장 전략',
+'주주총회', '배당', '태양광', '에너지 전환', '중장기 성장 전략', 'game ai', 'gaming ai', 'game content', 'series b', 'funding round',
+'게임 ai', '게임 콘텐츠', '시리즈 b', '펀딩', '마케팅 자산', '자동화 툴',
 	
 ]
 
@@ -898,7 +899,7 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[기타코인 제외] {story.get('title', '')}")
         return False
 
-    ai_allow_terms = ['openai', 'nvidia', 'google', 'alphabet', 'meta', 'anthropic', 'xai', 'grok']
+    ai_allow_terms = []
     if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
         print(f"[AI/기업기사 통과] {story.get('title', '')}")
         return True
