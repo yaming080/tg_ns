@@ -175,7 +175,35 @@ NEGATIVE_KEYWORDS = [
 'rising leverage',
 'unstable setup',
 '가격조정', '가격 조정',
-'레버리지','온톨로지','TxFlow','제트캐시', 'zcash'
+'레버리지','온톨로지','TxFlow','제트캐시', 'zcash','practical guide', 'practical guide to', 'guide to choosing', 'market maker guide',
+'실용 가이드', '실용가이드',
+
+'lido dao', 'ldo', 'redemption', 'proposed sale', 'token sale',
+'환매', '매각 제안', '매각',
+
+'surge', 'spike', 'jumps', 'rally', 'best quarter', 'worst quarter', 'buying opportunity',
+'급등', '상승폭', '최악', '분기', '매수 기회',
+
+'metals.io', 'metals io', 'trillitech', 'trili tech',
+'crypto tax', 'customers don’t understand crypto tax', 'customers do not understand crypto tax',
+'암호화폐 세금', '고객의 절반 이상이 암호화폐 세금을 이해하지 못함',
+
+'raised', 'raise', 'raising', 'funding', 'series a', 'fundraise', 'fundraising',
+'모금', '모금함', '자금조달', '시리즈', 'critical thinking', '비판적 사고',
+'blasts xrp community', '폭파함',
+'breaks macro model', '다시 깨뜨립니다',
+'payment cost', '지불 비용', '지불비용',
+'bounce zone', '반등 구간', '반등구간',
+'selling pressure', 'sell pressure', '매도세',
+'kucoin',
+'hashrate', '해시레이트',
+'bleeding', '출혈',
+'불안을 촉발함',
+'fundraise', 'fundraising', '모금', '모금함', '자금조달',
+'리스크 오프',
+'test support', '지지선 시험대',
+'entry zone', '진입 구역',
+'monthly chart', '월간 차트'
 ]
 
 
