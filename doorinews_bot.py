@@ -1679,9 +1679,21 @@ def main():
     log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
 
     new_stories = []
-    seen_titles = []
-    seen_signatures = []
-    seen_urls = set()
+    seen_titles = [
+    normalize_for_duplicate(item.get('title', ''))
+    for item in posted.values()
+    if item.get('title')
+]
+seen_signatures = [
+    item.get('signature', '')
+    for item in posted.values()
+    if item.get('signature')
+]
+seen_urls = {
+    item.get('url', '').strip()
+    for item in posted.values()
+    if item.get('url')
+}
 
     for s in filtered:
         title = s.get('title', '')
