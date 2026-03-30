@@ -99,7 +99,8 @@ KOREAN_TAG_KEYWORDS = [
 'XRPLedger', '세계금협회', '디지털금', '비트코인퀀텀', 'BIP360', 'OpenAI', 'Anthropic',
 '슈퍼마이크로', 'AI', 'LNG', '바잔', '캘리포니아', '지니어스법안', '지니어스', '법안', 'ICE',
 '클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '구글', '인도', '웰스파고', '피터쉬프', '패니매','ICE', 'EEZ', '현물', '서울', '부산',
-	'휘발유', '경유', '대전', '인천', '대구','경기도', '울산', '강원도', '석유', '비트코인캐시','월스트리트', '매수',
+	'휘발유', '경유', '대전', '인천', '대구','경기도', '울산', '강원도', '석유', '비트코인캐시','월스트리트',
+	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -588,7 +589,19 @@ MANUAL_TRANSLATIONS = {
     'NIUM': '니움',
 	'Visa': '비자',
     'Mastercard': '마스터카드',
-	
+	'DeFi': '디파이',
+    '디파이': '디파이',
+    'Open Credit': '오픈크레딧',
+    'OpenCredit': '오픈크레딧',
+    '오픈크레딧': '오픈크레딧',
+    'Smart Contract': '스마트계약',
+    'Smart Contracts': '스마트계약',
+    '스마트계약': '스마트계약',
+    'Private Credit': '프라이빗크레딧',
+    'Private Credits': '프라이빗크레딧',
+    '프라이빗크레딧': '프라이빗크레딧',
+    'Institutional Capital': '기관자금',
+    '기관자금': '기관자금',
 	
 
 }
@@ -1277,6 +1290,18 @@ def fix_translation_terms(text: str) -> str:
         '세일러 의': '#마이클세일러 의',
         '스퀘어 가': '#스퀘어 가',
         '노르웨이 #Tydal': '#노르웨이 #Tydal',
+        'DeFi': '#디파이',
+        '디파이': '#디파이',
+        'Open Credit': '#오픈크레딧',
+        '오픈크레딧': '#오픈크레딧',
+        'Smart Contract': '#스마트계약',
+        'Smart Contracts': '#스마트계약',
+        '스마트계약': '#스마트계약',
+        'Private Credit': '#프라이빗크레딧',
+        '프라이빗크레딧': '#프라이빗크레딧',
+        'Institutional Capital': '#기관자금',
+        '기관자금': '#기관자금',
+		
     }
 
     for old, new in replacements.items():
@@ -1479,7 +1504,9 @@ def build_story_signature(story: dict) -> str:
 'l2', 'layer 2', 'layer2', 'ethereum builders', 'builders',
 'fragmentation', 'fragmented', 'economic zones', 'economic zone',
 'eez', 'single chain', 'bridge', 'bridgeless',
-'단편화', '파편화', '레이어2', '레이어 2', '경제구역', '단일 체인', '브리지'
+'단편화', '파편화', '레이어2', '레이어 2', '경제구역', '단일 체인', '브리지','private credit', 'open credit', 'smart contract', 'smart contracts',
+'institutional capital', 'defi lending', 'real world assets',
+'프라이빗크레딧', '오픈크레딧', '스마트계약', '기관자금', '디파이',
 	]
 
     for term in term_pool:
