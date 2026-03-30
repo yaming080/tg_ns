@@ -1289,7 +1289,11 @@ def build_story_signature(story: dict) -> str:
 '사토시나카모토', '일론머스크', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '오픈에이아이', '앤트로픽', '구글', '엑스에이아이', '그록', '엑스', '깃허브', '피싱', '지갑', '오픈클로', '개발자', '개발자들', '사기',
 
 '도널드트럼프', '트럼프', '스트래티지', '에버노스', '브라질', '재무장관', '암호화폐세금', '선거',
-    ]
+'l2', 'layer 2', 'layer2', 'ethereum builders', 'builders',
+'fragmentation', 'fragmented', 'economic zones', 'economic zone',
+'eez', 'single chain', 'bridge', 'bridgeless',
+'단편화', '파편화', '레이어2', '레이어 2', '경제구역', '단일 체인', '브리지'
+	]
 
     for term in term_pool:
         if term in text:
