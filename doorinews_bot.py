@@ -14,6 +14,8 @@ from datetime import datetime, timezone
 from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
+from google import genai
+
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
@@ -1272,6 +1274,92 @@ def filter_final_tags(tags: list[str]) -> list[str]:
             continue
 
     return list(dict.fromkeys(cleaned))
+
+def fetch_article_text(url: str) -> str:
+    try:
+        html_text = http_get(url, timeout=10)
+    except Exception:
+        return ""
+
+    patterns = [
+        r'<article[^>]*>(.*?)</article>',
+        r'<main[^>]*>(.*?)</main>',
+        r'<body[^>]*>(.*?)</body>',
+    ]
+
+    block = ""
+    for pat in patterns:
+        m = re.search(pat, html_text, re.I | re.S)
+        if m:
+            block = m.group(1)
+            break
+
+    if not block:
+        block = html_text
+
+    paragraphs = re.findall(r'<p[^>]*>(.*?)</p>', block, re.I | re.S)
+    cleaned = []
+    for p in paragraphs:
+        t = re.sub(r'<[^>]+>', ' ', unescape(p))
+        t = re.sub(r'\s+', ' ', t).strip()
+        if len(t) >= 40:
+            cleaned.append(t)
+
+    text = "\n".join(cleaned[:20]).strip()
+    text = cleanup_text(text)
+    return text[:12000]
+
+
+def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: str = "") -> str:
+    source_text = (article_text or "").strip()
+    if not source_text:
+        source_text = (fallback_text or "").strip()
+    if not source_text:
+        source_text = title.strip()
+
+    if not GEMINI_API_KEY:
+        return ""
+
+    try:
+        client = genai.Client(api_key=GEMINI_API_KEY)
+
+        prompt = f"""
+너는 텔레그램 암호화폐 뉴스 채널 편집자다.
+
+아래 기사 내용을 보고 한국어로 자연스럽게 2~3문장으로 다시 써라.
+
+규칙:
+- 직역투 금지
+- 기사에 없는 추측 금지
+- '이유', '전략', '불확실', '가능성', '~에 따르면' 같은 표현 남발 금지
+- 기사 제목만 반복하지 말고 핵심 사실 위주로 작성
+- 불필요한 매체명, first appeared on, sponsor 문구 제거
+- 텔레그램 뉴스 스타일로 짧고 또렷하게 작성
+- 과장 표현 금지
+- 출력은 요약문만 작성
+
+제목:
+{title}
+
+본문:
+{source_text}
+""".strip()
+
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+        )
+
+        text = getattr(response, "text", "") or ""
+        text = cleanup_text(text)
+        text = fix_translation_terms(text)
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text
+
+    except Exception as e:
+        log(f"Gemini 요약 실패: {e}")
+        return ""
+
 
 def normalize_for_duplicate(text: str) -> str:
     text = text.lower()
