@@ -834,7 +834,7 @@ def contains_exact_term(text: str, term: str) -> bool:
     return re.search(pattern, norm_text) is not None
 
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
-   url = (story.get('url', '') or '').lower()
+    url = (story.get('url', '') or '').lower()
     title = (story.get('title', '') or '').lower()
     desc = (story.get('desc', '') or '').lower()
     raw_text = f"{title} {desc}"
