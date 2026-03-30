@@ -1252,11 +1252,12 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = re.sub(r'#+', '#', text)
     text = re.sub(r'#\s+', '#', text)
 
-    prev = None
-    while prev != text:
-        prev = text
-        # #미 국 -> #미국 / #비트 코 인 -> #비트코인
-        text = re.sub(r'#([가-힣A-Za-z0-9]+)\s+([가-힣A-Za-z0-9]+)', r'#\1\2', text)
+    # 해시태그 내부가 글자 단위로 깨진 경우만 복구
+    text = text.replace('#비트 코 인', '#비트코인')
+    text = text.replace('#이더 리 움', '#이더리움')
+    text = text.replace('#시 바 이 누', '#시바이누')
+    text = text.replace('#미 국', '#미국')
+
 
     return text
 
