@@ -175,7 +175,7 @@ NEGATIVE_KEYWORDS = [
 'rising leverage',
 'unstable setup',
 '가격조정', '가격 조정',
-'레버리지','온톨로지',
+'레버리지','온톨로지','TxFlow'
 ]
 
 
@@ -220,6 +220,7 @@ MANUAL_TRANSLATIONS = {
     '셰이프시프트': '셰이프시프트',
 
     'Brad Garlinghouse': '갈링하우스',
+	'Grlinghouse':'갈링하우스',
     '갈링하우스': '갈링하우스',
 
     'Monica Long': '모니카롱',
@@ -542,6 +543,11 @@ MANUAL_TRANSLATIONS = {
     '패니 매':'패니매',
 
 	'EEZ':'EEZ',
+
+	'Buffett':'버핏',
+
+	
+	
 
 }
 IGNORED_WORDS = {
