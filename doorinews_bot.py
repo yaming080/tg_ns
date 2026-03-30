@@ -675,10 +675,11 @@ def is_duplicate(title: str, posted: dict, url: str = "") -> bool:
 
     return False
 
-def update_posted(title: str, posted: dict, url: str = ""):
+def update_posted(title: str, posted: dict, url: str = "", signature: str = ""):
     posted[story_hash(title)] = {
         'title': title,
         'url': normalize_url(url),
+        'signature': signature,
         'ts': datetime.now(timezone.utc).isoformat()
     }
 
@@ -1338,14 +1339,19 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 아래 기사 내용을 보고 한국어로 자연스럽게 2~3문장으로 다시 써라.
 
 규칙:
+- 텔레그램 업로드용 짧은 문장으로 작성
+- 첫 문장부터 핵심 키워드를 강하게 시작
+- 중요한 단어는 본문 안에서 한국어 해시태그 형태로 자연스럽게 넣기
+- 본문은 1~3문단 정도로 짧게 작성
+- 필요하면 불릿(- 또는 ➖) 사용 가능
+- 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
 - 직역투 금지
-- 기사에 없는 추측 금지
-- '이유', '전략', '불확실', '가능성', '~에 따르면' 같은 표현 남발 금지
-- 기사 제목만 반복하지 말고 핵심 사실 위주로 작성
-- 불필요한 매체명, first appeared on, sponsor 문구 제거
-- 텔레그램 뉴스 스타일로 짧고 또렷하게 작성
-- 과장 표현 금지
+- 기사에 없는 내용은 추측해서 추가 금지
+- '이유', '전략', '불확실', '가능성', '~에 따르면' 표현 남발 금지
+- 매체명, first appeared on, sponsor 문구 제거
+- 문장은 너무 길지 않게 끊기
 - 출력은 요약문만 작성
+- 마지막 해시태그 줄, 출처, 링크 문구는 작성하지 말 것
 
 제목:
 {title}
@@ -1724,11 +1730,12 @@ def main():
             msg
         )
 
-        if ok:
-            update_posted(story['title'], posted, story.get('url', ''))
-            state['posted'] = posted
-            save_state(STATE_FILE, state)
-            log(f"Posted: {story['title']}")
+       if ok:
+             signature = build_story_signature(story)
+             update_posted(story['title'], posted, story.get('url', ''), signature)
+             state['posted'] = posted
+             save_state(STATE_FILE, state)
+             log(f"Posted: {story['title']}")
         else:
             log(f"Failed: {story['title']}")
 
