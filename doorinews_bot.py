@@ -18,6 +18,7 @@ from difflib import SequenceMatcher
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
 FEEDS = [
     ('CryptoBriefing', 'https://cryptobriefing.com/feed/'),
