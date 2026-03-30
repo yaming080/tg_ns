@@ -605,7 +605,11 @@ MANUAL_TRANSLATIONS = {
     '프라이빗크레딧': '프라이빗크레딧',
     'Institutional Capital': '기관자금',
     '기관자금': '기관자금',
-	
+	'Elizabeth Warren': '엘리자베스워런',
+    '엘리자베스 워런': '엘리자베스워런',
+    '엘리자베스워런': '엘리자베스워런',
+    'Government': '정부',
+    '정부': '정부',
 
 }
 IGNORED_WORDS = {
