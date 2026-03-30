@@ -1,4 +1,10 @@
 
+#!/usr/bin/env python3
+import asyncio
+import hashlib
+import html
+import json
+import os
 import re
 import time
 import urllib.error
@@ -627,7 +633,7 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
     'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI',
 }
 STATE_FILE = 'news_state.json'
-MAX_ITEMS_PER_FEED = 8
+MAX_ITEMS_PER_FEED = 4
 SUMMARY_SENTENCES = 4
 GEMINI_INPUT_COST_PER_1M = 0.30
 GEMINI_OUTPUT_COST_PER_1M = 2.50
@@ -1301,21 +1307,15 @@ def fix_translation_terms(text: str) -> str:
         'Strive Asset Management': '스트라이브자산운용',
         'STRC': 'STRC',
         'SATA': 'SATA',
-		'미국': '#미국',
         '이 란': '#이란',
-        '이란': '#이란',
         '노르 웨 이': '#노르웨이',
-        '노르웨이': '#노르웨이',
         '스 퀘 어': '#스퀘어',
-        '스퀘어': '#스퀘어',
         '결 제': '#결제',
-        '결제': '#결제',
         '잭 도시': '#잭도시',
         '잭도시': '#잭도시',
         '세일러 의': '#마이클세일러 의',
         '스퀘어 가': '#스퀘어 가',
         '노르웨이 #Tydal': '#노르웨이 #Tydal',
-        'DeFi': '#디파이',
         'Open Credit': '#오픈크레딧',
         'Smart Contract': '#스마트계약',
         'Smart Contracts': '#스마트계약',
@@ -1419,13 +1419,13 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 규칙:
 - 텔레그램 업로드용 짧은 문장으로 작성
 - 첫 문장부터 핵심 키워드를 강하게 시작
-- 중요한 단어는 본문 안에서 한국어 해시태그 형태로 자연스럽게 넣기
+- 본문 해시태그는 정말 핵심 키워드만 사용(예:사람이름, 기관, 코인명)
+- 모든 핵심 단어를 해시태그로 만들지 말 것
 - 본문은 1~3문단 정도로 짧게 작성
 - 필요하면 불릿(- 또는 ➖) 사용 가능
 - 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
 - 직역투 금지
 - 기사에 없는 내용은 추측해서 추가 금지
-- '이유', '전략', '불확실', '가능성', '~에 따르면' 표현 남발 금지
 - 매체명, first appeared on, sponsor 문구 제거
 - 문장은 너무 길지 않게 끊기
 - 출력은 요약문만 작성
