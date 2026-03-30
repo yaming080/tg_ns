@@ -623,6 +623,10 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 8
 SUMMARY_SENTENCES = 4
+GEMINI_INPUT_COST_PER_1M = 0.30
+GEMINI_OUTPUT_COST_PER_1M = 2.50
+AVG_CHARS_PER_TOKEN = 4
+SHOW_COST_LOG = True
 
 def normalize_url(url: str) -> str:
     url = (url or '').strip().lower()
@@ -632,6 +636,8 @@ def normalize_url(url: str) -> str:
 
 def log(msg: str) -> None:
     print(msg, flush=True)
+
+
 
 def http_get(url: str, timeout: int = 20) -> str:
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (compatible; DooriNewsBot/2.1)'})
@@ -1360,6 +1366,9 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = normalize_style(text)
         text = cleanup_text(text)
         text = re.sub(r'\s+', ' ', text).strip()
+		
+		log_gemini_cost(title, prompt, text)
+		
 return text
 
     except Exception as e:
