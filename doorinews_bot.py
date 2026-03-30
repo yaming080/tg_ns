@@ -1622,7 +1622,7 @@ def build_message(story: dict) -> str:
         summary_ko = normalize_style(summary_ko)
         summary_ko = cleanup_text(summary_ko)
 
-    ynamic_tags = []
+    dynamic_tags = []
     summary_ko = fix_broken_inline_hashtags(summary_ko)
 
     extra_footer_tags = []
