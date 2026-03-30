@@ -1,4 +1,18 @@
 
+#!/usr/bin/env python3
+import asyncio
+import hashlib
+import html
+import json
+import os
+import re
+import time
+import urllib.error
+import urllib.request
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
+from html import unescape
+from inspect import iscoroutine
 from difflib import SequenceMatcher
 from google import genai
 
@@ -1249,16 +1263,28 @@ def fix_translation_terms(text: str) -> str:
         'Strive Asset Management': '스트라이브자산운용',
         'STRC': 'STRC',
         'SATA': 'SATA',
+		'미국': '#미국',
+        '이 란': '#이란',
+        '이란': '#이란',
+        '노르 웨 이': '#노르웨이',
+        '노르웨이': '#노르웨이',
+        '스 퀘 어': '#스퀘어',
+        '스퀘어': '#스퀘어',
+        '결 제': '#결제',
+        '결제': '#결제',
+        '잭 도시': '#잭도시',
+        '잭도시': '#잭도시',
+        '세일러 의': '#마이클세일러 의',
+        '스퀘어 가': '#스퀘어 가',
+        '노르웨이 #Tydal': '#노르웨이 #Tydal',
     }
 
     for old, new in replacements.items():
         text = text.replace(old, new)
 
-    text = re.sub(r'([가-힣])(#)', r'\1 #', text)
-    text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
-    text = re.sub(r'([a-zA-Z0-9])([가-힣])', r'\1 \2', text)
-    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
-    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
+    text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
+    text = re.sub(r'[ \t]+', ' ', text).strip()
 
     return text
 
@@ -1359,6 +1385,8 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 문장은 너무 길지 않게 끊기
 - 출력은 요약문만 작성
 - 마지막 해시태그 줄, 출처, 링크 문구는 작성하지 말 것
+- 사람 이름, 국가명, 브랜드명, 코인명은 중간 띄어쓰기 없이 자연스럽게 작성
+- 해시태그 내부 단어를 분리하지 말 것
 
 제목:
 {title}
@@ -1597,7 +1625,8 @@ def build_message(story: dict) -> str:
     summary_ko = finalize_summary_ending(summary_ko)
 
     lines = [summary_ko] if summary_ko else [story.get('title', '')]
-    summary = re.sub(r'\s+', ' ', '\n'.join(lines)).strip()
+    summary = '\n\n'.join(line.strip() for line in lines if line.strip())
+    summary = re.sub(r'[ \t]+', ' ', summary).strip()
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
