@@ -1722,24 +1722,24 @@ def main():
         return
 
     for story in new_stories:
-        msg = build_message(story)
-        ok = send_telegram_photo(
-            TELEGRAM_BOT_TOKEN,
-            TELEGRAM_CHANNEL_ID,
-            story.get('image_url', ''),
-            msg
-        )
+    msg = build_message(story)
+    ok = send_telegram_photo(
+        TELEGRAM_BOT_TOKEN,
+        TELEGRAM_CHANNEL_ID,
+        story.get('image_url', ''),
+        msg
+    )
 
-       if ok:
-             signature = build_story_signature(story)
-             update_posted(story['title'], posted, story.get('url', ''), signature)
-             state['posted'] = posted
-             save_state(STATE_FILE, state)
-             log(f"Posted: {story['title']}")
-        else:
-            log(f"Failed: {story['title']}")
+    if ok:
+        signature = build_story_signature(story)
+        update_posted(story['title'], posted, story.get('url', ''), signature)
+        state['posted'] = posted
+        save_state(STATE_FILE, state)
+        log(f"Posted: {story['title']}")
+    else:
+        log(f"Failed: {story['title']}")
 
-        time.sleep(0.3)
+    time.sleep(0.3)
 
 
 if __name__ == '__main__':
