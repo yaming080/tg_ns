@@ -1,9 +1,4 @@
 
-#!/usr/bin/env python3
-import asyncio
-import hashlib
-import html
-import json
 import os
 import re
 import time
