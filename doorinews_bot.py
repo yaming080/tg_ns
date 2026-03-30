@@ -1388,6 +1388,7 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 마지막 해시태그 줄, 출처, 링크 문구는 작성하지 말 것
 - 사람 이름, 국가명, 브랜드명, 코인명은 중간 띄어쓰기 없이 자연스럽게 작성
 - 해시태그 내부 단어를 분리하지 말 것
+- 본문에는 해시태그를 넣지 말 것
 
 제목:
 {title}
@@ -1407,7 +1408,9 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = fix_truncated_phrases(text)
         text = normalize_style(text)
         text = cleanup_text(text)
-        text = re.sub(r'\s+', ' ', text).strip()
+text = text.replace('\r\n', '\n').replace('\r', '\n')
+text = re.sub(r'[ \t]+', ' ', text)
+text = re.sub(r'\n{3,}', '\n\n', text).strip()
 
         log_gemini_cost(title, prompt, text)
 
@@ -1566,7 +1569,6 @@ def build_message(story: dict) -> str:
         if forced in full_text and forced not in entities:
             entities.append(forced)
 
-    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
     dynamic_tags = filter_final_tags(dynamic_tags)
