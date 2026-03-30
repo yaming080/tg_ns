@@ -219,7 +219,7 @@ INLINE_TAG_WHITELIST = {
     '미국', 'CFTC', 'Elizabeth Warren', '엘리자베스워런',
     '정부', '비트코인', 'BTC', 'ETH', 'XRP',
     '연준', 'SEC', 'ETF', '재무부', '상원', '하원'
-
+}
 MANUAL_TRANSLATIONS = {
     'Ironlight': '아이언라이트',
     '아이언라이트': '아이언라이트',
@@ -1608,7 +1608,7 @@ def build_message(story: dict) -> str:
 
     entities = extract_entities(story, max_tags=4)
     entities = [e for e in entities if e in INLINE_TAG_WHITELIST]
-	summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
     dynamic_tags = filter_final_tags(dynamic_tags)
 
