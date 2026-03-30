@@ -1134,8 +1134,8 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
         eng_tag = '#' + ent.replace(' ', '')
         if eng_tag not in final_tags:
             final_tags.append(eng_tag)
-			
-	    normalized_korean_tag = '#' + korean.replace(' ', '')
+
+        normalized_korean_tag = '#' + korean.replace(' ', '')
         normalized_eng_tag = '#' + ent.replace(' ', '')
 
         if normalized_korean_tag in text or normalized_eng_tag in text:
