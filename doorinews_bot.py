@@ -175,7 +175,7 @@ NEGATIVE_KEYWORDS = [
 'rising leverage',
 'unstable setup',
 '가격조정', '가격 조정',
-'레버리지','온톨로지','TxFlow'
+'레버리지','온톨로지','TxFlow','제트캐시', 'zcash'
 ]
 
 
