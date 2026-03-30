@@ -584,7 +584,10 @@ MANUAL_TRANSLATIONS = {
     'Strive Asset Management': '스트라이브자산운용',
     'STRC': 'STRC',
     'SATA': 'SATA',
-
+    'Nium': '니움',
+    'NIUM': '니움',
+	'Visa': '비자',
+    'Mastercard': '마스터카드',
 	
 	
 
@@ -1353,8 +1356,11 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = getattr(response, "text", "") or ""
         text = cleanup_text(text)
         text = fix_translation_terms(text)
+        text = fix_truncated_phrases(text)
+        text = normalize_style(text)
+        text = cleanup_text(text)
         text = re.sub(r'\s+', ' ', text).strip()
-        return text
+return text
 
     except Exception as e:
         log(f"Gemini 요약 실패: {e}")
