@@ -1475,29 +1475,29 @@ def finalize_summary_ending(text: str) -> str:
     return text
 	
 def build_message(story: dict) -> str:
-   title = story.get('title', '')
-desc = story.get('desc', '')
-article_text = fetch_article_text(story.get('url', ''))
+    title = story.get('title', '')
+    desc = story.get('desc', '')
+    article_text = fetch_article_text(story.get('url', ''))
 
-summary_ko = rewrite_summary_with_gemini(
-    title=title,
-    article_text=article_text,
-    fallback_text=desc
-)
-
-if not summary_ko:
-    raw_source = f"{title}. {desc}"
-    raw_summary = summarize_text(
-        raw_source,
+    summary_ko = rewrite_summary_with_gemini(
         title=title,
-        max_sentences=SUMMARY_SENTENCES
+        article_text=article_text,
+        fallback_text=desc
     )
-    summary_ko = translate_text_to_korean(raw_summary)
-    summary_ko = cleanup_text(summary_ko)
-    summary_ko = fix_translation_terms(summary_ko)
-    summary_ko = fix_truncated_phrases(summary_ko)
-    summary_ko = normalize_style(summary_ko)
-    summary_ko = cleanup_text(summary_ko)
+
+    if not summary_ko:
+        raw_source = f"{title}. {desc}"
+        raw_summary = summarize_text(
+            raw_source,
+            title=title,
+            max_sentences=SUMMARY_SENTENCES
+        )
+        summary_ko = translate_text_to_korean(raw_summary)
+        summary_ko = cleanup_text(summary_ko)
+        summary_ko = fix_translation_terms(summary_ko)
+        summary_ko = fix_truncated_phrases(summary_ko)
+        summary_ko = normalize_style(summary_ko)
+        summary_ko = cleanup_text(summary_ko)
 
     entities = extract_entities(story, max_tags=8)
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
@@ -1556,8 +1556,8 @@ if not summary_ko:
         'california': '#California',
         'morgan stanley': '#MorganStanley',
         'kraken': '#Kraken',
-        'Fannie Mae':'#FannieMae',
-        'Peter Shiff':'#PeterShiff',
+        'Fannie Mae': '#FannieMae',
+        'Peter Shiff': '#PeterShiff',
     }
 
     for key, tag in footer_map.items():
