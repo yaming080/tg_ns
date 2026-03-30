@@ -35,8 +35,6 @@ FEEDS = [
     ('뉴스비트코인', 'https://news.bitcoin.com/rss'),
     ('코인터크', 'https://en.coin-turk.com/feed/'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
-    ('이투데이경제', 'https://rss.etoday.co.kr/eto/economy_news.xml'),
-    ('이투데이정치', 'https://rss.etoday.co.kr/eto/politics_news.xml'),
 	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
 	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
 	('비트코이니스트', 'https://bitcoinist.com/feed/'),
