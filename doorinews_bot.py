@@ -203,7 +203,12 @@ NEGATIVE_KEYWORDS = [
 '리스크 오프',
 'test support', '지지선 시험대',
 'entry zone', '진입 구역',
-'monthly chart', '월간 차트'
+'monthly chart', '월간 차트','reason', 'reasons', 'why', '이유',,
+'uncertain', 'uncertainty', '불확실', '불확실성','reason', 'reasons', 'why', '이유',
+'strategy', 'strategic', '전략', '전략적',
+'uncertain', 'uncertainty', '불확실', '불확실성',
+
+	
 ]
 
 
@@ -573,6 +578,12 @@ MANUAL_TRANSLATIONS = {
 	'EEZ':'EEZ',
 
 	'Buffett':'버핏',
+
+	'Strive': '스트라이브',
+    'Tuttle': '터틀',
+    'Strive Asset Management': '스트라이브자산운용',
+    'STRC': 'STRC',
+    'SATA': 'SATA',
 
 	
 	
@@ -1216,6 +1227,11 @@ def fix_translation_terms(text: str) -> str:
         '찰스호스킨슨은': '#찰스호스킨슨 은',
         '찰스호스킨슨이': '#찰스호스킨슨 이',
 		'매수함':'#매수 함',
+		'Strive': '스트라이브',
+        'Tuttle': '터틀',
+        'Strive Asset Management': '스트라이브자산운용',
+        'STRC': 'STRC',
+        'SATA': 'SATA',
     }
 
     for old, new in replacements.items():
