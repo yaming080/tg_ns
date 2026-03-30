@@ -1595,8 +1595,8 @@ def build_message(story: dict) -> str:
             title=title,
             max_sentences=SUMMARY_SENTENCES
         )
-        summary_ko = translate_text_to_korean(raw_summary)
-        summary_ko = cleanup_text(summary_ko)
+        entities = []
+        dynamic_tags = []
         summary_ko = fix_translation_terms(summary_ko)
         summary_ko = fix_truncated_phrases(summary_ko)
         summary_ko = normalize_style(summary_ko)
