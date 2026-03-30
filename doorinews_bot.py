@@ -636,7 +636,29 @@ def normalize_url(url: str) -> str:
 
 def log(msg: str) -> None:
     print(msg, flush=True)
+	
+def estimate_tokens_from_text(text: str) -> int:
+    if not text:
+        return 0
+    return max(1, int(len(text) / AVG_CHARS_PER_TOKEN))
 
+
+def log_gemini_cost(title: str, prompt: str, output: str) -> None:
+    if not SHOW_COST_LOG:
+        return
+
+    input_tokens = estimate_tokens_from_text(prompt)
+    output_tokens = estimate_tokens_from_text(output)
+
+    input_cost = (input_tokens / 1_000_000) * GEMINI_INPUT_COST_PER_1M
+    output_cost = (output_tokens / 1_000_000) * GEMINI_OUTPUT_COST_PER_1M
+    total_cost = input_cost + output_cost
+
+    log(
+        f"[Gemini 비용] {title[:60]} | "
+        f"입력토큰≈{input_tokens} | 출력토큰≈{output_tokens} | "
+        f"예상비용≈${total_cost:.6f}"
+    )
 
 
 def http_get(url: str, timeout: int = 20) -> str:
@@ -1371,6 +1393,8 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = normalize_style(text)
         text = cleanup_text(text)
         text = re.sub(r'\s+', ' ', text).strip()
+		
+		log_gemini_cost(title, prompt, text)
 
         return text
 
