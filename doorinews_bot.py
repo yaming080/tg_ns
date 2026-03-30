@@ -882,39 +882,6 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     print(f"[필터미통과] {story.get('title', '')}")
     return False
 
-    allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
-    if allowed_coin_found:
-        print(f"[허용코인 통과] {story.get('title', '')}")
-        return True
-
-    other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
-    if other_coin_found:
-        print(f"[기타코인 제외] {story.get('title', '')}")
-        return False
-
-    ai_allow_terms = ['openai', 'nvidia', 'amazon', 'google', 'alphabet', 'meta', 'anthropic', 'xai', 'grok']
-    if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
-        print(f"[AI/기업기사 통과] {story.get('title', '')}")
-        return True
-
-    policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
-    policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
-    if policy_hits >= 2:
-        print(f"[정책/거시 통과] {story.get('title', '')}")
-        return True
-
-    for kw in econ_keywords:
-        if normalize_text(kw) in text:
-            print(f"[경제키워드 통과] {story.get('title', '')} / {kw}")
-            return True
-
-    for kw in korean_keywords:
-        if kw.lower() in raw_lower:
-            print(f"[한글키워드 통과] {story.get('title', '')} / {kw}")
-            return True
-
-    print(f"[필터미통과] {story.get('title', '')}")
-    return False
 	
 def is_bad_line(line: str) -> bool:
     low = line.lower().strip()
