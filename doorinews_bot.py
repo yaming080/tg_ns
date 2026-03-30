@@ -1056,8 +1056,6 @@ def normalize_style(text: str) -> str:
     text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
     text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
     text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
-    text = re.sub(r'([가-힣])(#)', r'\1 #', text)
-    text = re.sub(r'(#\w+)([가-힣])', r'\1 \2', text)
     text = re.sub(r'\s+', ' ', text).strip()
 
     text = re.sub(r'([가-힣]+)음고 말함', r'\1음', text)
