@@ -834,7 +834,27 @@ def contains_exact_term(text: str, term: str) -> bool:
     return re.search(pattern, norm_text) is not None
 
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
-    raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
+   url = (story.get('url', '') or '').lower()
+    title = (story.get('title', '') or '').lower()
+    desc = (story.get('desc', '') or '').lower()
+    raw_text = f"{title} {desc}"
+
+    if 'tokenpost.kr/news/tech/' in url:
+        crypto_keep_terms = [
+            'btc', 'bitcoin', '비트코인',
+            'eth', 'ethereum', '이더리움',
+            'xrp', 'ripple', '리플',
+            'xlm', 'stellar', '스텔라',
+            'ada', 'cardano', '에이다',
+            'trx', 'tron', '트론',
+            'bnb', 'bch', 'shib', 'flr', 'usdc', 'usdt',
+            'etf', 'sec', 'cftc', 'stablecoin', '스테이블코인',
+            '암호화폐', '블록체인', '토큰화', '수탁', '시드문구'
+        ]
+        if not any(term in raw_text for term in crypto_keep_terms):
+            print(f"[토큰포스트 tech 제외] {story.get('title', '')}")
+            return False
+	raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
     text = normalize_text(raw_text)
     raw_lower = raw_text.lower()
 
