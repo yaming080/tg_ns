@@ -1312,7 +1312,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     for old_title in seen_titles:
         ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.82:
+        if ratio >= 0.88:
             log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
             return True
 
@@ -1326,7 +1326,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
             continue
 
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.95:
+        if ratio >= 0.90:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
 
