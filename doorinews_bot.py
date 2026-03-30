@@ -1622,11 +1622,8 @@ def build_message(story: dict) -> str:
         summary_ko = normalize_style(summary_ko)
         summary_ko = cleanup_text(summary_ko)
 
-    entities = extract_entities(story, max_tags=3)
-    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    ynamic_tags = []
     summary_ko = fix_broken_inline_hashtags(summary_ko)
-    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
-    dynamic_tags = filter_final_tags(dynamic_tags)
 
     extra_footer_tags = []
     title_text = (story.get('title', '') + ' ' + story.get('desc', '')).lower()
