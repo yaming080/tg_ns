@@ -1987,12 +1987,18 @@ def main():
         for item in posted.values()
         if item.get('url')
     }
+    seen_topic_keys = set()
 
     for s in filtered:
         title = s.get('title', '')
         norm_title = normalize_for_duplicate(title)
         signature = build_story_signature(s)
         url = s.get('url', '').strip()
+
+        if signature and signature in seen_topic_keys:
+            log(f"[토픽중복 제외] {title}")
+            log(f"  └ 시그니처: {signature}")
+            continue
 
         if url and url in seen_urls:
             log(f"[URL중복 제외] {title}")
@@ -2015,6 +2021,10 @@ def main():
         new_stories.append(s)
         seen_titles.append(norm_title)
         seen_signatures.append(signature)
+
+        if signature:
+            seen_topic_keys.add(signature)
+
         if url:
             seen_urls.add(url)
 
