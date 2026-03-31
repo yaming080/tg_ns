@@ -1871,7 +1871,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     for old_sig in seen_signatures:
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.75:
+        if ratio >= 0.88:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
 
@@ -2168,7 +2168,7 @@ def main():
         signature = build_story_signature(s)
         url = s.get('url', '').strip()
 
-        if signature and signature in seen_topic_keys:
+        if signature and len(signature.split('|')) >= 3 and signature in seen_topic_keys:
             log(f"[토픽중복 제외] {title}")
             log(f"  └ 시그니처: {signature}")
             continue
