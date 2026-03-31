@@ -719,7 +719,7 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 }
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 8
-SUMMARY_SENTENCES = 4
+SUMMARY_SENTENCES = 3
 GEMINI_INPUT_COST_PER_1M = 0.30
 GEMINI_OUTPUT_COST_PER_1M = 2.50
 AVG_CHARS_PER_TOKEN = 4
@@ -1504,9 +1504,12 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 해시태그는 마지막 footer에서만 사용됨
 - 사람 이름, 기관명, 코인명도 일반 텍스트로 자연스럽게 작성
 - 해시태그 사용하면 띄어쓰기 필수
-- 한국어 띄어쓰기를 자연스럽게 유지할 것
-- 본문은 1~3문단 정도로 짧게 작성
-- 문단이 끝나면 한 줄 띄울 것
+- 한국어 띄어쓰기를 자연스럽게 유지할 
+- 반드시 2~3문장만 작성
+- 각 문장은 짧게 작성
+- 한 문장이 끝날 때마다 반드시 한 줄 띄울 것
+- 전체 길이는 120자 안팎으로 유지
+- 불필요한 배경 설명 금지
 - 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘, 전했다→전함, 설명했다→설명함)
 - 필요하면 불릿(- 또는 ➖) 사용 가능
 - 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
@@ -1655,6 +1658,33 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     return False
 
+def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 120) -> str:
+    text = (text or "").strip()
+    text = text.replace('\r\n', '\n').replace('\r', '\n')
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{2,}', '\n', text).strip()
+
+    # 문장 단위 분리
+    sentences = re.split(r'(?<=[.!?])\s+|(?<=음)\s+|(?<=임)\s+|(?<=됨)\s+|(?<=함)\s+|(?<=밝힘)\s+|(?<=전함)\s+', text)
+    sentences = [s.strip() for s in sentences if s.strip()]
+
+    picked = []
+    total = 0
+
+    for s in sentences:
+        if len(picked) >= max_sentences:
+            break
+        if picked and total + len(s) > max_chars:
+            break
+        picked.append(s)
+        total += len(s)
+
+    if not picked and text:
+        picked = [text[:max_chars].rstrip()]
+
+    # 문장 끝마다 한 줄 띄우기
+    return '\n\n'.join(picked).strip()
+
 def finalize_summary_ending(text: str) -> str:
     text = re.sub(r'좋은\s*덩어리$', '', text)
     text = re.sub(r'([가-힣]+)음고 말함$', r'\1음', text)
@@ -1771,9 +1801,7 @@ def build_message(story: dict) -> str:
     summary_ko = finalize_summary_ending(summary_ko)
 
     summary = summary_ko if summary_ko else story.get('title', '')
-    summary = summary.replace('\r\n', '\n').replace('\r', '\n')
-    summary = '\n\n'.join(line.strip() for line in summary.split('\n') if line.strip())
-    summary = re.sub(r'[ \t]+', ' ', summary).strip()
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=120)
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
