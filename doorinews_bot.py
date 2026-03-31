@@ -1799,33 +1799,7 @@ def build_story_signature(story: dict) -> str:
     return ' | '.join(sorted(tags))
 
 
-def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
-    title = normalize_for_duplicate(story.get('title', ''))
-    signature = build_story_signature(story)
-
-    for old_title in seen_titles:
-        ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.80:
-            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
-            return True
-
-    if len(signature.split('|')) < 2:
-        return False
-
-     for old_title in seen_titles:
-        ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.80:
-            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
-            return True
-
-    if len(signature.split('|')) < 2:
-        return False
-
-    for old_sig in seen_signatures:
-        ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.75:
-            log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
-            return True
+def is_semantically_duplicate(
 
     return False
 
