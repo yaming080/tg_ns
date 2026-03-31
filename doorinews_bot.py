@@ -1781,7 +1781,16 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     for old_title in seen_titles:
         ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.84:
+        if ratio >= 0.80:
+            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
+            return True
+
+    if len(signature.split('|')) < 2:
+        return False
+
+     for old_title in seen_titles:
+        ratio = SequenceMatcher(None, title, old_title).ratio()
+        if ratio >= 0.80:
             log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
             return True
 
@@ -1790,7 +1799,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     for old_sig in seen_signatures:
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.82:
+        if ratio >= 0.75:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
 
@@ -2061,7 +2070,11 @@ def main():
         for item in posted.values()
         if item.get('url')
     }
-    seen_topic_keys = set()
+    seen_topic_keys = {
+        item.get('signature', '')
+        for item in posted.values()
+        if item.get('signature')
+    }
 
     for s in filtered:
         title = s.get('title', '')
