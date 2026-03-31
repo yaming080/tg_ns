@@ -1129,8 +1129,17 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     raw_lower = raw_text.lower()
     url = (story.get('url', '') or '').lower()
 
+    portfolio_context_terms = [
+        'bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple', 'xlm', 'stellar',
+        'ada', 'cardano', 'trx', 'tron', 'bnb', 'bch', 'bitcoin cash',
+        'shib', 'shiba inu', 'etc', 'flr', 'athena', 'ena', 'usdc', 'usdt',
+        '비트코인', '이더리움', '리플', '스텔라', '에이다', '트론',
+        '바이낸스코인', '비트코인캐시', '시바이누', '플레어', '에테나'
+    ]
+
+    has_portfolio_context = any(contains_exact_term(raw_text, t) for t in portfolio_context_terms)
+
     if 'tokenpost.kr/news/tech/' in url:
-        print(f"[토큰포스트 tech 제외] {story.get('title', '')}")
         return False
 
     for neg in NEGATIVE_KEYWORDS:
@@ -1167,15 +1176,15 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
     policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
-    if policy_hits >= 2:
-        print(f"[정책/거시 통과] {story.get('title', '')}")
-        return True
-
-    for kw in econ_keywords:
-        if normalize_text(kw) in text:
-            print(f"[경제키워드 통과] {story.get('title', '')} / {kw}")
+        if has_portfolio_context and policy_hits >= 1:
+            print(f"[포폴+정책 통과] {story.get('title', '')}")
             return True
-
+  
+    for kw in korean_keywords:
+        if has_portfolio_context and kw.lower() in raw_lower:
+            print(f"[포폴+한글키워드 통과] {story.get('title', '')} / {kw}")
+            return True
+    
     for kw in korean_keywords:
         if kw.lower() in raw_lower:
             print(f"[한글키워드 통과] {story.get('title', '')} / {kw}")
