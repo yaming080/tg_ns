@@ -1698,6 +1698,15 @@ def build_story_signature(story: dict) -> str:
         numbers = re.findall(r'\b\d+(?:\.\d+)?\b', text)
         important_terms.extend(numbers[:2])
 
+	if 'xrp ledger' in text or 'xrpl' in text:
+        important_terms.append('topic_xrpl')
+
+    if 'quantum' in text or '양자' in text:
+        important_terms.append('topic_quantum')
+
+    if 'ledger' in text or 'wallet' in text or '지갑' in text:
+        important_terms.append('topic_wallet')
+	
     return ' '.join(sorted(set(important_terms)))
 
 
