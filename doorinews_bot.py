@@ -1629,7 +1629,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
 		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin',
 		'#금융', '#암호화폐', '#트론', '#TRX', '#TRON', '#호주', '#미국',
-'#프랭클린템플턴', '#토니피코어','#WisdomTree','#CLALITYACT',
+'#프랭클린템플턴', '#토니피코어','#WisdomTree','#CLALITYAct',
     }
 
     blocked_contains = [
