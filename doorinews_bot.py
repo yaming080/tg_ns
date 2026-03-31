@@ -1421,7 +1421,7 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 
 규칙:
 - 텔레그램 업로드용 짧은 문장으로 작성
-- 첫 문장부터 핵심 키워드를 강하게 시작
+- 첫 문장부터 핵심 키워드를 강하게 시작(느낌표 물음표는 사용금지)
 - 해시태그는 마지막 footer에서만 사용됨
 - 사람 이름, 기관명, 코인명도 일반 텍스트로 자연스럽게 작성
 - 해시태그 사용하면 띄어쓰기 필수
