@@ -100,7 +100,7 @@ KOREAN_TAG_KEYWORDS = [
 '슈퍼마이크로', 'AI', 'LNG', '바잔', '캘리포니아', '지니어스법안', '지니어스', '법안', 'ICE',
 '클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '구글', '인도', '웰스파고', '피터쉬프', '패니매','ICE', 'EEZ', '현물', '서울', '부산',
 	'휘발유', '경유', '대전', '인천', '대구','경기도', '울산', '강원도', '석유', '비트코인캐시','월스트리트',
-	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧',
+	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧','비트코인캐시', '노동부', '401k','밈코인','레이어2',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -311,7 +311,9 @@ INLINE_TAG_WHITELIST = {
 'Google', 'India', 'Wells Fargo', 'Peter Schiff', 'Fannie Mae',
 'EEZ', 'Buffett',
 'Strive', 'Tuttle', 'Strive Asset Management', 'STRC', 'SATA', 'Nium',
-'Open Credit', 'Smart Contract', 'Smart Contracts', 'Private Credit', 'Private Credits', 'Institutional Capital'
+'Open Credit', 'Smart Contract', 'Smart Contracts', 'Private Credit', 'Private Credits', 'Institutional Capital',
+'BCH', 'Bitcoin Cash', '비트코인캐시',
+'노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department','밈코인','mimcoin',
 
 	
 }
@@ -711,6 +713,22 @@ MANUAL_TRANSLATIONS = {
     '엘리자베스워런': '엘리자베스워런',
     'Government': '정부',
     '정부': '정부',
+	'Bitcoin Cash': '비트코인캐시',
+    '비트코인캐시': '비트코인캐시',
+    'BCH': 'BCH',
+
+    'U.S. Department of Labor': '노동부',
+    'US Department of Labor': '노동부',
+    'Department of Labor': '노동부',
+    'Labor Department': '노동부',
+    '노동부': '노동부',
+
+    '401(k)': '401k',
+	'401 k': '401k',
+    '401K': '401k',
+    '401k': '401k',
+	'mim coin':'밈코인',
+	'밈코인':'밈코',
 
 }
 IGNORED_WORDS = {
@@ -1431,7 +1449,14 @@ def cleanup_text(text: str) -> str:
 
 def fix_translation_terms(text: str) -> str:
     replacements = {
-      
+    '401(k)': '401k',
+    '401 k': '401k',
+    '401K': '401k',
+    'U.S. Department of Labor': '미국 노동부',
+    'US Department of Labor': '미국 노동부',
+    'Department of Labor': '노동부',
+    'Labor Department': '노동부',
+    'Bitcoin Cash': '비트코인캐시',
     }
 
     for old, new in replacements.items():
@@ -1451,7 +1476,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
-		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo',
+		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','mimcoin'
     }
 
     blocked_contains = [
@@ -1815,6 +1840,21 @@ def build_message(story: dict) -> str:
         'kraken': '#Kraken',
         'Fannie Mae': '#FannieMae',
         'Peter Shiff': '#PeterShiff',
+		'bitcoin cash': '#BCH',
+        '비트코인캐시': '#BCH',
+        'bch': '#BCH',
+
+        'u.s. department of labor': '#노동부',
+        'us department of labor': '#노동부',
+        'department of labor': '#노동부',
+        '노동부': '#노동부',
+
+		'mim coin':'#밈코인',
+		'밈코인':'#밈코인',
+
+        '401(k)': '#401k',
+        '401 k': '#401k',
+        '401k': '#401k',
     }
     if has_precious_metal_context(title_text, 'gold') and '#Gold' not in dynamic_tags:
         extra_footer_tags.append('#Gold')
