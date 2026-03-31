@@ -93,7 +93,9 @@ KOREAN_TAG_KEYWORDS = [
 '슈퍼마이크로', 'AI', 'LNG', '바잔', '캘리포니아', '지니어스법안', '지니어스', '법안', 'ICE',
 '클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '구글', '인도', '웰스파고', '피터쉬프', '패니매','ICE', 'EEZ', '현물', '서울', '부산',
 	'휘발유', '경유', '대전', '인천', '대구','경기도', '울산', '강원도', '석유', '비트코인캐시','월스트리트',
-	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧','비트코인캐시', '노동부', '401k','밈코인','레이어2',
+	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧','비트코인캐시', '노동부', '401k',
+	'밈코인','레이어2','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
+'프랭클린템플턴', '토니피코어',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -203,7 +205,7 @@ NEGATIVE_KEYWORDS = [
 'monthly chart', '월간 차트','reason', 'reasons',
 'uncertain', 'uncertainty', '불확실', '불확실성','reason', 'reasons', 'why', '이유', 'oil', 'solar', 'renewable', 'dividend', 'shareholder', 'board reshuffle',
 '주주총회', '배당', '태양광', '에너지 전환', '중장기 성장 전략', 'game ai', 'gaming ai', 'game content', 'series b', 'funding round',
-'게임 ai', '게임 콘텐츠', '시리즈 b', '펀딩', '마케팅 자산', '자동화 툴',
+'게임 ai', '게임 콘텐츠', '시리즈 b', '펀딩', '마케팅 자산', '자동화 툴', 'BitGo',
 	
 ]
 
@@ -385,7 +387,10 @@ INLINE_TAG_WHITELIST = {
 'Strive', 'Tuttle', 'Strive Asset Management', 'STRC', 'SATA', 'Nium',
 'Open Credit', 'Smart Contract', 'Smart Contracts', 'Private Credit', 'Private Credits', 'Institutional Capital',
 'BCH', 'Bitcoin Cash', '비트코인캐시',
-'노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department','밈코인','Mimcoin',
+'노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department',
+	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
+'BitGo', 'TRON', 'TRX', 'Australia', 'Franklin Templeton', 'Tony Pecore',
+'프랭클린템플턴', '토니피코어',
 
 	
 }
@@ -801,6 +806,23 @@ MANUAL_TRANSLATIONS = {
     '401k': '401k',
 	'mim coin':'밈코인',
 	'밈코인':'밈코',
+
+	'TRON': '트론',
+    'TRX': '트론',
+    '트론': '트론',
+    'Australia': '호주',
+    'Australian': '호주',
+    '호주': '호주',
+    'Franklin Templeton': '프랭클린템플턴',
+    '프랭클린템플턴': '프랭클린템플턴',
+    'Tony Pecore': '토니피코어',
+    '토니피코어': '토니피코어',
+    'Crypto': '암호화폐',
+    'crypto': '암호화폐',
+    '암호화폐': '암호화폐',
+    'Finance': '금융',
+    'financial': '금융',
+    '금융': '금융',
 
 }
 IGNORED_WORDS = {
@@ -1548,7 +1570,9 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
-		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin'
+		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin',
+		'#금융', '#암호화폐', '#비트고', '#트론', '#TRX', '#TRON', '#호주', '#미국',
+'#프랭클린템플턴', '#토니피코어',
     }
 
     blocked_contains = [
@@ -1947,6 +1971,17 @@ def build_message(story: dict) -> str:
         '401(k)': '#401k',
         '401 k': '#401k',
         '401k': '#401k',
+		'tron': '#트론',
+		'trx': '#TRX',
+		'australia': '#호주',
+		'australian': '#호주',
+		'franklin templeton': '#프랭클린템플턴',
+		'tony pecore': '#토니피코어',
+		'crypto': '#암호화폐',
+		'finance': '#금융',
+		'financial': '#금융',
+		'미국': '#미국',
+		'us': '#미국',
     }
     if has_precious_metal_context(title_text, 'gold') and '#Gold' not in dynamic_tags:
         extra_footer_tags.append('#Gold')
