@@ -313,7 +313,7 @@ INLINE_TAG_WHITELIST = {
 'Strive', 'Tuttle', 'Strive Asset Management', 'STRC', 'SATA', 'Nium',
 'Open Credit', 'Smart Contract', 'Smart Contracts', 'Private Credit', 'Private Credits', 'Institutional Capital',
 'BCH', 'Bitcoin Cash', '비트코인캐시',
-'노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department','밈코인','mimcoin',
+'노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department','밈코인','Mimcoin',
 
 	
 }
@@ -1476,7 +1476,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
-		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','mimcoin'
+		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin'
     }
 
     blocked_contains = [
@@ -1683,7 +1683,11 @@ def build_story_signature(story: dict) -> str:
 'tokenized market', 'tokenized markets',
 'stablecoin payment', 'stablecoin payments',
 'developer ecosystem', 'developers',
-'베이스', '코인베이스', '레이어2', 'ai 에이전트', '토큰화 시장', '스테이블코인 결제', '개발자 생태계',
+'베이스', '코인베이스', '레이어2', 'ai 에이전트', '토큰화 시장', '스테이블코인 결제', '개발자 생태계', 'quantum day', 'quantum threat', 'quantum resilience', 'quantum resistance',
+'post quantum', 'post-quantum', 'quantum computer', 'quantum computers',
+'xrp ledger', 'xrpl', 'ledger', 'wallet', 'wallet security',
+'양자 위협', '양자 저항', '양자 내성', '양자 복원력',
+'엑스알피레저', 'xrp레저', '리플 레저', '지갑 보안',
 	]
 
     for term in term_pool:
