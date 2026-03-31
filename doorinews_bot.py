@@ -1183,7 +1183,6 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     print(f"[필터미통과] {story.get('title', '')}")
     return False
-
 	
 def is_bad_line(line: str) -> bool:
     low = line.lower().strip()
