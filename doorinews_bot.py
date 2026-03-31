@@ -1207,6 +1207,10 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[부정시그널 제외] {story.get('title', '')}")
         return False
 
+    if contains_bad_topic(raw_text):
+        print(f"[주제제외] {story.get('title', '')}")
+        return False
+
     allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
     if allowed_coin_found:
         print(f"[허용코인 통과] {story.get('title', '')}")
@@ -1240,11 +1244,7 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         if has_portfolio_context and kw.lower() in raw_lower:
             print(f"[포폴+한글키워드 통과] {story.get('title', '')} / {kw}")
             return True
-    
-    for kw in korean_keywords:
-        if kw.lower() in raw_lower:
-            print(f"[한글키워드 통과] {story.get('title', '')} / {kw}")
-            return True
+
 
     print(f"[필터미통과] {story.get('title', '')}")
     return False
@@ -1693,8 +1693,8 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
 		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin',
-		'#금융', '#암호화폐', '#트론', '#TRX', '#TRON', '#호주', '#미국',
-'#프랭클린템플턴', '#토니피코어','#WisdomTree','#CLALITYAct',
+		'Finance', 'Crypto',  '#TRX', '#TRON', 'Australia', 'US',
+'FranklinTempleton', 'Tony Pecore','#WisdomTree','#CLALITYAct',
     }
 
     blocked_contains = [
@@ -2260,7 +2260,7 @@ def main():
         seen_titles.append(norm_title)
         seen_signatures.append(signature)
 
-        if signature:
+        if signature and len(signature.split('|')) >= 3:
             seen_topic_keys.add(signature)
 
         if url:
