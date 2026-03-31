@@ -1610,11 +1610,11 @@ def build_message(story: dict) -> str:
         summary_ko = normalize_style(summary_ko)
         summary_ko = cleanup_text(summary_ko)
 
-   entities = extract_entities(story, max_tags=8)
-   entities = [
+    entities = extract_entities(story, max_tags=8)
+    entities = [
         e for e in entities
         if e in INLINE_TAG_WHITELIST or entity_korean_name(e) in INLINE_TAG_WHITELIST
-   ]
+    ]
 
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
