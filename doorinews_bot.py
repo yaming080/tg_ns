@@ -95,7 +95,7 @@ KOREAN_TAG_KEYWORDS = [
 	'휘발유', '경유', '대전', '인천', '대구','경기도', '울산', '강원도', '석유', '비트코인캐시','월스트리트',
 	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧','비트코인캐시', '노동부', '401k',
 	'밈코인','레이어2','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
-'프랭클린템플턴', '토니피코어',
+'프랭클린템플턴', '토니피코어','위즈덤트리', '클래리티법',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -205,7 +205,9 @@ NEGATIVE_KEYWORDS = [
 'monthly chart', '월간 차트','reason', 'reasons',
 'uncertain', 'uncertainty', '불확실', '불확실성','reason', 'reasons', 'why', '이유', 'oil', 'solar', 'renewable', 'dividend', 'shareholder', 'board reshuffle',
 '주주총회', '배당', '태양광', '에너지 전환', '중장기 성장 전략', 'game ai', 'gaming ai', 'game content', 'series b', 'funding round',
-'게임 ai', '게임 콘텐츠', '시리즈 b', '펀딩', '마케팅 자산', '자동화 툴', 'BitGo',
+'게임 ai', '게임 콘텐츠', '시리즈 b', '펀딩', '마케팅 자산', '자동화 툴', 'BitGo', 'listing', 'listings', 'delisting', 'delist', 'delisted',
+'상장', '상장 소식', '상장 발표', '상장 폐지', '폐지 결정', '거래지원 종료',
+'binance listing', 'binance delisting', '바이낸스 상장', '바이낸스 상장 폐지',
 	
 ]
 
@@ -301,7 +303,51 @@ BAD_TOPIC_PATTERNS = [
     r'개발자',
     r'기술',
     r'레이어2',
+
+	r'\blisting\b',
+    r'\blistings\b',
+    r'\bdelisting\b',
+    r'\bdelist\b',
+    r'상장',
+    r'상장 폐지',
+    r'폐지 결정',
+    r'거래지원 종료',
 ]
+NON_PORTFOLIO_ASSET_PATTERNS = [
+    r'\bsol\b', r'\bsolana\b', r'\bdoge\b', r'\bdogecoin\b', r'\bavax\b',
+    r'\bdot\b', r'\blink\b', r'\bltc\b', r'\bnear\b', r'\buni\b', r'\baave\b',
+    r'\bpepe\b', r'\bwif\b', r'\bbonk\b', r'\bsui\b', r'\bapt\b', r'\batom\b',
+    r'\bfil\b', r'\bhbar\b', r'\bkas\b', r'\btao\b', r'\bicp\b',
+    r'솔라나', r'도지', r'아발란체', r'폴카닷', r'체인링크', r'라이트코인',
+    r'니어', r'유니스왑', r'에이브', r'수이', r'앱토스', r'파일코인',
+]
+STOCK_PATTERNS = [
+    r'\bstock\b',
+    r'\bstocks\b',
+    r'\bshare\b',
+    r'\bshares\b',
+    r'\bequity\b',
+    r'\bdividend\b',
+    r'\bearnings\b',
+    r'\bshareholder\b',
+    r'\bnasdaq\b',
+    r'\bnyse\b',
+    r'\bipo\b',
+    r'주식',
+    r'주가',
+    r'배당',
+    r'실적',
+    r'주주',
+    r'상장사',
+]
+
+def contains_non_portfolio_asset(text: str) -> bool:
+    low = (text or "").lower()
+    return any(re.search(p, low, re.I) for p in NON_PORTFOLIO_ASSET_PATTERNS)
+
+def contains_stock_context(text: str) -> bool:
+    low = (text or "").lower()
+    return any(re.search(p, low, re.I) for p in STOCK_PATTERNS)
 
 def contains_bad_signal(text: str) -> bool:
     low = (text or "").lower()
@@ -823,6 +869,10 @@ MANUAL_TRANSLATIONS = {
     'Finance': '금융',
     'financial': '금융',
     '금융': '금융',
+	'WisdomTree': '위즈덤트리',
+    '위즈덤트리': '위즈덤트리',
+    'CLARITY Act': '클래리티법',
+    '클래리티법': '클래리티법',
 
 }
 IGNORED_WORDS = {
@@ -1096,7 +1146,15 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     if allowed_coin_found:
         print(f"[허용코인 통과] {story.get('title', '')}")
         return True
+		
+	if contains_non_portfolio_asset(raw_text):
+        print(f"[포폴외코인 제외] {story.get('title', '')}")
+        return False
 
+	if contains_stock_context(raw_text):
+        print(f"[주식기사 제외] {story.get('title', '')}")
+        return False
+   
     other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
     if other_coin_found:
         print(f"[기타코인 제외] {story.get('title', '')}")
@@ -1571,8 +1629,8 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
 		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin',
-		'#금융', '#암호화폐', '#비트고', '#트론', '#TRX', '#TRON', '#호주', '#미국',
-'#프랭클린템플턴', '#토니피코어',
+		'#금융', '#암호화폐', '#트론', '#TRX', '#TRON', '#호주', '#미국',
+'#프랭클린템플턴', '#토니피코어','WisdomTree'
     }
 
     blocked_contains = [
@@ -1973,6 +2031,9 @@ def build_message(story: dict) -> str:
 		'financial': '#금융',
 		'미국': '#미국',
 		'us': '#미국',
+		'wisdomtree': '#위즈덤트리',
+        'clarity act': '#클래리티법',
+        '클래리티법': '#클래리티법',
     }
     if has_precious_metal_context(title_text, 'gold') and '#Gold' not in dynamic_tags:
         extra_footer_tags.append('#Gold')
