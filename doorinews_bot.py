@@ -251,7 +251,43 @@ INLINE_TAG_WHITELIST = {
     'EEZ', '버핏',
     '스트라이브', '터틀', '스트라이브자산운용', 'STRC', 'SATA', '니움', '비자',
     '오픈크레딧', '스마트계약', '프라이빗크레딧', '기관자금',
-	'Bitcoin', 'Ethereum', 'Ripple',
+	'Bitcoin', 'Ethereum', 'Ripple','United States', 'US', 'Government',
+'Federal Reserve', 'Fed', 'Treasury', 'Senate', 'House', 'White House',
+
+'Ironlight', 'Vorhees', 'Erik Vorhees',
+'Michael Saylor', 'Saylor', 'Robert Kiyosaki', 'Paul Atkins',
+'David Schwartz', 'Mike Novogratz', 'Sam Altman', 'Elon Musk',
+'ShapeShift', 'Brad Garlinghouse', 'Garlinghouse', 'Monica Long', 'Vitalik Buterin',
+'Satoshi Nakamoto', 'Justin Sun', 'Jed McCaleb', 'Charles Hoskinson',
+'Goldman Sachs', 'Strategy', 'Donald Trump', 'Trump',
+'Robinhood', 'Tether', 'Ripple', 'Flare', 'ATHENA', 'Ethena',
+'Metaplanet', 'DooriNews', 'Shiba Inu', 'Shibarium',
+
+'Brazil', 'China', 'Japan', 'Korea', 'South Korea', 'Iran', 'Israel', 'Qatar',
+'Mastercard', 'Visa',
+
+'SEC', 'CFTC', 'OCC', 'ETF', 'IPO', 'CTO',
+'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+
+'Bitcoin', 'Ethereum', 'Stablecoin', 'Tokenization', 'Custody', 'Seed Phrase',
+'Lawsuit', 'Regulation', 'Interpretation',
+
+'DeFi', 'NFT', 'Web3',
+'BitMine',
+'Tom Lee', 'Jerome Powell', 'Powell',
+'Nevada', 'JPMorgan', 'Ryde', 'Bybit', 'Ledger',
+'Circle', 'MoneyGram', 'Upbit', 'Bithumb', 'Binance',
+'Apple', 'PayPal', 'Stripe', 'Gemini', 'Kalshi', 'Zedxion',
+'Evernorth', 'XRPLedger', 'World Gold Council',
+'Gold', 'Digital Gold', 'Silver', 'Bitcoin Quantum', 'BIP360',
+'OpenAI', 'Anthropic', 'Super Micro', 'AI', 'LNG',
+'BAZAN', 'California', 'Morgan Stanley', 'Kraken',
+'Genius Act', 'Genius', 'Act', 'ICE', 'CLARITY',
+'BlackRock', 'MoonPay', 'Coinbase', 'Hidden Road', 'GameStop',
+'Google', 'India', 'Wells Fargo', 'Peter Schiff', 'Fannie Mae',
+'EEZ', 'Buffett',
+'Strive', 'Tuttle', 'Strive Asset Management', 'STRC', 'SATA', 'Nium',
+'Open Credit', 'Smart Contract', 'Smart Contracts', 'Private Credit', 'Private Credits', 'Institutional Capital'
 
 	
 }
@@ -1255,12 +1291,12 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = re.sub(r'#+', '#', text)
     text = re.sub(r'#\s+', '#', text)
 
-    # 해시태그 내부가 글자 단위로 깨진 경우만 복구
+    # 정말 깨진 해시태그만 수동 복구
+    text = text.replace('#미 국', '#미국')
     text = text.replace('#비트 코 인', '#비트코인')
     text = text.replace('#이더 리 움', '#이더리움')
     text = text.replace('#시 바 이 누', '#시바이누')
-    text = text.replace('#미 국', '#미국')
-
+    text = text.replace('#신 시 아 루 미 스', '#신시아루미스')
 
     return text
 
