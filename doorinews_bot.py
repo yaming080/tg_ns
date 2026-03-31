@@ -1073,12 +1073,9 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
             print(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
             return False
 
-        if contains_bad_signal(raw_text):
-            print(f"[부정시그널 제외] {story.get('title', '')}")
-            return False
-	    if contains_bad_topic(raw_text):
-            print(f"[주제제외] {story.get('title', '')}")
-            return False
+    if contains_bad_signal(raw_text):
+        print(f"[부정시그널 제외] {story.get('title', '')}")
+        return False
 
     allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
     if allowed_coin_found:
@@ -1089,6 +1086,30 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     if other_coin_found:
         print(f"[기타코인 제외] {story.get('title', '')}")
         return False
+
+    ai_allow_terms = []
+    if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
+        print(f"[AI/기업기사 통과] {story.get('title', '')}")
+        return True
+
+    policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
+    policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
+    if policy_hits >= 2:
+        print(f"[정책/거시 통과] {story.get('title', '')}")
+        return True
+
+    for kw in econ_keywords:
+        if normalize_text(kw) in text:
+            print(f"[경제키워드 통과] {story.get('title', '')} / {kw}")
+            return True
+
+    for kw in korean_keywords:
+        if kw.lower() in raw_lower:
+            print(f"[한글키워드 통과] {story.get('title', '')} / {kw}")
+            return True
+
+    print(f"[필터미통과] {story.get('title', '')}")
+    return False
 
     ai_allow_terms = []
     if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
@@ -1717,79 +1738,72 @@ def build_story_signature(story: dict) -> str:
     raw = f"{story.get('title', '')} {story.get('desc', '')}"
     text = normalize_for_duplicate(raw)
 
-    important_terms = []
+    tags = set()
 
-    term_pool = [
-        'btc', 'eth', 'xrp', 'xlm', 'ada', 'trx', 'bnb', 'bch', 'shib', 'etc', 'flr', 'athena', 'etna', 'usdc', 'usdt',
-        'ethereum', 'cardano', 'stablecoin', 'tether',
+    # 핵심 자산
+    if 'btc' in text or 'bitcoin' in text or '비트코인' in text:
+        tags.add('asset_btc')
+    if 'eth' in text or 'ethereum' in text or '이더리움' in text:
+        tags.add('asset_eth')
+    if 'xrp' in text or 'ripple' in text or '리플' in text:
+        tags.add('asset_xrp')
+    if 'xrpl' in text or 'xrp ledger' in text or 'xrpledger' in text or '엑스알피레저' in text:
+        tags.add('asset_xrpl')
+    if 'bch' in text or 'bitcoin cash' in text or '비트코인캐시' in text:
+        tags.add('asset_bch')
+    if 'shib' in text or 'shiba inu' in text or '시바이누' in text:
+        tags.add('asset_shib')
+    if 'usdc' in text:
+        tags.add('asset_usdc')
+    if 'usdt' in text:
+        tags.add('asset_usdt')
 
-        'softbank', 'jpmorgan', 'morgan stanley', 'goldman sachs', 'coinbase',
-        'robinhood', 'upbit', 'bithumb', 'bitmine', 'uniswap', 'ripple', 'xrpl', 'xrp ledger',
+    # 기관/회사
+    if 'coinbase' in text or '코인베이스' in text:
+        tags.add('org_coinbase')
+    if 'base' in text or '베이스' in text:
+        tags.add('org_base')
+    if 'google' in text or '구글' in text:
+        tags.add('org_google')
+    if 'labor department' in text or 'department of labor' in text or '노동부' in text:
+        tags.add('org_labor')
 
-        'nvidia', 'ohio', 'korea', 'japan', 'iran', 'israel',
+    # 정책/주제
+    if '401k' in text or '401 k' in text or '401(k)' in text or 'retirement' in text or '퇴직연금' in text or '퇴직계좌' in text:
+        tags.add('topic_401k')
 
-        'defi', 'nft', 'web3', 'etf', 'sec', 'cftc', 'ipo', 'vr',
-        'fed', 'federal reserve', 'gold', 'silver',
-
-        'tom lee', 'jerome powell', 'time traveler', 'john squire',
-        'brad garlinghouse', 'david schwartz', 'monica long', 'vitalik buterin',
-        'satoshi nakamoto', 'elon musk', 'justin sun', 'jed mccaleb', 'charles hoskinson','openai', 'anthropic', 'google', 'xai', 'grok','x','github', 'phishing', 'wallet', 'openclaw', 'developer', 'developers', 'scam',
-
-        'donald trump', 'trump', 'strategy', 'evernorth','brazil', 'finance minister', 'crypto tax', 'election','비트코인', '이더리움', '리플', '스텔라', '에이다', '트론', '바이낸스코인', '비트코인캐시', '시바이누', '이더리움클래식', '플레어', '아테나', '에테나', '유에스디씨', '유에스디티',
-'이더리움', '카르다노', '스테이블코인', '테더',
-
-'소프트뱅크', '제이피모건', '모건스탠리', '골드만삭스', '코인베이스',
-'로빈후드', '업비트', '빗썸', '비트마인', '유니스왑', '리플', '엑스알피레저', '엑스알피레저',
-
-'엔비디아', '오하이오', '한국', '일본', '이란', '이스라엘',
-
-'디파이', '엔에프티', '웹3', '이티에프', '에스이씨', '씨에프티씨', '아이피오', '브이알',
-'연준', '연방준비제도', '금', '은',
-
-'톰리', '제롬파월', '타임트래블러', '존스콰이어',
-'브래드갈링하우스', '데이비드슈워츠', '모니카롱', '비탈릭부테린',
-'사토시나카모토', '일론머스크', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '오픈에이아이', '앤트로픽', '구글', '엑스에이아이', '그록', '엑스', '깃허브', '피싱', '지갑', '오픈클로', '개발자', '개발자들', '사기',
-
-'도널드트럼프', '트럼프', '스트래티지', '에버노스', '브라질', '재무장관', '암호화폐세금', '선거',
-'l2', 'layer 2', 'layer2', 'ethereum builders', 'builders',
-'fragmentation', 'fragmented', 'economic zones', 'economic zone',
-'eez', 'single chain', 'bridge', 'bridgeless',
-'단편화', '파편화', '레이어2', '레이어 2', '경제구역', '단일 체인', '브리지','private credit', 'open credit', 'smart contract', 'smart contracts',
-'institutional capital', 'defi lending', 'real world assets',
-'프라이빗크레딧', '오픈크레딧', '스마트계약', '기관자금', '디파이','401k', '401(k)', 'retirement', 'retirement account', 'retirement plan',
-'labor department', 'department of labor', 'u.s. department of labor',
-'퇴직계좌', '퇴직연금', '노동부',
-
-'base', 'coinbase base', 'layer 2', 'layer2',
-'ai agent', 'ai agents', 'agent economy',
-'tokenized market', 'tokenized markets',
-'stablecoin payment', 'stablecoin payments',
-'developer ecosystem', 'developers',
-'베이스', '코인베이스', '레이어2', 'ai 에이전트', '토큰화 시장', '스테이블코인 결제', '개발자 생태계', 'quantum day', 'quantum threat', 'quantum resilience', 'quantum resistance',
-'post quantum', 'post-quantum', 'quantum computer', 'quantum computers',
-'xrp ledger', 'xrpl', 'ledger', 'wallet', 'wallet security',
-'양자 위협', '양자 저항', '양자 내성', '양자 복원력',
-'엑스알피레저', 'xrp레저', '리플 레저', '지갑 보안',
-	]
-
-    for term in term_pool:
-        if term in text:
-            important_terms.append(term)
-
-    if len(important_terms) >= 2:
-        numbers = re.findall(r'\b\d+(?:\.\d+)?\b', text)
-        important_terms.extend(numbers[:2])
-
-	if 'xrp ledger' in text or 'xrpl' in text:
-        important_terms.append('topic_xrpl')
+    if 'stablecoin' in text or '스테이블코인' in text:
+        tags.add('topic_stablecoin')
+    if 'tokenized market' in text or 'tokenized markets' in text or '토큰화 시장' in text:
+        tags.add('topic_tokenized_market')
+    if 'developer ecosystem' in text or 'developers' in text or '개발자 생태계' in text:
+        tags.add('topic_developers')
+    if 'ai agent' in text or 'ai agents' in text or 'agent economy' in text or 'ai 에이전트' in text:
+        tags.add('topic_ai_agent')
 
     if 'quantum' in text or '양자' in text:
-        important_terms.append('topic_quantum')
+        tags.add('topic_quantum')
+    if 'wallet' in text or '지갑' in text:
+        tags.add('topic_wallet')
+    if 'ledger' in text or '레저' in text:
+        tags.add('topic_ledger')
 
-    if 'ledger' in text or 'wallet' in text or '지갑' in text:
-        important_terms.append('topic_wallet')
-	
-    return ' '.join(sorted(set(important_terms)))
+    # 규제/거시
+    if 'sec' in text:
+        tags.add('macro_sec')
+    if 'etf' in text:
+        tags.add('macro_etf')
+    if 'fed' in text or 'federal reserve' in text or '연준' in text:
+        tags.add('macro_fed')
+    if 'treasury' in text or '재무부' in text:
+        tags.add('macro_treasury')
+
+    # 숫자 소수만
+    nums = re.findall(r'\b\d+(?:,\d+)?(?:\.\d+)?\b', text)
+    for n in nums[:2]:
+        tags.add(f'num_{n}')
+
+    return ' | '.join(sorted(tags))
 
 
 def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
@@ -1798,23 +1812,20 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     for old_title in seen_titles:
         ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.88:
+        if ratio >= 0.84:
             log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
             return True
 
-    sig_words = signature.split()
-    if len(sig_words) < 3:
+    if len(signature.split('|')) < 2:
         return False
 
     for old_sig in seen_signatures:
-        old_words = old_sig.split()
-        if len(old_words) < 3:
-            continue
-
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.90:
+        if ratio >= 0.82:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
+
+    return False
 
     return False
 
