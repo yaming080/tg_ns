@@ -214,6 +214,30 @@ NEGATIVE_KEYWORDS = [
 	
 ]
 
+BAD_SIGNAL_PATTERNS = [
+    r'\bno bullish reversal\b',
+    r'\bno bullish reversal signs\b',
+    r'\bweak price action\b',
+    r'\bbearish\b',
+    r'\bprice react\b',
+    r'\bbullish crossover\b',
+    r'\bcrossover completes\b',
+    r'\bprice analysis\b',
+    r'\bdowntrend\b',
+    r'강세 전환 신호 없음',
+    r'반등 신호 없음',
+    r'하락세',
+    r'약세',
+    r'가격 상승으로 이어지지 못',
+    r'상승으로 이어지지 못',
+    r'반등 실패',
+    r'크로스오버',
+]
+
+
+def contains_bad_signal(text: str) -> bool:
+    low = (text or "").lower()
+    return any(re.search(p, low, re.I) for p in BAD_SIGNAL_PATTERNS)
 
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
 
@@ -952,6 +976,16 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
             print(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
             return False
 
+
+	if contains_bad_signal(raw_text):
+    print(f"[부정시그널 제외] {story.get('title', '')}")
+    return False
+		
+
+	if contains_bad_signal(raw_text):
+    print(f"[부정시그널 제외] {story.get('title', '')}")
+    return False
+
     allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
     if allowed_coin_found:
         print(f"[허용코인 통과] {story.get('title', '')}")
@@ -1522,6 +1556,9 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 사람 이름, 국가명, 브랜드명, 코인명은 중간 띄어쓰기 없이 자연스럽게 작성
 - 해시태그 내부 단어를 분리하지 말 것
 - 본문에는 해시태그를 넣지 말 것
+- 아래 표현은 절대 쓰지 말 것:
+  하락세, 약세, 급락, 반등 실패, 상승으로 이어지지 못함, 강세 전환 신호 없음, 불확실, 이유, 전망, 크로스오버
+- 가격 차트 해설 기사나 기술적 분석 기사처럼 보이면 빈 문자열만 반환할 것
 
 제목:
 {title}
