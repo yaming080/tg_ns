@@ -233,11 +233,90 @@ BAD_SIGNAL_PATTERNS = [
     r'반등 실패',
     r'크로스오버',
 ]
+BAD_TOPIC_PATTERNS = [
+    # 가격/차트/기술적 분석
+    r'\bprice analysis\b',
+    r'\bprice prediction\b',
+    r'\bforecast\b',
+    r'\bchart\b',
+    r'\btechnical analysis\b',
+    r'\btrading setup\b',
+    r'\bsupport\b',
+    r'\bresistance\b',
+    r'\bbreakout\b',
+    r'\btrend line\b',
+    r'\bentry zone\b',
+    r'\btarget price\b',
+    r'\bbullish\b',
+    r'\bbearish\b',
+    r'\bcrossover\b',
+    r'\bdeath cross\b',
+    r'\bgolden cross\b',
 
+    # 기술/개발/업그레이드/인프라
+    r'\bdeveloper\b',
+    r'\bdevelopers\b',
+    r'\bdevnet\b',
+    r'\btestnet\b',
+    r'\bmainnet\b',
+    r'\bupgrade\b',
+    r'\bprotocol\b',
+    r'\binfrastructure\b',
+    r'\bsmart contract\b',
+    r'\bsmart contracts\b',
+    r'\bwallet security\b',
+    r'\bquantum resilience\b',
+    r'\bquantum resistance\b',
+    r'\bpost-quantum\b',
+    r'\blayer 2\b',
+    r'\blayer2\b',
+
+    # 입출금/전송/지갑
+    r'입금',
+    r'출금',
+    r'입출금',
+    r'전송',
+    r'송금',
+    r'지갑',
+    r'wallet',
+    r'deposit',
+    r'withdraw',
+    r'withdrawal',
+    r'transfer',
+    r'bridge',
+
+    # 한국어 가격/분석 표현
+    r'가격 분석',
+    r'기술적 분석',
+    r'차트 분석',
+    r'지지선',
+    r'저항선',
+    r'목표가',
+    r'돌파',
+    r'반등',
+    r'추세',
+    r'매수 구간',
+    r'매도 구간',
+
+    # 한국어 기술/개발 표현
+    r'업그레이드',
+    r'테스트넷',
+    r'메인넷',
+    r'프로토콜',
+    r'개발자',
+    r'기술',
+    r'레이어2',
+]
 
 def contains_bad_signal(text: str) -> bool:
     low = (text or "").lower()
     return any(re.search(p, low, re.I) for p in BAD_SIGNAL_PATTERNS)
+
+def contains_bad_topic(text: str) -> bool:
+    low = (text or "").lower()
+    return any(re.search(p, low, re.I) for p in BAD_TOPIC_PATTERNS)
+
+
 
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
 
@@ -996,6 +1075,9 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if contains_bad_signal(raw_text):
         print(f"[부정시그널 제외] {story.get('title', '')}")
+        return False
+	if contains_bad_topic(raw_text):
+        print(f"[주제제외] {story.get('title', '')}")
         return False
 
     allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
