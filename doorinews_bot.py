@@ -81,7 +81,7 @@ KOREAN_TAG_KEYWORDS = [
     '비트코인', '이더리움', '리플', '스텔라', '에이다', '트론',
 '시바이누', '스테이블코인',
 '미국', '이란', '이스라엘', '일본', '한국', '중국', '브라질',
-'연준', '환율', '유동성', '금', '은', '재무부',
+'연준', '환율', '유동성', '재무부',
 'ETF', 'SEC', 'CFTC', 'OCC',
 '업비트', '빗썸', '바이낸스', '코인베이스',
 '모건스탠리', '골드만삭스', '크라켄', '로빈후드',
@@ -242,7 +242,7 @@ INLINE_TAG_WHITELIST = {
     '서클', '머니그램', '업비트', '빗썸', '바이낸스',
     '애플', '페이팔', '스트라이프', '제미니', '칼시', '제드시온',
     '에버노스', 'XRPLedger', '세계금협회',
-    '금', '디지털금', '은', '비트코인퀀텀', 'BIP360',
+     '디지털금', '비트코인퀀텀', 'BIP360',
     'OpenAI', 'Anthropic', '슈퍼마이크로', 'AI', 'LNG',
     '바잔', '캘리포니아', '모건스탠리', '크라켄',
     '지니어스법안', '지니어스', '법안', 'ICE', '클래리티',
@@ -341,6 +341,8 @@ MANUAL_TRANSLATIONS = {
 
     'Satoshi Nakamoto': '사토시나카모토',
     '사토시나카모토': '사토시나카모토',
+	'Nakamoto': '나카모토',
+    '나카모토': '나카모토',
 
     'Justin Sun': '저스틴썬',
     '저스틴썬': '저스틴썬',
@@ -371,6 +373,9 @@ MANUAL_TRANSLATIONS = {
 
     'Ripple': '리플',
     '리플': '리플',
+
+	'TRX': '트론',
+    'TRON': '트론',
 
     'Flare': '플레어',
     '플레어': '플레어',
@@ -489,8 +494,8 @@ MANUAL_TRANSLATIONS = {
     'NFT': 'NFT',
     'Web3': 'Web3',
 
-    'BitMine': 'BitMine',
-    '비트마인': 'BitMine',
+    'BitMine': '비트마인',
+    '비트마인': '비트마인',
 
     'Tom Lee': '톰리',
     '톰리': '톰리',
@@ -752,6 +757,25 @@ def log_gemini_cost(title: str, prompt: str, output: str) -> None:
         f"예상비용≈${total_cost:.6f}"
     )
 
+def has_precious_metal_context(text: str, metal: str) -> bool:
+    raw = text or ""
+    norm = normalize_text(raw)
+
+    if metal == 'gold':
+        patterns = [
+            r'(^|\s)gold($|\s)',
+            r'(^|\s)digital gold($|\s)',
+            r'(^|\s)world gold council($|\s)',
+            r'(^|\s)xaut($|\s)',
+        ]
+    elif metal == 'silver':
+        patterns = [
+            r'(^|\s)silver($|\s)',
+        ]
+    else:
+        return False
+
+    return any(re.search(p, norm, re.I) for p in patterns)
 
 def http_get(url: str, timeout: int = 20) -> str:
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (compatible; DooriNewsBot/2.1)'})
@@ -1179,20 +1203,34 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     desc = story.get('desc', '')
     text = title + " " + desc
     entities = []
+
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
         if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
             entities.append(key)
+
     for kw in KOREAN_TAG_KEYWORDS:
+        # 금/은은 직접 포함 검사 금지
+        if kw in {'금', '은'}:
+            continue
         if kw in text:
             entities.append(kw)
+
+    # gold/silver는 영어 문맥일 때만 수동 추가
+    if has_precious_metal_context(text, 'gold'):
+        entities.append('Gold')
+    if has_precious_metal_context(text, 'silver'):
+        entities.append('Silver')
+
     for coin in PORTFOLIO_COINS:
         if re.search(r'\b' + re.escape(coin) + r'\b', text, re.I):
             entities.append(coin)
+
     grouped = re.findall(r'\b(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|[A-Z]{2,6})\b', title)
     for token in grouped:
         if token in SITE_NAMES or token.lower() in {w.lower() for w in IGNORED_WORDS}:
             continue
         entities.append(token)
+
     seen = set()
     result = []
     for ent in entities:
@@ -1200,6 +1238,7 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
         if k not in seen:
             result.append(ent)
             seen.add(k)
+
     result.sort(key=lambda e: text.lower().find(e.lower()) if text.lower().find(e.lower()) >= 0 else 99999)
     return result[:max_tags]
 
