@@ -1142,23 +1142,23 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[부정시그널 제외] {story.get('title', '')}")
         return False
 
-allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
-if allowed_coin_found:
-    print(f"[허용코인 통과] {story.get('title', '')}")
-    return True
+    allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
+    if allowed_coin_found:
+        print(f"[허용코인 통과] {story.get('title', '')}")
+        return True
 
-if contains_non_portfolio_asset(raw_text):
-    print(f"[포폴외코인 제외] {story.get('title', '')}")
-    return False
+    if contains_non_portfolio_asset(raw_text):
+        print(f"[포폴외코인 제외] {story.get('title', '')}")
+        return False
 
-if contains_stock_context(raw_text):
-    print(f"[주식기사 제외] {story.get('title', '')}")
-    return False
+    if contains_stock_context(raw_text):
+        print(f"[주식기사 제외] {story.get('title', '')}")
+        return False
 
-other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
-if other_coin_found:
-    print(f"[기타코인 제외] {story.get('title', '')}")
-    return False
+    other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
+    if other_coin_found:
+        print(f"[기타코인 제외] {story.get('title', '')}")
+        return False
 
     ai_allow_terms = []
     if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
