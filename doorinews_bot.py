@@ -1674,7 +1674,16 @@ def build_story_signature(story: dict) -> str:
 'eez', 'single chain', 'bridge', 'bridgeless',
 '단편화', '파편화', '레이어2', '레이어 2', '경제구역', '단일 체인', '브리지','private credit', 'open credit', 'smart contract', 'smart contracts',
 'institutional capital', 'defi lending', 'real world assets',
-'프라이빗크레딧', '오픈크레딧', '스마트계약', '기관자금', '디파이',
+'프라이빗크레딧', '오픈크레딧', '스마트계약', '기관자금', '디파이','401k', '401(k)', 'retirement', 'retirement account', 'retirement plan',
+'labor department', 'department of labor', 'u.s. department of labor',
+'퇴직계좌', '퇴직연금', '노동부',
+
+'base', 'coinbase base', 'layer 2', 'layer2',
+'ai agent', 'ai agents', 'agent economy',
+'tokenized market', 'tokenized markets',
+'stablecoin payment', 'stablecoin payments',
+'developer ecosystem', 'developers',
+'베이스', '코인베이스', '레이어2', 'ai 에이전트', '토큰화 시장', '스테이블코인 결제', '개발자 생태계',
 	]
 
     for term in term_pool:
