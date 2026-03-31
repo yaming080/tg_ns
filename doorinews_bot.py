@@ -1755,7 +1755,13 @@ def build_message(story: dict) -> str:
         'Fannie Mae': '#FannieMae',
         'Peter Shiff': '#PeterShiff',
     }
+    if has_precious_metal_context(title_text, 'gold') and '#Gold' not in dynamic_tags:
+        extra_footer_tags.append('#Gold')
 
+    if has_precious_metal_context(title_text, 'silver') and '#Silver' not in dynamic_tags:
+        extra_footer_tags.append('#Silver')
+
+	
     for key, tag in footer_map.items():
         if contains_exact_term(title_text, key) and tag not in dynamic_tags:
             extra_footer_tags.append(tag)
