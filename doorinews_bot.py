@@ -975,11 +975,10 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         if neg.lower() in raw_lower:
             print(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
             return False
-		
 
-	if contains_bad_signal(raw_text):
-    print(f"[부정시그널 제외] {story.get('title', '')}")
-    return False
+    if contains_bad_signal(raw_text):
+        print(f"[부정시그널 제외] {story.get('title', '')}")
+        return False
 
     allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
     if allowed_coin_found:
