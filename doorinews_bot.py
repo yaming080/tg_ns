@@ -436,7 +436,7 @@ INLINE_TAG_WHITELIST = {
 '노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department',
 	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
 'BitGo', 'TRON', 'TRX', 'Australia', 'Franklin Templeton', 'Tony Pecore',
-'프랭클린템플턴', '토니피코어',
+'프랭클린템플턴', '토니피코어','WisdomTree', '위즈덤트리', 'CLARITY Act', '클래리티법',
 
 	
 }
@@ -1142,23 +1142,23 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[부정시그널 제외] {story.get('title', '')}")
         return False
 
-    allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
-    if allowed_coin_found:
-        print(f"[허용코인 통과] {story.get('title', '')}")
-        return True
-		
-	if contains_non_portfolio_asset(raw_text):
-        print(f"[포폴외코인 제외] {story.get('title', '')}")
-        return False
+allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
+if allowed_coin_found:
+    print(f"[허용코인 통과] {story.get('title', '')}")
+    return True
 
-	if contains_stock_context(raw_text):
-        print(f"[주식기사 제외] {story.get('title', '')}")
-        return False
-   
-    other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
-    if other_coin_found:
-        print(f"[기타코인 제외] {story.get('title', '')}")
-        return False
+if contains_non_portfolio_asset(raw_text):
+    print(f"[포폴외코인 제외] {story.get('title', '')}")
+    return False
+
+if contains_stock_context(raw_text):
+    print(f"[주식기사 제외] {story.get('title', '')}")
+    return False
+
+other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
+if other_coin_found:
+    print(f"[기타코인 제외] {story.get('title', '')}")
+    return False
 
     ai_allow_terms = []
     if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
@@ -1630,7 +1630,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
 		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin',
 		'#금융', '#암호화폐', '#트론', '#TRX', '#TRON', '#호주', '#미국',
-'#프랭클린템플턴', '#토니피코어','WisdomTree'
+'#프랭클린템플턴', '#토니피코어','#WisdomTree','#CLALITYACT',
     }
 
     blocked_contains = [
