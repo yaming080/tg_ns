@@ -235,7 +235,7 @@ INLINE_TAG_WHITELIST = {
     'SEC', 'CFTC', 'OCC', 'ETF', 'IPO', 'CTO',
     'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
     '비트코인', '이더리움', '스테이블코인', '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
-    'DeFi', 'NFT', 'Web3', '디파이',
+    'DeFi', 'NFT', 'Web3', '디파이', '엑스알피',
     'BitMine', '비트마인',
     '톰리', '제롬파월', '파월',
     '네비다주', 'JPMorgan', '라이드', '바이비트', 'Ledger',
