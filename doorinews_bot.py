@@ -1176,9 +1176,9 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
     policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
-        if has_portfolio_context and policy_hits >= 1:
-            print(f"[포폴+정책 통과] {story.get('title', '')}")
-            return True
+    if has_portfolio_context and policy_hits >= 1:
+        print(f"[포폴+정책 통과] {story.get('title', '')}")
+        return True
   
     for kw in korean_keywords:
         if has_portfolio_context and kw.lower() in raw_lower:
