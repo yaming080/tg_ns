@@ -1129,6 +1129,10 @@ def normalize_style(text: str) -> str:
         (r'졌다\.?', '졌음'),
         (r'됩니다\.?', '됨'),
         (r'있다\.?', '있음'),
+		(r'밝혔다\.?', '밝힘'),
+        (r'전했다\.?', '전함'),
+        (r'설명했다\.?', '설명함'),
+        (r'덧붙였다\.?', '덧붙임'),
     ]
 
     leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
@@ -1463,6 +1467,8 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 해시태그 사용하면 띄어쓰기 필수
 - 한국어 띄어쓰기를 자연스럽게 유지할 것
 - 본문은 1~3문단 정도로 짧게 작성
+- 문단이 끝나면 한 줄 띄울 것
+- 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘, 전했다→전함, 설명했다→설명함)
 - 필요하면 불릿(- 또는 ➖) 사용 가능
 - 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
 - 직역투 금지
@@ -1613,9 +1619,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 def finalize_summary_ending(text: str) -> str:
     text = re.sub(r'좋은\s*덩어리$', '', text)
     text = re.sub(r'([가-힣]+)음고 말함$', r'\1음', text)
-    text = re.sub(r'([가-힣]+)음고 밝힘$', r'\1음', text)
     text = re.sub(r'([가-힣]+)고 말함$', r'\1', text)
-    text = re.sub(r'([가-힣]+)고 밝힘$', r'\1', text)
     text = re.sub(r'매도가 있었음.*$', '매도가 있었음', text)
     text = re.sub(r'커졌음.*$', '커졌음', text)
     text = re.sub(r'\s+', ' ', text).strip()
