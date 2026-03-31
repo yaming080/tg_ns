@@ -1104,30 +1104,6 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     print(f"[필터미통과] {story.get('title', '')}")
     return False
 
-    ai_allow_terms = []
-    if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
-        print(f"[AI/기업기사 통과] {story.get('title', '')}")
-        return True
-
-    policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
-    policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
-    if policy_hits >= 2:
-        print(f"[정책/거시 통과] {story.get('title', '')}")
-        return True
-
-    for kw in econ_keywords:
-        if normalize_text(kw) in text:
-            print(f"[경제키워드 통과] {story.get('title', '')} / {kw}")
-            return True
-
-    for kw in korean_keywords:
-        if kw.lower() in raw_lower:
-            print(f"[한글키워드 통과] {story.get('title', '')} / {kw}")
-            return True
-
-    print(f"[필터미통과] {story.get('title', '')}")
-    return False
-
 	
 def is_bad_line(line: str) -> bool:
     low = line.lower().strip()
@@ -1820,7 +1796,6 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     return False
 
-    return False
 
 def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 120) -> str:
     text = (text or "").strip()
