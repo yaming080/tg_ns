@@ -249,9 +249,21 @@ NEGATIVE_KEYWORDS = [
     '월봉',
     '녹색 월간 양초',
     '적색 월간',
-    '상승 마감','mercado coin',
+    '상승 마감','mercado coin','mercado libre',
+'loyalty rewards',
+'loyalty program',
+'rewards program',
+
+
+
+	
 	
 ]
+
+
+
+
+
 
 BAD_SIGNAL_PATTERNS = [
     r'\bno bullish reversal\b',
@@ -1627,6 +1639,35 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     result.sort(key=lambda e: text.lower().find(e.lower()) if text.lower().find(e.lower()) >= 0 else 99999)
     return result[:max_tags]
 
+def extract_entities_from_summary(summary: str, max_tags: int = 8) -> list[str]:
+    text = summary or ""
+    entities = []
+
+    for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
+        if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
+            entities.append(key)
+
+    for kw in KOREAN_TAG_KEYWORDS:
+        if kw in {'금', '은'}:
+            continue
+        if re.search(r'\b' + re.escape(kw) + r'\b', text, re.I):
+            entities.append(kw)
+
+    for coin in PORTFOLIO_COINS:
+        if re.search(r'\b' + re.escape(coin) + r'\b', text, re.I):
+            entities.append(coin)
+
+    seen = set()
+    result = []
+    for ent in entities:
+        k = ent.lower()
+        if k not in seen:
+            result.append(ent)
+            seen.add(k)
+
+    result.sort(key=lambda e: text.lower().find(e.lower()) if text.lower().find(e.lower()) >= 0 else 99999)
+    return result[:max_tags]
+
 def entity_korean_name(entity: str) -> str:
     if entity in MANUAL_TRANSLATIONS:
         return MANUAL_TRANSLATIONS[entity]
@@ -2174,7 +2215,7 @@ def build_message(story: dict) -> str:
         summary_ko = normalize_style(summary_ko)
         summary_ko = cleanup_text(summary_ko)
 
-    entities = extract_entities(story, max_tags=8)
+    entities = extract_entities_from_summary(summary_ko, max_tags=8)
     entities = [
         e for e in entities
         if e in INLINE_TAG_WHITELIST or entity_korean_name(e) in INLINE_TAG_WHITELIST
@@ -2184,134 +2225,6 @@ def build_message(story: dict) -> str:
     summary_ko = fix_broken_inline_hashtags(summary_ko)
     dynamic_tags = filter_final_tags(dynamic_tags)
 
-    extra_footer_tags = []
-    title_text = (story.get('title', '') + ' ' + story.get('desc', '')).lower()
-
-    footer_map = {
-        'nvidia': '#Nvidia',
-        'softbank': '#SoftBank',
-        'ohio': '#Ohio',
-        'coinbase': '#Coinbase',
-        'goldman sachs': '#GoldmanSachs',
-        'tom lee': '#TomLee',
-        'strategy': '#Strategy',
-        'donald trump': '#DonaldTrump',
-        'trump': '#Trump',
-        'iran': '#Iran',
-        'israel': '#Israel',
-        'robinhood': '#Robinhood',
-        'japan': '#Japan',
-        'tether': '#Tether',
-        'defi': '#DeFi',
-        'nft': '#NFT',
-        'web3': '#Web3',
-        'silver': '#Silver',
-        'gold': '#Gold',
-        'bitmine': '#BitMine',
-        'uniswap': '#Uniswap',
-        'ripple': '#Ripple',
-        'xrpl': '#XRPL',
-        'sec': '#SEC',
-        'binance': '#Binance',
-        'apple': '#Apple',
-        'vr': '#VR',
-        'time traveler': '#TimeTraveler',
-        'upbit': '#Upbit',
-        'bithumb': '#Bithumb',
-        'brad garlinghouse': '#BradGarlinghouse',
-        'david schwartz': '#DavidSchwartz',
-        'monica long': '#MonicaLong',
-        'vitalik buterin': '#VitalikButerin',
-        'satoshi nakamoto': '#SatoshiNakamoto',
-        'elon musk': '#ElonMusk',
-        'justin sun': '#JustinSun',
-        'jed mccaleb': '#JedMcCaleb',
-        'charles hoskinson': '#CharlesHoskinson',
-        'ledger': '#Ledger',
-        'blackrock': '#BlackRock',
-        'fed': '#Fed',
-        'federal reserve': '#Fed',
-        'treasury': '#Treasury',
-        'rwa': '#RWA',
-        'mining': '#Mining',
-        'california': '#California',
-        'morgan stanley': '#MorganStanley',
-        'kraken': '#Kraken',
-        'Fannie Mae': '#FannieMae',
-        'Peter Shiff': '#PeterShiff',
-		'bitcoin cash': '#BCH',
-        '비트코인캐시': '#BCH',
-        'bch': '#BCH',
-
-        'u.s. department of labor': '#노동부',
-        'us department of labor': '#노동부',
-        'department of labor': '#노동부',
-        '노동부': '#노동부',
-
-		'mim coin':'#밈코인',
-		'밈코인':'#밈코인',
-
-        '401(k)': '#401k',
-        '401 k': '#401k',
-        '401k': '#401k',
-		'tron': '#트론',
-		'trx': '#TRX',
-		'australia': '#호주',
-		'australian': '#호주',
-		'franklin templeton': '#프랭클린템플턴',
-		'tony pecore': '#토니피코어',
-		'crypto': '#암호화폐',
-		'finance': '#금융',
-		'financial': '#금융',
-		'미국': '#미국',
-		'us': '#미국',
-		'wisdomtree': '#위즈덤트리',
-        'clarity act': '#클래리티법',
-        '클래리티법': '#클래리티법',
-		        'michael barr': '#MichaelBarr',
-        '마이클바': '#MichaelBarr',
-
-        'genius': '#GENIUS',
-        'genius act': '#GENIUS',
-        '지니어스법': '#GENIUS',
-
-        'australia': '#Australia',
-        'australian': '#Australia',
-        '호주': '#Australia',
-
-        'custodian': '#수탁업체',
-        'custodians': '#수탁업체',
-        '수탁업체': '#수탁업체',
-
-        'regulation': '#규제',
-        'regulated': '#규제',
-        'regulatory': '#규제',
-        '규제': '#규제',
-
-        'hong kong': '#HongKong',
-        '홍콩': '#HongKong',
-
-        'hkma': '#HKMA',
-        'hong kong monetary authority': '#HKMA',
-        '홍콩금융관리국': '#HKMA',
-
-        'hsbc': '#HSBC',
-
-        'standard chartered': '#StandardChartered',
-        '스탠다드차타드': '#StandardChartered',
-    }
-    if has_precious_metal_context(title_text, 'gold') and '#Gold' not in dynamic_tags:
-        extra_footer_tags.append('#Gold')
-
-    if has_precious_metal_context(title_text, 'silver') and '#Silver' not in dynamic_tags:
-        extra_footer_tags.append('#Silver')
-
-	
-    for key, tag in footer_map.items():
-        if contains_exact_term(title_text, key) and tag not in dynamic_tags:
-            extra_footer_tags.append(tag)
-
-    dynamic_tags.extend(extra_footer_tags)
 
     summary_ko = finalize_summary_ending(summary_ko)
 
