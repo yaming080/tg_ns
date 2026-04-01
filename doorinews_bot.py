@@ -95,7 +95,11 @@ KOREAN_TAG_KEYWORDS = [
 	'휘발유', '경유', '대전', '인천', '대구','경기도', '울산', '강원도', '석유', '비트코인캐시','월스트리트',
 	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧','비트코인캐시', '노동부', '401k',
 	'밈코인','레이어2','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
-'프랭클린템플턴', '토니피코어','위즈덤트리', '클래리티법',
+'프랭클린템플턴', '토니피코어','위즈덤트리', '클래리티법','마이클바', 'Michael Barr',
+'홍콩', 'Hong Kong', 'HKMA', '홍콩금융관리국',
+'HSBC', '스탠다드차타드', 'Standard Chartered',
+'GENIUS', 'Genius Act',
+'수탁업체',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -245,7 +249,7 @@ NEGATIVE_KEYWORDS = [
     '월봉',
     '녹색 월간 양초',
     '적색 월간',
-    '상승 마감',
+    '상승 마감','mercado coin',
 	
 ]
 
@@ -1017,6 +1021,32 @@ MANUAL_TRANSLATIONS = {
     '위즈덤트리': '위즈덤트리',
     'CLARITY Act': '클래리티법',
     '클래리티법': '클래리티법',
+	    'Michael Barr': '마이클바',
+    '마이클 바': '마이클바',
+    '마이클바': '마이클바',
+
+    'GENIUS': 'GENIUS',
+    'Genius Act': '지니어스법',
+    '지니어스법': '지니어스법',
+
+    'Australia': '호주',
+    'Australian': '호주',
+    '호주': '호주',
+
+    'Custodian': '수탁업체',
+    'Custodians': '수탁업체',
+    '수탁업체': '수탁업체',
+
+    'Hong Kong': '홍콩',
+    '홍콩': '홍콩',
+
+    'HKMA': '홍콩금융관리국',
+    'Hong Kong Monetary Authority': '홍콩금융관리국',
+    '홍콩금융관리국': '홍콩금융관리국',
+
+    'HSBC': 'HSBC',
+    'Standard Chartered': '스탠다드차타드',
+    '스탠다드차타드': '스탠다드차타드',
 
 }
 IGNORED_WORDS = {
@@ -1785,9 +1815,19 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
-		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','Mimcoin',
-		'Finance', 'Crypto',  '#TRX', '#TRON', 'Australia', 'US',
-'FranklinTempleton', 'Tony Pecore','#WisdomTree','#CLALITYAct',
+		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','#Mimcoin',
+		'#Finance', '#Crypto',  '#TRX', '#TRON', '#Australia', '#US',
+'#FranklinTempleton', '#TonyPecore','#WisdomTree','#CLALITYAct',        '#MichaelBarr',
+        '#GENIUS',
+        '#Australia',
+        '#HongKong',
+        '#HKMA',
+        '#HSBC',
+        '#StandardChartered',
+        '#수탁업체',
+        '#규제',
+        '#호주',
+        '#홍콩',
     }
 
     blocked_contains = [
@@ -1900,6 +1940,8 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 아래 표현은 절대 쓰지 말 것:
   하락세, 약세, 급락, 반등 실패, 상승으로 이어지지 못함, 강세 전환 신호 없음, 불확실, 이유, 전망, 크로스오버
 - 가격 차트 해설 기사나 기술적 분석 기사처럼 보이면 빈 문자열만 반환할 것
+- 인물명, 기관명, 국가명, 법안명은 기사에 있으면 요약문 본문에 가능한 한 직접 1회 포함할 것
+- 예: Michael Barr, GENIUS Act, Australia, Hong Kong, HKMA, HSBC, Standard Chartered
 
 제목:
 {title}
@@ -2226,6 +2268,37 @@ def build_message(story: dict) -> str:
 		'wisdomtree': '#위즈덤트리',
         'clarity act': '#클래리티법',
         '클래리티법': '#클래리티법',
+		        'michael barr': '#MichaelBarr',
+        '마이클바': '#MichaelBarr',
+
+        'genius': '#GENIUS',
+        'genius act': '#GENIUS',
+        '지니어스법': '#GENIUS',
+
+        'australia': '#Australia',
+        'australian': '#Australia',
+        '호주': '#Australia',
+
+        'custodian': '#수탁업체',
+        'custodians': '#수탁업체',
+        '수탁업체': '#수탁업체',
+
+        'regulation': '#규제',
+        'regulated': '#규제',
+        'regulatory': '#규제',
+        '규제': '#규제',
+
+        'hong kong': '#HongKong',
+        '홍콩': '#HongKong',
+
+        'hkma': '#HKMA',
+        'hong kong monetary authority': '#HKMA',
+        '홍콩금융관리국': '#HKMA',
+
+        'hsbc': '#HSBC',
+
+        'standard chartered': '#StandardChartered',
+        '스탠다드차타드': '#StandardChartered',
     }
     if has_precious_metal_context(title_text, 'gold') and '#Gold' not in dynamic_tags:
         extra_footer_tags.append('#Gold')
