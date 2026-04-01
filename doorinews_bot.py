@@ -1873,6 +1873,10 @@ def fix_translation_terms(text: str) -> str:
     'Department of Labor': '노동부',
     'Labor Department': '노동부',
     'Bitcoin Cash': '비트코인캐시',
+	'클레러티법': '클래리티법',
+    '클레리티법': '클래리티법',
+    '클레러티': '클래리티',
+    '클레리티': '클래리티',
     }
 
     for old, new in replacements.items():
