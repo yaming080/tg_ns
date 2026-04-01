@@ -99,7 +99,7 @@ KOREAN_TAG_KEYWORDS = [
 '홍콩', 'Hong Kong', 'HKMA', '홍콩금융관리국',
 'HSBC', '스탠다드차타드', 'Standard Chartered',
 'GENIUS', 'Genius Act',
-'수탁업체',
+'수탁업체','Jack Dorsey', '잭도시', 'Block',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -252,7 +252,26 @@ NEGATIVE_KEYWORDS = [
     '상승 마감','mercado coin','mercado libre',
 'loyalty rewards',
 'loyalty program',
-'rewards program',
+'rewards program','market recovery',
+'active xrp users',
+'active users cross',
+'threshold enabling',
+'0 recorded in xrp etf investments',
+'april fools joke',
+'minus monthly close',
+'negative monthly close',
+'positive monthly close',
+'monthly close',
+'market recovery possible',
+'retail users',
+'trading assistant',
+'ai trading assistant',
+'mulerun',
+'wcf',
+'winklevoss capital fund',
+'gemini ipo',
+'ipo controversy',
+'discounted shares',
 
 
 
@@ -401,7 +420,16 @@ BAD_TOPIC_PATTERNS = [
     r'데이터 인프라',
     r'칸톤네트워크',
     r'금융 데이터',
+	r'\bactive users?\b',
+    r'\bmarket recovery\b',
+    r'\btrading assistant\b',
+    r'\bretail users?\b',
+    r'\bmonthly close\b',
+    r'\bapril fools\b',
+    r'\bipo controversy\b',
 ]
+
+
 NON_PORTFOLIO_ASSET_PATTERNS = [
     r'\bsol\b', r'\bsolana\b', r'\bdoge\b', r'\bdogecoin\b', r'\bavax\b',
     r'\bdot\b', r'\blink\b', r'\bltc\b', r'\bnear\b', r'\buni\b', r'\baave\b',
@@ -410,6 +438,8 @@ NON_PORTFOLIO_ASSET_PATTERNS = [
     r'솔라나', r'도지', r'아발란체', r'폴카닷', r'체인링크', r'라이트코인',
     r'니어', r'유니스왑', r'에이브', r'수이', r'앱토스', r'파일코인',
 ]
+
+
 STOCK_PATTERNS = [
     r'\bstock\b',
     r'\bstocks\b',
@@ -596,7 +626,7 @@ INLINE_TAG_WHITELIST = {
 '노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department',
 	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
 'BitGo', 'TRON', 'TRX', 'Australia', 'Franklin Templeton', 'Tony Pecore',
-'프랭클린템플턴', '토니피코어','WisdomTree', '위즈덤트리', 'CLARITY Act', '클래리티법',
+'프랭클린템플턴', '토니피코어','WisdomTree', '위즈덤트리', 'CLARITY Act', '클래리티법','Jack Dorsey', '잭도시', 'Block',
 
 	
 }
@@ -673,6 +703,11 @@ MANUAL_TRANSLATIONS = {
 
     'Trump': '트럼프',
     '트럼프': '트럼프',
+
+	'Jack Dorsey': '잭도시',
+    '잭 도시': '잭도시',
+    '잭도시': '잭도시',
+    'Block': 'Block',
 
     'Robinhood': '로빈후드',
     '로빈후드': '로빈후드',
@@ -1185,11 +1220,12 @@ def is_duplicate(title: str, posted: dict, url: str = "") -> bool:
 
     return False
 
-def update_posted(title: str, posted: dict, url: str = "", signature: str = ""):
+def update_posted(title: str, posted: dict, url: str = "", signature: str = "", canonical_key: str = ""):
     posted[story_hash(title)] = {
         'title': title,
         'url': normalize_url(url),
         'signature': signature,
+        'canonical_key': canonical_key,
         'ts': datetime.now(timezone.utc).isoformat()
     }
 
@@ -1868,7 +1904,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#수탁업체',
         '#규제',
         '#호주',
-        '#홍콩',
+        '#홍콩','#JackDorsey', '#Block'
     }
 
     blocked_contains = [
@@ -2035,6 +2071,86 @@ def normalize_for_duplicate(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+def build_canonical_topic_key(story: dict) -> str:
+    text = normalize_for_duplicate(f"{story.get('title', '')} {story.get('desc', '')}")
+    parts = []
+
+    # 지역 / 국가
+    geo_map = {
+        '미국': ['united states', 'us', 'u s', 'america', '미국'],
+        '호주': ['australia', 'australian', '호주'],
+        '홍콩': ['hong kong', '홍콩'],
+        '이란': ['iran', '이란'],
+        '일본': ['japan', '일본'],
+        '한국': ['korea', 'south korea', '한국'],
+        '중국': ['china', '중국'],
+    }
+
+    for key, terms in geo_map.items():
+        if any(contains_exact_term(text, t) for t in terms):
+            parts.append(f'geo_{key}')
+
+    # 자산 / 핵심 주제
+    topic_map = {
+        '비트코인': ['bitcoin', 'btc', '비트코인'],
+        '이더리움': ['ethereum', 'eth', '이더리움'],
+        '리플': ['xrp', 'ripple', 'xrpl', 'xrp ledger', '리플'],
+        '스테이블코인': ['stablecoin', '스테이블코인'],
+        'etf': ['etf'],
+        '라이선스': ['license', 'licensing', 'licensed', '라이선스'],
+        '법안': ['bill', 'law', 'act', '법안'],
+        '규제': ['regulation', 'regulatory', 'regulated', '규제'],
+        '연준': ['fed', 'federal reserve', '연준'],
+        '청문회': ['hearing', '청문회'],
+        '지명': ['nominate', 'nominated', 'appointment', '지명'],
+        '휴전': ['ceasefire', '휴전'],
+        '철수': ['withdraw', 'withdrawal', '철수'],
+        'ai': ['ai', 'artificial intelligence'],
+    }
+
+    for key, terms in topic_map.items():
+        if any(contains_exact_term(text, t) for t in terms):
+            parts.append(f'topic_{key}')
+
+    # 기관 / 인물
+    entity_map = {
+        'hkma': ['hkma', 'hong kong monetary authority', '홍콩금융관리국'],
+        'asic': ['asic'],
+        'sec': ['sec'],
+        'cftc': ['cftc'],
+        'occ': ['occ'],
+        '트럼프': ['donald trump', 'trump', '트럼프'],
+        '케빈워시': ['kevin warsh', '케빈워시'],
+        '마이클바': ['michael barr', '마이클바'],
+        '잭도시': ['jack dorsey', '잭도시'],
+        'hsbc': ['hsbc'],
+        '스탠다드차타드': ['standard chartered', '스탠다드차타드'],
+        'block': ['block'],
+    }
+
+    for key, terms in entity_map.items():
+        if any(contains_exact_term(text, t) for t in terms):
+            parts.append(f'entity_{key}')
+
+    # 액션
+    action_map = {
+        '통과': ['pass', 'passed', 'passes', 'approved', 'approval', '통과', '승인'],
+        '지연': ['delay', 'delayed', 'missed target', 'behind schedule', '지연'],
+        '출시': ['launch', 'launched', '출시'],
+        '발언': ['said', 'says', 'statement', '밝힘', '전함', '발언'],
+        '감축': ['job cuts', 'layoff', 'layoffs', '감축', '해고'],
+    }
+
+    for key, terms in action_map.items():
+        if any(contains_exact_term(text, t) for t in terms):
+            parts.append(f'action_{key}')
+
+    # 너무 짧으면 중복키로 쓰지 않음
+    parts = sorted(set(parts))
+    if len(parts) < 3:
+        return ""
+
+    return " | ".join(parts)
 
 def build_story_signature(story: dict) -> str:
     raw = f"{story.get('title', '')} {story.get('desc', '')}"
@@ -2341,10 +2457,17 @@ def main():
         if item.get('signature')
     }
 
+	seen_canonical_keys = {
+        item.get('canonical_key', '')
+        for item in posted.values()
+        if item.get('canonical_key')
+    }
+
     for s in filtered:
         title = s.get('title', '')
         norm_title = normalize_for_duplicate(title)
         signature = build_story_signature(s)
+        canonical_key = build_canonical_topic_key(s)
         url = s.get('url', '').strip()
 
         current_actions = {x for x in signature.split('|') if x.strip().startswith('act_')}
@@ -2359,6 +2482,11 @@ def main():
             log(f"  └ 시그니처: {signature}")
             continue
 
+        if canonical_key and canonical_key in seen_canonical_keys:
+            log(f"[정규토픽중복 제외] {title}")
+            log(f"  └ canonical_key: {canonical_key}")
+            continue
+  
         if url and url in seen_urls:
             log(f"[URL중복 제외] {title}")
             continue
@@ -2384,6 +2512,9 @@ def main():
         if signature and len(signature.split('|')) >= 4 and current_actions:
             seen_topic_keys.add(signature)
 
+		if canonical_key:
+            seen_canonical_keys.add(canonical_key)
+
         if url:
             seen_urls.add(url)
 
@@ -2406,7 +2537,14 @@ def main():
 
         if ok:
             signature = build_story_signature(story)
-            update_posted(story['title'], posted, story.get('url', ''), signature)
+            canonical_key = build_canonical_topic_key(story)
+            update_posted(
+                story['title'],
+                posted,
+                story.get('url', ''),
+                signature,
+                canonical_key
+            )
             state['posted'] = posted
             save_state(STATE_FILE, state)
             log(f"Posted: {story['title']}")
