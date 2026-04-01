@@ -221,6 +221,31 @@ NEGATIVE_KEYWORDS = [
 'canton network',
 'iboxx',
 'us treasuries',
+	    'green monthly candle',
+    'red monthly streak',
+    'monthly streak',
+    'monthly candle',
+    'fear and greed',
+    'fear index',
+    'bottom signal',
+    'local bottom',
+    'what’s next for april',
+    "what's next for april",
+    'what comes next',
+    'holds $',
+    'holds usd',
+    'fails to break higher',
+    'price fails to break higher',
+    'barely avoids',
+    'worst red monthly',
+    'worst monthly streak',
+    '극단적 공포',
+    '공포탐욕지수',
+    '바닥 신호',
+    '월봉',
+    '녹색 월간 양초',
+    '적색 월간',
+    '상승 마감',
 	
 ]
 
@@ -287,13 +312,9 @@ BAD_TOPIC_PATTERNS = [
     r'입출금',
     r'전송',
     r'송금',
-    r'지갑',
-    r'wallet',
     r'deposit',
     r'withdraw',
     r'withdrawal',
-    r'transfer',
-    r'bridge',
 
     # 한국어 가격/분석 표현
     r'가격 분석',
@@ -326,8 +347,6 @@ BAD_TOPIC_PATTERNS = [
     r'폐지 결정',
     r'거래지원 종료',
 	# 시장 해설 / 분석 기사 제외
-    r'\banalyst\b',
-    r'\banalysis\b',
     r'\bcorrelation\b',
     r'\bsp correlation\b',
     r'\bs&p correlation\b',
@@ -357,13 +376,11 @@ BAD_TOPIC_PATTERNS = [
 
     # 일반 금융 인프라 / 토큰화 일반 기사 제외
     r'\btokenized\b',
-    r'\btokenization\b',
     r'\bdata infrastructure\b',
     r'\bcanton network\b',
     r'\bus treasuries\b',
     r'\biBoxx\b',
     r'\bs&p dow jones\b',
-    r'토큰화',
     r'미국채',
     r'데이터 인프라',
     r'칸톤네트워크',
@@ -413,6 +430,77 @@ def contains_bad_topic(text: str) -> bool:
     low = (text or "").lower()
     return any(re.search(p, low, re.I) for p in BAD_TOPIC_PATTERNS)
 
+def is_chart_or_price_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    chart_patterns = [
+        r'\bprice\b',
+        r'가격',
+        r'월봉',
+        r'monthly candle',
+        r'monthly chart',
+        r'\bchart\b',
+        r'\bcandlestick\b',
+        r'\bsupport\b',
+        r'\bresistance\b',
+        r'\bbreakout\b',
+        r'\btarget price\b',
+        r'\bforecast\b',
+        r'\bprice prediction\b',
+        r'\btechnical analysis\b',
+        r'기술적 분석',
+        r'차트 분석',
+        r'지지선',
+        r'저항선',
+        r'목표가',
+        r'반등',
+        r'돌파',
+        r'추세',
+        r'공포탐욕',
+        r'extreme fear',
+        r'fear and greed',
+        r'bottom signal',
+        r'fails to break higher',
+        r'price fails to break higher',
+        r'green monthly candle',
+        r'red monthly streak',
+    ]
+
+    return any(re.search(p, low, re.I) for p in chart_patterns)
+
+
+def is_xrp_narrative_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    xrp_terms = [
+        'xrp', 'ripple', 'xrpl', 'xrp ledger', 'xrpledger',
+        '리플', '엑스알피'
+    ]
+
+    narrative_terms = [
+        'bank charter', 'occ', 'approval', 'custody', 'payment',
+        'institutional', 'adoption', 'integration', 'volume',
+        'liquidity', 'settlement', 'infrastructure',
+        '은행 인가', '승인', '수탁', '결제', '기관', '도입', '통합', '인프라'
+    ]
+
+    has_xrp = any(contains_exact_term(low, t) for t in xrp_terms)
+    has_narrative = any(contains_exact_term(low, t) for t in narrative_terms)
+
+    return has_xrp and has_narrative
+
+
+def is_pure_macro_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    macro_terms = [
+        'stablecoin', 'regulation', 'bill', 'law', 'policy', 'senate', 'house',
+        'fed', 'treasury', 'bank', 'custody', 'occ', 'cftc', 'sec',
+        '감시', '감독', '규제', '법안', '정책', '상원', '하원',
+        '연준', '재무부', '은행', '수탁', '스테이블코인', 'OCC', 'SEC', 'CFTC'
+    ]
+
+    return any(contains_exact_term(low, t) for t in macro_terms)
 
 
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
@@ -1181,7 +1269,6 @@ def contains_exact_term(text: str, term: str) -> bool:
 
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
-    text = normalize_text(raw_text)
     raw_lower = raw_text.lower()
     url = (story.get('url', '') or '').lower()
 
@@ -1193,11 +1280,15 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         '바이낸스코인', '비트코인캐시', '시바이누', '플레어', '에테나'
     ]
 
-    has_portfolio_context = any(contains_exact_term(raw_text, t) for t in portfolio_context_terms)
+    ai_company_terms = [
+        'openai', 'anthropic', 'google', 'block', 'ai',
+        'middle management', 'organization design', '업무 환경', '조직', 'ai'
+    ]
 
     if 'tokenpost.kr/news/tech/' in url:
         return False
 
+    # 1. 기본 네거티브 차단
     for neg in NEGATIVE_KEYWORDS:
         if neg.lower() in raw_lower:
             print(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
@@ -1207,44 +1298,46 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[부정시그널 제외] {story.get('title', '')}")
         return False
 
+    # 2. 차트/가격형 기사 차단
+    if is_chart_or_price_article(raw_text):
+        print(f"[차트/가격형 제외] {story.get('title', '')}")
+        return False
+
+    # 3. 포트폴리오 외 코인 차단
+    allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
+    if not allowed_coin_found and contains_non_portfolio_asset(raw_text):
+        print(f"[포폴외코인 제외] {story.get('title', '')}")
+        return False
+
+    # 4. 일반 주식 문맥 차단
+    if contains_stock_context(raw_text) and not allowed_coin_found:
+        print(f"[주식기사 제외] {story.get('title', '')}")
+        return False
+
+    # 5. 나머지 BAD_TOPIC 차단
     if contains_bad_topic(raw_text):
         print(f"[주제제외] {story.get('title', '')}")
         return False
 
-    allowed_coin_found = any(contains_exact_term(raw_text, c) for c in coins)
+    # 6. 허용 코인 직접 등장 기사
     if allowed_coin_found:
         print(f"[허용코인 통과] {story.get('title', '')}")
         return True
 
-    if contains_non_portfolio_asset(raw_text):
-        print(f"[포폴외코인 제외] {story.get('title', '')}")
-        return False
+    # 7. 순수 거시/정책 기사 허용
+    if is_pure_macro_article(raw_text):
+        print(f"[거시/정책 통과] {story.get('title', '')}")
+        return True
 
-    if contains_stock_context(raw_text):
-        print(f"[주식기사 제외] {story.get('title', '')}")
-        return False
+    # 8. XRP 서사형 기사 허용
+    if is_xrp_narrative_article(raw_text):
+        print(f"[XRP서사 통과] {story.get('title', '')}")
+        return True
 
-    other_coin_found = any(contains_exact_term(raw_text, c) for c in OTHER_COINS)
-    if other_coin_found:
-        print(f"[기타코인 제외] {story.get('title', '')}")
-        return False
-
-    ai_allow_terms = []
-    if any(contains_exact_term(raw_text, term) for term in ai_allow_terms):
+    # 9. AI/기업 기사 허용
+    if any(contains_exact_term(raw_text, t) for t in ai_company_terms):
         print(f"[AI/기업기사 통과] {story.get('title', '')}")
         return True
-
-    policy_allow_terms = ['stablecoin', 'sec', 'cftc', 'etf', 'law', 'regulation', 'fed', 'inflation', 'bank', 'treasury']
-    policy_hits = sum(1 for term in policy_allow_terms if contains_exact_term(raw_text, term))
-    if has_portfolio_context and policy_hits >= 1:
-        print(f"[포폴+정책 통과] {story.get('title', '')}")
-        return True
-  
-    for kw in korean_keywords:
-        if has_portfolio_context and kw.lower() in raw_lower:
-            print(f"[포폴+한글키워드 통과] {story.get('title', '')} / {kw}")
-            return True
-
 
     print(f"[필터미통과] {story.get('title', '')}")
     return False
@@ -1750,6 +1843,17 @@ def fetch_article_text(url: str) -> str:
     text = cleanup_text(text)
     return text[:12000]
 
+def get_best_source_text(story: dict) -> str:
+    article_text = fetch_article_text(story.get('url', ''))
+    desc = (story.get('desc') or '').strip()
+    title = (story.get('title') or '').strip()
+
+    if article_text and len(article_text) >= 180:
+        return article_text
+    if desc and len(desc) >= 80:
+        return desc
+    return title
+
 
 def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: str = "") -> str:
     source_text = (article_text or "").strip()
@@ -1855,66 +1959,77 @@ def build_story_signature(story: dict) -> str:
 
     tags = set()
 
-    # 핵심 자산
-    if 'btc' in text or 'bitcoin' in text or '비트코인' in text:
-        tags.add('asset_btc')
-    if 'eth' in text or 'ethereum' in text or '이더리움' in text:
-        tags.add('asset_eth')
-    if 'xrp' in text or 'ripple' in text or '리플' in text:
-        tags.add('asset_xrp')
-    if 'xrpl' in text or 'xrp ledger' in text or 'xrpledger' in text or '엑스알피레저' in text:
-        tags.add('asset_xrpl')
-    if 'bch' in text or 'bitcoin cash' in text or '비트코인캐시' in text:
-        tags.add('asset_bch')
-    if 'shib' in text or 'shiba inu' in text or '시바이누' in text:
-        tags.add('asset_shib')
-    if 'usdc' in text:
-        tags.add('asset_usdc')
-    if 'usdt' in text:
-        tags.add('asset_usdt')
+    # 자산
+    asset_map = {
+        'btc': 'asset_btc',
+        'bitcoin': 'asset_btc',
+        'eth': 'asset_eth',
+        'ethereum': 'asset_eth',
+        'xrp': 'asset_xrp',
+        'ripple': 'asset_xrp',
+        'xrpl': 'asset_xrpl',
+        'xrp ledger': 'asset_xrpl',
+        'usdc': 'asset_usdc',
+        'usdt': 'asset_usdt',
+        'bch': 'asset_bch',
+        'bitcoin cash': 'asset_bch',
+        'shib': 'asset_shib',
+        'shiba inu': 'asset_shib',
+    }
+
+    for key, value in asset_map.items():
+        if key in text:
+            tags.add(value)
 
     # 기관/회사
-    if 'coinbase' in text or '코인베이스' in text:
-        tags.add('org_coinbase')
-    if 'base' in text or '베이스' in text:
-        tags.add('org_base')
-    if 'google' in text or '구글' in text:
-        tags.add('org_google')
-    if 'labor department' in text or 'department of labor' in text or '노동부' in text:
-        tags.add('org_labor')
+    org_map = {
+        'occ': 'org_occ',
+        'fed': 'org_fed',
+        'federal reserve': 'org_fed',
+        'treasury': 'org_treasury',
+        'sec': 'org_sec',
+        'cftc': 'org_cftc',
+        'ripple': 'org_ripple',
+        'bitget': 'org_bitget',
+        'google': 'org_google',
+        'openai': 'org_openai',
+        'anthropic': 'org_anthropic',
+        'block': 'org_block',
+        'coinbase': 'org_coinbase',
+    }
 
-    # 정책/주제
-    if '401k' in text or '401 k' in text or '401(k)' in text or 'retirement' in text or '퇴직연금' in text or '퇴직계좌' in text:
-        tags.add('topic_401k')
+    for key, value in org_map.items():
+        if key in text:
+            tags.add(value)
 
-    if 'stablecoin' in text or '스테이블코인' in text:
-        tags.add('topic_stablecoin')
-    if 'tokenized market' in text or 'tokenized markets' in text or '토큰화 시장' in text:
-        tags.add('topic_tokenized_market')
-    if 'developer ecosystem' in text or 'developers' in text or '개발자 생태계' in text:
-        tags.add('topic_developers')
-    if 'ai agent' in text or 'ai agents' in text or 'agent economy' in text or 'ai 에이전트' in text:
-        tags.add('topic_ai_agent')
+    # 액션
+    action_map = {
+        'approval': 'act_approval',
+        'approve': 'act_approval',
+        'bank charter': 'act_bank_charter',
+        'custody': 'act_custody',
+        'integration': 'act_integration',
+        'integrated': 'act_integration',
+        'payment': 'act_payment',
+        'payments': 'act_payment',
+        'staking': 'act_staking',
+        'unlock': 'act_unlock',
+        'unlocked': 'act_unlock',
+        'surveillance': 'act_surveillance',
+        '감시': 'act_surveillance',
+        'regulation': 'act_regulation',
+        'bill': 'act_bill',
+        'law': 'act_law',
+        'risk': 'act_risk',
+        'adoption': 'act_adoption',
+        'institutional': 'act_institutional',
+    }
 
-    if 'quantum' in text or '양자' in text:
-        tags.add('topic_quantum')
-    if 'wallet' in text or '지갑' in text:
-        tags.add('topic_wallet')
-    if 'ledger' in text or '레저' in text:
-        tags.add('topic_ledger')
+    for key, value in action_map.items():
+        if key in text:
+            tags.add(value)
 
-    # 규제/거시
-    if 'sec' in text:
-        tags.add('macro_sec')
-    if 'etf' in text:
-        tags.add('macro_etf')
-    if 'fed' in text or 'federal reserve' in text or '연준' in text:
-        tags.add('macro_fed')
-    if 'treasury' in text or '재무부' in text:
-        tags.add('macro_treasury')
-
-    # 숫자 소수만
-    nums = re.findall(r'\b\d+(?:,\d+)?(?:\.\d+)?\b', text)
+    nums = re.findall(r'\b\d+(?:\.\d+)?\b', text)
     for n in nums[:2]:
         tags.add(f'num_{n}')
 
@@ -1925,18 +2040,31 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
     title = normalize_for_duplicate(story.get('title', ''))
     signature = build_story_signature(story)
 
+    # 제목 유사도는 조금 완화
     for old_title in seen_titles:
         ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.80:
+        if ratio >= 0.84:
             log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
             return True
 
-    if len(signature.split('|')) < 2:
+    # 시그니처가 너무 짧으면 중복판단 안 함
+    if len(signature.split('|')) < 3:
         return False
 
+    # 액션(act_)이 같은 경우에만 강하게 중복 판정
+    current_actions = {x for x in signature.split('|') if x.strip().startswith('act_')}
+
     for old_sig in seen_signatures:
+        old_actions = {x for x in old_sig.split('|') if x.strip().startswith('act_')}
+
+        if not current_actions or not old_actions:
+            continue
+
+        if current_actions != old_actions:
+            continue
+
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.88:
+        if ratio >= 0.93:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
 
@@ -1982,7 +2110,7 @@ def finalize_summary_ending(text: str) -> str:
 def build_message(story: dict) -> str:
     title = story.get('title', '')
     desc = story.get('desc', '')
-    article_text = fetch_article_text(story.get('url', ''))
+    article_text = get_best_source_text(story)
 
     summary_ko = rewrite_summary_with_gemini(
         title=title,
@@ -2233,7 +2361,14 @@ def main():
         signature = build_story_signature(s)
         url = s.get('url', '').strip()
 
-        if signature and len(signature.split('|')) >= 3 and signature in seen_topic_keys:
+        current_actions = {x for x in signature.split('|') if x.strip().startswith('act_')}
+
+        if (
+            signature
+            and len(signature.split('|')) >= 4
+            and signature in seen_topic_keys
+            and current_actions
+        ):
             log(f"[토픽중복 제외] {title}")
             log(f"  └ 시그니처: {signature}")
             continue
@@ -2260,7 +2395,7 @@ def main():
         seen_titles.append(norm_title)
         seen_signatures.append(signature)
 
-        if signature and len(signature.split('|')) >= 3:
+        if signature and len(signature.split('|')) >= 4 and current_actions:
             seen_topic_keys.add(signature)
 
         if url:
