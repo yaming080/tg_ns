@@ -1888,7 +1888,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
         '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum',
         '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley','#shibarium',
-        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether',''#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
+        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
 '#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
 '#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
@@ -2512,7 +2512,7 @@ def main():
         if signature and len(signature.split('|')) >= 4 and current_actions:
             seen_topic_keys.add(signature)
 
-		if canonical_key:
+        if canonical_key:
             seen_canonical_keys.add(canonical_key)
 
         if url:
