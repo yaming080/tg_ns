@@ -2457,7 +2457,7 @@ def main():
         if item.get('signature')
     }
 
-	seen_canonical_keys = {
+    seen_canonical_keys = {
         item.get('canonical_key', '')
         for item in posted.values()
         if item.get('canonical_key')
