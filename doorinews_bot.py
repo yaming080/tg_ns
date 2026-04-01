@@ -2155,6 +2155,11 @@ def build_canonical_topic_key(story: dict) -> str:
 		'예측시장': ['prediction market', 'prediction markets', '예측시장'],
         '클래리티법': ['clarity act', 'clarity', '클래리티법', '클래리티'],
         '감독': ['oversight', 'oversight authority', '감독'],
+		'지니어스법': ['genius act', 'genius', '지니어스 법안', '지니어스법', '지니어스'],
+'재무부': ['treasury', 'department of the treasury', '재무부'],
+'의견수렴': ['public comment', 'seek comment', 'request for comment', '의견 수렴', '의견을 구함'],
+'주정부규제': ['state level', 'state regulation', 'state oversight', '주 차원', '주정부 감독', '주정부 규제'],
+'발행사': ['issuer', 'issuers', '발행사', '발행업체'],
     }
 
     for key, terms in topic_map.items():
@@ -2176,6 +2181,9 @@ def build_canonical_topic_key(story: dict) -> str:
         '스탠다드차타드': ['standard chartered', '스탠다드차타드'],
         'block': ['block'],
         '마이클셀릭': ['michael selig', '마이클셀릭', '마이클 셀릭'],
+		'재무부': ['treasury', 'department of the treasury', '재무부'],
+'지니어스그룹': ['genius group', '지니어스그룹'],
+'empery': ['empery digital', 'empery'],
     }
 
     for key, terms in entity_map.items():
@@ -2226,6 +2234,9 @@ def build_story_signature(story: dict) -> str:
         'bitcoin cash': 'asset_bch',
         'shib': 'asset_shib',
         'shiba inu': 'asset_shib',
+		'treasury': 'org_treasury',
+        'genius group': 'org_geniusgroup',
+        'empery digital': 'org_empery',
     }
 
     for key, value in asset_map.items():
@@ -2274,6 +2285,14 @@ def build_story_signature(story: dict) -> str:
         'risk': 'act_risk',
         'adoption': 'act_adoption',
         'institutional': 'act_institutional',
+ 		'comment': 'act_comment',
+        'issuer': 'act_issuer',
+        'repay': 'act_repay',
+        'sale': 'act_sale',
+        'sold': 'act_sale',
+        '매각': 'act_sale',
+        '상환': 'act_repay',
+        '의견 수렴': 'act_comment',
     }
 
     for key, value in action_map.items():
@@ -2294,12 +2313,12 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
     # 제목 유사도는 조금 완화
     for old_title in seen_titles:
         ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.84:
+        if ratio >= 0.80:
             log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
             return True
 
     # 시그니처가 너무 짧으면 중복판단 안 함
-    if len(signature.split('|')) < 3:
+    if len(signature.split('|')) < 2:
         return False
 
     # 액션(act_)이 같은 경우에만 강하게 중복 판정
@@ -2315,7 +2334,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
             continue
 
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.93:
+        if ratio >= 0.90:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
 
