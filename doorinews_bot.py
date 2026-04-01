@@ -97,7 +97,7 @@ KOREAN_TAG_KEYWORDS = [
 	'밈코인','레이어2','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
 '프랭클린템플턴', '토니피코어','위즈덤트리', '클래리티법','마이클바', 'Michael Barr',
 '홍콩', 'Hong Kong', 'HKMA', '홍콩금융관리국',
-'HSBC', '스탠다드차타드', 'Standard Chartered',
+'HSBC', '스탠다드차타드', 'Standard Chartered','Michael Selig', '마이클셀릭', '마이클 셀릭',
 'GENIUS', 'Genius Act',
 '수탁업체','Jack Dorsey', '잭도시', 'Block',
 ]
@@ -271,7 +271,17 @@ NEGATIVE_KEYWORDS = [
 'winklevoss capital fund',
 'gemini ipo',
 'ipo controversy',
-'discounted shares',
+'discounted shares','transaction fee',
+'transaction fees',
+'inscription',
+'inscriptions',
+'soft fork',
+'block space',
+'block size',
+'throughput',
+'트랜잭션 수수료',
+'인스크립션',
+'소프트포크',
 
 
 
@@ -427,6 +437,22 @@ BAD_TOPIC_PATTERNS = [
     r'\bmonthly close\b',
     r'\bapril fools\b',
     r'\bipo controversy\b',
+	r'\btransaction fee\b',
+    r'\bfees\b',
+    r'\binscription\b',
+    r'\binscriptions\b',
+    r'\bsoft fork\b',
+    r'\bsoftfork\b',
+    r'\bblock space\b',
+    r'\bblocksize\b',
+    r'\bblock size\b',
+    r'\bthroughput\b',
+    r'트랜잭션 수수료',
+    r'인스크립션',
+    r'소프트포크',
+    r'블록당 트랜잭션',
+    r'블록 용량',
+	
 ]
 
 
@@ -627,7 +653,7 @@ INLINE_TAG_WHITELIST = {
 	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
 'BitGo', 'TRON', 'TRX', 'Australia', 'Franklin Templeton', 'Tony Pecore',
 '프랭클린템플턴', '토니피코어','WisdomTree', '위즈덤트리', 'CLARITY Act', '클래리티법','Jack Dorsey', '잭도시', 'Block',
-
+'Michael Selig', '마이클셀릭', '마이클 셀릭',
 	
 }
 
@@ -1095,6 +1121,10 @@ MANUAL_TRANSLATIONS = {
     'Standard Chartered': '스탠다드차타드',
     '스탠다드차타드': '스탠다드차타드',
 
+	'Michael Selig': '마이클셀릭',
+    '마이클 셀릭': '마이클셀릭',
+    '마이클셀릭': '마이클셀릭',
+
 }
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
@@ -1418,6 +1448,17 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         return True
 
     print(f"[필터미통과] {story.get('title', '')}")
+    return False
+
+def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
+    if not canonical_key:
+        return False
+
+    for old_key in seen_keys:
+        ratio = SequenceMatcher(None, canonical_key, old_key).ratio()
+        if ratio >= 0.90:
+            log(f"[정규토픽유사 중복] {canonical_key} <> {old_key} / {ratio:.2f}")
+            return True
     return False
 	
 def is_bad_line(line: str) -> bool:
@@ -1898,7 +1939,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
 		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','#Mimcoin',
 		'#Finance', '#Crypto',  '#TRX', '#TRON', '#Australia', '#US',
-'#FranklinTempleton', '#TonyPecore','#WisdomTree','#CLALITYAct',        '#MichaelBarr',
+'#FranklinTempleton', '#TonyPecore','#WisdomTree','#CLARITYAct',        '#MichaelBarr',
         '#GENIUS',
         '#Australia',
         '#HongKong',
@@ -1908,7 +1949,8 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#수탁업체',
         '#규제',
         '#호주',
-        '#홍콩','#JackDorsey', '#Block'
+        '#홍콩','#JackDorsey', '#Block','#MichaelSelig',
+'#CLARITY',
     }
 
     blocked_contains = [
@@ -2110,6 +2152,9 @@ def build_canonical_topic_key(story: dict) -> str:
         '휴전': ['ceasefire', '휴전'],
         '철수': ['withdraw', 'withdrawal', '철수'],
         'ai': ['ai', 'artificial intelligence'],
+		'예측시장': ['prediction market', 'prediction markets', '예측시장'],
+        '클래리티법': ['clarity act', 'clarity', '클래리티법', '클래리티'],
+        '감독': ['oversight', 'oversight authority', '감독'],
     }
 
     for key, terms in topic_map.items():
@@ -2130,6 +2175,7 @@ def build_canonical_topic_key(story: dict) -> str:
         'hsbc': ['hsbc'],
         '스탠다드차타드': ['standard chartered', '스탠다드차타드'],
         'block': ['block'],
+        '마이클셀릭': ['michael selig', '마이클셀릭', '마이클 셀릭'],
     }
 
     for key, terms in entity_map.items():
@@ -2143,6 +2189,8 @@ def build_canonical_topic_key(story: dict) -> str:
         '출시': ['launch', 'launched', '출시'],
         '발언': ['said', 'says', 'statement', '밝힘', '전함', '발언'],
         '감축': ['job cuts', 'layoff', 'layoffs', '감축', '해고'],
+		'강조': ['emphasized','warn', 'warning', 'emphasize', 'stressed', '강조', '경고'],
+        '준비': ['prepared', 'ready', '준비'],
     }
 
     for key, terms in action_map.items():
@@ -2486,7 +2534,7 @@ def main():
             log(f"  └ 시그니처: {signature}")
             continue
 
-        if canonical_key and canonical_key in seen_canonical_keys:
+        if is_canonical_duplicate(canonical_key, seen_canonical_keys):
             log(f"[정규토픽중복 제외] {title}")
             log(f"  └ canonical_key: {canonical_key}")
             continue
