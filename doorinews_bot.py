@@ -301,7 +301,15 @@ NEGATIVE_KEYWORDS = [
 'throughput',
 '트랜잭션 수수료',
 '인스크립션',
-'소프트포크',
+'소프트포크', 'bollinger',
+'bollinger bands',
+'major move looms',
+'major move',
+'tightening',
+'descending channel',
+'golden cross',
+'burn rate rockets',
+'network activity',
 
 
 
@@ -395,13 +403,7 @@ BAD_TOPIC_PATTERNS = [
     r'매도 구간',
 
     # 한국어 기술/개발 표현
-    r'업그레이드',
-    r'테스트넷',
-    r'메인넷',
-    r'프로토콜',
-    r'개발자',
-    r'기술',
-    r'레이어2',
+	
 
 	r'\blisting\b',
     r'\blistings\b',
@@ -472,7 +474,13 @@ BAD_TOPIC_PATTERNS = [
     r'소프트포크',
     r'블록당 트랜잭션',
     r'블록 용량',
-	
+	r'\bbollinger\b',
+r'\bbollinger bands\b',
+r'\bmajor move\b',
+r'\btightening\b',
+r'\bgolden cross\b',
+r'\bburn rate\b',
+r'\bnetwork activity\b',
 ]
 
 
@@ -2188,6 +2196,9 @@ def fix_translation_terms(text: str) -> str:
     '클레리티법': '클래리티법',
     '클레러티': '클래리티',
     '클레리티': '클래리티',
+		'Shiba Inu': '시바이누',
+'shiba inu': '시바이누',
+'시바견': '시바이누',
     }
 
     for old, new in replacements.items():
@@ -2433,6 +2444,9 @@ def build_canonical_topic_key(story: dict) -> str:
 '발행사': ['issuer', 'issuers', '발행사', '발행업체'],'내부자거래': ['insider trading', '내부자 거래'],
 '규칙안': ['rules', 'rulemaking', '규칙안', '규칙'],
 '기관진출': ['institutional entry', 'institutional access', '시장 진출', '기관 진출'],
+		'시장구조법안': ['market structure bill', 'market structure', '시장 구조 법안', '시장구조법안'],
+'스테이블코인수익': ['stablecoin yield', 'yield compromise', '스테이블코인 수익', '수익률 수정안'],
+		
     }
 
     for key, terms in topic_map.items():
