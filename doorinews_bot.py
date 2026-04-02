@@ -1602,7 +1602,7 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     # 1. 기본 네거티브 차단
     for neg in NEGATIVE_KEYWORDS:
-        if neg.lower() in raw_lower:
+    if neg.lower() in raw_lower:
             print(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
             return False
 
