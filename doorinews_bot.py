@@ -2658,7 +2658,7 @@ def build_message(story: dict) -> str:
             raw_source,
             title=title,
             max_sentences=SUMMARY_SENTENCES
-	    )
+        )
         summary_ko = translate_text_to_korean(raw_summary)
         summary_ko = cleanup_text(summary_ko)
         summary_ko = fix_translation_terms(summary_ko)
@@ -2675,7 +2675,6 @@ def build_message(story: dict) -> str:
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
     dynamic_tags = filter_final_tags(dynamic_tags)
-
 
     summary_ko = finalize_summary_ending(summary_ko)
 
