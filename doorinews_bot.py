@@ -1456,7 +1456,7 @@ def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
 
     for old_key in seen_keys:
         ratio = SequenceMatcher(None, canonical_key, old_key).ratio()
-        if ratio >= 0.90:
+        if ratio >= 0.82:
             log(f"[정규토픽유사 중복] {canonical_key} <> {old_key} / {ratio:.2f}")
             return True
     return False
@@ -2159,7 +2159,9 @@ def build_canonical_topic_key(story: dict) -> str:
 '재무부': ['treasury', 'department of the treasury', '재무부'],
 '의견수렴': ['public comment', 'seek comment', 'request for comment', '의견 수렴', '의견을 구함'],
 '주정부규제': ['state level', 'state regulation', 'state oversight', '주 차원', '주정부 감독', '주정부 규제'],
-'발행사': ['issuer', 'issuers', '발행사', '발행업체'],
+'발행사': ['issuer', 'issuers', '발행사', '발행업체'],내부자거래': ['insider trading', '내부자 거래'],
+'규칙안': ['rules', 'rulemaking', '규칙안', '규칙'],
+'기관진출': ['institutional entry', 'institutional access', '시장 진출', '기관 진출'],
     }
 
     for key, terms in topic_map.items():
@@ -2183,7 +2185,10 @@ def build_canonical_topic_key(story: dict) -> str:
         '마이클셀릭': ['michael selig', '마이클셀릭', '마이클 셀릭'],
 		'재무부': ['treasury', 'department of the treasury', '재무부'],
 '지니어스그룹': ['genius group', '지니어스그룹'],
-'empery': ['empery digital', 'empery'],
+'empery': ['empery digital', 'empery'],'jpmorgan': ['jpmorgan', 'jp morgan', '제이피모건'],
+'goldmansachs': ['goldman sachs', '골드만삭스'],
+'paradigm': ['paradigm'],
+'제이미다이먼': ['jamie dimon', '제이미다이먼', '제이미 다이먼'],
     }
 
     for key, terms in entity_map.items():
@@ -2234,9 +2239,7 @@ def build_story_signature(story: dict) -> str:
         'bitcoin cash': 'asset_bch',
         'shib': 'asset_shib',
         'shiba inu': 'asset_shib',
-		'treasury': 'org_treasury',
-        'genius group': 'org_geniusgroup',
-        'empery digital': 'org_empery',
+
     }
 
     for key, value in asset_map.items():
@@ -2258,6 +2261,9 @@ def build_story_signature(story: dict) -> str:
         'anthropic': 'org_anthropic',
         'block': 'org_block',
         'coinbase': 'org_coinbase',
+		'treasury': 'org_treasury',
+        'genius group': 'org_geniusgroup',
+        'empery digital': 'org_empery',
     }
 
     for key, value in org_map.items():
@@ -2330,11 +2336,11 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
         if not current_actions or not old_actions:
             continue
 
-        if current_actions != old_actions:
+        if current_actions and old_actions and current_actions.isdisjoint(old_actions):
             continue
 
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.90:
+        if ratio >= 0.86:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
 
@@ -2545,9 +2551,8 @@ def main():
 
         if (
             signature
-            and len(signature.split('|')) >= 4
+            and len(signature.split('|')) >= 3
             and signature in seen_topic_keys
-            and current_actions
         ):
             log(f"[토픽중복 제외] {title}")
             log(f"  └ 시그니처: {signature}")
@@ -2580,7 +2585,7 @@ def main():
         seen_titles.append(norm_title)
         seen_signatures.append(signature)
 
-        if signature and len(signature.split('|')) >= 4 and current_actions:
+        if signature and len(signature.split('|')) >= 3:
             seen_topic_keys.add(signature)
 
         if canonical_key:
