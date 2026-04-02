@@ -2679,10 +2679,13 @@ def build_message(story: dict) -> str:
 
 
 
-def send_telegram_message(token: str, channel: str, message: str) -> bool:
+def send_telegram_message(token: str, channel: str, message: str | None) -> bool:
     if not token or not channel:
         log("Telegram token or channel not set")
         return False
+
+    message = message or ""
+	
     payload = json.dumps({
         'chat_id': channel,
         'text': message[:4000],
@@ -2703,13 +2706,17 @@ def send_telegram_message(token: str, channel: str, message: str) -> bool:
         log(f"Error sending message: {e}")
         return False
 
-def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) -> bool:
+def send_telegram_photo(token: str, channel: str, image_url: str, caption: str | None) -> bool:
     if not token or not channel:
         log("Telegram token or channel not set")
         return False
+
+    caption = caption or ""
+
     if not image_url:
         log("No image_url -> text message로 전송")
         return send_telegram_message(token, channel, caption)
+
     while len(caption.encode('utf-8')) > 1000:
         caption = caption[:-1]
     payload = json.dumps({
