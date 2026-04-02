@@ -1920,6 +1920,8 @@ def fix_truncated_phrases(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+
+
 def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     title = story.get('title', '')
     desc = story.get('desc', '')
@@ -2685,12 +2687,16 @@ def build_message(story: dict) -> str:
 
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
 
-    seen = set()
-    dedup = []
-    for t in footer_tags:
-        if t not in seen:
-            dedup.append(t)
-            seen.add(t)
+# 본문에 이미 같은 글자로 들어간 태그는 footer에서 제거
+inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
+footer_tags = [t for t in footer_tags if t not in inline_tags]
+
+seen = set()
+dedup = []
+for t in footer_tags:
+    if t not in seen:
+        dedup.append(t)
+        seen.add(t)
 
     parts = [
         html.escape(summary),
