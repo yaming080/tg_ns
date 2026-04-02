@@ -40,6 +40,8 @@ FEEDS = [
 	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
 	('유투데이', 'https://u.today/rss.php'),
 	('비트저널', 'https://thebitjournal.com/feed/'),
+    ('코인니스', 'https://coinness.com/rss'),
+    ('크립토뉴스닷뉴스', 'https://crypto.news/feed/'),
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
@@ -99,7 +101,15 @@ KOREAN_TAG_KEYWORDS = [
 '홍콩', 'Hong Kong', 'HKMA', '홍콩금융관리국',
 'HSBC', '스탠다드차타드', 'Standard Chartered','Michael Selig', '마이클셀릭', '마이클 셀릭',
 'GENIUS', 'Genius Act',
-'수탁업체','Jack Dorsey', '잭도시', 'Block',
+'수탁업체','Jack Dorsey', '잭도시', 'Block','Paul Grewal', '폴그루월', '그루월',
+'Brad Garlinghouse', '브래드갈링하우스', 'CEO',
+'Genius Group', '지니어스그룹',
+'Government', '정부', 'KYC',
+'FTX', 'Nishad Singh', '니샤드싱',
+'KBank', '케이뱅크',
+'eToro', 'Taiwan', '대만',
+'Coinone', '코인원',
+'Bitget', 'SafePal',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -179,10 +189,20 @@ NEGATIVE_KEYWORDS = [
 'unstable setup',
 '가격조정', '가격 조정',
 '레버리지','온톨로지','TxFlow','제트캐시', 'zcash','practical guide', 'practical guide to', 'guide to choosing', 'market maker guide',
-'실용 가이드', '실용가이드',
+'실용 가이드', '실용가이드','liquidates entire bitcoin stash',
+'bitcoin stash',
+'liquidate bitcoin holdings',
+'liquidates holdings',
+'debt repayment',
+'repay debt',
+'sell bitcoin to repay debt',
+'전량 매각',
+'비트코인 전량 매각',
+'부채 상환 위해 매각',
+'보유 비트코인 매각',
 
 'lido dao', 'ldo', 'redemption', 'proposed sale', 'token sale',
-'환매', '매각 제안', '매각',
+'환매', '매각 제안',
 
 'surge', 'spike', 'jumps', 'rally', 'best quarter', 'worst quarter', 'buying opportunity',
 '급등', '상승폭', '최악', '분기', '매수 기회',
@@ -1124,8 +1144,92 @@ MANUAL_TRANSLATIONS = {
 	'Michael Selig': '마이클셀릭',
     '마이클 셀릭': '마이클셀릭',
     '마이클셀릭': '마이클셀릭',
+	'Paul Grewal': '폴그루월',
+'폴 그루월': '폴그루월',
+'폴그루월': '폴그루월',
+'Grewal': '그루월',
+'그루월': '그루월',
+
+'Brad Garlinghouse': '브래드갈링하우스',
+'브래드 갈링하우스': '브래드갈링하우스',
+'브래드갈링하우스': '브래드갈링하우스',
+'CEO': 'CEO',
+
+'Genius Group': '지니어스그룹',
+'지니어스그룹': '지니어스그룹',
+
+'Government': '정부',
+'정부': '정부',
+'KYC': 'KYC',
+
+'FTX': 'FTX',
+'Nishad Singh': '니샤드싱',
+'니샤드 싱': '니샤드싱',
+'니샤드싱': '니샤드싱',
+
+'KBank': '케이뱅크',
+'케이뱅크': '케이뱅크',
+
+'eToro': 'eToro',
+'Taiwan': '대만',
+'대만': '대만',
+
+'Coinone': '코인원',
+'코인원': '코인원',
+
+'Bitget': 'Bitget',
+'SafePal': 'SafePal',
 
 }
+
+
+COUNTRY_TAG_MAP = {
+    'US': ['미국', 'United States', 'US', 'U.S.', 'America'],
+    'Korea': ['한국', '대한민국', 'South Korea', 'Korea'],
+    'Japan': ['일본', 'Japan'],
+    'China': ['중국', 'China'],
+    'Taiwan': ['대만', 'Taiwan'],
+    'HongKong': ['홍콩', 'Hong Kong'],
+    'Australia': ['호주', 'Australia', 'Australian'],
+    'Singapore': ['싱가포르', 'Singapore'],
+    'Canada': ['캐나다', 'Canada'],
+    'UK': ['영국', 'United Kingdom', 'UK', 'Britain'],
+    'Germany': ['독일', 'Germany'],
+    'France': ['프랑스', 'France'],
+    'Brazil': ['브라질', 'Brazil'],
+    'India': ['인도', 'India'],
+    'UAE': ['아랍에미리트', 'UAE', 'United Arab Emirates'],
+    'SaudiArabia': ['사우디아라비아', 'Saudi Arabia'],
+    'Qatar': ['카타르', 'Qatar'],
+    'Israel': ['이스라엘', 'Israel'],
+    'Iran': ['이란', 'Iran'],
+    'Turkey': ['튀르키예', '터키', 'Turkey', 'Türkiye'],
+    'Russia': ['러시아', 'Russia'],
+    'Ukraine': ['우크라이나', 'Ukraine'],
+    'SouthAfrica': ['남아프리카공화국', '남아공', 'South Africa'],
+    'Nigeria': ['나이지리아', 'Nigeria'],
+    'Kazakhstan': ['카자흐스탄', 'Kazakhstan'],
+}
+COUNTRY_FINAL_TAGS = set()
+COUNTRY_INLINE_ALIASES = set()
+COUNTRY_TRANSLATIONS = {}
+
+for final_tag, aliases in COUNTRY_TAG_MAP.items():
+    ko = aliases[0]
+
+    COUNTRY_FINAL_TAGS.add(f'#{final_tag}')
+    COUNTRY_INLINE_ALIASES.update(aliases)
+
+    for alias in aliases:
+        COUNTRY_TRANSLATIONS[alias] = ko
+
+for alias in COUNTRY_INLINE_ALIASES:
+    if alias not in KOREAN_TAG_KEYWORDS:
+        KOREAN_TAG_KEYWORDS.append(alias)
+
+INLINE_TAG_WHITELIST.update(COUNTRY_INLINE_ALIASES)
+MANUAL_TRANSLATIONS.update(COUNTRY_TRANSLATIONS)
+
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
     'acquires','funds','boosts','first','second','third','study','trial','trials','tests',
@@ -1155,7 +1259,7 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
     'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI',
 }
 STATE_FILE = 'news_state.json'
-MAX_ITEMS_PER_FEED = 8
+MAX_ITEMS_PER_FEED = 15
 SUMMARY_SENTENCES = 3
 GEMINI_INPUT_COST_PER_1M = 0.30
 GEMINI_OUTPUT_COST_PER_1M = 2.50
@@ -1375,6 +1479,106 @@ def contains_exact_term(text: str, term: str) -> bool:
     pattern = rf'(^|\s){re.escape(norm_term)}($|\s)'
     return re.search(pattern, norm_text) is not None
 
+def is_corporate_treasury_sale_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    sale_terms = [
+        'liquidates entire bitcoin stash',
+        'bitcoin stash',
+        'debt repayment',
+        'repay debt',
+        'sell bitcoin holdings',
+        'liquidates holdings',
+        '전량 매각',
+        '비트코인 전량 매각',
+        '부채 상환',
+    ]
+
+    company_terms = [
+        'genius group', 'empery digital', 'treasury company',
+        '지니어스그룹', '기업 재무', '재무 기업'
+    ]
+
+    return any(t in low for t in sale_terms) and any(t in low for t in company_terms)
+
+
+def is_wallet_balance_metric_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    wallet_terms = [
+        'spendable wallets',
+        'wallet balance',
+        'held in wallets',
+        'average holdings',
+        'bag smashes',
+        '보관 중임',
+        '보유량',
+        '평균 보유량',
+        '지갑에 보관',
+        '가용 지갑',
+    ]
+
+    xrp_terms = ['xrp', 'ripple', '리플']
+
+    return any(t in low for t in wallet_terms) and any(t in low for t in xrp_terms)
+
+
+def is_conference_opinion_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    event_terms = [
+        'conference', 'summit', 'panel', 'speaks on', 'spoke at',
+        'explains', 'described', 'conference 2026',
+        '컨퍼런스', '서밋', '행사', '발표', '설명'
+    ]
+
+    soft_terms = [
+        'tokenization', 'utility', 'liquidity', 'collateral',
+        '토큰화', '유동성', '담보 효용성'
+    ]
+
+    hard_terms = [
+        'license', 'approval', 'bill', 'law', 'launch', 'bank charter',
+        '라이선스', '승인', '법안', '출시'
+    ]
+
+    return (
+        any(t in low for t in event_terms)
+        and any(t in low for t in soft_terms)
+        and not any(t in low for t in hard_terms)
+    )
+
+def is_payment_adoption_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    org_terms = [
+        'bitget', 'etoro', 'kbank', '케이뱅크', '업비트',
+        'bitlicense', 'card', 'payment', 'spending',
+        'cross border', 'crossborder', '해외송금', '결제', '카드', '라이선스'
+    ]
+
+    positive_terms = [
+        'launch', 'launched', 'wins', 'secured', 'obtained', 'expands',
+        '출시', '획득', '확대', '도입', '활용'
+    ]
+
+    return any(t in low for t in org_terms) and any(t in low for t in positive_terms)
+
+
+def is_exchange_mna_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    exchange_terms = [
+        'coinone', 'korbit', 'exchange stake', 'stake acquisition',
+        '지분 인수', '인수 검토', '거래소 지분', '코인원', '코빗'
+    ]
+
+    finance_terms = [
+        'korea investment', 'mirae asset', '한국투자증권', '미래에셋'
+    ]
+
+    return any(t in low for t in exchange_terms) and any(t in low for t in finance_terms)
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
     raw_lower = raw_text.lower()
@@ -1404,6 +1608,22 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if contains_bad_signal(raw_text):
         print(f"[부정시그널 제외] {story.get('title', '')}")
+        return False
+
+	    if is_corporate_treasury_sale_article(raw_text):
+        print(f"[기업재무매각 제외] {story.get('title', '')}")
+        return False
+
+    if is_wallet_balance_metric_article(raw_text):
+        print(f"[지갑보유량 제외] {story.get('title', '')}")
+        return False
+
+    if is_conference_opinion_article(raw_text):
+        print(f"[행사발언 제외] {story.get('title', '')}")
+        return False
+
+    if is_security_incident_article(raw_text):
+        print(f"[보안사고 제외] {story.get('title', '')}")
         return False
 
     # 2. 차트/가격형 기사 차단
@@ -1447,6 +1667,14 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[AI/기업기사 통과] {story.get('title', '')}")
         return True
 
+    if is_payment_adoption_article(raw_text):
+        print(f"[결제/채택 통과] {story.get('title', '')}")
+        return True
+
+    if is_exchange_mna_article(raw_text):
+        print(f"[거래소M&A 통과] {story.get('title', '')}")
+        return True
+
     print(f"[필터미통과] {story.get('title', '')}")
     return False
 
@@ -1454,11 +1682,20 @@ def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
     if not canonical_key:
         return False
 
+    current = {x.strip() for x in canonical_key.split('|') if x.strip()}
+
     for old_key in seen_keys:
-        ratio = SequenceMatcher(None, canonical_key, old_key).ratio()
-        if ratio >= 0.82:
-            log(f"[정규토픽유사 중복] {canonical_key} <> {old_key} / {ratio:.2f}")
+        old = {x.strip() for x in old_key.split('|') if x.strip()}
+        shared = current & old
+
+        if len(shared) >= 4:
+            log(f"[정규토픽중복 제외] shared={shared}")
             return True
+
+        if len(current) >= 3 and len(old) >= 3 and len(shared) >= min(len(current), len(old)) - 1:
+            log(f"[정규토픽유사 제외] shared={shared}")
+            return True
+
     return False
 	
 def is_bad_line(line: str) -> bool:
@@ -1939,7 +2176,14 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
 		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','#Mimcoin',
 		'#Finance', '#Crypto',  '#TRX', '#TRON', '#Australia', '#US',
-'#FranklinTempleton', '#TonyPecore','#WisdomTree','#CLARITYAct',        '#MichaelBarr',
+'#FranklinTempleton', '#TonyPecore','#WisdomTree','#CLARITYAct',        '#MichaelBarr','#PaulGrewal', '#Grewal',
+'#BradGarlinghouse', '#CEO',
+'#GeniusGroup',
+'#Government', '#KYC',
+'#FTX', '#NishadSingh',
+'#KBank', '#eToro', '#Taiwan',
+'#Coinone', '#Bitget', '#SafePal',
+'#US', '#HongKong', '#StandardChartered', '#HSBC',
         '#GENIUS',
         '#Australia',
         '#HongKong',
@@ -1952,6 +2196,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#홍콩','#JackDorsey', '#Block','#MichaelSelig',
 '#CLARITY',
     }
+	allowed_exact |= COUNTRY_FINAL_TAGS
 
     blocked_contains = [
         'Highlights','Surprise','Underpriced','Needs','Run','Hitting','Fall',
