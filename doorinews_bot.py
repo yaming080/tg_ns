@@ -322,7 +322,17 @@ NEGATIVE_KEYWORDS = [
 '공동 주최',
 '주최',
 '개최',
-'행사 개최',
+'행사 개최','what’s next',
+"what's next",
+'know this before you join them',
+'tumbling',
+'lower highs',
+'price correction',
+'risk-off approach',
+'could rise to',
+'could see further dips',
+'rejection at the',
+'resistance level',
 
 
 
@@ -577,6 +587,16 @@ def is_chart_or_price_article(text: str) -> bool:
         r'price fails to break higher',
         r'green monthly candle',
         r'red monthly streak',
+		r'lower highs',
+r'price correction',
+r'resistance range',
+r'resistance level',
+r'what s next',
+r'what’s next',
+r'tumbling',
+r'continue to dip',
+r'oscillate between',
+		
     ]
 
     return any(re.search(p, low, re.I) for p in chart_patterns)
