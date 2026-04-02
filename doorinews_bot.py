@@ -1417,7 +1417,7 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
 
             desc_clean = re.sub(r'<[^>]+>', ' ', unescape(desc))
             desc_clean = re.sub(r'\s+', ' ', desc_clean).strip()
-			
+
             image_url = ''
             try:
                 media = item.find('{http://search.yahoo.com/mrss/}content') or item.find('{http://search.yahoo.com/mrss/}thumbnail')
@@ -1439,32 +1439,32 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
             except Exception:
                 image_url = ''
 
-            # 속도 개선용: 기사 원문 메타 추가 수집 비활성화
+            # 이미지 보강
             article_desc, article_img = ('', '')
 
-need_meta_fetch = (
-    (not image_url)
-    or (not str(image_url).startswith('http'))
-    or ('coinedition.com' in link)
-)
+            need_meta_fetch = (
+                (not image_url)
+                or (not str(image_url).startswith('http'))
+                or ('coinedition.com' in link)
+            )
 
-if need_meta_fetch:
-    article_desc, article_img = fetch_article_meta(link)
+            if need_meta_fetch:
+                article_desc, article_img = fetch_article_meta(link)
 
-if article_img and str(article_img).startswith('http'):
-    image_url = article_img
+            if article_img and str(article_img).startswith('http'):
+                image_url = article_img
 
-if is_weak_text(desc_clean) and article_desc:
-    desc_clean = article_desc
+            if is_weak_text(desc_clean) and article_desc:
+                desc_clean = article_desc
 
-if title and link:
-    stories.append({
-        'title': unescape(title),
-        'url': link,
-        'desc': desc_clean,
-        'pub': pub,
-        'image_url': image_url
-    })
+            if title and link:
+                stories.append({
+                    'title': unescape(title),
+                    'url': link,
+                    'desc': desc_clean,
+                    'pub': pub,
+                    'image_url': image_url
+                })
     except Exception as e:
         log(f"Error fetching {url}: {e}")
     return stories
