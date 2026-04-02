@@ -23,30 +23,25 @@ INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
 FEEDS = [
-	('CryptoBriefing', 'https://cryptobriefing.com/feed/'),
+    ('CryptoBriefing', 'https://cryptobriefing.com/feed/'),
     ('Cointelegraph', 'https://cointelegraph.com/rss'),
-    ('CryptoSlate', 'https://cryptoslate.com/feed'),
     ('TheBlock', 'https://www.theblock.co/rss.xml'),
-    ('위처', 'https://watcher.guru/news/feed'),
     ('크립토폴리탄', 'https://www.cryptopolitan.com/feed/'),
     ('더크립토베이식', 'https://thecryptobasic.com/feed/'),
     ('코인게이프', 'https://coingape.com/feed/'),
     ('타입스베틀로이드', 'https://timestabloid.com/feed/'),
-    ('데일리호들', 'https://dailyhodl.com/feed/'),
-    ('베인크립토', 'https://beincrypto.com/feed/'),
     ('블루밍비트', 'https://bloomingbit.io/rss.xml'),
-    ('뉴스비트코인', 'https://news.bitcoin.com/rss'),
-    ('코인터크', 'https://en.coin-turk.com/feed/'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
 	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
 	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
 	('비트코이니스트', 'https://bitcoinist.com/feed/'),
-	('크립토뉴스', 'https://cryptonews.com/rss/'),
 	('코인에디션', 'https://coinedition.com/feed/'),
 	('크립토포테이토', 'https://cryptopotato.com/feed/'),
 	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
 	('유투데이', 'https://u.today/rss.php'),
 	('비트저널', 'https://thebitjournal.com/feed/'),
+    ('코인니스', 'https://coinness.com/rss'),
+    ('크립토뉴스닷뉴스', 'https://crypto.news/feed/'),
 	
 ]
 
