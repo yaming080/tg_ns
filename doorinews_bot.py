@@ -109,7 +109,7 @@ KOREAN_TAG_KEYWORDS = [
 'KBank', '케이뱅크',
 'eToro', 'Taiwan', '대만',
 'Coinone', '코인원',
-'Bitget', 'SafePal',
+'Bitget', 'SafePal', '마이크로소프트', 'Microsoft',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -673,9 +673,11 @@ INLINE_TAG_WHITELIST = {
 	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
 'BitGo', 'TRON', 'TRX', 'Australia', 'Franklin Templeton', 'Tony Pecore',
 '프랭클린템플턴', '토니피코어','WisdomTree', '위즈덤트리', 'CLARITY Act', '클래리티법','Jack Dorsey', '잭도시', 'Block',
-'Michael Selig', '마이클셀릭', '마이클 셀릭',
+'Michael Selig', '마이클셀릭', '마이클 셀릭','마이크로소프트', 'Microsoft',
 	
 }
+
+
 
 MANUAL_TRANSLATIONS = {
     'Ironlight': '아이언라이트',
@@ -1177,8 +1179,13 @@ MANUAL_TRANSLATIONS = {
 'Coinone': '코인원',
 '코인원': '코인원',
 
-'Bitget': 'Bitget',
-'SafePal': 'SafePal',
+'Bitget': '비트겟',
+'비트겟': '비트겟',
+'SafePal': '세이프팔',
+'세이프팔': '세이프',
+
+'Microsoft': '마이크로소프트',
+'마이크로소프트': '마이크로소프트',
 
 }
 
@@ -2207,7 +2214,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#규제',
         '#호주',
         '#홍콩','#JackDorsey', '#Block','#MichaelSelig',
-'#CLARITY',
+'#CLARITY','#Microsoft',
     }
     allowed_exact |= COUNTRY_FINAL_TAGS
 
