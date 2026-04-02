@@ -1548,6 +1548,17 @@ def is_conference_opinion_article(text: str) -> bool:
         and not any(t in low for t in hard_terms)
     )
 
+def is_security_incident_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    incident_terms = [
+        'exploit', 'security incident', 'durable nonce',
+        'unauthorized trade', 'unauthorized transfer',
+        '익스플로잇', '보안 사고', '무단 거래 승인'
+    ]
+
+    return any(t in low for t in incident_terms)
+
 def is_payment_adoption_article(text: str) -> bool:
     low = (text or "").lower()
 
