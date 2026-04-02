@@ -1610,7 +1610,7 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[부정시그널 제외] {story.get('title', '')}")
         return False
 
-	if is_corporate_treasury_sale_article(raw_text):
+    if is_corporate_treasury_sale_article(raw_text):
         print(f"[기업재무매각 제외] {story.get('title', '')}")
         return False
 
