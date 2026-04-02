@@ -2196,7 +2196,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#홍콩','#JackDorsey', '#Block','#MichaelSelig',
 '#CLARITY',
     }
-	allowed_exact |= COUNTRY_FINAL_TAGS
+    allowed_exact |= COUNTRY_FINAL_TAGS
 
     blocked_contains = [
         'Highlights','Surprise','Underpriced','Needs','Run','Hitting','Fall',
