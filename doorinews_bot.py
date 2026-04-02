@@ -2677,35 +2677,7 @@ def build_message(story: dict) -> str:
     dynamic_tags = filter_final_tags(dynamic_tags)
 
 
-    summary_ko = finalize_summary_ending(summary_ko)
 
-    summary = summary_ko if summary_ko else story.get('title', '')
-    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=120)
-    summary = summary.replace('자동뉴스', '').strip()
-    summary = summary.replace('다음 기사는', '').strip()
-    summary = summary.replace('뉴스레터', '').strip()
-
-footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
-
-# 본문에 이미 같은 글자로 들어간 태그는 footer에서 제거
-inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
-footer_tags = [t for t in footer_tags if t not in inline_tags]
-
-seen = set()
-dedup = []
-for t in footer_tags:
-    if t not in seen:
-        dedup.append(t)
-        seen.add(t)
-
-    parts = [
-        html.escape(summary),
-        '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
-        f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
-        ' '.join(html.escape(t) for t in dedup)
-    ]
-
-    return '\n\n'.join(parts)
 
 def send_telegram_message(token: str, channel: str, message: str) -> bool:
     if not token or not channel:
