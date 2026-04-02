@@ -2159,7 +2159,7 @@ def build_canonical_topic_key(story: dict) -> str:
 '재무부': ['treasury', 'department of the treasury', '재무부'],
 '의견수렴': ['public comment', 'seek comment', 'request for comment', '의견 수렴', '의견을 구함'],
 '주정부규제': ['state level', 'state regulation', 'state oversight', '주 차원', '주정부 감독', '주정부 규제'],
-'발행사': ['issuer', 'issuers', '발행사', '발행업체'],내부자거래': ['insider trading', '내부자 거래'],
+'발행사': ['issuer', 'issuers', '발행사', '발행업체'],'내부자거래': ['insider trading', '내부자 거래'],
 '규칙안': ['rules', 'rulemaking', '규칙안', '규칙'],
 '기관진출': ['institutional entry', 'institutional access', '시장 진출', '기관 진출'],
     }
