@@ -2677,15 +2677,36 @@ def build_message(story: dict) -> str:
     dynamic_tags = filter_final_tags(dynamic_tags)
 
 
+    summary_ko = finalize_summary_ending(summary_ko)
 
+    summary = summary_ko if summary_ko else story.get('title', '')
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=120)
+    summary = summary.replace('자동뉴스', '').strip()
+    summary = summary.replace('다음 기사는', '').strip()
+    summary = summary.replace('뉴스레터', '').strip()
 
-def send_telegram_message(token: str, channel: str, message: str | None) -> bool:
+    footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
+
+    seen = set()
+    dedup = []
+    for t in footer_tags:
+        if t not in seen:
+            dedup.append(t)
+            seen.add(t)
+
+    parts = [
+        html.escape(summary),
+        '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
+        f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
+        ' '.join(html.escape(t) for t in dedup)
+    ]
+
+    return '\n\n'.join(parts)
+
+def send_telegram_message(token: str, channel: str, message: str) -> bool:
     if not token or not channel:
         log("Telegram token or channel not set")
         return False
-
-    message = message or ""
-	
     payload = json.dumps({
         'chat_id': channel,
         'text': message[:4000],
@@ -2706,17 +2727,13 @@ def send_telegram_message(token: str, channel: str, message: str | None) -> bool
         log(f"Error sending message: {e}")
         return False
 
-def send_telegram_photo(token: str, channel: str, image_url: str, caption: str | None) -> bool:
+def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) -> bool:
     if not token or not channel:
         log("Telegram token or channel not set")
         return False
-
-    caption = caption or ""
-
     if not image_url:
         log("No image_url -> text message로 전송")
         return send_telegram_message(token, channel, caption)
-
     while len(caption.encode('utf-8')) > 1000:
         caption = caption[:-1]
     payload = json.dumps({
