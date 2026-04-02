@@ -1555,26 +1555,30 @@ def is_conference_opinion_article(text: str) -> bool:
     low = (text or "").lower()
 
     event_terms = [
-        'conference', 'summit', 'panel', 'speaks on', 'spoke at',
-        'explains', 'described', 'conference 2026',
-        '컨퍼런스', '서밋', '행사', '발표', '설명'
+        'conference', 'summit', 'forum', 'event', 'panel', 'speaker',
+        'speaks on', 'spoke at', 'hosted by', 'co-hosted', 'presented by',
+        'scheduled for', 'will be held', 'to be held', 'registration',
+        '컨퍼런스', '서밋', '포럼', '행사', '이벤트', '패널', '연사',
+        '개최', '개최됨', '열림', '주최', '공동 주최', '참가', '참여', '논의'
     ]
 
-    soft_terms = [
-        'tokenization', 'utility', 'liquidity', 'collateral',
-        '토큰화', '유동성', '담보 효용성'
+    promo_terms = [
+        'eastpoint', 'hashed', 'bloomingbit', 'korea economic daily',
+        'ticket', 'registration', 'attend', 'networking',
+        'seoul 2026', 'september 28'
     ]
 
-    hard_terms = [
-        'license', 'approval', 'bill', 'law', 'launch', 'bank charter',
-        '라이선스', '승인', '법안', '출시'
+    hard_news_terms = [
+        'approval', 'approved', 'license', 'licensed', 'bill', 'law',
+        'launch', 'launched', 'lawsuit', 'settlement', 'etf',
+        '승인', '인가', '법안', '출시', '소송', '합의'
     ]
 
-    return (
-        any(t in low for t in event_terms)
-        and any(t in low for t in soft_terms)
-        and not any(t in low for t in hard_terms)
-    )
+    has_event = any(t in low for t in event_terms)
+    has_promo = any(t in low for t in promo_terms)
+    has_hard_news = any(t in low for t in hard_news_terms)
+
+    return (has_event and not has_hard_news) or (has_promo and has_event)
 
 def is_security_incident_article(text: str) -> bool:
     low = (text or "").lower()
