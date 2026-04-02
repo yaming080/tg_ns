@@ -1186,7 +1186,13 @@ MANUAL_TRANSLATIONS = {
 
 'Microsoft': '마이크로소프트',
 '마이크로소프트': '마이크로소프트',
-
+	
+'David Schwartz': '데이비드슈워츠',
+'데이비드슈워츠': '데이비드슈워츠',
+	
+'Ripple': '리플',
+'리플': '리플',
+	
 }
 
 
@@ -1435,23 +1441,30 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
 
             # 속도 개선용: 기사 원문 메타 추가 수집 비활성화
             article_desc, article_img = ('', '')
-            if (not image_url) or is_weak_text(desc_clean):
-                article_desc, article_img = fetch_article_meta(link)
 
-            if not image_url and article_img:
-                image_url = article_img
+need_meta_fetch = (
+    (not image_url)
+    or (not str(image_url).startswith('http'))
+    or ('coinedition.com' in link)
+)
 
-            if is_weak_text(desc_clean) and article_desc:
-                desc_clean = article_desc
+if need_meta_fetch:
+    article_desc, article_img = fetch_article_meta(link)
 
-            if title and link:
-                stories.append({
-                    'title': unescape(title),
-                    'url': link,
-                    'desc': desc_clean,
-                    'pub': pub,
-                    'image_url': image_url
-                })
+if article_img and str(article_img).startswith('http'):
+    image_url = article_img
+
+if is_weak_text(desc_clean) and article_desc:
+    desc_clean = article_desc
+
+if title and link:
+    stories.append({
+        'title': unescape(title),
+        'url': link,
+        'desc': desc_clean,
+        'pub': pub,
+        'image_url': image_url
+    })
     except Exception as e:
         log(f"Error fetching {url}: {e}")
     return stories
@@ -2188,34 +2201,22 @@ def fix_translation_terms(text: str) -> str:
 
 def filter_final_tags(tags: list[str]) -> list[str]:
     allowed_exact = {
-        '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT', '#Ethereum',
-        '#SoftBank','#JPMorgan','#TomLee','#JeromePowell','#Iran','#Israel','#US','#DeFi','#NFT','#Web3','#Stablecoin','#MorganStanley','#shibarium',
-        '#BitMine','#Silver','#Gold','#Uniswap','#Ripple','#XRPL','#ETF','#AI','#SEC','#VR','#TimeTraveler','#JohnSquire','#Nvidia','#Ohio','#Coinbase','#DeFi','#NFT', '#Web3','#CFTC','#IPO','#Korea','#Cardano','#GoldmanSachs','#Strategy','#DonaldTrump','#Trump','#Robinhood', '#Japan', '#Tether','#Evernorth', '#Upbit', '#Bithumb','#BradGarlinghouse', '#DavidSchwartz', '#MonicaLong',
-'#VitalikButerin', '#SatoshiNakamoto', '#ElonMusk',
-'#JustinSun', '#JedMcCaleb', '#CharlesHoskinson','#US','#Ledger','#Circle','#Fed', '#Treasury', '#BlackRock', '#Binance', '#Mining', '#Blockchain',
-'#Crypto', '#Altcoin', '#Liquidity', '#FSS', '#OpenAI', '#JPMorgan', '#FX', '#RWA', '#Gamestop', '#Citigroup',
-		'#Mastercard','#NYSE','#LatinAmerica','#WellsFargo','#CLARITY','#Russia','#BRICS','#Kalshi','#WellsFargo','#401k', '#노동부','#Mimcoin',
-		'#Finance', '#Crypto',  '#TRX', '#TRON', '#Australia', '#US',
-'#FranklinTempleton', '#TonyPecore','#WisdomTree','#CLARITYAct',        '#MichaelBarr','#PaulGrewal', '#Grewal',
-'#BradGarlinghouse', '#CEO',
-'#GeniusGroup',
-'#Government', '#KYC',
-'#FTX', '#NishadSingh',
-'#KBank', '#eToro', '#Taiwan',
-'#Coinone', '#Bitget', '#SafePal',
-'#US', '#HongKong', '#StandardChartered', '#HSBC',
-        '#GENIUS',
-        '#Australia',
-        '#HongKong',
-        '#HKMA',
-        '#HSBC',
-        '#StandardChartered',
-        '#수탁업체',
-        '#규제',
-        '#호주',
-        '#홍콩','#JackDorsey', '#Block','#MichaelSelig',
-'#CLARITY','#Microsoft',
+        '#BTC','#ETH','#XRP','#XLM','#ADA','#TRX','#BNB','#BCH','#SHIB','#ETC','#FLR','#ATHENA','#ETNA','#USDC','#USDT',
+        '#Ripple','#Ethereum','#Bitcoin','#Stablecoin','#DeFi','#NFT','#Web3',
+        '#ETF','#SEC','#CFTC','#OCC','#IPO','#CTO','#AI',
+        '#JPMorgan','#MorganStanley','#GoldmanSachs','#BlackRock','#Coinbase','#Binance','#Upbit','#Bithumb',
+        '#OpenAI','#Anthropic','#Google','#Apple','#PayPal','#Stripe','#Microsoft',
+        '#DavidSchwartz','#BradGarlinghouse','#MonicaLong','#MichaelSaylor','#JeromePowell',
+        '#TomLee','#JackDorsey','#PaulGrewal','#MichaelBarr','#MichaelSelig',
+        '#Tether','#Circle','#MoneyGram','#Mastercard','#Visa',
+        '#Metaplanet','#Strategy','#Robinhood','#Kraken','#WellsFargo',
+        '#FranklinTempleton','#TonyPecore','#WisdomTree',
+        '#GeniusGroup','#GENIUS','#CLARITY','#CLARITYAct',
+        '#KBank','#Coinone','#Bitget','#SafePal','#eToro','#HKMA','#HSBC','#StandardChartered',
+        '#US','#Korea','#Japan','#China','#Taiwan','#HongKong','#Australia','#Brazil','#India','#Iran','#Israel','#Qatar',
+        '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM'
     }
+
     allowed_exact |= COUNTRY_FINAL_TAGS
 
     blocked_contains = [
@@ -2224,18 +2225,23 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         'Early','About','What','Will','Passes','Says','This','Hard',
         'Level','Trigger','Million','Long','Squeeze','Could'
     ]
+
     cleaned = []
     for tag in tags:
         tag = tag.replace('.', '')
+
+        # footer에는 한글 해시태그 금지
+        if re.search(r'#[가-힣]+', tag):
+            continue
 
         if any(b.lower() in tag.lower() for b in blocked_contains):
             continue
 
         if tag in allowed_exact:
             cleaned.append(tag)
-            continue
 
     return list(dict.fromkeys(cleaned))
+
 
 def fetch_article_text(url: str) -> str:
     try:
@@ -2641,10 +2647,20 @@ def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: in
 
 def finalize_summary_ending(text: str) -> str:
     text = re.sub(r'좋은\s*덩어리$', '', text)
+
     text = re.sub(r'([가-힣]+)음고 말함$', r'\1음', text)
     text = re.sub(r'([가-힣]+)고 말함$', r'\1', text)
+
+    text = re.sub(r'문제가 아니\.$', '문제가 아님', text)
+    text = re.sub(r'아니\.$', '아님', text)
+    text = re.sub(r'될 것\.$', '될 것임', text)
+    text = re.sub(r'계획이\.$', '계획임', text)
+    text = re.sub(r'보인다\.$', '보임', text)
+    text = re.sub(r'전망이다\.$', '전망임', text)
+
     text = re.sub(r'매도가 있었음.*$', '매도가 있었음', text)
     text = re.sub(r'커졌음.*$', '커졌음', text)
+
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 	
@@ -2673,16 +2689,25 @@ def build_message(story: dict) -> str:
         summary_ko = normalize_style(summary_ko)
         summary_ko = cleanup_text(summary_ko)
 
-    entities = extract_entities_from_summary(summary_ko, max_tags=8)
+    # 기사 원문/제목 + 요약문 둘 다 기준으로 엔티티 추출
+    story_entities = extract_entities(story, max_tags=12)
+    summary_entities = extract_entities_from_summary(summary_ko, max_tags=12)
+
+    merged_entities = []
+    seen_entities = set()
+    for e in story_entities + summary_entities:
+        key = e.lower()
+        if key not in seen_entities:
+            merged_entities.append(e)
+            seen_entities.add(key)
+
     entities = [
-        e for e in entities
+        e for e in merged_entities
         if e in INLINE_TAG_WHITELIST or entity_korean_name(e) in INLINE_TAG_WHITELIST
     ]
 
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
-    dynamic_tags = filter_final_tags(dynamic_tags)
-
     summary_ko = finalize_summary_ending(summary_ko)
 
     summary = summary_ko if summary_ko else story.get('title', '')
@@ -2691,6 +2716,7 @@ def build_message(story: dict) -> str:
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
 
+    dynamic_tags = filter_final_tags(dynamic_tags)
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
 
     inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
