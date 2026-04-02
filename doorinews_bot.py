@@ -310,6 +310,18 @@ NEGATIVE_KEYWORDS = [
 'golden cross',
 'burn rate rockets',
 'network activity',
+'eastpoint',
+'eastpoint seoul',
+'co-hosted',
+'hosted by',
+'conference 2026',
+'september 28',
+'registration',
+'networking event',
+'공동 주최',
+'주최',
+'개최',
+'행사 개최',
 
 
 
