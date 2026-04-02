@@ -47,6 +47,7 @@ FEEDS = [
 	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
 	('유투데이', 'https://u.today/rss.php'),
 	('비트저널', 'https://thebitjournal.com/feed/'),
+	
 ]
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
