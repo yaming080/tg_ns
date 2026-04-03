@@ -110,7 +110,7 @@ KOREAN_TAG_KEYWORDS = [
 'KBank', '케이뱅크',
 'eToro', 'Taiwan', '대만',
 'Coinone', '코인원',
-'Bitget', 'SafePal', '마이크로소프트', 'Microsoft',
+'Bitget', 'SafePal', '마이크로소프트', 'Microsoft','XRPL', 'DEX', '탈중앙거래소', '사토시쿠사마',
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -333,7 +333,72 @@ NEGATIVE_KEYWORDS = [
 'could see further dips',
 'rejection at the',
 'resistance level',
+'financial report',
+'재무 요약',
+'재무 보고서',
+'총자산',
+'런웨이',
+'grant efficiency',
+'운영비 효율성',
 
+'miners continue selling',
+'miner selling',
+'채굴자들이 계속 판매',
+'채굴자들이 계속 매도',
+'sells 3778 btc',
+'sells btc in q1',
+'판매하며',
+'매도 중임',
+'매도 기사',
+
+'liquidation imbalance',
+'liquidations',
+'청산 불균형',
+'청산액',
+'손실을 입으면서',
+'시장 손실',
+'long traders',
+'더 많은 손실',
+
+'cloud mining',
+'클라우드 마이닝',
+'passive income',
+'수동 소득',
+'quantitative trading',
+'트레이딩 플랫폼 비교',
+'ultimate passive income showdown',
+
+'whales woke up',
+'whale activity',
+'whales are selling',
+'고래들이 활동을 재개',
+'고래들 움직임',
+'고래 매도',
+
+'what to expect next week',
+'what to expect',
+'next week',
+'예상되는 사항',
+'예상 기사',
+
+'high yield',
+'apr',
+'30 apr',
+'leading high-yield opportunities',
+'예치 시',
+'예치하면',
+'이자 제공',
+'고수익 기회',
+
+'investment guide',
+'top 7 ways to earn eth',
+'earn eth',
+'build passive income',
+'staking',
+'lending',
+'스테이킹',
+'대출 등으로',
+'수익 받는 방법',
 
 
 	
@@ -504,6 +569,29 @@ r'\btightening\b',
 r'\bgolden cross\b',
 r'\bburn rate\b',
 r'\bnetwork activity\b',
+
+	r'\bliquidation imbalance\b',
+r'\bliquidations\b',
+r'\bwhales woke up\b',
+r'\bwhale activity\b',
+r'\bwhat to expect\b',
+r'\bnext week\b',
+r'\bhigh yield\b',
+r'\bpassive income\b',
+r'\binvestment guide\b',
+r'\bearn eth\b',
+r'\bstaking\b',
+r'\blending\b',
+r'청산 불균형',
+r'청산액',
+r'고래들 움직임',
+r'예상되는 사항',
+r'고수익 기회',
+r'수익 받는 방법',
+r'스테이킹',
+r'대출 등으로',
+
+	
 ]
 
 
@@ -714,7 +802,8 @@ INLINE_TAG_WHITELIST = {
 	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
 'BitGo', 'TRON', 'TRX', 'Australia', 'Franklin Templeton', 'Tony Pecore',
 '프랭클린템플턴', '토니피코어','WisdomTree', '위즈덤트리', 'CLARITY Act', '클래리티법','Jack Dorsey', '잭도시', 'Block',
-'Michael Selig', '마이클셀릭', '마이클 셀릭','마이크로소프트', 'Microsoft',
+'Michael Selig', '마이클셀릭', '마이클 셀릭','마이크로소프트', 'Microsoft','XRPL', 'DEX', '탈중앙거래소', 'DeFi', 'Vet', '사토시쿠사마',
+'XRPL', 'DEX', 'Decentralized Exchange', 'Satoshi Kusama',
 	
 }
 
@@ -1233,6 +1322,15 @@ MANUAL_TRANSLATIONS = {
 	
 'Ripple': '리플',
 '리플': '리플',
+	'XRPL': 'XRPL',
+'DEX': 'DEX',
+'Decentralized Exchange': '탈중앙거래소',
+'탈중앙거래소': '탈중앙거래소',
+'Satoshi Kusama': '사토시쿠사마',
+'사토시 쿠사마': '사토시쿠사마',
+'사토시쿠사마': '사토시쿠사마',
+'Vet': 'Vet',
+'VET': 'Vet',
 	
 }
 
@@ -2236,6 +2334,9 @@ def fix_translation_terms(text: str) -> str:
 		'Shiba Inu': '시바이누',
 'shiba inu': '시바이누',
 '시바견': '시바이누',
+		'시토시': '사토시',
+'사토시 쿠사마': '사토시쿠사마',
+'Satoshi Kusama': '사토시쿠사마',
     }
 
     for old, new in replacements.items():
@@ -2262,7 +2363,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#GeniusGroup','#GENIUS','#CLARITY','#CLARITYAct',
         '#KBank','#Coinone','#Bitget','#SafePal','#eToro','#HKMA','#HSBC','#StandardChartered',
         '#US','#Korea','#Japan','#China','#Taiwan','#HongKong','#Australia','#Brazil','#India','#Iran','#Israel','#Qatar',
-        '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM'
+        '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM''#XRPL', '#DEX', '#DeFi',
     }
 
     allowed_exact |= COUNTRY_FINAL_TAGS
