@@ -2865,7 +2865,8 @@ def finalize_summary_ending(text: str) -> str:
 
     text = re.sub(r'매도가 있었음.*$', '매도가 있었음', text)
     text = re.sub(r'커졌음.*$', '커졌음', text)
-	text = re.sub(r'했음고', '했고', text)
+
+    text = re.sub(r'했음고', '했고', text)
     text = re.sub(r'했음는', '했다는', text)
 
     text = re.sub(r'\s+', ' ', text).strip()
