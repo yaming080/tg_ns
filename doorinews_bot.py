@@ -110,7 +110,12 @@ KOREAN_TAG_KEYWORDS = [
 'KBank', '케이뱅크',
 'eToro', 'Taiwan', '대만',
 'Coinone', '코인원',
-'Bitget', 'SafePal', '마이크로소프트', 'Microsoft','XRPL', 'DEX', '탈중앙거래소', '사토시쿠사마',
+'Bitget', 'SafePal', '마이크로소프트', 'Microsoft','XRPL', 'DEX', '탈중앙거래소', '사토시쿠사마','Bitdeer', '비트디어','Blockstream', '블록스트림',
+'IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑','Oracle', '오라클',
+
+
+
+	
 ]
 
 NEGATIVE_KEYWORDS = [
@@ -399,7 +404,22 @@ NEGATIVE_KEYWORDS = [
 '스테이킹',
 '대출 등으로',
 '수익 받는 방법',
-
+'lost',
+'loss',
+'losses',
+'sell at a loss',
+'underwater',
+'worst quarter',
+'worst first quarter',
+'first quarter since',
+'glassnode report',
+'glassnode',
+'traders lost',
+'손실',
+'손실을 확정',
+'최악의 분기',
+'최악의 분기 이후',
+'분석 보고서',
 
 	
 	
@@ -591,6 +611,14 @@ r'수익 받는 방법',
 r'스테이킹',
 r'대출 등으로',
 
+r'\blost\b',
+r'\bloss(es)?\b',
+r'\bworst quarter\b',
+r'\bunderwater\b',
+r'\bsell at a loss\b',
+r'손실',
+r'최악의 분기',
+	
 	
 ]
 
@@ -804,6 +832,11 @@ INLINE_TAG_WHITELIST = {
 '프랭클린템플턴', '토니피코어','WisdomTree', '위즈덤트리', 'CLARITY Act', '클래리티법','Jack Dorsey', '잭도시', 'Block',
 'Michael Selig', '마이클셀릭', '마이클 셀릭','마이크로소프트', 'Microsoft','XRPL', 'DEX', '탈중앙거래소', 'DeFi', 'Vet', '사토시쿠사마',
 'XRPL', 'DEX', 'Decentralized Exchange', 'Satoshi Kusama',
+
+	'Bitdeer', '비트디어','Blockstream', '블록스트림','IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑',
+'Oracle', '오라클',
+
+	
 	
 }
 
@@ -1331,6 +1364,23 @@ MANUAL_TRANSLATIONS = {
 '사토시쿠사마': '사토시쿠사마',
 'Vet': 'Vet',
 'VET': 'Vet',
+	'Bitdeer': '비트디어',
+'비트디어': '비트디어',
+
+	'Blockstream': '블록스트림',
+'블록스트림': '블록스트림',
+
+	'IMF': 'IMF',
+'Tobias Adrian': '토비아스아드리안',
+'토비아스 아드리안': '토비아스아드리안',
+'토비아스아드리안': '토비아스아드리안',
+'RWA': 'RWA',
+'지니어스법안': '지니어스법안',
+	'Charles Schwab': '찰스슈왑',
+'찰스 슈왑': '찰스슈왑',
+'찰스슈왑': '찰스슈왑',
+'Oracle': '오라클',
+'오라클': '오라클',
 	
 }
 
@@ -2032,7 +2082,6 @@ def normalize_style(text: str) -> str:
         (r'알려졌다\.?', '알려짐'),
         (r'밀렸다\.?', '밀림'),
         (r'밀렸습니다\.?', '밀림'),
-        (r'했다\.?', '했음'),
         (r'됐다\.?', '됨'),
         (r'알려졌습니다\.?', '알려짐'),
         (r'졌다\.?', '졌음'),
@@ -2256,6 +2305,9 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#이더 리 움', '#이더리움')
     text = text.replace('#시 바 이 누', '#시바이누')
     text = text.replace('#신 시 아 루 미 스', '#신시아루미스')
+	text = text.replace('#마이클#세일러', '#마이클세일러')
+    text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
+    text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
 
     return text
 
@@ -2363,7 +2415,8 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#GeniusGroup','#GENIUS','#CLARITY','#CLARITYAct',
         '#KBank','#Coinone','#Bitget','#SafePal','#eToro','#HKMA','#HSBC','#StandardChartered',
         '#US','#Korea','#Japan','#China','#Taiwan','#HongKong','#Australia','#Brazil','#India','#Iran','#Israel','#Qatar',
-        '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM''#XRPL', '#DEX', '#DeFi',
+        '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM''#XRPL', '#DEX', '#DeFi','#Bitdeer','#Blockstream',
+		'#IMF', '#TobiasAdrian', '#RWA', '#GENIUSAct','#Oracle',
     }
 
     allowed_exact |= COUNTRY_FINAL_TAGS
@@ -2812,6 +2865,8 @@ def finalize_summary_ending(text: str) -> str:
 
     text = re.sub(r'매도가 있었음.*$', '매도가 있었음', text)
     text = re.sub(r'커졌음.*$', '커졌음', text)
+	text = re.sub(r'했음고', '했고', text)
+    text = re.sub(r'했음는', '했다는', text)
 
     text = re.sub(r'\s+', ' ', text).strip()
     return text
