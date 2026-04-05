@@ -2305,7 +2305,7 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#이더 리 움', '#이더리움')
     text = text.replace('#시 바 이 누', '#시바이누')
     text = text.replace('#신 시 아 루 미 스', '#신시아루미스')
-	text = text.replace('#마이클#세일러', '#마이클세일러')
+    text = text.replace('#마이클#세일러', '#마이클세일러')
     text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
     text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
 
