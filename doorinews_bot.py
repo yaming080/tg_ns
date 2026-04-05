@@ -111,7 +111,7 @@ KOREAN_TAG_KEYWORDS = [
 'eToro', 'Taiwan', '대만',
 'Coinone', '코인원',
 'Bitget', 'SafePal', '마이크로소프트', 'Microsoft','XRPL', 'DEX', '탈중앙거래소', '사토시쿠사마','Bitdeer', '비트디어','Blockstream', '블록스트림',
-'IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑','Oracle', '오라클',
+'IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑','Oracle', '오라클','Peter Schiff','피터쉬프',
 
 
 
@@ -834,7 +834,7 @@ INLINE_TAG_WHITELIST = {
 'XRPL', 'DEX', 'Decentralized Exchange', 'Satoshi Kusama',
 
 	'Bitdeer', '비트디어','Blockstream', '블록스트림','IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑',
-'Oracle', '오라클',
+'Oracle', '오라클','피터쉬프', 'Peter Schiff',
 
 	
 	
@@ -1381,6 +1381,10 @@ MANUAL_TRANSLATIONS = {
 '찰스슈왑': '찰스슈왑',
 'Oracle': '오라클',
 '오라클': '오라클',
+
+	'Peter Schiff': '피터쉬프',
+'피터 쉬프': '피터쉬프',
+'피터쉬프': '피터쉬프',
 	
 }
 
