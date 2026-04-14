@@ -111,7 +111,17 @@ KOREAN_TAG_KEYWORDS = [
 'eToro', 'Taiwan', '대만',
 'Coinone', '코인원',
 'Bitget', 'SafePal', '마이크로소프트', 'Microsoft','XRPL', 'DEX', '탈중앙거래소', '사토시쿠사마','Bitdeer', '비트디어','Blockstream', '블록스트림',
-'IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑','Oracle', '오라클','Peter Schiff','피터쉬프',
+'IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑','Oracle', '오라클','Peter Schiff','피터쉬프','금융당국', '사모대출', '잉글랜드은행', '앤드루베일리',
+'한국은행', '보험연수원', '디지털화폐', '디지털통화', '지수보험',
+'일본은행', '유가', '국채', '신현송', 'CBDC',
+'메타플래닛', '일본 정부', '코인원', '코인원 AML',
+'ABA', '예금', '은행예금', '금융위원회',
+'모니카롱', 'ODL', 'FedNow', 'Fedwire',
+'금융상품거래법', '금융상품', '스테이블코인', '클래리티법안',
+'브래드갈링하우스', '리플 CEO', '블랙록 CEO',
+'SMQKE', '신탁은행', '마스터계정', '금융감독청',
+'주택시장', '제프박', '프로캡',
+'업비트', 'USDT', '원화마켓', 'KRW',
 
 
 
@@ -420,7 +430,10 @@ NEGATIVE_KEYWORDS = [
 '최악의 분기',
 '최악의 분기 이후',
 '분석 보고서',
-
+'canton',
+'캔톤',
+'canton token',
+'canton network',
 	
 	
 ]
@@ -618,6 +631,8 @@ r'\bunderwater\b',
 r'\bsell at a loss\b',
 r'손실',
 r'최악의 분기',
+r'\bcanton\b',
+r'캔톤',
 	
 	
 ]
@@ -834,7 +849,17 @@ INLINE_TAG_WHITELIST = {
 'XRPL', 'DEX', 'Decentralized Exchange', 'Satoshi Kusama',
 
 	'Bitdeer', '비트디어','Blockstream', '블록스트림','IMF', '토비아스아드리안', 'Tobias Adrian', 'RWA', '지니어스법안','Charles Schwab', '찰스슈왑',
-'Oracle', '오라클','피터쉬프', 'Peter Schiff',
+'Oracle', '오라클','피터쉬프', 'Peter Schiff','금융당국', '사모대출', '잉글랜드은행', '앤드루베일리',
+'한국은행', '보험연수원', '디지털화폐', '디지털통화', '지수보험',
+'일본은행', '유가', '국채', '신현송', 'CBDC',
+'메타플래닛', '일본 정부', '코인원', '코인원 AML',
+'ABA', '예금', '은행예금', '금융위원회',
+'모니카롱', 'ODL', 'FedNow', 'Fedwire',
+'금융상품거래법', '금융상품', '스테이블코인', '클래리티법안',
+'브래드갈링하우스', '리플 CEO', '블랙록 CEO',
+'SMQKE', '신탁은행', '마스터계정', '금융감독청',
+'주택시장', '제프박', '프로캡',
+'업비트', 'USDT', '원화마켓', 'KRW',
 
 	
 	
@@ -1415,6 +1440,68 @@ COUNTRY_TAG_MAP = {
     'SouthAfrica': ['남아프리카공화국', '남아공', 'South Africa'],
     'Nigeria': ['나이지리아', 'Nigeria'],
     'Kazakhstan': ['카자흐스탄', 'Kazakhstan'],
+	'Financial Supervisory Service': '금융당국',
+'금융당국': '금융당국',
+
+'Private Credit': '사모대출',
+'private credit': '사모대출',
+'사모대출': '사모대출',
+
+'Bank of England': '잉글랜드은행',
+'잉글랜드은행': '잉글랜드은행',
+
+'Andrew Bailey': '앤드루베일리',
+'앤드루 베일리': '앤드루베일리',
+'앤드루베일리': '앤드루베일리',
+
+'Bank of Korea': '한국은행',
+'한국은행': '한국은행',
+
+'Korea Insurance Development Institute': '보험연수원',
+'보험연수원': '보험연수원',
+
+'Digital Currency': '디지털통화',
+'디지털통화': '디지털통화',
+'Digital Assets': '디지털자산',
+'디지털자산': '디지털자산',
+'Digital Finance': '디지털화폐',
+'디지털화폐': '디지털화폐',
+
+'Bank of Japan': '일본은행',
+'일본은행': '일본은행',
+
+'Hyun Song Shin': '신현송',
+'신현송': '신현송',
+
+'CBDC': 'CBDC',
+
+'ABA': 'ABA',
+
+'Monica Long': '모니카롱',
+'모니카롱': '모니카롱',
+
+'ODL': 'ODL',
+'FedNow': 'FedNow',
+'Fedwire': 'Fedwire',
+
+'SMQKE': 'SMQKE',
+'Master Account': '마스터계정',
+'마스터계정': '마스터계정',
+'Trust Bank': '신탁은행',
+'신탁은행': '신탁은행',
+
+'Jeff Park': '제프박',
+'제프 박': '제프박',
+'제프박': '제프박',
+
+'ProCap': '프로캡',
+'프로캡': '프로캡',
+
+'Upbit': '업비트',
+'업비트': '업비트',
+
+'Coinone': '코인원',
+'코인원': '코인원',
 }
 COUNTRY_FINAL_TAGS = set()
 COUNTRY_INLINE_ALIASES = set()
@@ -1916,11 +2003,11 @@ def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
         old = {x.strip() for x in old_key.split('|') if x.strip()}
         shared = current & old
 
-        if len(shared) >= 4:
+        if len(shared) >= 3:
             log(f"[정규토픽중복 제외] shared={shared}")
             return True
 
-        if len(current) >= 3 and len(old) >= 3 and len(shared) >= min(len(current), len(old)) - 1:
+        if len(current) >= 2 and len(old) >= 3 and len(shared) >= min(len(current), len(old)) - 1:
             log(f"[정규토픽유사 제외] shared={shared}")
             return True
 
@@ -2419,8 +2506,16 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#GeniusGroup','#GENIUS','#CLARITY','#CLARITYAct',
         '#KBank','#Coinone','#Bitget','#SafePal','#eToro','#HKMA','#HSBC','#StandardChartered',
         '#US','#Korea','#Japan','#China','#Taiwan','#HongKong','#Australia','#Brazil','#India','#Iran','#Israel','#Qatar',
-        '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM''#XRPL', '#DEX', '#DeFi','#Bitdeer','#Blockstream',
-		'#IMF', '#TobiasAdrian', '#RWA', '#GENIUSAct','#Oracle',
+        '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM','#XRPL', '#DEX', '#DeFi','#Bitdeer','#Blockstream',
+		'#IMF', '#TobiasAdrian', '#RWA', '#GENIUSAct','#Oracle','#Coinone', '#Korea', '#Japan', '#BankOfJapan', '#BankOfKorea',
+'#IMF', '#ABA', '#RWA', '#CBDC',
+'#MonicaLong', '#ODL', '#FedNow', '#Fedwire',
+'#AndrewBailey', '#HyunSongShin',
+'#Metaplanet', '#Upbit',
+'#BradGarlinghouse', '#CLARITY', '#CLARITYAct',
+'#PeterSchiff', '#Gold', '#Silver',
+'#CharlesSchwab', '#Oracle',
+'#JeffPark', '#ProCap',
     }
 
     allowed_exact |= COUNTRY_FINAL_TAGS
@@ -2641,6 +2736,12 @@ def build_canonical_topic_key(story: dict) -> str:
 '기관진출': ['institutional entry', 'institutional access', '시장 진출', '기관 진출'],
 		'시장구조법안': ['market structure bill', 'market structure', '시장 구조 법안', '시장구조법안'],
 '스테이블코인수익': ['stablecoin yield', 'yield compromise', '스테이블코인 수익', '수익률 수정안'],
+		        '스트래티지매수': ['strategy', 'strc', '스트래티지', '비트코인 매입', '비트코인 매수'],
+        'cbdc예금토큰': ['cbdc', 'deposit token', '예금 토큰', '예금토큰'],
+        '오픈ai이동': ['openai', 'emea', '정책 총괄', 'policy lead'],
+        '암호화폐감독': ['crypto oversight', 'crypto supervision', '암호화폐 감독', '감독권'],
+        '회로차단기': ['circuit breaker', '회로 차단기', '서킷 브레이커'],
+        '가짜지갑사기': ['fake wallet', 'seed phrase', '가짜 지갑', '시드 구문'],
 		
     }
 
@@ -2669,6 +2770,14 @@ def build_canonical_topic_key(story: dict) -> str:
 'goldmansachs': ['goldman sachs', '골드만삭스'],
 'paradigm': ['paradigm'],
 '제이미다이먼': ['jamie dimon', '제이미다이먼', '제이미 다이먼'],
+		        'strategy': ['strategy', 'strc', '스트래티지', 'michael saylor', '마이클세일러'],
+        'bok': ['bank of korea', '한국은행', '신현송', 'hyun song shin'],
+        'coinbase': ['coinbase', '코인베이스', 'tom duff gordon', '톰더프고든'],
+        'openai': ['openai'],
+        'ecb': ['ecb'],
+        'esma': ['esma'],
+        'bithumb': ['bithumb', '빗썸'],
+        'kraken': ['kraken', '크라켄'],
     }
 
     for key, terms in entity_map.items():
@@ -2684,6 +2793,10 @@ def build_canonical_topic_key(story: dict) -> str:
         '감축': ['job cuts', 'layoff', 'layoffs', '감축', '해고'],
 		'강조': ['emphasized','warn', 'warning', 'emphasize', 'stressed', '강조', '경고'],
         '준비': ['prepared', 'ready', '준비'],
+		        '이동': ['move', 'moved', 'joins', 'joined', 'appointed', '이동', '합류'],
+        '매수': ['buy', 'bought', 'acquire', 'acquired', '매수', '매입'],
+        '지지': ['support', 'supports', '지지'],
+        '촉구': ['urge', 'urges', 'calls for', '촉구'],
     }
 
     for key, terms in action_map.items():
@@ -2744,6 +2857,31 @@ def build_story_signature(story: dict) -> str:
 		'treasury': 'org_treasury',
         'genius group': 'org_geniusgroup',
         'empery digital': 'org_empery',
+		        'strategy': 'org_strategy',
+        'strc': 'org_strategy',
+        'michael saylor': 'org_strategy',
+        '스트래티지': 'org_strategy',
+        '마이클세일러': 'org_strategy',
+
+        'bank of korea': 'org_bok',
+        '한국은행': 'org_bok',
+        '신현송': 'person_hyunsongshin',
+        'hyun song shin': 'person_hyunsongshin',
+
+        'coinbase': 'org_coinbase',
+        'openai': 'org_openai',
+        'tom duff gordon': 'person_tomduffgordon',
+        '톰더프고든': 'person_tomduffgordon',
+
+        'ecb': 'org_ecb',
+        'esma': 'org_esma',
+
+        'bithumb': 'org_bithumb',
+        '빗썸': 'org_bithumb',
+
+        'kraken': 'org_kraken',
+        '애플': 'org_apple',
+        'apple': 'org_apple',
     }
 
     for key, value in org_map.items():
@@ -2779,15 +2917,34 @@ def build_story_signature(story: dict) -> str:
         '매각': 'act_sale',
         '상환': 'act_repay',
         '의견 수렴': 'act_comment',
+		        'move': 'act_move',
+        'joins': 'act_move',
+        'joined': 'act_move',
+        'appointed': 'act_move',
+        'hire': 'act_move',
+        'hired': 'act_move',
+        '이동': 'act_move',
+        '합류': 'act_move',
+
+        'supports': 'act_support',
+        'support': 'act_support',
+        '지지': 'act_support',
+
+        'calls for': 'act_policy',
+        'urges': 'act_policy',
+        '촉구': 'act_policy',
+
+        'bought': 'act_buy',
+        'buy': 'act_buy',
+        '매입': 'act_buy',
+        '매수': 'act_buy',
     }
 
     for key, value in action_map.items():
         if key in text:
             tags.add(value)
 
-    nums = re.findall(r'\b\d+(?:\.\d+)?\b', text)
-    for n in nums[:2]:
-        tags.add(f'num_{n}')
+
 
     return ' | '.join(sorted(tags))
 
