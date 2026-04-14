@@ -1410,36 +1410,6 @@ MANUAL_TRANSLATIONS = {
 	'Peter Schiff': '피터쉬프',
 '피터 쉬프': '피터쉬프',
 '피터쉬프': '피터쉬프',
-	
-}
-
-
-COUNTRY_TAG_MAP = {
-    'US': ['미국', 'United States', 'US', 'U.S.', 'America'],
-    'Korea': ['한국', '대한민국', 'South Korea', 'Korea'],
-    'Japan': ['일본', 'Japan'],
-    'China': ['중국', 'China'],
-    'Taiwan': ['대만', 'Taiwan'],
-    'HongKong': ['홍콩', 'Hong Kong'],
-    'Australia': ['호주', 'Australia', 'Australian'],
-    'Singapore': ['싱가포르', 'Singapore'],
-    'Canada': ['캐나다', 'Canada'],
-    'UK': ['영국', 'United Kingdom', 'UK', 'Britain'],
-    'Germany': ['독일', 'Germany'],
-    'France': ['프랑스', 'France'],
-    'Brazil': ['브라질', 'Brazil'],
-    'India': ['인도', 'India'],
-    'UAE': ['아랍에미리트', 'UAE', 'United Arab Emirates'],
-    'SaudiArabia': ['사우디아라비아', 'Saudi Arabia'],
-    'Qatar': ['카타르', 'Qatar'],
-    'Israel': ['이스라엘', 'Israel'],
-    'Iran': ['이란', 'Iran'],
-    'Turkey': ['튀르키예', '터키', 'Turkey', 'Türkiye'],
-    'Russia': ['러시아', 'Russia'],
-    'Ukraine': ['우크라이나', 'Ukraine'],
-    'SouthAfrica': ['남아프리카공화국', '남아공', 'South Africa'],
-    'Nigeria': ['나이지리아', 'Nigeria'],
-    'Kazakhstan': ['카자흐스탄', 'Kazakhstan'],
 	'Financial Supervisory Service': '금융당국',
 '금융당국': '금융당국',
 
@@ -1502,6 +1472,36 @@ COUNTRY_TAG_MAP = {
 
 'Coinone': '코인원',
 '코인원': '코인원',
+}
+
+
+COUNTRY_TAG_MAP = {
+    'US': ['미국', 'United States', 'US', 'U.S.', 'America'],
+    'Korea': ['한국', '대한민국', 'South Korea', 'Korea'],
+    'Japan': ['일본', 'Japan'],
+    'China': ['중국', 'China'],
+    'Taiwan': ['대만', 'Taiwan'],
+    'HongKong': ['홍콩', 'Hong Kong'],
+    'Australia': ['호주', 'Australia', 'Australian'],
+    'Singapore': ['싱가포르', 'Singapore'],
+    'Canada': ['캐나다', 'Canada'],
+    'UK': ['영국', 'United Kingdom', 'UK', 'Britain'],
+    'Germany': ['독일', 'Germany'],
+    'France': ['프랑스', 'France'],
+    'Brazil': ['브라질', 'Brazil'],
+    'India': ['인도', 'India'],
+    'UAE': ['아랍에미리트', 'UAE', 'United Arab Emirates'],
+    'SaudiArabia': ['사우디아라비아', 'Saudi Arabia'],
+    'Qatar': ['카타르', 'Qatar'],
+    'Israel': ['이스라엘', 'Israel'],
+    'Iran': ['이란', 'Iran'],
+    'Turkey': ['튀르키예', '터키', 'Turkey', 'Türkiye'],
+    'Russia': ['러시아', 'Russia'],
+    'Ukraine': ['우크라이나', 'Ukraine'],
+    'SouthAfrica': ['남아프리카공화국', '남아공', 'South Africa'],
+    'Nigeria': ['나이지리아', 'Nigeria'],
+    'Kazakhstan': ['카자흐스탄', 'Kazakhstan'],
+	
 }
 COUNTRY_FINAL_TAGS = set()
 COUNTRY_INLINE_ALIASES = set()
@@ -2007,7 +2007,7 @@ def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
             log(f"[정규토픽중복 제외] shared={shared}")
             return True
 
-        if len(current) >= 2 and len(old) >= 3 and len(shared) >= min(len(current), len(old)) - 1:
+        if len(current) >= 2 and len(old) >= 2 and len(shared) >= min(len(current), len(old)) - 1:
             log(f"[정규토픽유사 제외] shared={shared}")
             return True
 
