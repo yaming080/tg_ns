@@ -2742,6 +2742,11 @@ def build_canonical_topic_key(story: dict) -> str:
         '암호화폐감독': ['crypto oversight', 'crypto supervision', '암호화폐 감독', '감독권'],
         '회로차단기': ['circuit breaker', '회로 차단기', '서킷 브레이커'],
         '가짜지갑사기': ['fake wallet', 'seed phrase', '가짜 지갑', '시드 구문'],
+		        '부산은행토스': ['부산은행', 'bnk', '토스', 'toss'],
+        '비트마인가': ['bitmine', '톰리', 'tom lee', 'ethereum'],
+        'cftc전의장': ['cftc', 'christopher giancarlo', '크리스지안카를로'],
+        '가수지갑사기': ['glove', 'g love', 'fake wallet', 'seed phrase', '가짜 지갑'],
+        '크라켄유출거부': ['kraken', 'data leak', 'ransom', '유출', '몸값'],
 		
     }
 
@@ -2778,6 +2783,11 @@ def build_canonical_topic_key(story: dict) -> str:
         'esma': ['esma'],
         'bithumb': ['bithumb', '빗썸'],
         'kraken': ['kraken', '크라켄'],
+		        'bnk': ['bnk', '부산은행'],
+        'toss': ['toss', '토스'],
+        'bitmine': ['bitmine', '비트마인', 'tom lee', '톰리'],
+        'giancarlo': ['christopher giancarlo', '크리스지안카를로', 'cftc'],
+        'glove': ['g love', 'glove', '싱어송라이터', '가수'],
     }
 
     for key, terms in entity_map.items():
@@ -2882,6 +2892,16 @@ def build_story_signature(story: dict) -> str:
         'kraken': 'org_kraken',
         '애플': 'org_apple',
         'apple': 'org_apple',
+		'bnk': 'org_bnk',
+        '부산은행': 'org_bnk',
+        'toss': 'org_toss',
+        '토스': 'org_toss',
+        'bitmine': 'org_bitmine',
+        '비트마인': 'org_bitmine',
+        'christopher giancarlo': 'person_giancarlo',
+        '크리스지안카를로': 'person_giancarlo',
+        'g love': 'person_glove',
+        'glove': 'person_glove',
     }
 
     for key, value in org_map.items():
@@ -2938,6 +2958,15 @@ def build_story_signature(story: dict) -> str:
         'buy': 'act_buy',
         '매입': 'act_buy',
         '매수': 'act_buy',
+		'stolen': 'act_theft',
+        'theft': 'act_theft',
+        '도난': 'act_theft',
+        'leak': 'act_leak',
+        'leaked': 'act_leak',
+        '유출': 'act_leak',
+        'refuse': 'act_refuse',
+        'refused': 'act_refuse',
+        '거부': 'act_refuse',
     }
 
     for key, value in action_map.items():
