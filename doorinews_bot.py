@@ -71,7 +71,9 @@ KOREAN_KEYWORDS = [
     '한국','국내','브라질','중국','일본','미국','이란','이스라엘','카타르',
     '실업수당','고용','고용지표','기관','유동성','배당금','채권자',
     '양자','컴퓨팅','공격','방지','배포','금','디지털 금','세계금협회',
-    '예측시장','차량공유','카풀','거래소','감독'
+    '예측시장','차량공유','카풀','거래소','감독',
+    '원화','한국예탁결제원','삼성SDS','STO','솔라나','블랙스톤','미시간','페이워드','에타나','오하이오','거래량','시바리움','BTQ','카이아',
+    '아이엠뱅크','Hut8','FalconX','비트스탬프','시장구조법안','샌들린','데이비드슈워츠'
 ]
 KOREAN_TAG_KEYWORDS = [
     '비트코인', '이더리움', '리플', '스텔라', '에이다', '트론',
@@ -121,12 +123,19 @@ KOREAN_TAG_KEYWORDS = [
 '브래드갈링하우스', '리플 CEO', '블랙록 CEO',
 'SMQKE', '신탁은행', '마스터계정', '금융감독청',
 '주택시장', '제프박', '프로캡',
-'업비트', 'USDT', '원화마켓', 'KRW',
+'업비트', 'USDT', '원화마켓', 'KRW', '아이엠뱅크', '원화', 'BTQ', '카이아', '한국예탁결제원', '삼성SDS', 'STO',
+    '솔라나', 'wXRP', '블랙스톤', '미시간', '페이워드', '에타나', '오하이오', '데이비드슈워츠', 'Hut8', 'FalconX', '비트스탬프', '거래량', '시바리움',
     '테라울프', 'TeraWulf', '스위스', '스위스중앙은행', '스위스국립은행',
+    'iM Bank', 'iMBank', 'KRW', 'Won', 'BTQ', 'Kaia', 'Korea Securities Depository', 'Samsung SDS', 'STO',
+    'Solana', 'wXRP', 'Blackstone', 'Michigan', 'Payward', 'Etana', 'Ohio', 'David Schwartz', 'Hut 8', 'Hut8', 'FalconX', 'Bitstamp', 'Volume', 'Transaction Volume',
     'Revolut', '레볼루트', 'GoMining', '고마이닝', 'ECB', '유럽중앙은행', '요아힘나겔',
     'ASIC', '호주금융감독기관', 'XRPL재단', 'XRP Ledger Foundation',
     '샌들린', 'Sandlin', '노동부', '앤트로픽', 'SpaceX', '스페이스X',
     '데니스안겔', '르네헤이센', '후세인잔가나',
+    '샤프링크', '갤럭시디지털', '서클', '페이팔', '페이팔USD', '문페이', '돈랩스', '톤', '톤코인',
+    '텔레그램', '테더', '트론', 'USDT', '파올로아르도이노', '시장구조법안', '뱅크오브아메리카', '샌들린', '엑스',
+    '아이엠뱅크', 'iM뱅크', '원화', 'BTQ', '카이아', '한국예탁결제원', '삼성SDS', '삼성 SDS', 'STO',
+    '솔라나', 'wXRP', '블랙스톤', '미시간', '페이워드', '에타나', '오하이오', '데이비드슈워츠', 'Hut8', '헛8', 'FalconX', '팔콘엑스', '비트스탬프', '거래량',
 
 
 	
@@ -160,6 +169,11 @@ NEGATIVE_KEYWORDS = [
     'hyperliquid', 'hype token', 'hype etf',
     'alex bores', 'sam bankman-fried', 'democratic primary',
     'first appeared on',
+    'fan story', 'prize pool', 'campaign reward', 'social media campaign',
+    'grant program', 'ai grant program', 'human participation network', 'biomatrix',
+    'old cycle', '직면한 적이 없는 지점', '추진력을 잃으면서', '연속 행진',
+    'story protocol', 'azuki', 'busan web3 ip', 'busan-based web3 ip', 'campaign starts',
+    'digital twin', '디지털트윈', 'understanding ton', 'comprehensive overview', 'messari research',
     '처음 게재되었',
     '처음 게재되었습니다',
     'times tabloid에 처음 게재', 'Times Tabloid 에 처음으로 게재되었음',
@@ -817,6 +831,8 @@ INLINE_TAG_WHITELIST = {
     'EEZ', '버핏',
     '스트라이브', '터틀', '스트라이브자산운용', 'STRC', 'SATA', '니움', '비자',
     '오픈크레딧', '스마트계약', '프라이빗크레딧', '기관자금',
+'샤프링크', '갤럭시디지털', '서클', '페이팔', '페이팔USD', '문페이', '돈랩스',
+'톤', '톤코인', '텔레그램', '테더', '트론', 'USDT', '시장구조법안', '뱅크오브아메리카', '샌들린', '엑스',
 	'Bitcoin', 'Ethereum', 'Ripple','United States', 'US', 'Government',
 'Federal Reserve', 'Fed', 'Treasury', 'Senate', 'House', 'White House',
 
@@ -850,6 +866,9 @@ INLINE_TAG_WHITELIST = {
 'BAZAN', 'California', 'Morgan Stanley', 'Kraken',
 'Genius Act', 'Genius', 'Act', 'ICE', 'CLARITY',
 'BlackRock', 'MoonPay', 'Coinbase', 'Hidden Road', 'GameStop',
+'SharpLink', 'Sharplink', 'Galaxy Digital', 'GalaxyDigital', 'Circle', 'PayPal', 'PayPalUSD',
+'TON', 'Toncoin', 'Telegram', 'Tether', 'Paolo Ardoino', 'Dawn Labs', 'Bank of America', 'BofA',
+'Clarity Act', 'Market Structure Bill', 'Sandlin', 'X',
 'Google', 'India', 'Wells Fargo', 'Peter Schiff', 'Fannie Mae',
 'EEZ', 'Buffett',
 'Strive', 'Tuttle', 'Strive Asset Management', 'STRC', 'SATA', 'Nium',
@@ -1237,6 +1256,77 @@ MANUAL_TRANSLATIONS = {
 
     'MoonPay': '문페이',
     '문페이': '문페이',
+    'SharpLink': '샤프링크',
+    'Sharplink': '샤프링크',
+    '샤프링크': '샤프링크',
+    'Galaxy Digital': '갤럭시디지털',
+    'GalaxyDigital': '갤럭시디지털',
+    '갤럭시디지털': '갤럭시디지털',
+    'Circle': '서클',
+    '서클': '서클',
+    'PayPal USD': '페이팔USD',
+    'PayPalUSD': '페이팔USD',
+    '페이팔USD': '페이팔USD',
+    'Dawn Labs': '돈랩스',
+    'DawnLabs': '돈랩스',
+    '돈랩스': '돈랩스',
+    'TON': '톤',
+    'Toncoin': '톤코인',
+    '톤': '톤',
+    '톤코인': '톤코인',
+    'Telegram': '텔레그램',
+    '텔레그램': '텔레그램',
+    'Paolo Ardoino': '파올로아르도이노',
+    'PaoloArdoino': '파올로아르도이노',
+    '파올로 아르도이노': '파올로아르도이노',
+    '파올로아르도이노': '파올로아르도이노',
+    'Bank of America': '뱅크오브아메리카',
+    'BofA': '뱅크오브아메리카',
+    '뱅크오브아메리카': '뱅크오브아메리카',
+    'Clarity Act': '시장구조법안',
+    'CLARITY Act': '시장구조법안',
+    '시장구조법안': '시장구조법안',
+    'Sandlin': '샌들린',
+    '샌들린': '샌들린',
+    'X': '엑스',
+    '엑스': '엑스',
+    'iM Bank': '아이엠뱅크',
+    'iMBank': '아이엠뱅크',
+    'iM뱅크': '아이엠뱅크',
+    '아이엠뱅크': '아이엠뱅크',
+    'KRW': '원화',
+    'Won': '원화',
+    '원화': '원화',
+    'BTQ': 'BTQ',
+    'Kaia': '카이아',
+    '카이아': '카이아',
+    'Korea Securities Depository': '한국예탁결제원',
+    '한국예탁결제원': '한국예탁결제원',
+    'Samsung SDS': '삼성SDS',
+    '삼성 SDS': '삼성SDS',
+    '삼성SDS': '삼성SDS',
+    'STO': 'STO',
+    'Solana': '솔라나',
+    '솔라나': '솔라나',
+    'wXRP': 'wXRP',
+    'Blackstone': '블랙스톤',
+    '블랙스톤': '블랙스톤',
+    'Michigan': '미시간',
+    '미시간': '미시간',
+    'Payward': '페이워드',
+    '페이워드': '페이워드',
+    'Etana': '에타나',
+    '에타나': '에타나',
+    'Ohio': '오하이오',
+    '오하이오': '오하이오',
+    'Hut 8': 'Hut8',
+    'Hut8': 'Hut8',
+    '헛8': 'Hut8',
+    'FalconX': 'FalconX',
+    '팔콘엑스': 'FalconX',
+    'Bitstamp': '비트스탬프',
+    '비트스탬프': '비트스탬프',
+    '거래량': '거래량',
 
     'coinbase': '코인베이스',
     'Coinbase': '코인베이스',
@@ -1977,6 +2067,9 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if 'tokenpost.kr/news/tech/' in url:
         return False
+    if any(x in raw_lower for x in ['story protocol', 'azuki', 'fan story', 'prize pool', 'human participation network', 'biomatrix']):
+        print(f"[비관련기사 제외] {story.get('title', '')}")
+        return False
 
        # 1. 기본 네거티브 차단
     for neg in NEGATIVE_KEYWORDS:
@@ -2472,6 +2565,19 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#마이클#세일러', '#마이클세일러')
     text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
     text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
+    text = text.replace('#아이 엠 뱅 크', '#아이엠뱅크')
+    text = text.replace('#한 국 예 탁 결 제 원', '#한국예탁결제원')
+    text = text.replace('#삼 성 S D S', '#삼성SDS')
+    text = text.replace('#원 화', '#원화')
+    text = text.replace('#솔 라 나', '#솔라나')
+    text = text.replace('#블 랙 스 톤', '#블랙스톤')
+    text = text.replace('#미 시 간', '#미시간')
+    text = text.replace('#페 이 워 드', '#페이워드')
+    text = text.replace('#에 타 나', '#에타나')
+    text = text.replace('#오 하 이 오', '#오하이오')
+    text = text.replace('#데 이 비 드 슈 워 츠', '#데이비드슈워츠')
+    text = text.replace('#비 트 스 탬 프', '#비트스탬프')
+    text = text.replace('#거 래 량', '#거래량')
     text = text.replace('#요아힘#나겔', '#요아힘나겔')
     text = text.replace('#찰스#호스킨슨', '#찰스호스킨슨')
     text = text.replace('#휴고#필리온', '#휴고필리온')
@@ -2595,6 +2701,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#PeterSchiff', '#Gold', '#Silver',
 '#CharlesSchwab', '#Oracle',
 '#JeffPark', '#ProCap', '#TeraWulf', '#Switzerland', '#SwissNationalBank', '#Revolut', '#GoMining', '#ECB', '#JoachimNagel', '#ASIC', '#XRPLFoundation', '#SpaceX', '#Anthropic', '#Sandlin', '#XRPL',
+'#iMBank', '#BTQ', '#Kaia', '#SamsungSDS', '#STO', '#Solana', '#wXRP', '#Blackstone', '#Michigan', '#Payward', '#Etana', '#Ohio', '#DavidSchwartz', '#Hut8', '#FalconX', '#Bitstamp', '#TransactionVolume',
     }
 
     allowed_exact |= COUNTRY_FINAL_TAGS
