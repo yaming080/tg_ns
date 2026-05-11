@@ -84,8 +84,7 @@ KOREAN_TAG_KEYWORDS = [
 '일론머스크', '갈링하우스', '제롬파월', '트럼프',
 '아이언라이트', '보어히스', '에릭보어히스', '마이클세일러', '세일러', '로버트기요사키', '폴앳킨스',
 '데이비드슈워츠', '마이크노보그라츠', '샘알트만', '셰이프시프트', '브래드갈링하우스', '모니카롱',
-'비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
-'나카모토', '휴고필리온', '엑스알피레저', '오픈에이아이', '앤트로픽', '카르다노',
+'비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '카르다노', '휴고필리온',
 '스트래티지', '도널드트럼프', '테더', '플레어', 'FLR', '에테나', '에테나', '메타플래닛', '도리뉴스',
 '시바리움', 'SWIFT', '백악관', '카타르', '마스터카드',
 'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
@@ -123,7 +122,11 @@ KOREAN_TAG_KEYWORDS = [
 'SMQKE', '신탁은행', '마스터계정', '금융감독청',
 '주택시장', '제프박', '프로캡',
 '업비트', 'USDT', '원화마켓', 'KRW',
-
+    '테라울프', 'TeraWulf', '스위스', '스위스중앙은행', '스위스국립은행',
+    'Revolut', '레볼루트', 'GoMining', '고마이닝', 'ECB', '유럽중앙은행', '요아힘나겔',
+    'ASIC', '호주금융감독기관', 'XRPL재단', 'XRP Ledger Foundation',
+    '샌들린', 'Sandlin', '노동부', '앤트로픽', 'SpaceX', '스페이스X',
+    '데니스안겔', '르네헤이센', '후세인잔가나',
 
 
 	
@@ -435,8 +438,16 @@ NEGATIVE_KEYWORDS = [
 '캔톤',
 'canton token',
 'canton network',
-'우주 탐사 역량 강화',
-'월면 탐사', 'moon south pole', 'xbubble', 'bubbleengine', 'bubblepilot', 'dappos', 'red hat', 'redhat', 'oxford', 'thecube', 'hyundai securities', 'hy securities', '한양증권', 'sk네트웍스', 'sk networks',
+'fan story', 'prize pool', 'campaign', 'social media campaign',
+'virtual investor conference', 'investor conference', 'conference online', 'conference update',
+'fan story uex through your eyes', 'share your bitget fan story',
+'ui bug', 'ux bug', 'display bug', 'app glitch', 'price display glitch', 'almost zero',
+'core team', 'operating team', 'new operating team', 'software version', 'version 3.1.3', 'version update',
+'award', 'won a prize', 'won prize', 'contest', 'hackathon prize', 'pitches at consensus',
+'net outflow', 'net inflow', '순유출', '순유입', 'etf flow', 'etf flows',
+'old cycle', 'cycle is dead', '시장 분석가', 'analyst says', 'analyst shah', 'top 15', '시가총액 상위 15위권 밖',
+'rlusd', 'standard custody', 'standard custody & trust', 'custody & trust company',
+'digital twin', '디지털트윈', 'virtual investor',
 	
 	
 ]
@@ -780,8 +791,7 @@ INLINE_TAG_WHITELIST = {
     '마이클세일러', '세일러', '로버트기요사키', '폴앳킨스',
     '데이비드슈워츠', '마이크노보그라츠', '샘알트만', '일론머스크',
     '셰이프시프트', '갈링하우스', '모니카롱', '비탈릭부텔린',
-    '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
-'나카모토', '휴고필리온', '엑스알피레저', '오픈에이아이', '앤트로픽', '카르다노',
+    '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '카르다노', '휴고필리온',
     '골드만삭스', '스트래티지', '도널드트럼프', '트럼프',
     '로빈후드', '테더', '리플', '플레어', '아테나', '에테나',
     '메타플래닛', '도리뉴스', '시바이누', '시바리움',
@@ -814,8 +824,7 @@ INLINE_TAG_WHITELIST = {
 'Michael Saylor', 'Saylor', 'Robert Kiyosaki', 'Paul Atkins',
 'David Schwartz', 'Mike Novogratz', 'Sam Altman', 'Elon Musk',
 'ShapeShift', 'Brad Garlinghouse', 'Garlinghouse', 'Monica Long', 'Vitalik Buterin',
-'Satoshi Nakamoto', 'Justin Sun', 'Jed McCaleb', 'Charles Hoskinson',
-'Nakamoto', 'Hugo Philion', 'HugoPhilion', 'XRPLedger', 'OpenAI', 'Anthropic', 'Cardano',
+'Satoshi Nakamoto', 'Justin Sun', 'Jed McCaleb', 'Charles Hoskinson', 'Cardano', 'Hugo Philion',
 'Goldman Sachs', 'Strategy', 'Donald Trump', 'Trump',
 'Robinhood', 'Tether', 'Ripple', 'Flare', 'ATHENA', 'Ethena',
 'Metaplanet', 'DooriNews', 'Shiba Inu', 'Shibarium',
@@ -845,6 +854,11 @@ INLINE_TAG_WHITELIST = {
 'EEZ', 'Buffett',
 'Strive', 'Tuttle', 'Strive Asset Management', 'STRC', 'SATA', 'Nium',
 'Open Credit', 'Smart Contract', 'Smart Contracts', 'Private Credit', 'Private Credits', 'Institutional Capital',
+'TeraWulf', '테라울프', 'Switzerland', 'Swiss', 'Swiss National Bank', '스위스', '스위스중앙은행',
+'Revolut', '레볼루트', 'GoMining', '고마이닝', 'ECB', 'European Central Bank', 'Joachim Nagel', '요아힘나겔',
+'ASIC', '호주금융감독기관', 'XRPL Foundation', 'XRP Ledger Foundation', 'XRPL재단',
+'Sandlin', '샌들린', 'SpaceX', '스페이스X',
+'Denis Angell', 'René Heijsen', 'Hussein Zanganah', '데니스안겔', '르네헤이센', '후세인잔가나',
 'BCH', 'Bitcoin Cash', '비트코인캐시',
 '노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department',
 	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
@@ -931,10 +945,14 @@ MANUAL_TRANSLATIONS = {
     '제드맥케일럽': '제드맥케일럽',
 
     'Charles Hoskinson': '찰스호스킨슨',
-    '찰스호스킨슨': '찰스호스킨슨',
     'CharlesHoskinson': '찰스호스킨슨',
+    '찰스호스킨슨': '찰스호스킨슨',
     'Cardano': '카르다노',
     '카르다노': '카르다노',
+    'Hugo Philion': '휴고필리온',
+    'HugoPhilion': '휴고필리온',
+    '휴고 필리온': '휴고필리온',
+    '휴고필리온': '휴고필리온',
 
     'Goldman Sachs': '골드만삭스',
     '골드만삭스': '골드만삭스',
@@ -1156,30 +1174,31 @@ MANUAL_TRANSLATIONS = {
     'Evernorth': '에버노스',
     '에버노스': '에버노스',
 
-    'XRPLedger': '엑스알피레저',
-    'XRP Ledger': '엑스알피레저',
-    '엑스알피레저': '엑스알피레저',
+    'XRPLedger': 'XRPLedger',
+    'XRP Ledger': 'XRPLedger',
 
     'World Gold Council': '세계금협회',
     '세계금협회': '세계금협회',
 
     'Gold': '금',
+    '금': '금',
 
     'Digital Gold': '디지털금',
     '디지털금': '디지털금',
 
     'Silver': '은',
+    '은': '은',
 
     'Bitcoin Quantum': '비트코인퀀텀',
     '비트코인퀀텀': '비트코인퀀텀',
 
     'BIP360': 'BIP360',
 
-    'OpenAI': '오픈에이아이',
-    '오픈에이아이': '오픈에이아이',
+    'OpenAI': 'OpenAI',
+    '오픈에이아이': 'OpenAI',
 
-    'Anthropic': '앤트로픽',
-    '앤트로픽': '앤트로픽',
+    'Anthropic': 'Anthropic',
+    '앤트로픽': 'Anthropic',
 
     'Super Micro': '슈퍼마이크로',
     '슈퍼마이크로': '슈퍼마이크로',
@@ -1289,7 +1308,7 @@ MANUAL_TRANSLATIONS = {
     '401K': '401k',
     '401k': '401k',
 	'mim coin':'밈코인',
-	'밈코인':'밈코',
+	'밈코인':'밈코인',
 
 	'TRON': '트론',
     'TRX': '트론',
@@ -1479,6 +1498,44 @@ MANUAL_TRANSLATIONS = {
 
 'Coinone': '코인원',
 '코인원': '코인원',
+
+'TeraWulf': '테라울프',
+'테라울프': '테라울프',
+'Switzerland': '스위스',
+'Swiss': '스위스',
+'스위스': '스위스',
+'Swiss National Bank': '스위스중앙은행',
+'Swiss central bank': '스위스중앙은행',
+'스위스중앙은행': '스위스중앙은행',
+'스위스국립은행': '스위스중앙은행',
+'Revolut': '레볼루트',
+'레볼루트': '레볼루트',
+'GoMining': '고마이닝',
+'고마이닝': '고마이닝',
+'ECB': 'ECB',
+'European Central Bank': 'ECB',
+'Joachim Nagel': '요아힘나겔',
+'요아힘 나겔': '요아힘나겔',
+'요아힘나겔': '요아힘나겔',
+'ASIC': 'ASIC',
+'Australian Securities and Investments Commission': 'ASIC',
+'XRPL Foundation': 'XRPL재단',
+'XRP Ledger Foundation': 'XRPL재단',
+'XRPL재단': 'XRPL재단',
+'Sandlin': '샌들린',
+'샌들린': '샌들린',
+'SpaceX': '스페이스X',
+'스페이스X': '스페이스X',
+'Denis Angell': '데니스안겔',
+'데니스 안겔': '데니스안겔',
+'데니스안겔': '데니스안겔',
+'René Heijsen': '르네헤이센',
+'Rene Heijsen': '르네헤이센',
+'르네 헤이센': '르네헤이센',
+'르네헤이센': '르네헤이센',
+'Hussein Zanganah': '후세인잔가나',
+'후세인 잔가나': '후세인잔가나',
+'후세인잔가나': '후세인잔가나',
 }
 
 
@@ -1776,11 +1833,6 @@ def normalize_text(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-
-
-def normalize_compact(text: str) -> str:
-    return re.sub(r'\s+', '', (text or '').lower())
-
 def contains_exact_term(text: str, term: str) -> bool:
     norm_text = normalize_text(text)
     norm_term = normalize_text(term)
@@ -1920,13 +1972,7 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     ]
 
     ai_company_terms = [
-        'openai', 'anthropic', 'google', 'block'
-    ]
-
-    crypto_ai_context_terms = [
-        'wallet', 'wallets', 'crypto', 'cryptocurrency', 'blockchain', 'onchain', 'on-chain',
-        'token', 'tokens', 'stablecoin', 'exchange', 'btc', 'eth', 'xrp', 'bitcoin', 'ethereum', 'ripple',
-        '지갑', '암호화폐', '블록체인', '온체인', '토큰', '거래소', '스테이블코인', '비트코인', '이더리움', '리플'
+        'openai', 'anthropic', 'xai', 'grok', 'spacex', 'microsoft'
     ]
 
     if 'tokenpost.kr/news/tech/' in url:
@@ -1979,6 +2025,12 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[주제제외] {story.get('title', '')}")
         return False
 
+    # 캠페인/행사/버전/UI 버그/인사개편성 기사 추가 차단
+    promo_terms = ['campaign', 'prize pool', 'fan story', 'conference', 'event', 'virtual investor', 'award', 'hackathon', 'software version', 'version 3.1.3', 'ui bug', 'ux bug', 'display glitch', 'core team', 'operating team']
+    if any(t in raw_lower for t in promo_terms):
+        print(f"[프로모/행사/업데이트 제외] {story.get('title', '')}")
+        return False
+
     # 6. 허용 코인 직접 등장 기사
     if allowed_coin_found:
         print(f"[허용코인 통과] {story.get('title', '')}")
@@ -1994,8 +2046,8 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[XRP서사 통과] {story.get('title', '')}")
         return True
 
-    # 9. AI/기업 기사는 암호화폐 문맥이 함께 있을 때만 허용
-    if any(contains_exact_term(raw_text, t) for t in ai_company_terms) and any(contains_exact_term(raw_text, t) for t in crypto_ai_context_terms):
+    # 9. AI/기업 기사 허용 (generic AI 문맥은 제외)
+    if any(contains_exact_term(raw_text, t) for t in ai_company_terms) and ('crypto' in raw_lower or '암호화폐' in raw_text or 'btc' in raw_lower or 'bitcoin' in raw_lower or 'xrp' in raw_lower or 'ripple' in raw_lower):
         print(f"[AI/기업기사 통과] {story.get('title', '')}")
         return True
 
@@ -2248,20 +2300,15 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     text = title + " " + desc
     entities = []
 
-    compact_text = normalize_compact(text)
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
-        key_compact = normalize_compact(key)
         if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
-            entities.append(key)
-        elif len(key_compact) >= 6 and key_compact in compact_text:
             entities.append(key)
 
     for kw in KOREAN_TAG_KEYWORDS:
         # 금/은은 직접 포함 검사 금지
         if kw in {'금', '은'}:
             continue
-        kw_compact = normalize_compact(kw)
-        if kw in text or (len(kw_compact) >= 4 and kw_compact in compact_text):
+        if kw in text:
             entities.append(kw)
 
     # gold/silver는 영어 문맥일 때만 수동 추가
@@ -2295,23 +2342,22 @@ def extract_entities_from_summary(summary: str, max_tags: int = 8) -> list[str]:
     text = summary or ""
     entities = []
 
-    compact_text = normalize_compact(text)
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
-        key_compact = normalize_compact(key)
-        if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
-            entities.append(key)
-        elif len(key_compact) >= 6 and key_compact in compact_text:
+        if re.search(r'' + re.escape(key) + r'', text, re.I) or key in text:
             entities.append(key)
 
     for kw in KOREAN_TAG_KEYWORDS:
         if kw in {'금', '은'}:
             continue
-        kw_compact = normalize_compact(kw)
-        if kw in text or (len(kw_compact) >= 4 and kw_compact in compact_text):
-            entities.append(kw)
+        if re.search(r'[가-힣]', kw):
+            if kw in text:
+                entities.append(kw)
+        else:
+            if re.search(r'' + re.escape(kw) + r'', text, re.I):
+                entities.append(kw)
 
     for coin in PORTFOLIO_COINS:
-        if re.search(r'\b' + re.escape(coin) + r'\b', text, re.I):
+        if re.search(r'' + re.escape(coin) + r'', text, re.I):
             entities.append(coin)
 
     seen = set()
@@ -2426,13 +2472,12 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#마이클#세일러', '#마이클세일러')
     text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
     text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
-    text = text.replace('#휴고#필리온', '#휴고필리온')
+    text = text.replace('#요아힘#나겔', '#요아힘나겔')
     text = text.replace('#찰스#호스킨슨', '#찰스호스킨슨')
+    text = text.replace('#휴고#필리온', '#휴고필리온')
     text = text.replace('#사토시#나카모토', '#사토시나카모토')
-    text = text.replace('#비트#마인', '#비트마인')
-    text = text.replace('#엑스알피#레저', '#엑스알피레저')
-    text = text.replace('#오픈에이아이', '#오픈에이아이')
-    text = text.replace('#앤트로픽', '#앤트로픽')
+    text = text.replace('#테라#울프', '#테라울프')
+    text = text.replace('#스위스#중앙은행', '#스위스중앙은행')
 
     return text
 
@@ -2549,7 +2594,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#BradGarlinghouse', '#CLARITY', '#CLARITYAct',
 '#PeterSchiff', '#Gold', '#Silver',
 '#CharlesSchwab', '#Oracle',
-'#JeffPark', '#ProCap',
+'#JeffPark', '#ProCap', '#TeraWulf', '#Switzerland', '#SwissNationalBank', '#Revolut', '#GoMining', '#ECB', '#JoachimNagel', '#ASIC', '#XRPLFoundation', '#SpaceX', '#Anthropic', '#Sandlin', '#XRPL',
     }
 
     allowed_exact |= COUNTRY_FINAL_TAGS
@@ -2650,12 +2695,14 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 해시태그 사용하면 띄어쓰기 필수
 - 한국어 띄어쓰기를 자연스럽게 유지할 
 - 반드시 2~3문장만 작성
+- 캠페인, 이벤트, 콘퍼런스 일정, 경품, UI 오류, 앱 표시 오류, 소프트웨어 버전 업데이트, 인사개편 단순 공지성 기사처럼 보이면 빈 문자열만 반환할 것
 - 각 문장은 짧게 작성
 - 한 문장이 끝날 때마다 반드시 한 줄 띄울 것
 - 전체 길이는 120자 안팎으로 유지
 - 불필요한 배경 설명 금지
 - 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘, 전했다→전함, 설명했다→설명함)
-- 필요하면 불릿(- 또는 ➖) 사용 가능
+- 고유명사는 가능한 한 한국어 표기를 우선 사용하고, 한국어 표기가 어색하면 원문을 유지할 것
+- 특별한 경우가 아니면 불릿 사용 금지
 - 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
 - 직역투 금지
 - 기사에 없는 내용은 추측해서 추가 금지
@@ -3047,7 +3094,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
     return False
 
 
-def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 120) -> str:
+def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 180) -> str:
     text = (text or "").strip()
     text = text.replace('\r\n', '\n').replace('\r', '\n')
     text = re.sub(r'[ \t]+', ' ', text)
@@ -3140,10 +3187,11 @@ def build_message(story: dict) -> str:
 
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
+    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     summary_ko = finalize_summary_ending(summary_ko)
 
     summary = summary_ko if summary_ko else story.get('title', '')
-    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=120)
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=180)
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
