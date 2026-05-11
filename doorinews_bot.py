@@ -85,6 +85,7 @@ KOREAN_TAG_KEYWORDS = [
 '아이언라이트', '보어히스', '에릭보어히스', '마이클세일러', '세일러', '로버트기요사키', '폴앳킨스',
 '데이비드슈워츠', '마이크노보그라츠', '샘알트만', '셰이프시프트', '브래드갈링하우스', '모니카롱',
 '비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
+'나카모토', '휴고필리온', '엑스알피레저', '오픈에이아이', '앤트로픽', '카르다노',
 '스트래티지', '도널드트럼프', '테더', '플레어', 'FLR', '에테나', '에테나', '메타플래닛', '도리뉴스',
 '시바리움', 'SWIFT', '백악관', '카타르', '마스터카드',
 'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
@@ -434,6 +435,8 @@ NEGATIVE_KEYWORDS = [
 '캔톤',
 'canton token',
 'canton network',
+'우주 탐사 역량 강화',
+'월면 탐사', 'moon south pole', 'xbubble', 'bubbleengine', 'bubblepilot', 'dappos', 'red hat', 'redhat', 'oxford', 'thecube', 'hyundai securities', 'hy securities', '한양증권', 'sk네트웍스', 'sk networks',
 	
 	
 ]
@@ -778,6 +781,7 @@ INLINE_TAG_WHITELIST = {
     '데이비드슈워츠', '마이크노보그라츠', '샘알트만', '일론머스크',
     '셰이프시프트', '갈링하우스', '모니카롱', '비탈릭부텔린',
     '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
+'나카모토', '휴고필리온', '엑스알피레저', '오픈에이아이', '앤트로픽', '카르다노',
     '골드만삭스', '스트래티지', '도널드트럼프', '트럼프',
     '로빈후드', '테더', '리플', '플레어', '아테나', '에테나',
     '메타플래닛', '도리뉴스', '시바이누', '시바리움',
@@ -811,6 +815,7 @@ INLINE_TAG_WHITELIST = {
 'David Schwartz', 'Mike Novogratz', 'Sam Altman', 'Elon Musk',
 'ShapeShift', 'Brad Garlinghouse', 'Garlinghouse', 'Monica Long', 'Vitalik Buterin',
 'Satoshi Nakamoto', 'Justin Sun', 'Jed McCaleb', 'Charles Hoskinson',
+'Nakamoto', 'Hugo Philion', 'HugoPhilion', 'XRPLedger', 'OpenAI', 'Anthropic', 'Cardano',
 'Goldman Sachs', 'Strategy', 'Donald Trump', 'Trump',
 'Robinhood', 'Tether', 'Ripple', 'Flare', 'ATHENA', 'Ethena',
 'Metaplanet', 'DooriNews', 'Shiba Inu', 'Shibarium',
@@ -927,6 +932,9 @@ MANUAL_TRANSLATIONS = {
 
     'Charles Hoskinson': '찰스호스킨슨',
     '찰스호스킨슨': '찰스호스킨슨',
+    'CharlesHoskinson': '찰스호스킨슨',
+    'Cardano': '카르다노',
+    '카르다노': '카르다노',
 
     'Goldman Sachs': '골드만삭스',
     '골드만삭스': '골드만삭스',
@@ -1148,31 +1156,30 @@ MANUAL_TRANSLATIONS = {
     'Evernorth': '에버노스',
     '에버노스': '에버노스',
 
-    'XRPLedger': 'XRPLedger',
-    'XRP Ledger': 'XRPLedger',
+    'XRPLedger': '엑스알피레저',
+    'XRP Ledger': '엑스알피레저',
+    '엑스알피레저': '엑스알피레저',
 
     'World Gold Council': '세계금협회',
     '세계금협회': '세계금협회',
 
     'Gold': '금',
-    '금': '금',
 
     'Digital Gold': '디지털금',
     '디지털금': '디지털금',
 
     'Silver': '은',
-    '은': '은',
 
     'Bitcoin Quantum': '비트코인퀀텀',
     '비트코인퀀텀': '비트코인퀀텀',
 
     'BIP360': 'BIP360',
 
-    'OpenAI': 'OpenAI',
-    '오픈에이아이': 'OpenAI',
+    'OpenAI': '오픈에이아이',
+    '오픈에이아이': '오픈에이아이',
 
-    'Anthropic': 'Anthropic',
-    '앤트로픽': 'Anthropic',
+    'Anthropic': '앤트로픽',
+    '앤트로픽': '앤트로픽',
 
     'Super Micro': '슈퍼마이크로',
     '슈퍼마이크로': '슈퍼마이크로',
@@ -1769,6 +1776,11 @@ def normalize_text(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+
+
+def normalize_compact(text: str) -> str:
+    return re.sub(r'\s+', '', (text or '').lower())
+
 def contains_exact_term(text: str, term: str) -> bool:
     norm_text = normalize_text(text)
     norm_term = normalize_text(term)
@@ -1908,8 +1920,13 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     ]
 
     ai_company_terms = [
-        'openai', 'anthropic', 'google', 'block', 'ai',
-        'middle management', 'organization design', '업무 환경', '조직', 'ai'
+        'openai', 'anthropic', 'google', 'block'
+    ]
+
+    crypto_ai_context_terms = [
+        'wallet', 'wallets', 'crypto', 'cryptocurrency', 'blockchain', 'onchain', 'on-chain',
+        'token', 'tokens', 'stablecoin', 'exchange', 'btc', 'eth', 'xrp', 'bitcoin', 'ethereum', 'ripple',
+        '지갑', '암호화폐', '블록체인', '온체인', '토큰', '거래소', '스테이블코인', '비트코인', '이더리움', '리플'
     ]
 
     if 'tokenpost.kr/news/tech/' in url:
@@ -1977,8 +1994,8 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[XRP서사 통과] {story.get('title', '')}")
         return True
 
-    # 9. AI/기업 기사 허용
-    if any(contains_exact_term(raw_text, t) for t in ai_company_terms):
+    # 9. AI/기업 기사는 암호화폐 문맥이 함께 있을 때만 허용
+    if any(contains_exact_term(raw_text, t) for t in ai_company_terms) and any(contains_exact_term(raw_text, t) for t in crypto_ai_context_terms):
         print(f"[AI/기업기사 통과] {story.get('title', '')}")
         return True
 
@@ -2231,15 +2248,20 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     text = title + " " + desc
     entities = []
 
+    compact_text = normalize_compact(text)
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
+        key_compact = normalize_compact(key)
         if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
+            entities.append(key)
+        elif len(key_compact) >= 6 and key_compact in compact_text:
             entities.append(key)
 
     for kw in KOREAN_TAG_KEYWORDS:
         # 금/은은 직접 포함 검사 금지
         if kw in {'금', '은'}:
             continue
-        if kw in text:
+        kw_compact = normalize_compact(kw)
+        if kw in text or (len(kw_compact) >= 4 and kw_compact in compact_text):
             entities.append(kw)
 
     # gold/silver는 영어 문맥일 때만 수동 추가
@@ -2273,14 +2295,19 @@ def extract_entities_from_summary(summary: str, max_tags: int = 8) -> list[str]:
     text = summary or ""
     entities = []
 
+    compact_text = normalize_compact(text)
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
+        key_compact = normalize_compact(key)
         if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
+            entities.append(key)
+        elif len(key_compact) >= 6 and key_compact in compact_text:
             entities.append(key)
 
     for kw in KOREAN_TAG_KEYWORDS:
         if kw in {'금', '은'}:
             continue
-        if re.search(r'\b' + re.escape(kw) + r'\b', text, re.I):
+        kw_compact = normalize_compact(kw)
+        if kw in text or (len(kw_compact) >= 4 and kw_compact in compact_text):
             entities.append(kw)
 
     for coin in PORTFOLIO_COINS:
@@ -2399,6 +2426,13 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#마이클#세일러', '#마이클세일러')
     text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
     text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
+    text = text.replace('#휴고#필리온', '#휴고필리온')
+    text = text.replace('#찰스#호스킨슨', '#찰스호스킨슨')
+    text = text.replace('#사토시#나카모토', '#사토시나카모토')
+    text = text.replace('#비트#마인', '#비트마인')
+    text = text.replace('#엑스알피#레저', '#엑스알피레저')
+    text = text.replace('#오픈에이아이', '#오픈에이아이')
+    text = text.replace('#앤트로픽', '#앤트로픽')
 
     return text
 
