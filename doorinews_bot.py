@@ -88,6 +88,8 @@ KOREAN_TAG_KEYWORDS = [
 '데이비드슈워츠', '마이크노보그라츠', '샘알트만', '셰이프시프트', '브래드갈링하우스', '모니카롱',
 '비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '카르다노', '휴고필리온',
 '스트래티지', '도널드트럼프', '테더', '플레어', 'FLR', '에테나', '에테나', '메타플래닛', '도리뉴스',
+'부탄', 'GMC', '규제', '규제된', '아이엠뱅크', '원화', 'BTQ', '카이아', '한국예탁결제원', '삼성SDS', 'STO',
+'솔라나', 'wXRP', '싱가포르', '걸프은행', '스탠다드차타드', '디지털자산기본법', '총선',
 '시바리움', 'SWIFT', '백악관', '카타르', '마스터카드',
 'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
 '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
@@ -1255,6 +1257,39 @@ MANUAL_TRANSLATIONS = {
     'Blackrock': '블랙록',
     'BlackRock': '블랙록',
     '블랙록': '블랙록',
+
+    'Bhutan': '부탄',
+    '부탄': '부탄',
+    'Gelephu Mindfulness City': 'GMC',
+    'GMC': 'GMC',
+    'regulated': '규제된',
+    'Regulated': '규제된',
+    'Unfolded': '언폴디드',
+
+    'iMBank': '아이엠뱅크',
+    'iM Bank': '아이엠뱅크',
+    '아이엠뱅크': '아이엠뱅크',
+    'KRW': '원화',
+    'Kaia': '카이아',
+    '카이아': '카이아',
+    'Korea Securities Depository': '한국예탁결제원',
+    'Samsung SDS': '삼성SDS',
+    'SamsungSDS': '삼성SDS',
+    'STO': 'STO',
+    'Solana': '솔라나',
+    'wXRP': 'wXRP',
+    'Wrapped XRP': 'wXRP',
+
+    'Singapore': '싱가포르',
+    '싱가포르': '싱가포르',
+    'Gulf Bank': '걸프은행',
+    '걸프은행': '걸프은행',
+    'Standard Chartered': '스탠다드차타드',
+    '스탠다드차타드': '스탠다드차타드',
+    'Digital Asset Basic Act': '디지털자산기본법',
+    '디지털자산기본법': '디지털자산기본법',
+    'General Election': '총선',
+    '총선': '총선',
 
     'Andreessen Horowitz': '앤드리슨호로위츠',
     'a16z': '앤드리슨호로위츠',
@@ -2563,6 +2598,10 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = re.sub(r'#+', '#', text)
     text = re.sub(r'#\s+', '#', text)
 
+    particles = ['으로는','에서는','에게는','까지는','라고는','이라고','에서','에게','까지','으로','보다','처럼','라고','이며','이라','에는','에는','에','이','가','은','는','을','를','의','와','과','도','만','로']
+    for p in particles:
+        text = re.sub(rf'(#[가-힣A-Za-z0-9]+){p}(?=[\s,\.\!\?]|$)', rf'\1 {p}', text)
+
     # 정말 깨진 해시태그만 수동 복구
     text = text.replace('#미 국', '#미국')
     text = text.replace('#비트 코 인', '#비트코인')
@@ -2591,6 +2630,20 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#사토시#나카모토', '#사토시나카모토')
     text = text.replace('#테라#울프', '#테라울프')
     text = text.replace('#스위스#중앙은행', '#스위스중앙은행')
+    text = text.replace('#부 탄', '#부탄')
+    text = text.replace('#규 제', '#규제')
+    text = text.replace('#아이 엠 뱅 크', '#아이엠뱅크')
+    text = text.replace('#카 이 아', '#카이아')
+    text = text.replace('#싱 가 포 르', '#싱가포르')
+    text = text.replace('#걸 프 은 행', '#걸프은행')
+    text = text.replace('#스 탠 다 드 차 타 드', '#스탠다드차타드')
+    text = text.replace('#디 지 털 자 산 기 본 법', '#디지털자산기본법')
+    text = text.replace('#총 선', '#총선')
+    text = text.replace('#삼성 S D S', '#삼성SDS')
+    text = text.replace('#비트코인에', '#비트코인 에')
+    text = text.replace('#이더리움에', '#이더리움 에')
+    text = text.replace('#연준의', '#연준 의')
+    text = text.replace('#규제된', '#규제 된')
 
     return text
 
@@ -2619,7 +2672,12 @@ def cleanup_text(text: str) -> str:
         '발췌한 것임',
         '[]로 시작됩니다',
         '[]를 제외하고',
-        '[]'
+        '[]',
+        '전문 계정',
+        '리서치 계정',
+        '가상자산 전문 계정',
+        '언폴디드',
+        'Unfolded'
     ]
 
     for p in bad_phrases:
@@ -2637,6 +2695,11 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'코인데스크에 따르면[, ]*', '', text, flags=re.I)
     text = re.sub(r'cryptonews\s*에?\s*처음 등장함', '', text, flags=re.I)
     text = re.sub(r'crypto\s*biz:\s*', '', text, flags=re.I)
+    text = re.sub(r'\b\d{1,2}일\s+가상자산\s+전문\s+계정\s+언폴디드\s*\(Unfolded\)\s*는?', '', text, flags=re.I)
+    text = re.sub(r'\b가상자산\s+전문\s+계정\s+언폴디드\s*\(Unfolded\)\s*는?', '', text, flags=re.I)
+    text = re.sub(r'\b언폴디드\s*\(Unfolded\)\s*는?', '', text, flags=re.I)
+    text = re.sub(r'\bUnfolded\s*는?', '', text, flags=re.I)
+    text = re.sub(r'\b전문\s+계정\b', '', text, flags=re.I)
 
     text = text.replace('포스트가 ', '')
     text = text.replace('게시물이 ', '')
@@ -2821,6 +2884,7 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 직역투 금지
 - 기사에 없는 내용은 추측해서 추가 금지
 - 매체명, first appeared on, sponsor 문구 제거
+- 트위터/X 계정명, 전문 계정, 리서치 계정, 날짜 출처 언급은 제거
 - 문장은 너무 길지 않게 끊기
 - 출력은 요약문만 작성
 - 마지막 해시태그 줄, 출처, 링크 문구는 작성하지 말 것
