@@ -4238,6 +4238,24 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
         for base in sorted(bases, key=len, reverse=True):
             if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
                 continue
+            new_text, count = re.subn(
+                rf'(?<![#A-Za-z0-9가-힣]){re.escape(base)}(?![A-Za-z0-9가-힣])',
+                tag_text,
+                text,
+                count=1,
+            )
+            if count:
+                text = new_text
+                inline_count += 1
+                replaced = True
+                break
+
+        if replaced:
+            continue
+
+        for base in sorted(bases, key=len, reverse=True):
+            if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
+                continue
             for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
                 new_text, count = re.subn(re.escape(base + particle), f'{tag_text} {particle}', text, count=1)
                 if count:
@@ -4247,21 +4265,6 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
                     break
             if replaced:
                 break
-
-        if not replaced:
-            for base in sorted(bases, key=len, reverse=True):
-                if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
-                    continue
-                new_text, count = re.subn(
-                    rf'(?<![#A-Za-z0-9가-힣]){re.escape(base)}(?![A-Za-z0-9가-힣])',
-                    tag_text,
-                    text,
-                    count=1,
-                )
-                if count:
-                    text = new_text
-                    inline_count += 1
-                    break
 
     return normalize_inline_hashtag_spacing(text), filter_final_tags(final_tags)
 
@@ -4392,6 +4395,327 @@ def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: in
         picked = [finalize_summary_ending(text[:max_chars].rstrip())]
 
     return '\n\n'.join(picked).strip()
+
+
+DERIVATIVE_LOSS_PATTERNS = [
+    r'\blongs?\s+lose\b',
+    r'\bcrypto\s+longs?\b',
+    r'\blong\s+liquidations?\b',
+    r'\bliquidations?\b',
+    r'\bwipeout\b',
+    r'\bslides?\s+to\b',
+    r'\bdown\s+\d+(?:\.\d+)?%',
+    r'\bfalls?\s+to\b',
+    r'\bdrops?\s+to\b',
+    r'롱\s*포지션',
+    r'대규모\s*청산',
+    r'청산이\s*발생',
+    r'손실이\s*발생',
+    r'하락을\s*기록',
+    r'하락했고',
+]
+
+
+CORE_ENTITY_INLINE_TAGS = {
+    '부탄', '싱가포르', '한국', '미국', '홍콩', '일본', '중국', '호주',
+    '브라질', '인도', '이란', '이스라엘', '카타르', '스위스', '영국',
+    '앤드리슨호로위츠', '스탠다드차타드', '뱅크오브아메리카',
+    '블랙록', '코인베이스', '바이낸스', '업비트', '빗썸', '코인원',
+    '크라켄', '리플', '리플재단', 'XRPL재단', '테더', '서클',
+    '마스터카드', '비자', '페이팔', '스트라이프', '문페이',
+    '골드만삭스', '모건스탠리', 'JPMorgan', '웰스파고',
+    'SEC', 'CFTC', 'OCC', '연준', '재무부', '백악관', 'HKMA',
+    '마이클세일러', '브래드갈링하우스', '데이비드슈워츠',
+    '찰스호스킨슨', '잭도시', '폴그루월', '마이클바', '마이클셀릭',
+}
+
+
+def _country_alias_translations() -> dict[str, str]:
+    aliases = {}
+    for alias_list in COUNTRY_TAG_MAP.values():
+        korean_name = ''
+        for item in alias_list:
+            if re.search(r'[가-힣]', item):
+                korean_name = item.replace(' ', '')
+                break
+        if not korean_name:
+            continue
+        for item in alias_list:
+            aliases[item] = korean_name
+    return aliases
+
+
+def _entity_translation_map() -> dict[str, str]:
+    mapping = {}
+    mapping.update(_country_alias_translations())
+    mapping.update(MANUAL_TRANSLATIONS)
+    mapping.update(TERM_NORMALIZATION_OVERRIDES)
+    mapping.update({
+        'Andreessen Horowitz': '앤드리슨호로위츠',
+        'a16z': '앤드리슨호로위츠',
+        'Standard Chartered': '스탠다드차타드',
+        'Bank of America': '뱅크오브아메리카',
+        'BofA': '뱅크오브아메리카',
+        'Bhutan': '부탄',
+        'Singapore': '싱가포르',
+        'South Korea': '한국',
+        'Korea': '한국',
+        'BlackRock': '블랙록',
+        'Coinbase': '코인베이스',
+        'Binance': '바이낸스',
+        'Ripple Labs': '리플',
+        'XRP Ledger Foundation': 'XRPL재단',
+        'XRPL Foundation': 'XRPL재단',
+        'Federal Reserve': '연준',
+        'White House': '백악관',
+        'Treasury': '재무부',
+    })
+    return mapping
+
+
+ENTITY_TRANSLATION_MAP = _entity_translation_map()
+
+
+def _entity_korean_name_strict(entity: str, context: str = '') -> str:
+    raw = (entity or '').strip()
+    if not raw:
+        return ''
+    name = ENTITY_TRANSLATION_MAP.get(raw, MANUAL_TRANSLATIONS.get(raw, raw))
+    name = TERM_NORMALIZATION_OVERRIDES.get(name, name)
+    name = _fix_xrp_and_ton_artifacts(name)
+    name = name.replace(' ', '')
+    if name == '규제된':
+        name = '규제'
+    if name in {'X', '엑스'}:
+        return ''
+    if name in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(context):
+        return ''
+    if name in {'Gold', '금', 'Silver', '은'} and not _is_gold_silver_context(context):
+        return ''
+    if name in GENERIC_TAG_BLOCKLIST:
+        return ''
+    return name
+
+
+def _looks_like_core_entity(name: str, context: str) -> bool:
+    if not name or name not in CORE_ENTITY_INLINE_TAGS:
+        return False
+    compact_context = (context or '').replace(' ', '')
+    first_chunk = compact_context[:180]
+    return name in first_chunk
+
+
+def _is_inline_tag_candidate(name: str, context: str) -> bool:
+    if not name or name in GENERIC_TAG_BLOCKLIST:
+        return False
+    if name in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(context):
+        return False
+    if name in {'X', '엑스'}:
+        return False
+    allowed = {
+        '비트코인', '이더리움', '리플', 'XRP', 'BTC', 'ETH', 'USDT', 'USDC',
+        'ETF', 'SEC', 'CFTC', 'OCC', '시장구조법안', '지니어스법안',
+        '스테이블코인', '토큰화', '수탁', '규제',
+    }
+    return name in allowed or _looks_like_core_entity(name, context)
+
+
+def _auto_entity_candidates(text: str) -> list[str]:
+    text = text or ''
+    candidates = []
+
+    for alias in sorted(ENTITY_TRANSLATION_MAP.keys(), key=len, reverse=True):
+        if not alias or len(alias) <= 1:
+            continue
+        if re.search(r'[가-힣]', alias):
+            if alias in text:
+                candidates.append(alias)
+        else:
+            if re.search(rf'(?<![A-Za-z0-9]){re.escape(alias)}(?![A-Za-z0-9])', text, re.I):
+                candidates.append(alias)
+
+    for token in re.findall(r'\b(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|[A-Z]{2,6})\b', text):
+        if token in SITE_NAMES or token.lower() in {w.lower() for w in IGNORED_WORDS}:
+            continue
+        if token.lower() in {'the', 'this', 'that', 'with', 'from', 'after', 'before'}:
+            continue
+        candidates.append(token)
+
+    seen = set()
+    result = []
+    for item in candidates:
+        key = item.lower()
+        if key not in seen:
+            result.append(item)
+            seen.add(key)
+    return result
+
+
+def extract_entities(story: dict, max_tags: int = 12) -> list[str]:
+    title = story.get('title', '') or ''
+    desc = story.get('desc', '') or ''
+    text = f'{title} {desc}'
+    candidates = _auto_entity_candidates(text)
+
+    for coin in PORTFOLIO_COINS:
+        if re.search(rf'\b{re.escape(coin)}\b', text, re.I):
+            candidates.append(coin)
+
+    ranked = []
+    title_compact = title.replace(' ', '')
+    for ent in candidates:
+        name = _entity_korean_name_strict(ent, text)
+        if not name:
+            continue
+        priority = 0 if name in title_compact or ent in title else 1
+        ranked.append((priority, text.lower().find(ent.lower()) if ent.lower() in text.lower() else 99999, ent))
+
+    seen = set()
+    result = []
+    for _, __, ent in sorted(ranked):
+        key = ent.lower()
+        if key not in seen:
+            result.append(ent)
+            seen.add(key)
+    return result[:max_tags]
+
+
+def extract_entities_from_summary(summary: str, max_tags: int = 12) -> list[str]:
+    text = summary or ''
+    candidates = _auto_entity_candidates(text)
+
+    for coin in PORTFOLIO_COINS:
+        if re.search(rf'\b{re.escape(coin)}\b', text, re.I):
+            candidates.append(coin)
+
+    seen = set()
+    result = []
+    for ent in candidates:
+        name = _entity_korean_name_strict(ent, text)
+        if not name:
+            continue
+        key = ent.lower()
+        if key not in seen:
+            result.append(ent)
+            seen.add(key)
+    result.sort(key=lambda e: text.lower().find(e.lower()) if e.lower() in text.lower() else 99999)
+    return result[:max_tags]
+
+
+_BASE_MATCHES_KEYWORDS = matches_keywords
+
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    title = story.get('title', '') or ''
+    desc = story.get('desc', '') or ''
+    raw_text = f'{title} {desc}'.strip()
+    raw_lower = raw_text.lower()
+
+    if _contains_any_pattern(raw_lower, DERIVATIVE_LOSS_PATTERNS):
+        log(f"[롱/청산/가격손실 제외] {title}")
+        return False
+
+    return _BASE_MATCHES_KEYWORDS(story, coins, econ_keywords, korean_keywords)
+
+
+def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
+    text = fix_translation_terms(summary or '')
+    final_tags = []
+    inline_count = 0
+    max_inline_tags = 3
+
+    coin_inline_map = {
+        'BTC': '비트코인',
+        'ETH': '이더리움',
+        'XRP': 'XRP',
+        'XLM': '스텔라',
+        'ADA': '에이다',
+        'TRX': '트론',
+        'BNB': '바이낸스',
+        'BCH': '비트코인캐시',
+        'SHIB': '시바이누',
+        'USDC': 'USDC',
+        'USDT': 'USDT',
+    }
+
+    priority_entities = []
+    for ent in entities:
+        ent_upper = ent.upper()
+        normalized = _entity_korean_name_strict(ent, f'{text} {ent}')
+        if not normalized:
+            continue
+        if _looks_like_core_entity(normalized, text):
+            priority = 0
+        elif ent_upper in {'BTC', 'ETH', 'XRP', 'USDT', 'USDC'} or normalized in {'비트코인', '이더리움', '리플', 'XRP'}:
+            priority = 1
+        elif ent_upper in {'ETF', 'SEC', 'CFTC', 'OCC'} or normalized in {'시장구조법안', '지니어스법안', '스테이블코인', '수탁', '토큰화', '규제'}:
+            priority = 2
+        else:
+            priority = 9
+        priority_entities.append((priority, -len(ent), ent))
+
+    for _, __, ent in sorted(priority_entities):
+        ent_upper = ent.upper()
+        context = f'{text} {ent}'
+
+        if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
+            tag_name = coin_inline_map.get(ent_upper, ent_upper)
+            footer_tag = f'#{ent_upper}'
+        else:
+            tag_name = _entity_korean_name_strict(ent, context)
+            if not tag_name:
+                continue
+            footer_tag = f'#{ent.replace(" ", "")}'
+
+        if footer_tag not in final_tags:
+            final_tags.append(footer_tag)
+
+        if inline_count >= max_inline_tags or not _is_inline_tag_candidate(tag_name, context):
+            continue
+
+        tag_text = f'#{tag_name}'
+        if tag_text in text:
+            continue
+
+        bases = []
+        for base in [tag_name, _entity_korean_name_strict(ent, context), entity_korean_name(ent), ent, ent_upper]:
+            base = _fix_xrp_and_ton_artifacts((base or '').strip())
+            if base and base not in bases:
+                bases.append(base)
+
+        replaced = False
+        for base in sorted(bases, key=len, reverse=True):
+            if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
+                continue
+            new_text, count = re.subn(
+                rf'(?<![#A-Za-z0-9가-힣]){re.escape(base)}(?![A-Za-z0-9가-힣])',
+                tag_text,
+                text,
+                count=1,
+            )
+            if count:
+                text = new_text
+                inline_count += 1
+                replaced = True
+                break
+
+        if replaced:
+            continue
+
+        for base in sorted(bases, key=len, reverse=True):
+            if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
+                continue
+            for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
+                new_text, count = re.subn(re.escape(base + particle), f'{tag_text} {particle}', text, count=1)
+                if count:
+                    text = new_text
+                    inline_count += 1
+                    replaced = True
+                    break
+            if replaced:
+                break
+
+    return normalize_inline_hashtag_spacing(text), filter_final_tags(final_tags)
 
 
 def main():
