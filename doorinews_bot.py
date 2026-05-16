@@ -3940,6 +3940,22 @@ def build_story_signature(story: dict) -> str:
     return ' | '.join(sorted(tags))
 
 
+def _signature_parts(signature: str) -> set[str]:
+    return {x.strip() for x in (signature or '').split('|') if x.strip()}
+
+
+def _has_non_asset_signal(parts: set[str]) -> bool:
+    return any(part.startswith(('topic_', 'act_', 'org_')) for part in parts)
+
+
+def _is_semantic_signature_candidate(parts: set[str]) -> bool:
+    if len(parts) < 2:
+        return False
+    if not _has_non_asset_signal(parts):
+        return False
+    return True
+
+
 def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
     title = normalize_for_duplicate(story.get('title', ''))
     signature = build_story_signature(story)
@@ -3951,22 +3967,38 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
             log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
             return True
 
-    current_sig = {x.strip() for x in signature.split('|') if x.strip()}
-    current_canonical = {x.strip() for x in canonical_key.split('|') if x.strip()}
+    current_sig = _signature_parts(signature)
+    current_canonical = _signature_parts(canonical_key)
+
+    if not _is_semantic_signature_candidate(current_sig) and not _is_semantic_signature_candidate(current_canonical):
+        log(f"[의미중복검사 생략] 짧은/자산전용 시그니처: {signature or canonical_key}")
+        return False
 
     for old_sig in seen_signatures:
-        old = {x.strip() for x in old_sig.split('|') if x.strip()}
+        old = _signature_parts(old_sig)
         if not old:
             continue
+        if not _is_semantic_signature_candidate(old):
+            continue
+
         shared_sig = current_sig & old
         shared_canonical = current_canonical & old
-        if len(shared_canonical) >= 3:
+        shared_sig_non_asset = {x for x in shared_sig if x.startswith(('topic_', 'act_', 'org_'))}
+        shared_canonical_non_asset = {x for x in shared_canonical if x.startswith(('topic_', 'act_', 'org_'))}
+
+        if len(shared_canonical) >= 3 and shared_canonical_non_asset:
             log(f"[정규토픽 중복] {canonical_key} <> {old_sig}")
             return True
-        if len(shared_sig) >= 3 and len(shared_sig) / max(len(current_sig), 1) >= 0.60:
+        if len(shared_sig) >= 3 and shared_sig_non_asset and len(shared_sig) / max(len(current_sig), 1) >= 0.60:
             log(f"[시그니처 교집합 중복] {signature} <> {old_sig}")
             return True
-        if signature and SequenceMatcher(None, signature, old_sig).ratio() >= 0.80:
+        if (
+            _is_semantic_signature_candidate(current_sig)
+            and _is_semantic_signature_candidate(old)
+            and shared_sig_non_asset
+            and signature
+            and SequenceMatcher(None, signature, old_sig).ratio() >= 0.80
+        ):
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig}")
             return True
 
