@@ -1894,6 +1894,82 @@ def is_exchange_mna_article(text: str) -> bool:
 
     return any(t in low for t in exchange_terms) and any(t in low for t in finance_terms)
 
+
+
+ENTITY_TRANSLATION_MAP = dict(MANUAL_TRANSLATIONS)
+
+STRICT_ALLOWED_ASSETS = [
+    'bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple', 'xlm', 'stellar',
+    'ada', 'cardano', 'trx', 'tron', 'bnb', 'bch', 'bitcoin cash',
+    'shib', 'shiba inu', 'etc', 'flr', 'athena', 'ena', 'usdc', 'usdt',
+    '비트코인', '이더리움', '리플', '스텔라', '에이다', '트론',
+    '바이낸스코인', '비트코인캐시', '시바이누', '플레어', '에테나',
+]
+
+STRICT_CRYPTO_CONTEXT = [
+    '암호화폐', '가상자산', '디지털자산', '블록체인',
+    'crypto', 'cryptocurrency', 'digital asset', 'digital assets', 'blockchain',
+    'etf', 'stablecoin', 'custody', 'tokenization', 'wallet', 'exchange',
+    '수탁', '토큰화', '지갑', '거래소', '스테이블코인',
+]
+
+STRICT_POLICY_CONTEXT = [
+    'sec', 'cftc', 'occ', 'fed', 'treasury', 'senate', 'house', 'committee',
+    'regulation', 'regulated', 'bill', 'law', 'act', 'policy', 'approval',
+    '승인', '규제', '법안', '정책', '상원', '하원', '위원회', '연준', '재무부',
+]
+
+TAG_PARTICLES = [
+    '으로', '에서', '에게', '까지', '부터',
+    '은', '는', '이', '가', '을', '를', '의', '와', '과', '로', '도', '만',
+]
+
+def _contains_any_term(text: str, terms: list[str]) -> bool:
+    if not text or not terms:
+        return False
+    low = normalize_for_duplicate(str(text))
+    for term in terms:
+        if not term:
+            continue
+        t = normalize_for_duplicate(str(term))
+        if not t:
+            continue
+        if contains_exact_term(low, t):
+            return True
+    return False
+
+def _entity_korean_name_strict(entity: str, context_text: str = "") -> str:
+    if not entity:
+        return ""
+    ent = str(entity).strip()
+    if not ent:
+        return ""
+
+    if ent in {"Gold", "금"} and not has_precious_metal_context(context_text, "gold"):
+        return ""
+    if ent in {"Silver", "은"} and not has_precious_metal_context(context_text, "silver"):
+        return ""
+
+    if ent in ENTITY_TRANSLATION_MAP:
+        mapped = ENTITY_TRANSLATION_MAP[ent]
+    else:
+        mapped = entity_korean_name(ent)
+
+    mapped = str(mapped).strip().replace(" ", "")
+    if mapped == "금" and not has_precious_metal_context(context_text, "gold"):
+        return ""
+    if mapped == "은" and not has_precious_metal_context(context_text, "silver"):
+        return ""
+    return mapped
+
+def _is_inline_tag_candidate(tag_name: str, text: str = "") -> bool:
+    if not tag_name:
+        return False
+    if tag_name in ALWAYS_INLINE_TAGS or tag_name in INLINE_TAG_WHITELIST:
+        return True
+    return len(tag_name) >= 2 and tag_name in (text or "")
+
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
     raw_lower = raw_text.lower()
@@ -3188,351 +3264,6 @@ def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) 
     except Exception as e:
         log(f"Error sending photo: {e}. Falling back to text message.")
         return send_telegram_message(token, channel, caption)
-
-
-# ---------------------------------------------------------------------------
-# PATCH: 2026-05-18 manual stability fix for DooriNews style
-# ---------------------------------------------------------------------------
-
-EXTRA_STRICT_BLOCK_PATTERNS = [
-    r'시장\s*심리',
-    r'심리',
-    r'하락함',
-    r'상승함',
-    r'하락',
-    r'상승분',
-    r'상승세',
-    r'급락',
-    r'급등',
-    r'매도\s*압력',
-    r'롱\s*포지션',
-    r'숏\s*포지션',
-    r'청산',
-    r'손실',
-    r'net\s*outflow',
-    r'net\s*inflow',
-    r'순유출',
-    r'순유입',
-    r'77,?000달러',
-    r'78,?000달러',
-    r'price',
-    r'drops?\s+below',
-    r'falls?\s+below',
-    r'slides?\s+to',
-]
-
-ALWAYS_INLINE_TAGS = {
-    '비트코인', '이더리움', 'XRP', '리플', 'BTC', 'ETH', 'USDT', 'USDC',
-    'ETF', 'SEC', 'CFTC', 'OCC', '시장구조법안', '지니어스법안',
-    '스테이블코인', '토큰화', '수탁', '규제', 'AI', '암호화폐',
-    '부탄', '싱가포르', '한국', '미국', '홍콩', '일본', '중국', '호주',
-    '브라질', '인도', '이란', '이스라엘', '카타르', '스위스', '영국',
-    '앤드리슨호로위츠', '비탈릭부테린', '비탈릭부텔린', '브래드갈링하우스',
-    '데이비드슈워츠', '마이클세일러', '잭도시', '뱅크오브아메리카',
-    '스탠다드차타드', '블랙록', '코인베이스', '바이낸스', '업비트', '빗썸',
-    '크라켄', '문페이', '서클', '테더', 'XRPL재단', '리플재단',
-}
-
-def _contains_pattern_list(text: str, patterns: list[str]) -> bool:
-    low = (text or '').lower()
-    return any(re.search(p, low, re.I) for p in patterns)
-
-def _is_market_sentiment_or_price_article(text: str) -> bool:
-    return _contains_pattern_list(text, EXTRA_STRICT_BLOCK_PATTERNS)
-
-def normalize_style(text: str) -> str:
-    text = text or ''
-    rules = [
-        (r'사용됩니다\.?', '사용됨'),
-        (r'있습니다\.?', '있음'),
-        (r'늘렸습니다\.?', '늘림'),
-        (r'불러일으킵니다\.?', '불러일으킴'),
-        (r'미칩니다\.?', '미침'),
-        (r'나타냅니다\.?', '나타냄'),
-        (r'했습니다\.?', '함'),
-        (r'하였습니다\.?', '함'),
-        (r'합니다\.?', '함'),
-        (r'하고 있습니다\.?', '하고 있음'),
-        (r'하고 있다\.?', '하고 있음'),
-        (r'기록했습니다\.?', '기록'),
-        (r'승인했습니다\.?', '승인'),
-        (r'였습니다\.?', '임'),
-        (r'입니다\.?', '임'),
-        (r'이었습니다\.?', '임'),
-        (r'이다\.?', '임'),
-        (r'습니다\.?', '음'),
-        (r'알려졌습니다\.?', '알려짐'),
-        (r'알려졌다\.?', '알려짐'),
-        (r'밀렸다\.?', '밀림'),
-        (r'밀렸습니다\.?', '밀림'),
-        (r'됐다\.?', '됨'),
-        (r'졌다\.?', '졌음'),
-        (r'됩니다\.?', '됨'),
-        (r'밝혔다\.?', '밝힘'),
-        (r'전했다\.?', '전함'),
-        (r'설명했다\.?', '설명함'),
-        (r'덧붙였다\.?', '덧붙임'),
-    ]
-    for pat, rep in rules:
-        text = re.sub(pat, rep, text)
-
-    text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
-    text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
-    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-
-    # "있다고", "밝히고" 같은 정상 표현은 건드리지 않음
-    text = text.replace('했음고', '했고')
-    text = text.replace('했음는', '했다는')
-    return text
-
-def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
-    raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
-    raw_lower = raw_text.lower()
-    url = (story.get('url', '') or '').lower()
-
-    if not raw_text:
-        return False
-    if 'tokenpost.kr/news/tech/' in url:
-        log(f"[기술일반 제외] {story.get('title', '')}")
-        return False
-
-    for neg in NEGATIVE_KEYWORDS:
-        if neg and neg.lower() in raw_lower:
-            log(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
-            return False
-
-    if (
-        contains_bad_signal(raw_text)
-        or contains_bad_topic(raw_text)
-        or is_chart_or_price_article(raw_text)
-        or is_corporate_treasury_sale_article(raw_text)
-        or is_wallet_balance_metric_article(raw_text)
-        or is_conference_opinion_article(raw_text)
-        or is_security_incident_article(raw_text)
-        or _is_market_sentiment_or_price_article(raw_text)
-    ):
-        log(f"[시장심리/가격기사 제외] {story.get('title', '')}")
-        return False
-
-    has_allowed_asset = _contains_any_term(raw_lower, STRICT_ALLOWED_ASSETS)
-    has_crypto_context = _contains_any_term(raw_lower, STRICT_CRYPTO_CONTEXT)
-    has_policy_context = _contains_any_term(raw_lower, STRICT_POLICY_CONTEXT)
-
-    if contains_non_portfolio_asset(raw_text) and not has_allowed_asset:
-        log(f"[포폴외코인 제외] {story.get('title', '')}")
-        return False
-
-    if contains_stock_context(raw_text) and not (has_allowed_asset or has_crypto_context):
-        log(f"[주식기사 제외] {story.get('title', '')}")
-        return False
-
-    if not (has_allowed_asset or has_crypto_context):
-        log(f"[암호화폐맥락없음 제외] {story.get('title', '')}")
-        return False
-
-    if has_allowed_asset:
-        log(f"[허용자산 통과] {story.get('title', '')}")
-        return True
-
-    if has_crypto_context and has_policy_context:
-        log(f"[가상자산정책 통과] {story.get('title', '')}")
-        return True
-
-    if is_xrp_narrative_article(raw_text) or is_payment_adoption_article(raw_text) or is_exchange_mna_article(raw_text):
-        log(f"[채택/서사 통과] {story.get('title', '')}")
-        return True
-
-    log(f"[필터미통과] {story.get('title', '')}")
-    return False
-
-def _collect_story_entities_for_tags(story: dict, summary_ko: str) -> list[str]:
-    raw = f"{story.get('title', '')} {story.get('desc', '')} {summary_ko or ''}"
-    candidates = []
-    for alias in sorted(ENTITY_TRANSLATION_MAP.keys(), key=len, reverse=True):
-        if not alias or len(alias) <= 1:
-            continue
-        if re.search(r'[가-힣]', alias):
-            if alias in raw:
-                candidates.append(alias)
-        else:
-            if re.search(rf'(?<![A-Za-z0-9]){re.escape(alias)}(?![A-Za-z0-9])', raw, re.I):
-                candidates.append(alias)
-
-    for e in extract_entities(story, max_tags=18) + extract_entities_from_summary(summary_ko or '', max_tags=18):
-        candidates.append(e)
-
-    seen = set()
-    result = []
-    for ent in candidates:
-        name = _entity_korean_name_strict(ent, raw)
-        if not name:
-            continue
-        key = name.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        result.append(name)
-    return result
-
-def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
-    text = fix_translation_terms(summary or '')
-    final_tags = []
-    inline_count = 0
-    max_inline_tags = 3
-
-    for ent in entities:
-        tag_name = _entity_korean_name_strict(ent, text)
-        if not tag_name:
-            continue
-
-        footer_tag = f'#{tag_name}'
-        if footer_tag not in final_tags:
-            final_tags.append(footer_tag)
-
-        if inline_count >= max_inline_tags:
-            continue
-        if not _is_inline_tag_candidate(tag_name, text):
-            continue
-
-        tag_text = f'#{tag_name}'
-        if tag_text in text:
-            continue
-
-        bases = []
-        for base in [tag_name, ent]:
-            base = _fix_xrp_and_ton_artifacts((base or '').strip())
-            if base and base not in bases:
-                bases.append(base)
-
-        replaced = False
-        for base in sorted(bases, key=len, reverse=True):
-            # 먼저 조사 없는 정확한 어절만 태그
-            new_text, count = re.subn(
-                rf'(?<![#A-Za-z0-9가-힣]){re.escape(base)}(?![A-Za-z0-9가-힣])',
-                tag_text,
-                text,
-                count=1,
-            )
-            if count:
-                text = new_text
-                inline_count += 1
-                replaced = True
-                break
-
-            # 그다음 조사 붙은 경우 분리
-            for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
-                new_text, count = re.subn(re.escape(base + particle), f'{tag_text} {particle}', text, count=1)
-                if count:
-                    text = new_text
-                    inline_count += 1
-                    replaced = True
-                    break
-            if replaced:
-                break
-
-    return normalize_inline_hashtag_spacing(text), final_tags
-
-def finalize_summary_ending(text: str) -> str:
-    text = _fix_xrp_and_ton_artifacts(text or '')
-    text = re.sub(r'좋은\s*덩어리$', '', text)
-
-    ending_fixes = {
-        '밝혔다': '밝힘',
-        '전했다': '전함',
-        '설명했다': '설명함',
-        '추진했다': '추진함',
-        '승인했다': '승인함',
-        '통과했다': '통과함',
-        '발표했다': '발표함',
-        '합류했다': '합류함',
-    }
-    for src, dst in ending_fixes.items():
-        text = text.replace(src, dst)
-
-    # "있다고" 같은 정상 표현 훼손 금지
-    text = re.sub(r'문제가 아니\.$', '문제가 아님', text)
-    text = re.sub(r'아니\.$', '아님', text)
-    text = re.sub(r'될 것\.$', '될 것임', text)
-    text = re.sub(r'계획이\.$', '계획임', text)
-    text = re.sub(r'보인다\.$', '보임', text)
-    text = re.sub(r'전망이다\.$', '전망임', text)
-    text = text.replace('했음고', '했고')
-    text = text.replace('했음는', '했다는')
-    return normalize_inline_hashtag_spacing(re.sub(r'\s+', ' ', text).strip())
-
-def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 180) -> str:
-    text = fix_translation_terms(text or '')
-    text = normalize_inline_hashtag_spacing(text)
-    text = text.replace('\r\n', '\n').replace('\r', '\n')
-    text = re.sub(r'[ \t]+', ' ', text)
-    text = re.sub(r'(에 따르면|보도에 따르면|외신은|매체는|기사는)\s*', '', text)
-    text = re.sub(r'\n{3,}', '\n\n', text).strip()
-
-    pieces = re.split(
-        r'(?<=[.!?])\s+|(?<=음)\s+|(?<=됨)\s+|(?<=함)\s+|(?<=밝힘)\s+|(?<=전함)\s+|(?<=설명함)\s+|(?<=추진함)\s+',
-        text,
-    )
-    pieces = [finalize_summary_ending(p.strip(' .')) for p in pieces if p.strip()]
-
-    picked = []
-    total = 0
-    for p in pieces:
-        if len(picked) >= max_sentences:
-            break
-        if picked and total + len(p) > max_chars:
-            continue
-        picked.append(p)
-        total += len(p)
-
-    if not picked and text:
-        picked = [finalize_summary_ending(text[:max_chars].rstrip())]
-
-    return '\n\n'.join(picked).strip()
-
-def build_message(story: dict) -> str:
-    title = story.get('title', '')
-    desc = story.get('desc', '')
-    article_text = get_best_source_text(story)
-
-    summary_ko = rewrite_summary_with_gemini(
-        title=title,
-        article_text=article_text,
-        fallback_text=desc
-    )
-
-    if not summary_ko:
-        raw_source = f"{title}. {desc}"
-        raw_summary = summarize_text(raw_source, title=title, max_sentences=SUMMARY_SENTENCES)
-        summary_ko = translate_text_to_korean(raw_summary)
-        summary_ko = cleanup_text(summary_ko)
-        summary_ko = fix_translation_terms(summary_ko)
-        summary_ko = fix_truncated_phrases(summary_ko)
-        summary_ko = normalize_style(summary_ko)
-        summary_ko = cleanup_text(summary_ko)
-
-    entities = _collect_story_entities_for_tags(story, summary_ko)
-    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
-    summary_ko = fix_broken_inline_hashtags(summary_ko)
-    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
-    summary_ko = finalize_summary_ending(summary_ko)
-
-    summary = summary_ko if summary_ko else story.get('title', '')
-    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=180)
-    summary = summary.replace('자동뉴스', '').replace('다음 기사는', '').replace('뉴스레터', '').strip()
-
-    # 본문에서 이미 사용한 해시태그는 footer에서 제거
-    inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
-    footer_tags = [f'#{t}' for t in FINAL_HASHTAGS if f'#{t}' not in inline_tags]
-
-    parts = [
-        html.escape(summary),
-        '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
-        f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
-        ' '.join(html.escape(t) for t in footer_tags)
-    ]
-    return '\n\n'.join(parts)
-
 
 def main():
     log("Bot starting...")
