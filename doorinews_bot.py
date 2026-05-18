@@ -71,9 +71,7 @@ KOREAN_KEYWORDS = [
     '한국','국내','브라질','중국','일본','미국','이란','이스라엘','카타르',
     '실업수당','고용','고용지표','기관','유동성','배당금','채권자',
     '양자','컴퓨팅','공격','방지','배포','금','디지털 금','세계금협회',
-    '예측시장','차량공유','카풀','거래소','감독',
-    '원화','한국예탁결제원','삼성SDS','STO','솔라나','블랙스톤','미시간','페이워드','에타나','오하이오','거래량','시바리움','BTQ','카이아',
-    '아이엠뱅크','Hut8','FalconX','비트스탬프','시장구조법안','샌들린','데이비드슈워츠'
+    '예측시장','차량공유','카풀','거래소','감독'
 ]
 KOREAN_TAG_KEYWORDS = [
     '비트코인', '이더리움', '리플', '스텔라', '에이다', '트론',
@@ -86,10 +84,8 @@ KOREAN_TAG_KEYWORDS = [
 '일론머스크', '갈링하우스', '제롬파월', '트럼프',
 '아이언라이트', '보어히스', '에릭보어히스', '마이클세일러', '세일러', '로버트기요사키', '폴앳킨스',
 '데이비드슈워츠', '마이크노보그라츠', '샘알트만', '셰이프시프트', '브래드갈링하우스', '모니카롱',
-'비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '카르다노', '휴고필리온',
+'비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
 '스트래티지', '도널드트럼프', '테더', '플레어', 'FLR', '에테나', '에테나', '메타플래닛', '도리뉴스',
-'부탄', 'GMC', '규제', '규제된', '아이엠뱅크', '원화', 'BTQ', '카이아', '한국예탁결제원', '삼성SDS', 'STO',
-'솔라나', 'wXRP', '싱가포르', '걸프은행', '스탠다드차타드', '디지털자산기본법', '총선',
 '시바리움', 'SWIFT', '백악관', '카타르', '마스터카드',
 'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
 '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
@@ -98,7 +94,7 @@ KOREAN_TAG_KEYWORDS = [
 '서클', '머니그램', 'Apple', '페이팔', '스트라이프', '제미니', '칼시', '제드시온', '에버노스',
 'XRPLedger', '세계금협회', '디지털금', '비트코인퀀텀', 'BIP360', 'OpenAI', 'Anthropic',
 '슈퍼마이크로', 'AI', 'LNG', '바잔', '캘리포니아', '지니어스법안', '지니어스', '법안', 'ICE',
-'클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '앤드리슨호로위츠', 'ARC', '구글', '인도', '웰스파고', '피터쉬프', '패니매','ICE', 'EEZ', '현물', '서울', '부산',
+'클래리티', '블랙록', '문페이', '히든로드', '게임스탑', '구글', '인도', '웰스파고', '피터쉬프', '패니매','ICE', 'EEZ', '현물', '서울', '부산',
 	'휘발유', '경유', '대전', '인천', '대구','경기도', '울산', '강원도', '석유', '비트코인캐시','월스트리트',
 	'매수', '기관자금', '디파이', '오픈크레딧', '스마트계약', '프라이빗크레딧','비트코인캐시', '노동부', '401k',
 	'밈코인','레이어2','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
@@ -125,19 +121,8 @@ KOREAN_TAG_KEYWORDS = [
 '브래드갈링하우스', '리플 CEO', '블랙록 CEO',
 'SMQKE', '신탁은행', '마스터계정', '금융감독청',
 '주택시장', '제프박', '프로캡',
-'업비트', 'USDT', '원화마켓', 'KRW', '아이엠뱅크', '원화', 'BTQ', '카이아', '한국예탁결제원', '삼성SDS', 'STO',
-    '솔라나', 'wXRP', '블랙스톤', '미시간', '페이워드', '에타나', '오하이오', '데이비드슈워츠', 'Hut8', 'FalconX', '비트스탬프', '거래량', '시바리움',
-    '테라울프', 'TeraWulf', '스위스', '스위스중앙은행', '스위스국립은행',
-    'iM Bank', 'iMBank', 'KRW', 'Won', 'BTQ', 'Kaia', 'Korea Securities Depository', 'Samsung SDS', 'STO',
-    'Solana', 'wXRP', 'Blackstone', 'Michigan', 'Payward', 'Etana', 'Ohio', 'David Schwartz', 'Hut 8', 'Hut8', 'FalconX', 'Bitstamp', 'Volume', 'Transaction Volume',
-    'Revolut', '레볼루트', 'GoMining', '고마이닝', 'ECB', '유럽중앙은행', '요아힘나겔',
-    'ASIC', '호주금융감독기관', 'XRPL재단', 'XRP Ledger Foundation',
-    '샌들린', 'Sandlin', '노동부', '앤트로픽', 'SpaceX', '스페이스X',
-    '데니스안겔', '르네헤이센', '후세인잔가나',
-    '샤프링크', '갤럭시디지털', '서클', '페이팔', '페이팔USD', '문페이', '돈랩스', '톤', '톤코인',
-    '텔레그램', '테더', '트론', 'USDT', '파올로아르도이노', '시장구조법안', '뱅크오브아메리카', '샌들린', '엑스',
-    '아이엠뱅크', 'iM뱅크', '원화', 'BTQ', '카이아', '한국예탁결제원', '삼성SDS', '삼성 SDS', 'STO',
-    '솔라나', 'wXRP', '블랙스톤', '미시간', '페이워드', '에타나', '오하이오', '데이비드슈워츠', 'Hut8', '헛8', 'FalconX', '팔콘엑스', '비트스탬프', '거래량',
+'업비트', 'USDT', '원화마켓', 'KRW',
+
 
 
 	
@@ -171,11 +156,6 @@ NEGATIVE_KEYWORDS = [
     'hyperliquid', 'hype token', 'hype etf',
     'alex bores', 'sam bankman-fried', 'democratic primary',
     'first appeared on',
-    'fan story', 'prize pool', 'campaign reward', 'social media campaign',
-    'grant program', 'ai grant program', 'human participation network', 'biomatrix',
-    'old cycle', '직면한 적이 없는 지점', '추진력을 잃으면서', '연속 행진',
-    'story protocol', 'azuki', 'busan web3 ip', 'busan-based web3 ip', 'campaign starts',
-    'digital twin', '디지털트윈', 'understanding ton', 'comprehensive overview', 'messari research',
     '처음 게재되었',
     '처음 게재되었습니다',
     'times tabloid에 처음 게재', 'Times Tabloid 에 처음으로 게재되었음',
@@ -454,16 +434,6 @@ NEGATIVE_KEYWORDS = [
 '캔톤',
 'canton token',
 'canton network',
-'fan story', 'prize pool', 'campaign', 'social media campaign',
-'virtual investor conference', 'investor conference', 'conference online', 'conference update',
-'fan story uex through your eyes', 'share your bitget fan story',
-'ui bug', 'ux bug', 'display bug', 'app glitch', 'price display glitch', 'almost zero',
-'core team', 'operating team', 'new operating team', 'software version', 'version 3.1.3', 'version update',
-'award', 'won a prize', 'won prize', 'contest', 'hackathon prize', 'pitches at consensus',
-'net outflow', 'net inflow', '순유출', '순유입', 'etf flow', 'etf flows',
-'old cycle', 'cycle is dead', '시장 분석가', 'analyst says', 'analyst shah', 'top 15', '시가총액 상위 15위권 밖',
-'rlusd', 'standard custody', 'standard custody & trust', 'custody & trust company',
-'digital twin', '디지털트윈', 'virtual investor',
 	
 	
 ]
@@ -807,7 +777,7 @@ INLINE_TAG_WHITELIST = {
     '마이클세일러', '세일러', '로버트기요사키', '폴앳킨스',
     '데이비드슈워츠', '마이크노보그라츠', '샘알트만', '일론머스크',
     '셰이프시프트', '갈링하우스', '모니카롱', '비탈릭부텔린',
-    '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨', '카르다노', '휴고필리온',
+    '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
     '골드만삭스', '스트래티지', '도널드트럼프', '트럼프',
     '로빈후드', '테더', '리플', '플레어', '아테나', '에테나',
     '메타플래닛', '도리뉴스', '시바이누', '시바리움',
@@ -829,13 +799,10 @@ INLINE_TAG_WHITELIST = {
     '바잔', '캘리포니아', '모건스탠리', '크라켄',
     '지니어스법안', '지니어스', '법안', 'ICE', '클래리티',
     '블랙록', '문페이', '코인베이스', '히든로드', '게임스탑',
-    '앤드리슨호로위츠', 'ARC',
     '구글', '인도', '웰스파고', '피터쉬프', '패니매',
     'EEZ', '버핏',
     '스트라이브', '터틀', '스트라이브자산운용', 'STRC', 'SATA', '니움', '비자',
     '오픈크레딧', '스마트계약', '프라이빗크레딧', '기관자금',
-'샤프링크', '갤럭시디지털', '서클', '페이팔', '페이팔USD', '문페이', '돈랩스',
-'톤', '톤코인', '텔레그램', '테더', '트론', 'USDT', '시장구조법안', '뱅크오브아메리카', '샌들린', '엑스',
 	'Bitcoin', 'Ethereum', 'Ripple','United States', 'US', 'Government',
 'Federal Reserve', 'Fed', 'Treasury', 'Senate', 'House', 'White House',
 
@@ -843,7 +810,7 @@ INLINE_TAG_WHITELIST = {
 'Michael Saylor', 'Saylor', 'Robert Kiyosaki', 'Paul Atkins',
 'David Schwartz', 'Mike Novogratz', 'Sam Altman', 'Elon Musk',
 'ShapeShift', 'Brad Garlinghouse', 'Garlinghouse', 'Monica Long', 'Vitalik Buterin',
-'Satoshi Nakamoto', 'Justin Sun', 'Jed McCaleb', 'Charles Hoskinson', 'Cardano', 'Hugo Philion',
+'Satoshi Nakamoto', 'Justin Sun', 'Jed McCaleb', 'Charles Hoskinson',
 'Goldman Sachs', 'Strategy', 'Donald Trump', 'Trump',
 'Robinhood', 'Tether', 'Ripple', 'Flare', 'ATHENA', 'Ethena',
 'Metaplanet', 'DooriNews', 'Shiba Inu', 'Shibarium',
@@ -869,19 +836,10 @@ INLINE_TAG_WHITELIST = {
 'BAZAN', 'California', 'Morgan Stanley', 'Kraken',
 'Genius Act', 'Genius', 'Act', 'ICE', 'CLARITY',
 'BlackRock', 'MoonPay', 'Coinbase', 'Hidden Road', 'GameStop',
-'Andreessen Horowitz', 'a16z', 'ARC', '앤드리슨호로위츠',
-'SharpLink', 'Sharplink', 'Galaxy Digital', 'GalaxyDigital', 'Circle', 'PayPal', 'PayPalUSD',
-'TON', 'Toncoin', 'Telegram', 'Tether', 'Paolo Ardoino', 'Dawn Labs', 'Bank of America', 'BofA',
-'Clarity Act', 'Market Structure Bill', 'Sandlin', 'X',
 'Google', 'India', 'Wells Fargo', 'Peter Schiff', 'Fannie Mae',
 'EEZ', 'Buffett',
 'Strive', 'Tuttle', 'Strive Asset Management', 'STRC', 'SATA', 'Nium',
 'Open Credit', 'Smart Contract', 'Smart Contracts', 'Private Credit', 'Private Credits', 'Institutional Capital',
-'TeraWulf', '테라울프', 'Switzerland', 'Swiss', 'Swiss National Bank', '스위스', '스위스중앙은행',
-'Revolut', '레볼루트', 'GoMining', '고마이닝', 'ECB', 'European Central Bank', 'Joachim Nagel', '요아힘나겔',
-'ASIC', '호주금융감독기관', 'XRPL Foundation', 'XRP Ledger Foundation', 'XRPL재단',
-'Sandlin', '샌들린', 'SpaceX', '스페이스X',
-'Denis Angell', 'René Heijsen', 'Hussein Zanganah', '데니스안겔', '르네헤이센', '후세인잔가나',
 'BCH', 'Bitcoin Cash', '비트코인캐시',
 '노동부', 'U.S. Department of Labor', 'US Department of Labor', 'Department of Labor', 'Labor Department',
 	'밈코인','Mimcoin','금융', '암호화폐', '트론', 'TRX', 'TRON', '호주', '미국',
@@ -968,14 +926,7 @@ MANUAL_TRANSLATIONS = {
     '제드맥케일럽': '제드맥케일럽',
 
     'Charles Hoskinson': '찰스호스킨슨',
-    'CharlesHoskinson': '찰스호스킨슨',
     '찰스호스킨슨': '찰스호스킨슨',
-    'Cardano': '카르다노',
-    '카르다노': '카르다노',
-    'Hugo Philion': '휴고필리온',
-    'HugoPhilion': '휴고필리온',
-    '휴고 필리온': '휴고필리온',
-    '휴고필리온': '휴고필리온',
 
     'Goldman Sachs': '골드만삭스',
     '골드만삭스': '골드만삭스',
@@ -1258,117 +1209,8 @@ MANUAL_TRANSLATIONS = {
     'BlackRock': '블랙록',
     '블랙록': '블랙록',
 
-    'Bhutan': '부탄',
-    '부탄': '부탄',
-    'Gelephu Mindfulness City': 'GMC',
-    'GMC': 'GMC',
-    'regulated': '규제된',
-    'Regulated': '규제된',
-    'Unfolded': '언폴디드',
-
-    'iMBank': '아이엠뱅크',
-    'iM Bank': '아이엠뱅크',
-    '아이엠뱅크': '아이엠뱅크',
-    'KRW': '원화',
-    'Kaia': '카이아',
-    '카이아': '카이아',
-    'Korea Securities Depository': '한국예탁결제원',
-    'Samsung SDS': '삼성SDS',
-    'SamsungSDS': '삼성SDS',
-    'STO': 'STO',
-    'Solana': '솔라나',
-    'wXRP': 'wXRP',
-    'Wrapped XRP': 'wXRP',
-
-    'Singapore': '싱가포르',
-    '싱가포르': '싱가포르',
-    'Gulf Bank': '걸프은행',
-    '걸프은행': '걸프은행',
-    'Standard Chartered': '스탠다드차타드',
-    '스탠다드차타드': '스탠다드차타드',
-    'Digital Asset Basic Act': '디지털자산기본법',
-    '디지털자산기본법': '디지털자산기본법',
-    'General Election': '총선',
-    '총선': '총선',
-
-    'Andreessen Horowitz': '앤드리슨호로위츠',
-    'a16z': '앤드리슨호로위츠',
-    '앤드리슨호로위츠': '앤드리슨호로위츠',
-    'ARC': 'ARC',
-
     'MoonPay': '문페이',
     '문페이': '문페이',
-    'SharpLink': '샤프링크',
-    'Sharplink': '샤프링크',
-    '샤프링크': '샤프링크',
-    'Galaxy Digital': '갤럭시디지털',
-    'GalaxyDigital': '갤럭시디지털',
-    '갤럭시디지털': '갤럭시디지털',
-    'Circle': '서클',
-    '서클': '서클',
-    'PayPal USD': '페이팔USD',
-    'PayPalUSD': '페이팔USD',
-    '페이팔USD': '페이팔USD',
-    'Dawn Labs': '돈랩스',
-    'DawnLabs': '돈랩스',
-    '돈랩스': '돈랩스',
-    'TON': '톤',
-    'Toncoin': '톤코인',
-    '톤': '톤',
-    '톤코인': '톤코인',
-    'Telegram': '텔레그램',
-    '텔레그램': '텔레그램',
-    'Paolo Ardoino': '파올로아르도이노',
-    'PaoloArdoino': '파올로아르도이노',
-    '파올로 아르도이노': '파올로아르도이노',
-    '파올로아르도이노': '파올로아르도이노',
-    'Bank of America': '뱅크오브아메리카',
-    'BofA': '뱅크오브아메리카',
-    '뱅크오브아메리카': '뱅크오브아메리카',
-    'Clarity Act': '시장구조법안',
-    'CLARITY Act': '시장구조법안',
-    '시장구조법안': '시장구조법안',
-    'Sandlin': '샌들린',
-    '샌들린': '샌들린',
-    'X': '엑스',
-    '엑스': '엑스',
-    'iM Bank': '아이엠뱅크',
-    'iMBank': '아이엠뱅크',
-    'iM뱅크': '아이엠뱅크',
-    '아이엠뱅크': '아이엠뱅크',
-    'KRW': '원화',
-    'Won': '원화',
-    '원화': '원화',
-    'BTQ': 'BTQ',
-    'Kaia': '카이아',
-    '카이아': '카이아',
-    'Korea Securities Depository': '한국예탁결제원',
-    '한국예탁결제원': '한국예탁결제원',
-    'Samsung SDS': '삼성SDS',
-    '삼성 SDS': '삼성SDS',
-    '삼성SDS': '삼성SDS',
-    'STO': 'STO',
-    'Solana': '솔라나',
-    '솔라나': '솔라나',
-    'wXRP': 'wXRP',
-    'Blackstone': '블랙스톤',
-    '블랙스톤': '블랙스톤',
-    'Michigan': '미시간',
-    '미시간': '미시간',
-    'Payward': '페이워드',
-    '페이워드': '페이워드',
-    'Etana': '에타나',
-    '에타나': '에타나',
-    'Ohio': '오하이오',
-    '오하이오': '오하이오',
-    'Hut 8': 'Hut8',
-    'Hut8': 'Hut8',
-    '헛8': 'Hut8',
-    'FalconX': 'FalconX',
-    '팔콘엑스': 'FalconX',
-    'Bitstamp': '비트스탬프',
-    '비트스탬프': '비트스탬프',
-    '거래량': '거래량',
 
     'coinbase': '코인베이스',
     'Coinbase': '코인베이스',
@@ -1440,7 +1282,7 @@ MANUAL_TRANSLATIONS = {
     '401K': '401k',
     '401k': '401k',
 	'mim coin':'밈코인',
-	'밈코인':'밈코인',
+	'밈코인':'밈코',
 
 	'TRON': '트론',
     'TRX': '트론',
@@ -1630,44 +1472,6 @@ MANUAL_TRANSLATIONS = {
 
 'Coinone': '코인원',
 '코인원': '코인원',
-
-'TeraWulf': '테라울프',
-'테라울프': '테라울프',
-'Switzerland': '스위스',
-'Swiss': '스위스',
-'스위스': '스위스',
-'Swiss National Bank': '스위스중앙은행',
-'Swiss central bank': '스위스중앙은행',
-'스위스중앙은행': '스위스중앙은행',
-'스위스국립은행': '스위스중앙은행',
-'Revolut': '레볼루트',
-'레볼루트': '레볼루트',
-'GoMining': '고마이닝',
-'고마이닝': '고마이닝',
-'ECB': 'ECB',
-'European Central Bank': 'ECB',
-'Joachim Nagel': '요아힘나겔',
-'요아힘 나겔': '요아힘나겔',
-'요아힘나겔': '요아힘나겔',
-'ASIC': 'ASIC',
-'Australian Securities and Investments Commission': 'ASIC',
-'XRPL Foundation': 'XRPL재단',
-'XRP Ledger Foundation': 'XRPL재단',
-'XRPL재단': 'XRPL재단',
-'Sandlin': '샌들린',
-'샌들린': '샌들린',
-'SpaceX': '스페이스X',
-'스페이스X': '스페이스X',
-'Denis Angell': '데니스안겔',
-'데니스 안겔': '데니스안겔',
-'데니스안겔': '데니스안겔',
-'René Heijsen': '르네헤이센',
-'Rene Heijsen': '르네헤이센',
-'르네 헤이센': '르네헤이센',
-'르네헤이센': '르네헤이센',
-'Hussein Zanganah': '후세인잔가나',
-'후세인 잔가나': '후세인잔가나',
-'후세인잔가나': '후세인잔가나',
 }
 
 
@@ -2104,13 +1908,11 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     ]
 
     ai_company_terms = [
-        'openai', 'anthropic', 'xai', 'grok', 'spacex', 'microsoft'
+        'openai', 'anthropic', 'google', 'block', 'ai',
+        'middle management', 'organization design', '업무 환경', '조직', 'ai'
     ]
 
     if 'tokenpost.kr/news/tech/' in url:
-        return False
-    if any(x in raw_lower for x in ['story protocol', 'azuki', 'fan story', 'prize pool', 'human participation network', 'biomatrix']):
-        print(f"[비관련기사 제외] {story.get('title', '')}")
         return False
 
        # 1. 기본 네거티브 차단
@@ -2160,12 +1962,6 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[주제제외] {story.get('title', '')}")
         return False
 
-    # 캠페인/행사/버전/UI 버그/인사개편성 기사 추가 차단
-    promo_terms = ['campaign', 'prize pool', 'fan story', 'conference', 'event', 'virtual investor', 'award', 'hackathon', 'software version', 'version 3.1.3', 'ui bug', 'ux bug', 'display glitch', 'core team', 'operating team']
-    if any(t in raw_lower for t in promo_terms):
-        print(f"[프로모/행사/업데이트 제외] {story.get('title', '')}")
-        return False
-
     # 6. 허용 코인 직접 등장 기사
     if allowed_coin_found:
         print(f"[허용코인 통과] {story.get('title', '')}")
@@ -2181,8 +1977,8 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f"[XRP서사 통과] {story.get('title', '')}")
         return True
 
-    # 9. AI/기업 기사 허용 (generic AI 문맥은 제외)
-    if any(contains_exact_term(raw_text, t) for t in ai_company_terms) and ('crypto' in raw_lower or '암호화폐' in raw_text or 'btc' in raw_lower or 'bitcoin' in raw_lower or 'xrp' in raw_lower or 'ripple' in raw_lower):
+    # 9. AI/기업 기사 허용
+    if any(contains_exact_term(raw_text, t) for t in ai_company_terms):
         print(f"[AI/기업기사 통과] {story.get('title', '')}")
         return True
 
@@ -2478,21 +2274,17 @@ def extract_entities_from_summary(summary: str, max_tags: int = 8) -> list[str]:
     entities = []
 
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
-        if re.search(r'' + re.escape(key) + r'', text, re.I) or key in text:
+        if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
             entities.append(key)
 
     for kw in KOREAN_TAG_KEYWORDS:
         if kw in {'금', '은'}:
             continue
-        if re.search(r'[가-힣]', kw):
-            if kw in text:
-                entities.append(kw)
-        else:
-            if re.search(r'' + re.escape(kw) + r'', text, re.I):
-                entities.append(kw)
+        if re.search(r'\b' + re.escape(kw) + r'\b', text, re.I):
+            entities.append(kw)
 
     for coin in PORTFOLIO_COINS:
-        if re.search(r'' + re.escape(coin) + r'', text, re.I):
+        if re.search(r'\b' + re.escape(coin) + r'\b', text, re.I):
             entities.append(coin)
 
     seen = set()
@@ -2598,10 +2390,6 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = re.sub(r'#+', '#', text)
     text = re.sub(r'#\s+', '#', text)
 
-    particles = ['으로는','에서는','에게는','까지는','라고는','이라고','에서','에게','까지','으로','보다','처럼','라고','이며','이라','에는','에는','에','이','가','은','는','을','를','의','와','과','도','만','로']
-    for p in particles:
-        text = re.sub(rf'(#[가-힣A-Za-z0-9]+){p}(?=[\s,\.\!\?]|$)', rf'\1 {p}', text)
-
     # 정말 깨진 해시태그만 수동 복구
     text = text.replace('#미 국', '#미국')
     text = text.replace('#비트 코 인', '#비트코인')
@@ -2611,39 +2399,6 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#마이클#세일러', '#마이클세일러')
     text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
     text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
-    text = text.replace('#아이 엠 뱅 크', '#아이엠뱅크')
-    text = text.replace('#한 국 예 탁 결 제 원', '#한국예탁결제원')
-    text = text.replace('#삼 성 S D S', '#삼성SDS')
-    text = text.replace('#원 화', '#원화')
-    text = text.replace('#솔 라 나', '#솔라나')
-    text = text.replace('#블 랙 스 톤', '#블랙스톤')
-    text = text.replace('#미 시 간', '#미시간')
-    text = text.replace('#페 이 워 드', '#페이워드')
-    text = text.replace('#에 타 나', '#에타나')
-    text = text.replace('#오 하 이 오', '#오하이오')
-    text = text.replace('#데 이 비 드 슈 워 츠', '#데이비드슈워츠')
-    text = text.replace('#비 트 스 탬 프', '#비트스탬프')
-    text = text.replace('#거 래 량', '#거래량')
-    text = text.replace('#요아힘#나겔', '#요아힘나겔')
-    text = text.replace('#찰스#호스킨슨', '#찰스호스킨슨')
-    text = text.replace('#휴고#필리온', '#휴고필리온')
-    text = text.replace('#사토시#나카모토', '#사토시나카모토')
-    text = text.replace('#테라#울프', '#테라울프')
-    text = text.replace('#스위스#중앙은행', '#스위스중앙은행')
-    text = text.replace('#부 탄', '#부탄')
-    text = text.replace('#규 제', '#규제')
-    text = text.replace('#아이 엠 뱅 크', '#아이엠뱅크')
-    text = text.replace('#카 이 아', '#카이아')
-    text = text.replace('#싱 가 포 르', '#싱가포르')
-    text = text.replace('#걸 프 은 행', '#걸프은행')
-    text = text.replace('#스 탠 다 드 차 타 드', '#스탠다드차타드')
-    text = text.replace('#디 지 털 자 산 기 본 법', '#디지털자산기본법')
-    text = text.replace('#총 선', '#총선')
-    text = text.replace('#삼성 S D S', '#삼성SDS')
-    text = text.replace('#비트코인에', '#비트코인 에')
-    text = text.replace('#이더리움에', '#이더리움 에')
-    text = text.replace('#연준의', '#연준 의')
-    text = text.replace('#규제된', '#규제 된')
 
     return text
 
@@ -2672,12 +2427,7 @@ def cleanup_text(text: str) -> str:
         '발췌한 것임',
         '[]로 시작됩니다',
         '[]를 제외하고',
-        '[]',
-        '전문 계정',
-        '리서치 계정',
-        '가상자산 전문 계정',
-        '언폴디드',
-        'Unfolded'
+        '[]'
     ]
 
     for p in bad_phrases:
@@ -2695,11 +2445,6 @@ def cleanup_text(text: str) -> str:
     text = re.sub(r'코인데스크에 따르면[, ]*', '', text, flags=re.I)
     text = re.sub(r'cryptonews\s*에?\s*처음 등장함', '', text, flags=re.I)
     text = re.sub(r'crypto\s*biz:\s*', '', text, flags=re.I)
-    text = re.sub(r'\b\d{1,2}일\s+가상자산\s+전문\s+계정\s+언폴디드\s*\(Unfolded\)\s*는?', '', text, flags=re.I)
-    text = re.sub(r'\b가상자산\s+전문\s+계정\s+언폴디드\s*\(Unfolded\)\s*는?', '', text, flags=re.I)
-    text = re.sub(r'\b언폴디드\s*\(Unfolded\)\s*는?', '', text, flags=re.I)
-    text = re.sub(r'\bUnfolded\s*는?', '', text, flags=re.I)
-    text = re.sub(r'\b전문\s+계정\b', '', text, flags=re.I)
 
     text = text.replace('포스트가 ', '')
     text = text.replace('게시물이 ', '')
@@ -2770,8 +2515,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 '#BradGarlinghouse', '#CLARITY', '#CLARITYAct',
 '#PeterSchiff', '#Gold', '#Silver',
 '#CharlesSchwab', '#Oracle',
-'#JeffPark', '#ProCap', '#TeraWulf', '#Switzerland', '#SwissNationalBank', '#Revolut', '#GoMining', '#ECB', '#JoachimNagel', '#ASIC', '#XRPLFoundation', '#SpaceX', '#Anthropic', '#Sandlin', '#XRPL',
-'#iMBank', '#BTQ', '#Kaia', '#SamsungSDS', '#STO', '#Solana', '#wXRP', '#Blackstone', '#Michigan', '#Payward', '#Etana', '#Ohio', '#DavidSchwartz', '#Hut8', '#FalconX', '#Bitstamp', '#TransactionVolume',
+'#JeffPark', '#ProCap',
     }
 
     allowed_exact |= COUNTRY_FINAL_TAGS
@@ -2872,19 +2616,16 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 해시태그 사용하면 띄어쓰기 필수
 - 한국어 띄어쓰기를 자연스럽게 유지할 
 - 반드시 2~3문장만 작성
-- 캠페인, 이벤트, 콘퍼런스 일정, 경품, UI 오류, 앱 표시 오류, 소프트웨어 버전 업데이트, 인사개편 단순 공지성 기사처럼 보이면 빈 문자열만 반환할 것
 - 각 문장은 짧게 작성
 - 한 문장이 끝날 때마다 반드시 한 줄 띄울 것
 - 전체 길이는 120자 안팎으로 유지
 - 불필요한 배경 설명 금지
 - 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘, 전했다→전함, 설명했다→설명함)
-- 고유명사는 가능한 한 한국어 표기를 우선 사용하고, 한국어 표기가 어색하면 원문을 유지할 것
-- 특별한 경우가 아니면 불릿 사용 금지
+- 필요하면 불릿(- 또는 ➖) 사용 가능
 - 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
 - 직역투 금지
 - 기사에 없는 내용은 추측해서 추가 금지
 - 매체명, first appeared on, sponsor 문구 제거
-- 트위터/X 계정명, 전문 계정, 리서치 계정, 날짜 출처 언급은 제거
 - 문장은 너무 길지 않게 끊기
 - 출력은 요약문만 작성
 - 마지막 해시태그 줄, 출처, 링크 문구는 작성하지 말 것
@@ -3272,7 +3013,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
     return False
 
 
-def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 180) -> str:
+def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 120) -> str:
     text = (text or "").strip()
     text = text.replace('\r\n', '\n').replace('\r', '\n')
     text = re.sub(r'[ \t]+', ' ', text)
@@ -3365,11 +3106,10 @@ def build_message(story: dict) -> str:
 
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
-    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     summary_ko = finalize_summary_ending(summary_ko)
 
     summary = summary_ko if summary_ko else story.get('title', '')
-    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=180)
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=120)
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
@@ -3451,171 +3191,115 @@ def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) 
 
 
 # ---------------------------------------------------------------------------
-# Crypto Telegram hardening layer
+# PATCH: 2026-05-18 manual stability fix for DooriNews style
 # ---------------------------------------------------------------------------
-# 위쪽의 기존 함수와 데이터는 그대로 두고, 아래에서 핵심 함수만 재정의한다.
-# Python은 나중에 정의된 함수를 사용하므로 main() 이전에 두면 기존 호출부를
-# 크게 흔들지 않고 필터/요약/태그/중복 정책만 교체할 수 있다.
 
-TAG_PARTICLES = [
-    '으로는', '에서는', '에게는', '까지는', '이라고', '라고는',
-    '에서', '에게', '까지', '으로', '보다', '처럼', '라고',
-    '이며', '이라', '에는', '에', '이', '가', '은', '는',
-    '을', '를', '의', '와', '과', '도', '만', '로',
+EXTRA_STRICT_BLOCK_PATTERNS = [
+    r'시장\s*심리',
+    r'심리',
+    r'하락함',
+    r'상승함',
+    r'하락',
+    r'상승분',
+    r'상승세',
+    r'급락',
+    r'급등',
+    r'매도\s*압력',
+    r'롱\s*포지션',
+    r'숏\s*포지션',
+    r'청산',
+    r'손실',
+    r'net\s*outflow',
+    r'net\s*inflow',
+    r'순유출',
+    r'순유입',
+    r'77,?000달러',
+    r'78,?000달러',
+    r'price',
+    r'drops?\s+below',
+    r'falls?\s+below',
+    r'slides?\s+to',
 ]
 
-STRICT_ALLOWED_ASSETS = [
-    'bitcoin', 'btc', '비트코인',
-    'ethereum', 'eth', '이더리움',
-    'xrp', 'ripple', 'xrpl', 'xrp ledger', '리플',
-    'xlm', 'stellar', '스텔라',
-    'ada', 'cardano', '에이다',
-    'trx', 'tron', '트론',
-    'bnb', 'bch', 'bitcoin cash', '비트코인캐시',
-    'shib', 'shiba inu', '시바이누',
-    'etc', 'flr', 'flare', '플레어',
-    'athena', 'ena', 'ethena', '에테나',
-    'usdc', 'usdt', 'stablecoin', '스테이블코인',
-]
-
-STRICT_CRYPTO_CONTEXT = [
-    'crypto', 'cryptocurrency', 'digital asset', 'virtual asset',
-    'blockchain', 'token', 'tokenization', 'custody', 'wallet',
-    'exchange', 'defi', 'rwa', 'staking', 'etf', 'spot etf',
-    'sec', 'cftc', 'occ', 'stablecoin', 'market structure bill',
-    'clarity act', 'genius act', '암호화폐', '가상자산', '디지털자산',
-    '블록체인', '토큰', '토큰화', '수탁', '지갑', '거래소',
-    '디파이', '스테이블코인', '현물 ETF', '시장구조법안',
-    '클래리티법안', '지니어스법안',
-]
-
-STRICT_POLICY_CONTEXT = [
-    'regulation', 'regulatory', 'regulated', 'bill', 'law', 'act',
-    'policy', 'approval', 'hearing', 'senate', 'house', 'committee',
-    'license', 'legislation', 'lawsuit', '규제', '법안', '입법',
-    '정책', '승인', '청문회', '상원', '하원', '위원회', '라이선스', '소송',
-]
-
-STRICT_BLOCK_PATTERNS = [
-    r'\bprice prediction\b', r'\bprice analysis\b', r'\btechnical analysis\b',
-    r'\bforecast\b', r'\bchart\b', r'\bsupport\b', r'\bresistance\b',
-    r'\bbullish\b', r'\bbearish\b', r'\bgolden cross\b', r'\bdeath cross\b',
-    r'\bcandlestick\b', r'\bbollinger\b', r'\btarget price\b',
-    r'\bwhat[’\']?s next\b', r'\bwhat to expect\b', r'\btop\s+\d+\b',
-    r'\bpresale\b', r'\bpre-sale\b', r'\bairdrop\b', r'\bgiveaway\b',
-    r'\bsponsored\b', r'\bpress release\b', r'\bguest post\b',
-    r'\bnewsletter\b', r'\bprize pool\b', r'\bcampaign\b',
-    r'\bconference\b', r'\bevent\b', r'\bversion update\b',
-    r'가격\s*분석', r'기술적\s*분석', r'차트\s*분석', r'지지선',
-    r'저항선', r'목표가', r'데드크로스', r'골든크로스',
-    r'급등', r'급락', r'청산', r'매수\s*기회', r'프리세일',
-    r'에어드롭', r'스폰서', r'보도자료', r'경품', r'이벤트',
-    r'콘퍼런스', r'컨퍼런스', r'버전\s*업데이트', r'앱\s*표시\s*오류',
-]
-
-TERM_NORMALIZATION_OVERRIDES = {
-    'Market Structure Bill': '시장구조법안',
-    'market structure bill': '시장구조법안',
-    'CLARITY Act': '시장구조법안',
-    'Clarity Act': '시장구조법안',
-    'clarity act': '시장구조법안',
-    'GENIUS Act': '지니어스법안',
-    'Genius Act': '지니어스법안',
-    'genius act': '지니어스법안',
-    'Stablecoin': '스테이블코인',
-    'stablecoin': '스테이블코인',
-    'Tokenization': '토큰화',
-    'tokenization': '토큰화',
-    'Custody': '수탁',
-    'custody': '수탁',
-    'regulated': '규제',
-    'Regulated': '규제',
-    'digital asset': '디지털자산',
-    'Digital Asset': '디지털자산',
-    'digital assets': '디지털자산',
-    'Digital Assets': '디지털자산',
+ALWAYS_INLINE_TAGS = {
+    '비트코인', '이더리움', 'XRP', '리플', 'BTC', 'ETH', 'USDT', 'USDC',
+    'ETF', 'SEC', 'CFTC', 'OCC', '시장구조법안', '지니어스법안',
+    '스테이블코인', '토큰화', '수탁', '규제', 'AI', '암호화폐',
+    '부탄', '싱가포르', '한국', '미국', '홍콩', '일본', '중국', '호주',
+    '브라질', '인도', '이란', '이스라엘', '카타르', '스위스', '영국',
+    '앤드리슨호로위츠', '비탈릭부테린', '비탈릭부텔린', '브래드갈링하우스',
+    '데이비드슈워츠', '마이클세일러', '잭도시', '뱅크오브아메리카',
+    '스탠다드차타드', '블랙록', '코인베이스', '바이낸스', '업비트', '빗썸',
+    '크라켄', '문페이', '서클', '테더', 'XRPL재단', '리플재단',
 }
 
-GENERIC_TAG_BLOCKLIST = {
-    '규제된', 'Act', 'Government', '정부', 'Crypto', 'crypto',
-    '금융', '암호화폐', '현물', '매수', '거래량', 'CEO',
-}
-
-
-def _contains_any_term(text: str, terms: list[str]) -> bool:
-    return any(contains_exact_term(text, term) for term in terms)
-
-
-def _contains_any_pattern(text: str, patterns: list[str]) -> bool:
-    return any(re.search(pattern, text, re.I) for pattern in patterns)
-
-
-def _is_gold_silver_context(text: str) -> bool:
+def _contains_pattern_list(text: str, patterns: list[str]) -> bool:
     low = (text or '').lower()
-    terms = [
-        'gold', 'silver', 'digital gold', 'xaut', 'world gold council',
-        '금 가격', '은 가격', '디지털 금', '디지털금', '세계금협회',
-    ]
-    return any(contains_exact_term(low, term.lower()) for term in terms)
+    return any(re.search(p, low, re.I) for p in patterns)
 
+def _is_market_sentiment_or_price_article(text: str) -> bool:
+    return _contains_pattern_list(text, EXTRA_STRICT_BLOCK_PATTERNS)
 
-def _normalize_entity_name(entity: str, context: str = '') -> str:
-    raw = (entity or '').strip()
-    name = entity_korean_name(raw)
-    name = TERM_NORMALIZATION_OVERRIDES.get(name, name)
-    name = name.replace(' ', '')
-
-    if name == '규제된':
-        name = '규제'
-    if name in {'Gold', '금', 'Silver', '은'} and not _is_gold_silver_context(context):
-        return ''
-    if name in GENERIC_TAG_BLOCKLIST:
-        return ''
-    return name
-
-
-def normalize_inline_hashtag_spacing(text: str) -> str:
+def normalize_style(text: str) -> str:
     text = text or ''
-    text = re.sub(r'#+', '#', text)
-    text = re.sub(r'#\s+', '#', text)
-    text = text.replace('#규제된', '#규제 된')
+    rules = [
+        (r'사용됩니다\.?', '사용됨'),
+        (r'있습니다\.?', '있음'),
+        (r'늘렸습니다\.?', '늘림'),
+        (r'불러일으킵니다\.?', '불러일으킴'),
+        (r'미칩니다\.?', '미침'),
+        (r'나타냅니다\.?', '나타냄'),
+        (r'했습니다\.?', '함'),
+        (r'하였습니다\.?', '함'),
+        (r'합니다\.?', '함'),
+        (r'하고 있습니다\.?', '하고 있음'),
+        (r'하고 있다\.?', '하고 있음'),
+        (r'기록했습니다\.?', '기록'),
+        (r'승인했습니다\.?', '승인'),
+        (r'였습니다\.?', '임'),
+        (r'입니다\.?', '임'),
+        (r'이었습니다\.?', '임'),
+        (r'이다\.?', '임'),
+        (r'습니다\.?', '음'),
+        (r'알려졌습니다\.?', '알려짐'),
+        (r'알려졌다\.?', '알려짐'),
+        (r'밀렸다\.?', '밀림'),
+        (r'밀렸습니다\.?', '밀림'),
+        (r'됐다\.?', '됨'),
+        (r'졌다\.?', '졌음'),
+        (r'됩니다\.?', '됨'),
+        (r'밝혔다\.?', '밝힘'),
+        (r'전했다\.?', '전함'),
+        (r'설명했다\.?', '설명함'),
+        (r'덧붙였다\.?', '덧붙임'),
+    ]
+    for pat, rep in rules:
+        text = re.sub(pat, rep, text)
 
-    for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
-        text = re.sub(
-            rf'(#[A-Za-z0-9가-힣]+){particle}(?=[\s,\.\!\?\)\]\}}]|$)',
-            rf'\1 {particle}',
-            text,
-        )
+    text = re.sub(r'\[\.\.\.\]|\.\.\.|…', ' ', text)
+    text = re.sub(r'\s*:\s*\[\s*\]', ' ', text)
+    text = re.sub(r'([가-힣])([A-Z][a-zA-Z]+)', r'\1 \2', text)
+    text = re.sub(r'\s+', ' ', text).strip()
 
-    if not _is_gold_silver_context(text):
-        text = re.sub(r'#(금|은)(?=[\s,\.\!\?]|$)', r'\1', text)
-
-    text = re.sub(r'\s+([,\.\!\?])', r'\1', text)
-    text = re.sub(r'[ \t]{2,}', ' ', text)
-    return text.strip()
-
+    # "있다고", "밝히고" 같은 정상 표현은 건드리지 않음
+    text = text.replace('했음고', '했고')
+    text = text.replace('했음는', '했다는')
+    return text
 
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
-    title = story.get('title', '') or ''
-    desc = story.get('desc', '') or ''
-    url = (story.get('url', '') or '').lower()
-    raw_text = f'{title} {desc}'.strip()
+    raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
     raw_lower = raw_text.lower()
+    url = (story.get('url', '') or '').lower()
 
     if not raw_text:
         return False
-
     if 'tokenpost.kr/news/tech/' in url:
-        log(f"[기술일반 제외] {title}")
-        return False
-
-    if _contains_any_pattern(raw_lower, STRICT_BLOCK_PATTERNS):
-        log(f"[하드차단] {title}")
+        log(f"[기술일반 제외] {story.get('title', '')}")
         return False
 
     for neg in NEGATIVE_KEYWORDS:
         if neg and neg.lower() in raw_lower:
-            log(f"[NEGATIVE 제외] {title} / {neg}")
+            log(f"[NEGATIVE 제외] {story.get('title', '')} / {neg}")
             return False
 
     if (
@@ -3626,8 +3310,9 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         or is_wallet_balance_metric_article(raw_text)
         or is_conference_opinion_article(raw_text)
         or is_security_incident_article(raw_text)
+        or _is_market_sentiment_or_price_article(raw_text)
     ):
-        log(f"[부적합주제 제외] {title}")
+        log(f"[시장심리/가격기사 제외] {story.get('title', '')}")
         return False
 
     has_allowed_asset = _contains_any_term(raw_lower, STRICT_ALLOWED_ASSETS)
@@ -3635,988 +3320,60 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     has_policy_context = _contains_any_term(raw_lower, STRICT_POLICY_CONTEXT)
 
     if contains_non_portfolio_asset(raw_text) and not has_allowed_asset:
-        log(f"[포폴외코인 제외] {title}")
+        log(f"[포폴외코인 제외] {story.get('title', '')}")
         return False
 
     if contains_stock_context(raw_text) and not (has_allowed_asset or has_crypto_context):
-        log(f"[주식기사 제외] {title}")
+        log(f"[주식기사 제외] {story.get('title', '')}")
         return False
 
-    # 순수 거시/정치/금융 기사는 암호화폐 연결이 명확할 때만 통과시킨다.
     if not (has_allowed_asset or has_crypto_context):
-        log(f"[암호화폐맥락없음 제외] {title}")
+        log(f"[암호화폐맥락없음 제외] {story.get('title', '')}")
         return False
 
     if has_allowed_asset:
-        log(f"[허용자산 통과] {title}")
+        log(f"[허용자산 통과] {story.get('title', '')}")
         return True
 
     if has_crypto_context and has_policy_context:
-        log(f"[가상자산정책 통과] {title}")
+        log(f"[가상자산정책 통과] {story.get('title', '')}")
         return True
 
     if is_xrp_narrative_article(raw_text) or is_payment_adoption_article(raw_text) or is_exchange_mna_article(raw_text):
-        log(f"[채택/서사 통과] {title}")
+        log(f"[채택/서사 통과] {story.get('title', '')}")
         return True
 
-    log(f"[필터미통과] {title}")
+    log(f"[필터미통과] {story.get('title', '')}")
     return False
 
-
-def fix_translation_terms(text: str) -> str:
-    text = text or ''
-    for src, dst in sorted(TERM_NORMALIZATION_OVERRIDES.items(), key=lambda item: len(item[0]), reverse=True):
-        text = re.sub(re.escape(src), dst, text, flags=re.I)
-
-    for src, dst in sorted(MANUAL_TRANSLATIONS.items(), key=lambda item: len(item[0]), reverse=True):
-        if src in {'Gold', 'Silver', '금', '은'} and not _is_gold_silver_context(text):
-            continue
-        text = re.sub(re.escape(src), dst, text)
-
-    replacements = {
-        '규제된': '규제',
-        '클래리티법': '시장구조법안',
-        '클래리티법안': '시장구조법안',
-        '지니어스법': '지니어스법안',
-        '스테이블 코인': '스테이블코인',
-        '디지털 자산': '디지털자산',
-    }
-    for src, dst in replacements.items():
-        text = text.replace(src, dst)
-    return cleanup_text(text)
-
-
-def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
-    text = fix_translation_terms(summary or '')
-    final_tags = []
-
-    coin_inline_map = {
-        'BTC': '비트코인',
-        'ETH': '이더리움',
-        'XRP': '리플',
-        'XLM': '스텔라',
-        'ADA': '에이다',
-        'TRX': '트론',
-        'BNB': '바이낸스',
-        'BCH': '비트코인캐시',
-        'SHIB': '시바이누',
-        'USDC': 'USDC',
-        'USDT': 'USDT',
-    }
-
-    for ent in sorted(entities, key=len, reverse=True):
-        ent_upper = ent.upper()
-        context = f'{text} {ent}'
-
-        if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
-            korean_name = coin_inline_map.get(ent_upper, ent_upper)
-            if f'#{ent_upper}' not in final_tags:
-                final_tags.append(f'#{ent_upper}')
-            if korean_name and korean_name not in {'USDC', 'USDT'} and f'#{korean_name}' not in final_tags:
-                final_tags.append(f'#{korean_name}')
-            tag_name = korean_name
-        else:
-            tag_name = _normalize_entity_name(ent, context)
-            if not tag_name:
-                continue
-            tag = f'#{tag_name}'
-            if tag not in final_tags:
-                final_tags.append(tag)
-
-        tag_text = f'#{tag_name}'
-        if tag_text in text:
-            continue
-
-        bases = []
-        for base in [tag_name, entity_korean_name(ent), ent, ent_upper]:
-            base = (base or '').strip()
-            if base and base not in bases:
-                bases.append(base)
-
-        replaced = False
-        for base in sorted(bases, key=len, reverse=True):
-            for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
-                new_text, count = re.subn(re.escape(base + particle), f'{tag_text} {particle}', text, count=1)
-                if count:
-                    text = new_text
-                    replaced = True
-                    break
-            if replaced:
-                break
-
-        if not replaced:
-            for base in sorted(bases, key=len, reverse=True):
-                new_text, count = re.subn(rf'(?<![#A-Za-z0-9가-힣]){re.escape(base)}(?![A-Za-z0-9가-힣])', tag_text, text, count=1)
-                if count:
-                    text = new_text
-                    break
-
-    return normalize_inline_hashtag_spacing(text), filter_final_tags(final_tags)
-
-
-def fix_broken_inline_hashtags(text: str) -> str:
-    text = normalize_inline_hashtag_spacing(text)
-    repairs = {
-        '#미 국': '#미국',
-        '#비트 코 인': '#비트코인',
-        '#이더 리 움': '#이더리움',
-        '#부 탄': '#부탄',
-        '#규 제': '#규제',
-        '#시장 구조 법안': '#시장구조법안',
-        '#지니어스 법안': '#지니어스법안',
-        '#스테이블 코인': '#스테이블코인',
-        '#디지털 자산': '#디지털자산',
-    }
-    for src, dst in repairs.items():
-        text = text.replace(src, dst)
-    return normalize_inline_hashtag_spacing(text)
-
-
-def remove_duplicate_inline_hashtags(text: str) -> str:
-    seen = set()
-
-    def repl(match):
-        tag = match.group(0)
-        key = tag.lower()
-        if key in seen:
-            return tag[1:]
-        seen.add(key)
-        return tag
-
-    text = re.sub(r'#[A-Za-z0-9가-힣]+', repl, text or '')
-    return normalize_inline_hashtag_spacing(text)
-
-
-def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: str = "") -> str:
-    source_text = (article_text or fallback_text or title or '').strip()
-    if not source_text or not GEMINI_API_KEY:
-        return ''
-
-    try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        prompt = f"""
-너는 텔레그램 암호화폐 뉴스 채널 편집자다.
-
-아래 기사가 암호화폐, 디지털자산, 블록체인, 스테이블코인, ETF, 수탁, 거래소, 관련 규제/법안/소송과 직접 관련 없으면 빈 문자열만 반환하라.
-
-작성 규칙:
-- 한국어 2~3문장으로만 작성
-- 문장마다 줄바꿈을 유지
-- 짧고 또렷한 텔레그램 뉴스 스타일
-- 과장, 추측, 전망성 표현 금지
-- 직역투 금지
-- 기사에 없는 내용 추가 금지
-- 매체명, 출처성 문구, sponsor, first appeared on, 계정명 제거
-- 가격 예측, 차트 분석, 기술적 분석, 프리세일, 경품, 이벤트, 콘퍼런스, 앱 오류, 버전 업데이트면 빈 문자열만 반환
-- 본문에 해시태그를 직접 쓰지 말 것
-- 축약형 사용: 밝힘, 전함, 설명함, 추진함, 통과함, 승인함
-- 고유명사는 아래 번역어를 우선 적용
-  Market Structure Bill/CLARITY Act=시장구조법안
-  GENIUS Act=지니어스법안
-  stablecoin=스테이블코인
-  tokenization=토큰화
-  custody=수탁
-  regulated=규제
-- 금/은은 Gold/Silver 금속 문맥에서만 금, 은으로 번역
-
-제목:
-{title}
-
-본문:
-{source_text[:12000]}
-""".strip()
-
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-        )
-        text = getattr(response, "text", "") or ""
-        text = cleanup_text(text)
-        text = fix_translation_terms(text)
-        text = fix_truncated_phrases(text)
-        text = normalize_style(text)
-        text = cleanup_text(text)
-        text = re.sub(r'[ \t]+', ' ', text.replace('\r\n', '\n').replace('\r', '\n'))
-        text = re.sub(r'\n{3,}', '\n\n', text).strip()
-        log_gemini_cost(title, prompt, text)
-        return text
-
-    except Exception as e:
-        log(f"Gemini 요약 실패: {e}")
-        return ""
-
-
-def build_canonical_topic_key(story: dict) -> str:
-    text = normalize_for_duplicate(f"{story.get('title', '')} {story.get('desc', '')}")
-    parts = []
-
-    maps = {
-        'asset_btc': ['bitcoin', 'btc', '비트코인'],
-        'asset_eth': ['ethereum', 'eth', '이더리움'],
-        'asset_xrp': ['xrp', 'ripple', 'xrpl', 'xrp ledger', '리플'],
-        'asset_usdc': ['usdc'],
-        'asset_usdt': ['usdt', 'tether', '테더'],
-        'topic_stablecoin': ['stablecoin', '스테이블코인'],
-        'topic_etf': ['etf', '현물 etf'],
-        'topic_custody': ['custody', '수탁'],
-        'topic_tokenization': ['tokenization', '토큰화'],
-        'topic_market_structure': ['market structure bill', 'clarity act', '시장구조법안', '클래리티법안'],
-        'topic_genius': ['genius act', '지니어스법안', '지니어스법'],
-        'topic_regulation': ['regulation', 'regulatory', 'regulated', '규제'],
-        'topic_lawsuit': ['lawsuit', '소송'],
-        'org_sec': ['sec'],
-        'org_cftc': ['cftc'],
-        'org_occ': ['occ'],
-        'org_fed': ['fed', 'federal reserve', '연준'],
-        'org_treasury': ['treasury', '재무부'],
-        'geo_us': ['united states', 'us', 'u s', 'america', '미국'],
-        'geo_korea': ['korea', 'south korea', '한국'],
-        'geo_hongkong': ['hong kong', '홍콩'],
-        'geo_japan': ['japan', '일본'],
-    }
-
-    for key, terms in maps.items():
-        if any(contains_exact_term(text, term) for term in terms):
-            parts.append(key)
-
-    action_map = {
-        'act_approval': ['approval', 'approve', 'approved', '승인'],
-        'act_pass': ['pass', 'passed', 'passes', '통과'],
-        'act_launch': ['launch', 'launched', '출시'],
-        'act_delay': ['delay', 'delayed', '지연'],
-        'act_comment': ['comment', 'public comment', '의견 수렴'],
-        'act_buy': ['buy', 'bought', 'acquire', 'acquired', '매수', '매입'],
-        'act_support': ['support', 'supports', '지지'],
-    }
-
-    for key, terms in action_map.items():
-        if any(contains_exact_term(text, term) for term in terms):
-            parts.append(key)
-
-    parts = sorted(set(parts))
-    if len(parts) < 3:
-        return ''
-    return ' | '.join(parts)
-
-
-def build_story_signature(story: dict) -> str:
-    text = normalize_for_duplicate(f"{story.get('title', '')} {story.get('desc', '')}")
-    tags = set()
-
-    signature_map = {
-        'asset_btc': ['btc', 'bitcoin', '비트코인'],
-        'asset_eth': ['eth', 'ethereum', '이더리움'],
-        'asset_xrp': ['xrp', 'ripple', 'xrpl', 'xrp ledger', '리플'],
-        'asset_usdc': ['usdc'],
-        'asset_usdt': ['usdt', 'tether', '테더'],
-        'asset_bch': ['bch', 'bitcoin cash', '비트코인캐시'],
-        'asset_shib': ['shib', 'shiba inu', '시바이누'],
-        'topic_stablecoin': ['stablecoin', '스테이블코인'],
-        'topic_etf': ['etf'],
-        'topic_bill': ['bill', 'law', 'act', '법안'],
-        'topic_market_structure': ['market structure bill', 'clarity act', '시장구조법안'],
-        'topic_genius': ['genius act', '지니어스법안'],
-        'topic_regulation': ['regulation', 'regulated', '규제'],
-        'topic_custody': ['custody', '수탁'],
-        'topic_tokenization': ['tokenization', '토큰화'],
-        'org_sec': ['sec'],
-        'org_cftc': ['cftc'],
-        'org_occ': ['occ'],
-        'org_fed': ['fed', 'federal reserve', '연준'],
-        'org_treasury': ['treasury', '재무부'],
-        'org_coinbase': ['coinbase', '코인베이스'],
-        'org_ripple': ['ripple', '리플'],
-        'act_approval': ['approval', 'approve', 'approved', '승인'],
-        'act_pass': ['pass', 'passed', 'passes', '통과'],
-        'act_launch': ['launch', 'launched', '출시'],
-        'act_buy': ['buy', 'bought', 'acquire', 'acquired', '매수', '매입'],
-        'act_comment': ['comment', 'public comment', '의견 수렴'],
-    }
-
-    for key, terms in signature_map.items():
-        if any(contains_exact_term(text, term) for term in terms):
-            tags.add(key)
-
-    return ' | '.join(sorted(tags))
-
-
-def _signature_parts(signature: str) -> set[str]:
-    return {x.strip() for x in (signature or '').split('|') if x.strip()}
-
-
-def _has_non_asset_signal(parts: set[str]) -> bool:
-    return any(part.startswith(('topic_', 'act_', 'org_')) for part in parts)
-
-
-def _is_semantic_signature_candidate(parts: set[str]) -> bool:
-    if len(parts) < 2:
-        return False
-    if not _has_non_asset_signal(parts):
-        return False
-    return True
-
-
-def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
-    title = normalize_for_duplicate(story.get('title', ''))
-    signature = build_story_signature(story)
-    canonical_key = build_canonical_topic_key(story)
-
-    for old_title in seen_titles:
-        ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.74:
-            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
-            return True
-
-    current_sig = _signature_parts(signature)
-    current_canonical = _signature_parts(canonical_key)
-
-    if not _is_semantic_signature_candidate(current_sig) and not _is_semantic_signature_candidate(current_canonical):
-        log(f"[의미중복검사 생략] 짧은/자산전용 시그니처: {signature or canonical_key}")
-        return False
-
-    for old_sig in seen_signatures:
-        old = _signature_parts(old_sig)
-        if not old:
-            continue
-        if not _is_semantic_signature_candidate(old):
-            continue
-
-        shared_sig = current_sig & old
-        shared_canonical = current_canonical & old
-        shared_sig_non_asset = {x for x in shared_sig if x.startswith(('topic_', 'act_', 'org_'))}
-        shared_canonical_non_asset = {x for x in shared_canonical if x.startswith(('topic_', 'act_', 'org_'))}
-
-        if len(shared_canonical) >= 3 and shared_canonical_non_asset:
-            log(f"[정규토픽 중복] {canonical_key} <> {old_sig}")
-            return True
-        if len(shared_sig) >= 3 and shared_sig_non_asset and len(shared_sig) / max(len(current_sig), 1) >= 0.60:
-            log(f"[시그니처 교집합 중복] {signature} <> {old_sig}")
-            return True
-        if (
-            _is_semantic_signature_candidate(current_sig)
-            and _is_semantic_signature_candidate(old)
-            and shared_sig_non_asset
-            and signature
-            and SequenceMatcher(None, signature, old_sig).ratio() >= 0.80
-        ):
-            log(f"[시그니처 유사도 중복] {signature} <> {old_sig}")
-            return True
-
-    return False
-
-
-def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 220) -> str:
-    text = fix_translation_terms(text or '')
-    text = normalize_inline_hashtag_spacing(text)
-    text = text.replace('\r\n', '\n').replace('\r', '\n')
-    text = re.sub(r'[ \t]+', ' ', text)
-    text = re.sub(r'(에 따르면|보도에 따르면|외신은|매체는|기사는)\s*', '', text)
-    text = re.sub(r'\n{3,}', '\n\n', text).strip()
-
-    endings = {
-        '밝혔다': '밝힘',
-        '전했다': '전함',
-        '설명했다': '설명함',
-        '추진했다': '추진함',
-        '승인했다': '승인함',
-        '통과했다': '통과함',
-        '발표했다': '발표함',
-    }
-    for src, dst in endings.items():
-        text = text.replace(src, dst)
-
-    sentences = re.split(
-        r'(?<=[.!?])\s+|(?<=음)\s+|(?<=됨)\s+|(?<=함)\s+|(?<=밝힘)\s+|(?<=전함)\s+|(?<=설명함)\s+|(?<=추진함)\s+',
-        text,
-    )
-    sentences = [normalize_inline_hashtag_spacing(s.strip(' .')) for s in sentences if s.strip()]
-
-    picked = []
-    total = 0
-    for sentence in sentences:
-        if len(picked) >= max_sentences:
-            break
-        if picked and total + len(sentence) > max_chars:
-            break
-        picked.append(sentence)
-        total += len(sentence)
-
-    if not picked and text:
-        picked = [text[:max_chars].rstrip()]
-
-    return '\n\n'.join(picked).strip()
-
-
-def _safe_replace_terms(text: str, replacements: dict[str, str]) -> str:
-    for src, dst in sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True):
-        if not src:
-            continue
-        if re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9 .&()-]*', src):
-            pattern = rf'(?<![A-Za-z0-9]){re.escape(src)}(?![A-Za-z0-9])'
-            text = re.sub(pattern, dst, text, flags=re.I)
-        else:
-            text = text.replace(src, dst)
-    return text
-
-
-def _fix_xrp_and_ton_artifacts(text: str) -> str:
-    text = text or ''
-    text = re.sub(r'엑스\s*RP', 'XRP', text, flags=re.I)
-    text = re.sub(r'엑스\s*알\s*피', 'XRP', text)
-    text = re.sub(r'엑스\s*RPL', 'XRPL', text, flags=re.I)
-    text = re.sub(r'엑스\s*알\s*피\s*엘', 'XRPL', text)
-    text = text.replace('마일스#톤', '마일스톤')
-    text = text.replace('마일스 #톤', '마일스톤')
-    text = text.replace('#톤코인', '톤코인')
-    text = re.sub(r'(?<![A-Za-z0-9가-힣])엑스(?![A-Za-z0-9가-힣])', 'X', text)
-    return text
-
-
-def _looks_like_ton_context(text: str) -> bool:
-    low = (text or '').lower()
-    return any(contains_exact_term(low, term) for term in [
-        'ton', 'toncoin', 'the open network', 'telegram', '톤코인', '텔레그램', '오픈네트워크'
-    ])
-
-
-def _is_inline_tag_candidate(name: str, context: str) -> bool:
-    if not name or name in GENERIC_TAG_BLOCKLIST:
-        return False
-    if name in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(context):
-        return False
-    if name in {'X', '엑스'}:
-        return False
-    allowed = {
-        '비트코인', '이더리움', '리플', 'XRP', 'BTC', 'ETH', 'USDT', 'USDC',
-        'ETF', 'SEC', 'CFTC', 'OCC', '시장구조법안', '지니어스법안',
-        '스테이블코인', '토큰화', '수탁', '규제', '미국', '한국', '홍콩', '일본',
-        '리플재단', 'XRPL재단',
-    }
-    return name in allowed
-
-
-def fix_translation_terms(text: str) -> str:
-    text = text or ''
-    text = _fix_xrp_and_ton_artifacts(text)
-
-    safe_manual = {
-        src: dst
-        for src, dst in MANUAL_TRANSLATIONS.items()
-        if src not in {'X', '엑스', 'TON', 'Toncoin', '톤', '톤코인'}
-    }
-    safe_manual.update(TERM_NORMALIZATION_OVERRIDES)
-    safe_manual.update({
-        '401(k)': '401k',
-        'U.S. Department of Labor': '미국 노동부',
-        'US Department of Labor': '미국 노동부',
-        'Department of Labor': '노동부',
-        'Labor Department': '노동부',
-        'Bitcoin Cash': '비트코인캐시',
-        'Shiba Inu': '시바이누',
-        'shiba inu': '시바이누',
-        'XRP Ledger Foundation': 'XRPL재단',
-        'XRP Foundation': 'XRP재단',
-        'XRP Ledger': 'XRPL',
-    })
-
-    text = _safe_replace_terms(text, safe_manual)
-
-    if _looks_like_ton_context(text):
-        text = _safe_replace_terms(text, {'Toncoin': '톤코인', 'TON': 'TON'})
-
-    replacements = {
-        '엑스 RP': 'XRP',
-        '엑스RP': 'XRP',
-        '엑스알피': 'XRP',
-        '엑스 RPL': 'XRPL',
-        '엑스RPL': 'XRPL',
-        '규제된': '규제',
-        '클래리티법': '시장구조법안',
-        '클래리티법안': '시장구조법안',
-        '지니어스법': '지니어스법안',
-        '스테이블 코인': '스테이블코인',
-        '디지털 자산': '디지털자산',
-        '마일스#톤': '마일스톤',
-        '마일스 #톤': '마일스톤',
-    }
-    for src, dst in replacements.items():
-        text = text.replace(src, dst)
-
-    text = _fix_xrp_and_ton_artifacts(text)
-    return cleanup_text(text)
-
-
-def normalize_inline_hashtag_spacing(text: str) -> str:
-    text = _fix_xrp_and_ton_artifacts(text or '')
-    text = re.sub(r'#+', '#', text)
-    text = re.sub(r'#\s+', '#', text)
-    text = text.replace('#규제된', '#규제 된')
-
-    for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
-        text = re.sub(
-            rf'(#[A-Za-z0-9가-힣]+){particle}(?=[\s,\.\!\?\)\]\}}]|$)',
-            rf'\1 {particle}',
-            text,
-        )
-
-    if not _looks_like_ton_context(text):
-        text = re.sub(r'#(TON|톤|톤코인)(?=[\s,\.\!\?]|$)', lambda m: m.group(1), text)
-    if not _is_gold_silver_context(text):
-        text = re.sub(r'#(금|은)(?=[\s,\.\!\?]|$)', r'\1', text)
-
-    text = text.replace('마일스 #톤', '마일스톤')
-    text = text.replace('마일스#톤', '마일스톤')
-    text = re.sub(r'\s+([,\.\!\?])', r'\1', text)
-    text = re.sub(r'[ \t]{2,}', ' ', text)
-    return text.strip()
-
-
-def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
-    text = fix_translation_terms(summary or '')
-    final_tags = []
-    inline_count = 0
-    max_inline_tags = 2
-
-    coin_inline_map = {
-        'BTC': '비트코인',
-        'ETH': '이더리움',
-        'XRP': 'XRP',
-        'XLM': '스텔라',
-        'ADA': '에이다',
-        'TRX': '트론',
-        'BNB': '바이낸스',
-        'BCH': '비트코인캐시',
-        'SHIB': '시바이누',
-        'USDC': 'USDC',
-        'USDT': 'USDT',
-    }
-
-    priority_entities = []
-    for ent in entities:
-        ent_upper = ent.upper()
-        normalized = _normalize_entity_name(ent, f'{text} {ent}')
-        if ent_upper in {'BTC', 'ETH', 'XRP', 'USDT', 'USDC'} or normalized in {'비트코인', '이더리움', '리플', 'XRP'}:
-            priority = 0
-        elif ent_upper in {'ETF', 'SEC', 'CFTC', 'OCC'}:
-            priority = 1
-        elif normalized in {'시장구조법안', '지니어스법안', '스테이블코인', '수탁', '토큰화', '규제'}:
-            priority = 2
-        else:
-            priority = 9
-        priority_entities.append((priority, -len(ent), ent))
-
-    for _, __, ent in sorted(priority_entities):
-        ent_upper = ent.upper()
-        context = f'{text} {ent}'
-
-        if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
-            tag_name = coin_inline_map.get(ent_upper, ent_upper)
-            if f'#{ent_upper}' not in final_tags:
-                final_tags.append(f'#{ent_upper}')
-        else:
-            tag_name = _normalize_entity_name(ent, context)
-            if not tag_name:
-                continue
-            tag = f'#{tag_name}'
-            if tag not in final_tags:
-                final_tags.append(tag)
-
-        if inline_count >= max_inline_tags or not _is_inline_tag_candidate(tag_name, context):
-            continue
-
-        tag_text = f'#{tag_name}'
-        if tag_text in text:
-            continue
-
-        bases = []
-        for base in [tag_name, entity_korean_name(ent), ent, ent_upper]:
-            base = _fix_xrp_and_ton_artifacts((base or '').strip())
-            if base and base not in bases:
-                bases.append(base)
-
-        replaced = False
-        for base in sorted(bases, key=len, reverse=True):
-            if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
-                continue
-            new_text, count = re.subn(
-                rf'(?<![#A-Za-z0-9가-힣]){re.escape(base)}(?![A-Za-z0-9가-힣])',
-                tag_text,
-                text,
-                count=1,
-            )
-            if count:
-                text = new_text
-                inline_count += 1
-                replaced = True
-                break
-
-        if replaced:
-            continue
-
-        for base in sorted(bases, key=len, reverse=True):
-            if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
-                continue
-            for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
-                new_text, count = re.subn(re.escape(base + particle), f'{tag_text} {particle}', text, count=1)
-                if count:
-                    text = new_text
-                    inline_count += 1
-                    replaced = True
-                    break
-            if replaced:
-                break
-
-    return normalize_inline_hashtag_spacing(text), filter_final_tags(final_tags)
-
-
-def fix_broken_inline_hashtags(text: str) -> str:
-    text = normalize_inline_hashtag_spacing(text)
-    repairs = {
-        '#미 국': '#미국',
-        '#비트 코 인': '#비트코인',
-        '#이더 리 움': '#이더리움',
-        '#부 탄': '#부탄',
-        '#규 제': '#규제',
-        '#시장 구조 법안': '#시장구조법안',
-        '#지니어스 법안': '#지니어스법안',
-        '#스테이블 코인': '#스테이블코인',
-        '#디지털 자산': '#디지털자산',
-        '#엑스 RP': '#XRP',
-        '#엑스RP': '#XRP',
-        '#엑스알피': '#XRP',
-        '#톤코인': '톤코인',
-    }
-    for src, dst in repairs.items():
-        text = text.replace(src, dst)
-    return normalize_inline_hashtag_spacing(text)
-
-
-def remove_duplicate_inline_hashtags(text: str) -> str:
-    seen = set()
-
-    def repl(match):
-        tag = match.group(0)
-        key = tag.lower()
-        if key in seen:
-            return tag[1:]
-        seen.add(key)
-        return tag
-
-    text = re.sub(r'#[A-Za-z0-9가-힣]+', repl, text or '')
-    return normalize_inline_hashtag_spacing(text)
-
-
-def finalize_summary_ending(text: str) -> str:
-    text = _fix_xrp_and_ton_artifacts(text or '')
-    text = re.sub(r'좋은\s*덩어리$', '', text)
-    text = re.sub(r'([가-힣]+)음고 말함$', r'\1음', text)
-    text = re.sub(r'([가-힣]+)고 말함$', r'\1', text)
-
-    ending_fixes = {
-        '능가': '능가함',
-        '증가': '증가함',
-        '합류': '합류함',
-        '달성': '달성함',
-        '책임': '책임 범위를 명확히 하는 내용임',
-        '비판': '비판함',
-        '추가': '추가함',
-        '확대': '확대함',
-    }
-    for src, dst in ending_fixes.items():
-        text = re.sub(rf'{src}$', dst, text)
-
-    text = re.sub(r'문제가 아니\.$', '문제가 아님', text)
-    text = re.sub(r'아니\.$', '아님', text)
-    text = re.sub(r'될 것\.$', '될 것임', text)
-    text = re.sub(r'계획이\.$', '계획임', text)
-    text = re.sub(r'보인다\.$', '보임', text)
-    text = re.sub(r'전망이다\.$', '전망임', text)
-    text = re.sub(r'했음고', '했고', text)
-    text = re.sub(r'했음는', '했다는', text)
-    return normalize_inline_hashtag_spacing(re.sub(r'\s+', ' ', text).strip())
-
-
-def _drop_incomplete_summary_lines(text: str) -> str:
-    lines = [line.strip() for line in (text or '').splitlines() if line.strip()]
-    clean = []
-    incomplete_endings = (
-        '가', '이', '은', '는', '을', '를', '의', '에', '에서', '로', '으로',
-        '주요 자산을 능가', '책임'
-    )
-    for line in lines:
-        fixed = finalize_summary_ending(line)
-        if fixed.endswith(incomplete_endings):
-            continue
-        clean.append(fixed)
-    return '\n\n'.join(clean)
-
-
-def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 260) -> str:
-    text = fix_translation_terms(text or '')
-    text = normalize_inline_hashtag_spacing(text)
-    text = text.replace('\r\n', '\n').replace('\r', '\n')
-    text = re.sub(r'[ \t]+', ' ', text)
-    text = re.sub(r'(에 따르면|보도에 따르면|외신은|매체는|기사는)\s*', '', text)
-    text = re.sub(r'\n{3,}', '\n\n', text).strip()
-
-    endings = {
-        '밝혔다': '밝힘',
-        '전했다': '전함',
-        '설명했다': '설명함',
-        '추진했다': '추진함',
-        '승인했다': '승인함',
-        '통과했다': '통과함',
-        '발표했다': '발표함',
-        '합류했다': '합류함',
-        '달성했다': '달성함',
-        '비판했다': '비판함',
-    }
-    for src, dst in endings.items():
-        text = text.replace(src, dst)
-
-    text = _drop_incomplete_summary_lines(text)
-    sentences = re.split(
-        r'(?<=[.!?])\s+|(?<=음)\s+|(?<=됨)\s+|(?<=함)\s+|(?<=밝힘)\s+|(?<=전함)\s+|(?<=설명함)\s+|(?<=추진함)\s+',
-        text,
-    )
-    sentences = [finalize_summary_ending(s.strip(' .')) for s in sentences if s.strip()]
-
-    picked = []
-    total = 0
-    for sentence in sentences:
-        if len(picked) >= max_sentences:
-            break
-        if picked and total + len(sentence) > max_chars:
-            continue
-        picked.append(sentence)
-        total += len(sentence)
-
-    if not picked and text:
-        picked = [finalize_summary_ending(text[:max_chars].rstrip())]
-
-    return '\n\n'.join(picked).strip()
-
-
-DERIVATIVE_LOSS_PATTERNS = [
-    r'\blongs?\s+lose\b',
-    r'\bcrypto\s+longs?\b',
-    r'\blong\s+liquidations?\b',
-    r'\bliquidations?\b',
-    r'\bwipeout\b',
-    r'\bslides?\s+to\b',
-    r'\bdown\s+\d+(?:\.\d+)?%',
-    r'\bfalls?\s+to\b',
-    r'\bdrops?\s+to\b',
-    r'롱\s*포지션',
-    r'대규모\s*청산',
-    r'청산이\s*발생',
-    r'손실이\s*발생',
-    r'하락을\s*기록',
-    r'하락했고',
-]
-
-
-CORE_ENTITY_INLINE_TAGS = {
-    '부탄', '싱가포르', '한국', '미국', '홍콩', '일본', '중국', '호주',
-    '브라질', '인도', '이란', '이스라엘', '카타르', '스위스', '영국',
-    '앤드리슨호로위츠', '스탠다드차타드', '뱅크오브아메리카',
-    '블랙록', '코인베이스', '바이낸스', '업비트', '빗썸', '코인원',
-    '크라켄', '리플', '리플재단', 'XRPL재단', '테더', '서클',
-    '마스터카드', '비자', '페이팔', '스트라이프', '문페이',
-    '골드만삭스', '모건스탠리', 'JPMorgan', '웰스파고',
-    'SEC', 'CFTC', 'OCC', '연준', '재무부', '백악관', 'HKMA',
-    '마이클세일러', '브래드갈링하우스', '데이비드슈워츠',
-    '찰스호스킨슨', '잭도시', '폴그루월', '마이클바', '마이클셀릭',
-}
-
-
-def _country_alias_translations() -> dict[str, str]:
-    aliases = {}
-    for alias_list in COUNTRY_TAG_MAP.values():
-        korean_name = ''
-        for item in alias_list:
-            if re.search(r'[가-힣]', item):
-                korean_name = item.replace(' ', '')
-                break
-        if not korean_name:
-            continue
-        for item in alias_list:
-            aliases[item] = korean_name
-    return aliases
-
-
-def _entity_translation_map() -> dict[str, str]:
-    mapping = {}
-    mapping.update(_country_alias_translations())
-    mapping.update(MANUAL_TRANSLATIONS)
-    mapping.update(TERM_NORMALIZATION_OVERRIDES)
-    mapping.update({
-        'Andreessen Horowitz': '앤드리슨호로위츠',
-        'a16z': '앤드리슨호로위츠',
-        'Standard Chartered': '스탠다드차타드',
-        'Bank of America': '뱅크오브아메리카',
-        'BofA': '뱅크오브아메리카',
-        'Bhutan': '부탄',
-        'Singapore': '싱가포르',
-        'South Korea': '한국',
-        'Korea': '한국',
-        'BlackRock': '블랙록',
-        'Coinbase': '코인베이스',
-        'Binance': '바이낸스',
-        'Ripple Labs': '리플',
-        'XRP Ledger Foundation': 'XRPL재단',
-        'XRPL Foundation': 'XRPL재단',
-        'Federal Reserve': '연준',
-        'White House': '백악관',
-        'Treasury': '재무부',
-    })
-    return mapping
-
-
-ENTITY_TRANSLATION_MAP = _entity_translation_map()
-
-
-def _entity_korean_name_strict(entity: str, context: str = '') -> str:
-    raw = (entity or '').strip()
-    if not raw:
-        return ''
-    name = ENTITY_TRANSLATION_MAP.get(raw, MANUAL_TRANSLATIONS.get(raw, raw))
-    name = TERM_NORMALIZATION_OVERRIDES.get(name, name)
-    name = _fix_xrp_and_ton_artifacts(name)
-    name = name.replace(' ', '')
-    if name == '규제된':
-        name = '규제'
-    if name in {'X', '엑스'}:
-        return ''
-    if name in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(context):
-        return ''
-    if name in {'Gold', '금', 'Silver', '은'} and not _is_gold_silver_context(context):
-        return ''
-    if name in GENERIC_TAG_BLOCKLIST:
-        return ''
-    return name
-
-
-def _looks_like_core_entity(name: str, context: str) -> bool:
-    if not name or name not in CORE_ENTITY_INLINE_TAGS:
-        return False
-    compact_context = (context or '').replace(' ', '')
-    first_chunk = compact_context[:180]
-    return name in first_chunk
-
-
-def _is_inline_tag_candidate(name: str, context: str) -> bool:
-    if not name or name in GENERIC_TAG_BLOCKLIST:
-        return False
-    if name in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(context):
-        return False
-    if name in {'X', '엑스'}:
-        return False
-    allowed = {
-        '비트코인', '이더리움', '리플', 'XRP', 'BTC', 'ETH', 'USDT', 'USDC',
-        'ETF', 'SEC', 'CFTC', 'OCC', '시장구조법안', '지니어스법안',
-        '스테이블코인', '토큰화', '수탁', '규제',
-    }
-    return name in allowed or _looks_like_core_entity(name, context)
-
-
-def _auto_entity_candidates(text: str) -> list[str]:
-    text = text or ''
+def _collect_story_entities_for_tags(story: dict, summary_ko: str) -> list[str]:
+    raw = f"{story.get('title', '')} {story.get('desc', '')} {summary_ko or ''}"
     candidates = []
-
     for alias in sorted(ENTITY_TRANSLATION_MAP.keys(), key=len, reverse=True):
         if not alias or len(alias) <= 1:
             continue
         if re.search(r'[가-힣]', alias):
-            if alias in text:
+            if alias in raw:
                 candidates.append(alias)
         else:
-            if re.search(rf'(?<![A-Za-z0-9]){re.escape(alias)}(?![A-Za-z0-9])', text, re.I):
+            if re.search(rf'(?<![A-Za-z0-9]){re.escape(alias)}(?![A-Za-z0-9])', raw, re.I):
                 candidates.append(alias)
 
-    for token in re.findall(r'\b(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|[A-Z]{2,6})\b', text):
-        if token in SITE_NAMES or token.lower() in {w.lower() for w in IGNORED_WORDS}:
-            continue
-        if token.lower() in {'the', 'this', 'that', 'with', 'from', 'after', 'before'}:
-            continue
-        candidates.append(token)
+    for e in extract_entities(story, max_tags=18) + extract_entities_from_summary(summary_ko or '', max_tags=18):
+        candidates.append(e)
 
     seen = set()
     result = []
-    for item in candidates:
-        key = item.lower()
-        if key not in seen:
-            result.append(item)
-            seen.add(key)
+    for ent in candidates:
+        name = _entity_korean_name_strict(ent, raw)
+        if not name:
+            continue
+        key = name.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(name)
     return result
-
-
-def extract_entities(story: dict, max_tags: int = 12) -> list[str]:
-    title = story.get('title', '') or ''
-    desc = story.get('desc', '') or ''
-    text = f'{title} {desc}'
-    candidates = _auto_entity_candidates(text)
-
-    for coin in PORTFOLIO_COINS:
-        if re.search(rf'\b{re.escape(coin)}\b', text, re.I):
-            candidates.append(coin)
-
-    ranked = []
-    title_compact = title.replace(' ', '')
-    for ent in candidates:
-        name = _entity_korean_name_strict(ent, text)
-        if not name:
-            continue
-        priority = 0 if name in title_compact or ent in title else 1
-        ranked.append((priority, text.lower().find(ent.lower()) if ent.lower() in text.lower() else 99999, ent))
-
-    seen = set()
-    result = []
-    for _, __, ent in sorted(ranked):
-        key = ent.lower()
-        if key not in seen:
-            result.append(ent)
-            seen.add(key)
-    return result[:max_tags]
-
-
-def extract_entities_from_summary(summary: str, max_tags: int = 12) -> list[str]:
-    text = summary or ''
-    candidates = _auto_entity_candidates(text)
-
-    for coin in PORTFOLIO_COINS:
-        if re.search(rf'\b{re.escape(coin)}\b', text, re.I):
-            candidates.append(coin)
-
-    seen = set()
-    result = []
-    for ent in candidates:
-        name = _entity_korean_name_strict(ent, text)
-        if not name:
-            continue
-        key = ent.lower()
-        if key not in seen:
-            result.append(ent)
-            seen.add(key)
-    result.sort(key=lambda e: text.lower().find(e.lower()) if e.lower() in text.lower() else 99999)
-    return result[:max_tags]
-
-
-_BASE_MATCHES_KEYWORDS = matches_keywords
-
-
-def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
-    title = story.get('title', '') or ''
-    desc = story.get('desc', '') or ''
-    raw_text = f'{title} {desc}'.strip()
-    raw_lower = raw_text.lower()
-
-    if _contains_any_pattern(raw_lower, DERIVATIVE_LOSS_PATTERNS):
-        log(f"[롱/청산/가격손실 제외] {title}")
-        return False
-
-    return _BASE_MATCHES_KEYWORDS(story, coins, econ_keywords, korean_keywords)
-
 
 def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list[str]]:
     text = fix_translation_terms(summary or '')
@@ -4624,53 +3381,18 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
     inline_count = 0
     max_inline_tags = 3
 
-    coin_inline_map = {
-        'BTC': '비트코인',
-        'ETH': '이더리움',
-        'XRP': 'XRP',
-        'XLM': '스텔라',
-        'ADA': '에이다',
-        'TRX': '트론',
-        'BNB': '바이낸스',
-        'BCH': '비트코인캐시',
-        'SHIB': '시바이누',
-        'USDC': 'USDC',
-        'USDT': 'USDT',
-    }
-
-    priority_entities = []
     for ent in entities:
-        ent_upper = ent.upper()
-        normalized = _entity_korean_name_strict(ent, f'{text} {ent}')
-        if not normalized:
+        tag_name = _entity_korean_name_strict(ent, text)
+        if not tag_name:
             continue
-        if _looks_like_core_entity(normalized, text):
-            priority = 0
-        elif ent_upper in {'BTC', 'ETH', 'XRP', 'USDT', 'USDC'} or normalized in {'비트코인', '이더리움', '리플', 'XRP'}:
-            priority = 1
-        elif ent_upper in {'ETF', 'SEC', 'CFTC', 'OCC'} or normalized in {'시장구조법안', '지니어스법안', '스테이블코인', '수탁', '토큰화', '규제'}:
-            priority = 2
-        else:
-            priority = 9
-        priority_entities.append((priority, -len(ent), ent))
 
-    for _, __, ent in sorted(priority_entities):
-        ent_upper = ent.upper()
-        context = f'{text} {ent}'
-
-        if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
-            tag_name = coin_inline_map.get(ent_upper, ent_upper)
-            footer_tag = f'#{ent_upper}'
-        else:
-            tag_name = _entity_korean_name_strict(ent, context)
-            if not tag_name:
-                continue
-            footer_tag = f'#{tag_name}'
-
+        footer_tag = f'#{tag_name}'
         if footer_tag not in final_tags:
             final_tags.append(footer_tag)
 
-        if inline_count >= max_inline_tags or not _is_inline_tag_candidate(tag_name, context):
+        if inline_count >= max_inline_tags:
+            continue
+        if not _is_inline_tag_candidate(tag_name, text):
             continue
 
         tag_text = f'#{tag_name}'
@@ -4678,15 +3400,14 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
             continue
 
         bases = []
-        for base in [tag_name, _entity_korean_name_strict(ent, context), entity_korean_name(ent), ent, ent_upper]:
+        for base in [tag_name, ent]:
             base = _fix_xrp_and_ton_artifacts((base or '').strip())
             if base and base not in bases:
                 bases.append(base)
 
         replaced = False
         for base in sorted(bases, key=len, reverse=True):
-            if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
-                continue
+            # 먼저 조사 없는 정확한 어절만 태그
             new_text, count = re.subn(
                 rf'(?<![#A-Za-z0-9가-힣]){re.escape(base)}(?![A-Za-z0-9가-힣])',
                 tag_text,
@@ -4699,12 +3420,7 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
                 replaced = True
                 break
 
-        if replaced:
-            continue
-
-        for base in sorted(bases, key=len, reverse=True):
-            if base in {'TON', '톤', '톤코인'} and not _looks_like_ton_context(text):
-                continue
+            # 그다음 조사 붙은 경우 분리
             for particle in sorted(TAG_PARTICLES, key=len, reverse=True):
                 new_text, count = re.subn(re.escape(base + particle), f'{tag_text} {particle}', text, count=1)
                 if count:
@@ -4715,358 +3431,13 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
             if replaced:
                 break
 
-    return normalize_inline_hashtag_spacing(text), filter_final_tags(final_tags)
+    return normalize_inline_hashtag_spacing(text), final_tags
 
+def finalize_summary_ending(text: str) -> str:
+    text = _fix_xrp_and_ton_artifacts(text or '')
+    text = re.sub(r'좋은\s*덩어리$', '', text)
 
-# ---------------------------------------------------------------------------
-# Event-level duplicate, short-summary, and Korean-first tag final overrides
-# ---------------------------------------------------------------------------
-
-EVENT_ENTITY_ALIASES = {
-    'sbi': 'SBI',
-    'rakuten': '라쿠텐',
-    'rakuten securities': '라쿠텐',
-    'sbi securities': 'SBI',
-    'iren': 'IREN',
-    'iris energy': 'IREN',
-    'cftc': 'CFTC',
-    'commodity futures trading commission': 'CFTC',
-    'house agriculture committee': '하원농업위원회',
-    'house agriculture': '하원농업위원회',
-    'trump': '트럼프',
-    'donald trump': '트럼프',
-    'michael selig': '마이클셀릭',
-    'david schwartz': '데이비드슈워츠',
-    'xrpl foundation': 'XRPL재단',
-    'xrp ledger foundation': 'XRPL재단',
-    'bc card': 'BC카드',
-    'bccard': 'BC카드',
-    'bank of korea': '한국은행',
-    'aave': '아베',
-    'aave labs': '아베',
-    'arkham': '아캄',
-    'arkham intelligence': '아캄',
-    'bhutan': '부탄',
-    'japan': '일본',
-    'italy': '이탈리아',
-    'standard chartered': '스탠다드차타드',
-    'bank of america': '뱅크오브아메리카',
-    'andreessen horowitz': '앤드리슨호로위츠',
-    'a16z': '앤드리슨호로위츠',
-}
-
-EVENT_ACTION_PATTERNS = {
-    'act_approve': ['approve', 'approved', 'approval', '승인'],
-    'act_advance': ['advance', 'advanced', 'clears committee', 'committee win', '진전', '상원', '위원회 통과'],
-    'act_launch': ['launch', 'launched', 'roll out', '출시', '개시'],
-    'act_develop': ['develop', 'building', 'build', '준비', '개발', '구축'],
-    'act_disclose': ['disclose', 'disclosed', 'disclosure', '공개', '공시'],
-    'act_appoint': ['appoint', 'appointed', 'nominate', 'commissioner', '임명', '지명'],
-    'act_join': ['joins', 'joined', '합류'],
-    'act_file': ['file', 'filed', 'amendment', '신청', '제출'],
-    'act_patent': ['patent', '특허'],
-    'act_deny_sale': ['doesn t recall selling', 'does not recall selling', 'denied selling', '매도한 적이 없', '부인'],
-    'act_outflow': ['outflow', 'drawdown', 'moved to exchanges', '유출', '거래소로'],
-    'act_recover': ['restore', 'restored', 'recovery', '복구'],
-    'act_invest': ['invest', 'investment', 'exposure', '투자', '익스포저'],
-}
-
-EVENT_OBJECT_PATTERNS = {
-    'obj_investment_trust': ['investment trust', 'crypto investment trust', '투자 신탁', '투자신탁'],
-    'obj_reclassification': ['reclassification', '재분류'],
-    'obj_fsa_rule': ['financial instruments and exchange act', '금융상품거래법'],
-    'obj_ai_cloud': ['ai cloud', 'hpc', 'high performance computing', 'ai 클라우드', '고성능 컴퓨팅'],
-    'obj_cftc_commissioner': ['cftc commissioner', 'commissioners', '위원 임명', '위원 자리'],
-    'obj_market_structure_bill': ['market structure bill', 'clarity act', '시장구조법안', '클래리티법'],
-    'obj_asset_disclosure': ['asset disclosure', 'financial disclosure', 'holdings disclosure', '자산 공개', '자산 공시'],
-    'obj_crypto_holdings': ['crypto holdings', 'digital asset holdings', '암호화폐 자산', '디지털자산 보유'],
-    'obj_stablecoin_payment': ['stablecoin payment', '스테이블코인 결제'],
-    'obj_payment_infra': ['payment infrastructure', '결제 인프라'],
-    'obj_patent': ['patent', '특허'],
-    'obj_xrpl_foundation_board': ['xrpl foundation', 'board', '이사회', '명예 이사회'],
-    'obj_wallet_milestone': ['wallets', '10,000 xrp', 'milestone', '지갑 수', '마일스톤'],
-    'obj_bhutan_wallet': ['bhutan wallet', 'bhutan related wallet', '부탄 관련 지갑'],
-    'obj_weth_recovery': ['weth', 'rseth', 'collateral', '담보인정비율', '복구'],
-    'obj_etf': ['etf'],
-}
-
-
-def _event_text(story: dict) -> str:
-    return normalize_for_duplicate(f"{story.get('title', '')} {story.get('desc', '')}")
-
-
-def _find_event_terms(text: str, mapping: dict[str, list[str]], prefix: str = '') -> set[str]:
-    found = set()
-    for key, terms in mapping.items():
-        if any(contains_exact_term(text, term) for term in terms):
-            found.add(f'{prefix}{key}' if prefix else key)
-    return found
-
-
-def _find_event_entities(text: str) -> set[str]:
-    found = set()
-    alias_map = {}
-    alias_map.update(ENTITY_TRANSLATION_MAP)
-    alias_map.update(EVENT_ENTITY_ALIASES)
-    for alias, korean in alias_map.items():
-        if not alias or len(alias) <= 1:
-            continue
-        alias_norm = normalize_for_duplicate(alias)
-        if contains_exact_term(text, alias_norm):
-            clean = str(korean).replace(' ', '').lower()
-            if clean and clean not in {'정부', '암호화폐', '금융', 'btc', '비트코인', 'eth', '이더리움', '디지털자산', '법안', '규제'}:
-                found.add(f'entity_{clean}')
-    return found
-
-
-def _find_event_geo(text: str) -> set[str]:
-    found = set()
-    for aliases in COUNTRY_TAG_MAP.values():
-        korean = ''
-        for item in aliases:
-            if re.search(r'[가-힣]', item):
-                korean = item.replace(' ', '')
-                break
-        if not korean:
-            continue
-        for item in aliases:
-            if contains_exact_term(text, normalize_for_duplicate(item)):
-                found.add(f'geo_{korean.lower()}')
-                break
-    for alias, korean in EVENT_ENTITY_ALIASES.items():
-        if korean in {'부탄', '일본', '이탈리아'} and contains_exact_term(text, normalize_for_duplicate(alias)):
-            found.add(f'geo_{korean.lower()}')
-    return found
-
-
-def _find_event_amounts(text: str) -> set[str]:
-    found = set()
-    for m in re.finditer(r'\b\d+(?:\.\d+)?\s*(?:billion|million|trillion|bn|m)\b', text, re.I):
-        found.add('amount_' + re.sub(r'\s+', '', m.group(0).lower()))
-    for m in re.finditer(r'\b\d+(?:\.\d+)?\s*%', text):
-        found.add('amount_' + m.group(0).replace(' ', ''))
-    for m in re.finditer(r'\b\d{1,3}(?:,\d{3})+\s*(?:xrp|btc|eth|wallets?)?\b', text, re.I):
-        found.add('amount_' + re.sub(r'[\s,]', '', m.group(0).lower()))
-    for m in re.finditer(r'\d+(?:억|조)\s*달러|\d+(?:만|억)\s*개', text):
-        found.add('amount_' + re.sub(r'\s+', '', m.group(0)))
-    return found
-
-
-def _event_signature_parts(story: dict) -> set[str]:
-    text = _event_text(story)
-    parts = set()
-    parts |= _find_event_entities(text)
-    parts |= _find_event_terms(text, EVENT_ACTION_PATTERNS)
-    parts |= _find_event_terms(text, EVENT_OBJECT_PATTERNS)
-    parts |= _find_event_geo(text)
-    parts |= _find_event_amounts(text)
-
-    asset_map = {
-        'asset_btc': ['btc', 'bitcoin', '비트코인'],
-        'asset_eth': ['eth', 'ethereum', '이더리움'],
-        'asset_xrp': ['xrp', 'ripple', 'xrpl', '리플'],
-        'asset_usdc': ['usdc'],
-        'asset_usdt': ['usdt', 'tether', '테더'],
-    }
-    parts |= _find_event_terms(text, asset_map)
-    return parts
-
-
-def _event_core(parts: set[str]) -> set[str]:
-    return {
-        p for p in parts
-        if p.startswith(('entity_', 'act_', 'obj_', 'geo_', 'amount_'))
-    }
-
-
-def _strong_event_candidate(parts: set[str]) -> bool:
-    core = _event_core(parts)
-    has_entity = any(p.startswith('entity_') for p in core)
-    has_action = any(p.startswith('act_') for p in core)
-    has_object = any(p.startswith('obj_') for p in core)
-    return len(core) >= 3 and ((has_entity and has_action) or (has_entity and has_object) or (has_action and has_object))
-
-
-def build_story_signature(story: dict) -> str:
-    parts = _event_signature_parts(story)
-    if not _strong_event_candidate(parts):
-        non_asset = {p for p in parts if not p.startswith('asset_')}
-        if len(non_asset) < 3:
-            return ''
-    return ' | '.join(sorted(parts))
-
-
-def build_canonical_topic_key(story: dict) -> str:
-    parts = _event_signature_parts(story)
-    core = _event_core(parts)
-    if not _strong_event_candidate(parts):
-        return ''
-    return ' | '.join(sorted(core))
-
-
-def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
-    title = normalize_for_duplicate(story.get('title', ''))
-    signature = build_story_signature(story)
-    current = _signature_parts(signature)
-    current_core = _event_core(current)
-
-    for old_title in seen_titles:
-        ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.74:
-            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
-            return True
-
-    if not _strong_event_candidate(current):
-        log(f"[의미중복검사 생략] 사건 시그니처 부족: {signature}")
-        return False
-
-    for old_sig in seen_signatures:
-        old = _signature_parts(old_sig)
-        if not _strong_event_candidate(old):
-            continue
-        old_core = _event_core(old)
-        shared = current_core & old_core
-        shared_entity = {p for p in shared if p.startswith('entity_')}
-        shared_action = {p for p in shared if p.startswith('act_')}
-        shared_object = {p for p in shared if p.startswith('obj_')}
-        shared_geo = {p for p in shared if p.startswith('geo_')}
-        shared_amount = {p for p in shared if p.startswith('amount_')}
-
-        if len(shared) >= 4 and (shared_entity or shared_object) and (shared_action or shared_amount or shared_geo):
-            log(f"[사건중복 제외] {signature} <> {old_sig}")
-            return True
-        if shared_entity and shared_action and shared_object:
-            log(f"[핵심사건 중복] {signature} <> {old_sig}")
-            return True
-        if SequenceMatcher(None, ' '.join(sorted(current_core)), ' '.join(sorted(old_core))).ratio() >= 0.84 and len(shared) >= 3:
-            log(f"[사건시그니처 유사도 중복] {signature} <> {old_sig}")
-            return True
-
-    return False
-
-
-KOREAN_FOOTER_ALLOW = {
-    '비트코인', '이더리움', '리플', '스테이블코인', '시장구조법안', '지니어스법안',
-    '일본', '부탄', '미국', '한국', '홍콩', '싱가포르', '이탈리아', '호주',
-    '앤드리슨호로위츠', '스탠다드차타드', '뱅크오브아메리카', '블랙록',
-    '코인베이스', '바이낸스', '업비트', '빗썸', '코인원', '리플재단',
-    'XRPL재단', '트럼프', '데이비드슈워츠', '마이클세일러', '마이클셀릭',
-    'BC카드', '아베', '한국은행', '연준', '재무부', '백악관',
-}
-
-ENGLISH_FOOTER_ALLOW = {
-    'BTC', 'ETH', 'XRP', 'XLM', 'ADA', 'TRX', 'BNB', 'BCH', 'SHIB',
-    'ETC', 'FLR', 'USDC', 'USDT', 'ETF', 'SEC', 'CFTC', 'OCC',
-    'IPO', 'CTO', 'AI', 'XRPL', 'RWA', 'CBDC', 'WETH',
-}
-
-
-def _footer_tag_to_korean(tag: str) -> str:
-    raw = (tag or '').strip().lstrip('#')
-    if not raw:
-        return ''
-    if raw in ENGLISH_FOOTER_ALLOW:
-        return f'#{raw}'
-    compact_map = {
-        'Japan': '일본',
-        'US': '미국',
-        'UnitedStates': '미국',
-        'Bhutan': '부탄',
-        'Singapore': '싱가포르',
-        'BankofAmerica': '뱅크오브아메리카',
-        'StandardChartered': '스탠다드차타드',
-        'AndreessenHorowitz': '앤드리슨호로위츠',
-        'a16z': '앤드리슨호로위츠',
-        'Bitcoin': '비트코인',
-        'Ethereum': '이더리움',
-    }
-    name = _entity_korean_name_strict(raw, raw)
-    if not name or (not re.search(r'[가-힣]', name) and name not in ENGLISH_FOOTER_ALLOW):
-        name = compact_map.get(raw, name if name in ENGLISH_FOOTER_ALLOW else '')
-    if name in ENGLISH_FOOTER_ALLOW:
-        return f'#{name}'
-    if name in KOREAN_FOOTER_ALLOW or re.search(r'[가-힣]', name):
-        return f'#{name}'
-    return ''
-
-
-def filter_final_tags(tags: list[str]) -> list[str]:
-    cleaned = []
-    seen = set()
-    for tag in tags:
-        fixed = _footer_tag_to_korean(tag)
-        if not fixed:
-            continue
-        if fixed in {'#Japan', '#US', '#UnitedStates', '#Bitcoin', '#Ethereum'}:
-            continue
-        key = fixed.lower()
-        if key not in seen:
-            cleaned.append(fixed)
-            seen.add(key)
-    return cleaned[:8]
-
-
-def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: str = "") -> str:
-    source_text = (article_text or fallback_text or title or '').strip()
-    if not source_text or not GEMINI_API_KEY:
-        return ''
-
-    try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        prompt = f"""
-너는 텔레그램 암호화폐 뉴스 채널 편집자다.
-
-아래 기사를 한국어로 아주 짧게 요약하라.
-
-규칙:
-- 2문장 중심, 정말 필요할 때만 3문장
-- 첫 문장: 핵심 사건
-- 둘째 문장: 의미 또는 결론
-- 전체 140자 안팎
-- 배경설명, 홍보문구, 출처성 표현 제거
-- 과장, 추측, 가격 전망 금지
-- 직역투 금지
-- 본문에 해시태그를 쓰지 말 것
-- 축약형 사용: 밝힘, 전함, 설명함, 추진함, 합류함, 승인함, 통과함
-- 국가/기업/기관/인물명은 한국어 표기 우선
-- 같은 말을 반복하지 말 것
-- 가격분석, 청산, 롱/숏 손실, 단순 차트 기사면 빈 문자열만 반환
-
-제목:
-{title}
-
-본문:
-{source_text[:9000]}
-""".strip()
-
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-        )
-        text = getattr(response, "text", "") or ""
-        text = cleanup_text(text)
-        text = fix_translation_terms(text)
-        text = fix_truncated_phrases(text)
-        text = normalize_style(text)
-        text = cleanup_text(text)
-        text = format_summary_for_telegram(text, max_sentences=2, max_chars=150)
-        log_gemini_cost(title, prompt, text)
-        return text
-
-    except Exception as e:
-        log(f"Gemini 요약 실패: {e}")
-        return ""
-
-
-def format_summary_for_telegram(text: str, max_sentences: int = 2, max_chars: int = 150) -> str:
-    text = fix_translation_terms(text or '')
-    text = normalize_inline_hashtag_spacing(text)
-    text = text.replace('\r\n', '\n').replace('\r', '\n')
-    text = re.sub(r'[ \t]+', ' ', text)
-    text = re.sub(r'(에 따르면|보도에 따르면|외신은|매체는|기사는)\s*', '', text)
-    text = re.sub(r'\n{3,}', '\n\n', text).strip()
-
-    endings = {
+    ending_fixes = {
         '밝혔다': '밝힘',
         '전했다': '전함',
         '설명했다': '설명함',
@@ -5075,36 +3446,92 @@ def format_summary_for_telegram(text: str, max_sentences: int = 2, max_chars: in
         '통과했다': '통과함',
         '발표했다': '발표함',
         '합류했다': '합류함',
-        '확보했다': '확보함',
-        '개발 중이다': '개발 중임',
     }
-    for src, dst in endings.items():
+    for src, dst in ending_fixes.items():
         text = text.replace(src, dst)
 
-    text = _drop_incomplete_summary_lines(text)
-    sentences = re.split(
-        r'\n+|(?<=[.!?])\s+|(?<!책임)(?<=임)\s+|(?<=음)\s+|(?<=됨)\s+|(?<=함)\s+|(?<=밝힘)\s+|(?<=전함)\s+|(?<=설명함)\s+|(?<=추진함)\s+',
+    # "있다고" 같은 정상 표현 훼손 금지
+    text = re.sub(r'문제가 아니\.$', '문제가 아님', text)
+    text = re.sub(r'아니\.$', '아님', text)
+    text = re.sub(r'될 것\.$', '될 것임', text)
+    text = re.sub(r'계획이\.$', '계획임', text)
+    text = re.sub(r'보인다\.$', '보임', text)
+    text = re.sub(r'전망이다\.$', '전망임', text)
+    text = text.replace('했음고', '했고')
+    text = text.replace('했음는', '했다는')
+    return normalize_inline_hashtag_spacing(re.sub(r'\s+', ' ', text).strip())
+
+def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 180) -> str:
+    text = fix_translation_terms(text or '')
+    text = normalize_inline_hashtag_spacing(text)
+    text = text.replace('\r\n', '\n').replace('\r', '\n')
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'(에 따르면|보도에 따르면|외신은|매체는|기사는)\s*', '', text)
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+
+    pieces = re.split(
+        r'(?<=[.!?])\s+|(?<=음)\s+|(?<=됨)\s+|(?<=함)\s+|(?<=밝힘)\s+|(?<=전함)\s+|(?<=설명함)\s+|(?<=추진함)\s+',
         text,
     )
-    sentences = [finalize_summary_ending(s.strip(' .')) for s in sentences if s.strip()]
+    pieces = [finalize_summary_ending(p.strip(' .')) for p in pieces if p.strip()]
 
     picked = []
     total = 0
-    for sentence in sentences:
-        if len(sentence) > 95:
-            chunks = re.split(r'(?:,\s*|이며\s+|이고\s+|하며\s+|하면서\s+|\.?\s+이는\s+)', sentence)
-            sentence = finalize_summary_ending((chunks[0] or sentence[:95]).strip())
+    for p in pieces:
         if len(picked) >= max_sentences:
             break
-        if picked and total + len(sentence) > max_chars:
+        if picked and total + len(p) > max_chars:
             continue
-        picked.append(sentence)
-        total += len(sentence)
+        picked.append(p)
+        total += len(p)
 
     if not picked and text:
         picked = [finalize_summary_ending(text[:max_chars].rstrip())]
 
     return '\n\n'.join(picked).strip()
+
+def build_message(story: dict) -> str:
+    title = story.get('title', '')
+    desc = story.get('desc', '')
+    article_text = get_best_source_text(story)
+
+    summary_ko = rewrite_summary_with_gemini(
+        title=title,
+        article_text=article_text,
+        fallback_text=desc
+    )
+
+    if not summary_ko:
+        raw_source = f"{title}. {desc}"
+        raw_summary = summarize_text(raw_source, title=title, max_sentences=SUMMARY_SENTENCES)
+        summary_ko = translate_text_to_korean(raw_summary)
+        summary_ko = cleanup_text(summary_ko)
+        summary_ko = fix_translation_terms(summary_ko)
+        summary_ko = fix_truncated_phrases(summary_ko)
+        summary_ko = normalize_style(summary_ko)
+        summary_ko = cleanup_text(summary_ko)
+
+    entities = _collect_story_entities_for_tags(story, summary_ko)
+    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    summary_ko = fix_broken_inline_hashtags(summary_ko)
+    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
+    summary_ko = finalize_summary_ending(summary_ko)
+
+    summary = summary_ko if summary_ko else story.get('title', '')
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=180)
+    summary = summary.replace('자동뉴스', '').replace('다음 기사는', '').replace('뉴스레터', '').strip()
+
+    # 본문에서 이미 사용한 해시태그는 footer에서 제거
+    inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
+    footer_tags = [f'#{t}' for t in FINAL_HASHTAGS if f'#{t}' not in inline_tags]
+
+    parts = [
+        html.escape(summary),
+        '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
+        f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
+        ' '.join(html.escape(t) for t in footer_tags)
+    ]
+    return '\n\n'.join(parts)
 
 
 def main():
