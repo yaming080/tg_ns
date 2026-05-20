@@ -3397,5 +3397,340 @@ def main():
         time.sleep(0.3)
 
 
+
+# ---------------------------------------------------------------------------
+# PATCH: 2026-05-20 duplicate / readability / tag refinement
+# ---------------------------------------------------------------------------
+
+_OLD_matches_keywords = matches_keywords
+_OLD_build_story_signature = build_story_signature
+_OLD_build_canonical_topic_key = build_canonical_topic_key
+_OLD_is_canonical_duplicate = is_canonical_duplicate
+_OLD_is_semantically_duplicate = is_semantically_duplicate
+_OLD_format_summary_for_telegram = format_summary_for_telegram
+
+INLINE_TAG_WHITELIST.update({
+    '엘리자베스워런', 'OCC', '신탁은행', '엑스알피얼라이언스', '디센트',
+    '아이렌', '엔비디아', '트럼프', '연준', '마스터계정',
+    '한화투자증권', '두나무', '금융', '위메이드', 'NICE정보통신',
+    'RWA', '토큰화', '스테이블코인', '독일', '유니온인베스트먼트',
+    'CNBC', '케빈워시', 'BC카드', '결제', '인프라', '아베', 'WETH', 'rsETH',
+    '일본', '부탄', '시장구조법안'
+})
+
+MANUAL_TRANSLATIONS.update({
+    'Elizabeth Warren': '엘리자베스워런',
+    'Warren': '엘리자베스워런',
+    'OCC': 'OCC',
+    'trust bank': '신탁은행',
+    "D'CENT": '디센트',
+    'D’CENT': '디센트',
+    'DCENT': '디센트',
+    'XRP Alliance': '엑스알피얼라이언스',
+    'IREN': '아이렌',
+    'Iris Energy': '아이렌',
+    'NVIDIA': '엔비디아',
+    'Federal Reserve': '연준',
+    'Fed': '연준',
+    'master account': '마스터계정',
+    'Hanwha Investment Securities': '한화투자증권',
+    'Hanwha Investment': '한화투자증권',
+    'Dunamu': '두나무',
+    'Wemade': '위메이드',
+    'NICE Information & Telecommunication': 'NICE정보통신',
+    'NICE Information&Telecommunication': 'NICE정보통신',
+    'Union Investment': '유니온인베스트먼트',
+    'Kevin Warsh': '케빈워시',
+    'BC Card': 'BC카드',
+    'Aave': '아베',
+    'CLARITY Act': '시장구조법안',
+    'CLARITY': '시장구조법안',
+})
+
+_EXTRA_NEGATIVE_PATTERNS = [
+    r'\bcrypto longs?\b', r'\blongs? lose\b', r'\bshorts?\b',
+    r'\bliquidation(?:s)?\b', r'\bliquidated\b',
+    r'롱\s*베팅', r'숏\s*베팅', r'선물\s*시장', r'청산', r'대규모\s*청산',
+    r'시장\s*심리', r'심리\s*악화', r'심리\s*위축',
+    r'하락함', r'상승함', r'급락', r'급등', r'하락세', r'약세', r'반등',
+]
+
+_EVENT_RULES = {
+    'ent_warren': [r'elizabeth warren', r'\bwarren\b', r'엘리자베스\s*워런', r'엘리자베스워런'],
+    'ent_occ': [r'\bocc\b', r'통화감독청'],
+    'obj_trustbank': [r'trust bank', r'신탁\s*은행'],
+    'act_probe': [r'investigat', r'조사', r'문제\s*삼', r'문제제기', r'착수'],
+    'ent_dcent': [r"d[’']?cent", r'디센트'],
+    'ent_xrp_alliance': [r'xrp alliance', r'엑스알피얼라이언스'],
+    'obj_rewards': [r'earnxrp', r'mxrpy', r'수익금고', r'리워드', r'금고'],
+    'act_connect': [r'connect', r'연결', r'제공'],
+    'ent_iren': [r'\biren\b', r'iris energy', r'아이렌'],
+    'ent_nvidia': [r'nvidia', r'엔비디아'],
+    'obj_ai_cloud': [r'ai cloud', r'인프라 클라우드', r'hpc', r'고성능 컴퓨팅'],
+    'act_convert': [r'전환', r'본격화', r'가속화', r'확보'],
+    'ent_trump': [r'\btrump\b', r'트럼프'],
+    'ent_fed': [r'federal reserve', r'\bfed\b', r'연준'],
+    'obj_master_account': [r'master account', r'마스터\s*계정'],
+    'act_review': [r'검토', r'명령', r'접근\s*권한'],
+    'ent_hanwha': [r'한화투자증권', r'hanwha investment'],
+    'ent_dunamu': [r'\bdunamu\b', r'두나무'],
+    'act_invest': [r'투자', r'지분', r'매수'],
+    'amt_6000eok': [r'6000억', r'9\.84%'],
+    'ent_wemade': [r'위메이드', r'\bwemade\b'],
+    'ent_nice': [r'nice정보통신', r'nice information'],
+    'obj_mou': [r'\bmou\b', r'협약', r'체결'],
+    'obj_payment': [r'결제\s*인프라', r'웹3\s*결제', r'결제'],
+    'ent_union': [r'union investment', r'유니온인베스트먼트'],
+    'geo_germany': [r'germany', r'독일'],
+    'obj_stablecoin_safety': [r'스테이블코인', r'usdc', r'usdt'],
+    'act_warn': [r'안전하지\s*않', r'보지\s*않', r'경고', r'설명'],
+    'ent_cnbc': [r'\bcnbc\b'],
+    'obj_innovation50': [r'혁신\s*기업\s*50', r'innovation 50'],
+    'ent_kevinwarsh': [r'kevin warsh', r'케빈\s*워시', r'케빈워시'],
+    'obj_asset_sale': [r'자산을?\s*매각', r'매각함', r'매각'],
+    'ent_bccard': [r'bc카드', r'\bbc card\b'],
+    'obj_patent': [r'특허', r'인프라\s*확장'],
+    'ent_aave': [r'\baave\b', r'아베'],
+    'obj_weth': [r'\bweth\b', r'rseth', r'담보인정비율', r'복구'],
+    'geo_japan': [r'japan', r'일본'],
+    'geo_bhutan': [r'bhutan', r'부탄'],
+    'bill_clarity': [r'clarity act', r'시장구조법안', r'클래리티'],
+}
+
+def _story_text(story: dict) -> str:
+    return f"{story.get('title','')} {story.get('desc','')}"
+
+def _extract_event_markers(text: str) -> list[str]:
+    low = normalize_for_duplicate(text)
+    out = []
+    for key, patterns in _EVENT_RULES.items():
+        for pat in patterns:
+            if re.search(pat, low, re.I):
+                out.append(key)
+                break
+    if re.search(r'72만|720000|720,?000', low):
+        out.append('amt_72man')
+    if re.search(r'34억\s*달러|3\.4\s*billion', low):
+        out.append('amt_34eok_dollar')
+    if re.search(r'1억\s*9300만\s*달러|193 million', low):
+        out.append('amt_193m')
+    return sorted(set(out))
+
+def _normalize_signature_parts(parts):
+    return sorted(set([p.strip() for p in parts if p and p.strip()]))
+
+def build_story_signature(story: dict) -> str:
+    base = _OLD_build_story_signature(story)
+    parts = [p.strip() for p in base.split('|') if p.strip()]
+    parts.extend(_extract_event_markers(_story_text(story)))
+    return ' | '.join(_normalize_signature_parts(parts))
+
+def build_canonical_topic_key(story: dict) -> str:
+    base = _OLD_build_canonical_topic_key(story)
+    parts = [p.strip() for p in base.split('|') if p.strip()]
+    parts.extend(_extract_event_markers(_story_text(story)))
+    return ' | '.join(_normalize_signature_parts(parts))
+
+def _core_event_tokens(key: str) -> set:
+    toks = {x.strip() for x in (key or '').split('|') if x.strip()}
+    return {t for t in toks if not t.startswith('asset_') and not t.startswith('geo_')}
+
+def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
+    if not canonical_key:
+        return False
+    cur_all = {x.strip() for x in canonical_key.split('|') if x.strip()}
+    cur_core = _core_event_tokens(canonical_key)
+
+    for old_key in seen_keys:
+        old_all = {x.strip() for x in old_key.split('|') if x.strip()}
+        old_core = _core_event_tokens(old_key)
+        shared_core = cur_core & old_core
+        shared_all = cur_all & old_all
+
+        if len(shared_core) >= 2:
+            log(f"[정규토픽중복 제외] shared_core={shared_core}")
+            return True
+        if len(shared_all) >= 4 and len(shared_core) >= 1:
+            log(f"[정규토픽유사 제외] shared_all={shared_all}")
+            return True
+    return False
+
+def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
+    title = normalize_for_duplicate(story.get('title', ''))
+    signature = build_story_signature(story)
+    cur_all = {x.strip() for x in signature.split('|') if x.strip()}
+    cur_core = _core_event_tokens(signature)
+
+    for old_title in seen_titles:
+        ratio = SequenceMatcher(None, title, old_title).ratio()
+        if ratio >= 0.92:
+            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
+            return True
+
+    if len(cur_all) < 3:
+        return False
+
+    for old_sig in seen_signatures:
+        old_all = {x.strip() for x in old_sig.split('|') if x.strip()}
+        old_core = _core_event_tokens(old_sig)
+        shared_core = cur_core & old_core
+        shared_all = cur_all & old_all
+
+        if not shared_core:
+            continue
+        if len(shared_core) >= 2:
+            log(f"[의미중복 제외] shared_core={shared_core}")
+            return True
+        if len(shared_core) >= 1 and len(shared_all) >= 4:
+            log(f"[시그니처 교집합 중복] {signature} <> {old_sig}")
+            return True
+        ratio = SequenceMatcher(None, signature, old_sig).ratio()
+        if len(shared_core) >= 1 and ratio >= 0.93:
+            log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
+            return True
+
+    return False
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    raw_text = _story_text(story)
+    raw_lower = raw_text.lower()
+
+    if any(re.search(p, raw_lower, re.I) for p in _EXTRA_NEGATIVE_PATTERNS):
+        print(f"[시황심리/롱숏 제외] {story.get('title', '')}")
+        return False
+
+    return _OLD_matches_keywords(story, coins, econ_keywords, korean_keywords)
+
+def _clean_summary_for_style(text: str) -> str:
+    text = text or ""
+    text = re.sub(r'시장 심리[^.\n]*', '', text)
+    text = re.sub(r'가격을 끌어올리지 못함', '', text)
+    text = text.replace('있음고', '있다고')
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 110) -> str:
+    text = _clean_summary_for_style(text)
+    text = (text or "").replace('\r\n', '\n').replace('\r', '\n')
+    text = re.sub(r'\n{2,}', '\n', text).strip()
+    text = re.sub(r'[ \t]+', ' ', text)
+
+    chunks = [c.strip() for c in text.split('\n') if c.strip()]
+    if len(chunks) >= 2:
+        picked = []
+        total = 0
+        for c in chunks:
+            if len(picked) >= max_sentences:
+                break
+            if picked and total + len(c) > max_chars:
+                break
+            picked.append(c)
+            total += len(c)
+        if picked:
+            return '\n\n'.join(picked).strip()
+
+    return _OLD_format_summary_for_telegram(text, max_sentences=max_sentences, max_chars=max_chars)
+
+def _ensure_case_tags(summary: str, story: dict, footer_tags: list[str]) -> list[str]:
+    text = _story_text(story) + " " + (summary or "")
+    additions = []
+    pairs = [
+        ('엘리자베스워런', [r'elizabeth warren', r'엘리자베스워런', r'엘리자베스 워런']),
+        ('OCC', [r'\bocc\b', r'통화감독청']),
+        ('신탁은행', [r'trust bank', r'신탁\s*은행']),
+        ('엑스알피얼라이언스', [r'xrp alliance', r'엑스알피얼라이언스']),
+        ('디센트', [r"d[’']?cent", r'디센트']),
+        ('아이렌', [r'\biren\b', r'iris energy', r'아이렌']),
+        ('엔비디아', [r'nvidia', r'엔비디아']),
+        ('한화투자증권', [r'한화투자증권', r'hanwha investment']),
+        ('두나무', [r'\bdunamu\b', r'두나무']),
+        ('위메이드', [r'\bwemade\b', r'위메이드']),
+        ('NICE정보통신', [r'nice information', r'nice정보통신']),
+        ('유니온인베스트먼트', [r'union investment', r'유니온인베스트먼트']),
+        ('독일', [r'germany', r'독일']),
+        ('CNBC', [r'\bcnbc\b']),
+        ('리플', [r'\bripple\b', r'리플']),
+        ('금융', [r'금융', r'financial']),
+        ('케빈워시', [r'kevin warsh', r'케빈워시', r'케빈 워시']),
+        ('연준', [r'federal reserve', r'\bfed\b', r'연준']),
+        ('자산', [r'자산']),
+        ('매각', [r'매각', r'sale', r'sell']),
+        ('스테이블코인', [r'stablecoin', r'스테이블코인']),
+        ('RWA', [r'\brwa\b']),
+        ('토큰화', [r'tokeni[sz]ation', r'토큰화']),
+    ]
+    for tag, patterns in pairs:
+        if any(re.search(p, text, re.I) for p in patterns):
+            additions.append(f'#{tag}')
+    for t in additions:
+        if t not in footer_tags:
+            footer_tags.append(t)
+    return footer_tags
+
+def build_message(story: dict) -> str:
+    title = story.get('title', '')
+    desc = story.get('desc', '')
+    article_text = get_best_source_text(story)
+
+    summary_ko = rewrite_summary_with_gemini(title=title, article_text=article_text, fallback_text=desc)
+    if not summary_ko:
+        raw_source = f"{title}. {desc}"
+        raw_summary = summarize_text(raw_source, title=title, max_sentences=SUMMARY_SENTENCES)
+        summary_ko = translate_text_to_korean(raw_summary)
+        summary_ko = cleanup_text(summary_ko)
+        summary_ko = fix_translation_terms(summary_ko)
+        summary_ko = fix_truncated_phrases(summary_ko)
+        summary_ko = normalize_style(summary_ko)
+        summary_ko = cleanup_text(summary_ko)
+
+    story_entities = extract_entities(story, max_tags=14)
+    summary_entities = extract_entities_from_summary(summary_ko, max_tags=14)
+
+    merged_entities = []
+    seen_entities = set()
+    for e in story_entities + summary_entities:
+        k = e.lower()
+        if k not in seen_entities:
+            merged_entities.append(e)
+            seen_entities.add(k)
+
+    entities = []
+    for e in merged_entities:
+        ko = entity_korean_name(e)
+        if e in INLINE_TAG_WHITELIST or ko in INLINE_TAG_WHITELIST:
+            entities.append(e)
+
+    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    summary_ko = fix_broken_inline_hashtags(summary_ko)
+    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
+    summary_ko = finalize_summary_ending(summary_ko)
+    summary_ko = _clean_summary_for_style(summary_ko)
+
+    summary = summary_ko if summary_ko else story.get('title', '')
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=110)
+    summary = summary.replace('자동뉴스', '').replace('다음 기사는', '').replace('뉴스레터', '').strip()
+
+    dynamic_tags = filter_final_tags(dynamic_tags)
+    footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
+    footer_tags = _ensure_case_tags(summary, story, footer_tags)
+
+    inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
+    footer_tags = [f for f in footer_tags if f not in inline_tags]
+
+    seen = set()
+    dedup = []
+    for t in footer_tags:
+        if t not in seen:
+            dedup.append(t)
+            seen.add(t)
+
+    parts = [
+        html.escape(summary),
+        '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
+        f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
+        ' '.join(html.escape(t) for t in dedup)
+    ]
+    return '\n\n'.join(parts)
+
 if __name__ == '__main__':
     main()
