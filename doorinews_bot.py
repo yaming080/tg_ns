@@ -88,6 +88,7 @@ KOREAN_TAG_KEYWORDS = [
 '스트래티지', '도널드트럼프', '테더', '플레어', 'FLR', '에테나', '에테나', '메타플래닛', '도리뉴스',
 '시바리움', 'SWIFT', '백악관', '카타르', '마스터카드',
 'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+    'RLUSD', 'FOMC', '헤스터피어스', '시카고상품거래소', '키발리스', '라울팔', '누바', '템포', '머니그램', '미카', '도호쿠은행', 'SBIRemit', '소프트뱅크', '트웬티원캐피털', '화이트비트', '티머시매사드', '무로', '산탄데르',
 '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
 'DeFi', 'NFT', 'Web3', 'BitMine', '톰리', 'Thomasgeth', 'TimeTraveler', 'JohnSquire',
 '유니스왑', 'HaydenAdams', '파월', 'America', '네비다주', 'JPMorgan', '라이드', '바이비트', 'Ledger',
@@ -436,6 +437,11 @@ NEGATIVE_KEYWORDS = [
 'canton network',
 	
 	
+    'long', 'short', '롱', '숏', '롱 포지션', '숏 포지션', 'liquidation', 'liquidations',
+    '시장 심리', 'market sentiment',
+    'moew', 'realgo', 'fast or go home', 'challenge', 'cfd',
+    'allunity', 'kalqix', 'kalaix', 'mainnet launch', 'clob dex',
+
 ]
 
 
@@ -786,6 +792,7 @@ INLINE_TAG_WHITELIST = {
     '마스터카드',
     'SEC', 'CFTC', 'OCC', 'ETF', 'IPO', 'CTO',
     'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+    'RLUSD', 'FOMC', '헤스터피어스', '시카고상품거래소', '키발리스', '라울팔', '누바', '템포', '머니그램', '미카', '도호쿠은행', 'SBIRemit', '소프트뱅크', '트웬티원캐피털', '화이트비트', '티머시매사드', '무로', '산탄데르',
     '비트코인', '이더리움', '스테이블코인', '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
     'DeFi', 'NFT', 'Web3', '디파이', '엑스알피',
     'BitMine', '비트마인',
@@ -820,6 +827,7 @@ INLINE_TAG_WHITELIST = {
 
 'SEC', 'CFTC', 'OCC', 'ETF', 'IPO', 'CTO',
 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+    'RLUSD', 'FOMC', '헤스터피어스', '시카고상품거래소', '키발리스', '라울팔', '누바', '템포', '머니그램', '미카', '도호쿠은행', 'SBIRemit', '소프트뱅크', '트웬티원캐피털', '화이트비트', '티머시매사드', '무로', '산탄데르',
 
 'Bitcoin', 'Ethereum', 'Stablecoin', 'Tokenization', 'Custody', 'Seed Phrase',
 'Lawsuit', 'Regulation', 'Interpretation',
@@ -913,6 +921,39 @@ MANUAL_TRANSLATIONS = {
 
     'Vitalik Buterin': '비탈릭부텔린',
     '비탈릭부텔린': '비탈릭부텔린',
+    'FOMC': 'FOMC',
+    '헤스터 피어스': '헤스터피어스',
+    'Hester Peirce': '헤스터피어스',
+    'CME': '시카고상품거래소',
+    'CME Group': '시카고상품거래소',
+    'Chicago Mercantile Exchange': '시카고상품거래소',
+    'Qivalis': '키발리스',
+    '키발리스': '키발리스',
+    'Raoul Pal': '라울팔',
+    '라울 팔': '라울팔',
+    '라울팔': '라울팔',
+    'NUVA': '누바',
+    'Tempo': '템포',
+    'MoneyGram': '머니그램',
+    'RLUSD': 'RLUSD',
+    'MiCA': '미카',
+    'MICA': '미카',
+    'AllUnity': '올유니티',
+    'Kalqix': '칼릭스',
+    'KalaiX': '칼릭스',
+    'Tohoku Bank': '도호쿠은행',
+    'SBI Remit': 'SBIRemit',
+    'SoftBank': '소프트뱅크',
+    'Twenty One Capital': '트웬티원캐피털',
+    'XXI': 'XXI',
+    'WhiteBIT': '화이트비트',
+    'Timothy Massad': '티머시매사드',
+    'Morgan Stanley': '모건스탠리',
+    'Truth Social': '트루스소셜',
+    'Santiment': '샌티먼트',
+    'Muro': '무로',
+    'Santander': '산탄데르',
+
 
     'Satoshi Nakamoto': '사토시나카모토',
     '사토시나카모토': '사토시나카모토',
@@ -951,8 +992,8 @@ MANUAL_TRANSLATIONS = {
     'Tether': '테더',
     '테더': '테더',
 
-    'Ripple': '리플',
-    '리플': '리플',
+    'Ripple': 'XRP',
+    '리플': 'XRP',
 
 	'TRX': '트론',
     'TRON': '트론',
@@ -1378,13 +1419,39 @@ MANUAL_TRANSLATIONS = {
 'David Schwartz': '데이비드슈워츠',
 '데이비드슈워츠': '데이비드슈워츠',
 	
-'Ripple': '리플',
-'리플': '리플',
+'Ripple': 'XRP',
+'리플': 'XRP',
 	'XRPL': 'XRPL',
 'DEX': 'DEX',
 'Decentralized Exchange': '탈중앙거래소',
 '탈중앙거래소': '탈중앙거래소',
 'Satoshi Kusama': '사토시쿠사마',
+    'XRP Ledger': 'XRPLedger',
+    'xrp ledger': 'XRPLedger',
+    'RLUSD': 'RLUSD',
+    'FOMC': 'FOMC',
+    'Hester Peirce': '헤스터피어스',
+    'CME Group': '시카고상품거래소(CME)',
+    'Chicago Mercantile Exchange': '시카고상품거래소(CME)',
+    'Qivalis': '키발리스',
+    'Raoul Pal': '라울팔',
+    'NUVA': '누바',
+    'Tempo': '템포',
+    'MoneyGram': '머니그램',
+    'MiCA': '미카',
+    'MICA': '미카',
+    'AllUnity': '올유니티',
+    'Kalqix': '칼릭스',
+    'KalaiX': '칼릭스',
+    'Truth Social': '트루스소셜',
+    'Tohoku Bank': '도호쿠은행',
+    'SBI Remit': 'SBIRemit',
+    'SoftBank': '소프트뱅크',
+    'Twenty One Capital': '트웬티원캐피털',
+    'Timothy Massad': '티머시매사드',
+    'Santiment': '샌티먼트',
+    'Santander': '산탄데르',
+
 '사토시 쿠사마': '사토시쿠사마',
 '사토시쿠사마': '사토시쿠사마',
 'Vet': 'Vet',
@@ -1819,6 +1886,9 @@ def is_wallet_balance_metric_article(text: str) -> bool:
     ]
 
     xrp_terms = ['xrp', 'ripple', '리플']
+    allow_terms = ['whale', '고래', 'santiment', '샌티먼트']
+    if any(t in low for t in allow_terms):
+        return False
 
     return any(t in low for t in wallet_terms) and any(t in low for t in xrp_terms)
 
@@ -1850,7 +1920,7 @@ def is_conference_opinion_article(text: str) -> bool:
     has_promo = any(t in low for t in promo_terms)
     has_hard_news = any(t in low for t in hard_news_terms)
 
-    return (has_event and not has_hard_news) or (has_promo and has_event)
+    return (has_event and not has_hard_news) or (has_promo and has_event) or ('challenge' in low) or ('campaign' in low)
 
 def is_security_incident_article(text: str) -> bool:
     low = (text or "").lower()
@@ -1991,6 +2061,11 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     if 'tokenpost.kr/news/tech/' in url:
         return False
 
+    hard_irrelevant_terms = ['moew', 'realgo', 'fast or go home', 'allunity', 'kalqix', 'kalaix', 'challenge', 'mainnet launch', 'clob dex']
+    if any(t in raw_lower for t in hard_irrelevant_terms):
+            print(f"[홍보/비관련 제외] {story.get('title', '')}")
+            return False
+
        # 1. 기본 네거티브 차단
     for neg in NEGATIVE_KEYWORDS:
         if neg.lower() in raw_lower:
@@ -2079,11 +2154,11 @@ def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
         old = {x.strip() for x in old_key.split('|') if x.strip()}
         shared = current & old
 
-        if len(shared) >= 3:
+        if len(shared) >= 4:
             log(f"[정규토픽중복 제외] shared={shared}")
             return True
 
-        if len(current) >= 2 and len(old) >= 2 and len(shared) >= min(len(current), len(old)) - 1:
+        if len(current) >= 4 and len(old) >= 4 and len(shared) >= min(len(current), len(old)) - 1:
             log(f"[정규토픽유사 제외] shared={shared}")
             return True
 
@@ -2386,7 +2461,7 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
     coin_inline_map = {
         'BTC': '비트코인',
         'ETH': '이더리움',
-        'XRP': '리플',
+        'XRP': 'XRP',
         'XLM': '스텔라',
         'ADA': '에이다',
         'TRX': '트론',
@@ -2475,6 +2550,13 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#마이클#세일러', '#마이클세일러')
     text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
     text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
+    text = text.replace('#R L U S D', '#RLUSD')
+    text = text.replace('RL#미국D', '#RLUSD')
+    text = text.replace('#엑스알피', '#XRP')
+    text = text.replace('#리플 ', '#XRP ')
+    text = text.replace('#리플\n', '#XRP\n')
+    text = text.replace('#F O M C', '#FOMC')
+    text = text.replace('#헤스터 피어스', '#헤스터피어스')
 
     return text
 
@@ -2556,6 +2638,32 @@ def fix_translation_terms(text: str) -> str:
 		'시토시': '사토시',
 '사토시 쿠사마': '사토시쿠사마',
 'Satoshi Kusama': '사토시쿠사마',
+    'XRP Ledger': 'XRPLedger',
+    'xrp ledger': 'XRPLedger',
+    'RLUSD': 'RLUSD',
+    'FOMC': 'FOMC',
+    'Hester Peirce': '헤스터피어스',
+    'CME Group': '시카고상품거래소(CME)',
+    'Chicago Mercantile Exchange': '시카고상품거래소(CME)',
+    'Qivalis': '키발리스',
+    'Raoul Pal': '라울팔',
+    'NUVA': '누바',
+    'Tempo': '템포',
+    'MoneyGram': '머니그램',
+    'MiCA': '미카',
+    'MICA': '미카',
+    'AllUnity': '올유니티',
+    'Kalqix': '칼릭스',
+    'KalaiX': '칼릭스',
+    'Truth Social': '트루스소셜',
+    'Tohoku Bank': '도호쿠은행',
+    'SBI Remit': 'SBIRemit',
+    'SoftBank': '소프트뱅크',
+    'Twenty One Capital': '트웬티원캐피털',
+    'Timothy Massad': '티머시매사드',
+    'Santiment': '샌티먼트',
+    'Santander': '산탄데르',
+
     }
 
     for old, new in replacements.items():
@@ -2583,6 +2691,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#KBank','#Coinone','#Bitget','#SafePal','#eToro','#HKMA','#HSBC','#StandardChartered',
         '#US','#Korea','#Japan','#China','#Taiwan','#HongKong','#Australia','#Brazil','#India','#Iran','#Israel','#Qatar',
         '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM','#XRPL', '#DEX', '#DeFi','#Bitdeer','#Blockstream',
+        '#FOMC','#RLUSD','#시카고상품거래소','#키발리스','#라울팔','#누바','#템포','#머니그램','#미카','#도호쿠은행','#SBIRemit','#소프트뱅크','#트웬티원캐피털','#화이트비트','#티머시매사드','#무로','#산탄데르',
 		'#IMF', '#TobiasAdrian', '#RWA', '#GENIUSAct','#Oracle','#Coinone', '#Korea', '#Japan', '#BankOfJapan', '#BankOfKorea',
 '#IMF', '#ABA', '#RWA', '#CBDC',
 '#MonicaLong', '#ODL', '#FedNow', '#Fedwire',
@@ -2711,6 +2820,7 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 아래 표현은 절대 쓰지 말 것:
   하락세, 약세, 급락, 반등 실패, 상승으로 이어지지 못함, 강세 전환 신호 없음, 불확실, 이유, 전망, 크로스오버
 - 가격 차트 해설 기사나 기술적 분석 기사처럼 보이면 빈 문자열만 반환할 것
+- 롱/숏/청산/시장심리/챌린지/광고성 캠페인/에어드롭/메인넷 출시 홍보처럼 보이면 빈 문자열만 반환할 것
 - 인물명, 기관명, 국가명, 법안명은 기사에 있으면 요약문 본문에 가능한 한 직접 1회 포함할 것
 - 예: Michael Barr, GENIUS Act, Australia, Hong Kong, HKMA, HSBC, Standard Chartered
 
@@ -2778,6 +2888,10 @@ def build_canonical_topic_key(story: dict) -> str:
         '일본': ['japan', '일본'],
         '한국': ['korea', 'south korea', '한국'],
         '중국': ['china', '중국'],
+        '유럽': ['eu', 'europe', 'european union', '유럽'],
+        '영국': ['uk', 'united kingdom', 'britain', '영국'],
+        '독일': ['germany', '독일'],
+        '이탈리아': ['italy', '이탈리아'],
     }
 
     for key, terms in geo_map.items():
@@ -2943,6 +3057,22 @@ def build_story_signature(story: dict) -> str:
 		'treasury': 'org_treasury',
         'genius group': 'org_geniusgroup',
         'empery digital': 'org_empery',
+        'fomc': 'org_fomc',
+        'cme': 'org_cme',
+        'qivalis': 'org_qivalis',
+        'tempo': 'org_tempo',
+        'moneygram': 'org_moneygram',
+        'allunity': 'org_allunity',
+        'kalqix': 'org_kalqix',
+        'truth social': 'org_truthsocial',
+        'tohoku bank': 'org_tohokubank',
+        'sbi remit': 'org_sbiremit',
+        'softbank': 'org_softbank',
+        'whitebit': 'org_whitebit',
+        'morgan stanley': 'org_morganstanley',
+        'santiment': 'org_santiment',
+        'santander': 'org_santander',
+        'nuva': 'org_nuva',
 		        'strategy': 'org_strategy',
         'strc': 'org_strategy',
         'michael saylor': 'org_strategy',
@@ -3061,12 +3191,12 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
     # 제목 유사도는 조금 완화
     for old_title in seen_titles:
         ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.80:
+        if ratio >= 0.88:
             log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
             return True
 
     # 시그니처가 너무 짧으면 중복판단 안 함
-    if len(signature.split('|')) < 2:
+    if len(signature.split('|')) < 3:
         return False
 
     # 액션(act_)이 같은 경우에만 강하게 중복 판정
@@ -3082,7 +3212,7 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
             continue
 
         ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if ratio >= 0.86:
+        if ratio >= 0.92:
             log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
             return True
 
@@ -3134,6 +3264,9 @@ def finalize_summary_ending(text: str) -> str:
 
     text = re.sub(r'했음고', '했고', text)
     text = re.sub(r'했음는', '했다는', text)
+    text = text.replace('있음고', '있다고')
+    text = text.replace('변화할 것임.', '변화할 것임')
+    text = re.sub(r'#([A-Za-z0-9가-힣]+)\s+\n', r'#\1\n', text)
 
     text = re.sub(r'\s+', ' ', text).strip()
     return text
@@ -3182,13 +3315,36 @@ def build_message(story: dict) -> str:
 
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
+    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     summary_ko = finalize_summary_ending(summary_ko)
 
     summary = summary_ko if summary_ko else story.get('title', '')
-    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=120)
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=115)
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
+    summary = summary.replace('가상자산', '암호화폐')
+    summary = summary.replace('리플 얼라이언스', 'XRP 얼라이언스')
+    summary = summary.replace('리플 고래', 'XRP 고래')
+    summary = summary.replace('리플 선물', 'XRP 선물')
+    summary = summary.replace('Santiment', '샌티먼트')
+    summary = summary.replace('Hester Peirce', '헤스터피어스')
+    summary = summary.replace('FOMC 회의록', '#FOMC 회의록')
+    summary = summary.replace('연준은', '#연준 은')
+    summary = summary.replace('연준 의장', '#연준 의장')
+    summary = summary.replace('CME ', '시카고상품거래소(CME) ')
+    summary = summary.replace('Qivalis', '키발리스')
+    summary = summary.replace('Raoul Pal', '라울팔')
+    summary = summary.replace('NUVA', '누바')
+    summary = summary.replace('Tempo', '템포')
+    summary = summary.replace('MoneyGram', '머니그램')
+    summary = summary.replace('MiCA', '미카')
+    summary = summary.replace('Truth Social', '트루스소셜')
+    summary = summary.replace('Tohoku Bank', '도호쿠은행')
+    summary = summary.replace('SoftBank', '소프트뱅크')
+    summary = summary.replace('Twenty One Capital', '트웬티원캐피털')
+    summary = summary.replace('WhiteBIT', '화이트비트')
+    summary = summary.replace('Timothy Massad', '티머시매사드')
 
     dynamic_tags = filter_final_tags(dynamic_tags)
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
