@@ -714,6 +714,13 @@ def is_chart_or_price_article(text: str) -> bool:
         r'저항선',
         r'목표가',
         r'반등',
+        r'선을\s*유지',
+        r'선\s*유지',
+        r'깨짐',
+        r'뚫음',
+        r'뚫림',
+        r'유지함',
+        r'유지 중',
         r'돌파',
         r'추세',
         r'공포탐욕',
@@ -2061,7 +2068,7 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     if 'tokenpost.kr/news/tech/' in url:
         return False
 
-    hard_irrelevant_terms = ['moew', 'realgo', 'fast or go home', 'allunity', 'kalqix', 'kalaix', 'challenge', 'mainnet launch', 'clob dex']
+    hard_irrelevant_terms = ['moew', 'realgo', 'fast or go home', 'allunity', 'kalqix', 'kalaix', 'challenge', 'mainnet launch', 'clob dex', 'agent', 'airdrop', 'launch campaign', 'wallet campaign']
     if any(t in raw_lower for t in hard_irrelevant_terms):
             print(f"[홍보/비관련 제외] {story.get('title', '')}")
             return False
@@ -2557,6 +2564,16 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#리플\n', '#XRP\n')
     text = text.replace('#F O M C', '#FOMC')
     text = text.replace('#헤스터 피어스', '#헤스터피어스')
+    text = text.replace('#리플', '#XRP')
+    text = text.replace('#X R P', '#XRP')
+    text = text.replace('#F O M C', '#FOMC')
+    text = text.replace('#시카고상품거래소', '#시카고상품거래소(CME)')
+    text = text.replace('#Qivalis', '#키발리스')
+    text = text.replace('#Nuva', '#누바')
+    text = text.replace('#Tempo', '#템포')
+    text = text.replace('#MoneyGram', '#머니그램')
+    text = text.replace('#Muro', '#무로')
+    text = text.replace('#Santander', '#산탄데르')
 
     return text
 
@@ -2872,6 +2889,17 @@ def normalize_for_duplicate(text: str) -> str:
 
     text = re.sub(r'https?://\S+', ' ', text)
     text = re.sub(r'[^a-z0-9가-힣\s]', ' ', text)
+    text = text.replace('ripple', 'xrp')
+    text = text.replace('cme group', 'cme')
+    text = text.replace('chicago mercantile exchange', 'cme')
+    text = text.replace('hester peirce', '헤스터피어스')
+    text = text.replace('qivalis', '키발리스')
+    text = text.replace('nuva', '누바')
+    text = text.replace('tempo', '템포')
+    text = text.replace('moneygram', '머니그램')
+    text = text.replace('raoul pal', '라울팔')
+    text = text.replace('muro', '무로')
+    text = text.replace('santander', '산탄데르')
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
@@ -3271,6 +3299,26 @@ def finalize_summary_ending(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 	
+
+
+def _normalize_footer_tags(tags: list[str]) -> list[str]:
+    mapping = {
+        '#Japan': '#일본', '#Bhutan': '#부탄', '#Germany': '#독일', '#US': '#미국', '#USA': '#미국',
+        '#Ripple': '#XRP', '#RL#미국D': '#RLUSD', '#F O M C': '#FOMC', '#HesterPeirce': '#헤스터피어스',
+        '#CME': '#시카고상품거래소(CME)', '#Qivalis': '#키발리스', '#RaoulPal': '#라울팔',
+        '#Nuva': '#누바', '#Tempo': '#템포', '#MoneyGram': '#머니그램', '#Muro': '#무로', '#Santander': '#산탄데르'
+    }
+    out=[]
+    seen=set()
+    for tag in tags:
+        tag = mapping.get(tag, tag)
+        if tag == '#리플':
+            tag = '#XRP'
+        if tag and tag not in seen:
+            out.append(tag)
+            seen.add(tag)
+    return out
+
 def build_message(story: dict) -> str:
     title = story.get('title', '')
     desc = story.get('desc', '')
@@ -3609,6 +3657,7 @@ _EXTRA_NEGATIVE_PATTERNS = [
     r'롱\s*베팅', r'숏\s*베팅', r'선물\s*시장', r'청산', r'대규모\s*청산',
     r'시장\s*심리', r'심리\s*악화', r'심리\s*위축',
     r'하락함', r'상승함', r'급락', r'급등', r'하락세', r'약세', r'반등',
+    r'선\s*유지', r'77,?000\s*달러\s*선', r'가격이\s*[^\n]{0,12}(유지|깨짐|뚫|돌파)', r'현물\s*etf\s*유출',
 ]
 
 _EVENT_RULES = {
@@ -3651,7 +3700,19 @@ _EVENT_RULES = {
     'geo_japan': [r'japan', r'일본'],
     'geo_bhutan': [r'bhutan', r'부탄'],
     'bill_clarity': [r'clarity act', r'시장구조법안', r'클래리티'],
+    'ent_qivalis': [r'qivalis', r'키발리스'],
+    'ent_raoulpal': [r'raoul pal', r'라울팔', r'라울\s*팔'],
+    'ent_nuva': [r'\bnuva\b', r'누바'],
+    'ent_tempo': [r'\btempo\b', r'템포'],
+    'ent_moneygram': [r'moneygram', r'머니그램'],
+    'ent_muro': [r'\bmuro\b', r'무로'],
+    'ent_santander': [r'santander', r'산탄데르'],
+    'ent_fomc': [r'\bfomc\b', r'FOMC'],
+    'ent_hester': [r'hester peirce', r'헤스터\s*피어스', r'헤스터피어스'],
+    'ent_cme': [r'\bcme\b', r'cme group', r'chicago mercantile exchange', r'시카고상품거래소'],
+    'obj_line_hold': [r'77,?000', r'선\s*유지', r'선을?\s*걸고?\s*유지', r'깨짐', r'뚫', r'돌파', r'지지선', r'저항선'],
 }
+
 
 def _story_text(story: dict) -> str:
     return f"{story.get('title','')} {story.get('desc','')}"
@@ -3670,6 +3731,12 @@ def _extract_event_markers(text: str) -> list[str]:
         out.append('amt_34eok_dollar')
     if re.search(r'1억\s*9300만\s*달러|193 million', low):
         out.append('amt_193m')
+    if re.search(r'630억\s*달러|63 billion', low):
+        out.append('amt_63b')
+    if re.search(r'4,?500억\s*개|450 billion', low):
+        out.append('amt_450b_units')
+    if re.search(r'25개\s*은행|37개\s*은행', low):
+        out.append('obj_bank_expansion')
     return sorted(set(out))
 
 def _normalize_signature_parts(parts):
@@ -3759,9 +3826,26 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
 def _clean_summary_for_style(text: str) -> str:
     text = text or ""
+    text = text.replace('가상자산', '암호화폐')
+    text = text.replace('있음고', '있다고')
+    text = text.replace('RL#미국D', '#RLUSD').replace('#R L U S D', '#RLUSD')
+    text = text.replace('리플 얼라이언스', 'XRP 얼라이언스')
+    text = text.replace('리플 고래', 'XRP 고래')
+    text = text.replace('리플 선물', 'XRP 선물')
     text = re.sub(r'시장 심리[^.\n]*', '', text)
     text = re.sub(r'가격을 끌어올리지 못함', '', text)
-    text = text.replace('있음고', '있다고')
+    text = re.sub(r'(?<!#)리플(?=\s*고래|\s*선물|\s*현물|\s*토큰|\s*네트워크|\s*얼라이언스)', 'XRP', text)
+    text = re.sub(r'(?<!#)XRP(?=\s*(고래|선물|현물|보유량|리워드|토큰))', '#XRP', text, count=1)
+    text = re.sub(r'(?<!#)FOMC(?=\s)', '#FOMC', text, count=1)
+    text = re.sub(r'(?<!#)헤스터피어스(?=\s)', '#헤스터피어스', text, count=1)
+    text = re.sub(r'(?<!#)시카고상품거래소\(CME\)(?=\s)', '#시카고상품거래소(CME)', text, count=1)
+    text = re.sub(r'(?<!#)키발리스(?=\s|[가-힣])', '#키발리스', text, count=1)
+    text = re.sub(r'(?<!#)라울팔(?=\s)', '#라울팔', text, count=1)
+    text = re.sub(r'(?<!#)누바(?=\s|,|\()', '#누바', text, count=1)
+    text = re.sub(r'(?<!#)템포(?=\s|,|\()', '#템포', text, count=1)
+    text = re.sub(r'(?<!#)무로(?=\s|,)', '#무로', text, count=1)
+    text = re.sub(r'(?<!#)산탄데르(?=\s|,)', '#산탄데르', text, count=1)
+    text = re.sub(r'(?<!#)RLUSD(?=\s|,|\))', '#RLUSD', text, count=1)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
@@ -3805,7 +3889,18 @@ def _ensure_case_tags(summary: str, story: dict, footer_tags: list[str]) -> list
         ('유니온인베스트먼트', [r'union investment', r'유니온인베스트먼트']),
         ('독일', [r'germany', r'독일']),
         ('CNBC', [r'\bcnbc\b']),
-        ('리플', [r'\bripple\b', r'리플']),
+        ('XRP', [r'\bxrp\b', r'\bripple\b', r'리플']),
+        ('FOMC', [r'\bfomc\b']),
+        ('헤스터피어스', [r'hester peirce', r'헤스터\s*피어스', r'헤스터피어스']),
+        ('시카고상품거래소(CME)', [r'\bcme\b', r'cme group', r'chicago mercantile exchange', r'시카고상품거래소']),
+        ('키발리스', [r'qivalis', r'키발리스']),
+        ('라울팔', [r'raoul pal', r'라울\s*팔', r'라울팔']),
+        ('누바', [r'\bnuva\b', r'누바']),
+        ('템포', [r'\btempo\b', r'템포']),
+        ('머니그램', [r'moneygram', r'머니그램']),
+        ('무로', [r'\bmuro\b', r'무로']),
+        ('산탄데르', [r'santander', r'산탄데르']),
+        ('RLUSD', [r'\brlusd\b', r'RLUSD']),
         ('금융', [r'금융', r'financial']),
         ('케빈워시', [r'kevin warsh', r'케빈워시', r'케빈 워시']),
         ('연준', [r'federal reserve', r'\bfed\b', r'연준']),
@@ -3869,6 +3964,7 @@ def build_message(story: dict) -> str:
     dynamic_tags = filter_final_tags(dynamic_tags)
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
     footer_tags = _ensure_case_tags(summary, story, footer_tags)
+    footer_tags = _normalize_footer_tags(footer_tags)
 
     inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
     footer_tags = [f for f in footer_tags if f not in inline_tags]
