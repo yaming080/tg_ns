@@ -3984,5 +3984,250 @@ def build_message(story: dict) -> str:
     ]
     return '\n\n'.join(parts)
 
+
+
+# ===== 2026-05-21 late patch: duplicate / XRP / SBI / price-line filtering =====
+
+_OLD_build_story_signature_v3 = build_story_signature
+_OLD_build_canonical_topic_key_v3 = build_canonical_topic_key
+_OLD_is_canonical_duplicate_v3 = is_canonical_duplicate
+_OLD_is_semantically_duplicate_v3 = is_semantically_duplicate
+_OLD_matches_keywords_v3 = matches_keywords
+_OLD_build_message_v3 = build_message
+
+_EXTRA_NEGATIVE_PATTERNS_V3 = [
+    r'\bholds? above\b', r'\bholds? below\b', r'\bholds? firm\b',
+    r'\bbreaks? above\b', r'\bbreaks? below\b', r'\bbreaking above\b', r'\bbreaking below\b',
+    r'\bprice (?:holds|held|holding)\b', r'\bprice action\b', r'\bmarket sentiment\b',
+    r'77,?000\s*dollar', r'77,?000달러', r'달러\s*선', r'지지선', r'저항선',
+    r'견고하게 유지', r'유지함', r'유지 중', r'깨짐', r'뚫음', r'돌파', r'버팀',
+    r'챌린지', r'challenge', r'fan story', r'promo', r'campaign',
+    r'moew', r'realgo', r'fast or go home', r'mainnet launch', r'clob dex',
+    r'truth social', r'etf launch plan', r'launch plan scrapped'
+]
+
+_EVENT_MARKER_PATTERNS_V3 = {
+    'evt_sbiremit_tohoku': [r'sbi\s*remit', r'sbiremit', r'sbi리밋', r'tohoku\s*bank', r'도호쿠은행'],
+    'evt_occ_warren': [r'elizabeth\s+warren', r'엘리자베스\s*워런', r'occ', r'trust\s*bank', r'신탁\s*은행'],
+    'evt_xrpalliance_dcent': [r'xrp\s*alliance', r'엑스알피얼라이언스', r'd[’\']?cent', r'디센트', r'mxrpy', r'earnxrp'],
+    'evt_iren_nvidia': [r'\biren\b', r'iris\s*energy', r'아이렌', r'nvidia', r'엔비디아'],
+    'evt_trump_fed_master': [r'trump', r'트럼프', r'fed', r'연준', r'master\s*account', r'마스터\s*계정'],
+    'evt_hanwha_dunamu': [r'한화투자증권', r'hanwha\s*investment', r'dunamu', r'두나무'],
+    'evt_qivalis_banks': [r'qivalis', r'키발리스', r'stablecoin', r'25\s*개\s*은행', r'37\s*개\s*은행'],
+    'evt_moneygram_tempo': [r'moneygram', r'머니그램', r'tempo', r'템포', r'stripe', r'스트라이프'],
+    'evt_mica_review': [r'\bmica\b', r'미카', r'defi', r'스테이블코인\s*이자'],
+    'evt_rlusd': [r'\brlusd\b'],
+    'evt_cme_xrp': [r'\bcme\b', r'시카고상품거래소', r'\bxrp\b', r'630억\s*달러'],
+}
+
+_FORCED_INLINE_MAP_V3 = [
+    ('XRP', [r'\bxrp\b']),
+    ('FOMC', [r'\bfomc\b']),
+    ('헤스터피어스', [r'hester\s+peirce', r'헤스터\s*피어스', r'헤스터피어스']),
+    ('시카고상품거래소(CME)', [r'\bcme\b', r'cme\s+group', r'chicago\s+mercantile\s+exchange', r'시카고상품거래소']),
+    ('SBI', [r'\bsbi\b']),
+    ('SBI리밋', [r'sbi\s*remit', r'sbiremit', r'sbi리밋']),
+    ('리플', [r'\bripple\b', r'리플', r'ripplenet', r'리플넷']),
+    ('리플넷', [r'ripplenet', r'리플넷']),
+    ('도호쿠은행', [r'tohoku\s*bank', r'도호쿠은행']),
+    ('키발리스', [r'qivalis', r'키발리스']),
+    ('무로', [r'\bmuro\b', r'무로']),
+    ('산탄데르', [r'santander', r'산탄데르']),
+    ('라울팔', [r'raoul\s+pal', r'라울\s*팔', r'라울팔']),
+    ('누바', [r'\bnuva\b', r'누바']),
+    ('템포', [r'\btempo\b', r'템포']),
+    ('머니그램', [r'moneygram', r'머니그램']),
+    ('RLUSD', [r'\brlusd\b']),
+]
+
+_EXTRA_FOOTER_TAGS_V3 = [
+    ('#SBI', [r'\bsbi\b']),
+    ('#SBI리밋', [r'sbi\s*remit', r'sbiremit', r'sbi리밋']),
+    ('#리플', [r'\bripple\b', r'리플', r'ripplenet', r'리플넷']),
+    ('#XRP', [r'\bxrp\b']),
+    ('#FOMC', [r'\bfomc\b']),
+    ('#헤스터피어스', [r'hester\s+peirce', r'헤스터\s*피어스', r'헤스터피어스']),
+    ('#시카고상품거래소', [r'\bcme\b', r'cme\s+group', r'시카고상품거래소']),
+    ('#금융', [r'금융', r'financial']),
+    ('#도호쿠은행', [r'tohoku\s*bank', r'도호쿠은행']),
+    ('#리플넷', [r'ripplenet', r'리플넷']),
+    ('#RLUSD', [r'\brlusd\b']),
+]
+
+def _story_text_v3(story: dict) -> str:
+    return f"{story.get('title','')} {story.get('desc','')}"
+
+
+def _extract_event_markers_v3(text: str) -> list[str]:
+    low = normalize_for_duplicate(text or '')
+    found = []
+    for key, patterns in _EVENT_MARKER_PATTERNS_V3.items():
+        if any(re.search(p, low, re.I) for p in patterns):
+            found.append(key)
+    return found
+
+
+def _normalize_sig_parts_v3(parts: list[str]) -> list[str]:
+    out = []
+    seen = set()
+    for p in parts:
+        p = p.strip()
+        if not p:
+            continue
+        if p not in seen:
+            out.append(p)
+            seen.add(p)
+    return sorted(out)
+
+
+def build_story_signature(story: dict) -> str:
+    base = _OLD_build_story_signature_v3(story)
+    parts = [p.strip() for p in base.split('|') if p.strip()]
+    parts.extend(_extract_event_markers_v3(_story_text_v3(story)))
+    return ' | '.join(_normalize_sig_parts_v3(parts))
+
+
+def build_canonical_topic_key(story: dict) -> str:
+    base = _OLD_build_canonical_topic_key_v3(story)
+    parts = [p.strip() for p in base.split('|') if p.strip()]
+    parts.extend(_extract_event_markers_v3(_story_text_v3(story)))
+    return ' | '.join(_normalize_sig_parts_v3(parts))
+
+
+def _core_event_tokens_v3(key: str) -> set:
+    toks = {x.strip() for x in (key or '').split('|') if x.strip()}
+    return {t for t in toks if not t.startswith('asset_') and not t.startswith('geo_')}
+
+
+def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
+    if not canonical_key:
+        return False
+    cur_all = {x.strip() for x in canonical_key.split('|') if x.strip()}
+    cur_core = _core_event_tokens_v3(canonical_key)
+    for old_key in seen_keys:
+        old_all = {x.strip() for x in old_key.split('|') if x.strip()}
+        old_core = _core_event_tokens_v3(old_key)
+        shared_core = cur_core & old_core
+        shared_all = cur_all & old_all
+        if len(shared_core) >= 2:
+            log(f"[정규토픽중복 제외] shared_core={shared_core}")
+            return True
+        if len(shared_core) >= 1 and len(shared_all) >= 4:
+            log(f"[정규토픽유사 제외] shared_all={shared_all}")
+            return True
+    return False
+
+
+def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
+    title = normalize_for_duplicate(story.get('title', ''))
+    signature = build_story_signature(story)
+    cur_all = {x.strip() for x in signature.split('|') if x.strip()}
+    cur_core = _core_event_tokens_v3(signature)
+
+    for old_title in seen_titles:
+        ratio = SequenceMatcher(None, title, old_title).ratio()
+        if ratio >= 0.92:
+            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
+            return True
+
+    if len(cur_all) < 3:
+        return False
+
+    for old_sig in seen_signatures:
+        old_all = {x.strip() for x in old_sig.split('|') if x.strip()}
+        old_core = _core_event_tokens_v3(old_sig)
+        shared_core = cur_core & old_core
+        shared_all = cur_all & old_all
+        if len(shared_core) >= 2:
+            log(f"[의미중복 제외] shared_core={shared_core}")
+            return True
+        if len(shared_core) >= 1 and len(shared_all) >= 4:
+            log(f"[시그니처 교집합 중복] {signature} <> {old_sig}")
+            return True
+    return False
+
+
+def _is_price_level_article_v3(text: str) -> bool:
+    low = (text or '').lower()
+    price_terms = [
+        '77,000달러', '달러 선', '견고하게 유지', '유지함', '유지 중', '깨짐', '뚫음', '돌파',
+        'price holds', 'holding above', 'holding below', 'holds above', 'holds below', 'price action',
+        '지지선', '저항선', '버팀'
+    ]
+    market_terms = ['비트코인 가격', 'btc 현물', 'btc spot etf', 'etf 유출', '시장 심리']
+    return any(t in low for t in price_terms) and any(t in low for t in market_terms)
+
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    raw_text = _story_text_v3(story)
+    raw_lower = raw_text.lower()
+    if any(re.search(p, raw_lower, re.I) for p in _EXTRA_NEGATIVE_PATTERNS_V3):
+        print(f"[홍보/시황 제외] {story.get('title', '')}")
+        return False
+    if _is_price_level_article_v3(raw_text):
+        print(f"[가격레벨 기사 제외] {story.get('title', '')}")
+        return False
+    return _OLD_matches_keywords_v3(story, coins, econ_keywords, korean_keywords)
+
+
+def _clean_summary_for_style_v3(text: str) -> str:
+    text = (text or '').replace('가상자산', '암호화폐').replace('있음고', '있다고')
+    text = text.replace('RL#미국D', '#RLUSD').replace('#R L U S D', '#RLUSD')
+    text = text.replace('RippleNet', '리플넷').replace('SBI Remit', 'SBI리밋').replace('SBIRemit', 'SBI리밋')
+    text = text.replace('리플 얼라이언스', 'XRP 얼라이언스').replace('리플 고래', 'XRP 고래').replace('리플 선물', 'XRP 선물')
+    text = re.sub(r'시장 심리[^.\n]*', '', text)
+    text = re.sub(r'가격을 끌어올리지 못함', '', text)
+    # first important inline tags
+    for tag, patterns in _FORCED_INLINE_MAP_V3:
+        if f'#{tag}' in text:
+            continue
+        for p in patterns:
+            m = re.search(p, text, re.I)
+            if m:
+                found = text[m.start():m.end()]
+                text = text[:m.start()] + '#' + found + text[m.end():]
+                break
+    # preserve XRP as XRP, not 리플, when ticker/context exists
+    text = re.sub(r'(?<!#)리플(?=\s*(고래|선물|현물|보유량|리워드|토큰))', 'XRP', text)
+    text = re.sub(r'(?<![#A-Za-z0-9가-힣])XRP(?![A-Za-z0-9가-힣])', '#XRP', text, count=1)
+    text = text.replace('#헤스터피어스 후임', '#헤스터피어스 후임 인선') if '후임 인선' in text else text
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+
+def _ensure_case_tags_v3(summary: str, story: dict, footer_tags: list[str]) -> list[str]:
+    text = _story_text_v3(story) + ' ' + (summary or '')
+    for tag, patterns in _EXTRA_FOOTER_TAGS_V3:
+        if any(re.search(p, text, re.I) for p in patterns):
+            if tag not in footer_tags:
+                footer_tags.append(tag)
+    return footer_tags
+
+
+def build_message(story: dict) -> str:
+    message = _OLD_build_message_v3(story)
+    parts = message.split('\n\n')
+    if not parts:
+        return message
+    summary = parts[0]
+    summary = html.unescape(summary)
+    summary = _clean_summary_for_style_v3(summary)
+    # regenerate footer line if present
+    if len(parts) >= 4:
+        footer_tags = parts[-1].split()
+        footer_tags = _ensure_case_tags_v3(summary, story, footer_tags)
+        footer_tags = _normalize_footer_tags(footer_tags)
+        inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣()]+', summary))
+        dedup=[]; seen=set()
+        for t in footer_tags:
+            if t in inline_tags:
+                continue
+            if t not in seen:
+                dedup.append(t); seen.add(t)
+        parts[0] = html.escape(summary)
+        parts[-1] = ' '.join(html.escape(t) for t in dedup)
+        return '\n\n'.join(parts)
+    return message
+
 if __name__ == '__main__':
     main()
