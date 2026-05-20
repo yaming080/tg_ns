@@ -78,7 +78,7 @@ KOREAN_TAG_KEYWORDS = [
 '시바이누', '스테이블코인',
 '미국', '이란', '이스라엘', '일본', '한국', '중국', '브라질',
 '연준', '환율', '유동성', '재무부',
-'ETF', 'SEC', 'CFTC', 'OCC',
+'ETF', 'SEC', 'CFTC', 'OCC', 'Polymarket', '폴리마켓',
 '업비트', '빗썸', '바이낸스', '코인베이스',
 '모건스탠리', '골드만삭스', '크라켄', '로빈후드',
 '일론머스크', '갈링하우스', '제롬파월', '트럼프',
@@ -783,7 +783,7 @@ def is_pure_macro_article(text: str) -> bool:
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
 
 INLINE_TAG_WHITELIST = {
-    '미국', 'CFTC', 'Elizabeth Warren', '엘리자베스워런',
+    '미국', 'CFTC', 'Polymarket', '폴리마켓', 'Elizabeth Warren', '엘리자베스워런',
     '정부', '비트코인', 'BTC', 'ETH', 'XRP',
     '연준', 'SEC', 'ETF', '재무부', '상원', '하원',
     '아이언라이트', '보어히스', '에릭보어히스',
@@ -883,6 +883,9 @@ INLINE_TAG_WHITELIST = {
 
 
 MANUAL_TRANSLATIONS = {
+    'Polymarket': '폴리마켓',
+    '폴리마켓': '폴리마켓',
+
     'Ironlight': '아이언라이트',
     '아이언라이트': '아이언라이트',
 
