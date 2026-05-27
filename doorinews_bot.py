@@ -4232,5 +4232,245 @@ def build_message(story: dict) -> str:
         return '\n\n'.join(parts)
     return message
 
+
+# ===== 2026-05-28 patch: keyword filtering / duplicate tuning / tag fixes =====
+
+from urllib.parse import urlparse, parse_qsl, urlencode
+
+_EXTRA_NEGATIVE_PATTERNS_V5 = [
+    r'ai\s+make\s+you\s+stupid',
+    r'ai\s+aggressively',
+    r'critical thinking',
+    r'new meme coin takes over',
+    r'top\s*5\s*meme\s*coins',
+    r'outperform\s+shiba\s+inu',
+    r'fall behind in 2026',
+    r'crypto market review',
+    r'market review',
+    r'dormant wallet',
+    r'wallets?\s+torch',
+    r'\bburn(?:ed|s)?\b',
+    r'630000\s*gain',
+    r'630000%\s*gain',
+    r'crypto pac',
+    r'runoff',
+    r'liquidity on binance falls',
+    r'lowest level since 2020',
+    r'higher expected roi',
+    r'blue\-?chip breakouts',
+    r'question of time',
+    r'sellers exhausted',
+    r'cheap btc',
+    r'value investor',
+    r'78k',
+    r'are we supposed to use ai',
+    r'will ai make you',
+    r'mystery bitcoin burn',
+    r'11\s*year',
+    r'10\.8\s*years?',
+    r'old wallet',
+    r'ethereum og',
+    r'wakes 10 years',
+    r'crypto\s+pac\s+backed',
+    r'unseats al green',
+    r'zero addition',
+    r'recovery starts',
+    r'flipping a \$?1000 position',
+    r'ozak ai',
+    r'roi',
+    r'잠재력을 보임',
+    r'뒤처지',
+    r'시바이누보다',
+    r'도지코인보다',
+    r'시장 리뷰',
+    r'소각',
+    r'휴면 지갑',
+    r'오래된 지갑',
+    r'정치자금',
+    r'결선투표',
+    r'유동성 하락',
+    r'최저 수준',
+    r'밈코인 비교',
+    r'가치 투자자',
+    r'저렴한 가격',
+]
+
+
+def normalize_url(url: str) -> str:
+    url = (url or '').strip().lower()
+    if not url:
+        return ''
+
+    parsed = urlparse(url)
+    drop_prefixes = ('utm_',)
+    drop_exact = {
+        'rss', 'output', 'ref', 'ref_src', 'ref_url',
+        'fbclid', 'gclid', 'igshid', 'mc_cid', 'mc_eid'
+    }
+
+    kept = []
+    for k, v in parse_qsl(parsed.query, keep_blank_values=False):
+        kl = k.lower()
+        if kl.startswith(drop_prefixes):
+            continue
+        if kl in drop_exact:
+            continue
+        kept.append((kl, v))
+
+    clean_query = urlencode(sorted(kept))
+    path = parsed.path.rstrip('/')
+    clean = f"{parsed.netloc}{path}"
+    if clean_query:
+        clean += f"?{clean_query}"
+    return clean
+
+
+def is_negative_portfolio_article_v5(text: str) -> bool:
+    low = (text or '').lower()
+
+    portfolio_terms = [
+        'btc', 'bitcoin', 'eth', 'ethereum', 'xrp', 'ripple',
+        'shib', 'shiba inu', 'doge', 'dogecoin',
+        '비트코인', '이더리움', '리플', '시바이누', '도지코인'
+    ]
+
+    negative_terms = [
+        'fall behind', 'lag behind', 'sellers exhausted', 'liquidity falls',
+        'lowest level', 'market review', 'question of time',
+        'outperform shiba inu', 'new meme coin takes over',
+        '뒤처지', '밀리', '최저 수준', '유동성 하락', '시장 리뷰', '소진',
+        '잠재력을 보임', '회복 시작', '추가 시간 문제', '판매자 소진'
+    ]
+
+    return any(t in low for t in portfolio_terms) and any(t in low for t in negative_terms)
+
+
+_EVENT_MARKER_PATTERNS_V3.update({
+    'evt_banca_sella_mica': [
+        r'banca\s+sella', r'방카\s*셀라', r'\bmica\b', r'이탈리아',
+        r'custody', r'transfers', r'수탁', r'전송'
+    ],
+    'evt_korea_election_crypto_pledge': [
+        r'지방선거', r'더불어민주당', r'국민의힘',
+        r'암호화폐\s*정책', r'현물\s*etf', r'소득세'
+    ],
+    'evt_georgia_tether_gel': [
+        r'조지아', r'georgia', r'테더', r'usdt', r'gel', r'라리', r'스테이블코인'
+    ],
+    'evt_spain_polymarket_kalshi': [
+        r'spain', r'스페인', r'polymarket', r'폴리마켓', r'kalshi', r'칼시'
+    ],
+})
+
+_FORCED_INLINE_MAP_V3.extend([
+    ('더불어민주당', [r'더불어민주당']),
+    ('국민의힘', [r'국민의힘']),
+    ('ETF', [r'\betf\b', r'현물\s*etf']),
+    ('소득세', [r'소득세']),
+    ('지방선거', [r'지방선거']),
+    ('스페인', [r'spain', r'스페인']),
+    ('폴리마켓', [r'polymarket', r'폴리마켓']),
+    ('칼시', [r'kalshi', r'칼시']),
+    ('조지아', [r'georgia', r'조지아']),
+    ('테더', [r'tether', r'테더']),
+    ('USDT', [r'\busdt\b']),
+])
+
+_EXTRA_FOOTER_TAGS_V3.extend([
+    ('#더불어민주당', [r'더불어민주당']),
+    ('#국민의힘', [r'국민의힘']),
+    ('#ETF', [r'\betf\b', r'현물\s*etf']),
+    ('#소득세', [r'소득세']),
+    ('#Spain', [r'spain', r'스페인']),
+    ('#Polymarket', [r'polymarket', r'폴리마켓']),
+    ('#Kalshi', [r'kalshi', r'칼시']),
+    ('#Georgia', [r'georgia', r'조지아']),
+    ('#Tether', [r'tether', r'테더']),
+    ('#USDT', [r'\busdt\b']),
+])
+
+_OLD_matches_keywords_v5 = matches_keywords
+_OLD_is_canonical_duplicate_v5 = is_canonical_duplicate
+_OLD_is_semantically_duplicate_v5 = is_semantically_duplicate
+_OLD_filter_final_tags_v5 = filter_final_tags
+
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    raw_text = _story_text_v3(story)
+    raw_lower = raw_text.lower()
+
+    if any(re.search(p, raw_lower, re.I) for p in _EXTRA_NEGATIVE_PATTERNS_V5):
+        print(f"[관련없는기사 제외] {story.get('title', '')}")
+        return False
+
+    if is_negative_portfolio_article_v5(raw_text):
+        print(f"[포폴부정기사 제외] {story.get('title', '')}")
+        return False
+
+    return _OLD_matches_keywords_v5(story, coins, econ_keywords, korean_keywords)
+
+
+def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
+    if not canonical_key:
+        return False
+    cur_all = {x.strip() for x in canonical_key.split('|') if x.strip()}
+    cur_core = _core_event_tokens_v3(canonical_key)
+    for old_key in seen_keys:
+        old_all = {x.strip() for x in old_key.split('|') if x.strip()}
+        old_core = _core_event_tokens_v3(old_key)
+        shared_core = cur_core & old_core
+        shared_all = cur_all & old_all
+        if len(shared_core) >= 2:
+            log(f"[정규토픽중복 제외] shared_core={shared_core}")
+            return True
+        if len(shared_core) >= 1 and len(shared_all) >= 3:
+            log(f"[정규토픽유사 제외] shared_all={shared_all}")
+            return True
+    return False
+
+
+def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
+    title = normalize_for_duplicate(story.get('title', ''))
+    signature = build_story_signature(story)
+    cur_all = {x.strip() for x in signature.split('|') if x.strip()}
+    cur_core = _core_event_tokens_v3(signature)
+
+    for old_title in seen_titles:
+        ratio = SequenceMatcher(None, title, old_title).ratio()
+        if ratio >= 0.88:
+            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
+            return True
+
+    if len(cur_all) < 3:
+        return False
+
+    for old_sig in seen_signatures:
+        old_all = {x.strip() for x in old_sig.split('|') if x.strip()}
+        old_core = _core_event_tokens_v3(old_sig)
+        shared_core = cur_core & old_core
+        shared_all = cur_all & old_all
+        if len(shared_core) >= 2:
+            log(f"[의미중복 제외] shared_core={shared_core}")
+            return True
+        if len(shared_core) >= 1 and len(shared_all) >= 3:
+            log(f"[시그니처 교집합 중복] {signature} <> {old_sig}")
+            return True
+        ratio = SequenceMatcher(None, signature, old_sig).ratio()
+        if len(shared_core) >= 1 and ratio >= 0.89:
+            log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
+            return True
+    return False
+
+
+def filter_final_tags(tags: list[str]) -> list[str]:
+    out = _OLD_filter_final_tags_v5(tags)
+    extra_allowed = {'#Polymarket', '#Kalshi', '#Spain', '#더불어민주당', '#국민의힘', '#소득세', '#Georgia', '#Tether'}
+    seen = set(out)
+    for tag in tags:
+        if tag in extra_allowed and tag not in seen:
+            out.append(tag)
+            seen.add(tag)
+    return out
+
 if __name__ == '__main__':
     main()
