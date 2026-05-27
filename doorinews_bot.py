@@ -4472,5 +4472,100 @@ def filter_final_tags(tags: list[str]) -> list[str]:
             seen.add(tag)
     return out
 
+
+
+# ===== 2026-05-28 tag patch: Jamie Dimon / United Texas Bank =====
+
+KOREAN_TAG_KEYWORDS.extend([
+    'JP모건', '제이미다이먼', 'CEO', '유나이티드텍사스은행', '은행', '월스트리트'
+])
+
+INLINE_TAG_WHITELIST.update({
+    'JP모건', '제이미다이먼', 'CEO', '유나이티드텍사스은행', '은행', '월스트리트',
+    'Jamie Dimon', 'JPMorgan', 'United Texas Bank', 'Wall Street'
+})
+
+MANUAL_TRANSLATIONS.update({
+    'JPMorgan': 'JP모건',
+    'JP Morgan': 'JP모건',
+    'Jamie Dimon': '제이미다이먼',
+    '제이미 다이먼': '제이미다이먼',
+    '제이미다이먼': '제이미다이먼',
+    'CEO': 'CEO',
+    'United Texas Bank': '유나이티드텍사스은행',
+    'UnitedTexasBank': '유나이티드텍사스은행',
+    'Wall Street': '월스트리트',
+    '월스트리트': '월스트리트',
+    'bank': '은행',
+    'Bank': '은행',
+    '은행': '은행',
+})
+
+_FORCED_INLINE_MAP_V3.extend([
+    ('JP모건', [r'jpmorgan', r'jp\s*morgan', r'jp모건']),
+    ('제이미다이먼', [r'jamie\s+dimon', r'제이미\s*다이먼', r'제이미다이먼']),
+    ('CEO', [r'\bceo\b']),
+    ('유나이티드텍사스은행', [r'united\s+texas\s+bank']),
+    ('은행', [r'\bbank\b', r'은행']),
+    ('월스트리트', [r'wall\s*street', r'월스트리트']),
+])
+
+_EXTRA_FOOTER_TAGS_V3.extend([
+    ('#JPMorgan', [r'jpmorgan', r'jp\s*morgan']),
+    ('#JamieDimon', [r'jamie\s+dimon', r'제이미\s*다이먼', r'제이미다이먼']),
+    ('#CEO', [r'\bceo\b']),
+    ('#UTB', [r'united\s+texas\s+bank']),
+    ('#WallStreet', [r'wall\s*street', r'월스트리트']),
+])
+
+_OLD_clean_summary_for_style_v6 = _clean_summary_for_style_v3
+def _clean_summary_for_style_v3(text: str) -> str:
+    text = _OLD_clean_summary_for_style_v6(text)
+    text = text.replace('United Texas Bank', '유나이티드텍사스은행')
+    text = text.replace('UnitedTexasBank', '유나이티드텍사스은행')
+    text = text.replace('JP Morgan', 'JP모건')
+    text = text.replace('JPMorgan', 'JP모건')
+    text = text.replace('Jamie Dimon', '제이미다이먼')
+    text = text.replace('Wall Street', '월스트리트')
+    text = re.sub(r'(?<!#)JP모건(?=\s|CEO| ceo|은|는|이|가|의)', '#JP모건', text, count=1)
+    text = re.sub(r'(?<!#)제이미다이먼(?=\s|은|는|이|가|의)', '#제이미다이먼', text, count=1)
+    text = re.sub(r'(?<!#)CEO(?=\s|은|는|이|가|의)', '#CEO', text, count=1)
+    text = re.sub(r'(?<!#)유나이티드텍사스은행(?=\s|은|는|이|가|의)', '#유나이티드텍사스은행', text, count=1)
+    text = re.sub(r'(?<!#)월스트리트(?=\s|은|는|이|가|의)', '#월스트리트', text, count=1)
+    text = re.sub(r'(?<!#)은행(?=\s|은|는|이|가|의)', '#은행', text, count=1)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+_OLD_ensure_case_tags_v6 = _ensure_case_tags_v3
+def _ensure_case_tags_v3(summary: str, story: dict, footer_tags: list[str]) -> list[str]:
+    footer_tags = _OLD_ensure_case_tags_v6(summary, story, footer_tags)
+    text = _story_text_v3(story) + ' ' + (summary or '')
+    extra = [
+        ('#JPMorgan', [r'jpmorgan', r'jp\s*morgan']),
+        ('#JamieDimon', [r'jamie\s+dimon', r'제이미\s*다이먼', r'제이미다이먼']),
+        ('#CEO', [r'\bceo\b']),
+        ('#UTB', [r'united\s+texas\s+bank']),
+        ('#WallStreet', [r'wall\s*street', r'월스트리트']),
+    ]
+    for tag, patterns in extra:
+        if any(re.search(p, text, re.I) for p in patterns):
+            if tag not in footer_tags:
+                footer_tags.append(tag)
+    return footer_tags
+
+_OLD_filter_final_tags_v6 = filter_final_tags
+def filter_final_tags(tags: list[str]) -> list[str]:
+    out = _OLD_filter_final_tags_v6(tags)
+    extra_allowed = {
+        '#JPMorgan', '#JamieDimon', '#CEO', '#UTB', '#WallStreet',
+        '#JP모건', '#제이미다이먼', '#유나이티드텍사스은행', '#월스트리트', '#은행'
+    }
+    seen = set(out)
+    for tag in tags:
+        if tag in extra_allowed and tag not in seen:
+            out.append(tag)
+            seen.add(tag)
+    return out
+
 if __name__ == '__main__':
     main()
