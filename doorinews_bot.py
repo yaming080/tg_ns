@@ -11,7 +11,6 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from html import unescape
-from inspect import iscoroutine
 from difflib import SequenceMatcher
 
 from openai import OpenAI
@@ -2293,23 +2292,10 @@ def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
 def translate_text_to_korean(text: str) -> str:
     if not text:
         return ""
-    try:
-        from googletrans import Translator  # type: ignore
-        translator = Translator()
-        result = translator.translate(text, dest='ko')
-        if iscoroutine(result):
-            result = asyncio.run(result)
-        return result.text
-    except Exception:
-        try:
-            from googletrans import Translator  # type: ignore
-            async def _translate(src: str) -> str:
-                async with Translator() as trans:
-                    r = await trans.translate(src, dest='ko')
-                    return r.text
-            return asyncio.run(_translate(text))
-        except Exception:
-            return text
+
+    # OpenAI 요약 실패 시 최소 fallback
+    # 별도 번역 패키지 없이 원문을 그대로 반환
+    return text
 
 def normalize_style(text: str) -> str:
     rules = [
