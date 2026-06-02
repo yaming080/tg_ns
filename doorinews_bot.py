@@ -14,13 +14,15 @@ from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
 
-from google import genai
+from openai import OpenAI
 
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5.4-mini").strip() or "gpt-5.4-mini"
+openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
 FEEDS = [
     ('CryptoBriefing', 'https://cryptobriefing.com/feed/'),
@@ -1631,8 +1633,8 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 6
 SUMMARY_SENTENCES = 3
-GEMINI_INPUT_COST_PER_1M = 0.30
-GEMINI_OUTPUT_COST_PER_1M = 2.50
+OPENAI_INPUT_COST_PER_1M = 0.75
+OPENAI_OUTPUT_COST_PER_1M = 4.50
 AVG_CHARS_PER_TOKEN = 4
 SHOW_COST_LOG = True
 
@@ -1651,19 +1653,19 @@ def estimate_tokens_from_text(text: str) -> int:
     return max(1, int(len(text) / AVG_CHARS_PER_TOKEN))
 
 
-def log_gemini_cost(title: str, prompt: str, output: str) -> None:
+def log_openai_cost(title: str, prompt: str, output: str) -> None:
     if not SHOW_COST_LOG:
         return
 
     input_tokens = estimate_tokens_from_text(prompt)
     output_tokens = estimate_tokens_from_text(output)
 
-    input_cost = (input_tokens / 1_000_000) * GEMINI_INPUT_COST_PER_1M
-    output_cost = (output_tokens / 1_000_000) * GEMINI_OUTPUT_COST_PER_1M
+    input_cost = (input_tokens / 1_000_000) * OPENAI_INPUT_COST_PER_1M
+    output_cost = (output_tokens / 1_000_000) * OPENAI_OUTPUT_COST_PER_1M
     total_cost = input_cost + output_cost
 
     log(
-        f"[Gemini 비용] {title[:60]} | "
+        f"[OpenAI 비용] {title[:60]} | "
         f"입력토큰≈{input_tokens} | 출력토큰≈{output_tokens} | "
         f"예상비용≈${total_cost:.6f}"
     )
@@ -2802,12 +2804,10 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
     if not source_text:
         source_text = title.strip()
 
-    if not GEMINI_API_KEY:
+    if not openai_client:
         return ""
 
     try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
-
         prompt = f"""
 너는 텔레그램 암호화폐 뉴스 채널 편집자다.
 
@@ -2819,7 +2819,7 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 해시태그는 마지막 footer에서만 사용됨
 - 사람 이름, 기관명, 코인명도 일반 텍스트로 자연스럽게 작성
 - 해시태그 사용하면 띄어쓰기 필수
-- 한국어 띄어쓰기를 자연스럽게 유지할 
+- 한국어 띄어쓰기를 자연스럽게 유지
 - 반드시 2~3문장만 작성
 - 각 문장은 짧게 작성
 - 한 문장이 끝날 때마다 반드시 한 줄 띄울 것
@@ -2851,12 +2851,12 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 {source_text}
 """.strip()
 
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
+        response = openai_client.responses.create(
+            model=OPENAI_MODEL,
+            input=prompt,
         )
 
-        text = getattr(response, "text", "") or ""
+        text = (response.output_text or "").strip()
         text = cleanup_text(text)
         text = fix_translation_terms(text)
         text = fix_truncated_phrases(text)
@@ -2866,14 +2866,12 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = re.sub(r'[ \t]+', ' ', text)
         text = re.sub(r'\n{3,}', '\n\n', text).strip()
 
-        log_gemini_cost(title, prompt, text)
-
+        log_openai_cost(title, prompt, text)
         return text
 
     except Exception as e:
-        log(f"Gemini 요약 실패: {e}")
+        log(f"OpenAI 요약 실패: {e}")
         return ""
-
 
 def normalize_for_duplicate(text: str) -> str:
     text = text.lower()
@@ -4231,341 +4229,6 @@ def build_message(story: dict) -> str:
         parts[-1] = ' '.join(html.escape(t) for t in dedup)
         return '\n\n'.join(parts)
     return message
-
-
-# ===== 2026-05-28 patch: keyword filtering / duplicate tuning / tag fixes =====
-
-from urllib.parse import urlparse, parse_qsl, urlencode
-
-_EXTRA_NEGATIVE_PATTERNS_V5 = [
-    r'ai\s+make\s+you\s+stupid',
-    r'ai\s+aggressively',
-    r'critical thinking',
-    r'new meme coin takes over',
-    r'top\s*5\s*meme\s*coins',
-    r'outperform\s+shiba\s+inu',
-    r'fall behind in 2026',
-    r'crypto market review',
-    r'market review',
-    r'dormant wallet',
-    r'wallets?\s+torch',
-    r'\bburn(?:ed|s)?\b',
-    r'630000\s*gain',
-    r'630000%\s*gain',
-    r'crypto pac',
-    r'runoff',
-    r'liquidity on binance falls',
-    r'lowest level since 2020',
-    r'higher expected roi',
-    r'blue\-?chip breakouts',
-    r'question of time',
-    r'sellers exhausted',
-    r'cheap btc',
-    r'value investor',
-    r'78k',
-    r'are we supposed to use ai',
-    r'will ai make you',
-    r'mystery bitcoin burn',
-    r'11\s*year',
-    r'10\.8\s*years?',
-    r'old wallet',
-    r'ethereum og',
-    r'wakes 10 years',
-    r'crypto\s+pac\s+backed',
-    r'unseats al green',
-    r'zero addition',
-    r'recovery starts',
-    r'flipping a \$?1000 position',
-    r'ozak ai',
-    r'roi',
-    r'잠재력을 보임',
-    r'뒤처지',
-    r'시바이누보다',
-    r'도지코인보다',
-    r'시장 리뷰',
-    r'소각',
-    r'휴면 지갑',
-    r'오래된 지갑',
-    r'정치자금',
-    r'결선투표',
-    r'유동성 하락',
-    r'최저 수준',
-    r'밈코인 비교',
-    r'가치 투자자',
-    r'저렴한 가격',
-]
-
-
-def normalize_url(url: str) -> str:
-    url = (url or '').strip().lower()
-    if not url:
-        return ''
-
-    parsed = urlparse(url)
-    drop_prefixes = ('utm_',)
-    drop_exact = {
-        'rss', 'output', 'ref', 'ref_src', 'ref_url',
-        'fbclid', 'gclid', 'igshid', 'mc_cid', 'mc_eid'
-    }
-
-    kept = []
-    for k, v in parse_qsl(parsed.query, keep_blank_values=False):
-        kl = k.lower()
-        if kl.startswith(drop_prefixes):
-            continue
-        if kl in drop_exact:
-            continue
-        kept.append((kl, v))
-
-    clean_query = urlencode(sorted(kept))
-    path = parsed.path.rstrip('/')
-    clean = f"{parsed.netloc}{path}"
-    if clean_query:
-        clean += f"?{clean_query}"
-    return clean
-
-
-def is_negative_portfolio_article_v5(text: str) -> bool:
-    low = (text or '').lower()
-
-    portfolio_terms = [
-        'btc', 'bitcoin', 'eth', 'ethereum', 'xrp', 'ripple',
-        'shib', 'shiba inu', 'doge', 'dogecoin',
-        '비트코인', '이더리움', '리플', '시바이누', '도지코인'
-    ]
-
-    negative_terms = [
-        'fall behind', 'lag behind', 'sellers exhausted', 'liquidity falls',
-        'lowest level', 'market review', 'question of time',
-        'outperform shiba inu', 'new meme coin takes over',
-        '뒤처지', '밀리', '최저 수준', '유동성 하락', '시장 리뷰', '소진',
-        '잠재력을 보임', '회복 시작', '추가 시간 문제', '판매자 소진'
-    ]
-
-    return any(t in low for t in portfolio_terms) and any(t in low for t in negative_terms)
-
-
-_EVENT_MARKER_PATTERNS_V3.update({
-    'evt_banca_sella_mica': [
-        r'banca\s+sella', r'방카\s*셀라', r'\bmica\b', r'이탈리아',
-        r'custody', r'transfers', r'수탁', r'전송'
-    ],
-    'evt_korea_election_crypto_pledge': [
-        r'지방선거', r'더불어민주당', r'국민의힘',
-        r'암호화폐\s*정책', r'현물\s*etf', r'소득세'
-    ],
-    'evt_georgia_tether_gel': [
-        r'조지아', r'georgia', r'테더', r'usdt', r'gel', r'라리', r'스테이블코인'
-    ],
-    'evt_spain_polymarket_kalshi': [
-        r'spain', r'스페인', r'polymarket', r'폴리마켓', r'kalshi', r'칼시'
-    ],
-})
-
-_FORCED_INLINE_MAP_V3.extend([
-    ('더불어민주당', [r'더불어민주당']),
-    ('국민의힘', [r'국민의힘']),
-    ('ETF', [r'\betf\b', r'현물\s*etf']),
-    ('소득세', [r'소득세']),
-    ('지방선거', [r'지방선거']),
-    ('스페인', [r'spain', r'스페인']),
-    ('폴리마켓', [r'polymarket', r'폴리마켓']),
-    ('칼시', [r'kalshi', r'칼시']),
-    ('조지아', [r'georgia', r'조지아']),
-    ('테더', [r'tether', r'테더']),
-    ('USDT', [r'\busdt\b']),
-])
-
-_EXTRA_FOOTER_TAGS_V3.extend([
-    ('#더불어민주당', [r'더불어민주당']),
-    ('#국민의힘', [r'국민의힘']),
-    ('#ETF', [r'\betf\b', r'현물\s*etf']),
-    ('#소득세', [r'소득세']),
-    ('#Spain', [r'spain', r'스페인']),
-    ('#Polymarket', [r'polymarket', r'폴리마켓']),
-    ('#Kalshi', [r'kalshi', r'칼시']),
-    ('#Georgia', [r'georgia', r'조지아']),
-    ('#Tether', [r'tether', r'테더']),
-    ('#USDT', [r'\busdt\b']),
-])
-
-_OLD_matches_keywords_v5 = matches_keywords
-_OLD_is_canonical_duplicate_v5 = is_canonical_duplicate
-_OLD_is_semantically_duplicate_v5 = is_semantically_duplicate
-_OLD_filter_final_tags_v5 = filter_final_tags
-
-
-def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
-    raw_text = _story_text_v3(story)
-    raw_lower = raw_text.lower()
-
-    if any(re.search(p, raw_lower, re.I) for p in _EXTRA_NEGATIVE_PATTERNS_V5):
-        print(f"[관련없는기사 제외] {story.get('title', '')}")
-        return False
-
-    if is_negative_portfolio_article_v5(raw_text):
-        print(f"[포폴부정기사 제외] {story.get('title', '')}")
-        return False
-
-    return _OLD_matches_keywords_v5(story, coins, econ_keywords, korean_keywords)
-
-
-def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
-    if not canonical_key:
-        return False
-    cur_all = {x.strip() for x in canonical_key.split('|') if x.strip()}
-    cur_core = _core_event_tokens_v3(canonical_key)
-    for old_key in seen_keys:
-        old_all = {x.strip() for x in old_key.split('|') if x.strip()}
-        old_core = _core_event_tokens_v3(old_key)
-        shared_core = cur_core & old_core
-        shared_all = cur_all & old_all
-        if len(shared_core) >= 2:
-            log(f"[정규토픽중복 제외] shared_core={shared_core}")
-            return True
-        if len(shared_core) >= 1 and len(shared_all) >= 3:
-            log(f"[정규토픽유사 제외] shared_all={shared_all}")
-            return True
-    return False
-
-
-def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
-    title = normalize_for_duplicate(story.get('title', ''))
-    signature = build_story_signature(story)
-    cur_all = {x.strip() for x in signature.split('|') if x.strip()}
-    cur_core = _core_event_tokens_v3(signature)
-
-    for old_title in seen_titles:
-        ratio = SequenceMatcher(None, title, old_title).ratio()
-        if ratio >= 0.88:
-            log(f"[제목유사도 중복] {title} <> {old_title} / {ratio:.2f}")
-            return True
-
-    if len(cur_all) < 3:
-        return False
-
-    for old_sig in seen_signatures:
-        old_all = {x.strip() for x in old_sig.split('|') if x.strip()}
-        old_core = _core_event_tokens_v3(old_sig)
-        shared_core = cur_core & old_core
-        shared_all = cur_all & old_all
-        if len(shared_core) >= 2:
-            log(f"[의미중복 제외] shared_core={shared_core}")
-            return True
-        if len(shared_core) >= 1 and len(shared_all) >= 3:
-            log(f"[시그니처 교집합 중복] {signature} <> {old_sig}")
-            return True
-        ratio = SequenceMatcher(None, signature, old_sig).ratio()
-        if len(shared_core) >= 1 and ratio >= 0.89:
-            log(f"[시그니처 유사도 중복] {signature} <> {old_sig} / {ratio:.2f}")
-            return True
-    return False
-
-
-def filter_final_tags(tags: list[str]) -> list[str]:
-    out = _OLD_filter_final_tags_v5(tags)
-    extra_allowed = {'#Polymarket', '#Kalshi', '#Spain', '#더불어민주당', '#국민의힘', '#소득세', '#Georgia', '#Tether'}
-    seen = set(out)
-    for tag in tags:
-        if tag in extra_allowed and tag not in seen:
-            out.append(tag)
-            seen.add(tag)
-    return out
-
-
-
-# ===== 2026-05-28 tag patch: Jamie Dimon / United Texas Bank =====
-
-KOREAN_TAG_KEYWORDS.extend([
-    'JP모건', '제이미다이먼', 'CEO', '유나이티드텍사스은행', '은행', '월스트리트'
-])
-
-INLINE_TAG_WHITELIST.update({
-    'JP모건', '제이미다이먼', 'CEO', '유나이티드텍사스은행', '은행', '월스트리트',
-    'Jamie Dimon', 'JPMorgan', 'United Texas Bank', 'Wall Street'
-})
-
-MANUAL_TRANSLATIONS.update({
-    'JPMorgan': 'JP모건',
-    'JP Morgan': 'JP모건',
-    'Jamie Dimon': '제이미다이먼',
-    '제이미 다이먼': '제이미다이먼',
-    '제이미다이먼': '제이미다이먼',
-    'CEO': 'CEO',
-    'United Texas Bank': '유나이티드텍사스은행',
-    'UnitedTexasBank': '유나이티드텍사스은행',
-    'Wall Street': '월스트리트',
-    '월스트리트': '월스트리트',
-    'bank': '은행',
-    'Bank': '은행',
-    '은행': '은행',
-})
-
-_FORCED_INLINE_MAP_V3.extend([
-    ('JP모건', [r'jpmorgan', r'jp\s*morgan', r'jp모건']),
-    ('제이미다이먼', [r'jamie\s+dimon', r'제이미\s*다이먼', r'제이미다이먼']),
-    ('CEO', [r'\bceo\b']),
-    ('유나이티드텍사스은행', [r'united\s+texas\s+bank']),
-    ('은행', [r'\bbank\b', r'은행']),
-    ('월스트리트', [r'wall\s*street', r'월스트리트']),
-])
-
-_EXTRA_FOOTER_TAGS_V3.extend([
-    ('#JPMorgan', [r'jpmorgan', r'jp\s*morgan']),
-    ('#JamieDimon', [r'jamie\s+dimon', r'제이미\s*다이먼', r'제이미다이먼']),
-    ('#CEO', [r'\bceo\b']),
-    ('#UTB', [r'united\s+texas\s+bank']),
-    ('#WallStreet', [r'wall\s*street', r'월스트리트']),
-])
-
-_OLD_clean_summary_for_style_v6 = _clean_summary_for_style_v3
-def _clean_summary_for_style_v3(text: str) -> str:
-    text = _OLD_clean_summary_for_style_v6(text)
-    text = text.replace('United Texas Bank', '유나이티드텍사스은행')
-    text = text.replace('UnitedTexasBank', '유나이티드텍사스은행')
-    text = text.replace('JP Morgan', 'JP모건')
-    text = text.replace('JPMorgan', 'JP모건')
-    text = text.replace('Jamie Dimon', '제이미다이먼')
-    text = text.replace('Wall Street', '월스트리트')
-    text = re.sub(r'(?<!#)JP모건(?=\s|CEO| ceo|은|는|이|가|의)', '#JP모건', text, count=1)
-    text = re.sub(r'(?<!#)제이미다이먼(?=\s|은|는|이|가|의)', '#제이미다이먼', text, count=1)
-    text = re.sub(r'(?<!#)CEO(?=\s|은|는|이|가|의)', '#CEO', text, count=1)
-    text = re.sub(r'(?<!#)유나이티드텍사스은행(?=\s|은|는|이|가|의)', '#유나이티드텍사스은행', text, count=1)
-    text = re.sub(r'(?<!#)월스트리트(?=\s|은|는|이|가|의)', '#월스트리트', text, count=1)
-    text = re.sub(r'(?<!#)은행(?=\s|은|는|이|가|의)', '#은행', text, count=1)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
-
-_OLD_ensure_case_tags_v6 = _ensure_case_tags_v3
-def _ensure_case_tags_v3(summary: str, story: dict, footer_tags: list[str]) -> list[str]:
-    footer_tags = _OLD_ensure_case_tags_v6(summary, story, footer_tags)
-    text = _story_text_v3(story) + ' ' + (summary or '')
-    extra = [
-        ('#JPMorgan', [r'jpmorgan', r'jp\s*morgan']),
-        ('#JamieDimon', [r'jamie\s+dimon', r'제이미\s*다이먼', r'제이미다이먼']),
-        ('#CEO', [r'\bceo\b']),
-        ('#UTB', [r'united\s+texas\s+bank']),
-        ('#WallStreet', [r'wall\s*street', r'월스트리트']),
-    ]
-    for tag, patterns in extra:
-        if any(re.search(p, text, re.I) for p in patterns):
-            if tag not in footer_tags:
-                footer_tags.append(tag)
-    return footer_tags
-
-_OLD_filter_final_tags_v6 = filter_final_tags
-def filter_final_tags(tags: list[str]) -> list[str]:
-    out = _OLD_filter_final_tags_v6(tags)
-    extra_allowed = {
-        '#JPMorgan', '#JamieDimon', '#CEO', '#UTB', '#WallStreet',
-        '#JP모건', '#제이미다이먼', '#유나이티드텍사스은행', '#월스트리트', '#은행'
-    }
-    seen = set(out)
-    for tag in tags:
-        if tag in extra_allowed and tag not in seen:
-            out.append(tag)
-            seen.add(tag)
-    return out
 
 if __name__ == '__main__':
     main()
