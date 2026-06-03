@@ -616,6 +616,11 @@ r'\bwhale activity\b',
 r'\bwhat to expect\b',
 r'\bnext week\b',
 r'\bhigh yield\b',
+r'\bcoindesk 20\b',
+r'\bcd20\b',
+r'\bperformance update\b',
+r'\bleading index lower\b',
+r'\bindex lower\b',
 r'\bpassive income\b',
 r'\binvestment guide\b',
 r'\bearn eth\b',
@@ -2050,6 +2055,25 @@ def _is_inline_tag_candidate(tag_name: str, text: str = "") -> bool:
     return len(tag_name) >= 2 and tag_name in (text or "")
 
 
+
+
+def is_index_performance_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    index_terms = [
+        'coindesk 20', 'cd20', 'coindesk indices',
+        'index lower', 'leading index lower', 'performance update',
+        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
+        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
+    ]
+
+    asset_move_terms = [
+        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
+        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
+    ]
+
+    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
     raw_lower = raw_text.lower()
@@ -2100,6 +2124,10 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if is_security_incident_article(raw_text):
         print(f"[보안사고 제외] {story.get('title', '')}")
+        return False
+
+    if is_index_performance_article(raw_text):
+        print(f"[지수등락형 제외] {story.get('title', '')}")
         return False
 
     # 2. 차트/가격형 기사 차단
@@ -3817,6 +3845,25 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     return False
 
+
+
+def is_index_performance_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    index_terms = [
+        'coindesk 20', 'cd20', 'coindesk indices',
+        'index lower', 'leading index lower', 'performance update',
+        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
+        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
+    ]
+
+    asset_move_terms = [
+        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
+        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
+    ]
+
+    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = _story_text(story)
     raw_lower = raw_text.lower()
@@ -4161,6 +4208,25 @@ def _is_price_level_article_v3(text: str) -> bool:
     return any(t in low for t in price_terms) and any(t in low for t in market_terms)
 
 
+
+
+def is_index_performance_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    index_terms = [
+        'coindesk 20', 'cd20', 'coindesk indices',
+        'index lower', 'leading index lower', 'performance update',
+        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
+        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
+    ]
+
+    asset_move_terms = [
+        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
+        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
+    ]
+
+    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = _story_text_v3(story)
     raw_lower = raw_text.lower()
@@ -4340,6 +4406,25 @@ def is_nonessential_xrp_country_commentary(text: str) -> bool:
 
 
 _OLD_matches_keywords_v7 = matches_keywords
+
+
+
+def is_index_performance_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    index_terms = [
+        'coindesk 20', 'cd20', 'coindesk indices',
+        'index lower', 'leading index lower', 'performance update',
+        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
+        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
+    ]
+
+    asset_move_terms = [
+        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
+        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
+    ]
+
+    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
 
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
