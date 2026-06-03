@@ -14,15 +14,13 @@ from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
 
-from openai import OpenAI
+from google import genai
 
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
-OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5.4-mini").strip() or "gpt-5.4-mini"
-openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
 FEEDS = [
     ('CryptoBriefing', 'https://cryptobriefing.com/feed/'),
@@ -1633,8 +1631,8 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 6
 SUMMARY_SENTENCES = 3
-OPENAI_INPUT_COST_PER_1M = 0.75
-OPENAI_OUTPUT_COST_PER_1M = 4.50
+GEMINI_INPUT_COST_PER_1M = 0.30
+GEMINI_OUTPUT_COST_PER_1M = 2.50
 AVG_CHARS_PER_TOKEN = 4
 SHOW_COST_LOG = True
 
@@ -1653,19 +1651,19 @@ def estimate_tokens_from_text(text: str) -> int:
     return max(1, int(len(text) / AVG_CHARS_PER_TOKEN))
 
 
-def log_openai_cost(title: str, prompt: str, output: str) -> None:
+def log_gemini_cost(title: str, prompt: str, output: str) -> None:
     if not SHOW_COST_LOG:
         return
 
     input_tokens = estimate_tokens_from_text(prompt)
     output_tokens = estimate_tokens_from_text(output)
 
-    input_cost = (input_tokens / 1_000_000) * OPENAI_INPUT_COST_PER_1M
-    output_cost = (output_tokens / 1_000_000) * OPENAI_OUTPUT_COST_PER_1M
+    input_cost = (input_tokens / 1_000_000) * GEMINI_INPUT_COST_PER_1M
+    output_cost = (output_tokens / 1_000_000) * GEMINI_OUTPUT_COST_PER_1M
     total_cost = input_cost + output_cost
 
     log(
-        f"[OpenAI 비용] {title[:60]} | "
+        f"[Gemini 비용] {title[:60]} | "
         f"입력토큰≈{input_tokens} | 출력토큰≈{output_tokens} | "
         f"예상비용≈${total_cost:.6f}"
     )
@@ -1934,36 +1932,6 @@ def is_conference_opinion_article(text: str) -> bool:
 
     return (has_event and not has_hard_news) or (has_promo and has_event) or ('challenge' in low) or ('campaign' in low)
 
-
-
-def is_commentary_only_article(text: str) -> bool:
-    low = (text or "").lower()
-
-    # 말만 있고 실질 이벤트가 없는 표현
-    commentary_terms = [
-        'mentioned', 'mentions', 'noted', 'notes', 'explained', 'explains',
-        'described', 'describes', 'highlighted', 'highlights',
-        'commented', 'comments', 'said', 'says', 'stated', 'states',
-        '언급함', '언급', '설명함', '설명', '강조함', '강조',
-        '평가함', '평가', '말함', '밝힘', '전함', '묘사함', '묘사'
-    ]
-
-    # 진짜 뉴스로 볼 수 있는 실질 이벤트
-    hard_news_terms = [
-        'approved', 'approval', 'launched', 'launch', 'rolled out',
-        'signed', 'agreement', 'partnership', 'integrated', 'integration',
-        'licensed', 'license', 'lawsuit', 'settlement', 'filed',
-        'passed', 'bill', 'act', 'law', 'policy change', 'adopted',
-        '도입', '출시', '승인', '인가', '체결', '통합', '제휴',
-        '소송', '합의', '통과', '법안', '시행', '정책 변경'
-    ]
-
-    has_commentary = any(t in low for t in commentary_terms)
-    has_hard_news = any(t in low for t in hard_news_terms)
-
-    # 설명형 문구가 있고, 실질 이벤트가 없으면 제외
-    return has_commentary and not has_hard_news
-
 def is_security_incident_article(text: str) -> bool:
     low = (text or "").lower()
 
@@ -2128,10 +2096,6 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if is_conference_opinion_article(raw_text):
         print(f"[행사발언 제외] {story.get('title', '')}")
-        return False
-
-    if is_commentary_only_article(raw_text):
-        print(f"[설명형/코멘트형 제외] {story.get('title', '')}")
         return False
 
     if is_security_incident_article(raw_text):
@@ -2838,10 +2802,12 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
     if not source_text:
         source_text = title.strip()
 
-    if not openai_client:
+    if not GEMINI_API_KEY:
         return ""
 
     try:
+        client = genai.Client(api_key=GEMINI_API_KEY)
+
         prompt = f"""
 너는 텔레그램 암호화폐 뉴스 채널 편집자다.
 
@@ -2853,7 +2819,7 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 해시태그는 마지막 footer에서만 사용됨
 - 사람 이름, 기관명, 코인명도 일반 텍스트로 자연스럽게 작성
 - 해시태그 사용하면 띄어쓰기 필수
-- 한국어 띄어쓰기를 자연스럽게 유지
+- 한국어 띄어쓰기를 자연스럽게 유지할 
 - 반드시 2~3문장만 작성
 - 각 문장은 짧게 작성
 - 한 문장이 끝날 때마다 반드시 한 줄 띄울 것
@@ -2885,12 +2851,12 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 {source_text}
 """.strip()
 
-        response = openai_client.responses.create(
-            model=OPENAI_MODEL,
-            input=prompt,
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
         )
 
-        text = (response.output_text or "").strip()
+        text = getattr(response, "text", "") or ""
         text = cleanup_text(text)
         text = fix_translation_terms(text)
         text = fix_truncated_phrases(text)
@@ -2900,12 +2866,14 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = re.sub(r'[ \t]+', ' ', text)
         text = re.sub(r'\n{3,}', '\n\n', text).strip()
 
-        log_openai_cost(title, prompt, text)
+        log_gemini_cost(title, prompt, text)
+
         return text
 
     except Exception as e:
-        log(f"OpenAI 요약 실패: {e}")
+        log(f"Gemini 요약 실패: {e}")
         return ""
+
 
 def normalize_for_duplicate(text: str) -> str:
     text = text.lower()
@@ -4263,6 +4231,146 @@ def build_message(story: dict) -> str:
         parts[-1] = ' '.join(html.escape(t) for t in dedup)
         return '\n\n'.join(parts)
     return message
+
+
+
+# ---------------------------------------------------------------------------
+# PATCH: 2026-06-03 extra irrelevant/article-type blocking
+# ---------------------------------------------------------------------------
+
+_EXTRA_NEGATIVE_KEYWORDS_V7 = [
+    'exchange inflow', 'exchange inflows', 'inflow to exchanges', 'injection of capital',
+    '30-day record', '30 day record', 'record with', '6993억개가 거래소로 유입',
+    '거래소로 유입', '유입되며', '유입돼', '유입됨',
+    'power law', 'power law oscillator', 'historically precedes a rebound',
+    'rebound', '추세 대비 저렴', '하단 도달', 'historically',
+    'breakdown fears', 'still faces breakdown fears', 'fears', 'fears.',
+    'case study program', 'case-study program', 'episcopal school', 'st andrew', 'st. andrew',
+    'digital sovereignty alliance', '로봇 시연 영상', 'humanoid robots', 'human workers',
+    'figure가', 'figure ai', 'figure ai', 'deepseek', 'tencent', 'catl', '기업가치는', '자금 조달을 추진',
+    'wallet moved', 'wallet movement', 'moved from wallet', 'mtgox wallet', 'mt. gox wallet',
+    '순유출', 'net outflow', 'etf outflow', 'etf 순유출', '지갑에서 이동', '분석됨'
+]
+
+for _kw in _EXTRA_NEGATIVE_KEYWORDS_V7:
+    if _kw not in NEGATIVE_KEYWORDS:
+        NEGATIVE_KEYWORDS.append(_kw)
+
+_EXTRA_BAD_TOPIC_PATTERNS_V7 = [
+    r'거래소로\s*유입',
+    r'유입되며',
+    r'30\s*일\s*최대치',
+    r'30\s*day\s*record',
+    r'power\s*law',
+    r'oscillator',
+    r'historically\s*precedes\s*a\s*rebound',
+    r'추세\s*대비\s*저렴',
+    r'하단\s*도달',
+    r'breakdown\s*fears',
+    r'faces\s*breakdown\s*fears',
+    r'digital\s*sovereignty\s*alliance',
+    r'case\s*study\s*program',
+    r'episcopal\s*school',
+    r'humanoid\s*robots?',
+    r'robot\s*demo',
+    r'figure\s*(ai)?',
+    r'deepseek',
+    r'tencent',
+    r'catl',
+    r'wallet\s*moved',
+    r'mt\.?\s*gox\s*wallet',
+    r'net\s*outflow',
+    r'etf\s*outflow',
+    r'순유출',
+]
+for _pat in _EXTRA_BAD_TOPIC_PATTERNS_V7:
+    if _pat not in BAD_TOPIC_PATTERNS:
+        BAD_TOPIC_PATTERNS.append(_pat)
+
+
+def is_exchange_inflow_record_article(text: str) -> bool:
+    low = (text or '').lower()
+    has_inflow = any(t in low for t in [
+        'exchange inflow', 'exchange inflows', '거래소로 유입', '유입되며', '유입됨', 'injection of capital'
+    ])
+    has_record = any(t in low for t in [
+        '30-day record', '30 day record', '30일 최대치', 'record with', '기록함', '기록'
+    ])
+    return has_inflow and has_record
+
+
+def is_unrelated_ai_or_school_article(text: str) -> bool:
+    low = (text or '').lower()
+
+    ai_noise_terms = [
+        'deepseek', 'tencent', 'catl', 'funding', 'valuation', '자금 조달', '기업가치',
+        'humanoid robots', 'robot demo', 'human workers', 'figure ai', 'figure가', 'x에 올린 영상', '시연 영상',
+        'digital sovereignty alliance', 'case study program', 'episcopal school', 'st andrew', 'st. andrew'
+    ]
+    crypto_hard_terms = [
+        'bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'xlm', 'ada', 'trx', 'bnb', 'shib',
+        'etf', 'stablecoin', 'custody', 'tokenization', 'bank', 'regulation', '법안', '규제', '은행', '스테이블코인', '토큰화'
+    ]
+
+    return any(t in low for t in ai_noise_terms) and not any(t in low for t in crypto_hard_terms)
+
+
+def is_powerlaw_or_rebound_article(text: str) -> bool:
+    low = (text or '').lower()
+    return (
+        ('power law' in low or 'oscillator' in low or '파워로우' in low)
+        and ('rebound' in low or '저렴' in low or '하단 도달' in low or 'historically' in low)
+    )
+
+
+def is_wallet_move_or_outflow_article(text: str) -> bool:
+    low = (text or '').lower()
+    wallet_terms = [
+        'wallet moved', 'wallet movement', 'moved from wallet', 'mtgox wallet', 'mt. gox wallet',
+        '지갑에서 이동', '이동함', '분석됨', '분석', '순유출', 'net outflow', 'etf outflow', 'etf 순유출'
+    ]
+    return any(t in low for t in wallet_terms)
+
+
+def is_nonessential_xrp_country_commentary(text: str) -> bool:
+    low = (text or '').lower()
+    commentary_terms = ['언급함', '설명함', '교차점', 'details', 'announcement', 'mentioned', 'explained']
+    hard_terms = ['approval', 'approved', 'license', 'launch', 'partnership', '법안', '승인', '체결', '출시', '도입']
+    return any(t in low for t in commentary_terms) and 'xrp' in low and not any(t in low for t in hard_terms)
+
+
+_OLD_matches_keywords_v7 = matches_keywords
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
+    low = raw_text.lower()
+
+    if is_exchange_inflow_record_article(raw_text):
+        print(f"[거래소유입기록 제외] {story.get('title', '')}")
+        return False
+
+    if is_unrelated_ai_or_school_article(raw_text):
+        print(f"[비관련AI/교육기사 제외] {story.get('title', '')}")
+        return False
+
+    if is_powerlaw_or_rebound_article(raw_text):
+        print(f"[파워로우/반등추세 제외] {story.get('title', '')}")
+        return False
+
+    if is_wallet_move_or_outflow_article(raw_text):
+        print(f"[지갑이동/순유출 제외] {story.get('title', '')}")
+        return False
+
+    if is_nonessential_xrp_country_commentary(raw_text):
+        print(f"[설명형 XRP 국가기사 제외] {story.get('title', '')}")
+        return False
+
+    if 'cardano' in low or 'ada' in low or '에이다' in low:
+        if any(t in low for t in ['breakdown fears', 'fear', 'fears', '하락', '약세', 'breakdown']):
+            print(f"[에이다 부정/차트기사 제외] {story.get('title', '')}")
+            return False
+
+    return _OLD_matches_keywords_v7(story, coins, econ_keywords, korean_keywords)
 
 if __name__ == '__main__':
     main()
