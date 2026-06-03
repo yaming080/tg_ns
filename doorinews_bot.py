@@ -11,16 +11,16 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from html import unescape
-from inspect import iscoroutine
 from difflib import SequenceMatcher
 
-from google import genai
+from openai import OpenAI
 
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5.4").strip() or "gpt-5.4"
 
 FEEDS = [
     ('CryptoBriefing', 'https://cryptobriefing.com/feed/'),
@@ -616,11 +616,6 @@ r'\bwhale activity\b',
 r'\bwhat to expect\b',
 r'\bnext week\b',
 r'\bhigh yield\b',
-r'\bcoindesk 20\b',
-r'\bcd20\b',
-r'\bperformance update\b',
-r'\bleading index lower\b',
-r'\bindex lower\b',
 r'\bpassive income\b',
 r'\binvestment guide\b',
 r'\bearn eth\b',
@@ -1636,8 +1631,8 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 6
 SUMMARY_SENTENCES = 3
-GEMINI_INPUT_COST_PER_1M = 0.30
-GEMINI_OUTPUT_COST_PER_1M = 2.50
+OPENAI_INPUT_COST_PER_1M = 2.50
+OPENAI_OUTPUT_COST_PER_1M = 15.00
 AVG_CHARS_PER_TOKEN = 4
 SHOW_COST_LOG = True
 
@@ -1656,19 +1651,19 @@ def estimate_tokens_from_text(text: str) -> int:
     return max(1, int(len(text) / AVG_CHARS_PER_TOKEN))
 
 
-def log_gemini_cost(title: str, prompt: str, output: str) -> None:
+def log_openai_cost(title: str, prompt: str, output: str) -> None:
     if not SHOW_COST_LOG:
         return
 
     input_tokens = estimate_tokens_from_text(prompt)
     output_tokens = estimate_tokens_from_text(output)
 
-    input_cost = (input_tokens / 1_000_000) * GEMINI_INPUT_COST_PER_1M
-    output_cost = (output_tokens / 1_000_000) * GEMINI_OUTPUT_COST_PER_1M
+    input_cost = (input_tokens / 1_000_000) * OPENAI_INPUT_COST_PER_1M
+    output_cost = (output_tokens / 1_000_000) * OPENAI_OUTPUT_COST_PER_1M
     total_cost = input_cost + output_cost
 
     log(
-        f"[Gemini 비용] {title[:60]} | "
+        f"[OpenAI 비용] {title[:60]} | "
         f"입력토큰≈{input_tokens} | 출력토큰≈{output_tokens} | "
         f"예상비용≈${total_cost:.6f}"
     )
@@ -2055,25 +2050,6 @@ def _is_inline_tag_candidate(tag_name: str, text: str = "") -> bool:
     return len(tag_name) >= 2 and tag_name in (text or "")
 
 
-
-
-def is_index_performance_article(text: str) -> bool:
-    low = (text or "").lower()
-
-    index_terms = [
-        'coindesk 20', 'cd20', 'coindesk indices',
-        'index lower', 'leading index lower', 'performance update',
-        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
-        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
-    ]
-
-    asset_move_terms = [
-        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
-        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
-    ]
-
-    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
-
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
     raw_lower = raw_text.lower()
@@ -2124,10 +2100,6 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if is_security_incident_article(raw_text):
         print(f"[보안사고 제외] {story.get('title', '')}")
-        return False
-
-    if is_index_performance_article(raw_text):
-        print(f"[지수등락형 제외] {story.get('title', '')}")
         return False
 
     # 2. 차트/가격형 기사 차단
@@ -2319,23 +2291,7 @@ def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
 def translate_text_to_korean(text: str) -> str:
     if not text:
         return ""
-    try:
-        from googletrans import Translator  # type: ignore
-        translator = Translator()
-        result = translator.translate(text, dest='ko')
-        if iscoroutine(result):
-            result = asyncio.run(result)
-        return result.text
-    except Exception:
-        try:
-            from googletrans import Translator  # type: ignore
-            async def _translate(src: str) -> str:
-                async with Translator() as trans:
-                    r = await trans.translate(src, dest='ko')
-                    return r.text
-            return asyncio.run(_translate(text))
-        except Exception:
-            return text
+    return text
 
 def normalize_style(text: str) -> str:
     rules = [
@@ -2830,11 +2786,11 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
     if not source_text:
         source_text = title.strip()
 
-    if not GEMINI_API_KEY:
+    if not OPENAI_API_KEY:
         return ""
 
     try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
+        client = OpenAI(api_key=OPENAI_API_KEY)
 
         prompt = f"""
 너는 텔레그램 암호화폐 뉴스 채널 편집자다.
@@ -2845,32 +2801,32 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 텔레그램 업로드용 짧은 문장으로 작성
 - 첫 문장부터 핵심 키워드를 강하게 시작(느낌표 물음표는 사용금지)
 - 해시태그는 마지막 footer에서만 사용됨
-- 사람 이름, 기관명, 코인명도 일반 텍스트로 자연스럽게 작성
+- 사람 이름 기관명 코인명도 일반 텍스트로 자연스럽게 작성
 - 해시태그 사용하면 띄어쓰기 필수
-- 한국어 띄어쓰기를 자연스럽게 유지할 
+- 한국어 띄어쓰기를 자연스럽게 유지할 것
 - 반드시 2~3문장만 작성
 - 각 문장은 짧게 작성
 - 한 문장이 끝날 때마다 반드시 한 줄 띄울 것
 - 전체 길이는 120자 안팎으로 유지
 - 불필요한 배경 설명 금지
-- 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘, 전했다→전함, 설명했다→설명함)
+- 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘 전했다→전함 설명했다→설명함)
 - 필요하면 불릿(- 또는 ➖) 사용 가능
-- 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
+- 너무 딱딱한 기사체보다 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
 - 직역투 금지
 - 기사에 없는 내용은 추측해서 추가 금지
-- 매체명, first appeared on, sponsor 문구 제거
+- 매체명 first appeared on sponsor 문구 제거
 - 문장은 너무 길지 않게 끊기
 - 출력은 요약문만 작성
-- 마지막 해시태그 줄, 출처, 링크 문구는 작성하지 말 것
-- 사람 이름, 국가명, 브랜드명, 코인명은 중간 띄어쓰기 없이 자연스럽게 작성
+- 마지막 해시태그 줄 출처 링크 문구는 작성하지 말 것
+- 사람 이름 국가명 브랜드명 코인명은 중간 띄어쓰기 없이 자연스럽게 작성
 - 해시태그 내부 단어를 분리하지 말 것
 - 본문에는 해시태그를 넣지 말 것
 - 아래 표현은 절대 쓰지 말 것:
-  하락세, 약세, 급락, 반등 실패, 상승으로 이어지지 못함, 강세 전환 신호 없음, 불확실, 이유, 전망, 크로스오버
+  하락세 약세 급락 반등 실패 상승으로 이어지지 못함 강세 전환 신호 없음 불확실 이유 전망 크로스오버
 - 가격 차트 해설 기사나 기술적 분석 기사처럼 보이면 빈 문자열만 반환할 것
-- 롱/숏/청산/시장심리/챌린지/광고성 캠페인/에어드롭/메인넷 출시 홍보처럼 보이면 빈 문자열만 반환할 것
-- 인물명, 기관명, 국가명, 법안명은 기사에 있으면 요약문 본문에 가능한 한 직접 1회 포함할 것
-- 예: Michael Barr, GENIUS Act, Australia, Hong Kong, HKMA, HSBC, Standard Chartered
+- 롱 숏 청산 시장심리 챌린지 광고성 캠페인 에어드롭 메인넷 출시 홍보처럼 보이면 빈 문자열만 반환할 것
+- 인물명 기관명 국가명 법안명은 기사에 있으면 요약문 본문에 가능한 한 직접 1회 포함할 것
+- 예: Michael Barr GENIUS Act Australia Hong Kong HKMA HSBC Standard Chartered
 
 제목:
 {title}
@@ -2879,12 +2835,24 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 {source_text}
 """.strip()
 
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
+        response = client.responses.create(
+            model=OPENAI_MODEL,
+            input=prompt,
+            max_output_tokens=220,
         )
 
-        text = getattr(response, "text", "") or ""
+        text = getattr(response, "output_text", "") or ""
+        if not text:
+            try:
+                parts = []
+                for item in getattr(response, "output", []) or []:
+                    for content in getattr(item, "content", []) or []:
+                        if getattr(content, "type", "") == "output_text":
+                            parts.append(getattr(content, "text", ""))
+                text = "".join(parts).strip()
+            except Exception:
+                text = ""
+
         text = cleanup_text(text)
         text = fix_translation_terms(text)
         text = fix_truncated_phrases(text)
@@ -2894,14 +2862,12 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = re.sub(r'[ \t]+', ' ', text)
         text = re.sub(r'\n{3,}', '\n\n', text).strip()
 
-        log_gemini_cost(title, prompt, text)
-
+        log_openai_cost(title, prompt, text)
         return text
 
     except Exception as e:
-        log(f"Gemini 요약 실패: {e}")
+        log(f"OpenAI 요약 실패: {e}")
         return ""
-
 
 def normalize_for_duplicate(text: str) -> str:
     text = text.lower()
@@ -3845,25 +3811,6 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     return False
 
-
-
-def is_index_performance_article(text: str) -> bool:
-    low = (text or "").lower()
-
-    index_terms = [
-        'coindesk 20', 'cd20', 'coindesk indices',
-        'index lower', 'leading index lower', 'performance update',
-        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
-        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
-    ]
-
-    asset_move_terms = [
-        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
-        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
-    ]
-
-    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
-
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = _story_text(story)
     raw_lower = raw_text.lower()
@@ -4208,25 +4155,6 @@ def _is_price_level_article_v3(text: str) -> bool:
     return any(t in low for t in price_terms) and any(t in low for t in market_terms)
 
 
-
-
-def is_index_performance_article(text: str) -> bool:
-    low = (text or "").lower()
-
-    index_terms = [
-        'coindesk 20', 'cd20', 'coindesk indices',
-        'index lower', 'leading index lower', 'performance update',
-        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
-        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
-    ]
-
-    asset_move_terms = [
-        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
-        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
-    ]
-
-    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
-
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = _story_text_v3(story)
     raw_lower = raw_text.lower()
@@ -4297,165 +4225,6 @@ def build_message(story: dict) -> str:
         parts[-1] = ' '.join(html.escape(t) for t in dedup)
         return '\n\n'.join(parts)
     return message
-
-
-
-# ---------------------------------------------------------------------------
-# PATCH: 2026-06-03 extra irrelevant/article-type blocking
-# ---------------------------------------------------------------------------
-
-_EXTRA_NEGATIVE_KEYWORDS_V7 = [
-    'exchange inflow', 'exchange inflows', 'inflow to exchanges', 'injection of capital',
-    '30-day record', '30 day record', 'record with', '6993억개가 거래소로 유입',
-    '거래소로 유입', '유입되며', '유입돼', '유입됨',
-    'power law', 'power law oscillator', 'historically precedes a rebound',
-    'rebound', '추세 대비 저렴', '하단 도달', 'historically',
-    'breakdown fears', 'still faces breakdown fears', 'fears', 'fears.',
-    'case study program', 'case-study program', 'episcopal school', 'st andrew', 'st. andrew',
-    'digital sovereignty alliance', '로봇 시연 영상', 'humanoid robots', 'human workers',
-    'figure가', 'figure ai', 'figure ai', 'deepseek', 'tencent', 'catl', '기업가치는', '자금 조달을 추진',
-    'wallet moved', 'wallet movement', 'moved from wallet', 'mtgox wallet', 'mt. gox wallet',
-    '순유출', 'net outflow', 'etf outflow', 'etf 순유출', '지갑에서 이동', '분석됨'
-]
-
-for _kw in _EXTRA_NEGATIVE_KEYWORDS_V7:
-    if _kw not in NEGATIVE_KEYWORDS:
-        NEGATIVE_KEYWORDS.append(_kw)
-
-_EXTRA_BAD_TOPIC_PATTERNS_V7 = [
-    r'거래소로\s*유입',
-    r'유입되며',
-    r'30\s*일\s*최대치',
-    r'30\s*day\s*record',
-    r'power\s*law',
-    r'oscillator',
-    r'historically\s*precedes\s*a\s*rebound',
-    r'추세\s*대비\s*저렴',
-    r'하단\s*도달',
-    r'breakdown\s*fears',
-    r'faces\s*breakdown\s*fears',
-    r'digital\s*sovereignty\s*alliance',
-    r'case\s*study\s*program',
-    r'episcopal\s*school',
-    r'humanoid\s*robots?',
-    r'robot\s*demo',
-    r'figure\s*(ai)?',
-    r'deepseek',
-    r'tencent',
-    r'catl',
-    r'wallet\s*moved',
-    r'mt\.?\s*gox\s*wallet',
-    r'net\s*outflow',
-    r'etf\s*outflow',
-    r'순유출',
-]
-for _pat in _EXTRA_BAD_TOPIC_PATTERNS_V7:
-    if _pat not in BAD_TOPIC_PATTERNS:
-        BAD_TOPIC_PATTERNS.append(_pat)
-
-
-def is_exchange_inflow_record_article(text: str) -> bool:
-    low = (text or '').lower()
-    has_inflow = any(t in low for t in [
-        'exchange inflow', 'exchange inflows', '거래소로 유입', '유입되며', '유입됨', 'injection of capital'
-    ])
-    has_record = any(t in low for t in [
-        '30-day record', '30 day record', '30일 최대치', 'record with', '기록함', '기록'
-    ])
-    return has_inflow and has_record
-
-
-def is_unrelated_ai_or_school_article(text: str) -> bool:
-    low = (text or '').lower()
-
-    ai_noise_terms = [
-        'deepseek', 'tencent', 'catl', 'funding', 'valuation', '자금 조달', '기업가치',
-        'humanoid robots', 'robot demo', 'human workers', 'figure ai', 'figure가', 'x에 올린 영상', '시연 영상',
-        'digital sovereignty alliance', 'case study program', 'episcopal school', 'st andrew', 'st. andrew'
-    ]
-    crypto_hard_terms = [
-        'bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'xlm', 'ada', 'trx', 'bnb', 'shib',
-        'etf', 'stablecoin', 'custody', 'tokenization', 'bank', 'regulation', '법안', '규제', '은행', '스테이블코인', '토큰화'
-    ]
-
-    return any(t in low for t in ai_noise_terms) and not any(t in low for t in crypto_hard_terms)
-
-
-def is_powerlaw_or_rebound_article(text: str) -> bool:
-    low = (text or '').lower()
-    return (
-        ('power law' in low or 'oscillator' in low or '파워로우' in low)
-        and ('rebound' in low or '저렴' in low or '하단 도달' in low or 'historically' in low)
-    )
-
-
-def is_wallet_move_or_outflow_article(text: str) -> bool:
-    low = (text or '').lower()
-    wallet_terms = [
-        'wallet moved', 'wallet movement', 'moved from wallet', 'mtgox wallet', 'mt. gox wallet',
-        '지갑에서 이동', '이동함', '분석됨', '분석', '순유출', 'net outflow', 'etf outflow', 'etf 순유출'
-    ]
-    return any(t in low for t in wallet_terms)
-
-
-def is_nonessential_xrp_country_commentary(text: str) -> bool:
-    low = (text or '').lower()
-    commentary_terms = ['언급함', '설명함', '교차점', 'details', 'announcement', 'mentioned', 'explained']
-    hard_terms = ['approval', 'approved', 'license', 'launch', 'partnership', '법안', '승인', '체결', '출시', '도입']
-    return any(t in low for t in commentary_terms) and 'xrp' in low and not any(t in low for t in hard_terms)
-
-
-_OLD_matches_keywords_v7 = matches_keywords
-
-
-
-def is_index_performance_article(text: str) -> bool:
-    low = (text or "").lower()
-
-    index_terms = [
-        'coindesk 20', 'cd20', 'coindesk indices',
-        'index lower', 'leading index lower', 'performance update',
-        '지수 하락', '지수 하락을 이끔', '지수 하락을 이끎', '지수 하락을 주도',
-        '오름세를 보였', '내려 지수', '몇 퍼센트 내리', '상승률', '하락률'
-    ]
-
-    asset_move_terms = [
-        'falls ', 'fall ', 'down ', 'drops ', 'declines ', 'lower',
-        '오름세', '하락', '내림', '떨어짐', '밀렸', '상승'
-    ]
-
-    return any(t in low for t in index_terms) and any(t in low for t in asset_move_terms)
-
-def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
-    raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
-    low = raw_text.lower()
-
-    if is_exchange_inflow_record_article(raw_text):
-        print(f"[거래소유입기록 제외] {story.get('title', '')}")
-        return False
-
-    if is_unrelated_ai_or_school_article(raw_text):
-        print(f"[비관련AI/교육기사 제외] {story.get('title', '')}")
-        return False
-
-    if is_powerlaw_or_rebound_article(raw_text):
-        print(f"[파워로우/반등추세 제외] {story.get('title', '')}")
-        return False
-
-    if is_wallet_move_or_outflow_article(raw_text):
-        print(f"[지갑이동/순유출 제외] {story.get('title', '')}")
-        return False
-
-    if is_nonessential_xrp_country_commentary(raw_text):
-        print(f"[설명형 XRP 국가기사 제외] {story.get('title', '')}")
-        return False
-
-    if 'cardano' in low or 'ada' in low or '에이다' in low:
-        if any(t in low for t in ['breakdown fears', 'fear', 'fears', '하락', '약세', 'breakdown']):
-            print(f"[에이다 부정/차트기사 제외] {story.get('title', '')}")
-            return False
-
-    return _OLD_matches_keywords_v7(story, coins, econ_keywords, korean_keywords)
 
 if __name__ == '__main__':
     main()
