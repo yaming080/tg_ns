@@ -11,6 +11,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from html import unescape
+from inspect import iscoroutine
 from difflib import SequenceMatcher
 
 from openai import OpenAI
@@ -1631,8 +1632,8 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 6
 SUMMARY_SENTENCES = 3
-OPENAI_INPUT_COST_PER_1M = 2.50
-OPENAI_OUTPUT_COST_PER_1M = 15.00
+GEMINI_INPUT_COST_PER_1M = 0.30
+GEMINI_OUTPUT_COST_PER_1M = 2.50
 AVG_CHARS_PER_TOKEN = 4
 SHOW_COST_LOG = True
 
@@ -1651,19 +1652,19 @@ def estimate_tokens_from_text(text: str) -> int:
     return max(1, int(len(text) / AVG_CHARS_PER_TOKEN))
 
 
-def log_openai_cost(title: str, prompt: str, output: str) -> None:
+def log_gemini_cost(title: str, prompt: str, output: str) -> None:
     if not SHOW_COST_LOG:
         return
 
     input_tokens = estimate_tokens_from_text(prompt)
     output_tokens = estimate_tokens_from_text(output)
 
-    input_cost = (input_tokens / 1_000_000) * OPENAI_INPUT_COST_PER_1M
-    output_cost = (output_tokens / 1_000_000) * OPENAI_OUTPUT_COST_PER_1M
+    input_cost = (input_tokens / 1_000_000) * GEMINI_INPUT_COST_PER_1M
+    output_cost = (output_tokens / 1_000_000) * GEMINI_OUTPUT_COST_PER_1M
     total_cost = input_cost + output_cost
 
     log(
-        f"[OpenAI 비용] {title[:60]} | "
+        f"[Gemini 비용] {title[:60]} | "
         f"입력토큰≈{input_tokens} | 출력토큰≈{output_tokens} | "
         f"예상비용≈${total_cost:.6f}"
     )
@@ -2291,7 +2292,23 @@ def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
 def translate_text_to_korean(text: str) -> str:
     if not text:
         return ""
-    return text
+    try:
+        from googletrans import Translator  # type: ignore
+        translator = Translator()
+        result = translator.translate(text, dest='ko')
+        if iscoroutine(result):
+            result = asyncio.run(result)
+        return result.text
+    except Exception:
+        try:
+            from googletrans import Translator  # type: ignore
+            async def _translate(src: str) -> str:
+                async with Translator() as trans:
+                    r = await trans.translate(src, dest='ko')
+                    return r.text
+            return asyncio.run(_translate(text))
+        except Exception:
+            return text
 
 def normalize_style(text: str) -> str:
     rules = [
@@ -2786,11 +2803,11 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
     if not source_text:
         source_text = title.strip()
 
-    if not OPENAI_API_KEY:
+    if not GEMINI_API_KEY:
         return ""
 
     try:
-        client = OpenAI(api_key=OPENAI_API_KEY)
+        client = genai.Client(api_key=GEMINI_API_KEY)
 
         prompt = f"""
 너는 텔레그램 암호화폐 뉴스 채널 편집자다.
@@ -2801,32 +2818,32 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 - 텔레그램 업로드용 짧은 문장으로 작성
 - 첫 문장부터 핵심 키워드를 강하게 시작(느낌표 물음표는 사용금지)
 - 해시태그는 마지막 footer에서만 사용됨
-- 사람 이름 기관명 코인명도 일반 텍스트로 자연스럽게 작성
+- 사람 이름, 기관명, 코인명도 일반 텍스트로 자연스럽게 작성
 - 해시태그 사용하면 띄어쓰기 필수
-- 한국어 띄어쓰기를 자연스럽게 유지할 것
+- 한국어 띄어쓰기를 자연스럽게 유지할 
 - 반드시 2~3문장만 작성
 - 각 문장은 짧게 작성
 - 한 문장이 끝날 때마다 반드시 한 줄 띄울 것
 - 전체 길이는 120자 안팎으로 유지
 - 불필요한 배경 설명 금지
-- 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘 전했다→전함 설명했다→설명함)
+- 문장 끝은 텔레그램 축약형으로 정리할 것 (예: 밝혔다→밝힘, 전했다→전함, 설명했다→설명함)
 - 필요하면 불릿(- 또는 ➖) 사용 가능
-- 너무 딱딱한 기사체보다 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
+- 너무 딱딱한 기사체보다, 빠르게 읽히는 텔레그램 뉴스 톤으로 작성
 - 직역투 금지
 - 기사에 없는 내용은 추측해서 추가 금지
-- 매체명 first appeared on sponsor 문구 제거
+- 매체명, first appeared on, sponsor 문구 제거
 - 문장은 너무 길지 않게 끊기
 - 출력은 요약문만 작성
-- 마지막 해시태그 줄 출처 링크 문구는 작성하지 말 것
-- 사람 이름 국가명 브랜드명 코인명은 중간 띄어쓰기 없이 자연스럽게 작성
+- 마지막 해시태그 줄, 출처, 링크 문구는 작성하지 말 것
+- 사람 이름, 국가명, 브랜드명, 코인명은 중간 띄어쓰기 없이 자연스럽게 작성
 - 해시태그 내부 단어를 분리하지 말 것
 - 본문에는 해시태그를 넣지 말 것
 - 아래 표현은 절대 쓰지 말 것:
-  하락세 약세 급락 반등 실패 상승으로 이어지지 못함 강세 전환 신호 없음 불확실 이유 전망 크로스오버
+  하락세, 약세, 급락, 반등 실패, 상승으로 이어지지 못함, 강세 전환 신호 없음, 불확실, 이유, 전망, 크로스오버
 - 가격 차트 해설 기사나 기술적 분석 기사처럼 보이면 빈 문자열만 반환할 것
-- 롱 숏 청산 시장심리 챌린지 광고성 캠페인 에어드롭 메인넷 출시 홍보처럼 보이면 빈 문자열만 반환할 것
-- 인물명 기관명 국가명 법안명은 기사에 있으면 요약문 본문에 가능한 한 직접 1회 포함할 것
-- 예: Michael Barr GENIUS Act Australia Hong Kong HKMA HSBC Standard Chartered
+- 롱/숏/청산/시장심리/챌린지/광고성 캠페인/에어드롭/메인넷 출시 홍보처럼 보이면 빈 문자열만 반환할 것
+- 인물명, 기관명, 국가명, 법안명은 기사에 있으면 요약문 본문에 가능한 한 직접 1회 포함할 것
+- 예: Michael Barr, GENIUS Act, Australia, Hong Kong, HKMA, HSBC, Standard Chartered
 
 제목:
 {title}
@@ -2835,24 +2852,12 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 {source_text}
 """.strip()
 
-        response = client.responses.create(
-            model=OPENAI_MODEL,
-            input=prompt,
-            max_output_tokens=220,
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
         )
 
-        text = getattr(response, "output_text", "") or ""
-        if not text:
-            try:
-                parts = []
-                for item in getattr(response, "output", []) or []:
-                    for content in getattr(item, "content", []) or []:
-                        if getattr(content, "type", "") == "output_text":
-                            parts.append(getattr(content, "text", ""))
-                text = "".join(parts).strip()
-            except Exception:
-                text = ""
-
+        text = getattr(response, "text", "") or ""
         text = cleanup_text(text)
         text = fix_translation_terms(text)
         text = fix_truncated_phrases(text)
@@ -2862,12 +2867,14 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = re.sub(r'[ \t]+', ' ', text)
         text = re.sub(r'\n{3,}', '\n\n', text).strip()
 
-        log_openai_cost(title, prompt, text)
+        log_gemini_cost(title, prompt, text)
+
         return text
 
     except Exception as e:
-        log(f"OpenAI 요약 실패: {e}")
+        log(f"Gemini 요약 실패: {e}")
         return ""
+
 
 def normalize_for_duplicate(text: str) -> str:
     text = text.lower()
@@ -4214,6 +4221,195 @@ def build_message(story: dict) -> str:
         footer_tags = parts[-1].split()
         footer_tags = _ensure_case_tags_v3(summary, story, footer_tags)
         footer_tags = _normalize_footer_tags(footer_tags)
+        inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣()]+', summary))
+        dedup=[]; seen=set()
+        for t in footer_tags:
+            if t in inline_tags:
+                continue
+            if t not in seen:
+                dedup.append(t); seen.add(t)
+        parts[0] = html.escape(summary)
+        parts[-1] = ' '.join(html.escape(t) for t in dedup)
+        return '\n\n'.join(parts)
+    return message
+
+
+
+# ---------------------------------------------------------------------------
+# PATCH: 2026-06-04 OpenAI summary + extra filtering/tag fixes
+# ---------------------------------------------------------------------------
+
+for _kw in [
+    'flash crash', 'refund', 'refunds', 'bounty', 'edge token', 'edgex',
+    'outperformed nasdaq', 'nasdaq100', 'nasdaq 100', '수익률을 웃돌', '상회했다고', '상회했다', '몇배',
+    'physical bitcoin', 'casascius', '온체인 이동함', '온체인 이동', '개봉돼 온체인 이동',
+    'google ai overview', 'ai overview', '퍼블리셔', 'publisher controls', 'publisher control',
+]:
+    if _kw not in NEGATIVE_KEYWORDS:
+        NEGATIVE_KEYWORDS.append(_kw)
+
+for _pat in [
+    r'flash\s*crash', r'refunds?', r'bounty', r'edgex',
+    r'outperformed\s+nasdaq', r'nasdaq\s*100', r'수익률을\s*웃돌', r'상회했다',
+    r'physical\s*bitcoin', r'casascius', r'온체인\s*이동',
+]:
+    if _pat not in BAD_TOPIC_PATTERNS:
+        BAD_TOPIC_PATTERNS.append(_pat)
+
+INLINE_TAG_WHITELIST.update({
+    '스탠다드차타드', '조디아커스터디', 'Standard Chartered', 'Zodia Custody', '구글', '영국규제', 'AI오버뷰'
+})
+MANUAL_TRANSLATIONS.update({
+    'Standard Chartered': '스탠다드차타드',
+    'standard chartered': '스탠다드차타드',
+    '스탠다드차타드': '스탠다드차타드',
+    'Zodia Custody': '조디아커스터디',
+    'zodia custody': '조디아커스터디',
+    '조디아커스터디': '조디아커스터디',
+    'Google': '구글',
+    'google': '구글',
+})
+
+
+def is_flash_crash_refund_article(text: str) -> bool:
+    low = (text or '').lower()
+    return ('flash crash' in low or '급락' in low) and any(t in low for t in ['refund', 'refunds', 'bounty', '보상금', '환불'])
+
+
+def is_performance_comparison_article(text: str) -> bool:
+    low = (text or '').lower()
+    perf_terms = [
+        'outperformed nasdaq', 'nasdaq100', 'nasdaq 100', '수익률을 웃돌', '상회했다고', '상회했다', '웃돌았',
+        '몇배', '배 올랐', '배를 상회', '저점 이후', '같은 기간'
+    ]
+    return any(t in low for t in perf_terms)
+
+
+def is_physical_bitcoin_move_article(text: str) -> bool:
+    low = (text or '').lower()
+    return any(t in low for t in ['physical bitcoin', 'casascius', '온체인 이동', '개봉돼 온체인 이동', 'gets cashed in'])
+
+
+def is_unrelated_google_ai_overview_article(text: str) -> bool:
+    low = (text or '').lower()
+    return ('google' in low or '구글' in low) and any(t in low for t in ['ai overview', 'ai 검색 요약', 'publisher', '퍼블리셔'])
+
+
+_OLD_matches_keywords_openai_v1 = matches_keywords
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
+    if is_flash_crash_refund_article(raw_text):
+        print(f"[플래시크래시/환불 제외] {story.get('title', '')}")
+        return False
+    if is_performance_comparison_article(raw_text):
+        print(f"[수익률비교 기사 제외] {story.get('title', '')}")
+        return False
+    if is_physical_bitcoin_move_article(raw_text):
+        print(f"[실물비트코인 이동 제외] {story.get('title', '')}")
+        return False
+    if is_unrelated_google_ai_overview_article(raw_text):
+        print(f"[구글 AI 오버뷰 제외] {story.get('title', '')}")
+        return False
+    return _OLD_matches_keywords_openai_v1(story, coins, econ_keywords, korean_keywords)
+
+
+
+def _openai_extract_text(resp) -> str:
+    try:
+        if getattr(resp, 'output_text', None):
+            return resp.output_text
+    except Exception:
+        pass
+    texts = []
+    for item in getattr(resp, 'output', []) or []:
+        for content in getattr(item, 'content', []) or []:
+            if getattr(content, 'type', '') in ('output_text', 'text'):
+                txt = getattr(content, 'text', '') or ''
+                if txt:
+                    texts.append(txt)
+    return '\n'.join(texts).strip()
+
+
+def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: str = "") -> str:
+    source_text = (article_text or '').strip() or (fallback_text or '').strip() or title.strip()
+    if not OPENAI_API_KEY:
+        return ""
+    try:
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        prompt = f"""
+너는 텔레그램 암호화폐 뉴스 채널 편집자다.
+아래 기사 내용을 보고 한국어로 자연스럽게 2문장으로 다시 써라.
+
+규칙:
+- 첫 문장은 핵심 사실부터 시작
+- 2문장만 작성. 문장 사이에는 빈 줄 1개
+- 본문에 해시태그를 넣더라도 문장 안에만 넣고, 해시태그만 단독 줄로 출력하지 말 것
+- 마지막 해시태그 줄, 출처, 링크 문구는 절대 쓰지 말 것
+- 사람 이름, 기관명, 국가명, 브랜드명, 코인명은 기사에 있으면 본문에 직접 자연스럽게 포함
+- 기사에 없는 내용 추측 금지
+- 가격/차트/수익률 비교/몇 배 상승/몇 % 하락/지갑 이동/순유출/플래시크래시 보상/실물비트코인 이동 기사처럼 보이면 빈 문자열만 반환
+- 너무 과장되거나 설명형이면 짧게 사실만 정리
+- 문장 끝은 자연스러운 뉴스체로 작성
+- 가상자산 대신 암호화폐 사용
+- 리플은 가능하면 XRP로 표기
+- Google AI Overview, humanoid robots, case study program 같은 비관련 AI/교육 기사는 빈 문자열 반환
+
+제목:
+{title}
+
+본문:
+{source_text}
+""".strip()
+        resp = client.responses.create(
+            model=OPENAI_MODEL,
+            input=prompt,
+            max_output_tokens=220,
+        )
+        text = _openai_extract_text(resp)
+        text = cleanup_text(text)
+        text = fix_translation_terms(text)
+        text = fix_truncated_phrases(text)
+        text = cleanup_text(text)
+        text = text.replace('\r\n', '\n').replace('\r', '\n')
+        text = re.sub(r'^[#][^\n]+(?:\n|$)', '', text, flags=re.M)
+        text = re.sub(r'\n\s*#[^\n]+', '', text)
+        text = re.sub(r'[ \t]+', ' ', text)
+        text = re.sub(r'\n{3,}', '\n\n', text).strip()
+        return text
+    except Exception as e:
+        log(f"OpenAI 요약 실패: {e}")
+        return ""
+
+
+def _remove_hashtag_only_lines(text: str) -> str:
+    lines = []
+    for line in (text or '').split('\n'):
+        s = line.strip()
+        if s and re.fullmatch(r'(#[A-Za-z0-9가-힣()]+\s*)+', s):
+            continue
+        lines.append(line)
+    return '\n'.join(lines).strip()
+
+
+_OLD_build_message_openai_v1 = build_message
+
+def build_message(story: dict) -> str:
+    message = _OLD_build_message_openai_v1(story)
+    parts = message.split('\n\n')
+    if len(parts) >= 4:
+        summary = html.unescape(parts[0])
+        summary = _remove_hashtag_only_lines(summary)
+        summary = summary.replace('Standard Chartered', '스탠다드차타드')
+        summary = summary.replace('Zodia Custody', '조디아커스터디')
+        summary = re.sub(r'(?<!#)(스탠다드차타드)(?=가|이|는|은|를|을|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
+        summary = re.sub(r'(?<!#)(조디아커스터디)(?=가|이|는|은|를|을|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
+        footer_tags = parts[-1].split()
+        story_text = f"{story.get('title','')} {story.get('desc','')} {summary}"
+        if re.search(r'standard chartered|스탠다드차타드', story_text, re.I):
+            footer_tags.append('#StandardChartered')
+        if re.search(r'zodia custody|조디아커스터디', story_text, re.I):
+            footer_tags.append('#ZodiaCustody')
         inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣()]+', summary))
         dedup=[]; seen=set()
         for t in footer_tags:
