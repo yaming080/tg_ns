@@ -11,6 +11,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from html import unescape
+from inspect import iscoroutine
 from difflib import SequenceMatcher
 
 from openai import OpenAI
@@ -1601,992 +1602,6 @@ for alias in COUNTRY_INLINE_ALIASES:
 INLINE_TAG_WHITELIST.update(COUNTRY_INLINE_ALIASES)
 MANUAL_TRANSLATIONS.update(COUNTRY_TRANSLATIONS)
 
-
-# ---------------------------------------------------------------------------
-# Unified entity rules
-# Add new companies / institutions / countries here only.
-# - aliases: article에서 감지할 표현들
-# - ko: 일반 본문에 쓸 한국어 표기
-# - inline_tag: 본문 해시태그 표기
-# - footer_tag: 마지막 footer 해시태그 표기
-# ---------------------------------------------------------------------------
-ENTITY_RULES = {
-    'JPMorgan': {
-        'aliases': ['JPMorgan', 'JP Morgan', 'J.P. Morgan', '제이피모건', 'JP모건'],
-        'ko': 'JP모건',
-        'inline_tag': '#JP모건',
-        'footer_tag': '#JPMorgan',
-    },
-    'Jamie Dimon': {
-        'aliases': ['Jamie Dimon', '제이미 다이먼', '제이미다이먼'],
-        'ko': '제이미다이먼',
-        'inline_tag': '#제이미다이먼',
-        'footer_tag': '#JamieDimon',
-    },
-    'United Texas Bank': {
-        'aliases': ['United Texas Bank', 'UTB', '유나이티드텍사스은행'],
-        'ko': '유나이티드텍사스은행',
-        'inline_tag': '#유나이티드텍사스은행',
-        'footer_tag': '#UTB',
-    },
-    'Wall Street': {
-        'aliases': ['Wall Street', '월스트리트'],
-        'ko': '월스트리트',
-        'inline_tag': '#월스트리트',
-        'footer_tag': '#WallStreet',
-    },
-    'Bank': {
-        'aliases': ['bank', 'banks', '은행'],
-        'ko': '은행',
-        'inline_tag': '#은행',
-        'footer_tag': '#Bank',
-    },
-    'CEO': {
-        'aliases': ['CEO', 'ceo'],
-        'ko': 'CEO',
-        'inline_tag': '#CEO',
-        'footer_tag': '#CEO',
-    },
-    'DFS': {
-        'aliases': ['DFS', 'Department of Financial Services', '금융감독청'],
-        'ko': '금융감독청',
-        'inline_tag': '#금융감독청',
-        'footer_tag': '#DFS',
-    },
-    'EBA': {
-        'aliases': ['EBA', 'European Banking Authority', '유럽은행감독청'],
-        'ko': '유럽은행감독청',
-        'inline_tag': '#유럽은행감독청',
-        'footer_tag': '#EBA',
-    },
-    'EU': {
-        'aliases': ['EU', 'European Union', '유럽연합'],
-        'ko': 'EU',
-        'inline_tag': '#EU',
-        'footer_tag': '#EU',
-    },
-    'Stablecoin': {
-        'aliases': ['stablecoin', 'stablecoins', '스테이블코인'],
-        'ko': '스테이블코인',
-        'inline_tag': '#스테이블코인',
-        'footer_tag': '#Stablecoin',
-    },
-    'CNBC': {
-        'aliases': ['CNBC'],
-        'ko': 'CNBC',
-        'inline_tag': '#CNBC',
-        'footer_tag': '#CNBC',
-    },
-    'United States': {
-        'aliases': ['United States', 'US', 'U.S.', '미국'],
-        'ko': '미국',
-        'inline_tag': '#미국',
-        'footer_tag': '#US',
-    },
-    'Korea': {
-        'aliases': ['Korea', 'South Korea', '대한민국', '한국'],
-        'ko': '한국',
-        'inline_tag': '#한국',
-        'footer_tag': '#Korea',
-    },
-    'Japan': {
-        'aliases': ['Japan', '일본'],
-        'ko': '일본',
-        'inline_tag': '#일본',
-        'footer_tag': '#Japan',
-    },
-    'China': {
-        'aliases': ['China', '중국'],
-        'ko': '중국',
-        'inline_tag': '#중국',
-        'footer_tag': '#China',
-    },
-    'Hong Kong': {
-        'aliases': ['Hong Kong', '홍콩'],
-        'ko': '홍콩',
-        'inline_tag': '#홍콩',
-        'footer_tag': '#HongKong',
-    },
-    'Taiwan': {
-        'aliases': ['Taiwan', '대만'],
-        'ko': '대만',
-        'inline_tag': '#대만',
-        'footer_tag': '#Taiwan',
-    },
-    'Australia': {
-        'aliases': ['Australia', 'Australian', '호주'],
-        'ko': '호주',
-        'inline_tag': '#호주',
-        'footer_tag': '#Australia',
-    },
-    'Brazil': {
-        'aliases': ['Brazil', '브라질'],
-        'ko': '브라질',
-        'inline_tag': '#브라질',
-        'footer_tag': '#Brazil',
-    },
-    'India': {
-        'aliases': ['India', '인도'],
-        'ko': '인도',
-        'inline_tag': '#인도',
-        'footer_tag': '#India',
-    },
-    'Iran': {
-        'aliases': ['Iran', '이란'],
-        'ko': '이란',
-        'inline_tag': '#이란',
-        'footer_tag': '#Iran',
-    },
-    'Israel': {
-        'aliases': ['Israel', '이스라엘'],
-        'ko': '이스라엘',
-        'inline_tag': '#이스라엘',
-        'footer_tag': '#Israel',
-    },
-    'Qatar': {
-        'aliases': ['Qatar', '카타르'],
-        'ko': '카타르',
-        'inline_tag': '#카타르',
-        'footer_tag': '#Qatar',
-    },
-    'Georgia': {
-        'aliases': ['Georgia', '조지아'],
-        'ko': '조지아',
-        'inline_tag': '#조지아',
-        'footer_tag': '#Georgia',
-    },
-    'Ripple': {
-        'aliases': ['Ripple', '리플'],
-        'ko': '리플',
-        'inline_tag': '#리플',
-        'footer_tag': '#Ripple',
-    },
-    'XRP': {
-        'aliases': ['XRP', '엑스알피'],
-        'ko': 'XRP',
-        'inline_tag': '#XRP',
-        'footer_tag': '#XRP',
-    },
-    'XRPL': {
-        'aliases': ['XRPL', 'XRP Ledger', 'XRPLedger', '엑스알피레저'],
-        'ko': 'XRPL',
-        'inline_tag': '#XRPL',
-        'footer_tag': '#XRPL',
-    },
-    'DEX': {
-        'aliases': ['DEX', 'Decentralized Exchange', '탈중앙거래소'],
-        'ko': '탈중앙거래소',
-        'inline_tag': '#탈중앙거래소',
-        'footer_tag': '#DEX',
-    },
-    'DeFi': {
-        'aliases': ['DeFi', '디파이'],
-        'ko': '디파이',
-        'inline_tag': '#디파이',
-        'footer_tag': '#DeFi',
-    },
-    'Bitcoin': {
-        'aliases': ['Bitcoin', '비트코인'],
-        'ko': '비트코인',
-        'inline_tag': '#비트코인',
-        'footer_tag': '#Bitcoin',
-    },
-    'Ethereum': {
-        'aliases': ['Ethereum', '이더리움'],
-        'ko': '이더리움',
-        'inline_tag': '#이더리움',
-        'footer_tag': '#Ethereum',
-    },
-    'USDC': {
-        'aliases': ['USDC'],
-        'ko': 'USDC',
-        'inline_tag': '#USDC',
-        'footer_tag': '#USDC',
-    },
-    'USDT': {
-        'aliases': ['USDT', 'Tether USD', '테더USD'],
-        'ko': 'USDT',
-        'inline_tag': '#USDT',
-        'footer_tag': '#USDT',
-    },
-    'Tether': {
-        'aliases': ['Tether', '테더'],
-        'ko': '테더',
-        'inline_tag': '#테더',
-        'footer_tag': '#Tether',
-    },
-    'Circle': {
-        'aliases': ['Circle', '서클'],
-        'ko': '서클',
-        'inline_tag': '#서클',
-        'footer_tag': '#Circle',
-    },
-    'Coinbase': {
-        'aliases': ['Coinbase', '코인베이스'],
-        'ko': '코인베이스',
-        'inline_tag': '#코인베이스',
-        'footer_tag': '#Coinbase',
-    },
-    'Binance': {
-        'aliases': ['Binance', '바이낸스'],
-        'ko': '바이낸스',
-        'inline_tag': '#바이낸스',
-        'footer_tag': '#Binance',
-    },
-    'Upbit': {
-        'aliases': ['Upbit', '업비트'],
-        'ko': '업비트',
-        'inline_tag': '#업비트',
-        'footer_tag': '#Upbit',
-    },
-    'Bithumb': {
-        'aliases': ['Bithumb', '빗썸'],
-        'ko': '빗썸',
-        'inline_tag': '#빗썸',
-        'footer_tag': '#Bithumb',
-    },
-    'Coinone': {
-        'aliases': ['Coinone', '코인원'],
-        'ko': '코인원',
-        'inline_tag': '#코인원',
-        'footer_tag': '#Coinone',
-    },
-    'Kraken': {
-        'aliases': ['Kraken', '크라켄'],
-        'ko': '크라켄',
-        'inline_tag': '#크라켄',
-        'footer_tag': '#Kraken',
-    },
-    'Bitget': {
-        'aliases': ['Bitget', '비트겟'],
-        'ko': '비트겟',
-        'inline_tag': '#비트겟',
-        'footer_tag': '#Bitget',
-    },
-    'SafePal': {
-        'aliases': ['SafePal', '세이프팔'],
-        'ko': '세이프팔',
-        'inline_tag': '#세이프팔',
-        'footer_tag': '#SafePal',
-    },
-    'eToro': {
-        'aliases': ['eToro'],
-        'ko': 'eToro',
-        'inline_tag': '#eToro',
-        'footer_tag': '#eToro',
-    },
-    'Robinhood': {
-        'aliases': ['Robinhood', '로빈후드'],
-        'ko': '로빈후드',
-        'inline_tag': '#로빈후드',
-        'footer_tag': '#Robinhood',
-    },
-    'MoonPay': {
-        'aliases': ['MoonPay', '문페이'],
-        'ko': '문페이',
-        'inline_tag': '#문페이',
-        'footer_tag': '#MoonPay',
-    },
-    'MoneyGram': {
-        'aliases': ['MoneyGram', '머니그램'],
-        'ko': '머니그램',
-        'inline_tag': '#머니그램',
-        'footer_tag': '#MoneyGram',
-    },
-    'Mastercard': {
-        'aliases': ['Mastercard', '마스터카드'],
-        'ko': '마스터카드',
-        'inline_tag': '#마스터카드',
-        'footer_tag': '#Mastercard',
-    },
-    'Visa': {
-        'aliases': ['Visa', '비자'],
-        'ko': '비자',
-        'inline_tag': '#비자',
-        'footer_tag': '#Visa',
-    },
-    'OpenAI': {
-        'aliases': ['OpenAI', '오픈AI'],
-        'ko': 'OpenAI',
-        'inline_tag': '#OpenAI',
-        'footer_tag': '#OpenAI',
-    },
-    'Anthropic': {
-        'aliases': ['Anthropic', '앤트로픽'],
-        'ko': '앤트로픽',
-        'inline_tag': '#앤트로픽',
-        'footer_tag': '#Anthropic',
-    },
-    'Google': {
-        'aliases': ['Google', '구글'],
-        'ko': '구글',
-        'inline_tag': '#구글',
-        'footer_tag': '#Google',
-    },
-    'Microsoft': {
-        'aliases': ['Microsoft', '마이크로소프트'],
-        'ko': '마이크로소프트',
-        'inline_tag': '#마이크로소프트',
-        'footer_tag': '#Microsoft',
-    },
-    'BlackRock': {
-        'aliases': ['BlackRock', '블랙록'],
-        'ko': '블랙록',
-        'inline_tag': '#블랙록',
-        'footer_tag': '#BlackRock',
-    },
-    'Morgan Stanley': {
-        'aliases': ['Morgan Stanley', '모건스탠리'],
-        'ko': '모건스탠리',
-        'inline_tag': '#모건스탠리',
-        'footer_tag': '#MorganStanley',
-    },
-    'Goldman Sachs': {
-        'aliases': ['Goldman Sachs', '골드만삭스'],
-        'ko': '골드만삭스',
-        'inline_tag': '#골드만삭스',
-        'footer_tag': '#GoldmanSachs',
-    },
-    'Wells Fargo': {
-        'aliases': ['Wells Fargo', '웰스파고'],
-        'ko': '웰스파고',
-        'inline_tag': '#웰스파고',
-        'footer_tag': '#WellsFargo',
-    },
-    'Franklin Templeton': {
-        'aliases': ['Franklin Templeton', '프랭클린템플턴'],
-        'ko': '프랭클린템플턴',
-        'inline_tag': '#프랭클린템플턴',
-        'footer_tag': '#FranklinTempleton',
-    },
-    'WisdomTree': {
-        'aliases': ['WisdomTree', '위즈덤트리'],
-        'ko': '위즈덤트리',
-        'inline_tag': '#위즈덤트리',
-        'footer_tag': '#WisdomTree',
-    },
-    'Bank of Korea': {
-        'aliases': ['Bank of Korea', '한국은행'],
-        'ko': '한국은행',
-        'inline_tag': '#한국은행',
-        'footer_tag': '#BankOfKorea',
-    },
-    'Bank of Japan': {
-        'aliases': ['Bank of Japan', '일본은행'],
-        'ko': '일본은행',
-        'inline_tag': '#일본은행',
-        'footer_tag': '#BankOfJapan',
-    },
-    'Federal Reserve': {
-        'aliases': ['Federal Reserve', 'Fed', '연준'],
-        'ko': '연준',
-        'inline_tag': '#연준',
-        'footer_tag': '#Fed',
-    },
-    'Treasury': {
-        'aliases': ['Treasury', 'U.S. Treasury', '재무부'],
-        'ko': '재무부',
-        'inline_tag': '#재무부',
-        'footer_tag': '#Treasury',
-    },
-    'SEC': {
-        'aliases': ['SEC'],
-        'ko': 'SEC',
-        'inline_tag': '#SEC',
-        'footer_tag': '#SEC',
-    },
-    'CFTC': {
-        'aliases': ['CFTC'],
-        'ko': 'CFTC',
-        'inline_tag': '#CFTC',
-        'footer_tag': '#CFTC',
-    },
-    'OCC': {
-        'aliases': ['OCC'],
-        'ko': 'OCC',
-        'inline_tag': '#OCC',
-        'footer_tag': '#OCC',
-    },
-    'ETF': {
-        'aliases': ['ETF', '현물 ETF'],
-        'ko': 'ETF',
-        'inline_tag': '#ETF',
-        'footer_tag': '#ETF',
-    },
-    'IPO': {
-        'aliases': ['IPO'],
-        'ko': 'IPO',
-        'inline_tag': '#IPO',
-        'footer_tag': '#IPO',
-    },
-    'FOMC': {
-        'aliases': ['FOMC'],
-        'ko': 'FOMC',
-        'inline_tag': '#FOMC',
-        'footer_tag': '#FOMC',
-    },
-    'RLUSD': {
-        'aliases': ['RLUSD'],
-        'ko': 'RLUSD',
-        'inline_tag': '#RLUSD',
-        'footer_tag': '#RLUSD',
-    },
-    'ODL': {
-        'aliases': ['ODL'],
-        'ko': 'ODL',
-        'inline_tag': '#ODL',
-        'footer_tag': '#ODL',
-    },
-    'FedNow': {
-        'aliases': ['FedNow'],
-        'ko': 'FedNow',
-        'inline_tag': '#FedNow',
-        'footer_tag': '#FedNow',
-    },
-    'Fedwire': {
-        'aliases': ['Fedwire'],
-        'ko': 'Fedwire',
-        'inline_tag': '#Fedwire',
-        'footer_tag': '#Fedwire',
-    },
-    'CBDC': {
-        'aliases': ['CBDC'],
-        'ko': 'CBDC',
-        'inline_tag': '#CBDC',
-        'footer_tag': '#CBDC',
-    },
-    'RWA': {
-        'aliases': ['RWA'],
-        'ko': 'RWA',
-        'inline_tag': '#RWA',
-        'footer_tag': '#RWA',
-    },
-    'GENIUS Act': {
-        'aliases': ['GENIUS Act', '지니어스법안', '지니어스법'],
-        'ko': '지니어스법안',
-        'inline_tag': '#지니어스법안',
-        'footer_tag': '#GENIUSAct',
-    },
-    'CLARITY Act': {
-        'aliases': ['CLARITY Act', '클래리티법안', '클래리티법'],
-        'ko': '클래리티법안',
-        'inline_tag': '#클래리티법안',
-        'footer_tag': '#CLARITYAct',
-    },
-    'SBI Remit': {
-        'aliases': ['SBI Remit', 'SBIRemit', 'SBI리밋'],
-        'ko': 'SBI리밋',
-        'inline_tag': '#SBI리밋',
-        'footer_tag': '#SBIRemit',
-    },
-    'Tohoku Bank': {
-        'aliases': ['Tohoku Bank', '도호쿠은행'],
-        'ko': '도호쿠은행',
-        'inline_tag': '#도호쿠은행',
-        'footer_tag': '#TohokuBank',
-    },
-    'Qivalis': {
-        'aliases': ['Qivalis', '키발리스'],
-        'ko': '키발리스',
-        'inline_tag': '#키발리스',
-        'footer_tag': '#Qivalis',
-    },
-    'Nuva': {
-        'aliases': ['NUVA', 'Nuva', '누바'],
-        'ko': '누바',
-        'inline_tag': '#누바',
-        'footer_tag': '#Nuva',
-    },
-    'Tempo': {
-        'aliases': ['Tempo', '템포'],
-        'ko': '템포',
-        'inline_tag': '#템포',
-        'footer_tag': '#Tempo',
-    },
-    'Muro': {
-        'aliases': ['Muro', '무로'],
-        'ko': '무로',
-        'inline_tag': '#무로',
-        'footer_tag': '#Muro',
-    },
-    'Santander': {
-        'aliases': ['Santander', '산탄데르'],
-        'ko': '산탄데르',
-        'inline_tag': '#산탄데르',
-        'footer_tag': '#Santander',
-    },
-    'Bitdeer': {
-        'aliases': ['Bitdeer', '비트디어'],
-        'ko': '비트디어',
-        'inline_tag': '#비트디어',
-        'footer_tag': '#Bitdeer',
-    },
-    'Blockstream': {
-        'aliases': ['Blockstream', '블록스트림'],
-        'ko': '블록스트림',
-        'inline_tag': '#블록스트림',
-        'footer_tag': '#Blockstream',
-    },
-    'Oracle': {
-        'aliases': ['Oracle', '오라클'],
-        'ko': '오라클',
-        'inline_tag': '#오라클',
-        'footer_tag': '#Oracle',
-    },
-    'IMF': {
-        'aliases': ['IMF'],
-        'ko': 'IMF',
-        'inline_tag': '#IMF',
-        'footer_tag': '#IMF',
-    },
-    'ABA': {
-        'aliases': ['ABA'],
-        'ko': 'ABA',
-        'inline_tag': '#ABA',
-        'footer_tag': '#ABA',
-    },
-    'HSBC': {
-        'aliases': ['HSBC'],
-        'ko': 'HSBC',
-        'inline_tag': '#HSBC',
-        'footer_tag': '#HSBC',
-    },
-    'Standard Chartered': {
-        'aliases': ['Standard Chartered', '스탠다드차타드'],
-        'ko': '스탠다드차타드',
-        'inline_tag': '#스탠다드차타드',
-        'footer_tag': '#StandardChartered',
-    },
-    'HKMA': {
-        'aliases': ['HKMA', 'Hong Kong Monetary Authority', '홍콩금융관리국'],
-        'ko': '홍콩금융관리국',
-        'inline_tag': '#홍콩금융관리국',
-        'footer_tag': '#HKMA',
-    },
-    'Insurance Institute': {
-        'aliases': ['보험연수원', 'Korea Insurance Development Institute'],
-        'ko': '보험연수원',
-        'inline_tag': '#보험연수원',
-        'footer_tag': '#InsuranceInstitute',
-    },
-    'Digital Currency': {
-        'aliases': ['디지털화폐', '디지털통화', 'Digital Currency', 'Digital Finance'],
-        'ko': '디지털화폐',
-        'inline_tag': '#디지털화폐',
-        'footer_tag': '#DigitalCurrency',
-    },
-    'Hyun Song Shin': {
-        'aliases': ['Hyun Song Shin', '신현송'],
-        'ko': '신현송',
-        'inline_tag': '#신현송',
-        'footer_tag': '#HyunSongShin',
-    },
-    'Monica Long': {
-        'aliases': ['Monica Long', '모니카롱'],
-        'ko': '모니카롱',
-        'inline_tag': '#모니카롱',
-        'footer_tag': '#MonicaLong',
-    },
-    'Brad Garlinghouse': {
-        'aliases': ['Brad Garlinghouse', '브래드갈링하우스', '갈링하우스'],
-        'ko': '브래드갈링하우스',
-        'inline_tag': '#브래드갈링하우스',
-        'footer_tag': '#BradGarlinghouse',
-    },
-    'David Schwartz': {
-        'aliases': ['David Schwartz', '데이비드슈워츠'],
-        'ko': '데이비드슈워츠',
-        'inline_tag': '#데이비드슈워츠',
-        'footer_tag': '#DavidSchwartz',
-    },
-    'Hester Peirce': {
-        'aliases': ['Hester Peirce', '헤스터피어스', '헤스터 피어스'],
-        'ko': '헤스터피어스',
-        'inline_tag': '#헤스터피어스',
-        'footer_tag': '#HesterPeirce',
-    },
-    'Tobias Adrian': {
-        'aliases': ['Tobias Adrian', '토비아스아드리안', '토비아스 아드리안'],
-        'ko': '토비아스아드리안',
-        'inline_tag': '#토비아스아드리안',
-        'footer_tag': '#TobiasAdrian',
-    },
-    'Charles Schwab': {
-        'aliases': ['Charles Schwab', '찰스슈왑', '찰스 슈왑'],
-        'ko': '찰스슈왑',
-        'inline_tag': '#찰스슈왑',
-        'footer_tag': '#CharlesSchwab',
-    },
-    'Andrew Bailey': {
-        'aliases': ['Andrew Bailey', '앤드루베일리', '앤드루 베일리'],
-        'ko': '앤드루베일리',
-        'inline_tag': '#앤드루베일리',
-        'footer_tag': '#AndrewBailey',
-    },
-    'Peter Schiff': {
-        'aliases': ['Peter Schiff', '피터쉬프', '피터 쉬프'],
-        'ko': '피터쉬프',
-        'inline_tag': '#피터쉬프',
-        'footer_tag': '#PeterSchiff',
-    },
-    'Jeff Park': {
-        'aliases': ['Jeff Park', '제프박', '제프 박'],
-        'ko': '제프박',
-        'inline_tag': '#제프박',
-        'footer_tag': '#JeffPark',
-    },
-    'ProCap': {
-        'aliases': ['ProCap', '프로캡'],
-        'ko': '프로캡',
-        'inline_tag': '#프로캡',
-        'footer_tag': '#ProCap',
-    },
-    'Michael Saylor': {
-        'aliases': ['Michael Saylor', '마이클세일러', '마이클 세일러'],
-        'ko': '마이클세일러',
-        'inline_tag': '#마이클세일러',
-        'footer_tag': '#MichaelSaylor',
-    },
-    'Tom Lee': {
-        'aliases': ['Tom Lee', '톰리'],
-        'ko': '톰리',
-        'inline_tag': '#톰리',
-        'footer_tag': '#TomLee',
-    },
-    'Jack Dorsey': {
-        'aliases': ['Jack Dorsey', '잭도시', '잭 도시'],
-        'ko': '잭도시',
-        'inline_tag': '#잭도시',
-        'footer_tag': '#JackDorsey',
-    },
-    'Paul Grewal': {
-        'aliases': ['Paul Grewal', '폴그루월', '폴 그루월', '그루월'],
-        'ko': '폴그루월',
-        'inline_tag': '#폴그루월',
-        'footer_tag': '#PaulGrewal',
-    },
-    'Michael Barr': {
-        'aliases': ['Michael Barr', '마이클바', '마이클 바'],
-        'ko': '마이클바',
-        'inline_tag': '#마이클바',
-        'footer_tag': '#MichaelBarr',
-    },
-    'Michael Selig': {
-        'aliases': ['Michael Selig', '마이클셀릭', '마이클 셀릭'],
-        'ko': '마이클셀릭',
-        'inline_tag': '#마이클셀릭',
-        'footer_tag': '#MichaelSelig',
-    },
-    'Elizabeth Warren': {
-        'aliases': ['Elizabeth Warren', '엘리자베스워런', '엘리자베스 워런'],
-        'ko': '엘리자베스워런',
-        'inline_tag': '#엘리자베스워런',
-        'footer_tag': '#ElizabethWarren',
-    },
-    'Kevin Warsh': {
-        'aliases': ['Kevin Warsh', '케빈워시', '케빈 워시'],
-        'ko': '케빈워시',
-        'inline_tag': '#케빈워시',
-        'footer_tag': '#KevinWarsh',
-    },
-    'Donald Trump': {
-        'aliases': ['Donald Trump', '트럼프', '도널드트럼프'],
-        'ko': '트럼프',
-        'inline_tag': '#트럼프',
-        'footer_tag': '#DonaldTrump',
-    },
-    'Open Credit': {
-        'aliases': ['Open Credit', '오픈크레딧'],
-        'ko': '오픈크레딧',
-        'inline_tag': '#오픈크레딧',
-        'footer_tag': '#OpenCredit',
-    },
-    'Private Credit': {
-        'aliases': ['Private Credit', '사모대출', '프라이빗크레딧'],
-        'ko': '사모대출',
-        'inline_tag': '#사모대출',
-        'footer_tag': '#PrivateCredit',
-    },
-    'Financial Supervisory Service': {
-        'aliases': ['Financial Supervisory Service', '금융당국'],
-        'ko': '금융당국',
-        'inline_tag': '#금융당국',
-        'footer_tag': '#FSS',
-    },
-    'Bank of England': {
-        'aliases': ['Bank of England', '잉글랜드은행'],
-        'ko': '잉글랜드은행',
-        'inline_tag': '#잉글랜드은행',
-        'footer_tag': '#BankOfEngland',
-    },
-    'Korea Insurance Development Institute': {
-        'aliases': ['Korea Insurance Development Institute', '보험연수원'],
-        'ko': '보험연수원',
-        'inline_tag': '#보험연수원',
-        'footer_tag': '#KIDI',
-    },
-    'Japan Government': {
-        'aliases': ['Japanese Government', 'Japan Government', '일본 정부'],
-        'ko': '일본정부',
-        'inline_tag': '#일본정부',
-        'footer_tag': '#JapanGovernment',
-    },
-    'Coinone AML': {
-        'aliases': ['Coinone AML', '코인원 AML'],
-        'ko': '코인원AML',
-        'inline_tag': '#코인원AML',
-        'footer_tag': '#CoinoneAML',
-    },
-    'BitMine': {
-        'aliases': ['BitMine', '비트마인'],
-        'ko': '비트마인',
-        'inline_tag': '#비트마인',
-        'footer_tag': '#BitMine',
-    },
-    'BNK': {
-        'aliases': ['BNK', '부산은행'],
-        'ko': '부산은행',
-        'inline_tag': '#부산은행',
-        'footer_tag': '#BNK',
-    },
-    'Toss': {
-        'aliases': ['Toss', '토스'],
-        'ko': '토스',
-        'inline_tag': '#토스',
-        'footer_tag': '#Toss',
-    },
-    'KBank': {
-        'aliases': ['KBank', '케이뱅크'],
-        'ko': '케이뱅크',
-        'inline_tag': '#케이뱅크',
-        'footer_tag': '#KBank',
-    },
-    'Apple': {
-        'aliases': ['Apple', '애플'],
-        'ko': '애플',
-        'inline_tag': '#애플',
-        'footer_tag': '#Apple',
-    },
-    'PayPal': {
-        'aliases': ['PayPal', '페이팔'],
-        'ko': '페이팔',
-        'inline_tag': '#페이팔',
-        'footer_tag': '#PayPal',
-    },
-    'Stripe': {
-        'aliases': ['Stripe', '스트라이프'],
-        'ko': '스트라이프',
-        'inline_tag': '#스트라이프',
-        'footer_tag': '#Stripe',
-    },
-    'Gemini': {
-        'aliases': ['Gemini', '제미니'],
-        'ko': '제미니',
-        'inline_tag': '#제미니',
-        'footer_tag': '#Gemini',
-    },
-    'Kalshi': {
-        'aliases': ['Kalshi', '칼시'],
-        'ko': '칼시',
-        'inline_tag': '#칼시',
-        'footer_tag': '#Kalshi',
-    },
-    'Polymarket': {
-        'aliases': ['Polymarket', '폴리마켓'],
-        'ko': '폴리마켓',
-        'inline_tag': '#폴리마켓',
-        'footer_tag': '#Polymarket',
-    },
-    'Evernorth': {
-        'aliases': ['Evernorth', '에버노스'],
-        'ko': '에버노스',
-        'inline_tag': '#에버노스',
-        'footer_tag': '#Evernorth',
-    },
-    'Metaplanet': {
-        'aliases': ['Metaplanet', '메타플래닛'],
-        'ko': '메타플래닛',
-        'inline_tag': '#메타플래닛',
-        'footer_tag': '#Metaplanet',
-    },
-    'Strategy': {
-        'aliases': ['Strategy', '스트래티지'],
-        'ko': '스트래티지',
-        'inline_tag': '#스트래티지',
-        'footer_tag': '#Strategy',
-    },
-    'Bitwise': {
-        'aliases': ['Bitwise'],
-        'ko': '비트와이즈',
-        'inline_tag': '#비트와이즈',
-        'footer_tag': '#Bitwise',
-    },
-    'NYSE': {
-        'aliases': ['NYSE'],
-        'ko': '뉴욕증권거래소',
-        'inline_tag': '#뉴욕증권거래소',
-        'footer_tag': '#NYSE',
-    },
-    'ETF Store': {
-        'aliases': ['ETF Store'],
-        'ko': 'ETF스토어',
-        'inline_tag': '#ETF스토어',
-        'footer_tag': '#ETFStore',
-    },
-    'White House': {
-        'aliases': ['White House', '백악관'],
-        'ko': '백악관',
-        'inline_tag': '#백악관',
-        'footer_tag': '#WhiteHouse',
-    },
-    'Congress': {
-        'aliases': ['Congress', '의회'],
-        'ko': '의회',
-        'inline_tag': '#의회',
-        'footer_tag': '#Congress',
-    },
-    'Senate': {
-        'aliases': ['Senate', '상원'],
-        'ko': '상원',
-        'inline_tag': '#상원',
-        'footer_tag': '#Senate',
-    },
-    'House of Lords': {
-        'aliases': ['House of Lords', 'House of Lords Committee', '하원 위원회', '하원위원회', '상원위원회'],
-        'ko': '하원',
-        'inline_tag': '#하원',
-        'footer_tag': '#HouseOfLords',
-    },
-    'Policy': {
-        'aliases': ['policy', '정책'],
-        'ko': '정책',
-        'inline_tag': '#정책',
-        'footer_tag': '#Policy',
-    },
-    'Regulation': {
-        'aliases': ['regulation', 'regulatory', '규제'],
-        'ko': '규제',
-        'inline_tag': '#규제',
-        'footer_tag': '#Regulation',
-    },
-    'Tokenization': {
-        'aliases': ['tokenization', '토큰화'],
-        'ko': '토큰화',
-        'inline_tag': '#토큰화',
-        'footer_tag': '#Tokenization',
-    },
-    'Custody': {
-        'aliases': ['custody', '수탁'],
-        'ko': '수탁',
-        'inline_tag': '#수탁',
-        'footer_tag': '#Custody',
-    },
-    'Seed Phrase': {
-        'aliases': ['seed phrase', '시드문구'],
-        'ko': '시드문구',
-        'inline_tag': '#시드문구',
-        'footer_tag': '#SeedPhrase',
-    },
-    'Digital Gold': {
-        'aliases': ['digital gold', '디지털금'],
-        'ko': '디지털금',
-        'inline_tag': '#디지털금',
-        'footer_tag': '#DigitalGold',
-    },
-    'World Gold Council': {
-        'aliases': ['World Gold Council', '세계금협회'],
-        'ko': '세계금협회',
-        'inline_tag': '#세계금협회',
-        'footer_tag': '#WorldGoldCouncil',
-    },
-    'Gold': {
-        'aliases': ['Gold', '금'],
-        'ko': '금',
-        'inline_tag': '#금',
-        'footer_tag': '#Gold',
-    },
-    'Silver': {
-        'aliases': ['Silver', '은'],
-        'ko': '은',
-        'inline_tag': '#은',
-        'footer_tag': '#Silver',
-    },
-    'Oracle Corp': {
-        'aliases': ['Oracle', '오라클'],
-        'ko': '오라클',
-        'inline_tag': '#오라클',
-        'footer_tag': '#Oracle',
-    },
-    'Finance': {
-        'aliases': ['finance', 'financial', '금융'],
-        'ko': '금융',
-        'inline_tag': '#금융',
-        'footer_tag': '#Finance',
-    },
-    'Crypto': {
-        'aliases': ['crypto', 'cryptocurrency', '암호화폐'],
-        'ko': '암호화폐',
-        'inline_tag': '#암호화폐',
-        'footer_tag': '#Crypto',
-    },
-    'ETF Spot': {
-        'aliases': ['spot etf', '현물 etf'],
-        'ko': '현물ETF',
-        'inline_tag': '#현물ETF',
-        'footer_tag': '#SpotETF',
-    },
-}
-ENTITY_ALIAS_TO_KEY = {}
-ENTITY_INLINE_TAGS = set()
-ENTITY_FOOTER_TAGS = set()
-
-def _entity_rule_match(text: str, alias: str) -> bool:
-    raw = text or ""
-    if not raw or not alias:
-        return False
-
-    # 영문/숫자/한글 경계 기준으로 최대한 자연스럽게 매칭
-    pattern = rf'(?<![A-Za-z0-9가-힣]){re.escape(alias)}(?![A-Za-z0-9가-힣])'
-    if re.search(pattern, raw, re.I):
-        return True
-
-    return alias in raw
-
-def _init_entity_rules():
-    for key, rule in ENTITY_RULES.items():
-        ko = (rule.get('ko') or '').strip()
-        inline_tag = (rule.get('inline_tag') or '').strip()
-        footer_tag = (rule.get('footer_tag') or '').strip()
-        aliases = rule.get('aliases') or []
-
-        if ko:
-            MANUAL_TRANSLATIONS[key] = ko
-            INLINE_TAG_WHITELIST.add(ko)
-            if ko not in KOREAN_TAG_KEYWORDS:
-                KOREAN_TAG_KEYWORDS.append(ko)
-
-        if inline_tag:
-            ENTITY_INLINE_TAGS.add(inline_tag)
-            INLINE_TAG_WHITELIST.add(inline_tag.lstrip('#'))
-            if inline_tag.lstrip('#') not in KOREAN_TAG_KEYWORDS:
-                KOREAN_TAG_KEYWORDS.append(inline_tag.lstrip('#'))
-
-        if footer_tag:
-            ENTITY_FOOTER_TAGS.add(footer_tag)
-
-        for alias in aliases:
-            alias = str(alias).strip()
-            if not alias:
-                continue
-            ENTITY_ALIAS_TO_KEY[alias.lower()] = key
-            MANUAL_TRANSLATIONS[alias] = ko or alias
-            INLINE_TAG_WHITELIST.add(alias)
-            if alias not in KOREAN_TAG_KEYWORDS:
-                KOREAN_TAG_KEYWORDS.append(alias)
-
-_init_entity_rules()
-
-
 IGNORED_WORDS = {
     'raises','posts','reports','appeared','appears','launches','launch','publishes','reveals',
     'acquires','funds','boosts','first','second','third','study','trial','trials','tests',
@@ -2624,31 +1639,10 @@ AVG_CHARS_PER_TOKEN = 4
 SHOW_COST_LOG = True
 
 def normalize_url(url: str) -> str:
-    from urllib.parse import urlparse, parse_qsl, urlencode
-
     url = (url or '').strip().lower()
-    if not url:
-        return ''
-
-    parsed = urlparse(url)
-    drop_prefixes = ('utm_',)
-    drop_exact = {'rss', 'output', 'ref', 'ref_src', 'ref_url', 'fbclid', 'gclid', 'igshid', 'mc_cid', 'mc_eid'}
-
-    kept = []
-    for k, v in parse_qsl(parsed.query, keep_blank_values=False):
-        kl = k.lower()
-        if kl.startswith(drop_prefixes):
-            continue
-        if kl in drop_exact:
-            continue
-        kept.append((kl, v))
-
-    clean_query = urlencode(sorted(kept))
-    path = parsed.path.rstrip('/')
-    clean = f"{parsed.netloc}{path}"
-    if clean_query:
-        clean += f"?{clean_query}"
-    return clean
+    url = re.sub(r'^https?://', '', url)
+    url = url.rstrip('/')
+    return url
 
 def log(msg: str) -> None:
     print(msg, flush=True)
@@ -2940,6 +1934,36 @@ def is_conference_opinion_article(text: str) -> bool:
 
     return (has_event and not has_hard_news) or (has_promo and has_event) or ('challenge' in low) or ('campaign' in low)
 
+
+
+def is_commentary_only_article(text: str) -> bool:
+    low = (text or "").lower()
+
+    # 말만 있고 실질 이벤트가 없는 표현
+    commentary_terms = [
+        'mentioned', 'mentions', 'noted', 'notes', 'explained', 'explains',
+        'described', 'describes', 'highlighted', 'highlights',
+        'commented', 'comments', 'said', 'says', 'stated', 'states',
+        '언급함', '언급', '설명함', '설명', '강조함', '강조',
+        '평가함', '평가', '말함', '밝힘', '전함', '묘사함', '묘사'
+    ]
+
+    # 진짜 뉴스로 볼 수 있는 실질 이벤트
+    hard_news_terms = [
+        'approved', 'approval', 'launched', 'launch', 'rolled out',
+        'signed', 'agreement', 'partnership', 'integrated', 'integration',
+        'licensed', 'license', 'lawsuit', 'settlement', 'filed',
+        'passed', 'bill', 'act', 'law', 'policy change', 'adopted',
+        '도입', '출시', '승인', '인가', '체결', '통합', '제휴',
+        '소송', '합의', '통과', '법안', '시행', '정책 변경'
+    ]
+
+    has_commentary = any(t in low for t in commentary_terms)
+    has_hard_news = any(t in low for t in hard_news_terms)
+
+    # 설명형 문구가 있고, 실질 이벤트가 없으면 제외
+    return has_commentary and not has_hard_news
+
 def is_security_incident_article(text: str) -> bool:
     low = (text or "").lower()
 
@@ -3104,6 +2128,10 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if is_conference_opinion_article(raw_text):
         print(f"[행사발언 제외] {story.get('title', '')}")
+        return False
+
+    if is_commentary_only_article(raw_text):
+        print(f"[설명형/코멘트형 제외] {story.get('title', '')}")
         return False
 
     if is_security_incident_article(raw_text):
@@ -3299,10 +2327,23 @@ def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
 def translate_text_to_korean(text: str) -> str:
     if not text:
         return ""
-
-    # OpenAI 요약 실패 시 최소 fallback
-    # 별도 번역 패키지 없이 원문을 그대로 반환
-    return text
+    try:
+        from googletrans import Translator  # type: ignore
+        translator = Translator()
+        result = translator.translate(text, dest='ko')
+        if iscoroutine(result):
+            result = asyncio.run(result)
+        return result.text
+    except Exception:
+        try:
+            from googletrans import Translator  # type: ignore
+            async def _translate(src: str) -> str:
+                async with Translator() as trans:
+                    r = await trans.translate(src, dest='ko')
+                    return r.text
+            return asyncio.run(_translate(text))
+        except Exception:
+            return text
 
 def normalize_style(text: str) -> str:
     rules = [
@@ -3387,21 +2428,18 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
     text = title + " " + desc
     entities = []
 
-    for key, rule in ENTITY_RULES.items():
-        aliases = rule.get('aliases') or []
-        if any(_entity_rule_match(text, alias) for alias in aliases):
-            entities.append(key)
-
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
-        if _entity_rule_match(text, key):
+        if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
             entities.append(key)
 
     for kw in KOREAN_TAG_KEYWORDS:
+        # 금/은은 직접 포함 검사 금지
         if kw in {'금', '은'}:
             continue
         if kw in text:
             entities.append(kw)
 
+    # gold/silver는 영어 문맥일 때만 수동 추가
     if has_precious_metal_context(text, 'gold'):
         entities.append('Gold')
     if has_precious_metal_context(text, 'silver'):
@@ -3425,26 +2463,21 @@ def extract_entities(story: dict, max_tags: int = 8) -> list[str]:
             result.append(ent)
             seen.add(k)
 
-    result.sort(key=lambda e: text.lower().find(str(e).lower()) if text.lower().find(str(e).lower()) >= 0 else 99999)
+    result.sort(key=lambda e: text.lower().find(e.lower()) if text.lower().find(e.lower()) >= 0 else 99999)
     return result[:max_tags]
 
 def extract_entities_from_summary(summary: str, max_tags: int = 8) -> list[str]:
     text = summary or ""
     entities = []
 
-    for key, rule in ENTITY_RULES.items():
-        aliases = rule.get('aliases') or []
-        if any(_entity_rule_match(text, alias) for alias in aliases):
-            entities.append(key)
-
     for key in sorted(MANUAL_TRANSLATIONS.keys(), key=len, reverse=True):
-        if _entity_rule_match(text, key):
+        if re.search(r'\b' + re.escape(key) + r'\b', text, re.I):
             entities.append(key)
 
     for kw in KOREAN_TAG_KEYWORDS:
         if kw in {'금', '은'}:
             continue
-        if _entity_rule_match(text, kw):
+        if re.search(r'\b' + re.escape(kw) + r'\b', text, re.I):
             entities.append(kw)
 
     for coin in PORTFOLIO_COINS:
@@ -3459,12 +2492,10 @@ def extract_entities_from_summary(summary: str, max_tags: int = 8) -> list[str]:
             result.append(ent)
             seen.add(k)
 
-    result.sort(key=lambda e: text.lower().find(str(e).lower()) if text.lower().find(str(e).lower()) >= 0 else 99999)
+    result.sort(key=lambda e: text.lower().find(e.lower()) if text.lower().find(e.lower()) >= 0 else 99999)
     return result[:max_tags]
 
 def entity_korean_name(entity: str) -> str:
-    if entity in ENTITY_RULES:
-        return (ENTITY_RULES[entity].get('ko') or entity).replace(' ', '')
     if entity in MANUAL_TRANSLATIONS:
         return MANUAL_TRANSLATIONS[entity]
     return entity.replace(' ', '')
@@ -3488,41 +2519,6 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
     }
 
     for ent in sorted(entities, key=len, reverse=True):
-        if ent in ENTITY_RULES:
-            rule = ENTITY_RULES[ent]
-            inline_tag = (rule.get('inline_tag') or ('#' + (rule.get('ko') or ent).replace(' ', ''))).strip()
-            footer_tag = (rule.get('footer_tag') or ('#' + ent.replace(' ', ''))).strip()
-            aliases = [rule.get('ko') or ent] + list(rule.get('aliases') or []) + [ent]
-
-            if footer_tag not in final_tags:
-                final_tags.append(footer_tag)
-
-            if inline_tag in text:
-                continue
-
-            replaced = False
-            for base in aliases:
-                if not base:
-                    continue
-                for p in TAG_PARTICLES:
-                    new_text, count = re.subn(re.escape(str(base) + p), f'{inline_tag} {p}', text, count=1)
-                    if count:
-                        text = new_text
-                        replaced = True
-                        break
-                if replaced:
-                    break
-
-            if not replaced:
-                for base in aliases:
-                    if not base:
-                        continue
-                    new_text, count = re.subn(re.escape(str(base)), inline_tag, text, count=1)
-                    if count:
-                        text = new_text
-                        break
-            continue
-
         ent_upper = ent.upper()
 
         if ent_upper in PORTFOLIO_COINS or ent_upper in CRYPTO_ACRONYMS:
@@ -3537,7 +2533,7 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
 
             replaced = False
             for base in [korean_name, ent, ent_upper]:
-                for p in TAG_PARTICLES:
+                for p in ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']:
                     new_text, count = re.subn(re.escape(base + p), f'{tag_text} {p}', text, count=1)
                     if count:
                         text = new_text
@@ -3569,7 +2565,7 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
 
         replaced = False
         for base in [korean, ent]:
-            for p in TAG_PARTICLES:
+            for p in ['가','이','은','는','를','을','의','와','과','로','도','만','에서','에게','까지']:
                 new_text, count = re.subn(re.escape(base + p), f'{tag_text} {p}', text, count=1)
                 if count:
                     text = new_text
@@ -3764,7 +2760,6 @@ def filter_final_tags(tags: list[str]) -> list[str]:
     }
 
     allowed_exact |= COUNTRY_FINAL_TAGS
-    allowed_exact |= ENTITY_FOOTER_TAGS
 
     blocked_contains = [
         'Highlights','Surprise','Underpriced','Needs','Run','Hitting','Fall',
@@ -4359,90 +3354,6 @@ def _normalize_footer_tags(tags: list[str]) -> list[str]:
             seen.add(tag)
     return out
 
-
-
-def _normalize_inline_hashtag_spacing(text: str) -> str:
-    text = text or ""
-
-    # 해시태그가 붙어서 나오는 경우 분리
-    text = re.sub(r'(#[가-힣A-Za-z0-9()]+)(?=#[가-힣A-Za-z0-9()]+)', r'\1 ', text)
-    text = re.sub(r'(#[가-힣A-Za-z0-9()]+)\s*(#[가-힣A-Za-z0-9()]+)', r'\1 \2', text)
-
-    # 조사/문장부호 앞뒤 기본 정리
-    text = re.sub(r'\s+([,.])', r'\1', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
-
-
-BLOCKED_FOOTER_TAGS = {
-    '#House', '#Silver', '#Gold'
-}
-
-INLINE_TO_FOOTER_TAG_MAP = {
-    '#비트코인': '#Bitcoin',
-    '#이더리움': '#Ethereum',
-    '#XRP': '#XRP',
-    '#리플': '#Ripple',
-    '#스테이블코인': '#Stablecoin',
-    '#코인베이스': '#Coinbase',
-    '#에테나': '#Ethena',
-    '#ENA': '#ENA',
-    '#영국': '#UK',
-    '#잉글랜드은행': '#BankOfEngland',
-    '#은행': '#Bank',
-    '#하원': '#HouseOfLords',
-    '#하원위원회': '#HouseOfLords',
-    '#EU': '#EU',
-    '#유럽': '#EU',
-    '#DFS': '#DFS',
-    '#EBA': '#EBA',
-    '#금융': '#Finance',
-}
-
-
-def _init_inline_to_footer_tag_map() -> None:
-    for _, rule in ENTITY_RULES.items():
-        inline_tag = str(rule.get('inline_tag') or '').strip()
-        footer_tag = str(rule.get('footer_tag') or '').strip()
-        if inline_tag and footer_tag:
-            INLINE_TO_FOOTER_TAG_MAP.setdefault(inline_tag, footer_tag)
-
-_init_inline_to_footer_tag_map()
-
-
-def _extract_inline_tags_from_summary(summary: str) -> list[str]:
-    return re.findall(r'#[A-Za-z0-9가-힣()]+', summary or '')
-
-
-def _build_footer_tags_from_inline(summary: str, base_tags: list[str]) -> list[str]:
-    inline_tags = _extract_inline_tags_from_summary(summary)
-    out = []
-
-    for t in inline_tags:
-        # 본문에 영어 해시태그가 직접 있으면 footer에 다시 안 붙임
-        if re.fullmatch(r'#[A-Za-z0-9()]+', t or ''):
-            continue
-
-        mapped = INLINE_TO_FOOTER_TAG_MAP.get(t)
-        if mapped and mapped not in BLOCKED_FOOTER_TAGS:
-            out.append(mapped)
-
-    # 기본 브랜드 태그는 항상 유지
-    for t in base_tags:
-        if t not in out:
-            out.append(t)
-
-    dedup = []
-    seen = set()
-    for t in out:
-        if t in BLOCKED_FOOTER_TAGS:
-            continue
-        if t not in seen:
-            dedup.append(t)
-            seen.add(t)
-
-    return dedup
-
 def build_message(story: dict) -> str:
     title = story.get('title', '')
     desc = story.get('desc', '')
@@ -4487,10 +3398,8 @@ def build_message(story: dict) -> str:
 
     summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
     summary_ko = fix_broken_inline_hashtags(summary_ko)
-    summary_ko = _normalize_inline_hashtag_spacing(summary_ko)
     summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     summary_ko = finalize_summary_ending(summary_ko)
-    summary_ko = _normalize_inline_hashtag_spacing(summary_ko)
 
     summary = summary_ko if summary_ko else story.get('title', '')
     summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=115)
@@ -4519,11 +3428,12 @@ def build_message(story: dict) -> str:
     summary = summary.replace('Twenty One Capital', '트웬티원캐피털')
     summary = summary.replace('WhiteBIT', '화이트비트')
     summary = summary.replace('Timothy Massad', '티머시매사드')
-    summary = _normalize_inline_hashtag_spacing(summary)
 
-    base_footer_tags = [f'#{t}' for t in FINAL_HASHTAGS]
-    footer_tags = _build_footer_tags_from_inline(summary, base_footer_tags)
-    footer_tags = _normalize_footer_tags(footer_tags)
+    dynamic_tags = filter_final_tags(dynamic_tags)
+    footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
+
+    inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
+    footer_tags = [t for t in footer_tags if t not in inline_tags]
 
     seen = set()
     dedup = []
@@ -4977,10 +3887,22 @@ def _clean_summary_for_style(text: str) -> str:
 def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 110) -> str:
     text = _clean_summary_for_style(text)
     text = (text or "").replace('\r\n', '\n').replace('\r', '\n')
-    # 기사 중간에 잘못 들어간 단일 줄바꿈은 문장 끊김으로 보이므로 먼저 합침
-    text = re.sub(r'(?<!\n)\n(?!\n)', ' ', text)
-    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    text = re.sub(r'\n{2,}', '\n', text).strip()
     text = re.sub(r'[ \t]+', ' ', text)
+
+    chunks = [c.strip() for c in text.split('\n') if c.strip()]
+    if len(chunks) >= 2:
+        picked = []
+        total = 0
+        for c in chunks:
+            if len(picked) >= max_sentences:
+                break
+            if picked and total + len(c) > max_chars:
+                break
+            picked.append(c)
+            total += len(c)
+        if picked:
+            return '\n\n'.join(picked).strip()
 
     return _OLD_format_summary_for_telegram(text, max_sentences=max_sentences, max_chars=max_chars)
 
@@ -5285,13 +4207,6 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
 def _clean_summary_for_style_v3(text: str) -> str:
     text = (text or '').replace('가상자산', '암호화폐').replace('있음고', '있다고')
-    for key, rule in ENTITY_RULES.items():
-        ko = (rule.get('ko') or '').strip()
-        aliases = rule.get('aliases') or []
-        if ko:
-            for alias in aliases:
-                if alias and alias != ko:
-                    text = re.sub(re.escape(str(alias)), ko, text, flags=re.I)
     text = text.replace('RL#미국D', '#RLUSD').replace('#R L U S D', '#RLUSD')
     text = text.replace('RippleNet', '리플넷').replace('SBI Remit', 'SBI리밋').replace('SBIRemit', 'SBI리밋')
     text = text.replace('리플 얼라이언스', 'XRP 얼라이언스').replace('리플 고래', 'XRP 고래').replace('리플 선물', 'XRP 선물')
@@ -5317,14 +4232,6 @@ def _clean_summary_for_style_v3(text: str) -> str:
 
 def _ensure_case_tags_v3(summary: str, story: dict, footer_tags: list[str]) -> list[str]:
     text = _story_text_v3(story) + ' ' + (summary or '')
-
-    for key, rule in ENTITY_RULES.items():
-        footer_tag = (rule.get('footer_tag') or '').strip()
-        aliases = rule.get('aliases') or []
-        if footer_tag and any(_entity_rule_match(text, alias) for alias in aliases):
-            if footer_tag not in footer_tags:
-                footer_tags.append(footer_tag)
-
     for tag, patterns in _EXTRA_FOOTER_TAGS_V3:
         if any(re.search(p, text, re.I) for p in patterns):
             if tag not in footer_tags:
