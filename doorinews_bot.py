@@ -4625,3 +4625,252 @@ def build_message(story: dict) -> str:
 
 if __name__ == '__main__':
     main()
+
+
+# ---------------------------------------------------------------------------
+# PATCH: 2026-06-05 hardening for GPT-5.4 output / stricter filtering
+# ---------------------------------------------------------------------------
+
+_PREV_finalize_summary_ending_v0605 = finalize_summary_ending
+_PREV_format_summary_for_telegram_v0605 = format_summary_for_telegram
+_PREV_build_message_v0605 = build_message
+_PREV_matches_keywords_v0605 = matches_keywords
+
+_INLINE_TO_FOOTER_MAP_V0605 = {
+    '#비트코인': '#Bitcoin', '#이더리움': '#Ethereum', '#리플': '#Ripple', '#XRP': '#XRP', '#스텔라': '#XLM',
+    '#에이다': '#ADA', '#트론': '#TRX', '#바이낸스': '#Binance', '#비트코인캐시': '#BCH', '#시바이누': '#SHIB',
+    '#USDC': '#USDC', '#USDT': '#USDT', '#스테이블코인': '#Stablecoin', '#토큰화': '#Tokenization', '#수탁': '#Custody',
+    '#디파이': '#DeFi', '#탈중앙거래소': '#DEX', '#XRPL': '#XRPL', '#CBDC': '#CBDC', '#RWA': '#RWA', '#AI': '#AI',
+    '#법안': '#Bill', '#클래리티법': '#CLARITYAct', '#시장구조법안': '#CLARITYAct', '#클래리티': '#CLARITY',
+    '#지니어스법안': '#GENIUSAct', '#지니어스': '#GENIUS', '#ETF': '#ETF', '#SEC': '#SEC', '#CFTC': '#CFTC', '#OCC': '#OCC',
+    '#구글': '#Google', '#오픈AI': '#OpenAI', '#엔트로픽': '#Anthropic', '#코인베이스': '#Coinbase', '#바이낸스': '#Binance',
+    '#업비트': '#Upbit', '#빗썸': '#Bithumb', '#코인원': '#Coinone', '#크라켄': '#Kraken', '#로빈후드': '#Robinhood',
+    '#테더': '#Tether', '#서클': '#Circle', '#머니그램': '#MoneyGram', '#마스터카드': '#Mastercard', '#비자': '#Visa',
+    '#JP모건': '#JPMorgan', '#스탠다드차타드': '#StandardChartered', '#조디아커스터디': '#ZodiaCustody',
+    '#블랙록': '#BlackRock', '#웰스파고': '#WellsFargo', '#HSBC': '#HSBC', '#홍콩금융관리국': '#HKMA', '#일본은행': '#BankOfJapan',
+    '#잉글랜드은행': '#BankOfEngland', '#한국은행': '#BankOfKorea', '#보험연수원': '#InsuranceTrainingInstitute',
+    '#월스트리트': '#WallStreet', '#은행': '#Bank', '#금융': '#Finance', '#정부': '#Government', '#연준': '#FederalReserve',
+    '#영국': '#UK', '#미국': '#US', '#한국': '#Korea', '#일본': '#Japan', '#중국': '#China', '#홍콩': '#HongKong', '#대만': '#Taiwan',
+    '#호주': '#Australia', '#브라질': '#Brazil', '#인도': '#India', '#이란': '#Iran', '#이스라엘': '#Israel', '#카타르': '#Qatar',
+    '#튀르키예': '#Turkey', '#터키': '#Turkey', '#러시아': '#Russia', '#스페인': '#Spain', '#조지아': '#Georgia',
+    '#브래드갈링하우스': '#BradGarlinghouse', '#모니카롱': '#MonicaLong', '#데이비드슈워츠': '#DavidSchwartz', '#제이미다이먼': '#JamieDimon',
+    '#CEO': '#CEO', '#신시아루미스': '#CynthiaLummis', '#토비아스아드리안': '#TobiasAdrian', '#찰스슈왑': '#CharlesSchwab',
+    '#피터쉬프': '#PeterSchiff', '#라울팔': '#RaoulPal', '#오라클': '#Oracle', '#폴리마켓': '#Polymarket', '#칼시': '#Kalshi',
+    '#조디아쿠스투디': '#ZodiaCustody', '#스탠다드차터드': '#StandardChartered'
+}
+
+_FOOTER_BLOCKLIST_V0605 = {
+    '#House', '#Silver', '#Gold', '#Act', '#Bill', '#Finance', '#Government', '#Bank', '#Asset', '#Assets'
+}
+
+
+def _compress_korean_telegram_style_v0605(text: str) -> str:
+    text = (text or '').replace('\r\n', '\n').replace('\r', '\n')
+    text = re.sub(r'(?<!\n)\n(?!\n)', ' ', text)
+    text = re.sub(r'\n{2,}', '\n\n', text)
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\s+([,.!?])', r'\1', text)
+    return text.strip()
+
+
+def _fix_inline_tag_particles_v0605(text: str) -> str:
+    if not text:
+        return ''
+    particles = '은는이가을를의와과로도만에에서에게까지뿐처럼보다마다조차부터'
+    text = re.sub(r'(#[A-Za-z0-9가-힣]+)([' + particles + r'])\b', r'\1 \2', text)
+    text = re.sub(r'(#[A-Za-z0-9가-힣]+)\s+(의|은|는|이|가|을|를|와|과|로|도|만|에|에서|에게|까지|뿐|처럼|보다|마다|조차|부터)\b', r'\1 \2', text)
+    text = re.sub(r'(#[A-Za-z0-9가-힣]+)\s+(인|을|를|은|는|이|가)\b', r'\1 \2', text)
+    text = re.sub(r'(?<!\s)(#[A-Za-z0-9가-힣]+)', r' \1', text)
+    text = re.sub(r'\s{2,}', ' ', text)
+    return text.strip()
+
+
+def _replace_style_endings_v0605(text: str) -> str:
+    if not text:
+        return ''
+    replacements = [
+        (r'호소했다(?=[\s\n]|$)', '호소했음'),
+        (r'밝혔다(?=[\s\n]|$)', '밝힘'),
+        (r'전했다(?=[\s\n]|$)', '전함'),
+        (r'설명했다(?=[\s\n]|$)', '설명함'),
+        (r'언급했다(?=[\s\n]|$)', '언급함'),
+        (r'강조했다(?=[\s\n]|$)', '강조함'),
+        (r'평가했다(?=[\s\n]|$)', '평가함'),
+        (r'주장했다(?=[\s\n]|$)', '주장함'),
+        (r'지적했다(?=[\s\n]|$)', '지적함'),
+        (r'촉구했다(?=[\s\n]|$)', '촉구함'),
+        (r'요청했다(?=[\s\n]|$)', '요청함'),
+        (r'알려졌다(?=[\s\n]|$)', '알려짐'),
+        (r'거론됐다(?=[\s\n]|$)', '거론됨'),
+        (r'전망됐다(?=[\s\n]|$)', '전망됨'),
+        (r'나타났다(?=[\s\n]|$)', '나타남'),
+        (r'기록했다(?=[\s\n]|$)', '기록함'),
+        (r'공개했다(?=[\s\n]|$)', '공개함'),
+        (r'추진한다(?=[\s\n]|$)', '추진 중임'),
+    ]
+    for pat, rep in replacements:
+        text = re.sub(pat, rep, text)
+    text = text.replace('했음고', '했고').replace('했음는', '했다는').replace('있음고', '있다고')
+    text = text.replace('뒤쳐졌다고', '뒤처졌다고').replace('뒤쳐졌다', '뒤처졌다')
+    return text
+
+
+def finalize_summary_ending(text: str) -> str:
+    text = _PREV_finalize_summary_ending_v0605(text)
+    text = _replace_style_endings_v0605(text)
+    text = _fix_inline_tag_particles_v0605(text)
+    text = _compress_korean_telegram_style_v0605(text)
+    return text.strip()
+
+
+def _remove_inline_footer_line_v0605(text: str) -> str:
+    lines = [ln.strip() for ln in (text or '').split('\n')]
+    out = []
+    for ln in lines:
+        if re.fullmatch(r'(#[A-Za-z0-9가-힣]+\s*){2,}', ln):
+            continue
+        out.append(ln)
+    return '\n'.join([x for x in out if x]).strip()
+
+
+def _footer_tags_from_inline_v0605(summary: str) -> list[str]:
+    inline_tags = re.findall(r'#[A-Za-z0-9가-힣]+', summary or '')
+    footer = []
+    seen = set()
+    for t in inline_tags:
+        if re.search(r'#[A-Z]{2,}[A-Za-z0-9]*', t):
+            # 본문에 영어 태그가 이미 있으면 footer 중복 추가 안 함
+            continue
+        mapped = _INLINE_TO_FOOTER_MAP_V0605.get(t)
+        if mapped and mapped not in seen and mapped not in _FOOTER_BLOCKLIST_V0605:
+            footer.append(mapped)
+            seen.add(mapped)
+    return footer
+
+
+def format_summary_for_telegram(text: str, max_sentences: int = 3, max_chars: int = 120) -> str:
+    text = _remove_inline_footer_line_v0605(text)
+    text = _compress_korean_telegram_style_v0605(text)
+    sentences = re.split(r'(?<=임)\s+|(?<=함)\s+|(?<=됨)\s+|(?<=음)\s+|(?<=밝힘)\s+|(?<=전함)\s+|(?<=알려짐)\s+|(?<=[.!?])\s+', text)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    cleaned = []
+    total = 0
+    for s in sentences:
+        s = _fix_inline_tag_particles_v0605(s)
+        s = _replace_style_endings_v0605(s)
+        if re.fullmatch(r'(#[A-Za-z0-9가-힣]+\s*){2,}', s):
+            continue
+        if len(cleaned) >= max_sentences:
+            break
+        if cleaned and total + len(s) > max_chars:
+            break
+        cleaned.append(s)
+        total += len(s)
+    if not cleaned and text:
+        cleaned = [text[:max_chars].rstrip()]
+    return '\n\n'.join(cleaned).strip()
+
+
+def build_message(story: dict) -> str:
+    title = story.get('title', '')
+    desc = story.get('desc', '')
+    article_text = get_best_source_text(story)
+
+    summary_ko = rewrite_summary_with_gemini(
+        title=title,
+        article_text=article_text,
+        fallback_text=desc
+    )
+
+    if not summary_ko:
+        raw_source = f"{title}. {desc}"
+        raw_summary = summarize_text(raw_source, title=title, max_sentences=SUMMARY_SENTENCES)
+        summary_ko = translate_text_to_korean(raw_summary)
+        summary_ko = cleanup_text(summary_ko)
+        summary_ko = fix_translation_terms(summary_ko)
+        summary_ko = fix_truncated_phrases(summary_ko)
+        summary_ko = normalize_style(summary_ko)
+        summary_ko = cleanup_text(summary_ko)
+
+    story_entities = extract_entities(story, max_tags=14)
+    summary_entities = extract_entities_from_summary(summary_ko, max_tags=14)
+    merged_entities, seen_entities = [], set()
+    for e in story_entities + summary_entities:
+        key = e.lower()
+        if key not in seen_entities:
+            merged_entities.append(e)
+            seen_entities.add(key)
+
+    entities = []
+    for e in merged_entities:
+        ko = entity_korean_name(e)
+        if e in INLINE_TAG_WHITELIST or ko in INLINE_TAG_WHITELIST:
+            entities.append(e)
+
+    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    summary_ko = fix_broken_inline_hashtags(summary_ko)
+    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
+    summary_ko = finalize_summary_ending(summary_ko)
+    summary_ko = _clean_summary_for_style(summary_ko)
+    summary_ko = _remove_inline_footer_line_v0605(summary_ko)
+
+    summary = summary_ko if summary_ko else story.get('title', '')
+    summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=125)
+    summary = summary.replace('자동뉴스', '').replace('다음 기사는', '').replace('뉴스레터', '').strip()
+    summary = _fix_inline_tag_particles_v0605(summary)
+    summary = finalize_summary_ending(summary)
+
+    footer_tags = _footer_tags_from_inline_v0605(summary)
+    footer_tags += [f'#{t}' for t in FINAL_HASHTAGS]
+    footer_tags = _ensure_case_tags(summary, story, footer_tags)
+    footer_tags = _normalize_footer_tags(footer_tags)
+
+    inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
+    footer_tags = [f for f in footer_tags if f not in inline_tags and f not in _FOOTER_BLOCKLIST_V0605]
+
+    seen = set()
+    dedup = []
+    for t in footer_tags:
+        if t not in seen:
+            dedup.append(t)
+            seen.add(t)
+
+    parts = [
+        html.escape(summary),
+        '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
+        f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
+        ' '.join(html.escape(t) for t in dedup if t)
+    ]
+    return '\n\n'.join([p for p in parts if p]).strip()
+
+
+def _is_hard_filtered_article_v0605(raw_text: str, url: str) -> tuple[bool, str]:
+    low = (raw_text or '').lower()
+    patterns = [
+        ('거래소 유입/이동', [r'exchange inflow', r'inflow', r'유입', r'온체인 이동', r'지갑에서 .* 이동', r'wallet moved', r'wallet move', r'cashed in after', r'casascius', r'rare physical bitcoin', r'mtgox wallet']),
+        ('수익률/몇배 비교', [r'outperformed', r'outpace', r'상회', r'웃돌', r'수익률', r'몇 배', r'nasdaq100', r'라울 팔', r'raoul pal']),
+        ('지수 등락', [r'coindesk 20', r'cd20', r'performance update', r'leading index', r'index lower', r'지수 하락', r'하락을 주도', r'몇%']),
+        ('추세/파워로우', [r'power law', r'oscillator', r'historically precedes a rebound', r'반등', r'추세', r'저렴하게 거래 중']),
+        ('보상/환불/플래시크래시', [r'refund', r'bounty', r'flash crash', r'낮은 유동성', r'pancakeswap', r'환불', r'보상금']),
+        ('비관련 ai/교육', [r'deepseek', r'figure', r'humanoid robots', r'digital sovereignty alliance', r'case study program', r'episcopal school', r'school', r'콘텐츠 차단 기능', r'publisher', r'ai overview', r'학교']),
+        ('기술/설명형', [r'qvac sdk', r'turboquant', r'ai memory optimization', r'supercomputers', r'compute power', r'hashpower dwarfs']),
+        ('부정 포폴코인', [r'shiba inu.*fall behind', r'dogecoin.*fall behind', r'breakdown fears', r'liquidity.*falls', r'최저 수준으로 떨어졌', r'판매자 소진']),
+        ('이동/순유출/청산', [r'net outflow', r'순유출', r'liquidation', r'청산', r'imbalance', r'손실', r'worst quarter', r'glassnode']),
+        ('설명형/코멘트형', [r'intersection of traditional finance', r'교차점', r'언급함', r'설명함'])
+    ]
+    for reason, pats in patterns:
+        if any(re.search(p, low, re.I) for p in pats):
+            return True, reason
+    if 'theblock.co/post/403567' in url:
+        return True, 'EdgeX'
+    return False, ''
+
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
+    url = (story.get('url', '') or '').lower()
+    filtered, reason = _is_hard_filtered_article_v0605(raw_text, url)
+    if filtered:
+        print(f'[강화차단 제외:{reason}] {story.get("title", "")}')
+        return False
+    return _PREV_matches_keywords_v0605(story, coins, econ_keywords, korean_keywords)
