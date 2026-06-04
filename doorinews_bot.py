@@ -3490,9 +3490,7 @@ def build_message(story: dict) -> str:
     summary = summary.replace('WhiteBIT', '화이트비트')
     summary = summary.replace('Timothy Massad', '티머시매사드')
     summary = _remove_hashtag_only_lines(summary)
-    summary = re.sub(r'
-\s*
-\s*#(?:[A-Za-z0-9가-힣]+(?:\s+#?[A-Za-z0-9가-힣]+)*)\s*$', '', summary).strip()
+    summary = re.sub(r'\n\s*\n\s*#(?:[A-Za-z0-9가-힣]+(?:\s+#?[A-Za-z0-9가-힣]+)*)\s*$', '', summary).strip()
 
     dynamic_tags = filter_final_tags(dynamic_tags)
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
