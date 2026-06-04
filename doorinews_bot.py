@@ -804,6 +804,7 @@ INLINE_TAG_WHITELIST = {
     '비트코인', '이더리움', '스테이블코인', '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
     'DeFi', 'NFT', 'Web3', '디파이', '엑스알피',
     'BitMine', '비트마인',
+    '신시아루미스', '클래리티법', '법안', '스탠다드차타드', '조디아커스터디',
     '톰리', '제롬파월', '파월',
     '네비다주', 'JPMorgan', '라이드', '바이비트', 'Ledger',
     '서클', '머니그램', '업비트', '빗썸', '바이낸스',
@@ -964,6 +965,14 @@ MANUAL_TRANSLATIONS = {
     'Santiment': '샌티먼트',
     'Muro': '무로',
     'Santander': '산탄데르',
+    'Cynthia Lummis': '신시아루미스',
+    '신시아 루미스': '신시아루미스',
+    '신시아루미스': '신시아루미스',
+    'CLARITY Act': '클래리티법',
+    'CLARITY': '클래리티법',
+    'Standard Chartered': '스탠다드차타드',
+    'Zodia Custody': '조디아커스터디',
+    'Zodia': '조디아커스터디',
 
 
     'Satoshi Nakamoto': '사토시나카모토',
@@ -1462,6 +1471,14 @@ MANUAL_TRANSLATIONS = {
     'Timothy Massad': '티머시매사드',
     'Santiment': '샌티먼트',
     'Santander': '산탄데르',
+    'Cynthia Lummis': '신시아루미스',
+    '신시아 루미스': '신시아루미스',
+    '신시아루미스': '신시아루미스',
+    'CLARITY Act': '클래리티법',
+    'CLARITY': '클래리티법',
+    'Standard Chartered': '스탠다드차타드',
+    'Zodia Custody': '조디아커스터디',
+    'Zodia': '조디아커스터디',
 
 '사토시 쿠사마': '사토시쿠사마',
 '사토시쿠사마': '사토시쿠사마',
@@ -2051,6 +2068,41 @@ def _is_inline_tag_candidate(tag_name: str, text: str = "") -> bool:
     return len(tag_name) >= 2 and tag_name in (text or "")
 
 
+def is_edge_token_crash_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("edgex" in low or "edge token" in low or "edge token" in low or "edge" in low)
+        and ("flash crash" in low or "급락" in low)
+        and ("refund" in low or "refunds" in low or "환불" in low or "bounty" in low or "보상금" in low or "usdc" in low)
+    )
+
+
+def is_relative_return_article(text: str) -> bool:
+    low = (text or "").lower()
+    patterns = [
+        "nasdaq100", "nasdaq 100", "나스닥100", "수익률을 웃돌", "수익률을 못돌",
+        "상회했다", "상회", "몇배", "배 올", "배 상승", "4.1~4.3배", "2.9배"
+    ]
+    return any(p in low for p in patterns)
+
+
+def is_physical_bitcoin_move_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("casascius" in low or "physical bitcoin" in low or "실물 비트코인" in low)
+        and ("on-chain" in low or "온체인" in low or "gets cashed" in low or "cashed in" in low or "개봉" in low or "이동" in low)
+    )
+
+
+def is_sanctions_teen_a7a5_article(text: str) -> bool:
+    low = (text or "").lower()
+    score = 0
+    for p in ["alexander browder", "브라우더", "17-year-old", "17세", "a7a5", "러시아", "russia", "sanction", "제재"]:
+        if p in low:
+            score += 1
+    return score >= 4
+
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
     raw_lower = raw_text.lower()
@@ -2101,6 +2153,18 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 
     if is_security_incident_article(raw_text):
         print(f"[보안사고 제외] {story.get('title', '')}")
+        return False
+
+    if is_edge_token_crash_article(raw_text):
+        print(f"[토큰급락환불 제외] {story.get('title', '')}")
+        return False
+
+    if is_relative_return_article(raw_text):
+        print(f"[수익률비교 제외] {story.get('title', '')}")
+        return False
+
+    if is_physical_bitcoin_move_article(raw_text):
+        print(f"[실물비트코인이동 제외] {story.get('title', '')}")
         return False
 
     # 2. 차트/가격형 기사 차단
@@ -2158,6 +2222,12 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
 def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
     if not canonical_key:
         return False
+
+    if all(k in canonical_key for k in ["geo_영국", "geo_러시아", "topic_스테이블코인", "topic_제재"]):
+        for old_key in seen_keys:
+            if all(k in old_key for k in ["geo_영국", "geo_러시아", "topic_스테이블코인", "topic_제재"]):
+                log("[정규토픽중복 제외] browder/a7a5 sanctions")
+                return True
 
     current = {x.strip() for x in canonical_key.split('|') if x.strip()}
 
@@ -2558,6 +2628,14 @@ def fix_broken_inline_hashtags(text: str) -> str:
     text = text.replace('#이더 리 움', '#이더리움')
     text = text.replace('#시 바 이 누', '#시바이누')
     text = text.replace('#신 시 아 루 미 스', '#신시아루미스')
+    text = text.replace('#신시아 루미스', '#신시아루미스')
+    text = text.replace('#신시아루미스은', '#신시아루미스 은')
+    text = text.replace('#신시아루미스는', '#신시아루미스 는')
+    text = text.replace('#법안인', '#법안 인')
+    text = text.replace('#법안을', '#법안 을')
+    text = text.replace('#클래리티법을', '#클래리티법 을')
+    text = text.replace('#스탠다드차타드가', '#스탠다드차타드 가')
+    text = text.replace('#조디아커스터디를', '#조디아커스터디 를')
     text = text.replace('#마이클#세일러', '#마이클세일러')
     text = text.replace('#브래드#갈링하우스', '#브래드갈링하우스')
     text = text.replace('#토비아스#아드리안', '#토비아스아드리안')
@@ -2684,6 +2762,14 @@ def fix_translation_terms(text: str) -> str:
     'Timothy Massad': '티머시매사드',
     'Santiment': '샌티먼트',
     'Santander': '산탄데르',
+    'Cynthia Lummis': '신시아루미스',
+    '신시아 루미스': '신시아루미스',
+    '신시아루미스': '신시아루미스',
+    'CLARITY Act': '클래리티법',
+    'CLARITY': '클래리티법',
+    'Standard Chartered': '스탠다드차타드',
+    'Zodia Custody': '조디아커스터디',
+    'Zodia': '조디아커스터디',
 
     }
 
@@ -2708,7 +2794,7 @@ def filter_final_tags(tags: list[str]) -> list[str]:
         '#Tether','#Circle','#MoneyGram','#Mastercard','#Visa',
         '#Metaplanet','#Strategy','#Robinhood','#Kraken','#WellsFargo',
         '#FranklinTempleton','#TonyPecore','#WisdomTree',
-        '#GeniusGroup','#GENIUS','#CLARITY','#CLARITYAct',
+        '#GeniusGroup','#GENIUS','#CLARITY','#CLARITYAct','#CynthiaLummis','#StandardChartered','#ZodiaCustody',
         '#KBank','#Coinone','#Bitget','#SafePal','#eToro','#HKMA','#HSBC','#StandardChartered',
         '#US','#Korea','#Japan','#China','#Taiwan','#HongKong','#Australia','#Brazil','#India','#Iran','#Israel','#Qatar',
         '#XRPLedger','#BitMine','#BCH','#TRON','#TRX','#XAUT','#SHIB','#XRP','#XLM','#XRPL', '#DEX', '#DeFi','#Bitdeer','#Blockstream',
@@ -2935,11 +3021,11 @@ def build_canonical_topic_key(story: dict) -> str:
         '비트코인': ['bitcoin', 'btc', '비트코인'],
         '이더리움': ['ethereum', 'eth', '이더리움'],
         '리플': ['xrp', 'ripple', 'xrpl', 'xrp ledger', '리플'],
-        '스테이블코인': ['stablecoin', '스테이블코인'],
+        '스테이블코인': ['stablecoin', '스테이블코인', 'a7a5'],
         'etf': ['etf'],
         '라이선스': ['license', 'licensing', 'licensed', '라이선스'],
         '법안': ['bill', 'law', 'act', '법안'],
-        '규제': ['regulation', 'regulatory', 'regulated', '규제'],
+        '규제': ['regulation', 'regulatory', 'regulated', '규제', 'sanction', 'sanctions', '제재'],
         '연준': ['fed', 'federal reserve', '연준'],
         '청문회': ['hearing', '청문회'],
         '지명': ['nominate', 'nominated', 'appointment', '지명'],
@@ -3290,6 +3376,12 @@ def finalize_summary_ending(text: str) -> str:
     text = re.sub(r'계획이\.$', '계획임', text)
     text = re.sub(r'보인다\.$', '보임', text)
     text = re.sub(r'전망이다\.$', '전망임', text)
+    text = re.sub(r'호소했다\.?$', '호소했음', text)
+    text = re.sub(r'밝혔다\.?$', '밝힘', text)
+    text = re.sub(r'전했다\.?$', '전함', text)
+    text = re.sub(r'설명했다\.?$', '설명함', text)
+    text = re.sub(r'알려졌다\.?$', '알려짐', text)
+    text = re.sub(r'알려졌다\.', '알려짐', text)
 
     text = re.sub(r'매도가 있었음.*$', '매도가 있었음', text)
     text = re.sub(r'커졌음.*$', '커졌음', text)
@@ -3397,6 +3489,10 @@ def build_message(story: dict) -> str:
     summary = summary.replace('Twenty One Capital', '트웬티원캐피털')
     summary = summary.replace('WhiteBIT', '화이트비트')
     summary = summary.replace('Timothy Massad', '티머시매사드')
+    summary = _remove_hashtag_only_lines(summary)
+    summary = re.sub(r'
+\s*
+\s*#(?:[A-Za-z0-9가-힣]+(?:\s+#?[A-Za-z0-9가-힣]+)*)\s*$', '', summary).strip()
 
     dynamic_tags = filter_final_tags(dynamic_tags)
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
@@ -3818,6 +3914,41 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
 
     return False
 
+def is_edge_token_crash_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("edgex" in low or "edge token" in low or "edge token" in low or "edge" in low)
+        and ("flash crash" in low or "급락" in low)
+        and ("refund" in low or "refunds" in low or "환불" in low or "bounty" in low or "보상금" in low or "usdc" in low)
+    )
+
+
+def is_relative_return_article(text: str) -> bool:
+    low = (text or "").lower()
+    patterns = [
+        "nasdaq100", "nasdaq 100", "나스닥100", "수익률을 웃돌", "수익률을 못돌",
+        "상회했다", "상회", "몇배", "배 올", "배 상승", "4.1~4.3배", "2.9배"
+    ]
+    return any(p in low for p in patterns)
+
+
+def is_physical_bitcoin_move_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("casascius" in low or "physical bitcoin" in low or "실물 비트코인" in low)
+        and ("on-chain" in low or "온체인" in low or "gets cashed" in low or "cashed in" in low or "개봉" in low or "이동" in low)
+    )
+
+
+def is_sanctions_teen_a7a5_article(text: str) -> bool:
+    low = (text or "").lower()
+    score = 0
+    for p in ["alexander browder", "브라우더", "17-year-old", "17세", "a7a5", "러시아", "russia", "sanction", "제재"]:
+        if p in low:
+            score += 1
+    return score >= 4
+
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = _story_text(story)
     raw_lower = raw_text.lower()
@@ -4162,6 +4293,41 @@ def _is_price_level_article_v3(text: str) -> bool:
     return any(t in low for t in price_terms) and any(t in low for t in market_terms)
 
 
+def is_edge_token_crash_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("edgex" in low or "edge token" in low or "edge token" in low or "edge" in low)
+        and ("flash crash" in low or "급락" in low)
+        and ("refund" in low or "refunds" in low or "환불" in low or "bounty" in low or "보상금" in low or "usdc" in low)
+    )
+
+
+def is_relative_return_article(text: str) -> bool:
+    low = (text or "").lower()
+    patterns = [
+        "nasdaq100", "nasdaq 100", "나스닥100", "수익률을 웃돌", "수익률을 못돌",
+        "상회했다", "상회", "몇배", "배 올", "배 상승", "4.1~4.3배", "2.9배"
+    ]
+    return any(p in low for p in patterns)
+
+
+def is_physical_bitcoin_move_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("casascius" in low or "physical bitcoin" in low or "실물 비트코인" in low)
+        and ("on-chain" in low or "온체인" in low or "gets cashed" in low or "cashed in" in low or "개봉" in low or "이동" in low)
+    )
+
+
+def is_sanctions_teen_a7a5_article(text: str) -> bool:
+    low = (text or "").lower()
+    score = 0
+    for p in ["alexander browder", "브라우더", "17-year-old", "17세", "a7a5", "러시아", "russia", "sanction", "제재"]:
+        if p in low:
+            score += 1
+    return score >= 4
+
+
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = _story_text_v3(story)
     raw_lower = raw_text.lower()
@@ -4296,6 +4462,41 @@ def is_unrelated_google_ai_overview_article(text: str) -> bool:
 
 
 _OLD_matches_keywords_openai_v1 = matches_keywords
+
+def is_edge_token_crash_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("edgex" in low or "edge token" in low or "edge token" in low or "edge" in low)
+        and ("flash crash" in low or "급락" in low)
+        and ("refund" in low or "refunds" in low or "환불" in low or "bounty" in low or "보상금" in low or "usdc" in low)
+    )
+
+
+def is_relative_return_article(text: str) -> bool:
+    low = (text or "").lower()
+    patterns = [
+        "nasdaq100", "nasdaq 100", "나스닥100", "수익률을 웃돌", "수익률을 못돌",
+        "상회했다", "상회", "몇배", "배 올", "배 상승", "4.1~4.3배", "2.9배"
+    ]
+    return any(p in low for p in patterns)
+
+
+def is_physical_bitcoin_move_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("casascius" in low or "physical bitcoin" in low or "실물 비트코인" in low)
+        and ("on-chain" in low or "온체인" in low or "gets cashed" in low or "cashed in" in low or "개봉" in low or "이동" in low)
+    )
+
+
+def is_sanctions_teen_a7a5_article(text: str) -> bool:
+    low = (text or "").lower()
+    score = 0
+    for p in ["alexander browder", "브라우더", "17-year-old", "17세", "a7a5", "러시아", "russia", "sanction", "제재"]:
+        if p in low:
+            score += 1
+    return score >= 4
+
 
 def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
     raw_text = (story.get('title', '') + ' ' + story.get('desc', '')).strip()
