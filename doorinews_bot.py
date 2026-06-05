@@ -3447,8 +3447,7 @@ def ensure_inline_entity_tags(text: str, raw_text: str) -> str:
     if add_tags:
         first = ' '.join(add_tags) + ' ' + first
     lines[0] = re.sub(r'\s+', ' ', first).strip()
-    return '
-'.join(lines).strip()
+    return '\n'.join(lines).strip()
 
 def fix_korean_hashtag_particles(text: str) -> str:
     if not text:
