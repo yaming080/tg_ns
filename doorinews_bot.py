@@ -1,353 +1,208 @@
 
-# 뉴스봇 태그 로직 보강 패치
-# 목적:
-# 1) 본문 태그는 4~5개 제한 없이 핵심 태그를 최대한 많이 유지
-# 2) footer는 영어 태그가 붙되, 본문에 영어 태그가 이미 있으면 중복 금지
-#    예: 본문 #코인베이스 -> footer #Coinbase 추가
-#        본문 #Coinbase -> footer #Coinbase 추가 금지
-# 3) footer는 본문에 실제로 들어간 태그 기준으로만 생성
-# 4) 조사 띄어쓰기와 붙은 해시태그 보정
+# 로그 강화 패치 (OpenAI 뉴스봇용)
+# 적용 목표:
+# - 예전처럼 feed별 수집 수, 필터 통과 수, 제외 사유, 최종 전송 수가 GitHub Actions 로그에 잘 보이게
+# - 조용히 끝나는 것처럼 보이는 문제 해소
 
-# -----------------------------
-# 1. ENTITY_RULES 구조 예시
-# -----------------------------
-# 기존 ENTITY_RULES가 있다면 아래 필드만 맞춰서 보강해.
-# - aliases: 기사 본문/제목에서 잡을 문자열들
-# - ko: 한국어 표기
-# - inline_tag: 본문에 넣을 해시태그
-# - footer_tag: footer에 넣을 영어 해시태그
-#
-# 예시:
-ENTITY_RULES = [
-    {
-        "aliases": ["Coinbase", "코인베이스"],
-        "ko": "코인베이스",
-        "inline_tag": "#코인베이스",
-        "footer_tag": "#Coinbase",
-    },
-    {
-        "aliases": ["Polymarket", "폴리마켓"],
-        "ko": "폴리마켓",
-        "inline_tag": "#폴리마켓",
-        "footer_tag": "#Polymarket",
-    },
-    {
-        "aliases": ["Bitget Wallet", "Bitget", "비트겟월렛", "비트겟 월렛"],
-        "ko": "비트겟월렛",
-        "inline_tag": "#비트겟월렛",
-        "footer_tag": "#BitgetWallet",
-    },
-    {
-        "aliases": ["Mastercard", "마스터카드"],
-        "ko": "마스터카드",
-        "inline_tag": "#마스터카드",
-        "footer_tag": "#Mastercard",
-    },
-    {
-        "aliases": ["RLUSD"],
-        "ko": "RLUSD",
-        "inline_tag": "#RLUSD",
-        "footer_tag": "#RLUSD",
-    },
-    {
-        "aliases": ["XRP Ledger", "XRPL", "XRPLedger", "XRP 레저", "XRP레저"],
-        "ko": "XRPL",
-        "inline_tag": "#XRPL",
-        "footer_tag": "#XRPL",
-    },
-    {
-        "aliases": ["Wormhole"],
-        "ko": "웜홀",
-        "inline_tag": "#웜홀",
-        "footer_tag": "#Wormhole",
-    },
-    {
-        "aliases": ["Standard Chartered", "스탠다드차타드"],
-        "ko": "스탠다드차타드",
-        "inline_tag": "#스탠다드차타드",
-        "footer_tag": "#StandardChartered",
-    },
-    {
-        "aliases": ["Zodia Custody", "조디아 커스터디", "조디아쿠스투디", "조디아커스터디"],
-        "ko": "조디아커스터디",
-        "inline_tag": "#조디아커스터디",
-        "footer_tag": "#ZodiaCustody",
-    },
-    {
-        "aliases": ["CLARITY Act", "Clarity Act", "클래리티법안", "클래리티법"],
-        "ko": "클래리티법안",
-        "inline_tag": "#클래리티법안",
-        "footer_tag": "#CLARITYAct",
-    },
-    {
-        "aliases": ["Patrick Witt", "패트릭위트"],
-        "ko": "패트릭위트",
-        "inline_tag": "#패트릭위트",
-        "footer_tag": "#PatrickWitt",
-    },
-    {
-        "aliases": ["Anthropic", "앤트로픽"],
-        "ko": "앤트로픽",
-        "inline_tag": "#앤트로픽",
-        "footer_tag": "#Anthropic",
-    },
-    {
-        "aliases": ["AI", "인공지능"],
-        "ko": "인공지능",
-        "inline_tag": "#인공지능",
-        "footer_tag": "#AI",
-    },
-    {
-        "aliases": ["Cardano", "카르다노", "ADA"],
-        "ko": "카르다노",
-        "inline_tag": "#카르다노",
-        "footer_tag": "#Cardano",
-    },
-    {
-        "aliases": ["Charles Hoskinson", "찰스호스킨슨"],
-        "ko": "찰스호스킨슨",
-        "inline_tag": "#찰스호스킨슨",
-        "footer_tag": "#CharlesHoskinson",
-    },
-    {
-        "aliases": ["Raoul Pal", "라울팔"],
-        "ko": "라울팔",
-        "inline_tag": "#라울팔",
-        "footer_tag": "#RaoulPal",
-    },
-]
+# 1) log_stats 헬퍼 추가
+# log(msg) 아래에 바로 추가
 
-# -----------------------------
-# 2. 본문 태그 자동 수집 / 주입
-# -----------------------------
-def _collect_entity_tags(raw_text: str):
-    low = (raw_text or "").lower()
-    inline_tags = []
-    footer_tags = []
-    seen_inline = set()
-    seen_footer = set()
-
-    for rule in ENTITY_RULES:
-        aliases = rule.get("aliases", [])
-        if any(a.lower() in low for a in aliases):
-            inline_tag = rule.get("inline_tag", "").strip()
-            footer_tag = rule.get("footer_tag", "").strip()
-
-            if inline_tag and inline_tag not in seen_inline:
-                inline_tags.append(inline_tag)
-                seen_inline.add(inline_tag)
-
-            if footer_tag and footer_tag not in seen_footer:
-                footer_tags.append(footer_tag)
-                seen_footer.add(footer_tag)
-
-    return inline_tags, footer_tags
+def log_stats(label: str, count: int) -> None:
+    log(f"[통계] {label}: {count}개")
 
 
-def inject_entity_hashtags(summary: str, raw_text: str) -> str:
-    summary = (summary or "").strip()
-    raw_text = raw_text or ""
+# 2) main() 전체를 아래 버전으로 교체
+def main():
+    log("Bot starting...")
+    log(f"모델: {OPENAI_MODEL}")
+    log(f"INITIAL_RUN={INITIAL_RUN}")
 
-    inline_tags, _ = _collect_entity_tags(raw_text)
+    state = load_state(STATE_FILE)
+    posted = state.get('posted', {})
+    collected = []
 
-    existing = set(re.findall(r'#[A-Za-z0-9가-힣()]+', summary))
-    tags_to_add = [t for t in inline_tags if t not in existing]
+    log(f"기존 posted 상태: {len(posted)}개")
 
-    if not tags_to_add:
-        return summary
+    # feed별 수집
+    for name, feed_url in FEEDS:
+        stories = fetch_rss(feed_url, max_items=MAX_ITEMS_PER_FEED)
+        log(f"{name}: {len(stories)}개 수집")
+        if stories:
+            for story in stories[:2]:
+                log(f"  └ 수집 예시: {story.get('title', '')[:120]}")
+        collected.extend(stories)
 
-    # 맨 앞 문장에 몰아 붙이기
-    prefix = " ".join(tags_to_add)
-    if summary.startswith(prefix):
-        return summary
+    log_stats("전체 수집", len(collected))
 
-    summary = f"{prefix} {summary}".strip()
-    summary = _normalize_inline_hashtag_spacing(summary)
-    summary = _normalize_korean_hashtag_particles(summary)
-    return summary
+    # 필터 통과
+    filtered = []
+    negative_count = 0
 
+    for s in collected:
+        ok = matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)
+        if ok:
+            filtered.append(s)
+        else:
+            negative_count += 1
 
-# -----------------------------
-# 3. 본문 붙은 해시태그 띄어쓰기 보정
-# -----------------------------
-def _normalize_inline_hashtag_spacing(text: str) -> str:
-    text = text or ""
+    log_stats("필터 통과", len(filtered))
+    log_stats("필터 제외", negative_count)
 
-    # #잉글랜드#은행 -> #잉글랜드 #은행
-    text = re.sub(r'(#[가-힣A-Za-z0-9()]+)(?=#[가-힣A-Za-z0-9()]+)', r'\1 ', text)
-
-    # 해시태그와 일반 텍스트 사이 최소 공백 확보
-    text = re.sub(r'(?<!\s)(#[가-힣A-Za-z0-9()]+)', r' \1', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
-
-
-def _normalize_korean_hashtag_particles(text: str) -> str:
-    text = text or ""
-
-    particles = ["은", "는", "이", "가", "을", "를", "에", "의", "과", "와", "로", "도", "만", "인"]
-    for p in particles:
-        text = re.sub(rf'(#[가-힣A-Za-z0-9()]+)\s+{p}(\b)', rf'\1 {p}\2', text)
-    return text
-
-
-# -----------------------------
-# 4. footer 생성 로직
-# -----------------------------
-# 중요:
-# - 본문에 한국어 태그가 있으면 footer에 영어 태그를 붙임
-# - 본문에 영어 태그가 이미 있으면 footer에 같은 영어 태그는 다시 안 붙임
-# - footer는 본문에 실제 들어간 태그 기준으로만 생성
-INLINE_TO_FOOTER_TAG_MAP = {
-    "#비트코인": "#Bitcoin",
-    "#이더리움": "#Ethereum",
-    "#리플": "#Ripple",
-    "#XRP": "#XRP",
-    "#XRPL": "#XRPL",
-    "#스테이블코인": "#Stablecoin",
-    "#코인베이스": "#Coinbase",
-    "#비트겟월렛": "#BitgetWallet",
-    "#폴리마켓": "#Polymarket",
-    "#마스터카드": "#Mastercard",
-    "#웜홀": "#Wormhole",
-    "#스탠다드차타드": "#StandardChartered",
-    "#조디아커스터디": "#ZodiaCustody",
-    "#클래리티법안": "#CLARITYAct",
-    "#패트릭위트": "#PatrickWitt",
-    "#앤트로픽": "#Anthropic",
-    "#인공지능": "#AI",
-    "#카르다노": "#Cardano",
-    "#ADA": "#ADA",
-    "#찰스호스킨슨": "#CharlesHoskinson",
-    "#라울팔": "#RaoulPal",
-    "#미국": "#US",
-    "#영국": "#UK",
-    "#한국": "#Korea",
-    "#일본": "#Japan",
-    "#은행": "#Bank",
-    "#모기지": "#Mortgage",
-    "#담보": "#Collateral",
-    "#고용": "#Jobs",
-}
-
-FIXED_FOOTER_TAGS = ["#BTC", "#비트코인", "#dooridoori", "#도리도리", "#doorinati", "#도리나티"]
-
-
-def _extract_inline_tags_from_summary(summary: str):
-    return re.findall(r'#[A-Za-z0-9가-힣()]+', summary or '')
-
-
-def _build_footer_tags_from_inline(summary: str, base_tags=None):
-    if base_tags is None:
-        base_tags = FIXED_FOOTER_TAGS[:]
-
-    inline_tags = _extract_inline_tags_from_summary(summary)
-    inline_set = set(inline_tags)
-
-    english_inline = {t for t in inline_tags if re.fullmatch(r'#[A-Za-z0-9()]+', t or '')}
-    out = []
-
-    # 본문에 걸린 한국어 태그 -> 영어 footer 변환
-    for t in inline_tags:
-        mapped = INLINE_TO_FOOTER_TAG_MAP.get(t)
-        if mapped and mapped not in english_inline and mapped not in out:
-            out.append(mapped)
-
-    # base tags 유지
-    for t in base_tags:
-        if t not in out:
-            out.append(t)
-
-    return out
-
-
-def _normalize_footer_tags(tags):
-    seen = set()
-    out = []
-
-    for tag in tags:
-        tag = (tag or "").strip().replace(".", "")
-        if not tag.startswith("#"):
-            continue
-        if tag in seen:
-            continue
-        seen.add(tag)
-        out.append(tag)
-
-    return out
-
-
-# -----------------------------
-# 5. build_message / format_message 쪽 교체
-# -----------------------------
-# 네 코드에 아래 흐름이 있으면:
-#
-# summary = rewrite_summary_with_openai(...)
-# summary = inject_entity_hashtags(summary, raw_text)
-# summary = _normalize_inline_hashtag_spacing(summary)
-# summary = _normalize_korean_hashtag_particles(summary)
-# footer_tags = _build_footer_tags_from_inline(summary, FIXED_FOOTER_TAGS)
-# footer_tags = _normalize_footer_tags(footer_tags)
-#
-# parts = [
-#     html.escape(summary),
-#     '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
-#     f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
-#     ' '.join(html.escape(t) for t in footer_tags)
-# ]
-#
-# return '\n\n'.join(parts)
-
-# -----------------------------
-# 6. 문장 끝 강제 축약
-# -----------------------------
-def normalize_sentence_endings(summary: str) -> str:
-    summary = summary or ""
-
-    replacements = [
-        ("했다", "함"),
-        ("하였다", "함"),
-        ("됐다", "됨"),
-        ("되었다", "됨"),
-        ("밝혔다", "밝힘"),
-        ("전했다", "전함"),
-        ("설명했다", "설명함"),
-        ("알려졌다", "알려짐"),
-        ("나타났다", "나타남"),
-        ("보였다", "보임"),
-        ("거론됐다", "거론됨"),
-        ("예정이다", "예정"),
-        ("예정임.", "예정"),
-        ("추진하고 있다", "추진 중"),
-        ("검토하고 있다", "검토 중"),
-        ("준비하고 있다", "준비 중"),
-        ("확대하고 있다", "확대 중"),
+    new_stories = []
+    seen_titles = [
+        normalize_for_duplicate(item.get('title', ''))
+        for item in posted.values()
+        if item.get('title')
     ]
+    seen_signatures = [
+        item.get('signature', '')
+        for item in posted.values()
+        if item.get('signature')
+    ]
+    seen_urls = {
+        item.get('url', '').strip()
+        for item in posted.values()
+        if item.get('url')
+    }
+    seen_topic_keys = {
+        item.get('signature', '')
+        for item in posted.values()
+        if item.get('signature')
+    }
+    seen_canonical_keys = {
+        item.get('canonical_key', '')
+        for item in posted.values()
+        if item.get('canonical_key')
+    }
 
-    for a, b in replacements:
-        summary = summary.replace(a, b)
+    dup_topic = 0
+    dup_canonical = 0
+    dup_url = 0
+    dup_title = 0
+    dup_semantic = 0
 
-    summary = summary.replace(".", "")
-    summary = re.sub(r'\s+', ' ', summary).strip()
-    return summary
+    for s in filtered:
+        title = s.get('title', '')
+        norm_title = normalize_for_duplicate(title)
+        signature = build_story_signature(s)
+        canonical_key = build_canonical_topic_key(s)
+        url = s.get('url', '').strip()
+
+        if (
+            signature
+            and len(signature.split('|')) >= 3
+            and signature in seen_topic_keys
+        ):
+            dup_topic += 1
+            log(f"[토픽중복 제외] {title}")
+            log(f"  └ 시그니처: {signature}")
+            continue
+
+        if is_canonical_duplicate(canonical_key, seen_canonical_keys):
+            dup_canonical += 1
+            log(f"[정규토픽중복 제외] {title}")
+            log(f"  └ canonical_key: {canonical_key}")
+            continue
+
+        if url and url in seen_urls:
+            dup_url += 1
+            log(f"[URL중복 제외] {title}")
+            continue
+
+        if is_duplicate(title, posted, url):
+            dup_title += 1
+            log(f"[제목/URL중복 제외] {title}")
+            continue
+
+        if is_semantically_duplicate(s, seen_signatures, seen_titles):
+            dup_semantic += 1
+            log(f"[의미중복 제외] {title}")
+            log(f"  └ 정규화제목: {norm_title}")
+            log(f"  └ 시그니처: {signature}")
+            continue
+
+        log(f"[통과] {title}")
+        log(f"  └ 정규화제목: {norm_title}")
+        log(f"  └ 시그니처: {signature}")
+
+        new_stories.append(s)
+        seen_titles.append(norm_title)
+        seen_signatures.append(signature)
+
+        if signature and len(signature.split('|')) >= 3:
+            seen_topic_keys.add(signature)
+
+        if canonical_key:
+            seen_canonical_keys.add(canonical_key)
+
+        if url:
+            seen_urls.add(url)
+
+    log_stats("토픽중복 제외", dup_topic)
+    log_stats("정규토픽중복 제외", dup_canonical)
+    log_stats("URL중복 제외", dup_url)
+    log_stats("제목/URL중복 제외", dup_title)
+    log_stats("의미중복 제외", dup_semantic)
+    log_stats("최종 전송 대상", len(new_stories))
+
+    state['posted'] = posted
+    save_state(STATE_FILE, state)
+
+    if INITIAL_RUN:
+        log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
+        return
+
+    posted_count = 0
+    failed_count = 0
+
+    for i, story in enumerate(new_stories, start=1):
+        title = story.get('title', '')
+        log(f"[전송 시도 {i}/{len(new_stories)}] {title}")
+
+        msg = build_message(story)
+        log(f"  └ 메시지 길이: {len(msg)}자")
+        if story.get('image_url'):
+            log(f"  └ 이미지 있음: {story.get('image_url')[:120]}")
+        else:
+            log("  └ 이미지 없음")
+
+        ok = send_telegram_photo(
+            TELEGRAM_BOT_TOKEN,
+            TELEGRAM_CHANNEL_ID,
+            story.get('image_url', ''),
+            msg
+        )
+
+        if ok:
+            signature = build_story_signature(story)
+            canonical_key = build_canonical_topic_key(story)
+            update_posted(
+                story['title'],
+                posted,
+                story.get('url', ''),
+                signature,
+                canonical_key
+            )
+            state['posted'] = posted
+            save_state(STATE_FILE, state)
+            posted_count += 1
+            log(f"[POST 성공] {story['title']}")
+        else:
+            failed_count += 1
+            log(f"[POST 실패] {story['title']}")
+
+        time.sleep(0.3)
+
+    log("=" * 60)
+    log(f"실행 요약 | 전체수집={len(collected)} | 필터통과={len(filtered)} | 전송대상={len(new_stories)} | 성공={posted_count} | 실패={failed_count}")
+    log("=" * 60)
 
 
-# -----------------------------
-# 7. 추천 적용 순서
-# -----------------------------
-# summary = rewrite_summary_with_openai(title, article_text, desc)
-# summary = normalize_sentence_endings(summary)
-# summary = inject_entity_hashtags(summary, raw_text)
-# summary = _normalize_inline_hashtag_spacing(summary)
-# summary = _normalize_korean_hashtag_particles(summary)
-# footer_tags = _build_footer_tags_from_inline(summary, FIXED_FOOTER_TAGS)
-# footer_tags = _normalize_footer_tags(footer_tags)
+# 3) 선택사항: send_telegram_photo / send_telegram_message 로그 강화
+# 아래처럼 보내기 직전 로그를 추가하면 원인 파악 쉬움
 
-# -----------------------------
-# 8. 핵심 포인트
-# -----------------------------
-# - "본문 태그는 최대 4~5개" 같은 제한을 두지 말고, ENTITY_RULES에 잡힌 핵심 태그는 다 넣어도 됨
-# - 대신 footer는 "본문에 실제로 걸린 태그"를 기준으로 영어 변환
-# - 본문에 영어 태그가 이미 있으면 footer 중복 금지
-# - 본문에 #코인베이스 가 있으면 footer에 #Coinbase 추가
-# - 본문에 #Coinbase 가 직접 있으면 footer에 #Coinbase 재추가 금지
+# send_telegram_message() 안 payload 만들기 직전에 추가
+# log(f"[텔레그램 텍스트 전송] 길이={len(message)}")
+
+# send_telegram_photo() 안 payload 만들기 직전에 추가
+# log(f"[텔레그램 사진 전송] image_url={image_url[:120]} | caption_len={len(caption)}")
