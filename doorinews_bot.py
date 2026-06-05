@@ -3429,8 +3429,7 @@ FOOTER_EN_TAGS_MAP = {
 def ensure_inline_entity_tags(text: str, raw_text: str) -> str:
     if not text:
         return ''
-    base = f"{text}
-{raw_text or ''}".lower()
+    base = f"{text}\n{raw_text or ''}".lower()
     found = []
     for label, patterns in INLINE_KO_ENTITY_TAGS:
         for pat in patterns:
@@ -3481,8 +3480,7 @@ def fix_split_person_tags(text: str) -> str:
     return text.strip()
 
 def collect_footer_entity_tags(summary: str, raw_text: str) -> list[str]:
-    base = f"{summary}
-{raw_text or ''}".lower()
+    base = f"{summary}\n{raw_text or ''}".lower()
     tags = []
     for ko, en in FOOTER_EN_TAGS_MAP.items():
         if re.search(rf'#{re.escape(ko)}(?=[^A-Za-z0-9가-힣_]|$)', summary):
@@ -3541,8 +3539,7 @@ def build_message(story: dict) -> str:
     summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     summary_ko = finalize_summary_ending(summary_ko)
 
-    raw_text = f"{title}
-{desc}"
+    raw_text = f"{title}\n{desc}"
     summary = summary_ko if summary_ko else story.get('title', '')
     summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=115)
     summary = ensure_inline_entity_tags(summary, raw_text)
