@@ -9,7 +9,7 @@ import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
@@ -3511,11 +3511,45 @@ def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) 
         log(f"Error sending photo: {e}. Falling back to text message.")
         return send_telegram_message(token, channel, caption)
 
+
+
+def prune_posted_older_than(posted: dict, days: int = 7) -> dict:
+    if not isinstance(posted, dict):
+        return {}
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    pruned = {}
+
+    for k, v in posted.items():
+        try:
+            ts = v.get("ts", "")
+            if not ts:
+                continue
+
+            dt = datetime.fromisoformat(ts)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+
+            if dt >= cutoff:
+                pruned[k] = v
+        except Exception:
+            continue
+
+    return pruned
+
 def main():
     log("Bot starting...")
     log("RUNNING_BUILD=0606_fix_us_skip_linebreak_v2")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
+
+    before_cnt = len(posted)
+    posted = prune_posted_older_than(posted, days=7)
+    after_cnt = len(posted)
+    state['posted'] = posted
+    save_state(STATE_FILE, state)
+    log(f"[state 정리] 7일 초과 삭제: {before_cnt - after_cnt}개 / 유지: {after_cnt}개")
+
     collected = []
 
     for name, feed_url in FEEDS:
