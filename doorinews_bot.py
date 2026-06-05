@@ -2397,25 +2397,9 @@ def summarize_text(text: str, title: str = "", max_sentences: int = 3) -> str:
     return summary
 
 def translate_text_to_korean(text: str) -> str:
-    if not text:
-        return ""
-    try:
-        from googletrans import Translator  # type: ignore
-        translator = Translator()
-        result = translator.translate(text, dest='ko')
-        if iscoroutine(result):
-            result = asyncio.run(result)
-        return result.text
-    except Exception:
-        try:
-            from googletrans import Translator  # type: ignore
-            async def _translate(src: str) -> str:
-                async with Translator() as trans:
-                    r = await trans.translate(src, dest='ko')
-                    return r.text
-            return asyncio.run(_translate(text))
-        except Exception:
-            return text
+    # googletrans 제거: OpenAI 요약 실패 시 번역 fallback 사용 안 함
+    return ""
+
 
 def normalize_style(text: str) -> str:
     rules = [
@@ -4810,8 +4794,6 @@ def build_message(story: dict) -> str:
         return '\n\n'.join(parts)
     return message
 
-if __name__ == '__main__':
-    main()
 
 
 # ---------------------------------------------------------------------------
@@ -5061,3 +5043,98 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
         print(f'[강화차단 제외:{reason}] {story.get("title", "")}')
         return False
     return _PREV_matches_keywords_v0605(story, coins, econ_keywords, korean_keywords)
+
+
+# ---------------------------------------------------------------------------
+# PATCH: 2026-06-05 remove googletrans fallback + skip posting on OpenAI failure
+# ---------------------------------------------------------------------------
+
+def build_message(story: dict) -> str:
+    title = story.get('title', '')
+    desc = story.get('desc', '')
+    article_text = get_best_source_text(story)
+
+    # OpenAI 요약만 사용
+    summary_ko = rewrite_summary_with_gemini(
+        title=title,
+        article_text=article_text,
+        fallback_text=desc
+    )
+
+    # OpenAI 실패/빈응답이면 아예 올리지 않음
+    if not (summary_ko or '').strip():
+        log(f"[요약실패 스킵] {title}")
+        return ""
+
+    story_entities = extract_entities(story, max_tags=14)
+    summary_entities = extract_entities_from_summary(summary_ko, max_tags=14)
+    merged_entities, seen_entities = [], set()
+    for e in story_entities + summary_entities:
+        key = e.lower()
+        if key not in seen_entities:
+            merged_entities.append(e)
+            seen_entities.add(key)
+
+    entities = []
+    for e in merged_entities:
+        ko = entity_korean_name(e)
+        if e in INLINE_TAG_WHITELIST or ko in INLINE_TAG_WHITELIST:
+            entities.append(e)
+
+    summary_ko, dynamic_tags = inject_entity_hashtags(summary_ko, entities)
+    summary_ko = fix_broken_inline_hashtags(summary_ko)
+    summary_ko = remove_duplicate_inline_hashtags(summary_ko)
+    summary_ko = finalize_summary_ending(summary_ko)
+    summary_ko = _clean_summary_for_style(summary_ko)
+    summary_ko = _remove_inline_footer_line_v0605(summary_ko)
+
+    summary = format_summary_for_telegram(summary_ko, max_sentences=3, max_chars=125)
+    summary = summary.replace('자동뉴스', '').replace('다음 기사는', '').replace('뉴스레터', '').strip()
+    summary = _fix_inline_tag_particles_v0605(summary)
+    summary = finalize_summary_ending(summary)
+
+    if not summary.strip():
+        log(f"[본문비어있음 스킵] {title}")
+        return ""
+
+    footer_tags = _footer_tags_from_inline_v0605(summary)
+    footer_tags += [f'#{t}' for t in FINAL_HASHTAGS]
+    footer_tags = _ensure_case_tags(summary, story, footer_tags)
+    footer_tags = _normalize_footer_tags(footer_tags)
+
+    inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
+    footer_tags = [f for f in footer_tags if f not in inline_tags and f not in _FOOTER_BLOCKLIST_V0605]
+
+    seen = set()
+    dedup = []
+    for t in footer_tags:
+        if t and t not in seen:
+            dedup.append(t)
+            seen.add(t)
+
+    parts = [
+        html.escape(summary),
+        '🌐 <a href="http://t.me/Doorinews">공식 글로벌 실시간 도리뉴스</a>',
+        f'<a href="{html.escape(story.get("url", ""))}">출처</a>',
+        ' '.join(html.escape(t) for t in dedup if t)
+    ]
+    return '\n\n'.join([p for p in parts if p]).strip()
+
+
+_OLD_send_telegram_message_noempty = send_telegram_message
+_OLD_send_telegram_photo_noempty = send_telegram_photo
+
+def send_telegram_message(token: str, channel: str, message: str) -> bool:
+    if not (message or '').strip():
+        log("[빈메시지 스킵]")
+        return False
+    return _OLD_send_telegram_message_noempty(token, channel, message)
+
+def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) -> bool:
+    if not (caption or '').strip():
+        log("[빈캡션 스킵]")
+        return False
+    return _OLD_send_telegram_photo_noempty(token, channel, image_url, caption)
+
+if __name__ == '__main__':
+    main()
