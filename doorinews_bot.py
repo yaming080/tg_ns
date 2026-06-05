@@ -40,7 +40,7 @@ FEEDS = [
 	('크립토포테이토', 'https://cryptopotato.com/feed/'),
 	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
 	('유투데이', 'https://u.today/rss.php'),
-	('비트저널', 'https://thebitjournal.com/feed/'),
+	('비트저널', 'https://thebitjournal.com/crypto/feed/'),
     ('코인니스', 'https://coinness.com/rss'),
     ('크립토뉴스닷뉴스', 'https://crypto.news/feed/'),
 	
