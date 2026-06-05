@@ -1784,30 +1784,25 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
     try:
         data = http_get(url, timeout=12)
 
-    # bytes -> str 변환
-    if isinstance(data, bytes):
-        raw_xml = data.decode("utf-8", errors="replace")
-    else:
-        raw_xml = str(data)
+        if isinstance(data, bytes):
+            raw_xml = data.decode("utf-8", errors="replace")
+        else:
+            raw_xml = str(data)
 
-    # RSS 깨짐 복구 1차
-    fixed_xml = raw_xml.replace("\x00", " ")
-    fixed_xml = fixed_xml.replace("&nbsp;", " ")
-    fixed_xml = fixed_xml.replace("&", "&amp;")
+        # 1차 정리
+        fixed_xml = raw_xml.replace("\x00", " ")
+        fixed_xml = fixed_xml.replace("&nbsp;", " ")
 
-    # 이미 정상 엔티티인 것은 되돌림
-    fixed_xml = fixed_xml.replace("&amp;lt;", "&lt;")
-    fixed_xml = fixed_xml.replace("&amp;gt;", "&gt;")
-    fixed_xml = fixed_xml.replace("&amp;quot;", "&quot;")
-    fixed_xml = fixed_xml.replace("&amp;apos;", "&apos;")
-    fixed_xml = fixed_xml.replace("&amp;amp;", "&amp;")
+        # XML 파싱에 문제되는 잘못된 & 보정
+        fixed_xml = re.sub(r"&(?!amp;|lt;|gt;|quot;|apos;)", "&amp;", fixed_xml)
 
-    try:
-        root = ET.fromstring(fixed_xml)
-    except Exception:
-        # RSS 깨짐 복구 2차: 제어문자 제거
-        fixed_xml2 = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", " ", fixed_xml)
-        root = ET.fromstring(fixed_xml2)
+        try:
+            root = ET.fromstring(fixed_xml)
+        except Exception:
+            # 2차 정리
+            fixed_xml2 = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", " ", fixed_xml)
+            root = ET.fromstring(fixed_xml2)
+
         for item in root.findall('.//item')[:max_items]:
             title = (item.findtext('title') or '').strip()
             link = (item.findtext('link') or '').strip()
@@ -1826,35 +1821,8 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
                     enclosure = item.find('enclosure')
                     if enclosure is not None and enclosure.attrib.get('url'):
                         image_url = enclosure.attrib['url']
-
-                if not image_url:
-                    for child in item:
-                        tag = str(child.tag).lower()
-                        if 'thumbnail' in tag or 'content' in tag:
-                            cand = child.attrib.get('url', '').strip()
-                            if cand.startswith('http'):
-                                image_url = cand
-                                break
             except Exception:
                 image_url = ''
-
-            # 이미지 보강
-            article_desc, article_img = ('', '')
-
-            need_meta_fetch = (
-                (not image_url)
-                or (not str(image_url).startswith('http'))
-                or ('coinedition.com' in link)
-            )
-
-            if need_meta_fetch:
-                article_desc, article_img = fetch_article_meta(link)
-
-            if article_img and str(article_img).startswith('http'):
-                image_url = article_img
-
-            if is_weak_text(desc_clean) and article_desc:
-                desc_clean = article_desc
 
             if title and link:
                 stories.append({
@@ -1864,10 +1832,11 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
                     'pub': pub,
                     'image_url': image_url
                 })
-    except Exception as e:
-        log(f"Error fetching {url}: {e}")
-    return stories
 
+    except Exception as e:
+        print(f"Error fetching {url}: {e}")
+
+    return stories
 def normalize_text(text: str) -> str:
     text = text.lower()
     text = re.sub(r'https?://\S+', ' ', text)
