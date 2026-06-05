@@ -1783,7 +1783,31 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
     stories = []
     try:
         data = http_get(url, timeout=12)
-        root = ET.fromstring(data)
+
+    # bytes -> str 변환
+    if isinstance(data, bytes):
+        raw_xml = data.decode("utf-8", errors="replace")
+    else:
+        raw_xml = str(data)
+
+    # RSS 깨짐 복구 1차
+    fixed_xml = raw_xml.replace("\x00", " ")
+    fixed_xml = fixed_xml.replace("&nbsp;", " ")
+    fixed_xml = fixed_xml.replace("&", "&amp;")
+
+    # 이미 정상 엔티티인 것은 되돌림
+    fixed_xml = fixed_xml.replace("&amp;lt;", "&lt;")
+    fixed_xml = fixed_xml.replace("&amp;gt;", "&gt;")
+    fixed_xml = fixed_xml.replace("&amp;quot;", "&quot;")
+    fixed_xml = fixed_xml.replace("&amp;apos;", "&apos;")
+    fixed_xml = fixed_xml.replace("&amp;amp;", "&amp;")
+
+    try:
+        root = ET.fromstring(fixed_xml)
+    except Exception:
+        # RSS 깨짐 복구 2차: 제어문자 제거
+        fixed_xml2 = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", " ", fixed_xml)
+        root = ET.fromstring(fixed_xml2)
         for item in root.findall('.//item')[:max_items]:
             title = (item.findtext('title') or '').strip()
             link = (item.findtext('link') or '').strip()
