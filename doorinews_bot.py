@@ -3337,22 +3337,49 @@ def finalize_summary_ending(text: str) -> str:
 
 
 def _normalize_footer_tags(tags: list[str]) -> list[str]:
+    if not tags:
+        return []
+
     mapping = {
-        '#Japan': '#일본', '#Bhutan': '#부탄', '#Germany': '#독일', '#USA': '#US',
-        '#Ripple': '#XRP', '#RL#미국D': '#RLUSD', '#F O M C': '#FOMC', '#HesterPeirce': '#헤스터피어스',
-        '#CME': '#시카고상품거래소(CME)', '#Qivalis': '#키발리스', '#RaoulPal': '#라울팔',
-        '#Nuva': '#누바', '#Tempo': '#템포', '#MoneyGram': '#머니그램', '#Muro': '#무로', '#Santander': '#산탄데르'
+        '#Japan': '#일본',
+        '#Bhutan': '#부탄',
+        '#Germany': '#독일',
+        '#USA': '#US',
+        '#UnitedStates': '#US',
+        '#America': '#US',
+        '#Ripple': '#XRP',
+        '#RL#미국D': '#RLUSD',
+        '#F O M C': '#FOMC',
+        '#HesterPeirce': '#헤스터피어스',
+        '#CME': '#시카고상품거래소(CME)',
+        '#Qivalis': '#키발리스',
+        '#RaoulPal': '#라울팔',
+        '#Nuva': '#누바',
+        '#Tempo': '#템포',
+        '#MoneyGram': '#머니그램',
+        '#Muro': '#무로',
+        '#Santander': '#산탄데르',
+        '#Michael Saylor': '#MichaelSaylor',
+        '#Wall Street': '#WallStreet',
+        '#Black Rock': '#BlackRock',
     }
     out=[]
     seen=set()
     for tag in tags:
+        tag = (tag or '').strip()
+        if not tag:
+            continue
+        if not tag.startswith('#'):
+            tag = '#' + tag
         tag = mapping.get(tag, tag)
+        tag = re.sub(r'\s+', '', tag)
         if tag == '#리플':
             tag = '#XRP'
         if tag and tag not in seen:
             out.append(tag)
             seen.add(tag)
     return out
+
 
 def restore_telegram_linebreaks(text: str) -> str:
     text = (text or '').replace('\r\n', '\n').replace('\r', '\n')
@@ -3369,6 +3396,113 @@ def restore_telegram_linebreaks(text: str) -> str:
                 text = left + '\n\n' + right
     text = re.sub(r'\n{3,}', '\n\n', text).strip()
     return text
+
+
+INLINE_KO_ENTITY_TAGS = [
+    ('그리스', [r'\bgreece\b', r'그리스']),
+    ('국가정보국', [r'\bodni\b', r'국가정보국', r'national intelligence']),
+    ('ODNI', [r'\bodni\b']),
+    ('월가', [r'wall\s*street', r'월가']),
+    ('사이버펑크', [r'cypherpunk', r'사이버펑크']),
+    ('마이클셰일러', [r'michael\s*saylor', r'마이클\s*세일러', r'마이클셰일러']),
+    ('블랙록', [r'blackrock', r'블랙록']),
+    ('연준', [r'\bfed\b', r'federal reserve', r'연준']),
+    ('FOMC', [r'\bfomc\b']),
+    ('트럼프', [r'trump', r'트럼프']),
+    ('미국', [r'\bu\.?s\.?\b', r'\busa\b', r'\bunited states\b', r'미국']),
+]
+
+FOOTER_EN_TAGS_MAP = {
+    '그리스': '#Greece',
+    '국가정보국': '#ODNI',
+    'ODNI': '#ODNI',
+    '월가': '#WallStreet',
+    '사이버펑크': '#Cypherpunk',
+    '마이클셰일러': '#MichaelSaylor',
+    '블랙록': '#BlackRock',
+    '연준': '#FOMC',
+    'FOMC': '#FOMC',
+    '트럼프': '#Trump',
+    '미국': '#US',
+}
+
+def ensure_inline_entity_tags(text: str, raw_text: str) -> str:
+    if not text:
+        return ''
+    base = f"{text}
+{raw_text or ''}".lower()
+    found = []
+    for label, patterns in INLINE_KO_ENTITY_TAGS:
+        for pat in patterns:
+            if re.search(pat, base, re.I):
+                found.append(f'#{label}')
+                break
+    if not found:
+        return text
+    lines = [ln.strip() for ln in text.splitlines()]
+    if not lines:
+        return text
+    first = lines[0]
+    existing = set(re.findall(r'#[A-Za-z0-9가-힣_]+', text))
+    add_tags = [t for t in found if t not in existing]
+    if add_tags:
+        first = ' '.join(add_tags) + ' ' + first
+    lines[0] = re.sub(r'\s+', ' ', first).strip()
+    return '
+'.join(lines).strip()
+
+def fix_korean_hashtag_particles(text: str) -> str:
+    if not text:
+        return ''
+    particle_rules = [
+        '에서의', '에게', '으로', '와의', '과의', '에는', '에도', '에서',
+        '은', '는', '이', '가', '을', '를', '와', '과', '도', '만', '에', '로', '의'
+    ]
+    for p in particle_rules:
+        text = re.sub(rf'(#[A-Za-z0-9가-힣_]+){p}(?=[^A-Za-z0-9가-힣_]|$)', rf'\1 {p}', text)
+    text = re.sub(r'\s+([,])', r'\1', text)
+    return text.strip()
+
+def fix_split_person_tags(text: str) -> str:
+    if not text:
+        return ''
+    name_join_rules = [
+        (r'마이클\s+#셰일러', '#마이클셰일러'),
+        (r'마이클\s+셰일러', '#마이클셰일러'),
+        (r'찰스\s+#호스킨슨', '#찰스호스킨슨'),
+        (r'찰스\s+호스킨슨', '#찰스호스킨슨'),
+        (r'데이비드\s+#슈워츠', '#데이비드슈워츠'),
+        (r'데이비드\s+슈워츠', '#데이비드슈워츠'),
+        (r'브래드\s+#갈링하우스', '#브래드갈링하우스'),
+        (r'브래드\s+갈링하우스', '#브래드갈링하우스'),
+    ]
+    for pat, repl in name_join_rules:
+        text = re.sub(pat, repl, text)
+    return text.strip()
+
+def collect_footer_entity_tags(summary: str, raw_text: str) -> list[str]:
+    base = f"{summary}
+{raw_text or ''}".lower()
+    tags = []
+    for ko, en in FOOTER_EN_TAGS_MAP.items():
+        if re.search(rf'#{re.escape(ko)}(?=[^A-Za-z0-9가-힣_]|$)', summary):
+            tags.append(en)
+            continue
+        for label, patterns in INLINE_KO_ENTITY_TAGS:
+            if label != ko:
+                continue
+            for pat in patterns:
+                if re.search(pat, base, re.I):
+                    tags.append(en)
+                    break
+    seen = set()
+    out = []
+    for t in tags:
+        if t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
 
 def build_message(story: dict) -> str:
     title = story.get('title', '')
@@ -3407,8 +3541,13 @@ def build_message(story: dict) -> str:
     summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     summary_ko = finalize_summary_ending(summary_ko)
 
+    raw_text = f"{title}
+{desc}"
     summary = summary_ko if summary_ko else story.get('title', '')
     summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=115)
+    summary = ensure_inline_entity_tags(summary, raw_text)
+    summary = fix_split_person_tags(summary)
+    summary = fix_korean_hashtag_particles(summary)
     summary = restore_telegram_linebreaks(summary)
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
@@ -3436,8 +3575,16 @@ def build_message(story: dict) -> str:
     summary = summary.replace('WhiteBIT', '화이트비트')
     summary = summary.replace('Timothy Massad', '티머시매사드')
 
+    summary = fix_split_person_tags(summary)
+    summary = fix_korean_hashtag_particles(summary)
+
     dynamic_tags = filter_final_tags(dynamic_tags)
     footer_tags = dynamic_tags + [f'#{t}' for t in FINAL_HASHTAGS]
+    extra_footer_tags = collect_footer_entity_tags(summary, raw_text)
+    for tag in extra_footer_tags:
+        if tag not in footer_tags:
+            footer_tags.append(tag)
+    footer_tags = _normalize_footer_tags(footer_tags)
 
     inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣]+', summary))
     footer_tags = [t for t in footer_tags if t not in inline_tags]
