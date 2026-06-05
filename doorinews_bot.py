@@ -88,7 +88,7 @@ KOREAN_TAG_KEYWORDS = [
 '비탈릭부텔린', '사토시나카모토', '저스틴썬', '제드맥케일럽', '찰스호스킨슨',
 '스트래티지', '도널드트럼프', '테더', '플레어', 'FLR', '에테나', '에테나', '메타플래닛', '도리뉴스',
 '시바리움', 'SWIFT', '백악관', '카타르', '마스터카드',
-'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+'IPO', 'CTO', 'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE', 'ADA', '카르다노',
     'RLUSD', 'FOMC', '헤스터피어스', '시카고상품거래소', '키발리스', '라울팔', '누바', '템포', '머니그램', '미카', '도호쿠은행', 'SBIRemit', '소프트뱅크', '트웬티원캐피털', '화이트비트', '티머시매사드', '무로', '산탄데르',
 '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
 'DeFi', 'NFT', 'Web3', 'BitMine', '톰리', 'Thomasgeth', 'TimeTraveler', 'JohnSquire',
@@ -784,7 +784,7 @@ def is_pure_macro_article(text: str) -> bool:
 FINAL_HASHTAGS = ['BTC','비트코인','dooridoori','도리도리','doorinati','도리나티']
 
 INLINE_TAG_WHITELIST = {
-    '미국', 'CFTC', 'Polymarket', '폴리마켓', 'Elizabeth Warren', '엘리자베스워런',
+    '미국', 'CFTC', 'Polymarket', '폴리마켓', 'Bitget Wallet', '비트겟월렛', 'Elizabeth Warren', '엘리자베스워런',
     '정부', '비트코인', 'BTC', 'ETH', 'XRP',
     '연준', 'SEC', 'ETF', '재무부', '상원', '하원',
     '아이언라이트', '보어히스', '에릭보어히스',
@@ -799,7 +799,7 @@ INLINE_TAG_WHITELIST = {
     '브라질', '중국', '일본', '한국', '미국', '이란', '이스라엘', '카타르',
     '마스터카드',
     'SEC', 'CFTC', 'OCC', 'ETF', 'IPO', 'CTO',
-    'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+    'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE', 'ADA', '카르다노',
     'RLUSD', 'FOMC', '헤스터피어스', '시카고상품거래소', '키발리스', '라울팔', '누바', '템포', '머니그램', '미카', '도호쿠은행', 'SBIRemit', '소프트뱅크', '트웬티원캐피털', '화이트비트', '티머시매사드', '무로', '산탄데르',
     '비트코인', '이더리움', '스테이블코인', '토큰화', '수탁', '시드문구', '소송', '규제', '해석',
     'DeFi', 'NFT', 'Web3', '디파이', '엑스알피',
@@ -811,7 +811,7 @@ INLINE_TAG_WHITELIST = {
     '애플', '페이팔', '스트라이프', '제미니', '칼시', '제드시온',
     '에버노스', 'XRPLedger', '세계금협회',
      '디지털금', '비트코인퀀텀', 'BIP360',
-    'OpenAI', 'Anthropic', '슈퍼마이크로', 'AI', 'LNG',
+    '오픈AI', 'OpenAI', '앤트로픽', 'Anthropic', '인공지능', 'AI', '슈퍼마이크로', 'LNG',
     '바잔', '캘리포니아', '모건스탠리', '크라켄',
     '지니어스법안', '지니어스', '법안', 'ICE', '클래리티',
     '블랙록', '문페이', '코인베이스', '히든로드', '게임스탑',
@@ -835,7 +835,7 @@ INLINE_TAG_WHITELIST = {
 'Mastercard', 'Visa',
 
 'SEC', 'CFTC', 'OCC', 'ETF', 'IPO', 'CTO',
-'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE',
+'XRP', 'XLM', 'BTC', 'ETH', 'SHIB', 'USDC', 'USDT', 'XAUT', 'SOL', 'DOGE', 'ADA', '카르다노',
     'RLUSD', 'FOMC', '헤스터피어스', '시카고상품거래소', '키발리스', '라울팔', '누바', '템포', '머니그램', '미카', '도호쿠은행', 'SBIRemit', '소프트뱅크', '트웬티원캐피털', '화이트비트', '티머시매사드', '무로', '산탄데르',
 
 'Bitcoin', 'Ethereum', 'Stablecoin', 'Tokenization', 'Custody', 'Seed Phrase',
@@ -1229,11 +1229,11 @@ MANUAL_TRANSLATIONS = {
 
     'BIP360': 'BIP360',
 
-    'OpenAI': 'OpenAI',
-    '오픈에이아이': 'OpenAI',
+    'OpenAI': '오픈AI',
+    '오픈에이아이': '오픈AI',
 
-    'Anthropic': 'Anthropic',
-    '앤트로픽': 'Anthropic',
+    'Anthropic': '앤트로픽',
+    '앤트로픽': '앤트로픽',
 
     'Super Micro': '슈퍼마이크로',
     '슈퍼마이크로': '슈퍼마이크로',
@@ -2094,6 +2094,31 @@ def is_physical_bitcoin_move_article(text: str) -> bool:
     )
 
 
+
+def is_hyperliquid_accumulation_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        (("hyperliquid" in low or "하이퍼리퀴드" in low or "hype" in low) and ("a16z" in low or "andreessen horowitz" in low or "hot wallet" in low or "wallet" in low))
+        and ("추가 매집" in low or "매집" in low or "inflow" in low or "bought" in low or "bounty" in low or "지갑" in low)
+    )
+
+
+def is_negative_cardano_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("cardano" in low or "카르다노" in low or "ada" in low)
+        and any(p in low for p in ["crashes under", "under 0.16", "selloff", "매도세", "떨어졌", "연쇄 실패", "steps back", "hoskinson", "찰스 호스킨슨", "찰스호스킨슨"])
+    )
+
+
+def is_noncrypto_ai_feature_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        any(p in low for p in ["anthropic", "앤트로픽", "ai self-improvement", "recursive development", "self improving", "자체로 더 똑똑"])
+        and not any(p in low for p in ["bitcoin", "btc", "xrp", "ethereum", "eth", "리플", "비트코인", "이더리움", "암호화폐", "crypto"])
+    )
+
+
 def is_sanctions_teen_a7a5_article(text: str) -> bool:
     low = (text or "").lower()
     score = 0
@@ -2127,6 +2152,18 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     hard_irrelevant_terms = ['moew', 'realgo', 'fast or go home', 'allunity', 'kalqix', 'kalaix', 'challenge', 'mainnet launch', 'clob dex', 'agent', 'airdrop', 'launch campaign', 'wallet campaign']
     if any(t in raw_lower for t in hard_irrelevant_terms):
             print(f"[홍보/비관련 제외] {story.get('title', '')}")
+            return False
+
+    if is_hyperliquid_accumulation_article(raw_text):
+            print(f"[하이퍼리퀴드 매집 제외] {story.get('title', '')}")
+            return False
+
+    if is_negative_cardano_article(raw_text):
+            print(f"[카르다노 부정기사 제외] {story.get('title', '')}")
+            return False
+
+    if is_noncrypto_ai_feature_article(raw_text):
+            print(f"[비관련 AI기사 제외] {story.get('title', '')}")
             return False
 
        # 1. 기본 네거티브 차단
@@ -2414,6 +2451,13 @@ def normalize_style(text: str) -> str:
         (r'전했다\.?', '전함'),
         (r'설명했다\.?', '설명함'),
         (r'덧붙였다\.?', '덧붙임'),
+        (r'됐다\.?', '됨'),
+        (r'되었다\.?', '됨'),
+        (r'되었으며', '됐으며'),
+        (r'나타났다\.?', '나타남'),
+        (r'호소했다\.?', '호소했음'),
+        (r'통합했다\.?', '통합함'),
+        (r'통합했으며', '통합했고'),
     ]
 
     leftovers = re.findall(r'[\w가-힣]+(?:했습니다|하였습니다|합니다|있습니다|됩니다|나타냅니다|미칩니다)', text)
@@ -2770,6 +2814,17 @@ def fix_translation_terms(text: str) -> str:
     'Standard Chartered': '스탠다드차타드',
     'Zodia Custody': '조디아커스터디',
     'Zodia': '조디아커스터디',
+    'Bitget Wallet': '비트겟월렛',
+    'bitget wallet': '비트겟월렛',
+    'BitgetWallet': '비트겟월렛',
+    '비트겟 월렛': '비트겟월렛',
+    'Polymarket': '폴리마켓',
+    'Anthropic AI': '앤트로픽 인공지능',
+    'Hyperliquid': '하이퍼리퀴드',
+    'HYPE': 'HYPE',
+    'Cardano': '카르다노',
+    'ADA': 'ADA',
+    'Charles Hoskinson': '찰스호스킨슨',
 
     }
 
@@ -3397,6 +3452,48 @@ def finalize_summary_ending(text: str) -> str:
 	
 
 
+
+
+def harden_summary_text(text: str) -> str:
+    text = (text or '').replace('Anthropic', '앤트로픽').replace('OpenAI', '오픈AI')
+    text = text.replace('Bitget Wallet', '비트겟월렛')
+    text = text.replace('bitget wallet', '비트겟월렛')
+    text = text.replace('Cardano', '카르다노')
+    text = text.replace('Charles Hoskinson', '찰스호스킨슨')
+    text = text.replace('Polymarket', '폴리마켓')
+
+    ending_rules = [
+        (r'밝혔다(?=[\s\n]|$)', '밝힘'),
+        (r'전했다(?=[\s\n]|$)', '전함'),
+        (r'설명했다(?=[\s\n]|$)', '설명함'),
+        (r'알려졌다(?=[\s\n]|$)', '알려짐'),
+        (r'나타났다(?=[\s\n]|$)', '나타남'),
+        (r'됐다(?=[\s\n]|$)', '됨'),
+        (r'되었다(?=[\s\n]|$)', '됨'),
+        (r'호소했다(?=[\s\n]|$)', '호소했음'),
+        (r'기록했다(?=[\s\n]|$)', '기록함'),
+        (r'통합했다(?=[\s\n]|$)', '통합함'),
+        (r'추진했다(?=[\s\n]|$)', '추진함'),
+        (r'추진 중이다(?=[\s\n]|$)', '추진 중임'),
+        (r'가능해졌다(?=[\s\n]|$)', '가능해짐'),
+        (r'할 수 있게 됐다(?=[\s\n]|$)', '할 수 있게 됨'),
+        (r'하겠다고 경고했다(?=[\s\n]|$)', '경고함'),
+        (r'경고했다(?=[\s\n]|$)', '경고함'),
+        (r'나섰다(?=[\s\n]|$)', '나섬'),
+        (r'올렸다(?=[\s\n]|$)', '올림'),
+        (r'떨어졌다(?=[\s\n]|$)', '떨어졌음'),
+    ]
+    for pat, rep in ending_rules:
+        text = re.sub(pat, rep, text)
+
+    text = re.sub(r'(?<!\d)\.(?=\s|$)', '', text)
+    text = re.sub(r'\.(?=\n|$)', '', text)
+    text = text.replace(' .', ' ')
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'\n\s*\n', '\n\n', text)
+    return text.strip()
+
+
 def _normalize_footer_tags(tags: list[str]) -> list[str]:
     mapping = {
         '#Japan': '#일본', '#Bhutan': '#부탄', '#Germany': '#독일', '#US': '#미국', '#USA': '#미국',
@@ -3461,9 +3558,11 @@ def build_message(story: dict) -> str:
     summary_ko = fix_broken_inline_hashtags(summary_ko)
     summary_ko = remove_duplicate_inline_hashtags(summary_ko)
     summary_ko = finalize_summary_ending(summary_ko)
+    summary_ko = harden_summary_text(summary_ko)
 
     summary = summary_ko if summary_ko else story.get('title', '')
     summary = format_summary_for_telegram(summary, max_sentences=3, max_chars=115)
+    summary = harden_summary_text(summary)
     summary = summary.replace('자동뉴스', '').strip()
     summary = summary.replace('다음 기사는', '').strip()
     summary = summary.replace('뉴스레터', '').strip()
@@ -3938,6 +4037,31 @@ def is_physical_bitcoin_move_article(text: str) -> bool:
     )
 
 
+
+def is_hyperliquid_accumulation_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        (("hyperliquid" in low or "하이퍼리퀴드" in low or "hype" in low) and ("a16z" in low or "andreessen horowitz" in low or "hot wallet" in low or "wallet" in low))
+        and ("추가 매집" in low or "매집" in low or "inflow" in low or "bought" in low or "bounty" in low or "지갑" in low)
+    )
+
+
+def is_negative_cardano_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("cardano" in low or "카르다노" in low or "ada" in low)
+        and any(p in low for p in ["crashes under", "under 0.16", "selloff", "매도세", "떨어졌", "연쇄 실패", "steps back", "hoskinson", "찰스 호스킨슨", "찰스호스킨슨"])
+    )
+
+
+def is_noncrypto_ai_feature_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        any(p in low for p in ["anthropic", "앤트로픽", "ai self-improvement", "recursive development", "self improving", "자체로 더 똑똑"])
+        and not any(p in low for p in ["bitcoin", "btc", "xrp", "ethereum", "eth", "리플", "비트코인", "이더리움", "암호화폐", "crypto"])
+    )
+
+
 def is_sanctions_teen_a7a5_article(text: str) -> bool:
     low = (text or "").lower()
     score = 0
@@ -4317,6 +4441,31 @@ def is_physical_bitcoin_move_article(text: str) -> bool:
     )
 
 
+
+def is_hyperliquid_accumulation_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        (("hyperliquid" in low or "하이퍼리퀴드" in low or "hype" in low) and ("a16z" in low or "andreessen horowitz" in low or "hot wallet" in low or "wallet" in low))
+        and ("추가 매집" in low or "매집" in low or "inflow" in low or "bought" in low or "bounty" in low or "지갑" in low)
+    )
+
+
+def is_negative_cardano_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("cardano" in low or "카르다노" in low or "ada" in low)
+        and any(p in low for p in ["crashes under", "under 0.16", "selloff", "매도세", "떨어졌", "연쇄 실패", "steps back", "hoskinson", "찰스 호스킨슨", "찰스호스킨슨"])
+    )
+
+
+def is_noncrypto_ai_feature_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        any(p in low for p in ["anthropic", "앤트로픽", "ai self-improvement", "recursive development", "self improving", "자체로 더 똑똑"])
+        and not any(p in low for p in ["bitcoin", "btc", "xrp", "ethereum", "eth", "리플", "비트코인", "이더리움", "암호화폐", "crypto"])
+    )
+
+
 def is_sanctions_teen_a7a5_article(text: str) -> bool:
     low = (text or "").lower()
     score = 0
@@ -4487,6 +4636,31 @@ def is_physical_bitcoin_move_article(text: str) -> bool:
     )
 
 
+
+def is_hyperliquid_accumulation_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        (("hyperliquid" in low or "하이퍼리퀴드" in low or "hype" in low) and ("a16z" in low or "andreessen horowitz" in low or "hot wallet" in low or "wallet" in low))
+        and ("추가 매집" in low or "매집" in low or "inflow" in low or "bought" in low or "bounty" in low or "지갑" in low)
+    )
+
+
+def is_negative_cardano_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        ("cardano" in low or "카르다노" in low or "ada" in low)
+        and any(p in low for p in ["crashes under", "under 0.16", "selloff", "매도세", "떨어졌", "연쇄 실패", "steps back", "hoskinson", "찰스 호스킨슨", "찰스호스킨슨"])
+    )
+
+
+def is_noncrypto_ai_feature_article(text: str) -> bool:
+    low = (text or "").lower()
+    return (
+        any(p in low for p in ["anthropic", "앤트로픽", "ai self-improvement", "recursive development", "self improving", "자체로 더 똑똑"])
+        and not any(p in low for p in ["bitcoin", "btc", "xrp", "ethereum", "eth", "리플", "비트코인", "이더리움", "암호화폐", "crypto"])
+    )
+
+
 def is_sanctions_teen_a7a5_article(text: str) -> bool:
     low = (text or "").lower()
     score = 0
@@ -4599,16 +4773,31 @@ def build_message(story: dict) -> str:
     if len(parts) >= 4:
         summary = html.unescape(parts[0])
         summary = _remove_hashtag_only_lines(summary)
+        summary = harden_summary_text(summary)
         summary = summary.replace('Standard Chartered', '스탠다드차타드')
         summary = summary.replace('Zodia Custody', '조디아커스터디')
+        summary = summary.replace('Anthropic', '앤트로픽')
+        summary = summary.replace('Bitget Wallet', '비트겟월렛')
         summary = re.sub(r'(?<!#)(스탠다드차타드)(?=가|이|는|은|를|을|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
         summary = re.sub(r'(?<!#)(조디아커스터디)(?=가|이|는|은|를|을|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
+        summary = re.sub(r'(?<!#)(비트겟월렛)(?=이|가|은|는|을|를|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
+        summary = re.sub(r'(?<!#)(폴리마켓)(?=이|가|은|는|을|를|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
+        summary = re.sub(r'(?<!#)(앤트로픽)(?=이|가|은|는|을|를|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
+        summary = re.sub(r'(?<!#)(인공지능)(?=이|가|은|는|을|를|의|와|과|로|도|만|\s)', r'#\1', summary, count=1)
         footer_tags = parts[-1].split()
         story_text = f"{story.get('title','')} {story.get('desc','')} {summary}"
         if re.search(r'standard chartered|스탠다드차타드', story_text, re.I):
             footer_tags.append('#StandardChartered')
         if re.search(r'zodia custody|조디아커스터디', story_text, re.I):
             footer_tags.append('#ZodiaCustody')
+        if re.search(r'bitget wallet|비트겟월렛', story_text, re.I):
+            footer_tags.append('#BitgetWallet')
+        if re.search(r'polymarket|폴리마켓', story_text, re.I):
+            footer_tags.append('#Polymarket')
+        if re.search(r'anthropic|앤트로픽', story_text, re.I):
+            footer_tags.append('#Anthropic')
+        if re.search(r'ai|인공지능', story_text, re.I):
+            footer_tags.append('#AI')
         inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣()]+', summary))
         dedup=[]; seen=set()
         for t in footer_tags:
