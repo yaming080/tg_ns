@@ -748,6 +748,27 @@ r'oscillate between',
     return any(re.search(p, low, re.I) for p in chart_patterns)
 
 
+def is_refusal_or_skip_text(text: str) -> bool:
+    low = (text or "").strip().lower()
+    if not low:
+        return True
+
+    bad_phrases = [
+        '죄송하지만',
+        '요약문을 제공할 수 없음',
+        '제공할 수 없음',
+        '가격 차트',
+        '기술적 분석 성격 기사',
+        '차트·기술적 분석',
+        '차트/기술적 분석',
+        'cannot provide',
+        'unable to provide',
+        'technical analysis',
+        'price chart',
+    ]
+    return any(p in low for p in bad_phrases)
+
+
 def is_xrp_narrative_article(text: str) -> bool:
     low = (text or "").lower()
 
@@ -2087,6 +2108,16 @@ def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], ko
     raw_lower = raw_text.lower()
     url = (story.get('url', '') or '').lower()
 
+    direct_chart_terms = [
+        'oversold', 'overbought', 'rebound', '70k', 'what next', 'next?', 'can btc',
+        'price analysis', 'technical analysis', 'price prediction', 'forecast',
+        'support', 'resistance', 'breakout', 'trend line', 'target price',
+        '과매도', '과매수', '반등', '기술적 분석', '차트 분석', '목표가', '지지선', '저항선'
+    ]
+    if '/markets/' in url and any(term in raw_lower for term in direct_chart_terms):
+        print(f"[차트/가격형 URL 제외] {story.get('title', '')}")
+        return False
+
     portfolio_context_terms = [
         'bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple', 'xlm', 'stellar',
         'ada', 'cardano', 'trx', 'tron', 'bnb', 'bch', 'bitcoin cash',
@@ -2900,6 +2931,10 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
         text = re.sub(r'[ \t]+', ' ', text)
         text = re.sub(r'\n{3,}', '\n\n', text).strip()
 
+        if is_refusal_or_skip_text(text):
+            log(f"[요약거부/스킵 감지] {title}")
+            return ""
+
         log_openai_cost(title, prompt, text)
         return text
 
@@ -3511,6 +3546,10 @@ def build_message(story: dict) -> str:
         article_text=article_text,
         fallback_text=desc
     )
+
+    if is_refusal_or_skip_text(summary_ko):
+        log(f"[차단문구/요약거부 스킵] {title}")
+        return ""
 
     if not summary_ko:
         log(f"[요약실패 스킵] {title}")
@@ -4842,6 +4881,209 @@ def build_message(story: dict) -> str:
     footer_tags = parts[-1].split()
     footer_tags = _build_footer_tags_v5(footer_tags, summary, story)
 
+    parts[0] = html.escape(summary)
+    parts[-1] = ' '.join(html.escape(t) for t in footer_tags)
+    return '\n\n'.join(parts)
+
+
+
+# ===== 2026-06-06 final patch v4: inline<=5, footer fixed tags, iran, greece tax dedupe, promo block =====
+
+FIXED_FOOTER_TAGS_V6 = ['#BTC', '#비트코인', '#dooridoori', '#도리도리', '#doorinati', '#도리나티']
+GENERIC_INLINE_REMOVE_V6 = {'#글로벌', '#통화', '#네트워크', '#금융당국', '#금융', '#자산'}
+GENERIC_FOOTER_REMOVE_V6 = {'#금융', '#자산', '#시장', '#규제', '#글로벌', '#통화', '#네트워크'}
+
+INLINE_PRIORITY_SPECS_V6 = [
+    ('country', '미국', [r'(?<![A-Za-z0-9])u\.?s\.?(?![A-Za-z0-9])', r'(?<![A-Za-z0-9])usa(?![A-Za-z0-9])', r'united\s+states', r'미국']),
+    ('country', '한국', [r'south\s+korea', r'(?<![A-Za-z0-9])korea(?![A-Za-z0-9])', r'한국']),
+    ('country', '러시아', [r'(?<![A-Za-z0-9])russia(?![A-Za-z0-9])', r'러시아']),
+    ('country', '그리스', [r'(?<![A-Za-z0-9])greece(?![A-Za-z0-9])', r'그리스']),
+    ('country', '이란', [r'(?<![A-Za-z0-9])iran(?![A-Za-z0-9])', r'이란']),
+    ('country', '일본', [r'(?<![A-Za-z0-9])japan(?![A-Za-z0-9])', r'일본']),
+    ('country', '중국', [r'(?<![A-Za-z0-9])china(?![A-Za-z0-9])', r'중국']),
+    ('org', '금융위원회', [r'금융위원회', r'금융당국', r'financial services commission', r'(?<![A-Za-z0-9])fsc(?![A-Za-z0-9])', r'금융정보분석원', r'(?<![A-Za-z0-9])fiu(?![A-Za-z0-9])']),
+    ('org', '구글', [r'(?<![A-Za-z0-9])google(?![A-Za-z0-9])', r'구글']),
+    ('org', '스페이스X', [r'(?<![A-Za-z0-9])spacex(?![A-Za-z0-9])', r'스페이스x', r'스페이스X']),
+    ('org', '엔비디아', [r'(?<![A-Za-z0-9])nvidia(?![A-Za-z0-9])', r'엔비디아']),
+    ('org', 'Strategy', [r'(?<![A-Za-z0-9])strategy(?![A-Za-z0-9])', r'스트래티지']),
+    ('org', '블랙록', [r'(?<![A-Za-z0-9])blackrock(?![A-Za-z0-9])', r'블랙록']),
+    ('org', 'XRPLedger', [r'xrpledger', r'xrpl ledger', r'xrpl']),
+    ('person', '마이클세일러', [r'michael\s*saylor', r'마이클\s*세일러', r'마이클세일러']),
+    ('person', '짐크레이머', [r'jim\s*cramer', r'짐\s*크레이머', r'짐크레이머']),
+    ('person', '데이비드슈워츠', [r'david\s*schwartz', r'데이비드\s*슈워츠', r'데이비드슈워츠']),
+    ('person', '트럼프', [r'(?<![A-Za-z0-9])trump(?![A-Za-z0-9])', r'트럼프']),
+]
+INLINE_COIN_SPECS_V6 = [
+    ('XRP', [r'(?<![A-Za-z0-9])xrp(?![A-Za-z0-9])', r'리플', r'엑스알피']),
+    ('이더리움', [r'(?<![A-Za-z0-9])ethereum(?![A-Za-z0-9])', r'이더리움']),
+    ('테더', [r'(?<![A-Za-z0-9])tether(?![A-Za-z0-9])', r'테더']),
+    ('USDT', [r'(?<![A-Za-z0-9])usdt(?![A-Za-z0-9])']),
+    ('RLUSD', [r'(?<![A-Za-z0-9])rlusd(?![A-Za-z0-9])']),
+]
+INLINE_LABEL_TO_EN_V6 = {
+    '미국': '#US', '한국': '#Korea', '러시아': '#Russia', '그리스': '#Greece', '이란': '#Iran',
+    '일본': '#Japan', '중국': '#China',
+    '금융위원회': '#FSC', '구글': '#Google', '스페이스X': '#SpaceX', '엔비디아': '#NVIDIA',
+    'Strategy': '#Strategy', '블랙록': '#BlackRock', 'XRPLedger': '#XRPLedger',
+    '마이클세일러': '#MichaelSaylor', '짐크레이머': '#JimCramer', '데이비드슈워츠': '#DavidSchwartz', '트럼프': '#Trump',
+    'XRP': '#XRP', '이더리움': '#Ethereum', '테더': '#Tether', 'USDT': '#USDT', 'RLUSD': '#RLUSD'
+}
+EXTRA_FOOTER_ENTITY_PATTERNS_V6 = [
+    ('#Ethereum', [r'(?<![A-Za-z0-9])ethereum(?![A-Za-z0-9])', r'이더리움']),
+    ('#ETH', [r'(?<![A-Za-z0-9])eth(?![A-Za-z0-9])', r'이더리움']),
+    ('#Tether', [r'(?<![A-Za-z0-9])tether(?![A-Za-z0-9])', r'테더']),
+    ('#USDT', [r'(?<![A-Za-z0-9])usdt(?![A-Za-z0-9])']),
+    ('#XRP', [r'(?<![A-Za-z0-9])xrp(?![A-Za-z0-9])', r'리플', r'엑스알피']),
+    ('#RLUSD', [r'(?<![A-Za-z0-9])rlusd(?![A-Za-z0-9])']),
+    ('#CNBC', [r'(?<![A-Za-z0-9])cnbc(?![A-Za-z0-9])']),
+    ('#ETF', [r'(?<![A-Za-z0-9])etf(?![A-Za-z0-9])']),
+]
+
+def _contains_promo_story_v6(story: dict) -> bool:
+    txt = _story_text_v3(story).lower()
+    title = (story.get('title', '') or '').lower()
+    if 'spacecoin' in txt and ('deti' in txt or 'vietnam' in txt):
+        return True
+    pats = [
+        r'exclusive\s+vietnam\s+deal',
+        r'exclusive\s+deal',
+        r'targets?\s*\$?\s*100m\s+annual\s+revenue',
+        r'100m\s+annual\s+revenue',
+        r'annual\s+revenue\s+target',
+        r'\bmou\b',
+        r'독점\s+계약',
+        r'연매출\s*1억달러',
+        r'목표\s+제시',
+    ]
+    return any(re.search(p, txt, re.I) for p in pats) and 'spacecoin' in title + ' ' + txt
+
+def _normalize_terms_v6(text: str) -> str:
+    text = html.unescape(text or '')
+    text = text.replace('금융당국', '금융위원회')
+    text = re.sub(r'#JimCramer(?=[^A-Za-z0-9가-힣_]|$)', '#짐크레이머', text)
+    text = re.sub(r'#MichaelSaylor(?=[^A-Za-z0-9가-힣_]|$)', '#마이클세일러', text)
+    text = re.sub(r'#DavidSchwartz(?=[^A-Za-z0-9가-힣_]|$)', '#데이비드슈워츠', text)
+    text = text.replace('Michael Saylor', '마이클세일러')
+    text = text.replace('Jim Cramer', '짐크레이머')
+    text = text.replace('David Schwartz', '데이비드슈워츠')
+    for bad in GENERIC_INLINE_REMOVE_V6:
+        text = text.replace(bad, bad.replace('#', ''))
+    return text
+
+def _has_term_v6(base: str, patterns: list[str]) -> bool:
+    return any(re.search(p, base, re.I) for p in patterns)
+
+def _select_inline_labels_v6(summary: str, raw_text: str) -> list[str]:
+    base = f"{summary}\n{raw_text}".lower()
+    selected = []
+    for category in ('country', 'org', 'person'):
+        for cat, label, patterns in INLINE_PRIORITY_SPECS_V6:
+            if cat != category:
+                continue
+            if _has_term_v6(base, patterns) and label not in selected:
+                selected.append(label)
+            if len(selected) >= 5:
+                return selected[:5]
+    # optional one coin if still room and appears strongly
+    title_lower = (raw_text.split('\n',1)[0] if raw_text else '').lower()
+    for label, patterns in INLINE_COIN_SPECS_V6:
+        if len(selected) >= 5:
+            break
+        if _has_term_v6(title_lower + '\n' + base, patterns) and label not in selected:
+            selected.append(label)
+            break
+    return selected[:5]
+
+def _strip_all_inline_tags_v6(text: str) -> str:
+    return re.sub(r'#([A-Za-z0-9가-힣_]+)', r'\1', text)
+
+def _inject_selected_inline_tags_v6(text: str, labels: list[str]) -> str:
+    out = text or ''
+    for label in labels:
+        out = re.sub(rf'(?<!#){re.escape(label)}', f'#{label}', out, count=1)
+    out = fix_split_person_tags(out)
+    out = fix_korean_hashtag_particles(out)
+    if '#마이클세일러' in out:
+        out = re.sub(r'#세일러(?=[^A-Za-z0-9가-힣_]|$)', '세일러', out)
+    return out
+
+def _sanitize_inline_summary_v6(summary: str, story: dict) -> str:
+    raw_text = f"{story.get('title', '')}\n{story.get('desc', '')}"
+    text = _normalize_terms_v6(summary)
+    text = _strip_all_inline_tags_v6(text)
+    labels = _select_inline_labels_v6(text, raw_text)
+    text = _inject_selected_inline_tags_v6(text, labels)
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    return text
+
+def _real_us_only_v6(text: str) -> bool:
+    s = str(text or '')
+    pats = [
+        r'(?<![A-Za-z0-9])US(?![A-Za-z0-9])',
+        r'(?<![A-Za-z0-9])U\.S\.(?![A-Za-z0-9])',
+        r'(?<![A-Za-z0-9])USA(?![A-Za-z0-9])',
+        r'united\s+states',
+        r'미국',
+    ]
+    return any(re.search(p, s, re.I) for p in pats)
+
+def _build_footer_tags_v6(summary: str, story: dict) -> list[str]:
+    raw_text = f"{story.get('title', '')}\n{story.get('desc', '')}"
+    base = f"{summary}\n{raw_text}".lower()
+    tags = []
+    labels = _select_inline_labels_v6(summary, raw_text)
+    for label in labels:
+        en = INLINE_LABEL_TO_EN_V6.get(label)
+        if en:
+            tags.append(en)
+    for tag, patterns in EXTRA_FOOTER_ENTITY_PATTERNS_V6:
+        if _has_term_v6(base, patterns):
+            tags.append(tag)
+    tags = _normalize_footer_tags(tags)
+    cleaned, seen = [], set()
+    for t in tags:
+        if t in GENERIC_FOOTER_REMOVE_V6:
+            continue
+        if t == '#US' and not _real_us_only_v6(base):
+            continue
+        if re.search(r'#[가-힣]+', t):
+            continue
+        if t not in seen:
+            cleaned.append(t); seen.add(t)
+    for t in FIXED_FOOTER_TAGS_V6:
+        if t not in seen:
+            cleaned.append(t); seen.add(t)
+    return cleaned
+
+_OLD_matches_keywords_v6 = matches_keywords
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    if _contains_promo_story_v6(story):
+        print(f"[홍보/비관련 제외] {story.get('title', '')}")
+        return False
+    return _OLD_matches_keywords_v6(story, coins, econ_keywords, korean_keywords)
+
+_OLD_build_canonical_topic_key_v6 = build_canonical_topic_key
+def build_canonical_topic_key(story: dict) -> str:
+    base = _OLD_build_canonical_topic_key_v6(story)
+    txt = _story_text_v3(story).lower()
+    parts = [p.strip() for p in (base or '').split('|') if p.strip()]
+    # stronger Greece crypto-tax dedupe
+    if ('greece' in txt or '그리스' in txt) and ('tax' in txt or '과세' in txt or 'capital gains' in txt) and ('15%' in txt or '15 %' in txt or '15퍼센트' in txt) and ('500' in txt or '€500' in txt or '500유로' in txt):
+        parts.extend(['geo_그리스', 'topic_암호화폐과세', 'evt_greece_crypto_tax_15', 'num_500eur'])
+    return ' | '.join(_normalize_sig_parts_v3(parts))
+
+_OLD_build_message_v6 = build_message
+def build_message(story: dict) -> str:
+    message = _OLD_build_message_v6(story)
+    if not message:
+        return message
+    parts = message.split('\n\n')
+    if len(parts) < 4:
+        return message
+    summary = html.unescape(parts[0])
+    summary = _sanitize_inline_summary_v6(summary, story)
+    footer_tags = _build_footer_tags_v6(summary, story)
     parts[0] = html.escape(summary)
     parts[-1] = ' '.join(html.escape(t) for t in footer_tags)
     return '\n\n'.join(parts)
