@@ -4456,5 +4456,190 @@ def build_message(story: dict) -> str:
         return '\n\n'.join(parts)
     return message
 
+
+# ===== 2026-06-06 final patch: generic footer tags off, USDT!=US, JimCramer/MichaelSaylor cleanup =====
+
+# 본문 한글 태그 / footer 영문 태그 대응 강화
+try:
+    INLINE_KO_ENTITY_TAGS.extend([
+        ('짐크레이머', [r'jim\s*cramer', r'짐\s*크레이머', r'짐크레이머']),
+        ('구글', [r'\bgoogle\b', r'구글']),
+        ('스페이스X', [r'\bspacex\b', r'스페이스x', r'스페이스X']),
+        ('엔비디아', [r'\bnvidia\b', r'엔비디아']),
+        ('테더', [r'\btether\b', r'테더']),
+        ('러시아', [r'\brussia\b', r'러시아']),
+        ('이더리움', [r'\bethereum\b', r'이더리움']),
+    ])
+except Exception:
+    pass
+
+try:
+    FOOTER_EN_TAGS_MAP.update({
+        '짐크레이머': '#JimCramer',
+        '마이클셰일러': '#MichaelSaylor',
+        '구글': '#Google',
+        '스페이스X': '#SpaceX',
+        '엔비디아': '#NVIDIA',
+        '테더': '#Tether',
+        '러시아': '#Russia',
+        '이더리움': '#Ethereum',
+        'AI': '#AI',
+    })
+except Exception:
+    pass
+
+_GENERIC_FOOTER_TAG_BLACKLIST_V4 = {
+    '#금융', '#자산', '#시장', '#규제'
+}
+
+def _has_real_us_reference_v4(text: str) -> bool:
+    s = str(text or '')
+    patterns = [
+        r'(?<![A-Za-z0-9])US(?![A-Za-z0-9])',
+        r'(?<![A-Za-z0-9])U\.S\.(?![A-Za-z0-9])',
+        r'(?<![A-Za-z0-9])USA(?![A-Za-z0-9])',
+        r'united\s+states',
+        r'미국',
+    ]
+    return any(re.search(p, s, re.I) for p in patterns)
+
+def _cleanup_inline_entity_tags_v4(summary: str, story: dict) -> str:
+    text = html.unescape(summary or '')
+
+    # 본문은 한글 태그 우선
+    text = re.sub(r'#JimCramer(?=[^A-Za-z0-9가-힣_]|$)', '#짐크레이머', text)
+    text = re.sub(r'#MichaelSaylor(?=[^A-Za-z0-9가-힣_]|$)', '#마이클세일러', text)
+
+    # 긴 인명 태그가 있으면 짧은 성 태그 제거
+    if '#마이클세일러' in text:
+        text = re.sub(r'#세일러(?=[^A-Za-z0-9가-힣_]|$)', '세일러', text)
+
+    # 조사 분리
+    text = fix_korean_hashtag_particles(text)
+    text = fix_split_person_tags(text)
+
+    # 다시 한 번 안전하게
+    if '#마이클세일러' in text:
+        text = re.sub(r'#세일러(?=[^A-Za-z0-9가-힣_]|$)', '세일러', text)
+
+    # 필요할 때만 본문 태그 보강
+    raw_text = f"{story.get('title', '')}\n{story.get('desc', '')}"
+    text = ensure_inline_entity_tags(text, raw_text)
+
+    # 보강 후 다시 조사 분리
+    text = fix_korean_hashtag_particles(text)
+
+    # 불필요한 이중 공백/줄바꿈
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    return text
+
+def _extra_footer_tags_v4(summary: str, story: dict) -> list[str]:
+    raw_text = f"{story.get('title', '')}\n{story.get('desc', '')}"
+    base = f"{summary}\n{raw_text}".lower()
+    tags = []
+
+    mapping = [
+        ('#JimCramer', [r'jim\s*cramer', r'짐\s*크레이머', r'짐크레이머']),
+        ('#MichaelSaylor', [r'michael\s*saylor', r'마이클\s*세일러', r'마이클세일러']),
+        ('#Google', [r'\bgoogle\b', r'구글']),
+        ('#SpaceX', [r'\bspacex\b', r'스페이스x', r'스페이스X']),
+        ('#NVIDIA', [r'\bnvidia\b', r'엔비디아']),
+        ('#Tether', [r'\btether\b', r'테더']),
+        ('#Russia', [r'\brussia\b', r'러시아']),
+        ('#Ethereum', [r'\bethereum\b', r'이더리움']),
+        ('#ETH', [r'(?<![A-Za-z0-9])ETH(?![A-Za-z0-9])', r'이더리움']),
+        ('#USDT', [r'(?<![A-Za-z0-9])USDT(?![A-Za-z0-9])']),
+        ('#AI', [r'(?<![A-Za-z0-9])AI(?![A-Za-z0-9])', r'인공지능']),
+    ]
+    for tag, patterns in mapping:
+        if any(re.search(p, base, re.I) for p in patterns):
+            tags.append(tag)
+
+    # 본문 한글 태그 -> footer 영문 태그
+    body_map = {
+        '#짐크레이머': '#JimCramer',
+        '#마이클세일러': '#MichaelSaylor',
+        '#구글': '#Google',
+        '#스페이스X': '#SpaceX',
+        '#엔비디아': '#NVIDIA',
+        '#테더': '#Tether',
+        '#러시아': '#Russia',
+        '#이더리움': '#Ethereum',
+        '#AI': '#AI',
+    }
+    for ko_tag, en_tag in body_map.items():
+        if ko_tag in summary:
+            tags.append(en_tag)
+
+    out, seen = [], set()
+    for t in tags:
+        if t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+def _cleanup_footer_tags_v4(footer_tags: list[str], summary: str, story: dict) -> list[str]:
+    text = f"{summary}\n{story.get('title', '')}\n{story.get('desc', '')}"
+
+    tags = []
+    for t in footer_tags + _extra_footer_tags_v4(summary, story):
+        t = (t or '').strip()
+        if not t:
+            continue
+        if not t.startswith('#'):
+            t = '#' + t
+        tags.append(t)
+
+    tags = _normalize_footer_tags(tags)
+
+    # 범용 태그는 footer 기본 제외
+    tags = [t for t in tags if t not in _GENERIC_FOOTER_TAG_BLACKLIST_V4]
+
+    # USDT / RLUSD 때문에 #US 붙는 오탐 방지
+    if '#US' in tags and not _has_real_us_reference_v4(text):
+        tags = [t for t in tags if t != '#US']
+
+    # 본문 한글 태그가 있어도 footer는 영어 태그 유지
+    inline_tags = set(re.findall(r'#[A-Za-z0-9가-힣()]+', summary))
+    filtered = []
+    seen = set()
+    for t in tags:
+        if t in inline_tags:
+            continue
+        # 한글 인명/회사 태그가 footer에 남아있으면 제외
+        if re.search(r'#[가-힣]+', t) and t not in {'#BTC', '#ETH', '#XRP', '#XLM', '#ADA', '#TRX', '#BNB', '#BCH', '#SHIB', '#USDT'}:
+            continue
+        if t not in seen:
+            filtered.append(t)
+            seen.add(t)
+
+    return filtered
+
+_OLD_build_message_v4 = build_message
+
+def build_message(story: dict) -> str:
+    message = _OLD_build_message_v4(story)
+    if not message:
+        return message
+
+    parts = message.split('\n\n')
+    if not parts:
+        return message
+
+    summary = html.unescape(parts[0])
+    summary = _cleanup_inline_entity_tags_v4(summary, story)
+    summary = _clean_summary_for_style_v3(summary)
+    summary = _cleanup_inline_entity_tags_v4(summary, story)
+
+    if len(parts) >= 4:
+        footer_tags = parts[-1].split()
+        footer_tags = _cleanup_footer_tags_v4(footer_tags, summary, story)
+        parts[0] = html.escape(summary)
+        parts[-1] = ' '.join(html.escape(t) for t in footer_tags)
+        return '\n\n'.join(parts)
+
+    return message
+
 if __name__ == '__main__':
     main()
