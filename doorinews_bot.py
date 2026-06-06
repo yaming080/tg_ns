@@ -4641,5 +4641,210 @@ def build_message(story: dict) -> str:
 
     return message
 
+
+
+# ===== 2026-06-06 final patch v3: inline max 5, country/org/person priority, fixed footer tags =====
+
+FIXED_FOOTER_TAGS_V5 = ['#BTC', '#비트코인', '#dooridoori', '#도리도리', '#doorinati', '#도리나티']
+GENERIC_INLINE_REMOVE_V5 = {'#글로벌', '#통화', '#네트워크', '#금융당국', '#금융', '#자산'}
+GENERIC_FOOTER_REMOVE_V5 = {'#금융', '#자산', '#시장', '#규제', '#글로벌', '#통화', '#네트워크'}
+
+INLINE_PRIORITY_SPECS_V5 = [
+    ('country', '미국', [r'(?<![A-Za-z0-9])u\.?s\.?(?![A-Za-z0-9])', r'(?<![A-Za-z0-9])usa(?![A-Za-z0-9])', r'united\s+states', r'미국']),
+    ('country', '한국', [r'south\s+korea', r'(?<![A-Za-z0-9])korea(?![A-Za-z0-9])', r'한국']),
+    ('country', '러시아', [r'(?<![A-Za-z0-9])russia(?![A-Za-z0-9])', r'러시아']),
+    ('country', '그리스', [r'(?<![A-Za-z0-9])greece(?![A-Za-z0-9])', r'그리스']),
+    ('country', '일본', [r'(?<![A-Za-z0-9])japan(?![A-Za-z0-9])', r'일본']),
+    ('country', '중국', [r'(?<![A-Za-z0-9])china(?![A-Za-z0-9])', r'중국']),
+    ('org', '금융위원회', [r'금융위원회', r'금융당국', r'financial services commission', r'(?<![A-Za-z0-9])fsc(?![A-Za-z0-9])']),
+    ('org', '구글', [r'(?<![A-Za-z0-9])google(?![A-Za-z0-9])', r'구글']),
+    ('org', '스페이스X', [r'(?<![A-Za-z0-9])spacex(?![A-Za-z0-9])', r'스페이스x', r'스페이스X']),
+    ('org', '엔비디아', [r'(?<![A-Za-z0-9])nvidia(?![A-Za-z0-9])', r'엔비디아']),
+    ('org', 'Strategy', [r'(?<![A-Za-z0-9])strategy(?![A-Za-z0-9])', r'스트래티지']),
+    ('org', '블랙록', [r'(?<![A-Za-z0-9])blackrock(?![A-Za-z0-9])', r'블랙록']),
+    ('person', '마이클세일러', [r'michael\s*saylor', r'마이클\s*세일러', r'마이클세일러']),
+    ('person', '짐크레이머', [r'jim\s*cramer', r'짐\s*크레이머', r'짐크레이머']),
+    ('person', '트럼프', [r'(?<![A-Za-z0-9])trump(?![A-Za-z0-9])', r'트럼프']),
+]
+
+INLINE_LABEL_TO_EN_V5 = {
+    '미국': '#US',
+    '한국': '#Korea',
+    '러시아': '#Russia',
+    '그리스': '#Greece',
+    '일본': '#Japan',
+    '중국': '#China',
+    '금융위원회': '#FSC',
+    '구글': '#Google',
+    '스페이스X': '#SpaceX',
+    '엔비디아': '#NVIDIA',
+    'Strategy': '#Strategy',
+    '블랙록': '#BlackRock',
+    '마이클세일러': '#MichaelSaylor',
+    '짐크레이머': '#JimCramer',
+    '트럼프': '#Trump',
+}
+
+EXTRA_FOOTER_ENTITY_PATTERNS_V5 = [
+    ('#Ethereum', [r'(?<![A-Za-z0-9])ethereum(?![A-Za-z0-9])', r'이더리움']),
+    ('#ETH', [r'(?<![A-Za-z0-9])eth(?![A-Za-z0-9])', r'이더리움']),
+    ('#Tether', [r'(?<![A-Za-z0-9])tether(?![A-Za-z0-9])', r'테더']),
+    ('#USDT', [r'(?<![A-Za-z0-9])usdt(?![A-Za-z0-9])']),
+    ('#XRP', [r'(?<![A-Za-z0-9])xrp(?![A-Za-z0-9])', r'리플', r'엑스알피']),
+    ('#RLUSD', [r'(?<![A-Za-z0-9])rlusd(?![A-Za-z0-9])']),
+    ('#CNBC', [r'(?<![A-Za-z0-9])cnbc(?![A-Za-z0-9])']),
+    ('#ETF', [r'(?<![A-Za-z0-9])etf(?![A-Za-z0-9])']),
+]
+
+def _normalize_terms_v5(text: str) -> str:
+    text = html.unescape(text or '')
+    text = text.replace('금융당국', '금융위원회')
+    text = re.sub(r'#JimCramer(?=[^A-Za-z0-9가-힣_]|$)', '#짐크레이머', text)
+    text = re.sub(r'#MichaelSaylor(?=[^A-Za-z0-9가-힣_]|$)', '#마이클세일러', text)
+    text = text.replace('Michael Saylor', '마이클세일러')
+    text = text.replace('Jim Cramer', '짐크레이머')
+    # generic hashtag removal in body
+    for bad in GENERIC_INLINE_REMOVE_V5:
+        text = text.replace(bad, bad.replace('#', ''))
+    return text
+
+def _has_term_v5(base: str, patterns: list[str]) -> bool:
+    for p in patterns:
+        if re.search(p, base, re.I):
+            return True
+    return False
+
+def _select_inline_labels_v5(summary: str, raw_text: str) -> list[str]:
+    base = f"{summary}\n{raw_text}".lower()
+    selected = []
+    # country -> org -> person priority, max 5
+    for category in ('country', 'org', 'person'):
+        for cat, label, patterns in INLINE_PRIORITY_SPECS_V5:
+            if cat != category:
+                continue
+            if _has_term_v5(base, patterns):
+                if label not in selected:
+                    selected.append(label)
+                if len(selected) >= 5:
+                    return selected[:5]
+    return selected[:5]
+
+def _strip_all_inline_tags_v5(text: str) -> str:
+    # remove hashtags from summary body, then we re-inject selected ones
+    text = re.sub(r'#([A-Za-z0-9가-힣_]+)', r'\1', text)
+    return text
+
+def _inject_selected_inline_tags_v5(text: str, labels: list[str]) -> str:
+    if not text:
+        return ''
+    out = text
+    for label in labels:
+        target = label
+        # first occurrence only, not already tagged
+        out = re.sub(rf'(?<!#){re.escape(target)}', f'#{target}', out, count=1)
+    out = fix_split_person_tags(out)
+    out = fix_korean_hashtag_particles(out)
+    if '#마이클세일러' in out:
+        out = re.sub(r'#세일러(?=[^A-Za-z0-9가-힣_]|$)', '세일러', out)
+    return out
+
+def _sanitize_inline_summary_v5(summary: str, story: dict) -> str:
+    raw_text = f"{story.get('title', '')}\n{story.get('desc', '')}"
+    text = _normalize_terms_v5(summary)
+    text = _strip_all_inline_tags_v5(text)
+    labels = _select_inline_labels_v5(text, raw_text)
+    text = _inject_selected_inline_tags_v5(text, labels)
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    return text
+
+def _real_us_only_v5(text: str) -> bool:
+    s = str(text or '')
+    pats = [
+        r'(?<![A-Za-z0-9])US(?![A-Za-z0-9])',
+        r'(?<![A-Za-z0-9])U\.S\.(?![A-Za-z0-9])',
+        r'(?<![A-Za-z0-9])USA(?![A-Za-z0-9])',
+        r'united\s+states',
+        r'미국',
+    ]
+    return any(re.search(p, s, re.I) for p in pats)
+
+def _build_footer_tags_v5(existing_footer_tags: list[str], summary: str, story: dict) -> list[str]:
+    raw_text = f"{story.get('title', '')}\n{story.get('desc', '')}"
+    base = f"{summary}\n{raw_text}".lower()
+    tags = []
+
+    # start from existing footer english tags only, excluding generics and Korean except fixed
+    for t in existing_footer_tags:
+        t = html.unescape((t or '').strip())
+        if not t:
+            continue
+        if not t.startswith('#'):
+            t = '#' + t
+        tags.append(t)
+
+    # add english tags corresponding to selected inline labels
+    labels = _select_inline_labels_v5(summary, raw_text)
+    for label in labels:
+        en = INLINE_LABEL_TO_EN_V5.get(label)
+        if en:
+            tags.append(en)
+
+    # add extra footer entity tags
+    for tag, patterns in EXTRA_FOOTER_ENTITY_PATTERNS_V5:
+        if _has_term_v5(base, patterns):
+            tags.append(tag)
+
+    tags = _normalize_footer_tags(tags)
+
+    # remove generics and bad US detection
+    cleaned = []
+    for t in tags:
+        if t in GENERIC_FOOTER_REMOVE_V5:
+            continue
+        if t == '#US' and not _real_us_only_v5(base):
+            continue
+        # keep only English tags here; Korean fixed tags are appended later
+        if re.search(r'#[가-힣]+', t):
+            continue
+        cleaned.append(t)
+
+    # remove duplicates while keeping order
+    dedup = []
+    seen = set()
+    for t in cleaned:
+        if t not in seen:
+            dedup.append(t)
+            seen.add(t)
+
+    # append fixed tags always
+    for t in FIXED_FOOTER_TAGS_V5:
+        if t not in seen:
+            dedup.append(t)
+            seen.add(t)
+
+    return dedup
+
+_OLD_build_message_v5 = build_message
+
+def build_message(story: dict) -> str:
+    message = _OLD_build_message_v5(story)
+    if not message:
+        return message
+
+    parts = message.split('\n\n')
+    if len(parts) < 4:
+        return message
+
+    summary = html.unescape(parts[0])
+    summary = _sanitize_inline_summary_v5(summary, story)
+
+    footer_tags = parts[-1].split()
+    footer_tags = _build_footer_tags_v5(footer_tags, summary, story)
+
+    parts[0] = html.escape(summary)
+    parts[-1] = ' '.join(html.escape(t) for t in footer_tags)
+    return '\n\n'.join(parts)
+
 if __name__ == '__main__':
     main()
