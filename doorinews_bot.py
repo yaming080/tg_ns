@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+a#!/usr/bin/env python3
 import asyncio
 import hashlib
 import html
@@ -28,7 +28,9 @@ FEEDS = [
     ('TheBlock', 'https://www.theblock.co/rss.xml'),
     ('크립토폴리탄', 'https://www.cryptopolitan.com/feed/'),
     ('더크립토베이식', 'https://thecryptobasic.com/feed/'),
-    ('코인게이프', 'https://coingape.com/feed/'),
+    # 새로 추가한 피드는 첫 실행 때 과거 기사 폭탄을 막기 위해 True로 워밍업
+    # 워밍업 1회 실행 후, 정상 게시하려면 True를 False로 바꾸면 됨
+    ('코인게이프', 'https://coingape.com/feed/', True),
     ('타입스베틀로이드', 'https://timestabloid.com/feed/'),
     ('블루밍비트', 'https://bloomingbit.io/rss.xml'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
@@ -3500,15 +3502,72 @@ def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) 
         log(f"Error sending photo: {e}. Falling back to text message.")
         return send_telegram_message(token, channel, caption)
 
+def normalize_feed_entry(entry):
+    """FEEDS 항목을 (name, url, warmup_only)로 정규화.
+
+    지원 형태:
+    - ('이름', 'RSS주소')
+    - ('이름', 'RSS주소', True)  # warmup_only
+    - {'name': '이름', 'url': 'RSS주소', 'warmup_only': True}
+    """
+    if isinstance(entry, dict):
+        return (
+            entry.get('name', 'unknown'),
+            entry.get('url', ''),
+            bool(entry.get('warmup_only', False)),
+        )
+
+    if isinstance(entry, (tuple, list)):
+        if len(entry) >= 3:
+            return entry[0], entry[1], bool(entry[2])
+        if len(entry) >= 2:
+            return entry[0], entry[1], False
+
+    raise ValueError(f'Invalid FEEDS entry: {entry!r}')
+
+
+def warmup_feed_state(name: str, stories: list, posted: dict, state: dict) -> int:
+    """새 RSS 추가 시 기존 최신 기사들을 발송하지 않고 news_state에만 기록."""
+    added = 0
+    for story in stories:
+        title = story.get('title', '').strip()
+        url = story.get('url', '').strip()
+        if not title:
+            continue
+
+        if is_duplicate(title, posted, url):
+            continue
+
+        signature = build_story_signature(story)
+        canonical_key = build_canonical_topic_key(story)
+        update_posted(title, posted, url, signature, canonical_key)
+        added += 1
+
+    state['posted'] = posted
+    save_state(STATE_FILE, state)
+    log(f"[워밍업 저장] {name}: {added}개를 news_state에만 기록, 텔레그램 발송 없음")
+    return added
+
+
 def main():
     log("Bot starting...")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
     collected = []
 
-    for name, feed_url in FEEDS:
+    for feed_entry in FEEDS:
+        name, feed_url, warmup_only = normalize_feed_entry(feed_entry)
+        if not feed_url:
+            log(f"[피드오류] {name}: RSS 주소 없음")
+            continue
+
         stories = fetch_rss(feed_url, max_items=MAX_ITEMS_PER_FEED)
-        log(f"{name}: {len(stories)}개 수집")
+        log(f"{name}: {len(stories)}개 수집" + (" / warmup_only" if warmup_only else ""))
+
+        if warmup_only:
+            warmup_feed_state(name, stories, posted, state)
+            continue
+
         collected.extend(stories)
 
     filtered = [s for s in collected if matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)]
@@ -3606,6 +3665,10 @@ def main():
 
     for story in new_stories:
         msg = build_message(story)
+        if not msg or not msg.strip():
+            log(f"[빈메시지/차단문구 스킵] {story.get('title', '')}")
+            continue
+
         ok = send_telegram_photo(
             TELEGRAM_BOT_TOKEN,
             TELEGRAM_CHANNEL_ID,
