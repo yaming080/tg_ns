@@ -5642,6 +5642,223 @@ def build_message(story: dict) -> str:
     return msg
 
 
+
+# =========================
+# 0611 feed-cleanup final text safety patch
+# =========================
+
+def _final_text_cleanup_0611_feedfix(summary: str, story: dict) -> str:
+    raw = f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('url','')}"
+    low = raw.lower()
+    s = html.unescape(summary or '').strip()
+
+    if (
+        'stand with crypto' in low
+        and ('uk' in low or '영국' in raw)
+        and ('bank' in low or '은행' in raw)
+        and ('limit' in low or '제한' in raw or 'complaint' in low or '캠페인' in raw)
+    ):
+        return (
+            "#영국 은행들의 암호화폐 이체 제한 논란이 확대됨\n\n"
+            "#스탠드위드크립토UK 는 은행 민원 캠페인에 착수했으며, 약 28만6000명의 회원이 참여한다고 전함"
+        )
+
+    replacements = {
+        '께 은행 민캠페인': '은행 민원 캠페인',
+        '깨 은행 민캠페인': '은행 민원 캠페인',
+        '께 은행 민원 캠페인': '은행 민원 캠페인',
+        '깨 은행 민원 캠페인': '은행 민원 캠페인',
+        'Stand With Crypto 영국 가': '#스탠드위드크립토UK 는',
+        'Stand With Crypto UK 가': '#스탠드위드크립토UK 는',
+        'Stand With Crypto 영국': '#스탠드위드크립토UK',
+        'Stand With Crypto UK': '#스탠드위드크립토UK',
+        '영국 가': '영국이',
+    }
+    for a, b in replacements.items():
+        s = s.replace(a, b)
+
+    if 'fix_korean_hashtag_particles' in globals():
+        s = fix_korean_hashtag_particles(s)
+    if 'fix_split_person_tags' in globals():
+        s = fix_split_person_tags(s)
+
+    return s.strip()
+
+
+def _final_extra_footer_tags_0611_feedfix(story: dict, summary: str) -> list[str]:
+    raw = f"{story.get('title','')}\n{story.get('desc','')}\n{summary or ''}".lower()
+    tags = []
+    def add(t):
+        if t not in tags:
+            tags.append(t)
+
+    if 'stand with crypto' in raw or '스탠드위드크립토' in raw:
+        add('#StandWithCrypto')
+    if 'uk' in raw or '영국' in raw:
+        add('#UK')
+    if 'bank' in raw or '은행' in raw:
+        add('#Bank')
+    if 'crypto transfer' in raw or '이체 제한' in raw:
+        add('#CryptoTransfer')
+
+    return tags
+
+
+def _merge_footer_tags_0611_feedfix(msg: str, extra_tags: list[str]) -> str:
+    if not msg or not extra_tags:
+        return msg
+    parts = msg.split('\n\n')
+    if not parts:
+        return msg
+
+    footer = html.unescape(parts[-1]).strip()
+    existing = re.findall(r'#[A-Za-z0-9가-힣_]+', footer)
+    merged = []
+    for t in existing + extra_tags:
+        if t not in merged:
+            merged.append(t)
+
+    for t in ['#BTC', '#비트코인', '#dooridoori', '#도리도리', '#doorinati', '#도리나티']:
+        if t not in merged:
+            merged.append(t)
+
+    parts[-1] = ' '.join(html.escape(t) for t in merged)
+    return '\n\n'.join(parts)
+
+
+_PREV_build_message_0611_feedfix = build_message
+
+def build_message(story: dict) -> str:
+    msg = _PREV_build_message_0611_feedfix(story)
+    if not msg:
+        return msg
+
+    parts = msg.split('\n\n')
+    if parts:
+        summary = html.unescape(parts[0]).strip()
+        fixed = _final_text_cleanup_0611_feedfix(summary, story)
+        parts[0] = html.escape(fixed)
+        msg = '\n\n'.join(parts)
+        msg = _merge_footer_tags_0611_feedfix(msg, _final_extra_footer_tags_0611_feedfix(story, fixed))
+
+    return msg
+
+
+
+# =========================
+# 0611 final ending-style patch
+# - 했다/됐다/밝혔다/전했다 식 종결 방지
+# - 했음고/됐음고 같은 깨진 보정 방지
+# =========================
+
+def _final_ending_style_fix_0611(text: str) -> str:
+    if not text:
+        return ''
+
+    s = html.unescape(str(text)).strip()
+
+    # 깨진 치환 흔적 먼저 복구
+    broken = {
+        '했음고 전함': '했다고 전함',
+        '했음고 함': '했다고 함',
+        '됐음고 전함': '됐다고 전함',
+        '됐음고 함': '됐다고 함',
+        '밝혔음고 전함': '밝혔다고 전함',
+        '전했음고 전함': '전했다고 전함',
+        '설명했음고 전함': '설명했다고 전함',
+        '강조했음고 전함': '강조했다고 전함',
+    }
+    for a, b in broken.items():
+        s = s.replace(a, b)
+
+    # 자주 나오는 간접화법을 도리뉴스 축약형으로 정리
+    phrase_rules = [
+        (r'밝혔다고\s*(전함|함)', '밝힘'),
+        (r'전했다고\s*(전함|함)', '전함'),
+        (r'설명했다고\s*(전함|함)', '설명함'),
+        (r'강조했다고\s*(전함|함)', '강조함'),
+        (r'주장했다고\s*(전함|함)', '주장함'),
+        (r'발표했다고\s*(전함|함)', '발표함'),
+        (r'공개했다고\s*(전함|함)', '공개함'),
+        (r'출시했다고\s*(전함|함)', '출시함'),
+        (r'도입했다고\s*(전함|함)', '도입함'),
+        (r'체결했다고\s*(전함|함)', '체결함'),
+        (r'협력했다고\s*(전함|함)', '협력함'),
+        (r'추진한다고\s*(전함|함)', '추진함'),
+        (r'추진했다고\s*(전함|함)', '추진함'),
+        (r'검토한다고\s*(전함|함)', '검토함'),
+        (r'검토했다고\s*(전함|함)', '검토함'),
+        (r'참여한다고\s*(전함|함)', '참여함'),
+        (r'참여했다고\s*(전함|함)', '참여함'),
+        (r'기록됐다고\s*(전함|함)', '기록됨'),
+        (r'확인됐다고\s*(전함|함)', '확인됨'),
+        (r'확대됐다고\s*(전함|함)', '확대됨'),
+        (r'전환하겠다고\s*(전함|함)', '전환 예정임'),
+        (r'가능하다고\s*(전함|함)', '가능하다고 설명함'),
+    ]
+    for pat, repl in phrase_rules:
+        s = re.sub(pat, repl, s)
+
+    # 일반적인 "OO했다고 전함/함"은 "OO함"으로 축약
+    s = re.sub(r'([가-힣]{2,})했다고\s*(전함|함)', r'\1함', s)
+
+    # 문장 끝 종결형 보정
+    ending_rules = [
+        (r'했다([.!。]?)$', r'함\1'),
+        (r'됐다([.!。]?)$', r'됨\1'),
+        (r'밝혔다([.!。]?)$', r'밝힘\1'),
+        (r'전했다([.!。]?)$', r'전함\1'),
+        (r'설명했다([.!。]?)$', r'설명함\1'),
+        (r'강조했다([.!。]?)$', r'강조함\1'),
+        (r'주장했다([.!。]?)$', r'주장함\1'),
+        (r'공개했다([.!。]?)$', r'공개함\1'),
+        (r'출시했다([.!。]?)$', r'출시함\1'),
+        (r'도입했다([.!。]?)$', r'도입함\1'),
+        (r'체결했다([.!。]?)$', r'체결함\1'),
+        (r'추진했다([.!。]?)$', r'추진함\1'),
+        (r'검토했다([.!。]?)$', r'검토함\1'),
+        (r'참여했다([.!。]?)$', r'참여함\1'),
+    ]
+
+    lines = []
+    for line in s.split('\n'):
+        line = line.strip()
+        for pat, repl in ending_rules:
+            line = re.sub(pat, repl, line)
+        # 문장 중간의 "했다."도 가능하면 축약
+        line = re.sub(r'했다([.!。])', r'함\1', line)
+        line = re.sub(r'됐다([.!。])', r'됨\1', line)
+        line = re.sub(r'밝혔다([.!。])', r'밝힘\1', line)
+        line = re.sub(r'전했다([.!。])', r'전함\1', line)
+        lines.append(line)
+
+    s = '\n'.join(lines).strip()
+    s = re.sub(r'\n{3,}', '\n\n', s)
+    s = re.sub(r'\s+([,.])', r'\1', s)
+    return s
+
+
+_PREV_build_message_0611_endingfix = build_message
+
+def build_message(story: dict) -> str:
+    msg = _PREV_build_message_0611_endingfix(story)
+    if not msg:
+        return msg
+
+    parts = msg.split('\n\n')
+    if parts:
+        summary = html.unescape(parts[0]).strip()
+        summary = _final_ending_style_fix_0611(summary)
+        if 'fix_korean_hashtag_particles' in globals():
+            summary = fix_korean_hashtag_particles(summary)
+        if 'fix_split_person_tags' in globals():
+            summary = fix_split_person_tags(summary)
+        parts[0] = html.escape(summary)
+        msg = '\n\n'.join(parts)
+
+    return msg
+
+
 def _feed_unpack_final(feed):
     if len(feed) == 2:
         return feed[0], feed[1], False
