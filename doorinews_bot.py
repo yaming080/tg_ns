@@ -13,8 +13,8 @@ from datetime import datetime, timezone
 from html import unescape
 from inspect import iscoroutine
 from difflib import SequenceMatcher
+genai = None  # Gemini 미사용: OpenAI API 버전
 
-from google import genai
 
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
