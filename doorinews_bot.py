@@ -2577,6 +2577,52 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
 
     return text, final_tags
 
+
+def fix_korean_hashtag_particles(text: str) -> str:
+    """한글 해시태그 뒤에 조사가 붙은 경우 분리.
+    예: #짐크레이머가 -> #짐크레이머 가
+    """
+    if not text:
+        return ''
+    particle_rules = [
+        '에서의', '에게', '으로', '와의', '과의', '에는', '에도', '에서',
+        '은', '는', '이', '가', '을', '를', '와', '과', '도', '만', '에', '로', '의'
+    ]
+    for p in particle_rules:
+        text = re.sub(rf'(#[A-Za-z0-9가-힣_]+){p}(?=[^A-Za-z0-9가-힣_]|$)', rf'\1 {p}', text)
+    text = re.sub(r'\s+([,])', r'\1', text)
+    return text.strip()
+
+
+def fix_split_person_tags(text: str) -> str:
+    """사람 이름이 성/이름으로 쪼개져 태그되는 문제 보정."""
+    if not text:
+        return ''
+    name_join_rules = [
+        (r'마이클\s+#셰일러', '#마이클셰일러'),
+        (r'마이클\s+셰일러', '#마이클셰일러'),
+        (r'마이클\s+#세일러', '#마이클세일러'),
+        (r'마이클\s+세일러', '#마이클세일러'),
+        (r'짐\s+#크레이머', '#짐크레이머'),
+        (r'짐\s+크레이머', '#짐크레이머'),
+        (r'찰스\s+#호스킨슨', '#찰스호스킨슨'),
+        (r'찰스\s+호스킨슨', '#찰스호스킨슨'),
+        (r'데이비드\s+#슈워츠', '#데이비드슈워츠'),
+        (r'데이비드\s+슈워츠', '#데이비드슈워츠'),
+        (r'브래드\s+#갈링하우스', '#브래드갈링하우스'),
+        (r'브래드\s+갈링하우스', '#브래드갈링하우스'),
+        (r'아쉬쉬\s+#비를라', '#아쉬쉬비를라'),
+        (r'아쉬쉬\s+비를라', '#아쉬쉬비를라'),
+        (r'낸시\s+#왕', '#낸시왕'),
+        (r'낸시\s+왕', '#낸시왕'),
+        (r'마이클\s+#피워워', '#마이클피워워'),
+        (r'마이클\s+피워워', '#마이클피워워'),
+    ]
+    for pat, repl in name_join_rules:
+        text = re.sub(pat, repl, text)
+    return text.strip()
+
+
 def fix_broken_inline_hashtags(text: str) -> str:
     text = re.sub(r'#+', '#', text)
     text = re.sub(r'#\s+', '#', text)
