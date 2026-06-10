@@ -4954,5 +4954,345 @@ def build_message(story: dict) -> str:
     parts[-1] = ' '.join(html.escape(t) for t in dedup)
     return '\n\n'.join(parts)
 
+
+# ---------------------------------------------------------------------------
+# PATCH: 2026-06-10 v7 human-curated normal post alignment
+# - Strong allow for institution/adoption/policy/XRP ecosystem articles
+# - Keep hard blocks for flows/reserves/whale moves/price-chart/noise
+# - Broader crypto-review context, not only BTC mining
+# - Entity/tag reinforcement from human-posted examples
+# - Generalized duplicate keys from country/entity/topic/action tokens
+# ---------------------------------------------------------------------------
+
+# Human-curated examples show these topics should be reviewed/allowed when not
+# price-chart, flow/reserve, whale-wallet move, or pure promo/noise.
+_STRONG_ALLOW_PATTERNS_V7 = [
+    # XRP / Ripple / XRPL ecosystem and institutional rails
+    r'\bxrp\b', r'\bripple\b', r'\bxrpl\b', r'xrp\s*ledger', r'xrpledger',
+    r'\brlusd\b', r'evernorth', r'brinc', r'xls-?66', r'fortress\s*xrp',
+    r'xrpl.*(?:lending|loan|security|verification|audit|tokenization|dtcc|brinc|ripple)',
+    r'(?:bank\s*of\s*america|boa|j\.?p\.?\s*morgan|jpmorgan|swift|cashpro).*(?:xrp|ripple|rlusd|crypto|digital asset|tokenization)',
+    r'(?:xrp|ripple|rlusd).*(?:bank\s*of\s*america|boa|j\.?p\.?\s*morgan|jpmorgan|swift|cashpro)',
+
+    # institutional custody/banks/regulated adoption
+    r'zodia\s*custody', r'standard\s*chartered', r'luxembourg.*(?:stablecoin|custody|crypto)',
+    r'\bsbi\b', r'shinsei\s*bank', r'crypto.*(?:deposit|yen interest|bank)',
+    r'fca.*(?:crypto|fund|retail)', r'(?:crypto|fund|retail).*fca',
+    r'dtcc.*(?:tokenization|digital collateral|ripple|xrp)',
+
+    # Korea / policy / law-enforcement / digital bonds
+    r'국민은행', r'kb국민은행', r'디지털채권', r'은허증권', r'블록체인.*채권',
+    r'chainalysis.*(?:korea|police|law enforcement|crime)', r'(?:체이널리시스|체인널리시스).*(?:한국|경찰|범죄)',
+    r'(?:한국|금융위원회|금융당국|경찰).*(?:암호화폐|가상자산|블록체인|디지털자산|체이널리시스)',
+
+    # policy / geo items with crypto implications
+    r'(?:russia|러시아).*(?:tether|usdt|bnb|binance coin|바이낸스코인|비우호국|crypto)',
+    r'(?:iran|이란).*(?:crypto|bitcoin|비트코인|암호화폐|휴전|공습)',
+    r'(?:uk|영국).*(?:fca|crypto|fund|암호화폐|펀드)',
+
+    # prediction market / World Cup if crypto settlement/token is present
+    r'(?:world cup|월드컵).*(?:prediction market|예측마켓|예측시장|usdt|crypto|암호화폐)',
+    r'(?:prediction market|예측마켓|예측시장).*(?:world cup|월드컵|usdt|crypto|암호화폐)',
+
+    # Japanese marketplace / bank support for portfolio assets
+    r'(?:mercari|메르카리).*(?:shib|shiba|시바이누|dogecoin|도지코인|crypto|암호화폐)',
+]
+
+_HARD_EXCLUDE_HINTS_V7 = [
+    # price / chart / technical-analysis style, even when BTC/XRP appears
+    r'oversold', r'overbought', r'rebound\s+to', r'can\s+btc', r'can\s+xrp', r'technical\s+analysis',
+    r'price\s+analysis', r'chart\s+analysis', r'support\s+level', r'resistance\s+level',
+    r'과매도', r'과매수', r'반등할까', r'반등\s*가능', r'지지선', r'저항선', r'기술적\s*분석',
+    # flows/reserves/holdings and whale/wallet moves
+    r'순유출', r'순유입', r'보유량', r'거래소\s*준비금', r'exchange\s*reserves?', r'exchange\s*holdings?',
+    r'net\s*outflows?', r'net\s*inflows?', r'whale\s+(?:moves?|transfers?|wakes?|hits)', r'dormant\s+whale',
+    r'고래.*(?:이동|전송|움직)', r'지갑.*(?:이동|전송|옮김)',
+    # losses and irrelevant games/promo
+    r'손실\s*확대', r'nav\s*(?:drops?|falls?)', r'hedge\s+backfires?',
+    r'maplestory', r'vibe\s*camp', r'game\s*jam', r'prize\s*pool', r'메이플스토리', r'게임잼',
+]
+
+def _strong_allow_v7(text: str) -> bool:
+    raw = text or ''
+    return any(re.search(p, raw, re.I) for p in _STRONG_ALLOW_PATTERNS_V7)
+
+
+def _hard_exclude_v7(text: str) -> bool:
+    raw = text or ''
+    return any(re.search(p, raw, re.I) for p in _HARD_EXCLUDE_HINTS_V7)
+
+
+def _is_real_crypto_context_v7(text: str) -> bool:
+    raw = text or ''
+    # Reuse broad v6 context, then add Korean finance/digital-asset rails that
+    # humans accepted as relevant.
+    if '_has_crypto_review_context_v6' in globals() and _has_crypto_review_context_v6(raw):
+        return True
+    extra = [
+        r'디지털채권', r'은허증권', r'디지털\s*담보', r'토큰화', r'스테이블코인', r'수탁', r'가상자산',
+        r'암호화폐', r'블록체인', r'체이널리시스', r'리플', r'xrpl', r'xrp', r'rlusd', r'dtcc', r'swift',
+    ]
+    return any(re.search(p, raw, re.I) for p in extra)
+
+# Entity/tag vocabulary from human-posted examples.
+_ENTITY_RULES_V7 = [
+    ('국민은행', [r'KB\s*국민은행', r'국민은행', r'Kookmin\s*Bank', r'KB\s*Kookmin'], '#KookminBank'),
+    ('디지털채권', [r'디지털\s*채권', r'digital\s*bond'], '#DigitalBond'),
+    ('체이널리시스', [r'Chainalysis', r'체이널리시스', r'체인널리시스'], '#Chainalysis'),
+    ('경찰', [r'police', r'law\s*enforcement', r'경찰'], '#Police'),
+    ('칼시', [r'Kalshi', r'칼시'], '#Kalshi'),
+    ('JP모건', [r'J\.?P\.?\s*Morgan', r'JPMorgan', r'JP모건', r'제이피모건'], '#JPMorgan'),
+    ('뱅크오브아메리카', [r'Bank\s*of\s*America', r'\bBOA\b', r'뱅크오브아메리카'], '#BankOfAmerica'),
+    ('BOA', [r'\bBOA\b'], '#BOA'),
+    ('스위프트', [r'\bSWIFT\b', r'스위프트'], '#SWIFT'),
+    ('캐시프로', [r'CashPro', r'캐시프로'], '#CashPro'),
+    ('브링크', [r'\bBrinc\b', r'브링크'], '#Brinc'),
+    ('에버노스', [r'Evernorth', r'에버노스'], '#Evernorth'),
+    ('아쉬쉬비를라', [r'Ashish\s*Birla', r'Ashesh\s*Birla', r'아쉬쉬\s*비를라'], '#AshishBirla'),
+    ('XRPL', [r'\bXRPL\b', r'XRP\s*Ledger', r'XRPLedger'], '#XRPL'),
+    ('대출', [r'lending\s*protocol', r'loan\s*protocol', r'대출\s*프로토콜', r'대출'], '#Lending'),
+    ('보안', [r'security\s*verification', r'security\s*audit', r'보안\s*검증', r'보안'], '#Security'),
+    ('SBI', [r'\bSBI\b', r'SBI\s*Holdings', r'SBI홀딩스'], '#SBI'),
+    ('신세이은행', [r'Shinsei\s*Bank', r'신세이\s*은행'], '#ShinseiBank'),
+    ('조디아커스터디', [r'Zodia\s*Custody', r'조디아\s*커스터디'], '#Zodia'),
+    ('룩셈부르크', [r'Luxembourg', r'룩셈부르크'], '#Luxembourg'),
+    ('스탠다드차타드', [r'Standard\s*Chartered', r'스탠다드\s*차타드'], '#StandardChartered'),
+    ('영국', [r'\bUK\b', r'United\s*Kingdom', r'영국'], '#UK'),
+    ('FCA', [r'\bFCA\b', r'Financial\s*Conduct\s*Authority'], '#FCA'),
+    ('펀드', [r'funds?', r'펀드'], '#Fund'),
+    ('DTCC', [r'\bDTCC\b'], '#DTCC'),
+    ('테더', [r'\bTether\b', r'\bUSDT\b', r'테더'], '#Tether'),
+    ('바이낸스코인', [r'Binance\s*Coin', r'\bBNB\b', r'바이낸스코인'], '#BNB'),
+]
+
+for _ko, _patterns, _en in _ENTITY_RULES_V7:
+    if _ko not in KOREAN_TAG_KEYWORDS:
+        KOREAN_TAG_KEYWORDS.append(_ko)
+    INLINE_TAG_WHITELIST.add(_ko)
+
+MANUAL_TRANSLATIONS.update({
+    'KB국민은행': '국민은행', 'Kookmin Bank': '국민은행',
+    'Chainalysis': '체이널리시스', 'Kalshi': '칼시',
+    'J.P. Morgan': 'JP모건', 'JPMorgan': 'JP모건', 'JP Morgan': 'JP모건',
+    'Bank of America': '뱅크오브아메리카', 'BOA': 'BOA',
+    'SWIFT': '스위프트', 'CashPro': '캐시프로', 'Brinc': '브링크',
+    'Evernorth': '에버노스', 'Ashish Birla': '아쉬쉬비를라', 'Ashesh Birla': '아쉬쉬비를라',
+    'XRP Ledger': 'XRPL', 'XRPLedger': 'XRPL',
+    'SBI Holdings': 'SBI', 'Shinsei Bank': '신세이은행',
+    'Zodia Custody': '조디아커스터디', 'Standard Chartered': '스탠다드차타드',
+    'Luxembourg': '룩셈부르크', 'Financial Conduct Authority': 'FCA',
+    'Tether': '테더', 'Binance Coin': '바이낸스코인',
+})
+
+# Strengthen footer normalization for new English tags.
+_OLD_normalize_new_footer_tag_v7 = _normalize_new_footer_tag_v6 if '_normalize_new_footer_tag_v6' in globals() else None
+
+def _normalize_new_footer_tag_v6(tag: str) -> str:
+    t = (tag or '').strip()
+    if not t:
+        return ''
+    if not t.startswith('#'):
+        t = '#' + t
+    t = re.sub(r'\s+', '', t)
+    mapping = {
+        '#KookminBank': '#KookminBank', '#KB': '#KB', '#DigitalBond': '#DigitalBond',
+        '#Chainalysis': '#Chainalysis', '#Police': '#Police', '#Kalshi': '#Kalshi',
+        '#JPMorgan': '#JPMorgan', '#JpMorgan': '#JPMorgan', '#JP모건': '#JPMorgan',
+        '#BankOfAmerica': '#BankOfAmerica', '#BOA': '#BOA', '#Swift': '#SWIFT', '#SWIFT': '#SWIFT', '#CashPro': '#CashPro',
+        '#Brinc': '#Brinc', '#Evernorth': '#Evernorth', '#AshishBirla': '#AshishBirla',
+        '#XRPL': '#XRPL', '#XRPledger': '#XRPL', '#XRPLedger': '#XRPL', '#Lending': '#Lending', '#Security': '#Security',
+        '#SBI': '#SBI', '#ShinseiBank': '#ShinseiBank', '#Zodia': '#Zodia', '#ZodiaCustody': '#Zodia',
+        '#Luxembourg': '#Luxembourg', '#StandardChartered': '#StandardChartered', '#UK': '#UK', '#FCA': '#FCA', '#Fund': '#Fund',
+        '#DTCC': '#DTCC', '#Tether': '#Tether', '#BNB': '#BNB', '#BinanceCoin': '#BNB',
+    }
+    if t in mapping:
+        return mapping[t]
+    if _OLD_normalize_new_footer_tag_v7:
+        return _OLD_normalize_new_footer_tag_v7(t)
+    return t
+
+# Widen duplicate key token extraction with human accepted entities/topics.
+_CANONICAL_SYNONYMS_V6.update({
+    'kb kookmin': 'kookminbank', 'kookmin bank': 'kookminbank', 'kb국민은행': 'kookminbank', '국민은행': 'kookminbank',
+    'digital bond': 'digitalbond', '디지털채권': 'digitalbond', '은허증권': 'digitalbond',
+    'chainalysis': 'chainalysis', '체이널리시스': 'chainalysis', 'police': 'police', '경찰': 'police',
+    'kalshi': 'kalshi', '칼시': 'kalshi', 'jpmorgan': 'jpmorgan', 'j p morgan': 'jpmorgan', 'jp모건': 'jpmorgan',
+    'bank of america': 'bankofamerica', 'boa': 'bankofamerica', '뱅크오브아메리카': 'bankofamerica',
+    'swift': 'swift', 'cashpro': 'cashpro', 'brinc': 'brinc', 'evernorth': 'evernorth',
+    'ashish birla': 'ashishbirla', 'ashesh birla': 'ashishbirla', '아쉬쉬비를라': 'ashishbirla',
+    'xrp ledger': 'xrpl', 'xrpledger': 'xrpl', 'xrpl': 'xrpl', 'xls66': 'xls66', 'xls-66': 'xls66',
+    'lending protocol': 'lending', '대출 프로토콜': 'lending', 'security verification': 'security', '보안 검증': 'security',
+    'sbi': 'sbi', 'shinsei bank': 'shinseibank', '신세이은행': 'shinseibank',
+    'zodia custody': 'zodia', '조디아커스터디': 'zodia', 'standard chartered': 'standardchartered', '스탠다드차타드': 'standardchartered',
+    'luxembourg': 'luxembourg', '룩셈부르크': 'luxembourg', 'fca': 'fca', 'financial conduct authority': 'fca',
+    'dtcc': 'dtcc', 'tether': 'tether', 'usdt': 'tether', 'binance coin': 'bnb', 'bnb': 'bnb',
+    'tokenization': 'tokenization', '토큰화': 'tokenization', 'custody': 'custody', '수탁': 'custody',
+})
+
+_OLD_matches_keywords_v7_human = matches_keywords
+
+def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+    raw_text = f"{story.get('title','')} {story.get('desc','')}"
+    title = story.get('title', '')
+
+    # Hard exclusions stay hard: these should never be posted, even if they mention a portfolio coin.
+    if _hard_exclude_v7(raw_text):
+        print(f"[하드차단 제외] {title}")
+        return False
+    if 'is_flow_reserve_or_holdings_article_v6' in globals() and is_flow_reserve_or_holdings_article_v6(raw_text):
+        print(f"[보유량/순유출입 제외] {title}")
+        return False
+    if 'is_whale_wallet_move_article_v6' in globals() and is_whale_wallet_move_article_v6(raw_text):
+        print(f"[고래/지갑이동 제외] {title}")
+        return False
+    if 'is_etf_outflow_article_v6' in globals() and is_etf_outflow_article_v6(raw_text):
+        print(f"[ETF순유출 제외] {title}")
+        return False
+    if 'is_loss_nav_backfire_article_v6' in globals() and is_loss_nav_backfire_article_v6(raw_text):
+        print(f"[손실/NAV감소 제외] {title}")
+        return False
+    if 'is_game_or_promo_article_v6' in globals() and is_game_or_promo_article_v6(raw_text):
+        print(f"[게임/프로모션 제외] {title}")
+        return False
+    if 'is_spacecoin_promo_article_v6' in globals() and is_spacecoin_promo_article_v6(raw_text):
+        print(f"[스페이스코인 홍보성 제외] {title}")
+        return False
+
+    # Human-curated allow topics should not be killed by older overly-broad filters.
+    if _strong_allow_v7(raw_text):
+        print(f"[강한허용 통과] {title}")
+        return True
+
+    # Unrelated AI/power/education articles are skipped unless they have real crypto context.
+    if 'is_unrelated_ai_power_article_v6' in globals() and is_unrelated_ai_power_article_v6(raw_text):
+        if not _is_real_crypto_context_v7(raw_text):
+            print(f"[비관련AI/전력인프라 제외] {title}")
+            return False
+
+    return _OLD_matches_keywords_v7_human(story, coins, econ_keywords, korean_keywords)
+
+
+def _actual_entity_tags_v7(summary: str, story: dict):
+    raw = f"{story.get('title','')}\n{story.get('desc','')}\n{summary or ''}"
+    inline_add = []
+    footer_add = []
+    for ko, patterns, en in _ENTITY_RULES_V7:
+        if any(re.search(p, raw, re.I) for p in patterns):
+            inline_add.append('#' + ko)
+            footer_add.append(en)
+    return inline_add, footer_add
+
+
+def _apply_entity_text_fixes_v7(summary: str) -> str:
+    text = html.unescape(summary or '')
+    replacements = {
+        'KB국민은행': '#국민은행', '국민은행': '#국민은행',
+        'Chainalysis': '#체이널리시스', '체인널리시스': '#체이널리시스',
+        'Kalshi': '#칼시',
+        'J.P. Morgan': '#JP모건', 'JPMorgan': '#JP모건', 'JP Morgan': '#JP모건',
+        'Bank of America': '#뱅크오브아메리카',
+        'SWIFT': '#스위프트', 'CashPro': '#캐시프로',
+        'Brinc': '#브링크', 'Evernorth': '#에버노스',
+        'Ashish Birla': '#아쉬쉬비를라', 'Ashesh Birla': '#아쉬쉬비를라',
+        'XRP Ledger': '#XRPL', 'XRPLedger': '#XRPL',
+        'SBI Holdings': '#SBI', 'Shinsei Bank': '#신세이은행',
+        'Zodia Custody': '#조디아커스터디', 'Standard Chartered': '#스탠다드차타드',
+        'Luxembourg': '#룩셈부르크', 'Financial Conduct Authority': '#FCA',
+        'Tether': '#테더', 'Binance Coin': '#바이낸스코인',
+    }
+    for old, new in replacements.items():
+        text = re.sub(rf'(?<!#){re.escape(old)}', new, text)
+    # Collapse accidental double hashes from repeated passes.
+    text = re.sub(r'#{2,}', '#', text)
+    text = fix_split_person_tags(text)
+    text = fix_korean_hashtag_particles(text)
+    text = fix_broken_inline_hashtags(text)
+    return re.sub(r'[ \t]+', ' ', text).strip()
+
+# Expand inline priority with human examples.
+for _tag in [
+    '#국민은행','#디지털채권','#체이널리시스','#경찰','#칼시','#JP모건','#뱅크오브아메리카','#BOA',
+    '#스위프트','#캐시프로','#브링크','#에버노스','#아쉬쉬비를라','#XRPL','#대출','#보안',
+    '#SBI','#신세이은행','#조디아커스터디','#룩셈부르크','#스탠다드차타드','#영국','#FCA','#펀드',
+    '#DTCC','#테더','#바이낸스코인'
+]:
+    if _tag not in _INLINE_PRIORITY_V6:
+        _INLINE_PRIORITY_V6.append(_tag)
+
+_OLD_build_canonical_topic_key_v7_human = build_canonical_topic_key
+
+def build_canonical_topic_key(story: dict) -> str:
+    base = _OLD_build_canonical_topic_key_v7_human(story)
+    toks = _duplicate_tokens_v6(story)
+    important = sorted(t for t in toks if t in {
+        'kookminbank','digitalbond','chainalysis','police','kalshi','jpmorgan','bankofamerica','swift','cashpro',
+        'brinc','evernorth','ashishbirla','xrpl','xls66','lending','security','sbi','shinseibank','zodia',
+        'standardchartered','luxembourg','fca','dtcc','tether','bnb','tokenization','custody','worldcup',
+        'predictionmarket','mercari','shib','stablecoin','tax','hearing','bill','coinbase','fanniemae','freddiemac',
+        'mortgage','us','korea','japan','china','iran','uk','russia','greece'
+    })
+    parts = [p.strip() for p in (base or '').split('|') if p.strip()]
+    parts.extend(f'key_{t}' for t in important)
+    # add numeric/date anchors generally, not as one-off event IDs
+    raw = normalize_for_duplicate(f"{story.get('title','')} {story.get('desc','')}")
+    for n in re.findall(r'\b(?:20\d{2}|\d+(?:\.\d+)?%|\d+\s*(?:억|만|조|달러|유로|btc|xrp|shib))\b', raw, re.I)[:5]:
+        parts.append('num_' + re.sub(r'\s+', '', n.lower()))
+    return ' | '.join(sorted(set(parts))) if len(set(parts)) >= 3 else ''
+
+_OLD_build_message_v7_human = build_message
+
+def build_message(story: dict) -> str:
+    msg = _OLD_build_message_v7_human(story)
+    if not msg or not msg.strip():
+        return ''
+    parts = msg.split('\n\n')
+    if len(parts) < 4:
+        return msg
+
+    summary = _apply_entity_text_fixes_v7(parts[0])
+    inline_add, footer_add = _actual_entity_tags_v7(summary, story)
+
+    # Add entity tag only when the readable name actually appears in the summary/title/desc.
+    for tag in inline_add:
+        plain = tag[1:]
+        if tag in summary:
+            continue
+        if plain in summary:
+            summary = re.sub(re.escape(plain), tag, summary, count=1)
+
+    summary = _apply_entity_text_fixes_v7(summary)
+    summary = _cap_inline_tags_v6(summary, max_tags=5)
+    summary = restore_telegram_linebreaks(summary)
+
+    footer_tags = parts[-1].split()
+    footer_tags.extend(footer_add)
+    footer_tags.extend(_FIXED_FOOTER_V6)
+
+    raw_for_us = f"{story.get('title','')} {story.get('desc','')} {summary}"
+    if not _has_exact_us_context_v6(raw_for_us):
+        footer_tags = [t for t in footer_tags if _normalize_new_footer_tag_v6(t) != '#US']
+
+    normalized = []
+    for t in footer_tags:
+        nt = _normalize_new_footer_tag_v6(t)
+        if not nt or nt in _GENERIC_FOOTER_DROP_V6:
+            continue
+        normalized.append(nt)
+
+    for fixed in _FIXED_FOOTER_V6:
+        if fixed not in normalized:
+            normalized.append(fixed)
+
+    seen = set()
+    dedup = []
+    for t in normalized:
+        if t not in seen:
+            dedup.append(t)
+            seen.add(t)
+
+    parts[0] = html.escape(summary)
+    parts[-1] = ' '.join(html.escape(t) for t in dedup)
+    return '\n\n'.join(parts)
+
 if __name__ == '__main__':
     main()
