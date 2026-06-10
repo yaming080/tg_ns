@@ -2578,6 +2578,34 @@ def inject_entity_hashtags(summary: str, entities: list[str]) -> tuple[str, list
     return text, final_tags
 
 
+
+def restore_telegram_linebreaks(text: str) -> str:
+    """텔레그램 게시용 줄바꿈을 정리한다.
+    - 문장 사이 과한 줄바꿈은 줄이고
+    - 주요 문장 2~3개는 읽기 좋게 분리
+    - 이미 있는 빈 줄 구조는 최대한 유지
+    """
+    if not text:
+        return ''
+
+    text = str(text).replace('\r\n', '\n').replace('\r', '\n')
+
+    # 3개 이상 연속 줄바꿈은 2개로 축소
+    text = re.sub(r'\n{3,}', '\n\n', text)
+
+    # 각 줄 공백 정리
+    lines = [line.strip() for line in text.split('\n')]
+    text = '\n'.join(lines).strip()
+
+    # 문장 끝 뒤에 다음 해시태그 문장이 바로 붙으면 줄바꿈
+    text = re.sub(r'([.!?。]|임|함|됨|밝힘|전함|설명함|강조함)\s+(#)', r'\1\n\n\2', text)
+
+    # 너무 많은 빈 줄 다시 정리
+    text = re.sub(r'\n{3,}', '\n\n', text)
+
+    return text.strip()
+
+
 def fix_korean_hashtag_particles(text: str) -> str:
     """한글 해시태그 뒤에 조사가 붙은 경우 분리.
     예: #짐크레이머가 -> #짐크레이머 가
