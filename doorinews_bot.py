@@ -25,7 +25,6 @@ OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5.4-mini").strip() or "gpt-5.
 openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
 FEEDS = [
-   FEEDS = [
     ('Cointelegraph', 'https://cointelegraph.com/rss'),
     ('크립토폴리탄', 'https://www.cryptopolitan.com/feed/'),
     ('더크립토베이식', 'https://thecryptobasic.com/feed/'),
@@ -37,8 +36,7 @@ FEEDS = [
     ('유투데이', 'https://u.today/rss.php'),
     ('크립토뉴스닷뉴스', 'https://crypto.news/feed/'),
 ]
-	
-]
+
 
 PORTFOLIO_COINS = ['BTC','ETH','XRP','XLM','ADA','TRX','BNB','BCH','SHIB','ETC','FLR','ATHENA','ENA','USDC','USDT']
 
