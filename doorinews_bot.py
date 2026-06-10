@@ -25,25 +25,18 @@ OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5.4-mini").strip() or "gpt-5.
 openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
 FEEDS = [
-    ('CryptoBriefing', 'https://cryptobriefing.com/feed/'),
+   FEEDS = [
     ('Cointelegraph', 'https://cointelegraph.com/rss'),
-    ('TheBlock', 'https://www.theblock.co/rss.xml'),
     ('크립토폴리탄', 'https://www.cryptopolitan.com/feed/'),
     ('더크립토베이식', 'https://thecryptobasic.com/feed/'),
-    ('코인게이프', 'https://coingape.com/feed/', True),
-    ('타입스베틀로이드', 'https://timestabloid.com/feed/'),
-    ('블루밍비트', 'https://bloomingbit.io/rss.xml'),
     ('토큰포스트', 'https://www.tokenpost.kr/rss'),
-	('코인데스크', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'),
-	('크립토타임즈', 'https://www.cryptotimes.io/feed/'),
-	('비트코이니스트', 'https://bitcoinist.com/feed/'),
-	('코인에디션', 'https://coinedition.com/feed/'),
-	('크립토포테이토', 'https://cryptopotato.com/feed/'),
-	('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
-	('유투데이', 'https://u.today/rss.php'),
-	('비트저널', 'https://thebitjournal.com/feed/'),
-    ('코인니스', 'https://coinness.com/rss'),
+    ('비트코이니스트', 'https://bitcoinist.com/feed/'),
+    ('코인에디션', 'https://coinedition.com/feed/'),
+    ('크립토포테이토', 'https://cryptopotato.com/feed/'),
+    ('더뉴스크립토', 'https://thenewscrypto.com/feed/'),
+    ('유투데이', 'https://u.today/rss.php'),
     ('크립토뉴스닷뉴스', 'https://crypto.news/feed/'),
+]
 	
 ]
 
