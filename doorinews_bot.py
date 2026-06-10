@@ -1,4 +1,4 @@
-a#!/usr/bin/env python3
+#!/usr/bin/env python3
 import asyncio
 import hashlib
 import html
