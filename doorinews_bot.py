@@ -6803,6 +6803,112 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
     return False
 
 
+
+# =========================
+# 0613 roundup / daily update article block patch
+# - "latest update", "today's major news", "news roundup", "핵심만 정리"류 차단
+# =========================
+
+def _story_raw_0613_roundup(story: dict) -> str:
+    return f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('summary','')}\n{story.get('url','')}"
+
+
+def _is_roundup_or_digest_article_0613(story: dict) -> bool:
+    raw = _story_raw_0613_roundup(story)
+    low = raw.lower()
+
+    roundup_patterns = [
+        # English roundup/digest phrases
+        r'\bnews\s*roundup\b',
+        r'\bdaily\s*(roundup|digest|recap|update)\b',
+        r'\bweekly\s*(roundup|digest|recap|update)\b',
+        r'\btoday[’\'`s]*\s*(crypto|xrp|bitcoin|market)?\s*(news|updates?|recap|digest|roundup)\b',
+        r'\bwhat\s*happened\s*in\s*crypto\s*today\b',
+        r'\blatest\s*(crypto|xrp|bitcoin|ripple)?\s*(news|updates?)\b',
+        r'\btop\s*(crypto|xrp|bitcoin|ripple)?\s*(news|stories|headlines|updates?)\b',
+        r'\beverything\s*you\s*need\s*to\s*know\b',
+        r'\bkey\s*(updates?|takeaways?|headlines)\b',
+        r'\bcatch\s*up\b',
+        r'\bin\s*brief\b',
+        r'\bbriefing\b',
+        r'\bmarket\s*watch\b',
+        r'\bweekend\s*watch\b',
+        r'\bmorning\s*brief\b',
+        r'\bevening\s*brief\b',
+
+        # Korean roundup/digest phrases
+        r'오늘\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
+        r'금일\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
+        r'주요\s*(소식|뉴스|업데이트)\s*(정리|요약)',
+        r'최신\s*(소식|뉴스|업데이트)\s*(정리|요약)',
+        r'핵심만\s*(정리|요약)',
+        r'한눈에\s*(정리|보는)',
+        r'한\s*눈에\s*(정리|보는)',
+        r'요약\s*정리',
+        r'뉴스\s*브리핑',
+        r'시세\s*브리핑',
+        r'시장\s*브리핑',
+        r'뉴스\s*요약',
+        r'종합\s*뉴스',
+        r'주간\s*(정리|요약|브리핑)',
+        r'일일\s*(정리|요약|브리핑)',
+        r'리플\s*xrp\s*최신\s*업데이트',
+        r'xrp\s*최신\s*업데이트',
+        r'리플\s*최신\s*업데이트',
+        r'오늘\s*주요\s*소식',
+    ]
+
+    if any(re.search(p, low, re.I) for p in roundup_patterns):
+        return True
+
+    # 크립토포테이토/유투데이/더뉴스크립토 등에서 제목이 한 종목 최신 정리형인 경우 차단
+    title = (story.get('title', '') or '').lower()
+    title_roundup_patterns = [
+        r'(xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib).*(latest|update|updates|news).*',
+        r'(latest|update|updates|news).*(xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib).*',
+    ]
+    if any(re.search(p, title, re.I) for p in title_roundup_patterns):
+        # 단, 실제 단일 사건 기사에서 update 단어만 들어간 경우를 모두 막지는 않기 위해 roundup 단어가 있거나 내용이 정리형이면 차단
+        if any(x in low for x in ['roundup', 'digest', 'recap', 'key update', 'top news', '주요 소식', '핵심만', '정리', '한눈에']):
+            return True
+
+    # 본문이 "여러 소식을 한눈에"라고 설명하는 경우
+    if (
+        ('한눈에' in raw or '한 눈에' in raw or '정리' in raw or '요약' in raw)
+        and any(x in low for x in ['latest', 'update', 'updates', 'news', 'xrp', 'ripple', '리플'])
+        and any(x in raw for x in ['주요 소식', '핵심', '생태계', '돌려싼', '둘러싼'])
+    ):
+        return True
+
+    return False
+
+
+# matches_keywords 단계에서 1차 차단
+try:
+    _PREV_matches_keywords_0613_roundup = matches_keywords
+
+    def matches_keywords(story, *args, **kwargs):
+        if _is_roundup_or_digest_article_0613(story):
+            log(f"[정리/브리핑 기사 제외] {story.get('title','')}")
+            return False
+        return _PREV_matches_keywords_0613_roundup(story, *args, **kwargs)
+except Exception:
+    pass
+
+
+# 전송 직전 2차 차단
+try:
+    _PREV_build_message_0613_roundup = build_message
+
+    def build_message(story: dict) -> str:
+        if _is_roundup_or_digest_article_0613(story):
+            log(f"[전송전 정리/브리핑 기사 제외] {story.get('title','')}")
+            return ""
+        return _PREV_build_message_0613_roundup(story)
+except Exception:
+    pass
+
+
 def _feed_unpack_final(feed):
     if len(feed) == 2:
         return feed[0], feed[1], False
