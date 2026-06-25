@@ -3714,7 +3714,7 @@ def prune_posted_older_than(posted: dict, days: int = 7) -> dict:
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0606_fix_us_skip_linebreak_v2")
+    log("RUNNING_BUILD=0614_roundup_generated_message_block")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -6927,7 +6927,7 @@ def _register_story_state_final(story: dict, posted: dict):
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0610_v5_base_final_requested_patch_warmup_openai")
+    log("RUNNING_BUILD=0614_roundup_generated_message_block")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -7100,6 +7100,143 @@ def main():
             log(f"Failed: {story['title']}")
 
         time.sleep(0.3)
+
+
+
+# =========================
+# 0614 final patch: roundup/news-today/generated-summary block
+# 목적:
+# - "Ripple (XRP) News Today", "오늘 주요 소식", "최신 업데이트", "핵심만 정리" 같은
+#   정리형/브리핑형 기사를 필터 단계와 전송 직전 단계에서 모두 차단
+# =========================
+
+def _plain_text_0614(text: str) -> str:
+    text = str(text or "")
+    text = re.sub(r'<[^>]+>', ' ', text)
+    text = html.unescape(text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+
+def _story_text_0614(story: dict) -> str:
+    return _plain_text_0614(
+        f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('summary','')}\n{story.get('url','')}"
+    )
+
+
+def _is_roundup_or_digest_article_0614(story: dict) -> bool:
+    raw = _story_text_0614(story)
+    low = raw.lower()
+
+    # 제목 자체가 News Today / Latest Update / Roundup / Digest / Recap 류인 경우
+    title = _plain_text_0614(story.get("title", ""))
+    title_low = title.lower()
+
+    title_patterns = [
+        r'\bnews\s*today\b',
+        r'\btoday\s*(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)?\s*news\b',
+        r'\b(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)\s*(\([^)]*\))?\s*news\s*today\b',
+        r'\b(latest|daily|weekly)\s*(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)?\s*(news|update|updates|digest|roundup|recap)\b',
+        r'\b(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)\s*(latest|daily|weekly)?\s*(news|update|updates|digest|roundup|recap)\b',
+        r'\bmorning\s*crypto\s*report\b',
+        r'\bweekend\s*watch\b',
+        r'\bmarket\s*watch\b',
+        r'\bwhat\s*happened\s*in\s*crypto\s*today\b',
+        r'\bcrypto\s*today\b',
+    ]
+    if any(re.search(p, title_low, re.I) for p in title_patterns):
+        return True
+
+    # 원문/설명에 정리형 표현이 있는 경우
+    body_patterns = [
+        r'\bnews\s*roundup\b',
+        r'\bdaily\s*(roundup|digest|recap|brief|briefing|update)\b',
+        r'\bweekly\s*(roundup|digest|recap|brief|briefing|update)\b',
+        r'\btop\s*(crypto|xrp|ripple|bitcoin|btc)?\s*(news|stories|headlines|updates?)\b',
+        r'\bkey\s*(updates?|takeaways?|headlines)\b',
+        r'\bin\s*brief\b',
+        r'\bbriefing\b',
+        r'\bcatch\s*up\b',
+        r'\beverything\s*you\s*need\s*to\s*know\b',
+
+        r'오늘\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
+        r'금일\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
+        r'주요\s*(소식|뉴스|업데이트)\s*(정리|요약)',
+        r'최신\s*(소식|뉴스|업데이트)\s*(정리|요약)',
+        r'핵심만\s*(정리|요약)',
+        r'한\s*눈에\s*(정리|보는|짚는)',
+        r'한눈에\s*(정리|보는|짚는)',
+        r'뉴스\s*브리핑',
+        r'시세\s*브리핑',
+        r'시장\s*브리핑',
+        r'뉴스\s*요약',
+        r'종합\s*뉴스',
+        r'정리한\s*기사',
+        r'요약\s*정리',
+        r'리플\s*xrp\s*최신\s*업데이트',
+        r'xrp\s*최신\s*업데이트',
+        r'리플\s*최신\s*업데이트',
+    ]
+    return any(re.search(p, low, re.I) for p in body_patterns)
+
+
+def _is_roundup_generated_message_0614(message: str) -> bool:
+    plain = _plain_text_0614(message)
+    low = plain.lower()
+
+    generated_bad_patterns = [
+        r'최신\s*업데이트\s*핵심만\s*정리',
+        r'핵심만\s*정리한\s*기사',
+        r'정리한\s*기사임',
+        r'오늘\s*주요\s*소식',
+        r'주요\s*소식을\s*한눈에',
+        r'주요\s*소식을\s*한\s*눈에',
+        r'한눈에\s*짚는\s*내용',
+        r'한\s*눈에\s*짚는\s*내용',
+        r'생태계를\s*둘러싼\s*오늘\s*주요\s*소식',
+        r'뉴스\s*브리핑',
+        r'시세\s*브리핑',
+        r'시장\s*브리핑',
+        r'종합\s*뉴스',
+        r'news\s*today',
+        r'latest\s*update',
+        r'news\s*roundup',
+        r'daily\s*digest',
+        r'daily\s*recap',
+    ]
+    return any(re.search(p, low, re.I) for p in generated_bad_patterns)
+
+
+try:
+    _PREV_matches_keywords_0614_roundup = matches_keywords
+
+    def matches_keywords(story, *args, **kwargs):
+        if _is_roundup_or_digest_article_0614(story):
+            log(f"[정리/브리핑 기사 제외 0614] {story.get('title','')}")
+            return False
+        return _PREV_matches_keywords_0614_roundup(story, *args, **kwargs)
+except Exception:
+    pass
+
+
+try:
+    _PREV_build_message_0614_roundup = build_message
+
+    def build_message(story: dict) -> str:
+        if _is_roundup_or_digest_article_0614(story):
+            log(f"[전송전 정리/브리핑 기사 제외 0614] {story.get('title','')}")
+            return ""
+
+        msg = _PREV_build_message_0614_roundup(story)
+
+        if _is_roundup_generated_message_0614(msg):
+            log(f"[생성요약 정리/브리핑 기사 제외 0614] {story.get('title','')}")
+            return ""
+
+        return msg
+except Exception:
+    pass
+
 
 
 if __name__ == '__main__':
