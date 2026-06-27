@@ -20,8 +20,6 @@ from openai import OpenAI
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
-POST_ENABLED = os.environ.get("POST_ENABLED", "true").strip().lower() == "true"
-DRY_RUN_RECORD = os.environ.get("DRY_RUN_RECORD", "false").strip().lower() == "true"
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5.4-mini").strip() or "gpt-5.4-mini"
 openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
@@ -3714,7 +3712,7 @@ def prune_posted_older_than(posted: dict, days: int = 7) -> dict:
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0614_roundup_generated_message_block")
+    log("RUNNING_BUILD=0606_fix_us_skip_linebreak_v2")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -3823,30 +3821,6 @@ def main():
 
     if INITIAL_RUN:
         log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
-        return
-
-    if not POST_ENABLED:
-        log("POST_ENABLED=false 상태라 텔레그램 발송 없이 종료")
-        log(f"발송 차단된 후보: {len(new_stories)}개")
-
-        if DRY_RUN_RECORD:
-            log("DRY_RUN_RECORD=true 상태라 발송 없이 news_state.json에 기록만 진행")
-            for story in new_stories:
-                signature = build_story_signature(story)
-                canonical_key = build_canonical_topic_key(story)
-                update_posted(
-                    story.get('title', ''),
-                    posted,
-                    story.get('url', ''),
-                    signature,
-                    canonical_key
-                )
-            state['posted'] = posted
-            save_state(STATE_FILE, state)
-            log(f"발송 없이 기록 완료: {len(new_stories)}개")
-        else:
-            log("DRY_RUN_RECORD=false 상태라 기록도 하지 않음")
-
         return
 
     for story in new_stories:
@@ -6644,271 +6618,6 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
     return False
 
 
-
-# =========================
-# 0613 duplicate balance patch
-# - fix over-aggressive previous duplicate fallback
-# - do NOT treat generic tokens like action_buy/topic_purchase/action_restrict as duplicates
-# - duplicate only when exact URL/title OR high-confidence event/entity-topic overlap exists
-# =========================
-
-_GENERIC_DUP_TOKENS_0613 = {
-    # generic action
-    'action_approve', 'action_restrict', 'action_launch', 'action_buy', 'action_invest',
-    'action_partner', 'action_report', 'action_issue', 'action_통과', 'action_출시',
-    'action_매수', 'action_준비', 'action_강조', 'action_발언', 'action_지지',
-    'act_approval', 'act_regulation', 'act_bill', 'act_law', 'act_payment',
-    'act_buy', 'act_sale', 'act_support', 'act_policy', 'act_comment',
-
-    # generic topic
-    'topic_regulation', 'topic_approval', 'topic_launch', 'topic_purchase',
-    'topic_treasury', 'topic_partnership', 'topic_법안', 'topic_규제',
-    'topic_라이선스', 'topic_스테이블코인', 'topic_비트코인',
-    'topic_이더리움', 'topic_리플', 'topic_etf',
-
-    # generic geo / asset
-    'geo_us', 'geo_미국', 'geo_eu', 'geo_유럽', 'geo_korea', 'geo_한국',
-    'geo_japan', 'geo_일본', 'asset_btc', 'asset_eth', 'asset_xrp',
-    'asset_xrpl', 'asset_shib', 'asset_usdt', 'asset_usdc',
-}
-
-_BAD_OLD_EVT_TOKENS_0613 = {
-    # old patches sometimes made these too broad
-    'evt_mica_review',
-    'evt_cme_xrp',
-    'evt_rlusd',
-}
-
-def _dup_tokens_0613(key: str) -> set[str]:
-    return {x.strip() for x in (key or '').split('|') if x and x.strip()}
-
-def _specific_tokens_0613(tokens: set[str]) -> set[str]:
-    return {
-        t for t in tokens
-        if t not in _GENERIC_DUP_TOKENS_0613
-        and t not in _BAD_OLD_EVT_TOKENS_0613
-        and not t.startswith('num_')
-        and not t.startswith('year_')
-    }
-
-def _event_tokens_0613(tokens: set[str]) -> set[str]:
-    # Trust only the newer event engine keys.
-    # Old evt_* keys are too broad in this bot history, so do not use them alone.
-    return {
-        t for t in tokens
-        if (t.startswith('event_') or t.startswith('eventfp_'))
-        and t not in _BAD_OLD_EVT_TOKENS_0613
-    }
-
-def _prefix_tokens_0613(tokens: set[str], prefix: str) -> set[str]:
-    return {t for t in tokens if t.startswith(prefix)}
-
-def _title_words_0613(text: str) -> set[str]:
-    try:
-        norm = _norm_for_event_0612b(text)
-    except Exception:
-        norm = normalize_for_duplicate(text or '')
-    words = set(re.findall(r'[a-z0-9가-힣]+', norm))
-    noise = {
-        'the','a','an','to','of','in','on','for','with','and','as','by','from',
-        'says','said','new','could','may','will','why','how','what','here','reveals',
-        'news','crypto','bitcoin','btc','ethereum','eth','xrp',
-        '뉴스','관련','추진','전망','공개','발표','기사','암호화폐','비트코인','이더리움'
-    }
-    return {w for w in words if len(w) >= 2 and w not in noise}
-
-def _is_duplicate_key_0613(cur_key: str, old_key: str) -> bool:
-    cur = _dup_tokens_0613(cur_key)
-    old = _dup_tokens_0613(old_key)
-    if not cur or not old:
-        return False
-
-    shared_event = _event_tokens_0613(cur) & _event_tokens_0613(old)
-    if shared_event:
-        log(f"[0613 이벤트중복 제외] shared_event={shared_event}")
-        return True
-
-    cur_specific = _specific_tokens_0613(cur)
-    old_specific = _specific_tokens_0613(old)
-    shared_specific = cur_specific & old_specific
-
-    cur_ent = _prefix_tokens_0613(cur, 'entity_') | _prefix_tokens_0613(cur, 'org_') | _prefix_tokens_0613(cur, 'person_') | _prefix_tokens_0613(cur, 'ent_')
-    old_ent = _prefix_tokens_0613(old, 'entity_') | _prefix_tokens_0613(old, 'org_') | _prefix_tokens_0613(old, 'person_') | _prefix_tokens_0613(old, 'ent_')
-    shared_ent = (cur_ent & old_ent) - _GENERIC_DUP_TOKENS_0613
-
-    cur_topic = _prefix_tokens_0613(cur, 'topic_') | {t for t in cur if t.startswith('obj_') or t.startswith('bill_')}
-    old_topic = _prefix_tokens_0613(old, 'topic_') | {t for t in old if t.startswith('obj_') or t.startswith('bill_')}
-    shared_topic = (cur_topic & old_topic) - _GENERIC_DUP_TOKENS_0613
-
-    cur_action = _prefix_tokens_0613(cur, 'action_') | _prefix_tokens_0613(cur, 'act_')
-    old_action = _prefix_tokens_0613(old, 'action_') | _prefix_tokens_0613(old, 'act_')
-    shared_action = (cur_action & old_action) - _GENERIC_DUP_TOKENS_0613
-
-    cur_asset = _prefix_tokens_0613(cur, 'asset_')
-    old_asset = _prefix_tokens_0613(old, 'asset_')
-    shared_asset = (cur_asset & old_asset) - _GENERIC_DUP_TOKENS_0613
-
-    cur_geo = _prefix_tokens_0613(cur, 'geo_')
-    old_geo = _prefix_tokens_0613(old, 'geo_')
-    shared_geo = (cur_geo & old_geo) - _GENERIC_DUP_TOKENS_0613
-
-    # Strong: same multiple named entities plus a specific topic/action.
-    if len(shared_ent) >= 2 and (shared_topic or shared_action or shared_asset):
-        log(f"[0613 엔티티중복 제외] ent={shared_ent}, topic={shared_topic}, action={shared_action}, asset={shared_asset}")
-        return True
-
-    # Same named entity + two specific shared contexts.
-    support_count = len(shared_topic) + len(shared_action) + len(shared_asset) + len(shared_geo)
-    if len(shared_ent) >= 1 and support_count >= 3 and len(shared_specific) >= 4:
-        log(f"[0613 의미중복 제외] ent={shared_ent}, shared_specific={shared_specific}")
-        return True
-
-    # Do not block on generic "buy/purchase/approval/regulation" alone.
-    return False
-
-def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
-    if not canonical_key:
-        return False
-    for old_key in seen_keys:
-        if _is_duplicate_key_0613(canonical_key, old_key):
-            return True
-    return False
-
-def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
-    title_raw = story.get('title', '') or ''
-    desc_raw = story.get('desc', '') or ''
-    title_norm = normalize_for_duplicate(title_raw)
-    cur_sig = build_story_signature(story)
-
-    # Title duplicate remains, but threshold is strict.
-    cur_words = _title_words_0613(title_raw + ' ' + desc_raw)
-    for old_title in seen_titles:
-        old_words = _title_words_0613(old_title)
-        ratio = SequenceMatcher(None, title_norm, old_title).ratio()
-        if ratio >= 0.94:
-            log(f"[0613 제목유사도 중복] ratio={ratio:.2f}")
-            return True
-        if cur_words and old_words:
-            inter = cur_words & old_words
-            union = cur_words | old_words
-            jaccard = len(inter) / max(1, len(union))
-            if jaccard >= 0.74 and len(inter) >= 6:
-                log(f"[0613 제목토큰중복] jaccard={jaccard:.2f}, shared_words={inter}")
-                return True
-
-    for old_sig in seen_signatures:
-        if _is_duplicate_key_0613(cur_sig, old_sig):
-            return True
-
-    return False
-
-
-
-# =========================
-# 0613 roundup / daily update article block patch
-# - "latest update", "today's major news", "news roundup", "핵심만 정리"류 차단
-# =========================
-
-def _story_raw_0613_roundup(story: dict) -> str:
-    return f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('summary','')}\n{story.get('url','')}"
-
-
-def _is_roundup_or_digest_article_0613(story: dict) -> bool:
-    raw = _story_raw_0613_roundup(story)
-    low = raw.lower()
-
-    roundup_patterns = [
-        # English roundup/digest phrases
-        r'\bnews\s*roundup\b',
-        r'\bdaily\s*(roundup|digest|recap|update)\b',
-        r'\bweekly\s*(roundup|digest|recap|update)\b',
-        r'\btoday[’\'`s]*\s*(crypto|xrp|bitcoin|market)?\s*(news|updates?|recap|digest|roundup)\b',
-        r'\bwhat\s*happened\s*in\s*crypto\s*today\b',
-        r'\blatest\s*(crypto|xrp|bitcoin|ripple)?\s*(news|updates?)\b',
-        r'\btop\s*(crypto|xrp|bitcoin|ripple)?\s*(news|stories|headlines|updates?)\b',
-        r'\beverything\s*you\s*need\s*to\s*know\b',
-        r'\bkey\s*(updates?|takeaways?|headlines)\b',
-        r'\bcatch\s*up\b',
-        r'\bin\s*brief\b',
-        r'\bbriefing\b',
-        r'\bmarket\s*watch\b',
-        r'\bweekend\s*watch\b',
-        r'\bmorning\s*brief\b',
-        r'\bevening\s*brief\b',
-
-        # Korean roundup/digest phrases
-        r'오늘\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
-        r'금일\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
-        r'주요\s*(소식|뉴스|업데이트)\s*(정리|요약)',
-        r'최신\s*(소식|뉴스|업데이트)\s*(정리|요약)',
-        r'핵심만\s*(정리|요약)',
-        r'한눈에\s*(정리|보는)',
-        r'한\s*눈에\s*(정리|보는)',
-        r'요약\s*정리',
-        r'뉴스\s*브리핑',
-        r'시세\s*브리핑',
-        r'시장\s*브리핑',
-        r'뉴스\s*요약',
-        r'종합\s*뉴스',
-        r'주간\s*(정리|요약|브리핑)',
-        r'일일\s*(정리|요약|브리핑)',
-        r'리플\s*xrp\s*최신\s*업데이트',
-        r'xrp\s*최신\s*업데이트',
-        r'리플\s*최신\s*업데이트',
-        r'오늘\s*주요\s*소식',
-    ]
-
-    if any(re.search(p, low, re.I) for p in roundup_patterns):
-        return True
-
-    # 크립토포테이토/유투데이/더뉴스크립토 등에서 제목이 한 종목 최신 정리형인 경우 차단
-    title = (story.get('title', '') or '').lower()
-    title_roundup_patterns = [
-        r'(xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib).*(latest|update|updates|news).*',
-        r'(latest|update|updates|news).*(xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib).*',
-    ]
-    if any(re.search(p, title, re.I) for p in title_roundup_patterns):
-        # 단, 실제 단일 사건 기사에서 update 단어만 들어간 경우를 모두 막지는 않기 위해 roundup 단어가 있거나 내용이 정리형이면 차단
-        if any(x in low for x in ['roundup', 'digest', 'recap', 'key update', 'top news', '주요 소식', '핵심만', '정리', '한눈에']):
-            return True
-
-    # 본문이 "여러 소식을 한눈에"라고 설명하는 경우
-    if (
-        ('한눈에' in raw or '한 눈에' in raw or '정리' in raw or '요약' in raw)
-        and any(x in low for x in ['latest', 'update', 'updates', 'news', 'xrp', 'ripple', '리플'])
-        and any(x in raw for x in ['주요 소식', '핵심', '생태계', '돌려싼', '둘러싼'])
-    ):
-        return True
-
-    return False
-
-
-# matches_keywords 단계에서 1차 차단
-try:
-    _PREV_matches_keywords_0613_roundup = matches_keywords
-
-    def matches_keywords(story, *args, **kwargs):
-        if _is_roundup_or_digest_article_0613(story):
-            log(f"[정리/브리핑 기사 제외] {story.get('title','')}")
-            return False
-        return _PREV_matches_keywords_0613_roundup(story, *args, **kwargs)
-except Exception:
-    pass
-
-
-# 전송 직전 2차 차단
-try:
-    _PREV_build_message_0613_roundup = build_message
-
-    def build_message(story: dict) -> str:
-        if _is_roundup_or_digest_article_0613(story):
-            log(f"[전송전 정리/브리핑 기사 제외] {story.get('title','')}")
-            return ""
-        return _PREV_build_message_0613_roundup(story)
-except Exception:
-    pass
-
-
 def _feed_unpack_final(feed):
     if len(feed) == 2:
         return feed[0], feed[1], False
@@ -6927,7 +6636,7 @@ def _register_story_state_final(story: dict, posted: dict):
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0614_roundup_generated_message_block")
+    log("RUNNING_BUILD=0610_v5_base_final_requested_patch_warmup_openai")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -7042,30 +6751,6 @@ def main():
         log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
         return
 
-    if not POST_ENABLED:
-        log("POST_ENABLED=false 상태라 텔레그램 발송 없이 종료")
-        log(f"발송 차단된 후보: {len(new_stories)}개")
-
-        if DRY_RUN_RECORD:
-            log("DRY_RUN_RECORD=true 상태라 발송 없이 news_state.json에 기록만 진행")
-            for story in new_stories:
-                signature = build_story_signature(story)
-                canonical_key = build_canonical_topic_key(story)
-                update_posted(
-                    story.get('title', ''),
-                    posted,
-                    story.get('url', ''),
-                    signature,
-                    canonical_key
-                )
-            state['posted'] = posted
-            save_state(STATE_FILE, state)
-            log(f"발송 없이 기록 완료: {len(new_stories)}개")
-        else:
-            log("DRY_RUN_RECORD=false 상태라 기록도 하지 않음")
-
-        return
-
     for story in new_stories:
         story['image_url'] = story.get('image_url', '') or fetch_article_meta(story.get('url', ''))[1]
         msg = build_message(story)
@@ -7100,143 +6785,6 @@ def main():
             log(f"Failed: {story['title']}")
 
         time.sleep(0.3)
-
-
-
-# =========================
-# 0614 final patch: roundup/news-today/generated-summary block
-# 목적:
-# - "Ripple (XRP) News Today", "오늘 주요 소식", "최신 업데이트", "핵심만 정리" 같은
-#   정리형/브리핑형 기사를 필터 단계와 전송 직전 단계에서 모두 차단
-# =========================
-
-def _plain_text_0614(text: str) -> str:
-    text = str(text or "")
-    text = re.sub(r'<[^>]+>', ' ', text)
-    text = html.unescape(text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
-
-
-def _story_text_0614(story: dict) -> str:
-    return _plain_text_0614(
-        f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('summary','')}\n{story.get('url','')}"
-    )
-
-
-def _is_roundup_or_digest_article_0614(story: dict) -> bool:
-    raw = _story_text_0614(story)
-    low = raw.lower()
-
-    # 제목 자체가 News Today / Latest Update / Roundup / Digest / Recap 류인 경우
-    title = _plain_text_0614(story.get("title", ""))
-    title_low = title.lower()
-
-    title_patterns = [
-        r'\bnews\s*today\b',
-        r'\btoday\s*(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)?\s*news\b',
-        r'\b(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)\s*(\([^)]*\))?\s*news\s*today\b',
-        r'\b(latest|daily|weekly)\s*(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)?\s*(news|update|updates|digest|roundup|recap)\b',
-        r'\b(crypto|xrp|ripple|bitcoin|btc|ethereum|eth|shiba|shib)\s*(latest|daily|weekly)?\s*(news|update|updates|digest|roundup|recap)\b',
-        r'\bmorning\s*crypto\s*report\b',
-        r'\bweekend\s*watch\b',
-        r'\bmarket\s*watch\b',
-        r'\bwhat\s*happened\s*in\s*crypto\s*today\b',
-        r'\bcrypto\s*today\b',
-    ]
-    if any(re.search(p, title_low, re.I) for p in title_patterns):
-        return True
-
-    # 원문/설명에 정리형 표현이 있는 경우
-    body_patterns = [
-        r'\bnews\s*roundup\b',
-        r'\bdaily\s*(roundup|digest|recap|brief|briefing|update)\b',
-        r'\bweekly\s*(roundup|digest|recap|brief|briefing|update)\b',
-        r'\btop\s*(crypto|xrp|ripple|bitcoin|btc)?\s*(news|stories|headlines|updates?)\b',
-        r'\bkey\s*(updates?|takeaways?|headlines)\b',
-        r'\bin\s*brief\b',
-        r'\bbriefing\b',
-        r'\bcatch\s*up\b',
-        r'\beverything\s*you\s*need\s*to\s*know\b',
-
-        r'오늘\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
-        r'금일\s*(주요|핵심|최신)\s*(소식|뉴스|업데이트)',
-        r'주요\s*(소식|뉴스|업데이트)\s*(정리|요약)',
-        r'최신\s*(소식|뉴스|업데이트)\s*(정리|요약)',
-        r'핵심만\s*(정리|요약)',
-        r'한\s*눈에\s*(정리|보는|짚는)',
-        r'한눈에\s*(정리|보는|짚는)',
-        r'뉴스\s*브리핑',
-        r'시세\s*브리핑',
-        r'시장\s*브리핑',
-        r'뉴스\s*요약',
-        r'종합\s*뉴스',
-        r'정리한\s*기사',
-        r'요약\s*정리',
-        r'리플\s*xrp\s*최신\s*업데이트',
-        r'xrp\s*최신\s*업데이트',
-        r'리플\s*최신\s*업데이트',
-    ]
-    return any(re.search(p, low, re.I) for p in body_patterns)
-
-
-def _is_roundup_generated_message_0614(message: str) -> bool:
-    plain = _plain_text_0614(message)
-    low = plain.lower()
-
-    generated_bad_patterns = [
-        r'최신\s*업데이트\s*핵심만\s*정리',
-        r'핵심만\s*정리한\s*기사',
-        r'정리한\s*기사임',
-        r'오늘\s*주요\s*소식',
-        r'주요\s*소식을\s*한눈에',
-        r'주요\s*소식을\s*한\s*눈에',
-        r'한눈에\s*짚는\s*내용',
-        r'한\s*눈에\s*짚는\s*내용',
-        r'생태계를\s*둘러싼\s*오늘\s*주요\s*소식',
-        r'뉴스\s*브리핑',
-        r'시세\s*브리핑',
-        r'시장\s*브리핑',
-        r'종합\s*뉴스',
-        r'news\s*today',
-        r'latest\s*update',
-        r'news\s*roundup',
-        r'daily\s*digest',
-        r'daily\s*recap',
-    ]
-    return any(re.search(p, low, re.I) for p in generated_bad_patterns)
-
-
-try:
-    _PREV_matches_keywords_0614_roundup = matches_keywords
-
-    def matches_keywords(story, *args, **kwargs):
-        if _is_roundup_or_digest_article_0614(story):
-            log(f"[정리/브리핑 기사 제외 0614] {story.get('title','')}")
-            return False
-        return _PREV_matches_keywords_0614_roundup(story, *args, **kwargs)
-except Exception:
-    pass
-
-
-try:
-    _PREV_build_message_0614_roundup = build_message
-
-    def build_message(story: dict) -> str:
-        if _is_roundup_or_digest_article_0614(story):
-            log(f"[전송전 정리/브리핑 기사 제외 0614] {story.get('title','')}")
-            return ""
-
-        msg = _PREV_build_message_0614_roundup(story)
-
-        if _is_roundup_generated_message_0614(msg):
-            log(f"[생성요약 정리/브리핑 기사 제외 0614] {story.get('title','')}")
-            return ""
-
-        return msg
-except Exception:
-    pass
-
 
 
 if __name__ == '__main__':
