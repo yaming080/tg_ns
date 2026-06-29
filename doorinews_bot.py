@@ -3714,7 +3714,7 @@ def prune_posted_older_than(posted: dict, days: int = 7) -> dict:
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0615_safe_duplicate_balance")
+    log("RUNNING_BUILD=0616_ai_footer_guard")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -6194,7 +6194,7 @@ def _extra_footer_tags_0612(story: dict, summary: str) -> list[str]:
         (r'ethereum|ether|이더리움', '#Ethereum'),
         (r'\beth\b|eth ', '#ETH'),
         (r'crunchbase|크런치베이스', '#Crunchbase'),
-        (r'\bai\b|인공지능|AI', '#AI'),
+        (r'(?<![A-Za-z0-9])ai(?![A-Za-z0-9])|artificial intelligence|인공지능', '#AI'),
         (r'world\s*liberty|월드리버티', '#WorldLibertyFinancial'),
         (r'\bufc\b', '#UFC'),
         (r'stablecoin|스테이블코인', '#Stablecoin'),
@@ -6927,7 +6927,7 @@ def _register_story_state_final(story: dict, posted: dict):
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0615_safe_duplicate_balance")
+    log("RUNNING_BUILD=0616_ai_footer_guard")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -7409,6 +7409,78 @@ def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titl
             return True
 
     return False
+
+
+
+
+# =========================
+# 0616 AI footer guard patch
+# 목적:
+# - 기사 내용과 무관하게 footer 끝에 #AI가 붙는 문제 방지
+# - Chainlink / main / raise / campaign 같은 단어 안의 ai를 AI로 오인하지 않게 방지
+# - 진짜 AI 기사일 때만 #AI 유지
+# =========================
+
+def _story_raw_0616_ai_guard(story: dict) -> str:
+    return f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('summary','')}\n{story.get('url','')}"
+
+
+def _has_real_ai_reference_0616(story: dict, summary: str = "") -> bool:
+    raw = f"{_story_raw_0616_ai_guard(story)}\n{summary or ''}"
+
+    # OpenAI / Anthropic 같은 이름 자체는 #OpenAI / #Anthropic으로 처리하면 되고,
+    # 모든 기사에 #AI를 붙일 이유는 없음.
+    # 다만 기사 본문에 독립 단어 AI, 인공지능, artificial intelligence가 실제로 나오면 #AI 유지.
+    real_ai_patterns = [
+        r'(?<![A-Za-z0-9])AI(?![A-Za-z0-9])',
+        r'artificial\s+intelligence',
+        r'인공지능',
+        r'AI\s*(투자|산업|칩|반도체|데이터|모델|기업|스타트업|검색|에이전트|agent|model|chip|data|startup|investment|industry)',
+    ]
+
+    return any(re.search(p, raw, re.I) for p in real_ai_patterns)
+
+
+def _remove_unrelated_ai_footer_0616(message: str, story: dict) -> str:
+    if not message or '#AI' not in message:
+        return message
+
+    parts = message.split('\n\n')
+    if len(parts) < 2:
+        return message.replace('#AI', '').replace('  ', ' ').strip()
+
+    summary_part = html.unescape(parts[0])
+
+    if _has_real_ai_reference_0616(story, summary_part):
+        return message
+
+    # 일반 footer 태그 줄에서만 #AI 제거
+    footer = parts[-1]
+    footer_tags = [t for t in footer.split() if t.strip() and t.strip() != '#AI']
+
+    parts[-1] = ' '.join(footer_tags)
+
+    # 혹시 footer가 비면 빈 줄 정리
+    out = '\n\n'.join(p for p in parts if p.strip())
+    out = re.sub(r'[ \t]+', ' ', out)
+    out = re.sub(r'\n{3,}', '\n\n', out).strip()
+
+    try:
+        log(f"[AI태그 제거 0616] 내용상 AI 기사 아님: {story.get('title','')}")
+    except Exception:
+        pass
+
+    return out
+
+
+try:
+    _PREV_build_message_0616_ai_guard = build_message
+
+    def build_message(story: dict) -> str:
+        msg = _PREV_build_message_0616_ai_guard(story)
+        return _remove_unrelated_ai_footer_0616(msg, story)
+except Exception:
+    pass
 
 
 
