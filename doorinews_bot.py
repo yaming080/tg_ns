@@ -3714,7 +3714,7 @@ def prune_posted_older_than(posted: dict, days: int = 7) -> dict:
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0616_ai_footer_guard")
+    log("RUNNING_BUILD=0617_duplicate_unwanted_filter")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -6927,7 +6927,7 @@ def _register_story_state_final(story: dict, posted: dict):
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0616_ai_footer_guard")
+    log("RUNNING_BUILD=0617_duplicate_unwanted_filter")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -7479,6 +7479,329 @@ try:
     def build_message(story: dict) -> str:
         msg = _PREV_build_message_0616_ai_guard(story)
         return _remove_unrelated_ai_footer_0616(msg, story)
+except Exception:
+    pass
+
+
+
+
+# =========================
+# 0617 duplicate + unwanted article filter patch
+# 목적:
+# 1) 같은 이슈가 여러 매체에서 반복 업로드되는 문제 완화
+# 2) 생활앱/카드전시/비포폴체인 AI전환/설문·심리/부동산 대출포트폴리오 기사 차단
+# 3) #Rates #Lending #Bank 같은 의미 약한 footer 태그 제거
+# =========================
+
+def _story_text_0617(story: dict) -> str:
+    return f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('summary','')}\n{story.get('url','')}"
+
+
+def _match_any_0617(text: str, patterns: list[str]) -> bool:
+    return any(re.search(p, text or "", re.I) for p in patterns)
+
+
+def _is_unwanted_article_0617(story: dict) -> tuple[bool, str]:
+    raw = _story_text_0617(story)
+    low = raw.lower()
+
+    # 7번: Sleepagotchi 같은 Web3/AI 건강·수면·영양 생활앱
+    if _match_any_0617(low, [
+        r'sleepagotchi',
+        r'health\s*coach',
+        r'web3\s*health',
+        r'sleep\s*data',
+        r'nutrition\s*data',
+        r'smartphone\s*app',
+        r'건강\s*코치',
+        r'헬스\s*앱',
+        r'수면.*영양',
+        r'수면.*데이터',
+        r'영양.*데이터',
+    ]):
+        return True, "생활앱/웹3헬스 제외"
+
+    # 8번: Bitcoin Asia 카드 전시/트레이딩 카드/아트 프로그램
+    if _match_any_0617(low, [
+        r'\bbmag\b',
+        r'bitcoin\s*asia.*card',
+        r'card\s*expo',
+        r'trading\s*card',
+        r'card\s*exhibition',
+        r'카드\s*엑스포',
+        r'카드\s*전시',
+        r'트레이딩\s*카드',
+        r'아트\s*프로그램',
+        r'컨벤션전시센터.*카드',
+    ]):
+        return True, "카드전시/행사 제외"
+
+    # 9번: ZetaChain 등 비포폴 체인 + AI 전환/제품 방향 재편
+    if _match_any_0617(low, [
+        r'zetachain',
+        r'zeta\s*chain',
+        r'기존\s*크로스체인\s*서비스',
+        r'cross[-\s]*chain\s*service',
+        r'ai\s*전환',
+        r'제품\s*방향\s*재편',
+        r'product\s*direction',
+    ]):
+        return True, "비포폴체인/AI전환 제외"
+
+    # 10번: 월가/기관투자자 노출도·설문·심리성 기사
+    if _match_any_0617(low, [
+        r'wealthy\s*investors?',
+        r'wealth\s*advis[oe]rs?',
+        r'underexposed',
+        r'exposure\s*(?:is|remains|still)',
+        r'survey',
+        r'설문',
+        r'소극적',
+        r'무기한선',
+        r'여전히\s*소극',
+        r'암호화폐\s*노출',
+    ]):
+        return True, "설문/투자심리 제외"
+
+    # 11번: 일반 부동산·상업용 대출 포트폴리오/부실자산 기사
+    has_real_estate = _match_any_0617(low, [
+        r'commercial\s*real\s*estate',
+        r'office\s*space',
+        r'multifamily',
+        r'mortgage',
+        r'default',
+        r'distressed\s*asset',
+        r'상업용\s*부동산',
+        r'오피스\s*공실',
+        r'다세대\s*대출',
+        r'주택담보',
+        r'부실\s*자산',
+        r'익스포저',
+    ])
+    has_loan_portfolio = _match_any_0617(low, [
+        r'loan\s*portfolio',
+        r'대출\s*포트폴리오',
+        r'대출\s*매각',
+        r'채무',
+        r'재투자',
+    ])
+    if has_real_estate and has_loan_portfolio:
+        return True, "부동산/대출포트폴리오 제외"
+
+    return False, ""
+
+
+# 기존 matches_keywords를 한 번 더 감싸서 불필요 기사 선차단
+try:
+    _PREV_matches_keywords_0617 = matches_keywords
+
+    def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+        blocked, reason = _is_unwanted_article_0617(story)
+        if blocked:
+            print(f"[{reason}] {story.get('title', '')}")
+            return False
+        return _PREV_matches_keywords_0617(story, coins, econ_keywords, korean_keywords)
+except Exception:
+    pass
+
+
+# 중복 이벤트 마커 추가: 같은 뉴스가 매체만 바뀌어 반복 업로드되는 경우 잡기
+_EVENT_MARKER_PATTERNS_0617 = {
+    'evt_xrpl_lending_protocol': [
+        r'(xrp\s*ledger|xrpl|xrpledger|리플|xrp).{0,80}(lending|loan|loans|yield|yields|대출|수익)',
+        r'(lending|loan|loans|yield|yields|대출|수익).{0,80}(xrp\s*ledger|xrpl|xrpledger|리플|xrp)',
+    ],
+    'evt_open_stablecoin_us_members': [
+        r'(mastercard|blackrock|google|마스터카드|블랙록|구글).{0,120}(stablecoin|스테이블코인)',
+        r'(stablecoin|스테이블코인).{0,120}(mastercard|blackrock|google|마스터카드|블랙록|구글)',
+    ],
+    'evt_uk_fca_crypto_rules_2027': [
+        r'(fca|financial\s*conduct\s*authority|영국).{0,100}(crypto|암호화폐|stablecoin|스테이블코인|custody|수탁|lending|대출).{0,120}(2027|rules|rule|regulation|규제|공개|최종)',
+        r'(2027|rules|rule|regulation|규제|공개|최종).{0,120}(fca|financial\s*conduct\s*authority|영국)',
+    ],
+    'evt_trump_cbdc_housing_act': [
+        r'(trump|트럼프).{0,120}(cbdc|housing|21st\s*century\s*road\s*to\s*housing|주택)',
+        r'(cbdc).{0,120}(trump|트럼프|housing|주택)',
+    ],
+    'evt_bybit_mica_eea_custody': [
+        r'(bybit|바이비트).{0,120}(mica|eea|custody|수탁|마감|시한)',
+        r'(mica|eea|custody|수탁|마감|시한).{0,120}(bybit|바이비트)',
+    ],
+}
+
+
+def _extract_event_markers_0617(text: str) -> list[str]:
+    raw = text or ""
+    found = []
+    for marker, patterns in _EVENT_MARKER_PATTERNS_0617.items():
+        if _match_any_0617(raw, patterns):
+            found.append(marker)
+    return sorted(set(found))
+
+
+def _append_event_markers_0617(base_key: str, story: dict) -> str:
+    parts = [p.strip() for p in (base_key or "").split("|") if p.strip()]
+    parts.extend(_extract_event_markers_0617(_story_text_0617(story)))
+
+    # 너무 일반적인 토큰만 남은 signature가 exact-match 중복을 만들지 않도록 약화
+    generic = {
+        'action_partner', 'topic_partnership', 'action_buy', 'topic_purchase',
+        'action_launch', 'topic_launch', 'action_approve', 'topic_approval',
+        'action_restrict', 'topic_fed_rate', 'topic_treasury', 'org_sec',
+        'geo_us', 'geo_eu', 'year_2026'
+    }
+    strong_prefixes = ('asset_', 'entity_', 'org_', 'person_', 'bill_', 'evt_')
+    has_strong = any(p.startswith(strong_prefixes) for p in parts)
+    has_event = any(p.startswith('evt_') for p in parts)
+
+    if not has_event and not has_strong:
+        return ""
+
+    if not has_event:
+        # 일반 토픽만으로 너무 짧은 signature면 중복키로 쓰지 않음
+        non_generic = [p for p in parts if p not in generic]
+        if len(non_generic) < 2 and len(parts) <= 4:
+            return ""
+
+    seen = set()
+    out = []
+    for p in sorted(parts):
+        if p and p not in seen:
+            out.append(p)
+            seen.add(p)
+    return " | ".join(out)
+
+
+try:
+    _PREV_build_story_signature_0617 = build_story_signature
+    _PREV_build_canonical_topic_key_0617 = build_canonical_topic_key
+
+    def build_story_signature(story: dict) -> str:
+        return _append_event_markers_0617(_PREV_build_story_signature_0617(story), story)
+
+    def build_canonical_topic_key(story: dict) -> str:
+        return _append_event_markers_0617(_PREV_build_canonical_topic_key_0617(story), story)
+except Exception:
+    pass
+
+
+def _tokens_0617(key: str) -> set:
+    return {x.strip() for x in (key or "").split("|") if x.strip()}
+
+
+def _event_tokens_0617(key: str) -> set:
+    return {t for t in _tokens_0617(key) if t.startswith("evt_")}
+
+
+def _specific_tokens_0617(key: str) -> set:
+    generic = {
+        'action_partner', 'topic_partnership', 'action_buy', 'topic_purchase',
+        'action_launch', 'topic_launch', 'action_approve', 'topic_approval',
+        'action_restrict', 'topic_fed_rate', 'topic_treasury',
+        'geo_us', 'geo_eu', 'year_2026'
+    }
+    return {t for t in _tokens_0617(key) if t not in generic}
+
+
+# 기존 의미중복이 넓은 shared_core 2개만으로 과차단하지 않도록 더 안전하게 교체
+try:
+    def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
+        if not canonical_key:
+            return False
+
+        cur_events = _event_tokens_0617(canonical_key)
+        cur_specific = _specific_tokens_0617(canonical_key)
+
+        for old_key in seen_keys:
+            old_events = _event_tokens_0617(old_key)
+            shared_events = cur_events & old_events
+            if shared_events:
+                log(f"[이벤트중복 제외 0617] shared_event={shared_events}")
+                return True
+
+            old_specific = _specific_tokens_0617(old_key)
+            shared_specific = cur_specific & old_specific
+
+            # 이벤트 마커가 없으면 매우 강한 경우만 중복 처리
+            has_same_entity = any(t.startswith(('entity_', 'org_', 'person_', 'bill_')) for t in shared_specific)
+            has_same_asset = any(t.startswith('asset_') for t in shared_specific)
+            has_same_topic = any(t.startswith('topic_') for t in shared_specific)
+            has_same_action = any(t.startswith('action_') or t.startswith('act_') for t in shared_specific)
+
+            if has_same_entity and has_same_asset and has_same_topic and has_same_action:
+                log(f"[정규토픽중복 제외 0617] shared_specific={shared_specific}")
+                return True
+
+        return False
+
+
+    def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
+        title = normalize_for_duplicate(story.get('title', ''))
+        signature = build_story_signature(story)
+
+        for old_title in seen_titles:
+            ratio = SequenceMatcher(None, title, old_title).ratio()
+            if ratio >= 0.92:
+                log(f"[제목유사도 중복 0617] {title} <> {old_title} / {ratio:.2f}")
+                return True
+
+        cur_events = _event_tokens_0617(signature)
+        cur_specific = _specific_tokens_0617(signature)
+
+        for old_sig in seen_signatures:
+            old_events = _event_tokens_0617(old_sig)
+            shared_events = cur_events & old_events
+            if shared_events:
+                log(f"[이벤트중복 제외 0617] shared_event={shared_events}")
+                return True
+
+            old_specific = _specific_tokens_0617(old_sig)
+            shared_specific = cur_specific & old_specific
+
+            has_same_entity = any(t.startswith(('entity_', 'org_', 'person_', 'bill_')) for t in shared_specific)
+            has_same_asset = any(t.startswith('asset_') for t in shared_specific)
+            has_same_topic = any(t.startswith('topic_') for t in shared_specific)
+            has_same_action = any(t.startswith('action_') or t.startswith('act_') for t in shared_specific)
+
+            if has_same_entity and has_same_asset and has_same_topic and has_same_action:
+                log(f"[의미중복 제외 0617] shared_specific={shared_specific}")
+                return True
+
+        return False
+except Exception:
+    pass
+
+
+# footer 정리: 내용이 빈약한 영어 일반 태그 제거
+_BAD_FOOTER_TAGS_0617 = {
+    '#AI가', '#Rates', '#Rate', '#Lending', '#Loan', '#Loans', '#Bank', '#Banks',
+    '#Health', '#Sleep', '#Nutrition', '#Expo', '#Card', '#Cards'
+}
+
+try:
+    _PREV_build_message_0617_footer = build_message
+
+    def build_message(story: dict) -> str:
+        msg = _PREV_build_message_0617_footer(story)
+        if not msg:
+            return msg
+
+        parts = msg.split('\n\n')
+        if len(parts) >= 4:
+            footer = parts[-1]
+            tags = []
+            seen = set()
+            for t in footer.split():
+                tt = t.strip()
+                if not tt or tt in _BAD_FOOTER_TAGS_0617:
+                    continue
+                if tt not in seen:
+                    tags.append(tt)
+                    seen.add(tt)
+            parts[-1] = ' '.join(tags)
+            msg = '\n\n'.join(p for p in parts if p.strip())
+
+        return msg
 except Exception:
     pass
 
