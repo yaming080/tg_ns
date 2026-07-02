@@ -3714,7 +3714,7 @@ def prune_posted_older_than(posted: dict, days: int = 7) -> dict:
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0617_duplicate_unwanted_filter")
+    log("RUNNING_BUILD=0618_inline_body_tags_restore")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -6927,7 +6927,7 @@ def _register_story_state_final(story: dict, posted: dict):
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0617_duplicate_unwanted_filter")
+    log("RUNNING_BUILD=0618_inline_body_tags_restore")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -7802,6 +7802,215 @@ try:
             msg = '\n\n'.join(p for p in parts if p.strip())
 
         return msg
+except Exception:
+    pass
+
+
+
+
+# =========================
+# 0618 inline body tag restore patch
+# 목적:
+# - 최신 패치에서 본문 해시태그가 너무 많이 사라진 문제 복구
+# - footer는 기존처럼 유지하되, 본문 첫 문장 안에 핵심 국가/기관/회사/법안 태그를 다시 삽입
+# - 최대 5개까지만 본문 태그 사용
+# =========================
+
+_INLINE_BODY_TAG_SPECS_0618 = [
+    # 국가
+    ('영국', [r'(?<![A-Za-z0-9])uk(?![A-Za-z0-9])', r'united\s+kingdom', r'britain', r'영국']),
+    ('미국', [r'(?<![A-Za-z0-9])u\.?s\.?(?![A-Za-z0-9])', r'(?<![A-Za-z0-9])usa(?![A-Za-z0-9])', r'united\s+states', r'미국']),
+    ('러시아', [r'(?<![A-Za-z0-9])russia(?![A-Za-z0-9])', r'러시아']),
+    ('필리핀', [r'philippines', r'필리핀']),
+    ('홍콩', [r'hong\s+kong', r'홍콩']),
+    ('일본', [r'(?<![A-Za-z0-9])japan(?![A-Za-z0-9])', r'일본']),
+    ('한국', [r'south\s+korea', r'(?<![A-Za-z0-9])korea(?![A-Za-z0-9])', r'한국']),
+
+    # 규제기관/공공기관
+    ('SEC', [r'(?<![A-Za-z0-9])sec(?![A-Za-z0-9])', r'증권거래위원회', r'증권\s*위원회']),
+    ('FCA', [r'(?<![A-Za-z0-9])fca(?![A-Za-z0-9])', r'financial\s+conduct\s+authority']),
+    ('CFTC', [r'(?<![A-Za-z0-9])cftc(?![A-Za-z0-9])']),
+    ('연준', [r'federal\s+reserve', r'(?<![A-Za-z0-9])fed(?![A-Za-z0-9])', r'연준']),
+    ('중앙은행', [r'central\s+bank', r'중앙은행']),
+    ('홍콩금융관리국', [r'(?<![A-Za-z0-9])hkma(?![A-Za-z0-9])', r'hong\s+kong\s+monetary\s+authority', r'홍콩금융관리국']),
+
+    # 회사/기관
+    ('마이크로소프트', [r'microsoft', r'마이크로소프트']),
+    ('바이낸스', [r'binance', r'바이낸스']),
+    ('바이비트', [r'bybit', r'바이비트']),
+    ('구글', [r'google', r'구글']),
+    ('블랙록', [r'blackrock', r'블랙록']),
+    ('마스터카드', [r'mastercard', r'마스터카드']),
+    ('JPMorgan', [r'j\.?p\.?\s*morgan', r'jpmorgan', r'jp모건', r'제이피모건']),
+    ('Ripple', [r'(?<![A-Za-z0-9])ripple(?![A-Za-z0-9])', r'리플']),
+    ('XRPLedger', [r'xrp\s*ledger', r'xrpl', r'xrpledger']),
+
+    # 주요 주제/법안/자산
+    ('XRP', [r'(?<![A-Za-z0-9])xrp(?![A-Za-z0-9])']),
+    ('CBDC', [r'(?<![A-Za-z0-9])cbdc(?![A-Za-z0-9])']),
+    ('MiCA', [r'(?<![A-Za-z0-9])mica(?![A-Za-z0-9])', r'미카']),
+    ('EEA', [r'(?<![A-Za-z0-9])eea(?![A-Za-z0-9])']),
+    ('스테이블코인', [r'stablecoin', r'stablecoins', r'스테이블코인']),
+    ('디지털루블', [r'digital\s+ruble', r'digital\s+rouble', r'디지털\s*루블']),
+    ('AI', [r'(?<![A-Za-z0-9])ai(?![A-Za-z0-9])', r'artificial\s+intelligence', r'인공지능']),
+    ('수탁', [r'custody', r'custodial', r'수탁']),
+    ('대출', [r'lending', r'loan', r'loans', r'대출']),
+    ('은행', [r'bank', r'banks', r'은행']),
+]
+
+# 본문에 실제로 쓰이는 표기 후보
+_INLINE_BODY_SURFACE_0618 = {
+    '영국': ['영국', 'UK', 'United Kingdom'],
+    '미국': ['미국', 'US', 'U.S.', 'United States'],
+    '러시아': ['러시아', 'Russia'],
+    '필리핀': ['필리핀', 'Philippines'],
+    '홍콩': ['홍콩', 'Hong Kong'],
+    '일본': ['일본', 'Japan'],
+    '한국': ['한국', 'South Korea', 'Korea'],
+    'SEC': ['SEC'],
+    'FCA': ['FCA'],
+    'CFTC': ['CFTC'],
+    '연준': ['연준', 'Fed', 'Federal Reserve'],
+    '중앙은행': ['중앙은행', 'Central Bank'],
+    '홍콩금융관리국': ['홍콩금융관리국', 'HKMA'],
+    '마이크로소프트': ['마이크로소프트', 'Microsoft'],
+    '바이낸스': ['바이낸스', 'Binance'],
+    '바이비트': ['바이비트', 'Bybit'],
+    '구글': ['구글', 'Google'],
+    '블랙록': ['블랙록', 'BlackRock'],
+    '마스터카드': ['마스터카드', 'Mastercard'],
+    'JPMorgan': ['JPMorgan', 'JP모건', '제이피모건'],
+    'Ripple': ['리플', 'Ripple'],
+    'XRPLedger': ['XRPLedger', 'XRP Ledger', 'XRPL'],
+    'XRP': ['XRP'],
+    'CBDC': ['CBDC'],
+    'MiCA': ['MiCA', '미카'],
+    'EEA': ['EEA'],
+    '스테이블코인': ['스테이블코인', 'stablecoin', 'stablecoins'],
+    '디지털루블': ['디지털 루블', '디지털루블', 'digital ruble'],
+    'AI': ['AI', '인공지능'],
+    '수탁': ['수탁', 'custody'],
+    '대출': ['대출', 'lending', 'loan'],
+    '은행': ['은행', 'bank'],
+}
+
+_INLINE_BODY_GENERIC_0618 = {'은행', '대출', '수탁', 'AI', '스테이블코인'}
+
+
+def _has_inline_term_0618(text: str, patterns: list[str]) -> bool:
+    return any(re.search(p, text or '', re.I) for p in patterns)
+
+
+def _select_inline_body_labels_0618(summary: str, story: dict, max_tags: int = 5) -> list[str]:
+    raw = f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('url','')}"
+    base = f"{summary or ''}\n{raw}"
+
+    selected = []
+    for label, patterns in _INLINE_BODY_TAG_SPECS_0618:
+        if label in selected:
+            continue
+        if _has_inline_term_0618(base, patterns):
+            # AI는 진짜 AI 기사일 때만
+            if label == 'AI':
+                try:
+                    if not _has_real_ai_reference_0616(story, summary):
+                        continue
+                except Exception:
+                    pass
+            selected.append(label)
+        if len(selected) >= max_tags:
+            break
+
+    # 일반 주제 태그만 너무 많이 잡히지 않게 뒤에서 정리
+    strong = [x for x in selected if x not in _INLINE_BODY_GENERIC_0618]
+    generic = [x for x in selected if x in _INLINE_BODY_GENERIC_0618]
+
+    if len(strong) >= 3:
+        selected = strong[:max_tags]
+    else:
+        selected = (strong + generic)[:max_tags]
+
+    return selected
+
+
+def _replace_first_surface_with_tag_0618(text: str, label: str) -> tuple[str, bool]:
+    if f'#{label}' in text:
+        return text, True
+
+    surfaces = _INLINE_BODY_SURFACE_0618.get(label, [label])
+
+    for surface in sorted(surfaces, key=len, reverse=True):
+        if not surface:
+            continue
+
+        # 영어/숫자 표기는 단어 경계, 한글은 단순 첫 등장
+        if re.search(r'[A-Za-z0-9]', surface):
+            pat = rf'(?<![#A-Za-z0-9]){re.escape(surface)}(?![A-Za-z0-9])'
+        else:
+            pat = rf'(?<!#){re.escape(surface)}'
+
+        new_text, count = re.subn(pat, f'#{label}', text, count=1, flags=re.I)
+        if count:
+            return new_text, True
+
+    return text, False
+
+
+def _restore_inline_body_tags_0618(summary: str, story: dict) -> str:
+    if not summary:
+        return summary
+
+    text = html.unescape(summary)
+    labels = _select_inline_body_labels_0618(text, story, max_tags=5)
+
+    missing_prefix = []
+    for label in labels:
+        if f'#{label}' in text:
+            continue
+
+        text, replaced = _replace_first_surface_with_tag_0618(text, label)
+        if not replaced:
+            missing_prefix.append(f'#{label}')
+
+    # 본문에 단어가 안 보이는 핵심 태그는 첫 문장 앞에 붙임
+    if missing_prefix:
+        first_line_split = text.split('\n', 1)
+        first = first_line_split[0].strip()
+        rest = first_line_split[1] if len(first_line_split) > 1 else ''
+        prefix = ' '.join(missing_prefix[:5])
+        if first:
+            first = f'{prefix} {first}'
+        else:
+            first = prefix
+        text = first + (('\n' + rest) if rest else '')
+
+    text = fix_split_person_tags(text)
+    text = fix_korean_hashtag_particles(text)
+
+    # 잘못 붙은 조사/공백 정리
+    text = re.sub(r'#([A-Za-z0-9가-힣_]+)\s+([,])', r'#\1\2', text)
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    return text
+
+
+try:
+    _PREV_build_message_0618_inline_restore = build_message
+
+    def build_message(story: dict) -> str:
+        msg = _PREV_build_message_0618_inline_restore(story)
+        if not msg:
+            return msg
+
+        parts = msg.split('\n\n')
+        if len(parts) < 4:
+            return msg
+
+        summary = html.unescape(parts[0])
+        summary = _restore_inline_body_tags_0618(summary, story)
+        parts[0] = html.escape(summary)
+
+        return '\n\n'.join(parts)
 except Exception:
     pass
 
