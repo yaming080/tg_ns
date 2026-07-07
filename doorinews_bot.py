@@ -3714,7 +3714,7 @@ def prune_posted_older_than(posted: dict, days: int = 7) -> dict:
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0618_inline_body_tags_restore")
+    log("RUNNING_BUILD=0620_general_duplicate_engine")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -6927,7 +6927,7 @@ def _register_story_state_final(story: dict, posted: dict):
 
 def main():
     log("Bot starting...")
-    log("RUNNING_BUILD=0618_inline_body_tags_restore")
+    log("RUNNING_BUILD=0620_general_duplicate_engine")
     state = load_state(STATE_FILE)
     posted = state.get('posted', {})
 
@@ -8011,6 +8011,942 @@ try:
         parts[0] = html.escape(summary)
 
         return '\n\n'.join(parts)
+except Exception:
+    pass
+
+
+
+
+# =========================
+# 0619 quality filter + duplicate + Korean body tag + ending patch
+# 목적:
+# - 반복 업로드되는 같은 이슈를 이벤트 단위로 중복 차단
+# - 가격/급등락/지갑증감/이체/출금/회복세/재진입/압박성 기사 차단
+# - 크립토와 직접 관련 없는 일반 산업/주식/행사 기사 차단
+# - 영어 엔티티를 본문 한국어 해시태그로 변환
+# - 했. / 했음고전함 / 했음고함 / 시장구조#법안 같은 문장 오류 보정
+# =========================
+
+try:
+    MANUAL_TRANSLATIONS.update({
+        'Polymarket': '폴리마켓',
+        'CACEIS': '카세스',
+        'Caceis': '카세스',
+        'Meria': '메리아',
+        'India': '인도',
+        'Micron': '마이크론',
+        'Micron Technology': '마이크론',
+        'IMF': 'IMF',
+        'Germany': '독일',
+        'Cardano': '카르다노',
+        'ADA': '카르다노',
+        'Dubai': '두바이',
+        'Alibaba': '알리바바',
+        'Michael Saylor': '마이클세일러',
+        'Saylor': '마이클세일러',
+        'Tom Lee': '톰리',
+        'Thomas Lee': '톰리',
+        'BitMine': '비트마인',
+        'Bitmine': '비트마인',
+        'Market Structure Bill': '시장구조법안',
+        'CLARITY Act': '시장구조법안',
+    })
+
+    _ADD_INLINE_0619 = {
+        '폴리마켓', '카세스', '메리아', '인도', '마이크론', 'IMF', '독일',
+        '카르다노', '두바이', '알리바바', '마이클세일러', '톰리',
+        '비트마인', '시장구조법안', '바이비트', '업비트', '필리핀',
+        '중국', '러시아', '중앙은행', '디지털루블'
+    }
+    INLINE_TAG_WHITELIST.update(_ADD_INLINE_0619)
+    for _kw in _ADD_INLINE_0619:
+        if _kw not in KOREAN_TAG_KEYWORDS:
+            KOREAN_TAG_KEYWORDS.append(_kw)
+except Exception:
+    pass
+
+
+def _story_text_0619(story: dict) -> str:
+    return f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('summary','')}\n{story.get('url','')}"
+
+
+def _match_any_0619(text: str, patterns: list[str]) -> bool:
+    return any(re.search(p, text or '', re.I) for p in patterns)
+
+
+def _has_crypto_core_0619(text: str) -> bool:
+    return _match_any_0619(text or '', [
+        r'bitcoin|btc|ethereum|eth|xrp|ripple|xrpl|xlm|stellar|ada|cardano|trx|tron|bnb|bch|bitcoin cash|shib|shiba inu|usdc|usdt|stablecoin|crypto|cryptocurrency|blockchain|tokeni[sz]ation|defi|web3|cbdc|mica|custody|exchange|wallet|on-?chain',
+        r'비트코인|이더리움|리플|스텔라|에이다|카르다노|트론|바이낸스코인|비트코인캐시|시바이누|스테이블코인|암호화폐|가상자산|블록체인|토큰화|디파이|웹3|디지털자산|디지털화폐|수탁|거래소|지갑|온체인'
+    ])
+
+
+def _is_price_or_market_noise_0619(raw: str) -> bool:
+    low = (raw or '').lower()
+    price_terms = [
+        r'급등', r'급락', r'약세', r'강세', r'상승함', r'상승세', r'하락함', r'하락세',
+        r'회복세', r'가격\s*회복', r'재진입', r'다시\s*진입', r'2주\s*최고',
+        r'사상\s*최고', r'오르며', r'내리며', r'급등세', r'급락세',
+        r'\bprice\b', r'\brebound\b', r'\brecovery\b', r'\bre-?enter', r'\btwo-?week high\b',
+        r'\bsurge\b', r'\bspike\b', r'\bjump\b', r'\brally\b', r'\bplunge\b', r'\bdrop\b',
+        r'\bbearish\b', r'\bbullish\b', r'\bweakness\b', r'\bfud\b',
+        r'시장\s*약화', r'시장\s*fud', r'시장\s*공포', r'재진입.*회복', r'회복.*확인'
+    ]
+    chart_terms = [
+        r'지지선', r'저항선', r'목표가', r'차트', r'기술적\s*분석',
+        r'\bsupport\b', r'\bresistance\b', r'\bchart\b', r'\btechnical analysis\b',
+    ]
+    return _match_any_0619(low, price_terms + chart_terms)
+
+
+def _is_wallet_metric_noise_0619(raw: str) -> bool:
+    low = (raw or '').lower()
+    return _match_any_0619(low, [
+        r'지갑이\s*늘', r'지갑이\s*줄', r'지갑\s*증가', r'지갑\s*감소',
+        r'비어\s*있지\s*않은.*지갑', r'비어있지\s*않은.*지갑',
+        r'non-?empty\s+wallet', r'wallets?\s+(?:increased|decreased|rose|fell|grew|declined)',
+        r'network\s+growth', r'active\s+addresses?', r'주소\s*증가', r'활성\s*주소',
+        r'santiment', r'샌티먼트에\s*따르면'
+    ])
+
+
+def _is_transfer_withdrawal_noise_0619(raw: str) -> bool:
+    low = (raw or '').lower()
+    return _match_any_0619(low, [
+        r'이체함', r'이체\s*기록', r'이체했', r'옮김', r'옮겼', r'전송함',
+        r'출금함', r'출금\s*기록', r'출금했', r'withdraw', r'withdrawal',
+        r'transfer(?:red|s)?\s+\d', r'move(?:d|s)?\s+\d', r'old\s+wallet',
+        r'dormant\s+wallet', r'깨어난\s*지갑', r'휴면\s*지갑',
+    ])
+
+
+def _is_unwanted_article_0619(story: dict) -> tuple[bool, str]:
+    raw = _story_text_0619(story)
+    low = raw.lower()
+
+    if _is_price_or_market_noise_0619(raw):
+        return True, '가격/시황/급등락 제외'
+    if _is_wallet_metric_noise_0619(raw):
+        return True, '지갑증감/온체인수치 제외'
+    if _is_transfer_withdrawal_noise_0619(raw):
+        return True, '이체/출금/휴면지갑 제외'
+
+    if _match_any_0619(low, [
+        r'(bybit|바이비트).{0,80}(card|카드).{0,80}(welcome|reward|rewards|리워드|신규\s*이용자)',
+        r'(welcome|reward|rewards|리워드|신규\s*이용자).{0,80}(bybit|바이비트).{0,80}(card|카드)',
+        r'최대\s*120\s*usdt',
+    ]):
+        return True, '거래소카드/리워드홍보 제외'
+
+    if _match_any_0619(low, [
+        r'\bbmag\b', r'card\s*expo', r'trading\s*card', r'card\s*exhibition',
+        r'카드\s*엑스포', r'카드\s*전시', r'트레이딩\s*카드', r'아트\s*프로그램',
+        r'bitcoin\s*asia\s*2026.*card',
+    ]):
+        return True, '카드전시/행사 제외'
+
+    if _match_any_0619(low, [
+        r'sleepagotchi', r'web3\s*health', r'health\s*coach', r'sleep\s*data', r'nutrition\s*data',
+        r'건강\s*코치', r'헬스\s*앱', r'수면.*영양',
+        r'zetachain', r'zeta\s*chain', r'cross[-\s]*chain\s*service', r'크로스체인\s*서비스',
+        r'제품\s*방향\s*재편', r'product\s*direction',
+        r'anonymous\s+document\s+tracing', r'익명\s*문서\s*추적', r'검색\s*범위',
+        r'비탈릭.*익명\s*문서', r'13일째\s*성과',
+    ]):
+        return True, '웹3앱/비포폴체인/실험성 제외'
+
+    if _match_any_0619(low, [
+        r'survey', r'설문', r'wealthy\s*investors?', r'wealth\s*advis[oe]rs?',
+        r'underexposed', r'crypto\s*exposure', r'소극적', r'노출도', r'투자자들은\s*여전히',
+    ]):
+        return True, '설문/투자심리 제외'
+
+    if _match_any_0619(low, [
+        r'압박이\s*커지', r'마감\s*압박', r'deadline\s*pressure', r'negotiation\s*pressure',
+        r'협상.*계속', r'talks?\s+continue', r'aug\.?\s*7\s*deadline', r'8월\s*7일\s*마감',
+    ]):
+        return True, '협상압박/과정기사 제외'
+
+    if _match_any_0619(low, [
+        r'bip-?110', r'luke\s*dashjr', r'철회\s*요구', r'논쟁\s*확대',
+        r'withdrawal\s+calls?', r'proposal\s+debate',
+    ]):
+        return True, '기술논쟁/BIP 제외'
+
+    if _match_any_0619(low, [
+        r'(strategy|스트래티지|마이클\s*세일러|michael\s*saylor).{0,120}(sold|sell|sale|dispose|disposed|처분|매도)',
+        r'(sold|sell|sale|dispose|disposed|처분|매도).{0,120}(strategy|스트래티지|마이클\s*세일러|michael\s*saylor)',
+        r'3,?588\s*btc',
+    ]):
+        return True, '기업보유분매도/처분 제외'
+
+    if _match_any_0619(low, [
+        r'commercial\s*real\s*estate', r'office\s*space', r'multifamily', r'loan\s*portfolio',
+        r'대출\s*포트폴리오', r'상업용\s*부동산', r'오피스\s*공실', r'부실\s*자산', r'익스포저',
+    ]):
+        return True, '부동산/대출포트폴리오 제외'
+
+    general_non_crypto = _match_any_0619(low, [
+        r'sk\s*hynix', r'sk하이닉스', r'나스닥\s*데뷔', r'공모\s*물량', r'인수\s*가능성',
+        r'lg\b', r'공정거래위원회', r'상생협약', r'납품대금', r'협력사',
+        r'그린\s*하버', r'데이터센터.*전력', r'gpu\s*병목', r'상생경제', r'상생\s*결제',
+    ])
+    if general_non_crypto and not _has_crypto_core_0619(low):
+        return True, '비크립토 일반산업/주식 제외'
+
+    ai_general = _match_any_0619(low, [
+        r'ai\s*사업부', r'ai\s*산업화', r'ai\s*규제', r'ai\s*챗봇', r'동반자형\s*챗봇',
+        r'ai\s*데이터센터', r'gpu\s*병목'
+    ])
+    crypto_or_major_policy = _has_crypto_core_0619(low) or _match_any_0619(low, [
+        r'openai', r'microsoft', r'anthropic', r'bytedance', r'alibaba', r'중국.*ai\s*규제'
+    ])
+    if ai_general and not crypto_or_major_policy:
+        return True, '일반AI/비크립토 제외'
+
+    return False, ''
+
+
+try:
+    _PREV_matches_keywords_0619 = matches_keywords
+    def matches_keywords(story: dict, coins: list[str], econ_keywords: list[str], korean_keywords: list[str]) -> bool:
+        blocked, reason = _is_unwanted_article_0619(story)
+        if blocked:
+            print(f'[{reason}] {story.get("title", "")}')
+            return False
+        return _PREV_matches_keywords_0619(story, coins, econ_keywords, korean_keywords)
+except Exception:
+    pass
+
+
+_EVENT_MARKER_PATTERNS_0619 = {
+    'evt_bybit_card_welcome_reward': [
+        r'(bybit|바이비트).{0,100}(card|카드).{0,100}(welcome|reward|rewards|리워드|120\s*usdt)',
+        r'(welcome|reward|rewards|리워드|120\s*usdt).{0,100}(bybit|바이비트).{0,100}(card|카드)',
+    ],
+    'evt_worldcup_prediction_market': [
+        r'(world\s*cup|월드컵|축구).{0,120}(prediction\s*market|predict|예측시장|예측\s*시장)',
+        r'(prediction\s*market|predict|예측시장|예측\s*시장).{0,120}(world\s*cup|월드컵|축구)',
+    ],
+    'evt_xrpl_lending_protocol_0619': [
+        r'(xrp\s*ledger|xrpl|xrpledger|리플|xrp).{0,120}(lending|loan|loans|yield|yields|대출|수익)',
+        r'(lending|loan|loans|yield|yields|대출|수익).{0,120}(xrp\s*ledger|xrpl|xrpledger|리플|xrp)',
+    ],
+    'evt_openusd_upbit_standards': [
+        r'(openusd|오픈usd|open\s*usd).{0,140}(upbit|업비트|standard|스탠더드|스탠다드)',
+        r'(upbit|업비트).{0,140}(openusd|오픈usd|open\s*usd)',
+    ],
+    'evt_bitmine_eth_tomlee_purchase': [
+        r'(bitmine|비트마인|tom\s*lee|톰리).{0,140}(eth|ethereum|이더리움).{0,80}(purchase|buy|매수|매입|확보)',
+        r'(eth|ethereum|이더리움).{0,120}(bitmine|비트마인|tom\s*lee|톰리).{0,80}(purchase|buy|매수|매입|확보)',
+    ],
+    'evt_fca_crypto_rules_2027': [
+        r'(fca|영국|financial\s*conduct\s*authority).{0,120}(2027|final|rules|regulation|규제|공개)',
+        r'(2027|final|rules|regulation|규제|공개).{0,120}(fca|영국|financial\s*conduct\s*authority)',
+    ],
+    'evt_russia_digital_ruble_2026': [
+        r'(russia|러시아|central\s*bank|중앙은행).{0,120}(digital\s*ruble|digital\s*rouble|디지털\s*루블)',
+        r'(digital\s*ruble|digital\s*rouble|디지털\s*루블).{0,120}(russia|러시아|central\s*bank|중앙은행)',
+    ],
+}
+
+
+def _extract_event_markers_0619(text: str) -> list[str]:
+    raw = text or ''
+    found = []
+    for marker, patterns in _EVENT_MARKER_PATTERNS_0619.items():
+        if _match_any_0619(raw, patterns):
+            found.append(marker)
+    return sorted(set(found))
+
+
+def _append_event_markers_0619(base_key: str, story: dict) -> str:
+    parts = [p.strip() for p in (base_key or '').split('|') if p.strip()]
+    parts.extend(_extract_event_markers_0619(_story_text_0619(story)))
+    generic = {
+        'action_partner', 'topic_partnership', 'action_buy', 'topic_purchase',
+        'action_launch', 'topic_launch', 'action_approve', 'topic_approval',
+        'action_restrict', 'topic_fed_rate', 'topic_treasury', 'geo_us', 'geo_eu', 'year_2026', 'org_sec'
+    }
+    has_event = any(p.startswith('evt_') for p in parts)
+    if not has_event:
+        non_generic = [p for p in parts if p not in generic]
+        if len(non_generic) < 3:
+            parts = non_generic
+    seen = set(); out = []
+    for p in sorted(parts):
+        if p and p not in seen:
+            out.append(p); seen.add(p)
+    return ' | '.join(out)
+
+
+try:
+    _PREV_build_story_signature_0619 = build_story_signature
+    _PREV_build_canonical_topic_key_0619 = build_canonical_topic_key
+    def build_story_signature(story: dict) -> str:
+        return _append_event_markers_0619(_PREV_build_story_signature_0619(story), story)
+    def build_canonical_topic_key(story: dict) -> str:
+        return _append_event_markers_0619(_PREV_build_canonical_topic_key_0619(story), story)
+except Exception:
+    pass
+
+
+def _tokens_0619(key: str) -> set:
+    return {x.strip() for x in (key or '').split('|') if x.strip()}
+
+
+def _event_tokens_0619(key: str) -> set:
+    return {t for t in _tokens_0619(key) if t.startswith('evt_')}
+
+
+def _specific_tokens_0619(key: str) -> set:
+    generic = {
+        'action_partner', 'topic_partnership', 'action_buy', 'topic_purchase',
+        'action_launch', 'topic_launch', 'action_approve', 'topic_approval',
+        'action_restrict', 'topic_fed_rate', 'topic_treasury', 'geo_us', 'geo_eu', 'year_2026', 'org_sec'
+    }
+    return {t for t in _tokens_0619(key) if t not in generic}
+
+
+try:
+    def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
+        if not canonical_key:
+            return False
+        cur_events = _event_tokens_0619(canonical_key)
+        cur_specific = _specific_tokens_0619(canonical_key)
+        for old_key in seen_keys:
+            old_events = _event_tokens_0619(old_key)
+            shared_events = cur_events & old_events
+            if shared_events:
+                log(f'[이벤트중복 제외 0619] shared_event={shared_events}')
+                return True
+            old_specific = _specific_tokens_0619(old_key)
+            shared = cur_specific & old_specific
+            same_entity = any(t.startswith(('entity_', 'org_', 'person_', 'bill_')) for t in shared)
+            same_asset = any(t.startswith('asset_') for t in shared)
+            same_topic = any(t.startswith('topic_') for t in shared)
+            same_action = any(t.startswith(('action_', 'act_')) for t in shared)
+            if same_entity and same_asset and same_topic and same_action:
+                log(f'[정규토픽중복 제외 0619] shared_specific={shared}')
+                return True
+        return False
+
+    def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
+        title = normalize_for_duplicate(story.get('title', ''))
+        signature = build_story_signature(story)
+        for old_title in seen_titles:
+            ratio = SequenceMatcher(None, title, old_title).ratio()
+            if ratio >= 0.90:
+                log(f'[제목유사도 중복 0619] {title} <> {old_title} / {ratio:.2f}')
+                return True
+        cur_events = _event_tokens_0619(signature)
+        cur_specific = _specific_tokens_0619(signature)
+        for old_sig in seen_signatures:
+            old_events = _event_tokens_0619(old_sig)
+            shared_events = cur_events & old_events
+            if shared_events:
+                log(f'[이벤트중복 제외 0619] shared_event={shared_events}')
+                return True
+            old_specific = _specific_tokens_0619(old_sig)
+            shared = cur_specific & old_specific
+            same_entity = any(t.startswith(('entity_', 'org_', 'person_', 'bill_')) for t in shared)
+            same_asset = any(t.startswith('asset_') for t in shared)
+            same_topic = any(t.startswith('topic_') for t in shared)
+            same_action = any(t.startswith(('action_', 'act_')) for t in shared)
+            if same_entity and same_asset and same_topic and same_action:
+                log(f'[의미중복 제외 0619] shared_specific={shared}')
+                return True
+        return False
+except Exception:
+    pass
+
+
+_INLINE_BODY_TAG_SPECS_0619 = [
+    ('폴리마켓', [r'polymarket', r'폴리마켓']),
+    ('카세스', [r'caceis', r'카세스']),
+    ('메리아', [r'\bmeria\b', r'메리아']),
+    ('인도', [r'\bindia\b', r'indian', r'인도']),
+    ('마이크론', [r'\bmicron\b', r'micron technology', r'마이크론']),
+    ('IMF', [r'\bimf\b', r'국제통화기금']),
+    ('독일', [r'\bgermany\b', r'german', r'독일']),
+    ('카르다노', [r'\bcardano\b', r'\bada\b', r'카르다노', r'에이다']),
+    ('두바이', [r'\bdubai\b', r'두바이']),
+    ('알리바바', [r'alibaba', r'알리바바']),
+    ('마이클세일러', [r'michael\s*saylor', r'\bsaylor\b', r'마이클\s*세일러', r'마이클세일러']),
+    ('톰리', [r'tom\s*lee', r'thomas\s*lee', r'톰\s*리', r'톰리']),
+    ('비트마인', [r'bitmine', r'비트마인']),
+    ('시장구조법안', [r'market\s*structure\s*bill', r'clarity\s*act', r'시장\s*구조\s*법안', r'시장구조법안', r'클래리티법']),
+    ('바이비트', [r'bybit', r'바이비트']),
+    ('업비트', [r'upbit', r'업비트']),
+    ('바이낸스', [r'binance', r'바이낸스']),
+    ('필리핀', [r'philippines', r'필리핀']),
+    ('중국', [r'\bchina\b', r'chinese', r'중국']),
+    ('러시아', [r'\brussia\b', r'russian', r'러시아']),
+    ('중앙은행', [r'central\s*bank', r'중앙은행']),
+    ('디지털루블', [r'digital\s*ruble', r'digital\s*rouble', r'디지털\s*루블', r'디지털루블']),
+    ('마이크로소프트', [r'microsoft', r'마이크로소프트']),
+]
+
+
+def _restore_korean_inline_tags_0619(summary: str, story: dict, max_tags: int = 5) -> str:
+    if not summary:
+        return summary
+    raw = _story_text_0619(story)
+    base = f'{summary}\n{raw}'
+    text = html.unescape(summary)
+    labels = []
+    for label, pats in _INLINE_BODY_TAG_SPECS_0619:
+        if len(labels) >= max_tags:
+            break
+        if f'#{label}' in text:
+            labels.append(label)
+            continue
+        if _match_any_0619(base, pats):
+            labels.append(label)
+    prefix = []
+    for label in labels:
+        if f'#{label}' in text:
+            continue
+        replaced = False
+        for lab, pats in _INLINE_BODY_TAG_SPECS_0619:
+            if lab != label:
+                continue
+            for pat in pats:
+                new_text, cnt = re.subn(pat, f'#{label}', text, count=1, flags=re.I)
+                if cnt:
+                    text = new_text
+                    replaced = True
+                    break
+            break
+        if not replaced:
+            prefix.append(f'#{label}')
+    if prefix:
+        lines = text.split('\n', 1)
+        first = lines[0].strip()
+        rest = lines[1] if len(lines) > 1 else ''
+        first = (' '.join(prefix) + ' ' + first).strip()
+        text = first + (('\n' + rest) if rest else '')
+    return text
+
+
+def _fix_summary_endings_0619(summary: str) -> str:
+    text = html.unescape(summary or '')
+    text = text.replace('#시장구조#법안', '#시장구조법안')
+    text = text.replace('#시장구조 #법안', '#시장구조법안')
+    text = text.replace('#시장구조법안 가', '#시장구조법안 이')
+    text = text.replace('#시장구조법안가', '#시장구조법안 이')
+    text = text.replace('#법안 가', '#법안 이')
+    text = text.replace('#AI 가', '#AI가')
+    text = text.replace('#마이클#세일러', '#마이클세일러')
+    text = text.replace('#톰#리', '#톰리')
+
+    text = re.sub(r'했음\s*고\s*(전함|말함|밝힘|함)?', '했음', text)
+    text = re.sub(r'했음고(전함|말함|밝힘|함)?', '했음', text)
+    text = re.sub(r'됐음\s*고\s*(전함|말함|밝힘|함)?', '됐음', text)
+    text = re.sub(r'됨고(전함|말함|밝힘|함)?', '됨', text)
+    text = re.sub(r'([가-힣]+)했다고\s*함', r'\1했음', text)
+    text = re.sub(r'([가-힣]+)했다고\s*전함', r'\1했음', text)
+    text = re.sub(r'([가-힣]+)했다고\s*밝힘', r'\1했음', text)
+
+    text = re.sub(r'([가-힣]+)했\.', r'\1함', text)
+    text = re.sub(r'([가-힣]+)했다\.', r'\1함', text)
+    text = re.sub(r'([가-힣]+)했습니다\.', r'\1함', text)
+    text = re.sub(r'했습니다(?=($|\s|[.!?\n]))', '함', text)
+    text = re.sub(r'했다(?=($|\s|[.!?\n]))', '함', text)
+    text = re.sub(r'하였다(?=($|\s|[.!?\n]))', '함', text)
+    text = re.sub(r'됐습니다(?=($|\s|[.!?\n]))', '됨', text)
+    text = re.sub(r'됐다(?=($|\s|[.!?\n]))', '됨', text)
+    text = re.sub(r'밝혔습니다(?=($|\s|[.!?\n]))', '밝힘', text)
+    text = re.sub(r'밝혔다(?=($|\s|[.!?\n]))', '밝힘', text)
+    text = re.sub(r'전했습니다(?=($|\s|[.!?\n]))', '전함', text)
+    text = re.sub(r'전했다(?=($|\s|[.!?\n]))', '전함', text)
+    text = re.sub(r'설명했습니다(?=($|\s|[.!?\n]))', '설명함', text)
+    text = re.sub(r'설명했다(?=($|\s|[.!?\n]))', '설명함', text)
+
+    lines = []
+    for line in text.splitlines():
+        line = line.strip()
+        line = re.sub(r'[.。]+$', '', line)
+        lines.append(line)
+    text = '\n'.join(lines)
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    return text
+
+
+_FOOTER_TAG_TRANSLATE_0619 = {
+    '#China': '#중국', '#Korea': '#한국', '#SouthKorea': '#한국', '#UK': '#영국', '#US': '#미국',
+    '#Russia': '#러시아', '#Germany': '#독일', '#India': '#인도', '#Dubai': '#두바이',
+    '#Cardano': '#카르다노', '#ADA': '#카르다노', '#Alibaba': '#알리바바', '#Micron': '#마이크론',
+    '#Polymarket': '#폴리마켓', '#MichaelSaylor': '#마이클세일러', '#Saylor': '#마이클세일러',
+    '#TomLee': '#톰리', '#Bitmine': '#비트마인', '#BitMine': '#비트마인',
+    '#MarketStructureBill': '#시장구조법안', '#CLARITYAct': '#시장구조법안', '#Wallet': '', '#AI가': '#AI',
+    '#Rates': '', '#Lending': '', '#Bank': '', '#Banks': '',
+}
+
+
+def _clean_footer_tags_0619(footer: str) -> str:
+    tags = []
+    seen = set()
+    for raw in (footer or '').split():
+        t = raw.strip()
+        if not t:
+            continue
+        t = _FOOTER_TAG_TRANSLATE_0619.get(t, t)
+        if not t:
+            continue
+        t = t.replace('#시장구조#법안', '#시장구조법안')
+        if t in {'#Rate', '#Loan', '#Loans', '#Health', '#Sleep', '#Nutrition', '#Expo', '#Card', '#Cards'}:
+            continue
+        if t not in seen:
+            tags.append(t)
+            seen.add(t)
+    return ' '.join(tags)
+
+
+try:
+    _PREV_build_message_0619_quality = build_message
+    def build_message(story: dict) -> str:
+        msg = _PREV_build_message_0619_quality(story)
+        if not msg:
+            return msg
+        parts = msg.split('\n\n')
+        if len(parts) >= 1:
+            summary = html.unescape(parts[0])
+            summary = _restore_korean_inline_tags_0619(summary, story, max_tags=5)
+            summary = _fix_summary_endings_0619(summary)
+            parts[0] = html.escape(summary)
+        if len(parts) >= 4:
+            parts[-1] = _clean_footer_tags_0619(parts[-1])
+        return '\n\n'.join(p for p in parts if p.strip())
+except Exception:
+    pass
+
+
+
+
+# =========================
+# 0620 general duplicate engine patch
+# 목적:
+# - 특정 예시 기사만 하드코딩해서 잡는 방식이 아니라,
+#   앞으로 들어오는 모든 기사에 대해 "이벤트 단위"로 중복을 잡도록 보강
+# - 같은 사건이 다른 매체/다른 제목으로 반복될 때
+#   entity + topic + action + asset/country/amount 조합으로 중복 판정
+# - 너무 넓은 topic_partnership/topic_purchase/topic_fed_rate 같은 토큰만으로 과차단하지 않음
+# =========================
+
+_GENERIC_DUP_TOKENS_0620 = {
+    'action_partner', 'topic_partnership', 'action_buy', 'topic_purchase',
+    'action_launch', 'topic_launch', 'action_approve', 'topic_approval',
+    'action_restrict', 'topic_fed_rate', 'topic_treasury', 'topic_defi',
+    'topic_ai', 'topic_regulation', 'topic_법안',
+    'act_approval', 'act_buy', 'act_move', 'act_adoption', 'act_policy',
+    'geo_us', 'geo_eu', 'year_2026', 'year_2027', 'org_sec',
+    'org_treasury', 'asset_btc'
+}
+
+_SOURCE_NOISE_0620 = {
+    'cointelegraph', 'cryptopolitan', 'thecryptobasic', 'cryptobasic',
+    'tokenpost', 'bitcoinist', 'coinedition', 'cryptopotato',
+    'thenewscrypto', 'utoday', 'u today', 'crypto news', 'cryptonews',
+    'news', 'today', 'update', 'latest', 'report', 'reports',
+    'article', 'post', 'market', 'markets'
+}
+
+_ENTITY_ALIAS_PATTERNS_0620 = {
+    # 규제기관/공공기관
+    'entity_sec': [r'(?<![a-z0-9])sec(?![a-z0-9])', r'securities and exchange commission', r'증권거래위원회'],
+    'entity_cftc': [r'(?<![a-z0-9])cftc(?![a-z0-9])'],
+    'entity_fca': [r'(?<![a-z0-9])fca(?![a-z0-9])', r'financial conduct authority'],
+    'entity_occ': [r'(?<![a-z0-9])occ(?![a-z0-9])'],
+    'entity_hkma': [r'(?<![a-z0-9])hkma(?![a-z0-9])', r'hong kong monetary authority', r'홍콩금융관리국'],
+    'entity_imf': [r'(?<![a-z0-9])imf(?![a-z0-9])', r'국제통화기금'],
+    'entity_fed': [r'(?<![a-z0-9])fed(?![a-z0-9])', r'federal reserve', r'연준'],
+    'entity_centralbank': [r'central bank', r'중앙은행'],
+
+    # 회사/프로젝트/인물
+    'entity_bybit': [r'bybit', r'바이비트'],
+    'entity_binance': [r'binance', r'바이낸스'],
+    'entity_upbit': [r'upbit', r'업비트'],
+    'entity_bitmine': [r'bitmine', r'비트마인'],
+    'entity_strategy': [r'(?<![a-z0-9])strategy(?![a-z0-9])', r'microstrategy', r'스트래티지'],
+    'entity_michaelsaylor': [r'michael saylor', r'마이클\s*세일러', r'마이클세일러'],
+    'entity_tomlee': [r'tom lee', r'thomas lee', r'톰\s*리', r'톰리'],
+    'entity_ripple': [r'(?<![a-z0-9])ripple(?![a-z0-9])', r'리플'],
+    'entity_xrpledger': [r'xrp ledger', r'xrpl', r'xrpledger'],
+    'entity_polymarket': [r'polymarket', r'폴리마켓'],
+    'entity_microsoft': [r'microsoft', r'마이크로소프트'],
+    'entity_openai': [r'openai', r'오픈ai', r'오픈에이아이'],
+    'entity_anthropic': [r'anthropic', r'앤트로픽'],
+    'entity_google': [r'google', r'구글'],
+    'entity_blackrock': [r'blackrock', r'블랙록'],
+    'entity_mastercard': [r'mastercard', r'마스터카드'],
+    'entity_jpmorgan': [r'j\.?p\.?\s*morgan', r'jpmorgan', r'제이피모건', r'jp모건'],
+    'entity_cardano': [r'cardano', r'카르다노'],
+    'entity_worldcup': [r'world cup', r'fifa', r'월드컵', r'축구'],
+    'entity_caceis': [r'caceis', r'카세스'],
+    'entity_meria': [r'(?<![a-z0-9])meria(?![a-z0-9])', r'메리아'],
+    'entity_micron': [r'micron', r'마이크론'],
+    'entity_alibaba': [r'alibaba', r'알리바바'],
+}
+
+_ASSET_PATTERNS_0620 = {
+    'asset_btc': [r'(?<![a-z0-9])btc(?![a-z0-9])', r'bitcoin', r'비트코인'],
+    'asset_eth': [r'(?<![a-z0-9])eth(?![a-z0-9])', r'ethereum', r'이더리움'],
+    'asset_xrp': [r'(?<![a-z0-9])xrp(?![a-z0-9])', r'(?<![a-z0-9])ripple(?![a-z0-9])', r'리플'],
+    'asset_xrpl': [r'xrp ledger', r'xrpl', r'xrpledger'],
+    'asset_ada': [r'(?<![a-z0-9])ada(?![a-z0-9])', r'cardano', r'카르다노', r'에이다'],
+    'asset_usdt': [r'(?<![a-z0-9])usdt(?![a-z0-9])'],
+    'asset_usdc': [r'(?<![a-z0-9])usdc(?![a-z0-9])'],
+    'asset_stablecoin': [r'stablecoin', r'stablecoins', r'스테이블코인'],
+    'asset_cbdc': [r'(?<![a-z0-9])cbdc(?![a-z0-9])', r'디지털화폐', r'디지털통화'],
+}
+
+_GEO_PATTERNS_0620 = {
+    'geo_us': [r'united states', r'(?<![a-z0-9])u\.?s\.?(?![a-z0-9])', r'(?<![a-z0-9])usa(?![a-z0-9])', r'미국'],
+    'geo_uk': [r'united kingdom', r'(?<![a-z0-9])uk(?![a-z0-9])', r'britain', r'영국'],
+    'geo_korea': [r'south korea', r'(?<![a-z0-9])korea(?![a-z0-9])', r'한국'],
+    'geo_japan': [r'japan', r'일본'],
+    'geo_china': [r'china', r'chinese', r'중국'],
+    'geo_hongkong': [r'hong kong', r'홍콩'],
+    'geo_russia': [r'russia', r'russian', r'러시아'],
+    'geo_india': [r'india', r'indian', r'인도'],
+    'geo_germany': [r'germany', r'german', r'독일'],
+    'geo_dubai': [r'dubai', r'두바이'],
+    'geo_philippines': [r'philippines', r'필리핀'],
+}
+
+_TOPIC_PATTERNS_0620 = {
+    'topic_card_reward': [r'card', r'카드', r'welcome reward', r'리워드', r'신규 이용자'],
+    'topic_prediction_market': [r'prediction market', r'prediction markets', r'예측시장', r'예측 시장'],
+    'topic_lending': [r'lending', r'loan', r'loans', r'대출', r'loan protocol', r'대출 프로토콜'],
+    'topic_stablecoin': [r'stablecoin', r'stablecoins', r'스테이블코인'],
+    'topic_cbdc': [r'(?<![a-z0-9])cbdc(?![a-z0-9])', r'디지털화폐', r'디지털통화'],
+    'topic_digital_ruble': [r'digital ruble', r'digital rouble', r'디지털 루블', r'디지털루블'],
+    'topic_regulation': [r'regulation', r'rule', r'rules', r'regulated', r'규제', r'규칙'],
+    'topic_approval': [r'approval', r'approved', r'approve', r'승인', r'인가'],
+    'topic_sandbox': [r'sandbox', r'샌드박스'],
+    'topic_mica': [r'(?<![a-z0-9])mica(?![a-z0-9])', r'미카'],
+    'topic_custody': [r'custody', r'custodial', r'수탁'],
+    'topic_etf': [r'(?<![a-z0-9])etf(?![a-z0-9])'],
+    'topic_treasury': [r'treasury', r'재무', r'재무부', r'기업보유', r'corporate treasury'],
+    'topic_bill': [r'bill', r'act', r'law', r'법안'],
+    'topic_market_structure_bill': [r'market structure bill', r'clarity act', r'시장구조법안', r'시장 구조 법안', r'클래리티법'],
+    'topic_ai': [r'(?<![a-z0-9])ai(?![a-z0-9])', r'artificial intelligence', r'인공지능'],
+    'topic_partnership': [r'partnership', r'partner', r'제휴', r'협력', r'협약'],
+    'topic_purchase': [r'purchase', r'buy', r'bought', r'매수', r'매입', r'확보'],
+    'topic_sale': [r'sell', r'sold', r'sale', r'dispose', r'disposed', r'처분', r'매도'],
+    'topic_wallet': [r'wallet', r'지갑'],
+    'topic_transfer': [r'transfer', r'withdraw', r'withdrawal', r'이체', r'출금'],
+}
+
+_ACTION_PATTERNS_0620 = {
+    'action_launch': [r'launch', r'launched', r'roll out', r'출시', r'공개', r'도입'],
+    'action_approve': [r'approval', r'approved', r'approve', r'승인', r'인가'],
+    'action_probe': [r'probe', r'investigat', r'조사'],
+    'action_ban_restrict': [r'ban', r'restrict', r'prohibit', r'금지', r'제한'],
+    'action_buy': [r'purchase', r'buy', r'bought', r'매수', r'매입', r'확보'],
+    'action_sell': [r'sell', r'sold', r'sale', r'dispose', r'disposed', r'처분', r'매도'],
+    'action_partner': [r'partnership', r'partner', r'제휴', r'협력', r'협약'],
+    'action_file': [r'filed', r'filing', r'신청', r'제출', r'신고'],
+    'action_urge': [r'urge', r'call for', r'촉구', r'요구'],
+}
+
+
+def _norm_0620(text: str) -> str:
+    try:
+        return normalize_for_duplicate(text or "")
+    except Exception:
+        t = (text or "").lower()
+        t = re.sub(r'https?://\S+', ' ', t)
+        t = re.sub(r'[^a-z0-9가-힣\s]', ' ', t)
+        return re.sub(r'\s+', ' ', t).strip()
+
+
+def _has_pat_0620(raw: str, patterns: list[str]) -> bool:
+    return any(re.search(p, raw or "", re.I) for p in patterns)
+
+
+def _collect_by_patterns_0620(raw: str, table: dict) -> set:
+    out = set()
+    for key, patterns in table.items():
+        if _has_pat_0620(raw, patterns):
+            out.add(key)
+    return out
+
+
+def _proper_entity_tokens_0620(title: str) -> set:
+    out = set()
+    title = title or ""
+    candidates = re.findall(r'\b[A-Z][A-Za-z0-9&.-]*(?:\s+[A-Z][A-Za-z0-9&.-]*){0,3}\b', title)
+
+    for cand in candidates:
+        c = cand.strip()
+        if not c:
+            continue
+        low = c.lower()
+        if low in _SOURCE_NOISE_0620:
+            continue
+        if len(low) <= 2 and low not in {'ai', 'uk', 'us'}:
+            continue
+
+        # 너무 일반적인 단어 제거
+        if low in {'crypto', 'bitcoin', 'ethereum', 'stablecoin', 'defi', 'web3', 'today', 'news'}:
+            continue
+
+        try:
+            mapped = MANUAL_TRANSLATIONS.get(c, c)
+        except Exception:
+            mapped = c
+
+        token = re.sub(r'[^a-zA-Z0-9가-힣]+', '', str(mapped)).lower()
+        if token and token not in {'암호화폐', '비트코인', '이더리움'}:
+            out.add(f'entity_{token}')
+
+    return out
+
+
+def _number_tokens_0620(raw: str) -> set:
+    out = set()
+    low = (raw or "").lower()
+
+    # 날짜/연도/큰 금액/큰 수량만 사용
+    for y in re.findall(r'\b20[2-9][0-9]\b', low):
+        out.add(f'year_{y}')
+
+    # 8월 7일, July 7 등
+    for m, d in re.findall(r'(\d{1,2})\s*월\s*(\d{1,2})\s*일', low):
+        out.add(f'date_{m}_{d}')
+    for month, day in re.findall(r'\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*(\d{1,2})\b', low):
+        out.add(f'date_{month}_{day}')
+
+    # 금액/수량은 너무 세세하게 말고 대표값만
+    amount_patterns = [
+        r'(\d+(?:\.\d+)?)\s*(billion|million)\s*(?:dollars?|usd)',
+        r'(\d+(?:,\d{3})+|\d+)\s*(btc|eth|xrp|usdt|usdc)',
+        r'(\d+(?:억|조))\s*(?:달러|원)?',
+    ]
+    for pat in amount_patterns:
+        for m in re.finditer(pat, low, re.I):
+            token = re.sub(r'[^a-z0-9가-힣]+', '', m.group(0).lower())
+            if token:
+                out.add(f'num_{token[:24]}')
+            if len(out) >= 3:
+                break
+
+    return out
+
+
+def _event_profile_0620_from_story(story: dict) -> dict:
+    raw_original = f"{story.get('title','')}\n{story.get('desc','')}\n{story.get('url','')}"
+    raw = _norm_0620(raw_original)
+    title = story.get('title', '') or ""
+
+    entities = _collect_by_patterns_0620(raw, _ENTITY_ALIAS_PATTERNS_0620)
+    entities |= _proper_entity_tokens_0620(title)
+
+    assets = _collect_by_patterns_0620(raw, _ASSET_PATTERNS_0620)
+    geos = _collect_by_patterns_0620(raw, _GEO_PATTERNS_0620)
+    topics = _collect_by_patterns_0620(raw, _TOPIC_PATTERNS_0620)
+    actions = _collect_by_patterns_0620(raw, _ACTION_PATTERNS_0620)
+    nums = _number_tokens_0620(raw)
+
+    # 자산/회사에서 너무 흔한 BTC만 있는 경우 중복 판단에 쓰지 않도록 약화
+    if assets == {'asset_btc'} and not (entities or topics or actions):
+        assets = set()
+
+    return {
+        'entities': entities,
+        'assets': assets,
+        'geos': geos,
+        'topics': topics,
+        'actions': actions,
+        'nums': nums,
+    }
+
+
+def _profile_tokens_0620(profile: dict) -> set:
+    toks = set()
+    for k in ('entities', 'assets', 'geos', 'topics', 'actions', 'nums'):
+        toks |= set(profile.get(k, set()))
+    return toks
+
+
+def _event_fingerprint_0620_from_profile(profile: dict) -> str:
+    entities = sorted(profile.get('entities', set()))
+    assets = sorted(profile.get('assets', set()))
+    geos = sorted(profile.get('geos', set()))
+    topics = sorted(profile.get('topics', set()))
+    actions = sorted(profile.get('actions', set()))
+    nums = sorted(profile.get('nums', set()))
+
+    # 중복 판단 가능한 최소 조건
+    has_subject = bool(entities or assets or geos)
+    has_event = bool(topics or actions)
+    if not (has_subject and has_event):
+        return ""
+
+    # 너무 일반적인 BTC + AI 같은 경우는 fingerprint 생성하지 않음
+    if not entities and assets <= {'asset_btc'} and topics <= {'topic_ai'}:
+        return ""
+
+    core = []
+    core.extend(entities[:4])
+    core.extend(assets[:3])
+    core.extend(geos[:2])
+    core.extend(topics[:4])
+    core.extend(actions[:3])
+
+    # 날짜/큰 금액은 보조 식별자로 2개까지만
+    core.extend(nums[:2])
+
+    core = [x for x in core if x and x not in _GENERIC_DUP_TOKENS_0620]
+    if len(core) < 3:
+        return ""
+
+    raw_key = "|".join(sorted(set(core)))
+    # 사람이 로그에서 보기 좋게 앞부분을 남김
+    clean = re.sub(r'[^a-z0-9가-힣_]+', '_', raw_key.lower()).strip('_')
+    return "eventfp_" + clean[:180]
+
+
+def _event_fingerprint_0620(story: dict) -> str:
+    return _event_fingerprint_0620_from_profile(_event_profile_0620_from_story(story))
+
+
+def _split_key_0620(key: str) -> set:
+    return {x.strip() for x in (key or "").split("|") if x.strip()}
+
+
+def _events_from_key_0620(key: str) -> set:
+    return {t for t in _split_key_0620(key) if t.startswith("evt_") or t.startswith("eventfp_")}
+
+
+def _specific_from_key_0620(key: str) -> set:
+    return {t for t in _split_key_0620(key) if t and t not in _GENERIC_DUP_TOKENS_0620}
+
+
+try:
+    _PREV_build_story_signature_0620 = build_story_signature
+    _PREV_build_canonical_topic_key_0620 = build_canonical_topic_key
+
+    def build_story_signature(story: dict) -> str:
+        base = _PREV_build_story_signature_0620(story)
+        parts = [p.strip() for p in (base or "").split("|") if p.strip()]
+        fp = _event_fingerprint_0620(story)
+        if fp:
+            parts.append(fp)
+        # 프로필의 핵심 토큰도 signature에 포함해 이후 비교 가능하게 저장
+        prof = _event_profile_0620_from_story(story)
+        parts.extend(sorted(_profile_tokens_0620(prof) - _GENERIC_DUP_TOKENS_0620))
+        seen = set()
+        out = []
+        for p in sorted(parts):
+            if p and p not in seen:
+                out.append(p)
+                seen.add(p)
+        return " | ".join(out)
+
+    def build_canonical_topic_key(story: dict) -> str:
+        base = _PREV_build_canonical_topic_key_0620(story)
+        parts = [p.strip() for p in (base or "").split("|") if p.strip()]
+        fp = _event_fingerprint_0620(story)
+        if fp:
+            parts.append(fp)
+        prof = _event_profile_0620_from_story(story)
+        parts.extend(sorted(_profile_tokens_0620(prof) - _GENERIC_DUP_TOKENS_0620))
+        seen = set()
+        out = []
+        for p in sorted(parts):
+            if p and p not in seen:
+                out.append(p)
+                seen.add(p)
+        return " | ".join(out)
+except Exception:
+    pass
+
+
+def _is_same_event_by_tokens_0620(cur_key: str, old_key: str) -> bool:
+    cur_events = _events_from_key_0620(cur_key)
+    old_events = _events_from_key_0620(old_key)
+
+    # exact event fingerprint / known event marker
+    shared_events = cur_events & old_events
+    if shared_events:
+        log(f"[이벤트중복 제외 0620] shared_event={shared_events}")
+        return True
+
+    cur = _specific_from_key_0620(cur_key)
+    old = _specific_from_key_0620(old_key)
+    shared = cur & old
+
+    if not shared:
+        return False
+
+    shared_entities = {t for t in shared if t.startswith(('entity_', 'org_', 'person_', 'bill_'))}
+    shared_assets = {t for t in shared if t.startswith('asset_')}
+    shared_geos = {t for t in shared if t.startswith('geo_')}
+    shared_topics = {t for t in shared if t.startswith('topic_')}
+    shared_actions = {t for t in shared if t.startswith(('action_', 'act_'))}
+    shared_nums = {t for t in shared if t.startswith(('num_', 'date_', 'year_'))}
+
+    # 가장 안정적인 조건들
+    if shared_entities and shared_topics and (shared_actions or shared_assets or shared_geos or shared_nums):
+        log(f"[일반중복 제외 0620] shared={shared}")
+        return True
+
+    if shared_assets and shared_topics and shared_actions and (shared_entities or shared_geos or shared_nums):
+        log(f"[자산이벤트중복 제외 0620] shared={shared}")
+        return True
+
+    if shared_geos and shared_topics and shared_actions and (shared_entities or shared_assets or shared_nums):
+        log(f"[지역이벤트중복 제외 0620] shared={shared}")
+        return True
+
+    # 주체가 매우 구체적이고 topic 2개 이상 겹치면 중복
+    if shared_entities and len(shared_topics) >= 2:
+        log(f"[주체토픽중복 제외 0620] shared={shared}")
+        return True
+
+    return False
+
+
+try:
+    def is_canonical_duplicate(canonical_key: str, seen_keys: set[str]) -> bool:
+        if not canonical_key:
+            return False
+        for old_key in seen_keys:
+            if _is_same_event_by_tokens_0620(canonical_key, old_key):
+                return True
+        return False
+
+    def is_semantically_duplicate(story: dict, seen_signatures: list[str], seen_titles: list[str]) -> bool:
+        title = _norm_0620(story.get('title', ''))
+        signature = build_story_signature(story)
+
+        # 제목 유사도는 전체적으로 적용하되 너무 낮게 잡지 않음
+        for old_title in seen_titles:
+            ratio = SequenceMatcher(None, title, old_title).ratio()
+            if ratio >= 0.90:
+                log(f"[제목유사도 중복 0620] {title} <> {old_title} / {ratio:.2f}")
+                return True
+
+            # 단어 Jaccard: 제목 어순이 달라도 같은 기사면 잡기
+            cur_words = {w for w in title.split() if len(w) >= 3 and w not in _SOURCE_NOISE_0620}
+            old_words = {w for w in (old_title or "").split() if len(w) >= 3 and w not in _SOURCE_NOISE_0620}
+            if cur_words and old_words:
+                inter = cur_words & old_words
+                union = cur_words | old_words
+                jacc = len(inter) / max(1, len(union))
+                if len(inter) >= 4 and jacc >= 0.58:
+                    log(f"[제목단어중복 0620] shared_words={inter} / jacc={jacc:.2f}")
+                    return True
+
+        for old_sig in seen_signatures:
+            if _is_same_event_by_tokens_0620(signature, old_sig):
+                return True
+
+        return False
 except Exception:
     pass
 
