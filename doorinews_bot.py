@@ -15,6 +15,9 @@ from inspect import iscoroutine
 from difflib import SequenceMatcher
 
 from openai import OpenAI
+from news_quality import valid_caption
+from news_publication import prepare_publication
+from news_images import send_reviewed_photo
 
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
@@ -1718,13 +1721,17 @@ def load_state(path: str) -> dict:
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except Exception:
-            return {}
+        except Exception as exc:
+            raise RuntimeError("게시 이력 읽기 실패: 재게시 방지를 위해 발송을 중단합니다") from exc
     return {}
 
 def save_state(path: str, state: dict):
-    with open(path, 'w', encoding='utf-8') as f:
+    temporary = path + '.tmp'
+    with open(temporary, 'w', encoding='utf-8') as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(temporary, path)
 
 def is_duplicate(title: str, posted: dict, url: str = "") -> bool:
     title_key = story_hash(title)
@@ -3664,8 +3671,9 @@ def send_telegram_photo(token: str, channel: str, image_url: str, caption: str) 
     if not image_url:
         log("[이미지없음 게시차단] 사진 URL을 확보하지 못해 기사를 게시하지 않음")
         return False
-    while len(caption.encode('utf-8')) > 1000:
-        caption = caption[:-1]
+    if not valid_caption(caption):
+        log('[캡션 검증 실패] 링크·태그를 자르지 않고 게시를 보류함')
+        return False
     payload = json.dumps({
         'chat_id': channel,
         'photo': image_url,
@@ -7072,20 +7080,15 @@ def main():
         return
 
     for story in new_stories:
-        story['image_url'] = story.get('image_url', '') or fetch_article_meta(story.get('url', ''))[1]
-        msg = build_message(story)
-
-        if not msg or not msg.strip():
-            log(f"[빈메시지 스킵] {story.get('title', '')}")
+        prepared = prepare_publication(story, build_message, openai_client, OPENAI_MODEL)
+        if prepared['status'] != 'ready':
+            log(f"[게시보류] {story.get('title','')} | {prepared['reason']}")
+            for attempt in prepared['attempts']:
+                log(f"  이미지: {attempt['reason']}")
             continue
-
-        log(f"[전송준비] title={story.get('title','')[:80]}")
-        log(f"[전송준비] image_url={story.get('image_url','')}")
-        ok = send_telegram_photo(
-            TELEGRAM_BOT_TOKEN,
-            TELEGRAM_CHANNEL_ID,
-            story.get('image_url', ''),
-            msg
+        ok = send_reviewed_photo(
+            TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID,
+            prepared['image'], prepared['caption'], log,
         )
 
         if ok:
