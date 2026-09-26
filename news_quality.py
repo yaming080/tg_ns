@@ -17,6 +17,8 @@ def channel_scope_reason(story):
     policy = r'licen[cs]|bitlicen[cs]e|regulat|legislat|bill|charter|GENIUS|CLARITY|법안|라이선스|인가|규제|은행업|준비금|reserve'
     action = r'pass(?:es|ed)?|approv|grant|obtain|win[sn]?|propos|introduc|file|adopt|review|consider|검토|제안|발의|통과|승인|획득|도입|제출|공개'
     has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(r'stablecoin|스테이블코인') and has(r'pilot|실증') and has(r'launch|start|join|participat|출시|시작|착수|참여'):
+        return '스테이블코인 실증 사업'
     if has(policy) and has(action) and (has(crypto) or has(r'GENIUS|CLARITY|지니어스|클래리티|BitLicense')):
         return '암호화폐 정책·법안·인가 진행'
     if has(crypto) and has(r'card|payment|settlement|custody|wallet|카드|결제|정산|수탁|지갑') and has(r'launch|integrat|partner|adopt|support|roll.?out|출시|통합|제휴|도입|지원'):
