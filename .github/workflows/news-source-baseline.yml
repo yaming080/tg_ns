@@ -1,0 +1,42 @@
+name: Initialize new sources (no Telegram sending)
+on:
+  workflow_dispatch:
+concurrency:
+  group: telegram-news-bot
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  initialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - name: Save source baselines without sending
+        run: |
+          python -u - <<'PY'
+          from doorinews_bot import load_state, save_state, STATE_FILE, http_get
+          from news_sources import collect_new_sources, NEW_FEEDS
+          state = load_state(STATE_FILE)
+          collect_new_sources(state, http_get, lambda s: save_state(STATE_FILE, s))
+          missing = [name for name, url in NEW_FEEDS if url not in state.get('source_baselines', {})]
+          print('NO_TELEGRAM_SEND: baseline initialization only')
+          if missing:
+              raise SystemExit('NOT_INITIALIZED: ' + ', '.join(missing))
+          print('ALL_SOURCE_BASELINES_SAVED')
+          PY
+      - name: Persist source state
+        if: always()
+        run: |
+          test -f news_state.json
+          python -c "import json; json.load(open('news_state.json', encoding='utf-8'))"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add news_state.json
+          git diff --cached --quiet || git commit -m 'Initialize new publisher baselines without posting'
+          git pull --rebase origin main
+          git push origin HEAD:main

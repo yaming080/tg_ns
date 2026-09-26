@@ -1218,7 +1218,10 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
     if market_move and not _matches(title, CONCRETE_EVENT_PATTERNS):
         return True, "단순 가격변동"
 
-    if not target_assets(raw) and not channel_scope_reason(story):
+    # Quote currencies and background paragraphs do not establish the subject.
+    subject_title = re.sub(r"\b[A-Za-z0-9]+\s*[/_-]\s*(?:USDT|USDC|BTC|ETH)\b", lambda m: m.group(0).split('/')[0].split('_')[0].split('-')[0], title, flags=re.I)
+    subject_title = re.sub(r"(?:\b(?:USDT|USDC|BTC|ETH)\b|테더|비트코인|이더리움)\s*(?:마켓|거래쌍|거래\s*쌍|페어)", '', subject_title, flags=re.I)
+    if not target_assets(subject_title) and not channel_scope_reason(story):
         return True, "지정 코인 핵심맥락 없음"
 
     return False, ""
