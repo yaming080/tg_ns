@@ -17,6 +17,7 @@ class ChannelPreferences(unittest.TestCase):
             'Bitget launches crypto payment card across APAC',
             'Fed proposes GENIUS Act rules for stablecoin issuers and banks',
             'Japan launches EJPY stablecoin payments pilot with Toshiba',
+            "스테이블코인 속도내는 일본 - 도시바 등 26곳, 'EJPY' 실증 참여.",
             'Taiwan government considers Bitcoin reserve proposal',
             '케이뱅크, 업비트 연계 은행 계좌 서비스 출시',
             'Jack Dorsey says AI should replace corporate hierarchy at Block',
