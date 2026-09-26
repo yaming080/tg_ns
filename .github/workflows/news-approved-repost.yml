@@ -1,0 +1,52 @@
+name: Repost approved DCENT preview once
+on:
+  workflow_dispatch:
+concurrency:
+  group: telegram-news-bot
+  cancel-in-progress: false
+permissions:
+  contents: read
+  actions: read
+jobs:
+  repost:
+    if: github.run_attempt == 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: news-preview
+          run-id: 36238244041
+          github-token: ${{ github.token }}
+          path: approved-preview
+      - name: Send exactly one approved test article
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: |
+          python -u - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          from news_images import ReviewedImage, inspect_image, send_reviewed_photo
+          root = Path('approved-preview')
+          raw = (root / 'results.json').read_bytes()
+          data = (root / 'image-4.jpg').read_bytes()
+          assert hashlib.sha256(raw).hexdigest() == '94ebc5404e2cbdd520d26e6cb67c0533c5b11cc41968c7d921a262f3b8fe5e36'
+          assert hashlib.sha256(data).hexdigest() == '1d3c093c9c1e2f8928616a94772bb20a04962f1e7b9e955a46f07eeb1cd16f33'
+          article = json.loads(raw)[3]
+          assert article['status'] == 'ready' and article['image_file'] == 'image-4.jpg'
+          assert article['url'] == 'https://u.today/never-send-xrp-to-old-app-wallet-crucial-alert-as-wallet-drain-continues'
+          caption = '[테스트 · 기존 기사 재게시]\n\n' + article['caption']
+          mime, width, height = inspect_image(data)
+          picture = ReviewedImage(article['image_source'], data, mime, width, height, 'Previously reviewed and approved preview')
+          ok = send_reviewed_photo(os.environ['TELEGRAM_BOT_TOKEN'], os.environ['TELEGRAM_CHANNEL_ID'], picture, caption)
+          if not ok:
+              raise SystemExit('SEND_UNCONFIRMED: do not retry automatically')
+          print('ONE_TEST_POST_CONFIRMED: DCENT wallet article with reviewed image')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
+              f.write('## 테스트 기사 1건 게시 완료\n\nTelegram API가 이미지와 본문 전송 성공을 확인했습니다.\n\n[테스트 · 기존 기사 재게시] 표시를 붙인 디센트 지갑 유출 기사입니다.\n')
+          PY
