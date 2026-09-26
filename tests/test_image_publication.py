@@ -38,6 +38,7 @@ class ImagePublicationTests(unittest.TestCase):
                 prepared={'status':status,'reason':'검사 결과','attempts':[],'caption':'본문','image':object()}
                 ns={'log':Mock(),'load_state':lambda p:{'posted':{}},'STATE_FILE':'unused',
                     'prune_posted_older_than':lambda p,days:p,'save_state':Mock(),
+                    'collect_new_sources':lambda *a:[], 'http_get':Mock(),
                     'FEEDS':[('feed','url',False)],'_feed_unpack_final':lambda f:f,
                     'fetch_rss':lambda *a,**k:[dict(story)],'MAX_ITEMS_PER_FEED':1,
                     'matches_keywords':lambda *a:True,'PORTFOLIO_COINS':[],'ECON_KEYWORDS':[],'KOREAN_KEYWORDS':[],
