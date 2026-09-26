@@ -5,6 +5,41 @@ from html.parser import HTMLParser
 import re
 
 
+def channel_scope_reason(story):
+    """Allow relevant policy/use cases without requiring a portfolio ticker.
+
+    Only the headline establishes the subject; incidental source paragraphs
+    must not turn an unrelated story into channel news. This is not approval
+    to publish: exclusions and source review still run.
+    """
+    title = str(story.get('title', '') or '')
+    crypto = r'crypto|digital.asset|stablecoin|bitcoin|blockchain|암호화폐|가상자산|디지털.?자산|스테이블코인|비트코인|블록체인'
+    policy = r'licen[cs]|bitlicen[cs]e|regulat|legislat|bill|charter|GENIUS|CLARITY|법안|라이선스|인가|규제|은행업|준비금|reserve'
+    action = r'pass(?:es|ed)?|approv|grant|obtain|win[sn]?|propos|introduc|file|adopt|review|consider|검토|제안|발의|통과|승인|획득|도입|제출|공개'
+    has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(policy) and has(action) and (has(crypto) or has(r'GENIUS|CLARITY|지니어스|클래리티|BitLicense')):
+        return '암호화폐 정책·법안·인가 진행'
+    if has(crypto) and has(r'card|payment|settlement|custody|wallet|카드|결제|정산|수탁|지갑') and has(r'launch|integrat|partner|adopt|support|roll.?out|출시|통합|제휴|도입|지원'):
+        return '암호화폐 실사용·결제 서비스'
+    if has(r'K.?Bank|케이뱅크|Upbit|업비트') and has(r'bank|은행|계좌|입출금|결제|제휴|licen[cs]|라이선스|인가') and has(action + r'|launch|partner|출시|제휴'):
+        return '거래소 연계 은행 서비스'
+    if has(r'Jack Dorsey|잭\s*도시|잭\s*도르시') and has(r'\bBlock\b|블록') and has(r'\bAI\b|artificial intelligence|인공지능') and has(r'organization|hierarchy|management|조직|경영|구조'):
+        return '블록의 AI 조직 개편'
+    return ''
+
+
+def quantity_followup_reason(story):
+    """Block ongoing loss tallies even without prior channel-history access."""
+    title = str(story.get('title', '') or '')
+    lead = title + '\n' + str(story.get('desc', '') or '')
+    security = r'hack|exploit|stolen|theft|drain|breach|해킹|탈취|유출|도난|피해'
+    ongoing = r'continu(?:e|es|ed|ing)|ongoing|additional|another|more.{0,20}(?:stolen|drained)|누적|추가|계속|지속'
+    action = r'arrest|indict|charg(?:e|ed|es)|recover|seiz|patch|fix(?:es|ed)?|resume|체포|기소|회수|압수|패치|수정|재개'
+    if re.search(security, lead, re.I) and re.search(ongoing, lead, re.I) and not re.search(action, title, re.I):
+        return '기존 유출·탈취 사건의 지속 경고·추가 피해 집계'
+    return ''
+
+
 def freshness_reason(story, now=None, max_age_hours=72):
     """Check publication time, never mistake an old date in background for freshness."""
     value = story.get('pub', '')

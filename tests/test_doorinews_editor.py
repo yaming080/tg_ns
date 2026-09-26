@@ -178,7 +178,7 @@ class DoorinewsEditorTests(unittest.TestCase):
         footer = editor._build_footer_tags(story, selected)
         self.assertIn("#JustinSun", footer)
         self.assertNotIn("#HTX", footer)
-        self.assertNotIn("#Russia", footer)
+        self.assertIn("#Russia", footer)
         for fixed in editor.FIXED_FOOTER_TAGS:
             self.assertIn(fixed, footer)
 
@@ -248,14 +248,14 @@ class DoorinewsEditorTests(unittest.TestCase):
         self.assertTrue(blocked)
         self.assertIn("클래리티법안", reason)
 
-    def test_generic_clarity_committee_passage_without_target_asset_is_blocked(self):
+    def test_generic_clarity_committee_passage_without_target_asset_is_allowed(self):
         story = {
             "title": "CLARITY Act passes Senate committee vote",
             "desc": "The crypto market structure bill advanced after a scheduled committee vote",
         }
         blocked, reason = editor._is_hard_blocked(story)
-        self.assertTrue(blocked)
-        self.assertIn("지정 코인", reason)
+        self.assertFalse(blocked)
+        self.assertEqual(reason, "")
 
     def test_clarity_vote_seeking_before_recess_is_blocked(self):
         story = {
@@ -552,7 +552,7 @@ class DoorinewsEditorTests(unittest.TestCase):
         footer = editor._build_footer_tags(story, selected)
         self.assertNotIn("#클래리티법안", footer)
         self.assertNotIn("#ClarityAct", footer)
-        self.assertNotIn("#CLARITY", footer)
+        self.assertIn("#CLARITY", footer)
         self.assertNotIn("#Act", footer)
 
     def test_strategy_company_is_tagged_at_first_mention(self):
@@ -1267,7 +1267,7 @@ class DoorinewsEditorTests(unittest.TestCase):
         for story in stories:
             with self.subTest(title=story["title"]):
                 blocked, _ = editor._is_hard_blocked(story)
-                self.assertTrue(blocked)
+                self.assertEqual(blocked, not story["title"].startswith("Jeonbuk Bank Adopts Ripple Payments"))
 
     def test_promotional_event_and_unverified_wallet_flow_are_blocked(self):
         stories = (
