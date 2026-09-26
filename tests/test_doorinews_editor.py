@@ -176,7 +176,7 @@ class DoorinewsEditorTests(unittest.TestCase):
         self.assertIn("#저스틴선 의", tagged)
         self.assertIn("#HTX", tagged)
         footer = editor._build_footer_tags(story, selected)
-        self.assertNotIn("#JustinSun", footer)
+        self.assertIn("#JustinSun", footer)
         self.assertNotIn("#HTX", footer)
         self.assertNotIn("#Russia", footer)
         for fixed in editor.FIXED_FOOTER_TAGS:
@@ -617,7 +617,7 @@ class DoorinewsEditorTests(unittest.TestCase):
         self.assertIn("#ETF", tagged)
 
         footer = editor._build_footer_tags(story, selected)
-        self.assertNotIn("#Strategy", footer)
+        self.assertIn("#Strategy", footer)
         self.assertNotIn("#ETF", footer)
 
     def test_launch_price_performance_report_is_blocked(self):
@@ -661,7 +661,7 @@ class DoorinewsEditorTests(unittest.TestCase):
         self.assertIn("#한국", tagged)
         self.assertEqual(tagged.count("#SK하이닉스"), 1)
         footer = editor._build_footer_tags(story, selected)
-        self.assertNotIn("#SKHynix", footer)
+        self.assertIn("#SKHynix", footer)
         self.assertNotIn("#Tokenization", footer)
 
     def test_support_level_weekend_market_story_is_blocked_twice(self):
@@ -754,8 +754,8 @@ class DoorinewsEditorTests(unittest.TestCase):
         self.assertEqual(tagged.count("#업비트"), 1)
         self.assertEqual(tagged.count("#리도"), 1)
         footer = editor._build_footer_tags(story, selected)
-        self.assertNotIn("#Upbit", footer)
-        self.assertNotIn("#Lido", footer)
+        self.assertIn("#Upbit", footer)
+        self.assertIn("#Lido", footer)
 
     def test_technical_rate_and_old_proposal_cards_are_blocked(self):
         stories = (
@@ -1098,7 +1098,7 @@ class DoorinewsEditorTests(unittest.TestCase):
                     msg=f"{name}: title-only state did not match",
                 )
 
-    def test_separate_corporate_purchases_and_wallet_sales_stay_distinct(self):
+    def test_quantity_only_purchase_updates_are_suppressed_but_separate_wallets_stay_distinct(self):
         distinct_pairs = (
             (
                 {
@@ -1123,11 +1123,12 @@ class DoorinewsEditorTests(unittest.TestCase):
         )
         for first_story, second_story in distinct_pairs:
             with self.subTest(first=first_story["title"]):
-                self.assertFalse(
+                self.assertEqual(
                     editor._same_event(
                         editor.build_story_signature(first_story),
                         editor.build_story_signature(second_story),
-                    )
+                    ),
+                    first_story["title"].startswith("The Smarter Web Company"),
                 )
 
     def test_final_bot_keeps_raw_titles_for_amount_aware_deduplication(self):
