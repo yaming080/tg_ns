@@ -16,6 +16,7 @@ from difflib import SequenceMatcher
 
 from openai import OpenAI
 from news_quality import valid_caption
+from news_sources import collect_new_sources
 from news_publication import prepare_publication
 from news_images import send_reviewed_photo
 
@@ -6968,6 +6969,9 @@ def main():
 
         log(f"{name}: {len(stories)}개 수집")
         collected.extend(stories)
+
+    collected.extend(collect_new_sources(
+        state, http_get, lambda current: save_state(STATE_FILE, current), log))
 
     filtered = [s for s in collected if matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)]
     log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
