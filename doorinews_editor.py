@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from difflib import SequenceMatcher
 from typing import Callable, Iterable
 from news_quality import freshness_reason, source_promotion_reason, approval_stage_tokens, event_conflicts, quantity_only_update
-from news_quality import channel_scope_reason, quantity_followup_reason
+from news_quality import channel_scope_reason, quantity_followup_reason, manual_post_reason
 
 
 FIXED_FOOTER_TAGS = (
@@ -203,6 +203,11 @@ ENTITY_SPECS = (
     EntitySpec("person", "모니카롱", ("Monica Long", "모니카 롱", "모니카롱"), "#MonicaLong", 15),
     EntitySpec("person", "니샤드싱", ("Nishad Singh", "니샤드 싱", "니샤드싱"), "#NishadSingh", 15),
     EntitySpec("topic", "규제", ("규제", "regulation"), "#Regulation", 45),
+    EntitySpec("topic", "증권", ("증권", "securities", "security token"), "", 45),
+    EntitySpec("topic", "토큰", ("토큰", "token", "tokens"), "", 45),
+    EntitySpec("topic", "스테이킹", ("스테이킹", "staking"), "#Staking", 45),
+    EntitySpec("topic", "유동성", ("유동성", "liquidity"), "", 45),
+    EntitySpec("topic", "원화", ("원화", "Korean won", "KRW"), "", 45),
     EntitySpec("topic", "수탁업체", ("수탁업체", "custodian"), "#Custodian", 45),
     EntitySpec("topic", "정부", ("정부", "government"), "#Government", 45),
     EntitySpec("org", "금융관리국", ("금융관리국",), "#HKMA", 20),
@@ -1081,7 +1086,7 @@ def story_hash(title: str) -> str:
 
 
 def _is_hard_blocked(story: dict) -> tuple[bool, str]:
-    reason = freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story)
+    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story)
     if reason:
         return True, reason
     raw = _story_text(story)
@@ -1166,7 +1171,7 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
         return True, "포트폴리오 외 채굴 전기요금"
 
     is_clarity = _matches(
-        raw,
+        title,
         (
             r"\bclarity act\b",
             r"\bmarket structure bill\b",
@@ -2050,6 +2055,7 @@ def _summary_prompt(title: str, source_text: str) -> str:
 - 매체명, 출처성 문구, '에 따르면', '이번 소식은' 삭제
 - 기사에 없는 사실은 추가 금지
 - 포트폴리오 코인의 직접 언급이 없어도 암호화폐 정책·법안·인가·결제카드·관련 은행 서비스의 확인된 진행은 허용
+- 원화 등 스테이블코인 유동성 규제 검토, 발행사의 실제 제휴·투자 계약, SEC 등 규제기관의 새 지침·FAQ는 허용. 업계의 건의를 정부의 결정으로 바꾸지 말 것
 - 기존 해킹·유출의 추가 피해 수량, 누적 피해 집계, 같은 경고 반복은 SKIP. 회수·체포·패치 등 별도 조치는 구분
 - 본문에는 해시태그를 쓰지 말 것
 - 국가·기업·기관·인물은 가능한 한 통용되는 한국어 이름으로 표기
@@ -2323,7 +2329,12 @@ def _replace_surface_with_tag(text: str, spec: EntitySpec) -> tuple[str, bool]:
     if not first:
         return text, False
     _, _, match, _ = first
-    return text[: match.start()] + tag + text[match.end() :], True
+    tail = text[match.end() :]
+    # Separate at insertion time, including new names from the translation map.
+    # Do not infer tag boundaries by stripping a suffix from an unknown name.
+    if tail and re.match(r"[A-Za-z0-9가-힣_]", tail):
+        tail = " " + tail
+    return text[: match.start()] + tag + tail, True
 
 
 def _is_clarity_story(story: dict) -> bool:

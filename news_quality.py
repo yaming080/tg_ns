@@ -3,6 +3,33 @@ from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 import re
+from urllib.parse import urlsplit
+
+
+# User-confirmed manual posts, not a live Telegram history integration.
+# Keep these out of the queue when an editorial rule becomes less restrictive.
+MANUALLY_POSTED_ARTICLES = frozenset({
+    ('bloomingbit.io', '/feed/news/121107'),
+    ('bloomingbit.io', '/feed/news/121086'),
+    ('bloomingbit.io', '/feed/news/121109'),
+    ('timestabloid.com', '/expert-presents-blackrock-xrp-endgame-heres-what-happened'),
+    ('timestabloid.com', '/the-genius-act-will-amplify-xrps-use-case-expert-presents-proof'),
+    ('etoday.co.kr', '/news/view/2629433'),
+    ('etoday.co.kr', '/news/view/2629507'),
+    ('crypto.news', '/circle-gains-binance-backing-in-usdc-tether-race'),
+    ('crypto.news', '/south-korea-weighs-liquidity-rules-for-won-stablecoins'),
+})
+
+
+def manual_post_reason(story):
+    try:
+        parts = urlsplit(str(story.get('url', '') or ''))
+        host = (parts.hostname or '').lower().removeprefix('www.')
+    except ValueError:
+        return ''
+    if (host, parts.path.rstrip('/')) in MANUALLY_POSTED_ARTICLES:
+        return '사용자가 확인한 팀원 기존 게시 기사'
+    return ''
 
 
 def channel_scope_reason(story):
@@ -13,14 +40,20 @@ def channel_scope_reason(story):
     to publish: exclusions and source review still run.
     """
     title = str(story.get('title', '') or '')
-    crypto = r'crypto|digital.asset|stablecoin|bitcoin|blockchain|암호화폐|가상자산|디지털.?자산|스테이블코인|비트코인|블록체인'
-    policy = r'licen[cs]|bitlicen[cs]e|regulat|legislat|bill|charter|GENIUS|CLARITY|법안|라이선스|인가|규제|은행업|준비금|reserve'
-    action = r'pass(?:es|ed)?|approv|grant|obtain|win[sn]?|propos|introduc|file|adopt|review|consider|검토|제안|발의|통과|승인|획득|도입|제출|공개'
+    # A quote currency in an unrelated token listing is not its subject.
+    title = re.sub(r'\b[A-Za-z0-9]+\s*[/_-]\s*(?:USDT|USDC|RLUSD)\b', '', title, flags=re.I)
+    title = re.sub(r'(?:USDT|USDC|RLUSD|테더)\s*(?:마켓|거래쌍|페어)', '', title, flags=re.I)
+    stablecoin = r'\bstablecoins?\b|\b(?:USDC|USDT|RLUSD|PYUSD|EURC|JPYC)\b|스테이블코인'
+    crypto = r'crypto|digital.asset|bitcoin|blockchain|암호화폐|가상자산|디지털.?자산|비트코인|블록체인|' + stablecoin
+    policy = r'licen[cs]|bitlicen[cs]e|regulat|legislat|\brules?\b|guidance|\bFAQs?\b|bill|charter|GENIUS|CLARITY|법안|라이선스|인가|규제|은행업|준비금|reserve|지침|유동성\s*요건'
+    action = r'pass(?:es|ed)?|approv|grant|obtain|win[sn]?|propos|introduc|file|adopt|review|consider|\bweighs?\b|\bissues?\b|updat|clarif|검토|제안|발의|통과|승인|획득|도입|제출|공개|발표|개정|명확화'
     has = lambda pattern: bool(re.search(pattern, title, re.I))
     if has(r'stablecoin|스테이블코인') and has(r'pilot|실증') and has(r'launch|start|join|participat|출시|시작|착수|참여'):
         return '스테이블코인 실증 사업'
     if has(policy) and has(action) and (has(crypto) or has(r'GENIUS|CLARITY|지니어스|클래리티|BitLicense')):
         return '암호화폐 정책·법안·인가 진행'
+    if has(stablecoin) and has(r'\bCircle\b|\bTether\b|\bPaxos\b|서클|써클|테더|팍소스|발행사|issuer') and has(r'\b(?:partners?|partnership|deal|agreement|investment)\b|\bgains?\b.{0,40}\bbacking\b|제휴|협약|계약|투자\s*유치'):
+        return '스테이블코인 발행사 제휴·투자 계약'
     if has(crypto) and has(r'card|payment|settlement|custody|wallet|카드|결제|정산|수탁|지갑') and has(r'launch|integrat|partner|adopt|support|roll.?out|출시|통합|제휴|도입|지원'):
         return '암호화폐 실사용·결제 서비스'
     if has(r'K.?Bank|케이뱅크|Upbit|업비트') and has(r'bank|은행|계좌|입출금|결제|제휴|licen[cs]|라이선스|인가') and has(action + r'|launch|partner|출시|제휴'):
