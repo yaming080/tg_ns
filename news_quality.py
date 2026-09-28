@@ -12,6 +12,7 @@ MANUALLY_POSTED_ARTICLES = frozenset({
     ('bloomingbit.io', '/feed/news/121107'),
     ('bloomingbit.io', '/feed/news/121086'),
     ('bloomingbit.io', '/feed/news/121109'),
+    ('bloomingbit.io', '/feed/news/121114'),
     ('timestabloid.com', '/expert-presents-blackrock-xrp-endgame-heres-what-happened'),
     ('timestabloid.com', '/the-genius-act-will-amplify-xrps-use-case-expert-presents-proof'),
     ('etoday.co.kr', '/news/view/2629433'),
@@ -24,7 +25,59 @@ MANUALLY_POSTED_ARTICLES = frozenset({
 # Keep the rejection independent of the rolling posted-history retention.
 EDITOR_REJECTED_ARTICLES = {
     ('tokenpost.kr', '/news/blockchain/414798'): '사용자 삭제: BIP138 기술 설명 불명확',
+    ('bloomingbit.io', '/feed/news/121125'): '사용자 제외 확인: 아서 헤이즈 전망·의견 기사',
 }
+
+# Only newly published geopolitical news enters review after this policy change.
+# Keep this fixed across restarts; never reset existing source/posting state.
+GEOPOLITICS_ENABLED_AT = datetime(2026, 9, 28, 8, 22, 31, tzinfo=timezone.utc)
+GEOPOLITICS_SCOPE = '주요 국제정세·외교·통상 진행'
+
+
+def geopolitics_scope_reason(story):
+    """Headline-only candidate selection, followed by the normal source review."""
+    title = str(story.get('title', '') or '')
+    has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(r'전망|예측|가능성|관측|낙관론|비관론|목표가|통신비|생활비|지도\s*게시|'
+           r'\b(?:forecast|predict\w*|rumou?rs?|could|might|opinion|price target)\b'):
+        return ''
+    actor = (r'미국|중국|이란|이스라엘|러시아|우크라이나|북한|한국|일본|유럽연합|'
+             r'트럼프|시진핑|백악관|외교부|국무부|안보리|유엔|나토|'
+             r'\b(?:US|U\.S\.|China|Iran|Israel|Russia|Ukraine|Korea|Japan|EU|'
+             r'Trump|Xi Jinping|White House|State Department|UN|NATO)\b')
+    subject = (r'호르무즈|수에즈|홍해|해협|휴전|종전|평화\s*협상|핵무기|핵\s*협상|'
+               r'관세|무역\s*(?:협상|합의|협정)|경제\s*제재|제재\s*(?:부과|해제|완화|강화)|'
+               r'수출\s*(?:통제|규제)|정상\s*회담|군사\s*공격|미사일\s*공격|침공|'
+               r'\b(?:Hormuz|Suez|Red Sea|Taiwan Strait|ceasefire|peace talks|'
+               r'nuclear|tariffs?|trade talks|trade deal|sanctions?|export controls?|'
+               r'summit|military strike|missile attack|invasion)\b')
+    action = (r'합의|체결|서명|발표|공개|승인|발효|부과|철회|해제|중단|재개|'
+              r'거부|수락|제안|조건\s*유지|공식\s*답변|개최|회담|공격\s*(?:개시|감행)|'
+              r'\b(?:agree\w*|sign\w*|announc\w*|approv\w*|impos\w*|reject\w*|'
+              r'accept\w*|propos\w*|resum\w*|reopen\w*|halt\w*|lift\w*|'
+              r'hold\w*|maintain\w*|launch\w*|takes? effect)\b')
+    if has(actor) and has(subject) and has(action):
+        return GEOPOLITICS_SCOPE
+    return ''
+
+
+def geopolitics_intake_reason(story):
+    """Avoid releasing the old queue when the editorial scope expands."""
+    if channel_scope_reason(story) != GEOPOLITICS_SCOPE:
+        return ''
+    value = str(story.get('pub', '') or '')
+    try:
+        try:
+            published = parsedate_to_datetime(value)
+        except (ValueError, TypeError):
+            published = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if published.tzinfo is None:
+            return '국제정세 기사 발행 시각의 시간대 불명확'
+        if published <= GEOPOLITICS_ENABLED_AT:
+            return '국제정세 범위 확대 전 기사: 과거 대기열 발송 방지'
+    except (ValueError, TypeError, OverflowError):
+        return '국제정세 기사 발행 시각 확인 불가'
+    return ''
 
 
 def manual_post_reason(story):
@@ -69,7 +122,7 @@ def channel_scope_reason(story):
         return '거래소 연계 은행 서비스'
     if has(r'Jack Dorsey|잭\s*도시|잭\s*도르시') and has(r'\bBlock\b|블록') and has(r'\bAI\b|artificial intelligence|인공지능') and has(r'organization|hierarchy|management|조직|경영|구조'):
         return '블록의 AI 조직 개편'
-    return ''
+    return geopolitics_scope_reason(story)
 
 
 def quantity_followup_reason(story):
