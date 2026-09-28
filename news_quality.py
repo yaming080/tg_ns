@@ -20,6 +20,12 @@ MANUALLY_POSTED_ARTICLES = frozenset({
     ('crypto.news', '/south-korea-weighs-liquidity-rules-for-won-stablecoins'),
 })
 
+# User deleted this post because the technical explanation was unclear.
+# Keep the rejection independent of the rolling posted-history retention.
+EDITOR_REJECTED_ARTICLES = {
+    ('tokenpost.kr', '/news/blockchain/414798'): '사용자 삭제: BIP138 기술 설명 불명확',
+}
+
 
 def manual_post_reason(story):
     try:
@@ -27,6 +33,9 @@ def manual_post_reason(story):
         host = (parts.hostname or '').lower().removeprefix('www.')
     except ValueError:
         return ''
+    rejected = EDITOR_REJECTED_ARTICLES.get((host, parts.path.rstrip('/')))
+    if rejected:
+        return rejected
     if (host, parts.path.rstrip('/')) in MANUALLY_POSTED_ARTICLES:
         return '사용자가 확인한 팀원 기존 게시 기사'
     return ''
