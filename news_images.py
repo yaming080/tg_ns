@@ -11,7 +11,7 @@ import urllib.request
 import uuid
 import warnings
 
-from PIL import Image
+from PIL import Image, ImageOps
 from news_quality import valid_caption
 
 MAX_IMAGE_BYTES = 8 * 1024 * 1024
@@ -93,19 +93,41 @@ def inspect_image(data):
         warnings.simplefilter('error',Image.DecompressionBombWarning)
         with Image.open(io.BytesIO(data)) as picture:
             width,height=picture.size
-            if picture.format not in ('JPEG','PNG'):
-                raise ValueError('JPEG/PNG 정지 이미지만 허용')
+            if picture.format not in ('JPEG','PNG','WEBP'):
+                raise ValueError('JPEG/PNG/WebP 정지 이미지만 허용')
             if getattr(picture,'n_frames',1)!=1:
                 raise ValueError('움직이는 이미지 제외')
             if width<320 or height<180 or max(width/height,height/width)>3:
                 raise ValueError('너무 작거나 배너 형태인 이미지')
             if width+height>10000 or width*height>25_000_000:
                 raise ValueError('이미지 해상도 제한')
-            mime='image/jpeg' if picture.format=='JPEG' else 'image/png'
+            mime={'JPEG':'image/jpeg','PNG':'image/png','WEBP':'image/webp'}[picture.format]
             picture.verify()
         with Image.open(io.BytesIO(data)) as picture:
             picture.load()  # Reject truncated data, too.
     return mime,width,height
+
+
+def prepare_image_bytes(data):
+    """Validate before decoding/conversion; review and deliver the same bytes."""
+    mime,width,height=inspect_image(data)
+    if mime!='image/webp':
+        return data,mime,width,height
+    with Image.open(io.BytesIO(data)) as picture:
+        picture=ImageOps.exif_transpose(picture)
+        if 'A' in picture.getbands():
+            # Telegram photos are opaque. Composite before the visual review.
+            rgba=picture.convert('RGBA')
+            converted=Image.new('RGB',rgba.size,'white')
+            converted.paste(rgba,mask=rgba.getchannel('A'))
+        else:
+            converted=picture.convert('RGB')
+        output=io.BytesIO()
+        converted.save(output,format='JPEG',quality=95)
+    data=output.getvalue()
+    # Conversion may change byte size/orientation: reapply delivery limits.
+    mime,width,height=inspect_image(data)
+    return data,mime,width,height
 
 
 def review_image(client,model,story,caption,data,mime):
@@ -136,15 +158,21 @@ def review_image(client,model,story,caption,data,mime):
 def select_image(story,caption,client,model,fetch=fetch_bytes,review=review_image):
     attempts=[]
     for url in image_candidates(story,fetch):
+        stage='download'
         try:
             data=fetch(url)
-            mime,width,height=inspect_image(data)
+            stage='image_validation'
+            data,mime,width,height=prepare_image_bytes(data)
+            stage='visual_review'
             accepted,reason=review(client,model,story,caption,data,mime)
             attempts.append({'url':url,'accepted':accepted,'reason':reason})
             if accepted:
                 return ReviewedImage(url,data,mime,width,height,reason),attempts
         except Exception as exc:
-            attempts.append({'url':url,'accepted':False,'reason':type(exc).__name__})
+            # Own image-validation errors are safe and actionable. Do not log
+            # arbitrary network exception text, which can include URL queries.
+            reason=str(exc) if stage=='image_validation' and isinstance(exc,ValueError) else type(exc).__name__
+            attempts.append({'url':url,'accepted':False,'reason':stage+': '+reason})
     return None,attempts
 
 

@@ -148,7 +148,7 @@ class ImagePublicationTests(unittest.TestCase):
         story={'title':'Ripple receives final approval for XRP payments license in Singapore',
                'desc':'Ripple received final approval for an XRP payments license in Singapore.',
                'url':'https://example.com/news','image_url':'https://example.com/image.png'}
-        verdict=json.dumps({'publish':True,'reason':'원문 일치','checks':dict.fromkeys(('faithful','conditions_preserved','allowed_category','new_substantive_fact','source_sufficient'),True)})
+        verdict=json.dumps({'publish':True,'reason':'원문 일치','checks':dict.fromkeys(('faithful','conditions_preserved','allowed_category','new_substantive_fact','source_sufficient','understandable'),True)})
         client=Mock();client.responses.create.return_value=SimpleNamespace(output_text=accepted_response())
         selector=lambda s,c,cl,m:images.select_image(s,c,cl,m,fetch=lambda *args:png())
         with patch.object(editor,'_RUNTIME',{}),patch.object(editor,'_call_openai',side_effect=['리플이 XRP 결제 서비스 정식 라이선스를 취득했다고 밝힘',verdict]) as text_model,patch.object(images.urllib.request,'urlopen') as sender:

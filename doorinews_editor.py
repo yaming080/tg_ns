@@ -2037,6 +2037,9 @@ def _summary_prompt(title: str, source_text: str) -> str:
 필수 규칙:
 - 기본은 1~2문장, 필요한 사실을 보존하며 본문 전체 공백 포함 200자 이하
 - 첫 문장에 핵심 주체·행동·대상을 바로 제시
+- 일반 독자가 본문만 읽어 무엇이 바뀌었는지, 누구·어떤 서비스에 관한 소식인지 알 수 있게 작성
+- 기술 기사에서는 BIP/EIP 번호·xpub·노드·암호화 용어를 나열하지 말고 원문에 근거한 쉬운 설명을 붙일 것. 번호는 이해에 필요할 때만 유지
+- 초안·연구 제안과 실제 적용을 구분하고, 보안 위험은 원문에 나온 발생 조건·영향 범위를 보존. 적용 대상과 조건을 설명할 수 없거나 단순 기술 용어 나열만 남으면 SKIP
 - 정확한 금액·날짜·법적 결과가 꼭 필요할 때만 둘째 문장 1개 허용
 - 여러 지표를 한꺼번에 묶거나 의미·영향을 해석하지 말 것
 - 법률·소송·기술 제안처럼 사실이 3개 이상일 때만 '핵심 문장 + 불릿 2~3개' 허용
@@ -2088,6 +2091,7 @@ def _compress_prompt(text: str) -> str:
 주체·핵심 수치·승인 단계·부인·미확정 조건을 보존하고, 보존할 수 없으면 SKIP만 출력하라.
 핵심 사건을 첫 문장에 두고 기본 1문장, 최대 2문장으로 완결하라.
 불필요한 배경, 의미 해석, 전망, 출처 표현을 삭제하라.
+기술 용어의 쉬운 설명, 적용 대상과 발생 조건은 압축하면서 지우지 말라. 이를 보존해 이해 가능한 문장을 만들 수 없으면 SKIP.
 문장 끝은 밝힘, 전함, 설명함, 추진함, 승인함 같은 축약형으로 쓴다.
 해시태그와 마침표는 쓰지 말고 요약문만 출력한다.
 
@@ -2496,19 +2500,21 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 4. 원문의 핵심을 이해할 수 있는 완결된 한국어 문장이고 광고·추천인·반복 홍보·단순 지표가 아니다.
 5. 오래된 사건 소개만 있거나 새 소식인지 확인할 수 없으면 게시를 보류한다.
 6. 수량·금액·잔액·피해 집계의 숫자 증감만을 전하는 후속 기사는 게시하지 않는다.
+7. 일반 독자가 본문만 읽고 주체·새 소식·관련 대상을 이해할 수 있어야 한다. 기술 용어·번호만 나열하거나 무엇이 달라졌는지 불분명하면 understandable=false.
+8. 기술·보안 기사는 원문에 있는 적용 대상·발생 조건과 초안/실제 적용 여부를 설명해야 한다. 특정 키나 백업을 확보해야 가능한 위험을 모든 지갑의 위험처럼 쓰면 안 된다. 원문 밖의 영향·안전성·행동 권고를 만들어내서도 안 된다.
 게시 금지: 광고·협찬·가입유도·행사홍보·가격전망·차트분석·청산·공포탐욕지수·ETF 단순 유출입·단순 매수매도/보유량·수량만 변경된 후속 보도·과거 재탕·확인되지 않은 추측.
 금지 요소를 요약에서 지웠더라도 원문 기사의 핵심이 금지 유형이면 제외한다.
 하나라도 애매하거나 근거가 부족하면 publish=false. 게시를 위해 빈칸을 추측하지 말라.
 과거 사건에 대한 새로운 판결·발표·후속 조치는 새 사실이 확인되면 허용한다.
 JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 true:
-{{"publish": true 또는 false, "reason": "짧은 판정 근거", "checks": {{"faithful": true 또는 false, "conditions_preserved": true 또는 false, "allowed_category": true 또는 false, "new_substantive_fact": true 또는 false, "source_sufficient": true 또는 false}}}}
+{{"publish": true 또는 false, "reason": "짧은 판정 근거", "checks": {{"faithful": true 또는 false, "conditions_preserved": true 또는 false, "allowed_category": true 또는 false, "new_substantive_fact": true 또는 false, "source_sufficient": true 또는 false, "understandable": true 또는 false}}}}
 <자료>{json.dumps({'title':title,'source':source[:9000],'summary':summary},ensure_ascii=False)}</자료>'''
     response = _call_openai(prompt)
     try:
         decision = json.loads(response)
     except (ValueError, TypeError):
         return False
-    required = ("faithful", "conditions_preserved", "allowed_category", "new_substantive_fact", "source_sufficient")
+    required = ("faithful", "conditions_preserved", "allowed_category", "new_substantive_fact", "source_sufficient", "understandable")
     if not isinstance(decision, dict) or decision.get("publish") is not True:
         return False
     checks = decision.get("checks")

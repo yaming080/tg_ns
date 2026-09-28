@@ -67,7 +67,7 @@ class FeedbackRegressions(unittest.TestCase):
     def test_summary_preserves_second_sentence_condition(self):
         story={'title':'A launches Bitcoin pilot','desc':'A started a Bitcoin payments pilot. No public launch date has been set.'}
         summary='A사가 비트코인 결제 시험을 시작했다고 밝힘\n\n공식 출시일은 정해지지 않았다고 전함'
-        verdict=json.dumps({'publish':True,'reason':'사실 일치','checks':dict.fromkeys(('faithful','conditions_preserved','allowed_category','new_substantive_fact','source_sufficient'),True)})
+        verdict=json.dumps({'publish':True,'reason':'사실 일치','checks':dict.fromkeys(('faithful','conditions_preserved','allowed_category','new_substantive_fact','source_sufficient','understandable'),True)})
         with patch.object(e,'_call_openai',side_effect=[summary,verdict]):
             self.assertEqual(e._rewrite_summary(story),summary)
 
@@ -86,7 +86,7 @@ class FeedbackRegressions(unittest.TestCase):
 
     def test_disallowed_or_uncertain_check_cannot_be_overridden(self):
         for value in (False,None,'true'):
-            checks=dict.fromkeys(('faithful','conditions_preserved','allowed_category','new_substantive_fact','source_sufficient'),True)
+            checks=dict.fromkeys(('faithful','conditions_preserved','allowed_category','new_substantive_fact','source_sufficient','understandable'),True)
             checks['allowed_category']=value
             with patch.object(e,'_call_openai',return_value=json.dumps({'publish':True,'reason':'검사','checks':checks})):
                 self.assertFalse(e._validate_summary_against_source('a','b','c'))
