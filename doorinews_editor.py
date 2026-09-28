@@ -16,7 +16,7 @@ from difflib import SequenceMatcher
 from typing import Callable, Iterable
 from news_quality import freshness_reason, source_promotion_reason, approval_stage_tokens, event_conflicts, quantity_only_update
 from news_quality import channel_scope_reason, quantity_followup_reason, manual_post_reason
-from news_quality import geopolitics_intake_reason
+from news_quality import geopolitics_intake_reason, institutional_intake_reason, institutional_scope_reason
 
 
 FIXED_FOOTER_TAGS = (
@@ -532,12 +532,17 @@ LOW_VALUE_PROMOTIONAL_PATTERNS = (
     r"rewards?\s+program|proof\s+of\s+reserves?)\b",
     r"\b(?:agent\s+studio|top\s+10\s+athletes?|ability\s+to\s+earn|"
     r"marketplace\s+to\s+(?:rent|sell))\b",
-    r"\b(?:conference|symposium|summit)\b.{0,70}\b(?:speaker|speech|attend|appearance)\b",
-    r"\b(?:speaker|speech|attend|appearance)\b.{0,70}\b(?:conference|symposium|summit)\b",
     r"해커톤|이벤트\s*(?:개최|참가)|리워드\s*프로그램|준비금\s*증명|"
-    r"컨퍼런스.{0,35}(?:연사|참석)|심포지엄.{0,35}(?:연사|참석)",
+    r"경품\s*행사",
     r"\bkol\s+index\b|\bkol\s+roundup\b|\bcommunity\s+buzz\b",
     r"KOL\s*인덱스|커뮤니티\s*화제.{0,80}(?:외|모음)",
+)
+
+# An event appearance is not news, but a business announcement may be made there.
+EVENT_ATTENDANCE_PATTERNS = (
+    r"\b(?:conference|symposium|summit)\b.{0,70}\b(?:speaker|speech|attend|appearance)\b",
+    r"\b(?:speaker|speech|attend|appearance)\b.{0,70}\b(?:conference|symposium|summit)\b",
+    r"컨퍼런스.{0,35}(?:연사|참석)|심포지엄.{0,35}(?:연사|참석)",
 )
 
 UNVERIFIED_WALLET_ATTRIBUTION_PATTERNS = (
@@ -1091,7 +1096,7 @@ def story_hash(title: str) -> str:
 
 
 def _is_hard_blocked(story: dict) -> tuple[bool, str]:
-    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story)
+    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story) or institutional_intake_reason(story)
     if reason:
         return True, reason
     raw = _story_text(story)
@@ -1104,6 +1109,10 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
         return True, "분기·생태계·온체인 단순 지표·수급"
     if _matches(raw, LOW_VALUE_PROMOTIONAL_PATTERNS):
         return True, "홍보·행사·캠페인"
+    if _matches(title, EVENT_ATTENDANCE_PATTERNS) or (
+        _matches(raw, EVENT_ATTENDANCE_PATTERNS) and not institutional_scope_reason(story)
+    ):
+        return True, "행사 참석·연사 홍보"
     if _matches(raw, UNVERIFIED_WALLET_ATTRIBUTION_PATTERNS):
         return True, "확인되지 않은 지갑 귀속·자금이동"
     if _matches(raw, EXCLUDED_MARKET_CONTENT_PATTERNS):
@@ -2064,6 +2073,8 @@ def _summary_prompt(title: str, source_text: str) -> str:
 - 기사에 없는 사실은 추가 금지
 - 포트폴리오 코인의 직접 언급이 없어도 암호화폐 정책·법안·인가·결제카드·관련 은행 서비스의 확인된 진행은 허용
 - 원화 등 스테이블코인 유동성 규제 검토, 발행사의 실제 제휴·투자 계약, SEC 등 규제기관의 새 지침·FAQ는 허용. 업계의 건의를 정부의 결정으로 바꾸지 말 것
+- 금융기관·은행·증권사·자산운용사의 디지털자산 사업 진출·확대·토큰화·온체인 금융상품 개발에 관한 구체적인 당사자 발표도 코인 언급 없이 허용. 행사에서 발표했다는 이유만으로 행사 홍보로 분류하지 말 것
+- 금융기관의 사업 계획·목표는 추진·계획으로, 이미 적용된 부분은 실제 적용으로 구분. '모든 상품 온체인화 목표'를 완료로 바꾸거나 '모든 코인 호재·가격 상승'으로 해석하지 말 것. 전문가의 시장 전망과 행사 참석·연사 홍보만인 기사는 SKIP
 - 주요 국제정세·국가 간 외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표나 확인된 조치는 코인 언급이 없어도 허용. 협상 제안·조건 유지·답변 대기를 합의나 재개 확정으로 바꾸지 말 것
 - 국제정세라는 이유로 생활정보·통신비 비교·단순 원유 물량이나 환율 변동·이름 변경 지도 같은 화제성 게시물·전문가 전망을 올리지 말 것. 아서 헤이즈의 로빈후드·이더리움 보안성 해석과 목표가 같은 의견 기사는 SKIP
 - 기존 해킹·유출의 추가 피해 수량, 누적 피해 집계, 같은 경고 반복은 SKIP. 회수·체포·패치 등 별도 조치는 구분
@@ -2513,6 +2524,7 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 금지 요소를 요약에서 지웠더라도 원문 기사의 핵심이 금지 유형이면 제외한다.
 하나라도 애매하거나 근거가 부족하면 publish=false. 게시를 위해 빈칸을 추측하지 말라.
 과거 사건에 대한 새로운 판결·발표·후속 조치는 새 사실이 확인되면 허용한다.
+금융기관의 디지털자산 사업 진출·확대·자산 토큰화·온체인 금융상품 개발에 관한 새 당사자 발표와 구체적인 실행 계획은 코인 언급 없이 allowed_category=true가 가능하다. 행사 현장 발표와 행사 자체 홍보를 구분하고, 단순 희망·가격 전망은 제외한다. 사업 목표를 완료로, 특정 상품 토큰화를 모든 상품 적용으로 바꾸거나 모든 코인에 대한 호재로 일반화하면 publish=false.
 주요 국제정세·외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표와 확인된 조치는 코인 언급이 없어도 allowed_category=true가 가능하다. 이는 자동 게시 승인이 아니며 나머지 검사를 모두 통과해야 한다.
 제안·조건 유지·공식 답변 대기를 합의·개방 확정으로 바꾸면 안 된다. 새 발표 없는 반복 입장, 생활정보·통신비 비교·단순 물량 집계·화제성 게시물과 전문가 가격 전망·의견 기사는 제외한다.
 JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 true:

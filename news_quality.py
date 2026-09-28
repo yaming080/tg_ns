@@ -13,6 +13,7 @@ MANUALLY_POSTED_ARTICLES = frozenset({
     ('bloomingbit.io', '/feed/news/121086'),
     ('bloomingbit.io', '/feed/news/121109'),
     ('bloomingbit.io', '/feed/news/121114'),
+    ('bloomingbit.io', '/feed/news/121132'),
     ('timestabloid.com', '/expert-presents-blackrock-xrp-endgame-heres-what-happened'),
     ('timestabloid.com', '/the-genius-act-will-amplify-xrps-use-case-expert-presents-proof'),
     ('etoday.co.kr', '/news/view/2629433'),
@@ -32,6 +33,35 @@ EDITOR_REJECTED_ARTICLES = {
 # Keep this fixed across restarts; never reset existing source/posting state.
 GEOPOLITICS_ENABLED_AT = datetime(2026, 9, 28, 8, 22, 31, tzinfo=timezone.utc)
 GEOPOLITICS_SCOPE = '주요 국제정세·외교·통상 진행'
+INSTITUTIONAL_ENABLED_AT = datetime(2026, 9, 28, 9, 7, 42, tzinfo=timezone.utc)
+INSTITUTIONAL_SCOPE = '금융기관 디지털자산 사업·토큰화'
+
+
+def institutional_scope_reason(story):
+    """Select institutional adoption, not token recommendations or event ads."""
+    title = str(story.get('title', '') or '')
+    has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(r'목표가|가격\s*전망|주가|배당|분배금|매수\s*추천|'
+           r'\b(?:price target|price prediction|dividends?|stock price)\b|'
+           r'(?:컨퍼런스|행사|포럼).{0,30}(?:참가|참석|연사|개최)|'
+           r'\b(?:conference|summit|forum)\b.{0,40}\b(?:attend\w*|speaker|ticket\w*)\b'):
+        return ''
+    institution = (r'미래에셋|블랙록|피델리티|프랭클린\s*템플턴|제이피모건|JP모건|'
+                   r'골드만삭스|모건스탠리|찰스슈왑|금융그룹|금융기관|은행|증권|자산운용|'
+                   r'\b(?:Mirae Asset|BlackRock|Fidelity|Franklin Templeton|JPMorgan|'
+                   r'Goldman Sachs|Morgan Stanley|Charles Schwab|banks?|brokerage|'
+                   r'asset manager|asset management|financial institution)\b')
+    subject = (r'디지털\s*자산|가상\s*자산|암호화폐|토큰화|온체인|실물연계자산|'
+               r'\b(?:digital[ -]assets?|crypto|tokeni[sz]\w*|on[ -]?chain|RWA)\b')
+    business = (r'사업|산업|금융\s*상품|상품\s*온체인화|토큰화|플랫폼|인프라|'
+                r'\b(?:business|products?|tokeni[sz]\w*|platform|infrastructure|services?)\b')
+    action = (r'본격화|진출|확대|추진|출시|도입|구축|설립|제휴|협력|계약|체결|'
+              r'(?:전략|계획|사업|로드맵).{0,20}(?:발표|공개)|'
+              r'\b(?:launch\w*|expand\w*|enter\w*|partner\w*|adopt\w*|'
+              r'build\w*|develop\w*|plans?|announc\w*|unveil\w*)\b')
+    if has(institution) and has(subject) and has(business) and has(action):
+        return INSTITUTIONAL_SCOPE
+    return ''
 
 
 def geopolitics_scope_reason(story):
@@ -65,6 +95,16 @@ def geopolitics_intake_reason(story):
     """Avoid releasing the old queue when the editorial scope expands."""
     if channel_scope_reason(story) != GEOPOLITICS_SCOPE:
         return ''
+    return _scope_intake_reason(story, GEOPOLITICS_ENABLED_AT, '국제정세')
+
+
+def institutional_intake_reason(story):
+    if channel_scope_reason(story) != INSTITUTIONAL_SCOPE:
+        return ''
+    return _scope_intake_reason(story, INSTITUTIONAL_ENABLED_AT, '금융기관 디지털자산')
+
+
+def _scope_intake_reason(story, enabled_at, label):
     value = str(story.get('pub', '') or '')
     try:
         try:
@@ -72,11 +112,11 @@ def geopolitics_intake_reason(story):
         except (ValueError, TypeError):
             published = datetime.fromisoformat(value.replace('Z', '+00:00'))
         if published.tzinfo is None:
-            return '국제정세 기사 발행 시각의 시간대 불명확'
-        if published <= GEOPOLITICS_ENABLED_AT:
-            return '국제정세 범위 확대 전 기사: 과거 대기열 발송 방지'
+            return f'{label} 기사 발행 시각의 시간대 불명확'
+        if published <= enabled_at:
+            return f'{label} 범위 확대 전 기사: 과거 대기열 발송 방지'
     except (ValueError, TypeError, OverflowError):
-        return '국제정세 기사 발행 시각 확인 불가'
+        return f'{label} 기사 발행 시각 확인 불가'
     return ''
 
 
@@ -122,7 +162,7 @@ def channel_scope_reason(story):
         return '거래소 연계 은행 서비스'
     if has(r'Jack Dorsey|잭\s*도시|잭\s*도르시') and has(r'\bBlock\b|블록') and has(r'\bAI\b|artificial intelligence|인공지능') and has(r'organization|hierarchy|management|조직|경영|구조'):
         return '블록의 AI 조직 개편'
-    return geopolitics_scope_reason(story)
+    return institutional_scope_reason(story) or geopolitics_scope_reason(story)
 
 
 def quantity_followup_reason(story):
