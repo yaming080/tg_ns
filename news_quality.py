@@ -9,6 +9,8 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('cryptobriefing.com', '/tech-giant-oracle-integrates-with-swift-blockchain-ledger-to-connect-banks-tokenized-deposits'),
+    ('coingape.com', '/breaking-franklin-templeton-partners-with-bybit-to-offer-tokenized-money-market-funds'),
     ('bloomingbit.io', '/feed/news/121107'),
     ('bloomingbit.io', '/feed/news/121086'),
     ('bloomingbit.io', '/feed/news/121109'),
@@ -35,9 +37,10 @@ GEOPOLITICS_ENABLED_AT = datetime(2026, 9, 28, 8, 22, 31, tzinfo=timezone.utc)
 GEOPOLITICS_SCOPE = '주요 국제정세·외교·통상 진행'
 INSTITUTIONAL_ENABLED_AT = datetime(2026, 9, 28, 9, 7, 42, tzinfo=timezone.utc)
 INSTITUTIONAL_SCOPE = '금융기관 디지털자산 사업·토큰화'
+INSTITUTIONAL_SERVICES_ENABLED_AT = datetime(2026, 9, 28, 15, 54, 21, tzinfo=timezone.utc)
 
 
-def institutional_scope_reason(story):
+def institutional_scope_reason(story, *, expanded=True):
     """Select institutional adoption, not token recommendations or event ads."""
     title = str(story.get('title', '') or '')
     has = lambda pattern: bool(re.search(pattern, title, re.I))
@@ -59,6 +62,12 @@ def institutional_scope_reason(story):
               r'(?:전략|계획|사업|로드맵).{0,20}(?:발표|공개)|'
               r'\b(?:launch\w*|expand\w*|enter\w*|partner\w*|adopt\w*|'
               r'build\w*|develop\w*|plans?|announc\w*|unveil\w*)\b')
+    if expanded:
+        institution += r'|씨티그룹|시티그룹|스위프트|국제은행간통신협회|\b(?:Citigroup|Citi|SWIFT)\b'
+        business += r'|예금|결제|담보|펀드|\b(?:deposits?|payments?|collateral|funds?|settlement)\b'
+        action += (r'|통합|연결|지원|제공|담보\s*(?:채택|활용|인정)|'
+                   r'\b(?:integrat\w*|connect\w*|brings?|brought|adds?|added|'
+                   r'accept\w*|offers?|offered|enabl\w*|support\w*|taps?)\b')
     if has(institution) and has(subject) and has(business) and has(action):
         return INSTITUTIONAL_SCOPE
     return ''
@@ -101,7 +110,10 @@ def geopolitics_intake_reason(story):
 def institutional_intake_reason(story):
     if channel_scope_reason(story) != INSTITUTIONAL_SCOPE:
         return ''
-    return _scope_intake_reason(story, INSTITUTIONAL_ENABLED_AT, '금융기관 디지털자산')
+    # New matches have a separate cutoff; do not release old manual coverage.
+    cutoff = (INSTITUTIONAL_ENABLED_AT if institutional_scope_reason(story, expanded=False)
+              else INSTITUTIONAL_SERVICES_ENABLED_AT)
+    return _scope_intake_reason(story, cutoff, '금융기관 디지털자산')
 
 
 def _scope_intake_reason(story, enabled_at, label):

@@ -97,8 +97,11 @@ ENTITY_SPECS = (
     EntitySpec("org", "디지털엑스", ("Digital X", "DigitalX", "디지털엑스"), "#DigitalX", 20),
     EntitySpec("org", "마이크로소프트", ("Microsoft", "마이크로소프트"), "#Microsoft", 20),
     EntitySpec("org", "코인베이스", ("Coinbase", "코인베이스"), "#Coinbase", 20),
+    EntitySpec("org", "씨티그룹", ("Citigroup", "Citi", "씨티그룹", "시티그룹", "씨티"), "#Citigroup", 20),
+    EntitySpec("org", "오라클", ("Oracle Corporation", "Oracle", "오라클"), "#Oracle", 20),
+    EntitySpec("org", "스위프트", ("SWIFT", "스위프트", "국제은행간통신협회"), "#SWIFT", 20),
     EntitySpec("org", "바이낸스", ("Binance", "바이낸스"), "#Binance", 20),
-    EntitySpec("org", "바이비트", ("Bybit", "바이비트"), "#Bybit", 20),
+    EntitySpec("org", "바이비트", ("Bybit", "바이비트", "바이빗"), "#Bybit", 20),
     EntitySpec("org", "블랙록", ("BlackRock", "Blackrock", "블랙록"), "#BlackRock", 20),
     EntitySpec("org", "프랭클린템플턴", ("Franklin Templeton", "FranklinTempleton", "프랭클린 템플턴", "프랭클린템플턴"), "#FranklinTempleton", 20),
     EntitySpec("org", "JP모건", ("JPMorgan", "J.P. Morgan", "JP Morgan", "JP모건"), "#JPMorgan", 20),
@@ -2080,6 +2083,7 @@ def _summary_prompt(title: str, source_text: str) -> str:
 - 기존 해킹·유출의 추가 피해 수량, 누적 피해 집계, 같은 경고 반복은 SKIP. 회수·체포·패치 등 별도 조치는 구분
 - 본문에는 해시태그를 쓰지 말 것
 - 국가·기업·기관·인물은 가능한 한 통용되는 한국어 이름으로 표기
+- 은행의 토큰화 예금 연결, 금융기관·거래소의 토큰화 펀드 도입 및 담보 활용은 구체적인 금융 서비스 도입으로 심사한다. 토큰화된 펀드를 일반 신규 코인 상장으로 오인하지 말 것. 거래·담보의 대상과 기관투자자 한정 등 이용 조건을 보존할 것
 - XRP, XRPL, BTC, ETH, ETF, SEC, CFTC, IMF, IPO, AI 같은 약어는 원형 유지
 - X 플랫폼과 X 계정은 '엑스'가 아니라 X로 표기
 - milestone은 TON과 무관하므로 톤으로 번역하거나 태그하지 말 것
@@ -2323,6 +2327,19 @@ def _candidate_specs(summary: str, story: dict) -> list[EntitySpec]:
     for spec in ENTITY_SPECS + tuple(_dynamic_specs(raw)):
         if spec.label in seen:
             continue
+        # Ambiguous company names require supporting source context.
+        if spec.label == "오라클" and not re.search(
+            r'\bOracle\s+(?:Corporation|Corp)\b|'
+            r'\b(?:tech(?:nology)?|software|database)\s+(?:giant\s+)?Oracle\b|'
+            r'(?:기업|회사)\s*오라클|오라클\s*(?:사|기업)|'
+            r'(?:\bOracle\b|오라클).{0,100}(?:(?-i:\bSWIFT\b)|스위프트)', raw, re.I
+        ):
+            continue
+        if spec.label == "스위프트" and not re.search(
+            r'국제은행간통신협회|(?:\bSWIFT\b|스위프트).{0,100}(?:은행|결제|원장|토큰화|bank|payment|ledger|tokeniz)|'
+            r'(?:은행|결제|원장|토큰화|bank|payment|ledger|tokeniz).{0,100}(?:\bSWIFT\b|스위프트)', raw, re.I
+        ):
+            continue
         in_raw = any(_contains_alias(raw, alias) for alias in spec.aliases)
         in_summary = spec.label in summary or any(_contains_alias(summary, alias) for alias in spec.aliases)
         if not (in_raw or in_summary):
@@ -2525,6 +2542,7 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 하나라도 애매하거나 근거가 부족하면 publish=false. 게시를 위해 빈칸을 추측하지 말라.
 과거 사건에 대한 새로운 판결·발표·후속 조치는 새 사실이 확인되면 허용한다.
 금융기관의 디지털자산 사업 진출·확대·자산 토큰화·온체인 금융상품 개발에 관한 새 당사자 발표와 구체적인 실행 계획은 코인 언급 없이 allowed_category=true가 가능하다. 행사 현장 발표와 행사 자체 홍보를 구분하고, 단순 희망·가격 전망은 제외한다. 사업 목표를 완료로, 특정 상품 토큰화를 모든 상품 적용으로 바꾸거나 모든 코인에 대한 호재로 일반화하면 publish=false.
+은행 간 토큰화 예금 연결과 자산운용사·거래소의 토큰화 펀드 도입·담보 활용도 포함한다. 원문에 있는 이용 대상·거래 및 담보 조건을 지키고 일반 신규 코인 상장·홍보와 구분한다.
 주요 국제정세·외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표와 확인된 조치는 코인 언급이 없어도 allowed_category=true가 가능하다. 이는 자동 게시 승인이 아니며 나머지 검사를 모두 통과해야 한다.
 제안·조건 유지·공식 답변 대기를 합의·개방 확정으로 바꾸면 안 된다. 새 발표 없는 반복 입장, 생활정보·통신비 비교·단순 물량 집계·화제성 게시물과 전문가 가격 전망·의견 기사는 제외한다.
 JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 true:
