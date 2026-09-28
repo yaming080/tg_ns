@@ -16,6 +16,7 @@ from difflib import SequenceMatcher
 from typing import Callable, Iterable
 from news_quality import freshness_reason, source_promotion_reason, approval_stage_tokens, event_conflicts, quantity_only_update
 from news_quality import channel_scope_reason, quantity_followup_reason, manual_post_reason
+from news_quality import geopolitics_intake_reason
 
 
 FIXED_FOOTER_TAGS = (
@@ -55,6 +56,10 @@ ENTITY_SPECS = (
     EntitySpec("geo", "유럽연합", ("European Union", "EU", "유럽연합"), priority=10),
     EntitySpec("geo", "영국", ("United Kingdom", "UK", "Britain", "영국"), priority=10),
     EntitySpec("geo", "중국", ("China", "Chinese", "중국"), priority=10),
+    EntitySpec("geo", "이란", ("Iran", "Iranian", "이란"), "#Iran", 10),
+    EntitySpec("geo", "이스라엘", ("Israel", "Israeli", "이스라엘"), "#Israel", 10),
+    EntitySpec("geo", "우크라이나", ("Ukraine", "Ukrainian", "우크라이나"), "#Ukraine", 10),
+    EntitySpec("geo", "호르무즈", ("Strait of Hormuz", "Hormuz", "호르무즈"), "#Hormuz", 10),
     EntitySpec("geo", "홍콩", ("Hong Kong", "홍콩"), priority=10),
     EntitySpec("geo", "싱가포르", ("Singapore", "싱가포르"), priority=10),
     EntitySpec("geo", "부탄", ("Bhutan", "부탄"), priority=10),
@@ -1086,7 +1091,7 @@ def story_hash(title: str) -> str:
 
 
 def _is_hard_blocked(story: dict) -> tuple[bool, str]:
-    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story)
+    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story)
     if reason:
         return True, reason
     raw = _story_text(story)
@@ -2059,6 +2064,8 @@ def _summary_prompt(title: str, source_text: str) -> str:
 - 기사에 없는 사실은 추가 금지
 - 포트폴리오 코인의 직접 언급이 없어도 암호화폐 정책·법안·인가·결제카드·관련 은행 서비스의 확인된 진행은 허용
 - 원화 등 스테이블코인 유동성 규제 검토, 발행사의 실제 제휴·투자 계약, SEC 등 규제기관의 새 지침·FAQ는 허용. 업계의 건의를 정부의 결정으로 바꾸지 말 것
+- 주요 국제정세·국가 간 외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표나 확인된 조치는 코인 언급이 없어도 허용. 협상 제안·조건 유지·답변 대기를 합의나 재개 확정으로 바꾸지 말 것
+- 국제정세라는 이유로 생활정보·통신비 비교·단순 원유 물량이나 환율 변동·이름 변경 지도 같은 화제성 게시물·전문가 전망을 올리지 말 것. 아서 헤이즈의 로빈후드·이더리움 보안성 해석과 목표가 같은 의견 기사는 SKIP
 - 기존 해킹·유출의 추가 피해 수량, 누적 피해 집계, 같은 경고 반복은 SKIP. 회수·체포·패치 등 별도 조치는 구분
 - 본문에는 해시태그를 쓰지 말 것
 - 국가·기업·기관·인물은 가능한 한 통용되는 한국어 이름으로 표기
@@ -2506,6 +2513,8 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 금지 요소를 요약에서 지웠더라도 원문 기사의 핵심이 금지 유형이면 제외한다.
 하나라도 애매하거나 근거가 부족하면 publish=false. 게시를 위해 빈칸을 추측하지 말라.
 과거 사건에 대한 새로운 판결·발표·후속 조치는 새 사실이 확인되면 허용한다.
+주요 국제정세·외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표와 확인된 조치는 코인 언급이 없어도 allowed_category=true가 가능하다. 이는 자동 게시 승인이 아니며 나머지 검사를 모두 통과해야 한다.
+제안·조건 유지·공식 답변 대기를 합의·개방 확정으로 바꾸면 안 된다. 새 발표 없는 반복 입장, 생활정보·통신비 비교·단순 물량 집계·화제성 게시물과 전문가 가격 전망·의견 기사는 제외한다.
 JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 true:
 {{"publish": true 또는 false, "reason": "짧은 판정 근거", "checks": {{"faithful": true 또는 false, "conditions_preserved": true 또는 false, "allowed_category": true 또는 false, "new_substantive_fact": true 또는 false, "source_sufficient": true 또는 false, "understandable": true 또는 false}}}}
 <자료>{json.dumps({'title':title,'source':source[:9000],'summary':summary},ensure_ascii=False)}</자료>'''
