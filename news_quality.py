@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('bloomingbit.io', '/feed/news/121214'),
     ('crypto.news', '/spain-says-self-custody-crypto-does-not-need-form-721-reporting'),
     ('crypto.news', '/tether-faces-senate-scrutiny-over-iran-linked-usdt'),
     ('crypto.news', '/cardano-foundation-ucla-partner-blockchain-education'),
@@ -43,6 +44,7 @@ GEOPOLITICS_SCOPE = '주요 국제정세·외교·통상 진행'
 INSTITUTIONAL_ENABLED_AT = datetime(2026, 9, 28, 9, 7, 42, tzinfo=timezone.utc)
 INSTITUTIONAL_SCOPE = '금융기관 디지털자산 사업·토큰화'
 INSTITUTIONAL_SERVICES_ENABLED_AT = datetime(2026, 9, 28, 15, 54, 21, tzinfo=timezone.utc)
+INSTITUTIONAL_TRIALS_ENABLED_AT = datetime(2026, 9, 29, 10, 12, 52, tzinfo=timezone.utc)
 CRYPTO_IPO_ENABLED_AT = datetime(2026, 9, 29, 5, 27, 27, tzinfo=timezone.utc)
 CRYPTO_IPO_SCOPE = '암호화폐 기업의 기업공개 진행'
 REGULATORY_PAYMENT_ENABLED_AT = datetime(2026, 9, 29, 6, 43, 25, tzinfo=timezone.utc)
@@ -129,7 +131,7 @@ def crypto_ipo_intake_reason(story):
     return _scope_intake_reason(story, CRYPTO_IPO_ENABLED_AT, '암호화폐 기업공개')
 
 
-def institutional_scope_reason(story, *, expanded=True):
+def institutional_scope_reason(story, *, expanded=True, trials=True):
     """Select institutional adoption, not token recommendations or event ads."""
     title = str(story.get('title', '') or '')
     has = lambda pattern: bool(re.search(pattern, title, re.I))
@@ -159,6 +161,16 @@ def institutional_scope_reason(story, *, expanded=True):
                    r'accept\w*|offers?|offered|enabl\w*|support\w*|taps?)\b')
     if has(institution) and has(subject) and has(business) and has(action):
         return INSTITUTIONAL_SCOPE
+    if expanded and trials:
+        # Generic institutional names and preparatory stages still require a
+        # digital-asset business subject; source review verifies actual activity.
+        if has(r'루머|소문|가능성|전망|필요성|해야|희망|'
+               r'\b(?:rumou?rs?|could|might|should|hopes?|predict\w*|opinion)\b'):
+            return ''
+        institution += r'|금융권|금융사|\b(?:financial sector|financial firms?|financial institutions?)\b'
+        action += r'|실험|실증|시범\s*사업|준비|\b(?:pilots?|trials?|tests?|testing|prepar\w*|experiment\w*)\b'
+        if has(institution) and has(subject) and has(business) and has(action):
+            return INSTITUTIONAL_SCOPE
     return ''
 
 
@@ -200,8 +212,12 @@ def institutional_intake_reason(story):
     if channel_scope_reason(story) != INSTITUTIONAL_SCOPE:
         return ''
     # New matches have a separate cutoff; do not release old manual coverage.
-    cutoff = (INSTITUTIONAL_ENABLED_AT if institutional_scope_reason(story, expanded=False)
-              else INSTITUTIONAL_SERVICES_ENABLED_AT)
+    if institutional_scope_reason(story, expanded=False):
+        cutoff = INSTITUTIONAL_ENABLED_AT
+    elif institutional_scope_reason(story, trials=False):
+        cutoff = INSTITUTIONAL_SERVICES_ENABLED_AT
+    else:
+        cutoff = INSTITUTIONAL_TRIALS_ENABLED_AT
     return _scope_intake_reason(story, cutoff, '금융기관 디지털자산')
 
 
