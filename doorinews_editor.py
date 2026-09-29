@@ -18,6 +18,7 @@ from news_quality import freshness_reason, source_promotion_reason, approval_sta
 from news_quality import channel_scope_reason, quantity_followup_reason, manual_post_reason
 from news_quality import geopolitics_intake_reason, institutional_intake_reason, institutional_scope_reason
 from news_quality import crypto_ipo_intake_reason, crypto_ipo_scope_reason
+from news_quality import regulatory_payment_intake_reason, official_oversight_context
 
 
 FIXED_FOOTER_TAGS = (
@@ -120,6 +121,7 @@ ENTITY_SPECS = (
     EntitySpec("org", "BC카드", ("BC Card", "BC카드"), "#BCCard", 20),
     EntitySpec("org", "전북은행", ("Jeonbuk Bank", "JeonbukBank", "전북은행"), "#JeonbukBank", 20),
     EntitySpec("org", "카르다노", ("Cardano", "카르다노"), "#Cardano", 20),
+    EntitySpec("org", "UCLA", ("UCLA", "University of California, Los Angeles", "캘리포니아대학교 로스앤젤레스"), "#UCLA", 20),
     EntitySpec("org", "테더", ("Tether", "테더"), "#Tether", 20),
     EntitySpec("org", "스트래티지", ("Strategy", "MicroStrategy", "스트래티지"), "#Strategy", 20),
     EntitySpec("org", "오픈AI", ("OpenAI", "오픈AI", "오픈에이아이"), "#OpenAI", 20),
@@ -295,13 +297,12 @@ HARD_BLOCK_PATTERNS = (
     r"\bprice target\b",
     r"\bnext bullish wave\b",
     r"\bwhat(?:'s| is) next\b",
-    r"\bwill .{0,40}(?:break\s+out|recover|rally|rise|fall)\b",
+    r"\bwill\b.{0,40}\b(?:break\s+out|recover|rally|rise|fall)\b",
     r"\bwill .{0,30} reach \$?\d",
     r"\bbest (?:crypto|memecoin|token)s? to buy\b",
     r"\bpresale\b",
     r"\bairdrop\b",
     r"\bpromo(?:tion)?\b",
-    r"\bsponsored\b",
     r"\bmarket (?:review|update|outlook)\b",
     r"\bweekly crypto (?:digest|roundup)\b",
     r"\btop weekly crypto news\b",
@@ -1101,7 +1102,7 @@ def story_hash(title: str) -> str:
 
 
 def _is_hard_blocked(story: dict) -> tuple[bool, str]:
-    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story) or institutional_intake_reason(story) or crypto_ipo_intake_reason(story)
+    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story) or institutional_intake_reason(story) or crypto_ipo_intake_reason(story) or regulatory_payment_intake_reason(story)
     if reason:
         return True, reason
     raw = _story_text(story)
@@ -1118,7 +1119,9 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
         _matches(raw, EVENT_ATTENDANCE_PATTERNS) and not institutional_scope_reason(story)
     ):
         return True, "행사 참석·연사 홍보"
-    if _matches(raw, UNVERIFIED_WALLET_ATTRIBUTION_PATTERNS):
+    if _matches(title, UNVERIFIED_WALLET_ATTRIBUTION_PATTERNS) or (
+        _matches(raw, UNVERIFIED_WALLET_ATTRIBUTION_PATTERNS) and not official_oversight_context(story)
+    ):
         return True, "확인되지 않은 지갑 귀속·자금이동"
     if _matches(raw, EXCLUDED_MARKET_CONTENT_PATTERNS):
         return True, "옵션·심리지수·추세·위믹스"
@@ -2088,6 +2091,7 @@ def _summary_prompt(title: str, source_text: str) -> str:
 - 기존 해킹·유출의 추가 피해 수량, 누적 피해 집계, 같은 경고 반복은 SKIP. 회수·체포·패치 등 별도 조치는 구분
 - 본문에는 해시태그를 쓰지 말 것
 - 국가·기업·기관·인물은 가능한 한 통용되는 한국어 이름으로 표기
+- 규제기관·의회의 조사·자료 요구·조사 요청과 실제 수사 착수·기소·위법 확정은 구분하고 원문의 단계 그대로 쓸 것. 스테이블코인 결제·정산 인프라 도입은 파생상품 가격·거래 추천과 구분하여 허용한다. 재단·대학의 교육과정·장학 지원 협약은 기사 자체의 협찬 광고와 구분한다
 - 암호화폐 기업의 기업공개(IPO) 신청·추진·공모·상장 완료·철회는 산업 소식으로 허용한다. 일반 토큰 상장, 주가 등락·목표가와 구분한다. 언론 보도에 따른 추진을 회사 공식 발표로 바꾸지 말고, 조달 목표·변경 가능성·논평 거부 등 핵심 조건을 보존하라
 - 은행의 토큰화 예금 연결, 금융기관·거래소의 토큰화 펀드 도입 및 담보 활용은 구체적인 금융 서비스 도입으로 심사한다. 토큰화된 펀드를 일반 신규 코인 상장으로 오인하지 말 것. 거래·담보의 대상과 기관투자자 한정 등 이용 조건을 보존할 것
 - XRP, XRPL, BTC, ETH, ETF, SEC, CFTC, IMF, IPO, AI 같은 약어는 원형 유지
@@ -2182,7 +2186,7 @@ def _clean_summary(text: str) -> str:
     text = html.unescape(text or "")
     text = _remove_model_tags(text)
     text = re.sub(r"(?im)^\s*(?:요약|제목|출처)\s*[:：]\s*", "", text)
-    text = re.sub(r"(?i)\b(?:first appeared on|sponsored by)\b.*$", "", text)
+    text = re.sub(r"(?i)\bfirst appeared on\b.*$", "", text)
     text = text.replace("가상자산", "암호화폐")
     text = re.sub(r"\b엑스(?=\s*(?:계정|게시물|플랫폼|에서|에|의))", "X", text)
     text = re.sub(r"(?i)\bmilestone\b", "마일스톤", text)
@@ -2549,6 +2553,8 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 과거 사건에 대한 새로운 판결·발표·후속 조치는 새 사실이 확인되면 허용한다.
 금융기관의 디지털자산 사업 진출·확대·자산 토큰화·온체인 금융상품 개발에 관한 새 당사자 발표와 구체적인 실행 계획은 코인 언급 없이 allowed_category=true가 가능하다. 행사 현장 발표와 행사 자체 홍보를 구분하고, 단순 희망·가격 전망은 제외한다. 사업 목표를 완료로, 특정 상품 토큰화를 모든 상품 적용으로 바꾸거나 모든 코인에 대한 호재로 일반화하면 publish=false.
 암호화폐 기업의 구체적인 기업공개 신청·추진·공모·완료·철회 보도도 허용한다. 조달 목표를 조달 완료로 바꾸거나 언론의 취재 보도를 회사 공식 발표로 바꾸면 publish=false. 원문의 일정·조건 미확정과 관련 논평 거부를 보존해야 한다. 주가 변동과 일반 토큰 상장은 이 범주가 아니다.
+규제기관·의회 조사와 스테이블코인 결제·정산 도입은 허용 범주다. 의원의 조사 요청을 수사 개시·위법 확정으로 바꾸면 publish=false. 실제 서비스 적용 범위와 예정 시점을 보존한다. 재단·대학의 교육 협약과 장학금 후원은 기사 자체의 유료 광고가 아니며, 행사 참석 홍보만인 기사와도 구분한다.
+공식 보고서의 지갑 관련 주장은 발표 주체에 귀속하고 당사자의 주요 반박도 보존해야 한다. 소위원회 특정 정당 조사팀의 잠정 결과를 상원 전체의 확정 결론으로 확대하면 publish=false.
 은행 간 토큰화 예금 연결과 자산운용사·거래소의 토큰화 펀드 도입·담보 활용도 포함한다. 원문에 있는 이용 대상·거래 및 담보 조건을 지키고 일반 신규 코인 상장·홍보와 구분한다.
 주요 국제정세·외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표와 확인된 조치는 코인 언급이 없어도 allowed_category=true가 가능하다. 이는 자동 게시 승인이 아니며 나머지 검사를 모두 통과해야 한다.
 제안·조건 유지·공식 답변 대기를 합의·개방 확정으로 바꾸면 안 된다. 새 발표 없는 반복 입장, 생활정보·통신비 비교·단순 물량 집계·화제성 게시물과 전문가 가격 전망·의견 기사는 제외한다.

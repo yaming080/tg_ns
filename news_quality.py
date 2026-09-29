@@ -9,6 +9,9 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('crypto.news', '/tether-faces-senate-scrutiny-over-iran-linked-usdt'),
+    ('crypto.news', '/cardano-foundation-ucla-partner-blockchain-education'),
+    ('crypto.news', '/coinbase-can-now-settle-derivatives-24-7-with-usdc'),
     ('bloomingbit.io', '/feed/news/121184'),
     ('cryptobriefing.com', '/tech-giant-oracle-integrates-with-swift-blockchain-ledger-to-connect-banks-tokenized-deposits'),
     ('coingape.com', '/breaking-franklin-templeton-partners-with-bybit-to-offer-tokenized-money-market-funds'),
@@ -41,6 +44,43 @@ INSTITUTIONAL_SCOPE = '금융기관 디지털자산 사업·토큰화'
 INSTITUTIONAL_SERVICES_ENABLED_AT = datetime(2026, 9, 28, 15, 54, 21, tzinfo=timezone.utc)
 CRYPTO_IPO_ENABLED_AT = datetime(2026, 9, 29, 5, 27, 27, tzinfo=timezone.utc)
 CRYPTO_IPO_SCOPE = '암호화폐 기업의 기업공개 진행'
+REGULATORY_PAYMENT_ENABLED_AT = datetime(2026, 9, 29, 6, 43, 25, tzinfo=timezone.utc)
+
+
+def regulatory_payment_scope_reason(title):
+    """Concrete oversight and settlement changes; no incidental quote pairs."""
+    has = lambda p: bool(re.search(p, title, re.I))
+    if has(r'가격\s*전망|목표가|루머|소문|\b(?:rumou?rs?|could|might|price prediction|price target)\b'):
+        return ''
+    subject = r'\b(?:crypto|cryptocurrency|stablecoins?|USDT|USDC|Tether|Coinbase)\b|암호화폐|가상자산|스테이블코인|테더|코인베이스'
+    authority = r'\b(?:Senate|senators?|Congress|Treasury|DOJ|SEC|CFTC|regulators?|prosecutors?)\b|상원|하원|의회|재무부|법무부|검찰|금융당국'
+    inquiry = r'\b(?:scrutiny|investigat\w*|inquir\w*|probe\w*|subpoena\w*|hearings?)\b|조사|수사|자료\s*(?:요구|요청)|청문회'
+    approval = r'\b(?:approv\w*|authoriz\w*)\b|승인|인가'
+    if has(subject) and has(authority) and has(inquiry + '|' + approval):
+        return '암호화폐 감독·조사·승인 진행'
+    settlement = r'\b(?:settle(?:s|d)?|settlement|clearing)\b|결제|정산|청산소'
+    change = r'\b(?:can now|now supports?|launch\w*|enabl\w*|introduc\w*|rolls? out|adopt\w*)\b|도입|지원|개시|시작'
+    if has(r'\b(?:stablecoins?|USDC|USDT|RLUSD)\b|스테이블코인') and has(settlement) and has(change):
+        return '스테이블코인 결제·정산 도입'
+    return ''
+
+
+def regulatory_payment_intake_reason(story):
+    if channel_scope_reason(story) not in ('암호화폐 감독·조사·승인 진행', '스테이블코인 결제·정산 도입'):
+        return ''
+    return _scope_intake_reason(story, REGULATORY_PAYMENT_ENABLED_AT, '감독·조사·결제')
+
+
+def official_oversight_context(story):
+    """Permit source review of attributed official findings, not wallet rumors."""
+    title = str(story.get('title', '') or '')
+    if regulatory_payment_scope_reason(title) != '암호화폐 감독·조사·승인 진행':
+        return False
+    source = str(story.get('article_text', '') or '')
+    return bool(re.search(
+        r'\b(?:Senate|subcommittee|regulator|Treasury|DOJ|SEC|CFTC)\b[^.\n]{0,160}'
+        r'\b(?:released|published|filed|issued)\b[^.\n]{0,60}\b(?:report|findings|letter|complaint)\b|'
+        r'(?:상원|소위원회|금융당국|검찰).{0,100}(?:보고서|조사\s*결과|서한).{0,30}(?:발표|공개|제출)', source, re.I))
 
 
 def crypto_ipo_scope_reason(story):
@@ -201,7 +241,8 @@ def channel_scope_reason(story):
         return '거래소 연계 은행 서비스'
     if has(r'Jack Dorsey|잭\s*도시|잭\s*도르시') and has(r'\bBlock\b|블록') and has(r'\bAI\b|artificial intelligence|인공지능') and has(r'organization|hierarchy|management|조직|경영|구조'):
         return '블록의 AI 조직 개편'
-    return institutional_scope_reason(story) or crypto_ipo_scope_reason(story) or geopolitics_scope_reason(story)
+    return (institutional_scope_reason(story) or crypto_ipo_scope_reason(story)
+            or geopolitics_scope_reason(story) or regulatory_payment_scope_reason(title))
 
 
 def quantity_followup_reason(story):
@@ -241,12 +282,23 @@ def freshness_reason(story, now=None, max_age_hours=72):
 def source_promotion_reason(story):
     """Explicit disclosure and conversion copy, including full article evidence."""
     text = '\n'.join(str(story.get(k, '') or '') for k in ('title','desc','article_text'))
-    disclosure = r'(?im)^\s*(?:sponsored(?:\s+(?:content|article|post))?|paid\s+(?:content|press release|advertisement)|advertorial|유료\s*광고|협찬\s*(?:기사|콘텐츠))\s*[.:：\-]?'
+    # Reporting an enforcement case about sponsored content is not an ad label.
+    text = re.sub(r'(?i)\b(?:regulator|authority|court)\b[^.\n]{0,80}\b(?:investigated|banned|prohibited)\b[^.\n]{0,50}\bsponsored\s+content\b',
+                  'reported advertising enforcement', text)
+    disclosure = r'(?i)\b(?:sponsored\s+(?:content|article|post)|paid\s+(?:content|press release|advertisement)|advertorial)\b|유료\s*광고|협찬\s*(?:기사|콘텐츠)'
     conversion = r'(?i)(?:sign\s+up|register|가입|등록).{0,60}(?:referral\s+code|추천인\s*코드)|(?:use|enter|입력).{0,35}(?:referral\s+code|추천인\s*코드)'
     if re.search(disclosure, text):
         return '본문 광고·협찬 표시'
     if re.search(conversion, text):
         return '가입·추천인 유도'
+    # Funding an educational activity is not a paid placement of this article.
+    # Mask only explicit noun phrases, leaving ad disclosures elsewhere intact.
+    education = r'(?:fellowships?|scholarships?|certifications?|research\s+grants?)'
+    sponsorship_text = re.sub(r'\bsponsored\s+' + education + r'\b', 'education funding', text, flags=re.I)
+    sponsorship_text = re.sub(r'\b' + education + r'\s+(?:(?:is|are|was|were)\s+)?sponsored\s+by\b',
+                              'education funded by', sponsorship_text, flags=re.I)
+    if re.search(r'\bsponsored\b', sponsorship_text, re.I):
+        return '본문 광고·협찬 표시'
     return ''
 
 
