@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('bloomingbit.io', '/feed/news/121184'),
     ('cryptobriefing.com', '/tech-giant-oracle-integrates-with-swift-blockchain-ledger-to-connect-banks-tokenized-deposits'),
     ('coingape.com', '/breaking-franklin-templeton-partners-with-bybit-to-offer-tokenized-money-market-funds'),
     ('bloomingbit.io', '/feed/news/121107'),
@@ -24,9 +25,9 @@ MANUALLY_POSTED_ARTICLES = frozenset({
     ('crypto.news', '/south-korea-weighs-liquidity-rules-for-won-stablecoins'),
 })
 
-# User deleted this post because the technical explanation was unclear.
-# Keep the rejection independent of the rolling posted-history retention.
+# User-confirmed removals stay blocked beyond rolling history retention.
 EDITOR_REJECTED_ARTICLES = {
+    ('news.bitcoin.com', '/stablecoins/un-circle-foundation-partner-to-speed-aid-via-stablecoins'): '팀원 중복 삭제 확인: 서클 재단 유엔 구호사업',
     ('tokenpost.kr', '/news/blockchain/414798'): '사용자 삭제: BIP138 기술 설명 불명확',
     ('bloomingbit.io', '/feed/news/121125'): '사용자 제외 확인: 아서 헤이즈 전망·의견 기사',
 }
@@ -38,6 +39,32 @@ GEOPOLITICS_SCOPE = '주요 국제정세·외교·통상 진행'
 INSTITUTIONAL_ENABLED_AT = datetime(2026, 9, 28, 9, 7, 42, tzinfo=timezone.utc)
 INSTITUTIONAL_SCOPE = '금융기관 디지털자산 사업·토큰화'
 INSTITUTIONAL_SERVICES_ENABLED_AT = datetime(2026, 9, 28, 15, 54, 21, tzinfo=timezone.utc)
+CRYPTO_IPO_ENABLED_AT = datetime(2026, 9, 29, 5, 27, 27, tzinfo=timezone.utc)
+CRYPTO_IPO_SCOPE = '암호화폐 기업의 기업공개 진행'
+
+
+def crypto_ipo_scope_reason(story):
+    """Corporate IPO steps, not token listings or public-stock price cards."""
+    title = str(story.get('title', '') or '')
+    has = lambda p: bool(re.search(p, title, re.I))
+    if has(r'주가|목표가|매수\s*추천|루머|소문|상장설|'
+           r'\b(?:stock price|price target|price prediction|rumou?rs?|could|might)\b'):
+        return ''
+    company = (r'블록체인닷컴|코인베이스|크라켄|제미니|빗고|불리시|'
+               r'(?:암호화폐|가상자산|디지털자산).{0,20}(?:기업|업체|거래소|수탁사)|'
+               r'\b(?:Blockchain\.com|Coinbase|Kraken|Gemini|BitGo|Bullish)\b|'
+               r'\b(?:crypto|digital[ -]asset)\b.{0,30}\b(?:firm|company|exchange|custodian)\b')
+    ipo = r'기업공개|(?:증시|나스닥|뉴욕증권거래소)\s*상장|\bIPO\b|initial public offering|go(?:ing)? public'
+    step = (r'추진|신청|제출|승인|공모|주관사|조달|(?:상장|기업공개|IPO)\s*(?:완료|철회|연기)|'
+            r'\b(?:files?|filed|filing|plans?|planning|eyes?|seeks?|seeking|'
+            r'announc\w*|rais\w*|approv\w*|complet\w*|launch\w*|withdraw\w*|postpon\w*)\b')
+    return CRYPTO_IPO_SCOPE if has(company) and has(ipo) and has(step) else ''
+
+
+def crypto_ipo_intake_reason(story):
+    if channel_scope_reason(story) != CRYPTO_IPO_SCOPE:
+        return ''
+    return _scope_intake_reason(story, CRYPTO_IPO_ENABLED_AT, '암호화폐 기업공개')
 
 
 def institutional_scope_reason(story, *, expanded=True):
@@ -174,7 +201,7 @@ def channel_scope_reason(story):
         return '거래소 연계 은행 서비스'
     if has(r'Jack Dorsey|잭\s*도시|잭\s*도르시') and has(r'\bBlock\b|블록') and has(r'\bAI\b|artificial intelligence|인공지능') and has(r'organization|hierarchy|management|조직|경영|구조'):
         return '블록의 AI 조직 개편'
-    return institutional_scope_reason(story) or geopolitics_scope_reason(story)
+    return institutional_scope_reason(story) or crypto_ipo_scope_reason(story) or geopolitics_scope_reason(story)
 
 
 def quantity_followup_reason(story):
