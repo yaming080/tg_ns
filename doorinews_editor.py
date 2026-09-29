@@ -19,6 +19,7 @@ from news_quality import channel_scope_reason, quantity_followup_reason, manual_
 from news_quality import geopolitics_intake_reason, institutional_intake_reason, institutional_scope_reason
 from news_quality import crypto_ipo_intake_reason, crypto_ipo_scope_reason
 from news_quality import regulatory_payment_intake_reason, official_oversight_context
+from news_quality import tax_reporting_intake_reason
 
 
 FIXED_FOOTER_TAGS = (
@@ -1102,7 +1103,7 @@ def story_hash(title: str) -> str:
 
 
 def _is_hard_blocked(story: dict) -> tuple[bool, str]:
-    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story) or institutional_intake_reason(story) or crypto_ipo_intake_reason(story) or regulatory_payment_intake_reason(story)
+    reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story) or institutional_intake_reason(story) or crypto_ipo_intake_reason(story) or regulatory_payment_intake_reason(story) or tax_reporting_intake_reason(story)
     if reason:
         return True, reason
     raw = _story_text(story)
@@ -2064,8 +2065,10 @@ def _summary_prompt(title: str, source_text: str) -> str:
 - 첫 문장에 핵심 주체·행동·대상을 바로 제시
 - 일반 독자가 본문만 읽어 무엇이 바뀌었는지, 누구·어떤 서비스에 관한 소식인지 알 수 있게 작성
 - 기술 기사에서는 BIP/EIP 번호·xpub·노드·암호화 용어를 나열하지 말고 원문에 근거한 쉬운 설명을 붙일 것. 번호는 이해에 필요할 때만 유지
+- 기사마다 일반 독자가 핵심을 이해하는 데 필요한 낯선 용어를 직접 골라라. 고정된 용어 목록에 한정하지 말고 법률·신고 서식 번호·제도·금융상품·기술 약어 중 필요한 1~2개만 처음 등장할 때 짧게 풀어 써라. 별도 용어 사전이나 설명 문단을 붙이지 말고 본문 문장 안에 자연스럽게 넣어라
+- 쉬운 뜻은 기사 자료에 명시되거나 문맥으로 확인되는 범위에서만 작성하라. 원문 밖 지식으로 정의·법적 효과를 보충하지 말라. 불필요한 번호·약어는 생략하되 핵심 용어의 뜻을 확인할 수 없어 독자가 이해할 수 없으면 SKIP
 - 초안·연구 제안과 실제 적용을 구분하고, 보안 위험은 원문에 나온 발생 조건·영향 범위를 보존. 적용 대상과 조건을 설명할 수 없거나 단순 기술 용어 나열만 남으면 SKIP
-- 정확한 금액·날짜·법적 결과가 꼭 필요할 때만 둘째 문장 1개 허용
+- 정확한 금액·날짜·법적 결과·적용 조건이나 핵심 용어 설명이 꼭 필요할 때만 둘째 문장 1개 허용
 - 여러 지표를 한꺼번에 묶거나 의미·영향을 해석하지 말 것
 - 법률·소송·기술 제안처럼 사실이 3개 이상일 때만 '핵심 문장 + 불릿 2~3개' 허용
 - 모든 문장을 완결하고 결론을 뒤로 미루지 말 것
@@ -2084,6 +2087,7 @@ def _summary_prompt(title: str, source_text: str) -> str:
 - 기사에 없는 사실은 추가 금지
 - 포트폴리오 코인의 직접 언급이 없어도 암호화폐 정책·법안·인가·결제카드·관련 은행 서비스의 확인된 진행은 허용
 - 원화 등 스테이블코인 유동성 규제 검토, 발행사의 실제 제휴·투자 계약, SEC 등 규제기관의 새 지침·FAQ는 허용. 업계의 건의를 정부의 결정으로 바꾸지 말 것
+- 정부·세무당국의 암호화폐 세금·신고 대상에 관한 새 발표·공식 해석도 허용. 기존 제도의 단순 재소개를 새 면제로 쓰지 말 것. 특정 서식의 신고 제외를 모든 신고·납세 의무 면제로 확대하지 말고, 본인이 개인키를 직접 관리한다는 조건을 단순 개인 보유로 바꾸지 말 것
 - 금융기관·은행·증권사·자산운용사의 디지털자산 사업 진출·확대·토큰화·온체인 금융상품 개발에 관한 구체적인 당사자 발표도 코인 언급 없이 허용. 행사에서 발표했다는 이유만으로 행사 홍보로 분류하지 말 것
 - 금융기관의 사업 계획·목표는 추진·계획으로, 이미 적용된 부분은 실제 적용으로 구분. '모든 상품 온체인화 목표'를 완료로 바꾸거나 '모든 코인 호재·가격 상승'으로 해석하지 말 것. 전문가의 시장 전망과 행사 참석·연사 홍보만인 기사는 SKIP
 - 주요 국제정세·국가 간 외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표나 확인된 조치는 코인 언급이 없어도 허용. 협상 제안·조건 유지·답변 대기를 합의나 재개 확정으로 바꾸지 말 것
@@ -2123,7 +2127,7 @@ def _compress_prompt(text: str) -> str:
 주체·핵심 수치·승인 단계·부인·미확정 조건을 보존하고, 보존할 수 없으면 SKIP만 출력하라.
 핵심 사건을 첫 문장에 두고 기본 1문장, 최대 2문장으로 완결하라.
 불필요한 배경, 의미 해석, 전망, 출처 표현을 삭제하라.
-기술 용어의 쉬운 설명, 적용 대상과 발생 조건은 압축하면서 지우지 말라. 이를 보존해 이해 가능한 문장을 만들 수 없으면 SKIP.
+기술·법률·금융 용어와 신고 서식 번호의 원문에 근거한 쉬운 설명(핵심 1~2개), 적용 대상과 발생 조건은 압축하면서 지우지 말라. 설명은 본문 안에 유지하고 새 정의를 만들지 말라. 특정 서식의 신고 제외를 모든 신고·납세 면제로 넓히지 말라. 이를 보존해 이해 가능한 문장을 만들 수 없으면 SKIP.
 문장 끝은 밝힘, 전함, 설명함, 추진함, 승인함 같은 축약형으로 쓴다.
 해시태그와 마침표는 쓰지 말고 요약문만 출력한다.
 
@@ -2545,7 +2549,7 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 4. 원문의 핵심을 이해할 수 있는 완결된 한국어 문장이고 광고·추천인·반복 홍보·단순 지표가 아니다.
 5. 오래된 사건 소개만 있거나 새 소식인지 확인할 수 없으면 게시를 보류한다.
 6. 수량·금액·잔액·피해 집계의 숫자 증감만을 전하는 후속 기사는 게시하지 않는다.
-7. 일반 독자가 본문만 읽고 주체·새 소식·관련 대상을 이해할 수 있어야 한다. 기술 용어·번호만 나열하거나 무엇이 달라졌는지 불분명하면 understandable=false.
+7. 일반 독자가 본문만 읽고 주체·새 소식·관련 대상을 이해할 수 있어야 한다. 기사마다 핵심 이해에 필요한 낯선 기술·법률·금융 용어와 신고 서식 번호를 골라 확인하라. 필요한 1~2개는 처음 등장할 때 본문 안에서 짧고 쉽게 설명되어야 한다. 용어·번호만 나열하거나 무엇이 달라졌는지 불분명하면 understandable=false. 원문에 없는 정의나 효과를 만들어 넣었다면 faithful=false. 이미 쉬운 표현으로 대체했다면 원래 번호·약어를 강제로 요구하지 말라.
 8. 기술·보안 기사는 원문에 있는 적용 대상·발생 조건과 초안/실제 적용 여부를 설명해야 한다. 특정 키나 백업을 확보해야 가능한 위험을 모든 지갑의 위험처럼 쓰면 안 된다. 원문 밖의 영향·안전성·행동 권고를 만들어내서도 안 된다.
 게시 금지: 광고·협찬·가입유도·행사홍보·가격전망·차트분석·청산·공포탐욕지수·ETF 단순 유출입·단순 매수매도/보유량·수량만 변경된 후속 보도·과거 재탕·확인되지 않은 추측.
 금지 요소를 요약에서 지웠더라도 원문 기사의 핵심이 금지 유형이면 제외한다.
@@ -2555,6 +2559,7 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 암호화폐 기업의 구체적인 기업공개 신청·추진·공모·완료·철회 보도도 허용한다. 조달 목표를 조달 완료로 바꾸거나 언론의 취재 보도를 회사 공식 발표로 바꾸면 publish=false. 원문의 일정·조건 미확정과 관련 논평 거부를 보존해야 한다. 주가 변동과 일반 토큰 상장은 이 범주가 아니다.
 규제기관·의회 조사와 스테이블코인 결제·정산 도입은 허용 범주다. 의원의 조사 요청을 수사 개시·위법 확정으로 바꾸면 publish=false. 실제 서비스 적용 범위와 예정 시점을 보존한다. 재단·대학의 교육 협약과 장학금 후원은 기사 자체의 유료 광고가 아니며, 행사 참석 홍보만인 기사와도 구분한다.
 공식 보고서의 지갑 관련 주장은 발표 주체에 귀속하고 당사자의 주요 반박도 보존해야 한다. 소위원회 특정 정당 조사팀의 잠정 결과를 상원 전체의 확정 결론으로 확대하면 publish=false.
+정부·세무당국의 암호화폐 세금·신고 대상에 관한 새 공식 발표·해석도 허용하되 과거 안내의 단순 재소개는 new_substantive_fact=false. 특정 신고 서식의 제외를 모든 신고·납세 의무 면제로 확대하거나 개인키 직접 관리 조건을 단순 개인 보유로 바꾸면 conditions_preserved=false. 용어 설명에도 원문 근거가 필요하다.
 은행 간 토큰화 예금 연결과 자산운용사·거래소의 토큰화 펀드 도입·담보 활용도 포함한다. 원문에 있는 이용 대상·거래 및 담보 조건을 지키고 일반 신규 코인 상장·홍보와 구분한다.
 주요 국제정세·외교 협상·관세·제재·휴전·핵 협상·주요 항로의 새 공식 발표와 확인된 조치는 코인 언급이 없어도 allowed_category=true가 가능하다. 이는 자동 게시 승인이 아니며 나머지 검사를 모두 통과해야 한다.
 제안·조건 유지·공식 답변 대기를 합의·개방 확정으로 바꾸면 안 된다. 새 발표 없는 반복 입장, 생활정보·통신비 비교·단순 물량 집계·화제성 게시물과 전문가 가격 전망·의견 기사는 제외한다.
