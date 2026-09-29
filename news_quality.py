@@ -9,6 +9,8 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('u.today', '/peter-brandt-names-stellar-xlm-as-long-shot-crypto-pick'),
+    ('cointelegraph.com', '/news/ecb-private-firms-ai-agents-digital-euro'),
     ('bloomingbit.io', '/feed/news/121214'),
     ('crypto.news', '/spain-says-self-custody-crypto-does-not-need-form-721-reporting'),
     ('crypto.news', '/tether-faces-senate-scrutiny-over-iran-linked-usdt'),
@@ -50,6 +52,42 @@ CRYPTO_IPO_SCOPE = '암호화폐 기업의 기업공개 진행'
 REGULATORY_PAYMENT_ENABLED_AT = datetime(2026, 9, 29, 6, 43, 25, tzinfo=timezone.utc)
 TAX_REPORTING_ENABLED_AT = datetime(2026, 9, 29, 7, 55, 43, tzinfo=timezone.utc)
 TAX_REPORTING_SCOPE = '암호화폐 세금·신고 제도 안내'
+EDITORIAL_EXPANSION_ENABLED_AT = datetime(2026, 9, 29, 16, 15, 0, tzinfo=timezone.utc)
+CBDC_SCOPE = '중앙은행 디지털화폐·결제 실험 진행'
+ATTRIBUTED_VIEW_SCOPE = '실명 인물의 자산 장기 선호 발언'
+
+
+def cbdc_scope_reason(title):
+    """Official exploration is an event even before a currency is issued."""
+    has = lambda p: bool(re.search(p, title, re.I))
+    authority = r'\b(?:ECB|European Central Bank|central banks?|Eurosystem|Bank of England|Bank of Japan|Bank of Korea)\b|중앙은행|유럽중앙은행|한국은행|일본은행|영란은행'
+    currency = r'\b(?:CBDCs?|digital euro|digital pound|digital yen|digital won|central bank digital currenc\w*)\b|디지털\s*(?:유로|파운드|엔화|원화)|중앙은행\s*디지털\s*화폐'
+    activity = r'\b(?:test\w*|pilot\w*|trial\w*|explor\w*|experiment\w*|recruit\w*|invit\w*|calls? for|drawing board|launch\w*|announc\w*|prepar\w*|select\w*)\b|실험|실증|시범|검토|모집|착수|발표|선정|준비|개시'
+    if has(r'가격\s*전망|목표가|루머|소문|\b(?:rumou?rs?|price target|price prediction)\b'):
+        return ''
+    return CBDC_SCOPE if has(authority) and has(currency) and has(activity) else ''
+
+
+def attributed_view_scope_reason(title):
+    """Candidate only: the source reviewer must verify speaker and fresh quote."""
+    has = lambda p: bool(re.search(p, title, re.I))
+    if has(r'\$\s*\d|\d\s*%|목표가|가격\s*(?:전망|예측)|지지선|저항선|급등|급락|'
+           r'\b(?:price targets?|price predictions?|price analysis|technical analysis|'
+           r'presale|airdrop|sponsored|anonymous|unnamed|rumou?rs?)\b'):
+        return ''
+    asset = r'\b(?:crypto|cryptocurrency|Bitcoin|BTC|Ethereum|ETH|Stellar|XLM|XRP|Solana|SOL|Cardano|ADA)\b|암호화폐|비트코인|이더리움|스텔라|리플|솔라나|카르다노'
+    horizon = r'\b(?:long[ -]shot|long[ -]term|multi[ -]year)\b|장기|장기적'
+    # A named attribution, not an anonymous analyst or the publisher's buy list.
+    attribution = (r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3}\s+(?i:names|says|calls|picks|identifies|favors|favours|selects)\b|'
+                   r'[가-힣]{2,12}\s*[,·:]?[^\n]{0,80}(?:지목|선호|선택|꼽|평가|밝혔)')
+    return ATTRIBUTED_VIEW_SCOPE if has(asset) and has(horizon) and re.search(attribution, title) else ''
+
+
+def editorial_expansion_intake_reason(story):
+    title = str(story.get('title', '') or '')
+    if not (cbdc_scope_reason(title) or attributed_view_scope_reason(title)):
+        return ''
+    return _scope_intake_reason(story, EDITORIAL_EXPANSION_ENABLED_AT, '중앙은행 실험·실명 장기 선호')
 
 
 def tax_reporting_scope_reason(title):
@@ -281,7 +319,8 @@ def channel_scope_reason(story):
         return '블록의 AI 조직 개편'
     return (institutional_scope_reason(story) or crypto_ipo_scope_reason(story)
             or geopolitics_scope_reason(story) or regulatory_payment_scope_reason(title)
-            or tax_reporting_scope_reason(title))
+            or tax_reporting_scope_reason(title) or cbdc_scope_reason(title)
+            or attributed_view_scope_reason(title))
 
 
 def quantity_followup_reason(story):

@@ -20,6 +20,7 @@ from news_quality import geopolitics_intake_reason, institutional_intake_reason,
 from news_quality import crypto_ipo_intake_reason, crypto_ipo_scope_reason
 from news_quality import regulatory_payment_intake_reason, official_oversight_context
 from news_quality import tax_reporting_intake_reason
+from news_quality import editorial_expansion_intake_reason, attributed_view_scope_reason
 
 
 FIXED_FOOTER_TAGS = (
@@ -190,6 +191,8 @@ ENTITY_SPECS = (
     EntitySpec("person", "브래드갈링하우스", ("Brad Garlinghouse", "브래드 갈링하우스", "브래드갈링하우스"), "#BradGarlinghouse", 15),
     EntitySpec("person", "제이미다이먼", ("Jamie Dimon", "제이미 다이먼", "제이미다이먼"), "#JamieDimon", 15),
     EntitySpec("person", "피터쉬프", ("Peter Schiff", "피터 쉬프", "피터쉬프"), "#PeterSchiff", 15),
+    EntitySpec("person", "피터브랜트", ("Peter Brandt", "피터 브랜트", "피터브랜트"), "#PeterBrandt", 15),
+    EntitySpec("org", "유럽중앙은행", ("European Central Bank", "ECB", "유럽중앙은행", "유럽 중앙은행"), "#ECB", 15),
     EntitySpec("person", "일론머스크", ("Elon Musk", "일론 머스크", "일론머스크"), "#ElonMusk", 15),
     EntitySpec("person", "파벨두로프", ("Pavel Durov", "파벨 두로프", "파벨두로프"), "#PavelDurov", 15),
     EntitySpec("person", "짐크레이머", ("Jim Cramer", "짐 크레이머", "짐크레이머"), "#JimCramer", 15),
@@ -544,6 +547,13 @@ LOW_VALUE_PROMOTIONAL_PATTERNS = (
     r"\bkol\s+index\b|\bkol\s+roundup\b|\bcommunity\s+buzz\b",
     r"KOL\s*인덱스|커뮤니티\s*화제.{0,80}(?:외|모음)",
 )
+
+EDITORIAL_SCOPE_GUIDANCE = '''
+지정 코인 뉴스를 우선하되 특정 코인 이름 없이도 암호화폐 산업 전반의 제도·기관 채택·토큰화·결제 인프라에 영향을 주는 확인된 새 소식은 심사한다. 이를 모든 코인 가격 상승이나 수익 보장으로 해석하지 않는다.
+중앙은행의 CBDC·디지털유로·디지털화폐 결제 실험, 참여 기관 모집, AI 에이전트 결제 탐색은 허용한다. 실험의 구체적 주체·활동·대상이 원문으로 확인되어야 하며 모집·검토·실험을 정식 도입이나 발행 결정으로 바꾸지 않는다. 단순 연구 해설이나 도입 희망만 있는 글은 제외한다.
+투자의견 제외 원칙의 제한적 예외: 피터 브랜트의 XLM 장기 선호 발언처럼, 식별 가능한 업계 인물이 특정 자산에 대한 장기적 선택·선호를 직접 새로 밝힌 보도는 허용한다. 유명인 이름만 있는 기사, 익명 분석가, 매체 자체 추천 목록, 목표가·상승률 예측·반복 차트 분석이 핵심인 기사는 제외한다. 인물의 이름·역할과 실제 발언, 새 발언임을 원문에서 확인할 수 없으면 제외한다. 차트가 배경으로 등장했다는 이유만으로 발언 보도를 제외하지 않되 수치·차트 해설을 지워 금지 기사를 허용 기사로 바꾸지 않는다.
+허용된 발언은 반드시 발언자에게 귀속하고 개인의 평가임을 드러낸다. 봇의 매수 권유나 가격 상승 확정으로 바꾸지 않는다. long shot은 단순 장기 투자와 같지 않다. 원문에서 확인되는 낮은 성공 확률·높은 위험 등의 제한을 보존하고, 설명 근거가 부족하면 그 표현을 빼고 확인된 선호 발언만 전달한다. 이 예외는 아서 헤이즈의 로빈후드·이더리움 보안성 해석 같은 일반 논평까지 허용하지 않는다.
+'''
 
 # An event appearance is not news, but a business announcement may be made there.
 EVENT_ATTENDANCE_PATTERNS = (
@@ -1103,6 +1113,9 @@ def story_hash(title: str) -> str:
 
 
 def _is_hard_blocked(story: dict) -> tuple[bool, str]:
+    expansion_reason = editorial_expansion_intake_reason(story)
+    if expansion_reason:
+        return True, expansion_reason
     reason = manual_post_reason(story) or freshness_reason(story) or source_promotion_reason(story) or quantity_followup_reason(story) or geopolitics_intake_reason(story) or institutional_intake_reason(story) or crypto_ipo_intake_reason(story) or regulatory_payment_intake_reason(story) or tax_reporting_intake_reason(story)
     if reason:
         return True, reason
@@ -1124,11 +1137,14 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
         _matches(raw, UNVERIFIED_WALLET_ATTRIBUTION_PATTERNS) and not official_oversight_context(story)
     ):
         return True, "확인되지 않은 지갑 귀속·자금이동"
-    if _matches(raw, EXCLUDED_MARKET_CONTENT_PATTERNS):
+    # For a narrowly qualified attributed preference, background chart language
+    # is reviewed in context by the source gate instead of blocking the quote.
+    market_text = title if attributed_view_scope_reason(title) else raw
+    if _matches(market_text, EXCLUDED_MARKET_CONTENT_PATTERNS):
         return True, "옵션·심리지수·추세·위믹스"
     if _matches(raw, LOW_VALUE_MARKET_METRIC_PATTERNS):
         return True, "거래소 수급·거래량·보유량 단순 지표"
-    if _matches(raw, HARD_BLOCK_PATTERNS):
+    if _matches(market_text, HARD_BLOCK_PATTERNS):
         return True, "가격/전망/홍보/모음기사"
     if _matches(raw, LOW_VALUE_FLOW_PATTERNS):
         return True, "ETF·시장 단순 수급/주간 마감"
@@ -2518,7 +2534,7 @@ def _rewrite_summary(story: dict) -> str:
     if blocked:
         _log("[원문 제외:" + reason + "] " + title)
         return ""
-    summary = _call_openai(_summary_prompt(title, source_text))
+    summary = _call_openai(_summary_prompt(title, source_text) + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE)
     if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", summary or "", re.I):
         return ""
     summary = _clean_summary(summary)
@@ -2568,7 +2584,7 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 true:
 {{"publish": true 또는 false, "reason": "짧은 판정 근거", "checks": {{"faithful": true 또는 false, "conditions_preserved": true 또는 false, "allowed_category": true 또는 false, "new_substantive_fact": true 또는 false, "source_sufficient": true 또는 false, "understandable": true 또는 false}}}}
 <자료>{json.dumps({'title':title,'source':source[:9000],'summary':summary},ensure_ascii=False)}</자료>'''
-    response = _call_openai(prompt)
+    response = _call_openai(prompt + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE)
     try:
         decision = json.loads(response)
     except (ValueError, TypeError):
@@ -2605,7 +2621,7 @@ def build_message(story: dict) -> str:
     if _summary_is_market_only(summary):
         _log(f"[전송전 지지선·시황 제외] {story.get('title', '')}")
         return ""
-    if _summary_has_uncertain_claim(summary):
+    if _summary_has_uncertain_claim(summary) and not attributed_view_scope_reason(str(story.get('title', '') or '')):
         _log(f"[전송전 예측·불확실 표현 제외] {story.get('title', '')}")
         return ""
 
