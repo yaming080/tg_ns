@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('crypto.news', '/spain-says-self-custody-crypto-does-not-need-form-721-reporting'),
     ('crypto.news', '/tether-faces-senate-scrutiny-over-iran-linked-usdt'),
     ('crypto.news', '/cardano-foundation-ucla-partner-blockchain-education'),
     ('crypto.news', '/coinbase-can-now-settle-derivatives-24-7-with-usdc'),
@@ -45,6 +46,27 @@ INSTITUTIONAL_SERVICES_ENABLED_AT = datetime(2026, 9, 28, 15, 54, 21, tzinfo=tim
 CRYPTO_IPO_ENABLED_AT = datetime(2026, 9, 29, 5, 27, 27, tzinfo=timezone.utc)
 CRYPTO_IPO_SCOPE = '암호화폐 기업의 기업공개 진행'
 REGULATORY_PAYMENT_ENABLED_AT = datetime(2026, 9, 29, 6, 43, 25, tzinfo=timezone.utc)
+TAX_REPORTING_ENABLED_AT = datetime(2026, 9, 29, 7, 55, 43, tzinfo=timezone.utc)
+TAX_REPORTING_SCOPE = '암호화폐 세금·신고 제도 안내'
+
+
+def tax_reporting_scope_reason(title):
+    """Official reporting/tax developments, not tax tips or personal opinions."""
+    has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(r'절세\s*팁|신고\s*방법|전망|루머|소문|'
+           r'\b(?:how to|tips?|guide|opinion|rumou?rs?|could|might|predict\w*)\b'):
+        return ''
+    crypto = r'\b(?:crypto|cryptocurrency|cryptocurrencies|digital[ -]assets?|bitcoin|stablecoins?)\b|암호화폐|가상자산|디지털\s*자산|비트코인|스테이블코인'
+    authority = r'\b(?:government|tax authority|tax authorities|revenue service|Treasury|IRS|HMRC|Spain|Spanish)\b|정부|세무당국|국세청|재무부|스페인'
+    reporting = r'\b(?:tax|taxes|taxation|reporting|declaration|disclosure|form\s+\d+)\b|세금|과세|납세|신고|보고\s*의무'
+    action = r'\b(?:says?|said|clarif\w*|announc\w*|confirm\w*|exempt\w*|requir\w*|propos\w*|approv\w*|issues?|issued)\b|밝힘|발표|안내|명확화|확인|면제|제외|의무화|제안|승인'
+    return TAX_REPORTING_SCOPE if has(crypto) and has(authority) and has(reporting) and has(action) else ''
+
+
+def tax_reporting_intake_reason(story):
+    if channel_scope_reason(story) != TAX_REPORTING_SCOPE:
+        return ''
+    return _scope_intake_reason(story, TAX_REPORTING_ENABLED_AT, '세금·신고 제도')
 
 
 def regulatory_payment_scope_reason(title):
@@ -242,7 +264,8 @@ def channel_scope_reason(story):
     if has(r'Jack Dorsey|잭\s*도시|잭\s*도르시') and has(r'\bBlock\b|블록') and has(r'\bAI\b|artificial intelligence|인공지능') and has(r'organization|hierarchy|management|조직|경영|구조'):
         return '블록의 AI 조직 개편'
     return (institutional_scope_reason(story) or crypto_ipo_scope_reason(story)
-            or geopolitics_scope_reason(story) or regulatory_payment_scope_reason(title))
+            or geopolitics_scope_reason(story) or regulatory_payment_scope_reason(title)
+            or tax_reporting_scope_reason(title))
 
 
 def quantity_followup_reason(story):
