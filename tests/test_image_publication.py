@@ -47,6 +47,7 @@ class ImagePublicationTests(unittest.TestCase):
                     'is_duplicate':lambda *a:False,'is_semantically_duplicate':lambda *a:False,
                     'INITIAL_RUN':False,'POST_ENABLED':True,'DRY_RUN_RECORD':False,
                     'prepare_publication':Mock(return_value=prepared),'build_message':Mock(),
+                    'review_article_event':Mock(return_value={'status':'new'}),'remember_context':Mock(),
                     'openai_client':None,'OPENAI_MODEL':'m','send_reviewed_photo':sender,
                     'TELEGRAM_BOT_TOKEN':'t','TELEGRAM_CHANNEL_ID':'c','update_posted':register,
                     'time':SimpleNamespace(sleep=lambda *a:None)}
@@ -160,3 +161,4 @@ class ImagePublicationTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+

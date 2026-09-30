@@ -9,6 +9,11 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('etoday.co.kr', '/news/view/2630619'),
+    ('bloomingbit.io', '/feed/news/121308'),
+    ('bloomingbit.io', '/feed/news/121305'),
+    ('crypto.news', '/robinhood-plans-10x-crypto-perps-for-u-s-traders'),
+    ('bloomingbit.io', '/feed/news/121311'),
     ('u.today', '/peter-brandt-names-stellar-xlm-as-long-shot-crypto-pick'),
     ('cointelegraph.com', '/news/ecb-private-firms-ai-agents-digital-euro'),
     ('bloomingbit.io', '/feed/news/121214'),
@@ -34,6 +39,9 @@ MANUALLY_POSTED_ARTICLES = frozenset({
 
 # User-confirmed removals stay blocked beyond rolling history retention.
 EDITOR_REJECTED_ARTICLES = {
+    ('bloomingbit.io', '/feed/news/121234'): '사용자 중복 삭제: 모건스탠리 디지털자산 연구소 출범',
+    ('coinedition.com', '/spains-tax-agency-clarifies-form-721-rules-for-crypto-wallets'): '사용자 중복 삭제: 스페인 721 자기보관 지갑 신고 안내',
+    ('u.today', '/morgan-stanley-launches-digital-asset-lab-to-explore-stablecoins-and-tokenization'): '사용자 중복 삭제: 모건스탠리 디지털자산 연구소 출범',
     ('news.bitcoin.com', '/stablecoins/un-circle-foundation-partner-to-speed-aid-via-stablecoins'): '팀원 중복 삭제 확인: 서클 재단 유엔 구호사업',
     ('tokenpost.kr', '/news/blockchain/414798'): '사용자 삭제: BIP138 기술 설명 불명확',
     ('bloomingbit.io', '/feed/news/121125'): '사용자 제외 확인: 아서 헤이즈 전망·의견 기사',
@@ -55,6 +63,60 @@ TAX_REPORTING_SCOPE = '암호화폐 세금·신고 제도 안내'
 EDITORIAL_EXPANSION_ENABLED_AT = datetime(2026, 9, 29, 16, 15, 0, tzinfo=timezone.utc)
 CBDC_SCOPE = '중앙은행 디지털화폐·결제 실험 진행'
 ATTRIBUTED_VIEW_SCOPE = '실명 인물의 자산 장기 선호 발언'
+MARKET_ACCESS_ENABLED_AT = datetime(2026, 9, 30, 8, 15, 38, tzinfo=timezone.utc)
+
+
+def market_access_scope_reason(story):
+    """Business/policy milestones qualify for source review, not automatic posting."""
+    title = str(story.get('title', '') or '')
+    has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(r'목표가|전망|예측|매수\s*추천|추천인|가입\s*보너스|루머|소문|'
+           r'\b(?:price target|price prediction|rumou?rs?|referral|sign.up bonus|sponsored|could|might)\b'):
+        return ''
+    institution = (r'은행|금융기관|금융\s*인프라|인프라\s*기업|중앙예탁|예탁결제|수탁사|'
+                   r'\b(?:HSBC|CSD\s*BR|banks?|financial institution|financial infrastructure|custodian|central securities depository)\b')
+    ledger = r'XRP\s*레저|XRPL|이더리움|블록체인|\b(?:XRP Ledger|Ethereum|blockchain)\b'
+    fund = r'펀드|채권|증권|예금|자산\s*기록|\b(?:funds?|bonds?|securities|deposits?|asset records?)\b'
+    record = r'생성|등록|기록|토큰화|발행|\b(?:creat\w*|register\w*|record\w*|tokeni[sz]\w*|issu\w*)\b'
+    if has(institution) and has(ledger) and has(fund) and has(record):
+        return '금융기관의 블록체인 자산 기록·발행'
+    stable = r'스테이블코인|\bstablecoins?\b'
+    issuer = institution + r'|발행사|결제\s*기업|\b(?:issuer|payment firm|Circle|Tether|Paxos)\b|서클|테더|팍소스'
+    milestone = r'명칭.{0,50}(?:확정|공개)|이름.{0,50}(?:확정|공개)|브랜드.{0,50}(?:발표|공개)|출시|발행\s*(?:승인|계획)|\b(?:names?|named|branding|brand|launch\w*|issuance plan)\b'
+    if has(issuer) and has(stable) and has(milestone):
+        return '기관 스테이블코인 사업의 구체적 진행'
+    venue = r'거래소|증권사|로빈후드|\b(?:Robinhood|Coinbase|Kraken|Gemini|exchange|brokerage)\b'
+    crypto = r'암호화폐|가상자산|비트코인|이더리움|\b(?:crypto|cryptocurrency|Bitcoin|Ethereum)\b'
+    product = r'무기한\s*(?:선물|계약)|파생상품|\b(?:perps?|perpetuals?|derivatives?)\b'
+    rollout = r'출시|도입|제공|지원|추진|계획|\b(?:plans?|launch\w*|introduc\w*|offers?|enabl\w*|rolls? out)\b'
+    if has(venue) and has(crypto) and has(product) and has(rollout):
+        return '암호화폐 거래 접근성·파생상품 서비스 도입'
+    authority = r'중국|미국|유럽중앙은행|중앙은행|정부|인민은행|연준|재무부|\b(?:China|Chinese government|PBOC|Federal Reserve|ECB|central bank|government|Treasury)\b'
+    policy = r'경기\s*부양|부양책|통화\s*완화|지급준비율|양적\s*완화|주택|집\s*사면|부동산|모기지|\b(?:stimulus|monetary easing|reserve requirement|quantitative easing|housing|mortgage)\b'
+    measure = r'금리.{0,15}(?:인하|내리|내립)|이자.{0,15}(?:인하|지원|내리|내립)|보조금|지원책|대책.{0,15}(?:발표|도입)|부양책.{0,15}(?:발표|시행)|\b(?:cuts?|lowers?|subsid\w*|announc\w*|introduc\w*)\b'
+    if has(authority) and has(policy) and has(measure):
+        return '주요국 경기부양·통화·주택금융 정책'
+    return ''
+
+
+def market_access_intake_reason(story):
+    scope = market_access_scope_reason(story) or diplomatic_statement_scope_reason(story)
+    if not scope or channel_scope_reason(story) != scope:
+        return ''
+    if geopolitics_scope_reason(story):
+        return ''
+    return _scope_intake_reason(story, MARKET_ACCESS_ENABLED_AT, '산업·정책')
+
+
+def diplomatic_statement_scope_reason(story):
+    title = str(story.get('title', '') or '')
+    has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(r'전망|예측|루머|소문|\b(?:predict\w*|rumou?rs?|could|might|opinion)\b'):
+        return ''
+    official = r'트럼프|시진핑|김정은|대통령|정상|백악관|외교부|국무부|\b(?:Trump|Xi Jinping|Kim Jong Un|president|White House|State Department|foreign minister)\b'
+    security = r'핵\s*(?:능력|보유|무기|협상)|비핵화|휴전|제재|\b(?:nuclear|denuclearization|ceasefire|sanctions?)\b'
+    statement = r'인정|확인|유화\s*(?:메시지|발언)|입장\s*(?:발표|표명)|\b(?:acknowledg\w*|recogniz\w*|confirms?|conciliatory|states?)\b'
+    return GEOPOLITICS_SCOPE if has(official) and has(security) and has(statement) else ''
 
 
 def cbdc_scope_reason(title):
@@ -277,7 +339,8 @@ def _scope_intake_reason(story, enabled_at, label):
 
 def manual_post_reason(story):
     try:
-        parts = urlsplit(str(story.get('url', '') or ''))
+        url = str(story.get('url', '') or '')
+        parts = urlsplit(url if '://' in url else 'https://' + url)
         host = (parts.hostname or '').lower().removeprefix('www.')
     except ValueError:
         return ''
@@ -287,6 +350,31 @@ def manual_post_reason(story):
     if (host, parts.path.rstrip('/')) in MANUALLY_POSTED_ARTICLES:
         return '사용자가 확인한 팀원 기존 게시 기사'
     return ''
+
+
+def precise_event_tokens(story):
+    """Bilingual headline anchors; ignore background paragraphs and ticker overlap."""
+    title = str(story.get('title', '') or '')
+    has = lambda p: bool(re.search(p, title, re.I))
+    tokens = set()
+    if has(r'\bdigital[ -]asset\s+(?:research\s+)?labs?\b|디지털\s*자산\s*(?:연구소|랩)'):
+        tokens.add('object_digital_asset_lab')
+        if has(r'\b(?:launch\w*|establish\w*|opens?|opened|creat\w*|sets? up)\b|출범|신설|설립|개설'):
+            tokens.add('action_launch')
+            tokens.add('event_lab_opening')
+        if has(r'\b(?:expand\w*|clos\w*|shutdown|appoint\w*|results?|findings|partners?|partnership)\b|확대|확장|폐쇄|종료|책임자\s*선임|실험\s*결과|제휴|협약'):
+            tokens.add('event_lab_followup')
+            tokens.discard('event_lab_opening')
+    if has(r'\b(?:Spain|Spanish)\b|스페인') and has(r'\b(?:form|modelo)\s*721\b|721\s*(?:서식|양식)|(?:서식|양식)\s*721'):
+        tokens.update(('geo_spain', 'reference_form_721', 'object_crypto_reporting'))
+        if has(r'\b(?:clarif\w*|rules?|reporting|exempt\w*|self[ -]custody|wallets?)\b|명확|안내|해석|신고|보고|지갑|자가\s*보관|자기\s*보관'):
+            tokens.update(('action_clarify', 'event_spain_721_custody_guidance'))
+        # A later amendment, deadline, enforcement action or a reversal deserves
+        # fresh review rather than being swallowed by a known clarification.
+        if has(r'\b(?:amend\w*|chang\w*|revis\w*|revers\w*|deadline|extend\w*|penalt\w*|fine[sd]?|enforc\w*)\b|개정|변경|수정|철회|번복|기한|연장|과태료|벌금|단속'):
+            tokens.discard('event_spain_721_custody_guidance')
+            tokens.add('event_spain_721_followup')
+    return tokens
 
 
 def channel_scope_reason(story):
@@ -320,7 +408,8 @@ def channel_scope_reason(story):
     return (institutional_scope_reason(story) or crypto_ipo_scope_reason(story)
             or geopolitics_scope_reason(story) or regulatory_payment_scope_reason(title)
             or tax_reporting_scope_reason(title) or cbdc_scope_reason(title)
-            or attributed_view_scope_reason(title))
+            or attributed_view_scope_reason(title) or market_access_scope_reason(story)
+            or diplomatic_statement_scope_reason(story))
 
 
 def quantity_followup_reason(story):
@@ -393,9 +482,14 @@ def approval_stage_tokens(text):
 
 
 def event_conflicts(cur, old):
-    for prefix in ('stage_approval_', 'reference_version_', 'reference_eip_', 'reference_bip_'):
+    for prefix in ('stage_approval_', 'reference_version_', 'reference_eip_', 'reference_bip_', 'event_lab_', 'event_spain_721_', 'subject_lab_'):
         a = {t for t in cur if t.startswith(prefix)}
         b = {t for t in old if t.startswith(prefix)}
+        if a and b and a.isdisjoint(b):
+            return True
+    if 'object_digital_asset_lab' in (cur & old):
+        a = {t for t in cur if t.startswith('geo_')}
+        b = {t for t in old if t.startswith('geo_')}
         if a and b and a.isdisjoint(b):
             return True
     return False
