@@ -24,6 +24,15 @@ from news_quality import editorial_expansion_intake_reason, attributed_view_scop
 from news_quality import precise_event_tokens
 from news_event_review import review_event
 from news_quality import market_access_intake_reason
+from news_quality import institutional_research_scope_reason, adoption_research_intake_reason
+
+ADOPTION_RESEARCH_GUIDANCE = '''
+다음은 일반 가격 전망 금지 원칙의 제한적 예외다. 실명 금융기관이 새로 발간한 디지털자산 보고서·커버리지 개시·분석 갱신은 심사한다. 은행 이름이나 목표가만 등장한다고 허용하지 말고 원문에서 새 보고서의 기관·대상 자산·분석 근거를 확인해야 한다. 과거 보고서 재소개, 익명 전망, 기자의 차트 분석, 매매 추천·홍보는 제외한다.
+기관의 목표가를 넣을 때는 반드시 해당 기관이 제시한 전망으로 귀속하고 목표 시점·주요 전제도 함께 보존한다. 상승 확정·봇의 투자 권유로 바꾸지 않는다. 예: 스탠다드차타드가 에테나 분석을 시작하며 2028년 ENA 목표가 2달러를 제시했다고 밝힘. 전망 수치는 원문에 있을 때만 사용한다.
+은행권·규제 기반 발행사의 스테이블코인 출시도 지정 코인과 무관하게 허용한다. MiCA 준수를 모든 국가의 승인이나 무위험 보장으로 바꾸지 말고 준비금·상환 조건을 원문대로 보존한다.
+기업·공공기관이 블록체인을 연료·탄소·공급망 등의 기록·추적에 활용하는 구체적인 연구·시범사업도 허용한다. 페트로브라스·카르다노에 한정하지 않는다. 연구 단계, 상용 출시 일정 미정 등 중요한 제한을 유지하고 정식 도입 완료·코인 매수·가격 상승으로 확대하지 않는다.
+ENA·FLR은 이미 지정 코인이다. 새 채택·제품·제휴·규제·기술 진행을 심사하되 단순 시세·차트·광고는 계속 제외한다.
+'''
 
 MARKET_ACCESS_GUIDANCE = '''
 주요국 정부·중앙은행의 구체적인 경기부양·통화·주택금융 정책과 국가 정상의 새로운 핵·안보·외교 입장 발언도 허용 범주다. 발언을 국제사회의 법적 인정이나 합의로 바꾸지 말라. 정책의 적용 국가·지역·대상·시행 단계를 보존하고 개인 대출 광고·생활비 비교·전문가 전망은 제외한다.
@@ -156,6 +165,10 @@ ENTITY_SPECS = (
     EntitySpec("org", "업비트", ("Upbit", "업비트"), "#Upbit", 20),
     EntitySpec("org", "리도", ("Lido", "Lido Finance", "리도"), "#Lido", 20),
     EntitySpec("org", "플레어", ("Flare", "Flare Network", "플레어"), "#Flare", 20),
+    EntitySpec("org", "에테나", ("Ethena", "에테나"), "#Ethena", 20),
+    EntitySpec("org", "드리프트", ("Drift", "Drift Protocol", "드리프트"), "#Drift", 20),
+    EntitySpec("org", "올유니티", ("AllUnity", "All Unity", "올유니티"), "#AllUnity", 20),
+    EntitySpec("org", "페트로브라스", ("Petrobras", "페트로브라스"), "#Petrobras", 20),
     EntitySpec("org", "엔비디아", ("Nvidia", "NVIDIA", "엔비디아"), "#Nvidia", 20),
     EntitySpec("org", "콜드카드", ("Coldcard", "ColdCard", "콜드카드"), "#Coldcard", 20),
     EntitySpec("org", "PowerCompute", ("PowerCompute", "파워컴퓨트"), "#PowerCompute", 20),
@@ -212,6 +225,9 @@ ENTITY_SPECS = (
     EntitySpec("person", "pcaversaccio", ("pcaversaccio", "PCaversaccio"), "#pcaversaccio", 15),
     # Assets, laws, and concrete products.
     EntitySpec("asset", "XRP", ("XRP",), "#XRP", 30),
+    EntitySpec("asset", "ENA", ("ENA",), "#ENA", 30),
+    EntitySpec("asset", "FLR", ("FLR",), "#FLR", 30),
+    EntitySpec("asset", "USDAU", ("USDAU",), "#USDAU", 30),
     EntitySpec("asset", "XRPL", ("XRP Ledger", "XRPL",), "#XRPL", 30),
     EntitySpec("asset", "비트코인", ("Bitcoin", "BTC", "비트코인"), "", 30),
     EntitySpec("asset", "이더리움", ("Ethereum", "ETH", "이더리움"), "#ETH", 30),
@@ -1127,6 +1143,9 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
     known_event = manual_post_reason(story)
     if known_event:
         return True, known_event
+    new_scope_reason = adoption_research_intake_reason(story)
+    if new_scope_reason:
+        return True, new_scope_reason
     access_reason = market_access_intake_reason(story)
     if access_reason:
         return True, access_reason
@@ -1156,12 +1175,20 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
         return True, "확인되지 않은 지갑 귀속·자금이동"
     # For a narrowly qualified attributed preference, background chart language
     # is reviewed in context by the source gate instead of blocking the quote.
-    market_text = title if attributed_view_scope_reason(title) else raw
+    research = institutional_research_scope_reason(story)
+    market_text = title if attributed_view_scope_reason(title) or research else raw
     if _matches(market_text, EXCLUDED_MARKET_CONTENT_PATTERNS):
         return True, "옵션·심리지수·추세·위믹스"
     if _matches(raw, LOW_VALUE_MARKET_METRIC_PATTERNS):
         return True, "거래소 수급·거래량·보유량 단순 지표"
-    if _matches(market_text, HARD_BLOCK_PATTERNS):
+    # Exempt only forecast wording in qualified institutional report headlines.
+    # Promo, technical-analysis, roundup and other exclusions still apply.
+    forecast_patterns = {r"\bprice prediction\b", r"\bprice target\b", r"가격\s*전망",
+                         r"상승\s*가능성|하락\s*가능성", r"몇\s*배\s*(?:상승|오를)",
+                         r"\bwill\b.{0,40}\b(?:break\s+out|recover|rally|rise|fall)\b",
+                         r"\bwill .{0,30} reach \$?\d"}
+    hard_patterns = tuple(p for p in HARD_BLOCK_PATTERNS if not research or p not in forecast_patterns)
+    if _matches(market_text, hard_patterns):
         return True, "가격/전망/홍보/모음기사"
     if _matches(raw, LOW_VALUE_FLOW_PATTERNS):
         return True, "ETF·시장 단순 수급/주간 마감"
@@ -2387,6 +2414,11 @@ def _candidate_specs(summary: str, story: dict) -> list[EntitySpec]:
     for spec in ENTITY_SPECS + tuple(_dynamic_specs(raw)):
         if spec.label in seen:
             continue
+        if spec.label == "드리프트" and not re.search(
+            r'드리프트|\bDrift\s+(?:Foundation|Protocol|Labs)\b|'
+            r'\bDrift\b.{0,80}\b(?:hack|exploit|stolen|DeFi|Solana|exchange|foundation)\b', raw, re.I
+        ):
+            continue
         # Ambiguous company names require supporting source context.
         if spec.label == "오라클" and not re.search(
             r'\bOracle\s+(?:Corporation|Corp)\b|'
@@ -2563,12 +2595,12 @@ def _rewrite_summary(story: dict) -> str:
     if blocked:
         _log("[원문 제외:" + reason + "] " + title)
         return ""
-    summary = _call_openai(_summary_prompt(title, source_text) + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE)
+    summary = _call_openai(_summary_prompt(title, source_text) + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE)
     if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", summary or "", re.I):
         return ""
     summary = _clean_summary(summary)
     if len(summary) > HARD_SUMMARY_CHARS:
-        shorter = _call_openai(_compress_prompt(summary))
+        shorter = _call_openai(_compress_prompt(summary) + ADOPTION_RESEARCH_GUIDANCE)
         if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", shorter or "", re.I):
             return ""
         summary = _clean_summary(shorter)
@@ -2614,7 +2646,7 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 true:
 {{"publish": true 또는 false, "reason": "짧은 판정 근거", "checks": {{"faithful": true 또는 false, "conditions_preserved": true 또는 false, "allowed_category": true 또는 false, "new_substantive_fact": true 또는 false, "source_sufficient": true 또는 false, "understandable": true 또는 false}}}}
 <자료>{json.dumps({'title':title,'source':source[:9000],'summary':summary},ensure_ascii=False)}</자료>'''
-    response = _call_openai(prompt + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE)
+    response = _call_openai(prompt + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE)
     try:
         decision = json.loads(response)
     except (ValueError, TypeError):
@@ -2651,7 +2683,9 @@ def build_message(story: dict) -> str:
     if _summary_is_market_only(summary):
         _log(f"[전송전 지지선·시황 제외] {story.get('title', '')}")
         return ""
-    if _summary_has_uncertain_claim(summary) and not attributed_view_scope_reason(str(story.get('title', '') or '')):
+    if (_summary_has_uncertain_claim(summary)
+        and not attributed_view_scope_reason(str(story.get('title', '') or ''))
+        and not institutional_research_scope_reason(story)):
         _log(f"[전송전 예측·불확실 표현 제외] {story.get('title', '')}")
         return ""
 

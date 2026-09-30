@@ -13,6 +13,15 @@ from urllib.parse import urlsplit
 # User-provided channel examples. These are comparison evidence, not keyword bans.
 # Dates are intentionally omitted where the user's evidence did not establish them.
 MANUAL_EVENTS = (
+    ('https://cryptobriefing.com/bank-backed-allunity-launches-mica-compliant-us-dollar-stablecoin-usdau/',
+     'Bank-backed AllUnity launches MiCA-compliant US dollar stablecoin USDAU',
+     '사용자 제공 게시문: 은행권 지원 올유니티가 MiCA 준수 달러 스테이블코인 USDAU 출시. DWS·Flow Traders·Galaxy Digital 설립, 달러 준비금 100% 뒷받침이라고 보도'),
+    ('https://coingape.com/brazils-petrobras-taps-cardano-blockchain-for-low-carbon-fuel-project/',
+     'Brazil Petrobras taps Cardano for low-carbon fuel research and tracing',
+     '사용자 제공 게시문: 페트로브라스가 저탄소 연료 프로젝트에서 카르다노로 환경적 혜택 발생·귀속·청구 이력을 기록. 연구 단계이며 상용 출시 일정 미정'),
+    ('https://cryptobriefing.com/standard-chartered-initiates-ethena-coverage-sees-ena-at-2-by-2028/',
+     'Standard Chartered initiates Ethena coverage with ENA target of $2 by 2028',
+     '사용자 제공 게시문: 스탠다드차타드가 에테나 분석 개시, USDe 성장·수익형 스테이블코인 및 토큰화 자산 시장·ENA 바이백과 소각을 근거로 2028년 목표가 2달러 제시. 기관 전망이며 확정 가격 아님'),
     ('https://www.etoday.co.kr/news/view/2630619', 'Trump acknowledges North Korean nuclear capability in conciliatory message',
      '사용자 제공 게시문: 트럼프가 북한의 핵 능력을 다시 인정하며 김정은에게 유화 메시지를 전했다는 보도'),
     ('https://bloomingbit.io/feed/news/121308', 'Brazilian infrastructure firm CSD BR creates fund record on XRP Ledger',
