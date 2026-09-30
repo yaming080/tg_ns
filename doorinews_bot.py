@@ -19,6 +19,7 @@ from news_quality import valid_caption
 from news_sources import collect_new_sources
 from news_publication import prepare_publication
 from news_images import send_reviewed_photo
+from news_event_review import remember_context
 
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
@@ -7084,7 +7085,8 @@ def main():
         return
 
     for story in new_stories:
-        prepared = prepare_publication(story, build_message, openai_client, OPENAI_MODEL)
+        prepared = prepare_publication(story, build_message, openai_client, OPENAI_MODEL,
+            event_review=lambda caption: review_article_event(story, caption, posted))
         if prepared['status'] != 'ready':
             log(f"[게시보류] {story.get('title','')} | {prepared['reason']}")
             for attempt in prepared['attempts']:
@@ -7105,6 +7107,7 @@ def main():
                 signature,
                 canonical_key
             )
+            remember_context(posted, story, prepared['caption'])
             state['posted'] = posted
             save_state(STATE_FILE, state)
             log(f"Posted: {story['title']}")
