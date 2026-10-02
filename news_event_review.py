@@ -13,6 +13,12 @@ from urllib.parse import urlsplit
 # User-provided channel examples. These are comparison evidence, not keyword bans.
 # Dates are intentionally omitted where the user's evidence did not establish them.
 MANUAL_EVENTS = (
+    ('https://timestabloid.com/confirmed-xrp-ledger-can-be-used-to-send-iso-20022-payments-for-banks/',
+     'XRPL payment data converted to ISO 20022 for accounting in a demonstrated workflow',
+     '사용자 제공 게시문: XRPL 결제 정보를 ISO 20022 형식으로 변환해 기존 회계 시스템으로 가져오는 기술 데모 소개. 실제 은행 도입이나 XRP 인증 발표는 아님'),
+    ('https://bloomingbit.io/feed/news/121453',
+     '교보생명, 서클·SBI와 스테이블코인·RWA 사업화 추진',
+     '사용자 제공 게시문: 교보생명이 서클·SBI와 스테이블코인 및 실물연계자산 사업화를 추진. 상용 출시 완료나 최종 계약 체결로 확인된 내용은 아님'),
     ('https://cryptobriefing.com/bank-backed-allunity-launches-mica-compliant-us-dollar-stablecoin-usdau/',
      'Bank-backed AllUnity launches MiCA-compliant US dollar stablecoin USDAU',
      '사용자 제공 게시문: 은행권 지원 올유니티가 MiCA 준수 달러 스테이블코인 USDAU 출시. DWS·Flow Traders·Galaxy Digital 설립, 달러 준비금 100% 뒷받침이라고 보도'),

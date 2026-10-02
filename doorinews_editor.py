@@ -27,6 +27,10 @@ from news_quality import market_access_intake_reason
 from news_quality import institutional_research_scope_reason, adoption_research_intake_reason
 
 ADOPTION_RESEARCH_GUIDANCE = '''
+금융·결제 기업의 국경 간 스테이블코인 송금·여행객 QR 결제 실증과 구체적인 사업화 계획은 허용한다. wants/aims 같은 제목이어도 원문에 참여 기업·이용 대상·검증 활동이나 합의가 있으면 단순 희망 기사와 구분한다. 검증 결과 예정일은 상용 출시일이 아니며, 특정 국가 방문객 대상 실험을 양국 전체 이용자에게 개통된 서비스로 확대하지 않는다. 동일 기업의 다른 결제 프로젝트를 섞어 요약하지 않는다.
+보험사·생명보험사 등 금융기관의 스테이블코인·실물연계자산(RWA) 사업화 추진, 당사자가 밝힌 협력 논의와 기술검증도 지정 코인 없이 허용 범주다. 행사 현장이나 기념사진이 있어도 주체·사업 대상·구체적 활동이 확인되면 행사 홍보만으로 제외하지 않는다. 단순 참석·희망과 구분하고 논의를 계약 체결, 추진을 상용 출시로 확대하지 않는다.
+블록체인 결제와 기존 금융·회계 시스템을 연결하는 구체적인 데모·시연·기술검증 공개도 허용한다. 영상·문서에서 어떤 데이터를 어떻게 변환하고 어느 시스템에 연결했는지 확인해 그 기능과 시연 단계를 요약한다. XRPL 결제 정보를 ISO 20022 형식으로 변환해 회계 프로그램으로 가져온 시연은 요약할 수 있지만, 은행의 실제 도입·ISO의 코인 인증·상용화 완료로 쓰면 안 된다. 게시자가 연구자라면 중앙은행이나 은행의 공식 발표로 바꾸지 않는다. 기능 시연 자체가 근거이면 '사용 가능'이라는 제목만으로 일반 전망 기사로 제외하지 않는다.
+시연의 새 공개·구체적 기능·현재 보도 근거를 확인하되 원문에 없는 개발일·최초 시연일을 만들어 넣지 않는다. 새 검증 자료 없는 반복 주장, 과거 영상 재탕, ISO 관련 코인 추천 목록은 계속 제외한다. 모든 원문 검사를 유지한다.
 다음은 일반 가격 전망 금지 원칙의 제한적 예외다. 실명 금융기관이 새로 발간한 디지털자산 보고서·커버리지 개시·분석 갱신은 심사한다. 은행 이름이나 목표가만 등장한다고 허용하지 말고 원문에서 새 보고서의 기관·대상 자산·분석 근거를 확인해야 한다. 과거 보고서 재소개, 익명 전망, 기자의 차트 분석, 매매 추천·홍보는 제외한다.
 기관의 목표가를 넣을 때는 반드시 해당 기관이 제시한 전망으로 귀속하고 목표 시점·주요 전제도 함께 보존한다. 상승 확정·봇의 투자 권유로 바꾸지 않는다. 예: 스탠다드차타드가 에테나 분석을 시작하며 2028년 ENA 목표가 2달러를 제시했다고 밝힘. 전망 수치는 원문에 있을 때만 사용한다.
 은행권·규제 기반 발행사의 스테이블코인 출시도 지정 코인과 무관하게 허용한다. MiCA 준수를 모든 국가의 승인이나 무위험 보장으로 바꾸지 말고 준비금·상환 조건을 원문대로 보존한다.
@@ -115,12 +119,18 @@ ENTITY_SPECS = (
     EntitySpec("org", "리플", ("Ripple", "리플"), "#Ripple", 20),
     EntitySpec("org", "XRPL재단", ("XRPL Foundation", "XRP Ledger Foundation", "XRPL재단"), "#XRPLFoundation", 20),
     EntitySpec("org", "SBI", ("SBI Holdings", "SBI", "에스비아이"), "#SBI", 20),
+    EntitySpec("org", "교보생명", ("Kyobo Life", "교보생명"), "#KyoboLife", 20),
+    EntitySpec("org", "비댁스", ("BDACS", "비댁스"), "#BDACS", 20),
     EntitySpec("org", "라쿠텐", ("Rakuten", "라쿠텐"), "#Rakuten", 20),
     EntitySpec("org", "미래에셋", ("Mirae Asset", "미래에셋"), "#MiraeAsset", 20),
     EntitySpec("org", "코빗", ("Korbit", "코빗"), "#Korbit", 20),
     EntitySpec("org", "디지털엑스", ("Digital X", "DigitalX", "디지털엑스"), "#DigitalX", 20),
     EntitySpec("org", "마이크로소프트", ("Microsoft", "마이크로소프트"), "#Microsoft", 20),
     EntitySpec("org", "코인베이스", ("Coinbase", "코인베이스"), "#Coinbase", 20),
+    EntitySpec("org", "업홀드", ("Uphold", "업홀드"), "#Uphold", 20),
+    EntitySpec("org", "메타마스크", ("MetaMask", "Meta Mask", "메타마스크", "메타 마스크"), "#MetaMask", 20),
+    EntitySpec("org", "팬텀", ("Phantom", "팬텀"), "#Phantom", 20),
+    EntitySpec("org", "실리콘밸리어퀴지션", ("Silicon Valley Acquisition", "SiliconValleyAcquisition", "실리콘밸리어퀴지션", "실리콘밸리 어퀴지션", "실리콘 밸리 어퀴지션"), "#SiliconValleyAcquisition", 20),
     EntitySpec("org", "블록체인닷컴", ("Blockchain.com", "블록체인닷컴", "블록체인 닷컴"), "#BlockchainCom", 20),
     EntitySpec("org", "씨티그룹", ("Citigroup", "Citi", "씨티그룹", "시티그룹", "씨티"), "#Citigroup", 20),
     EntitySpec("org", "오라클", ("Oracle Corporation", "Oracle", "오라클"), "#Oracle", 20),
@@ -165,6 +175,7 @@ ENTITY_SPECS = (
     EntitySpec("org", "업비트", ("Upbit", "업비트"), "#Upbit", 20),
     EntitySpec("org", "리도", ("Lido", "Lido Finance", "리도"), "#Lido", 20),
     EntitySpec("org", "플레어", ("Flare", "Flare Network", "플레어"), "#Flare", 20),
+    EntitySpec("org", "송버드", ("Songbird", "송버드"), "#Songbird", 20),
     EntitySpec("org", "에테나", ("Ethena", "에테나"), "#Ethena", 20),
     EntitySpec("org", "드리프트", ("Drift", "Drift Protocol", "드리프트"), "#Drift", 20),
     EntitySpec("org", "올유니티", ("AllUnity", "All Unity", "올유니티"), "#AllUnity", 20),
@@ -228,6 +239,8 @@ ENTITY_SPECS = (
     EntitySpec("asset", "ENA", ("ENA",), "#ENA", 30),
     EntitySpec("asset", "FLR", ("FLR",), "#FLR", 30),
     EntitySpec("asset", "USDAU", ("USDAU",), "#USDAU", 30),
+    # OUSD also names other products. Do not infer "Open USD" from the ticker alone.
+    EntitySpec("asset", "OUSD", ("OUSD",), "", 30),
     EntitySpec("asset", "XRPL", ("XRP Ledger", "XRPL",), "#XRPL", 30),
     EntitySpec("asset", "비트코인", ("Bitcoin", "BTC", "비트코인"), "", 30),
     EntitySpec("asset", "이더리움", ("Ethereum", "ETH", "이더리움"), "#ETH", 30),
@@ -238,6 +251,7 @@ ENTITY_SPECS = (
     EntitySpec("topic", "ETF", ("ETF", "exchange-traded fund"), "#ETF", 35),
     EntitySpec("topic", "스테이블코인", ("stablecoin", "stablecoins", "스테이블코인"), "#Stablecoin", 35),
     EntitySpec("topic", "토큰화", ("tokenization", "tokenized", "토큰화"), "#Tokenization", 35),
+    EntitySpec("topic", "월렛", ("wallet", "월렛"), "", 35),
     EntitySpec("topic", "클래리티법안", ("CLARITY Act", "CLARITY", "market structure bill", "시장구조법안", "클래리티법", "클래리티법안"), "#CLARITY", 25),
     EntitySpec("topic", "지니어스법", ("GENIUS Act", "지니어스법안", "지니어스법", "지니어스 법"), "#GENIUS", 25),
     EntitySpec("person", "마이클바", ("Michael Barr", "마이클 바", "마이클바"), "#MichaelBarr", 15),
@@ -2406,6 +2420,20 @@ def _first_surface_match(text: str, spec: EntitySpec):
     return min(matches, key=lambda item: (item[0], item[1])) if matches else None
 
 
+def _secondary_network_tag(spec: EntitySpec, summary: str, story: dict) -> bool:
+    """Keep incidental non-portfolio networks in prose, without promoting their ticker."""
+    if spec.label != "솔라나" and spec.footer != "#SOL":
+        return False
+    title = str(story.get("title", "") or "")
+    if not any(_contains_alias(title, alias) for alias in ("Solana", "SOL", "솔라나")):
+        return True
+    text = title + "\n" + summary
+    networks = re.findall(r'\b(?:Base|Ethereum|Solana|Tempo|Arbitrum|Polygon|Avalanche)\b|이더리움|솔라나|베이스|템포|아비트럼|폴리곤|아발란체', summary, re.I)
+    service = re.search(r'스테이블코인|월렛|지갑|\b(?:stablecoins?|wallets?|OUSD|USDC|USDT|RLUSD|USDAU)\b', text, re.I)
+    support = re.search(r'입출금|입금|출금|네트워크.{0,30}지원|\b(?:deposits?|withdrawals?|networks?|chains?)\b', text, re.I)
+    return bool(service and support and len({n.casefold() for n in networks}) >= 2)
+
+
 def _candidate_specs(summary: str, story: dict) -> list[EntitySpec]:
     raw = _story_text(story)
     title = str(story.get("title", "") or "")
@@ -2413,6 +2441,8 @@ def _candidate_specs(summary: str, story: dict) -> list[EntitySpec]:
     seen = set()
     for spec in ENTITY_SPECS + tuple(_dynamic_specs(raw)):
         if spec.label in seen:
+            continue
+        if _secondary_network_tag(spec, summary, story):
             continue
         if spec.label == "드리프트" and not re.search(
             r'드리프트|\bDrift\s+(?:Foundation|Protocol|Labs)\b|'
@@ -2650,17 +2680,26 @@ JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 
     try:
         decision = json.loads(response)
     except (ValueError, TypeError):
+        _log("[원문 대조 판정] JSON 응답 해석 실패 | " + title)
         return False
     required = ("faithful", "conditions_preserved", "allowed_category", "new_substantive_fact", "source_sufficient", "understandable")
-    if not isinstance(decision, dict) or decision.get("publish") is not True:
+    if not isinstance(decision, dict):
+        _log("[원문 대조 판정] 객체가 아닌 응답 | " + title)
         return False
     checks = decision.get("checks")
-    return (
-        isinstance(checks, dict)
+    approved = (
+        decision.get("publish") is True
+        and isinstance(checks, dict)
         and all(checks.get(key) is True for key in required)
         and isinstance(decision.get("reason"), str)
         and bool(decision["reason"].strip())
     )
+    if not approved:
+        failed = [key for key in required if not isinstance(checks, dict) or checks.get(key) is not True]
+        # Log the bounded review explanation, never source text or credentials.
+        reason = re.sub(r"[\x00-\x1f\x7f]+", " ", str(decision.get("reason", "")))[:240]
+        _log("[원문 대조 판정] 미통과=" + ",".join(failed) + " | " + reason + " | " + title)
+    return approved
 
 
 def _summary_is_market_only(summary: str) -> bool:
