@@ -2570,7 +2570,13 @@ def fix_hashtag_particles(
 def _inject_inline_tags(summary: str, story: dict) -> tuple[str, list[EntitySpec]]:
     selected = []
     tagged = _normalize_clarity_text(summary, clarity_context=_is_clarity_story(story))
+    # Bitcoin belongs to the fixed footer only. Preserve its words/numbers,
+    # including when the model supplied a hashtag despite the plain-text prompt.
+    for surface in ("비트코인", "BTC", "Bitcoin"):
+        tagged = re.sub(_hashed_surface_pattern(surface), lambda m: m.group(0)[1:], tagged, flags=re.I)
     for spec in _candidate_specs(tagged, story):
+        if spec.kind == "asset" and spec.label == "비트코인":
+            continue
         if len(selected) >= MAX_INLINE_TAGS:
             break
         tagged, replaced = _replace_surface_with_tag(tagged, spec)
