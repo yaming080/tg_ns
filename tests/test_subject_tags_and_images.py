@@ -23,6 +23,32 @@ def decision(**checks):
 
 
 class SubjectTagsAndImages(unittest.TestCase):
+    def test_bitcoin_hashtags_only_in_fixed_footer(self):
+        candidate = {'title': '영국 법원, 압수 비트코인 반환 명령'}
+        for body in ('영국 법원이 압수 비트코인 50개와 BTC 반환을 명령했다고 밝힘',
+                     '#영국 법원이 압수 #비트코인 50개와 #BTC 반환을 명령했다고 밝힘',
+                     '#비트코인은 50개이며 #BTC는 같은 자산이고 #Bitcoin도 같은 명칭임'):
+            tagged, selected = editor._inject_inline_tags(body, candidate)
+            for forbidden in ('#비트코인', '#BTC', '#Bitcoin'):
+                self.assertNotIn(forbidden, tagged)
+            self.assertIn('50개', tagged)
+            footer = editor._build_footer_tags(candidate, selected)
+            self.assertEqual(footer[-6:], list(editor.FIXED_FOOTER_TAGS))
+            for fixed in editor.FIXED_FOOTER_TAGS:
+                self.assertEqual(footer.count(fixed), 1)
+            if '영국' in body:
+                self.assertIn('#영국', tagged)
+                self.assertEqual(footer[0], '#UnitedKingdom')
+
+    def test_bitcoin_named_organizations_keep_their_own_tags(self):
+        body = '비트코인정책연구소가 비트코인 규제 관련 자료를 발표했다고 밝힘'
+        tagged, selected = editor._inject_inline_tags(body, {'title': body})
+        self.assertIn('#비트코인정책연구소', tagged)
+        self.assertIn('비트코인 #규제', tagged)
+        footer = editor._build_footer_tags({'title': body}, selected)
+        self.assertIn('#BitcoinPolicyInstitute', footer)
+        self.assertEqual(footer[-6:], list(editor.FIXED_FOOTER_TAGS))
+
     def test_missing_subject_names_get_inline_and_footer_tags(self):
         cases = (
             ('Uphold Vault adds inheritance for XRP and Bitcoin',
