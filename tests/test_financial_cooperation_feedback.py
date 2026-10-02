@@ -28,6 +28,30 @@ def verdict(**changes):
 
 
 class FinancialCooperationFeedback(unittest.TestCase):
+    def test_cloudflare_is_not_flare_but_payment_news_still_qualifies(self):
+        for title in ('클라우드플레어, AI 에이전트 요청별 USDC 과금 시험',
+                      'Cloudflare launches AI agent payments with USDC on Base'):
+            self.assertNotIn('FLR', e.target_assets(title))
+            self.assertNotIn('플레어', [s.label for s in e._candidate_specs(title, story(title))])
+        title = 'Cloudflare launches AI agent payments with USDC on Base'
+        self.assertEqual(q.channel_scope_reason(story(title)), '암호화폐 실사용·결제 서비스')
+        self.assertTrue(e.matches_keywords(story(title), [], [], []))
+        self.assertFalse(e.matches_keywords(story('클라우드플레어, 일반 웹 보안 서비스 출시'), [], [], []))
+        self.assertFalse(q.real_world_adoption_scope_reason(story('물류기업, 클라우드플레어 공급망 추적 도입')))
+        for title in ('플레어가 새 결제 서비스를 출시', 'Flare Network launches payments', 'FLR custody launch'):
+            self.assertIn('FLR', e.target_assets(title))
+        both = '클라우드플레어와 플레어가 별도 기술을 발표'
+        self.assertIn('FLR', e.target_assets(both))
+        self.assertIn('플레어', [s.label for s in e._candidate_specs(both, story(both))])
+
+    def test_cloudflare_company_has_its_own_korean_tag(self):
+        title = '클라우드플레어, AI 에이전트 요청별 USDC 과금 시험'
+        summary = '클라우드플레어가 AI 에이전트용 USDC 과금 서비스를 비공개 테스트한다고 밝힘'
+        tagged, _ = e._inject_inline_tags(summary, story(title))
+        self.assertIn('#클라우드플레어가', tagged.replace(' ', ''))
+        self.assertNotIn('#플레어', tagged)
+        self.assertNotIn('FLR', e.target_assets(title))
+
     def test_new_institutions_and_payment_projects_qualify(self):
         for title in (KY, '한빛생명, 스테이블코인 결제 사업화 추진',
                       'Insurance company plans stablecoin settlement business',
