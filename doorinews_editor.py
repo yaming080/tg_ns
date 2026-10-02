@@ -175,6 +175,7 @@ ENTITY_SPECS = (
     EntitySpec("org", "업비트", ("Upbit", "업비트"), "#Upbit", 20),
     EntitySpec("org", "리도", ("Lido", "Lido Finance", "리도"), "#Lido", 20),
     EntitySpec("org", "플레어", ("Flare", "Flare Network", "플레어"), "#Flare", 20),
+    EntitySpec("org", "클라우드플레어", ("Cloudflare", "클라우드플레어"), "#Cloudflare", 20),
     EntitySpec("org", "송버드", ("Songbird", "송버드"), "#Songbird", 20),
     EntitySpec("org", "에테나", ("Ethena", "에테나"), "#Ethena", 20),
     EntitySpec("org", "드리프트", ("Drift", "Drift Protocol", "드리프트"), "#Drift", 20),
@@ -442,7 +443,7 @@ TARGET_ASSET_PATTERNS = {
     "ADA": (r"(?<![a-z0-9])ada(?![a-z0-9])", r"\bcardano\b", r"에이다|카르다노"),
     "BNB": (r"(?<![a-z0-9])bnb(?![a-z0-9])", r"\bbinance coin\b", r"바이낸스\s*코인"),
     "SHIB": (r"(?<![a-z0-9])shib(?![a-z0-9])", r"\bshiba inu\b", r"\bshibarium\b", r"시바이누|시바리움"),
-    "FLR": (r"(?<![a-z0-9])flr(?![a-z0-9])", r"\bflare(?: network)?\b", r"플레어"),
+    "FLR": (r"(?<![a-z0-9])flr(?![a-z0-9])", r"\bflare(?: network)?\b", r"(?<![A-Za-z가-힣])플레어"),
     "ENA": (r"(?<![a-z0-9])ena(?![a-z0-9])", r"\bethena\b", r"에테나"),
 }
 
@@ -1113,6 +1114,8 @@ def _contains_alias(text: str, alias: str) -> bool:
     if not alias:
         return False
     escaped = re.escape(alias)
+    if alias == "플레어":
+        return bool(re.search(r"(?<![A-Za-z가-힣])플레어", text))
     if re.fullmatch(r"[A-Za-z0-9 .&'-]+", alias):
         escaped = escaped.replace(r"\ ", r"\s+")
         return bool(re.search(rf"(?<![A-Za-z0-9]){escaped}(?![A-Za-z0-9])", text, re.I))
@@ -2463,7 +2466,7 @@ def _candidate_specs(summary: str, story: dict) -> list[EntitySpec]:
         ):
             continue
         in_raw = any(_contains_alias(raw, alias) for alias in spec.aliases)
-        in_summary = spec.label in summary or any(_contains_alias(summary, alias) for alias in spec.aliases)
+        in_summary = _contains_alias(summary, spec.label) or any(_contains_alias(summary, alias) for alias in spec.aliases)
         if not (in_raw or in_summary):
             continue
         # Gold/Silver are intentionally not entity specs.  TON is exact only.

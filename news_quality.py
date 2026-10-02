@@ -81,7 +81,7 @@ def institutional_research_scope_reason(story):
                    r'Goldman Sachs|Bank of America|Citi(?:group)?|HSBC|UBS|Deutsche Bank|'
                    r'[A-Z][\w-]+(?:\s+[A-Z][\w-]+){0,2}\s+(?:Bank|Securities))\b|'
                    r'스탠다드\s*차타드|스탠다드\s*차터드|SC은행|모건스탠리|골드만삭스|JP모건|씨티그룹|[가-힣]{2,10}(?:은행|증권)')
-    asset = r'\b(?:Ethena|ENA|Flare|FLR|Bitcoin|BTC|Ethereum|ETH|XRP|Cardano|ADA|Stellar|XLM|crypto|cryptocurrency|token)\b|에테나|플레어|비트코인|이더리움|카르다노|스텔라|암호화폐|가상자산'
+    asset = r'\b(?:Ethena|ENA|Flare|FLR|Bitcoin|BTC|Ethereum|ETH|XRP|Cardano|ADA|Stellar|XLM|crypto|cryptocurrency|token)\b|에테나|(?<![A-Za-z가-힣])플레어|비트코인|이더리움|카르다노|스텔라|암호화폐|가상자산'
     report = (r'\b(?:initiat\w*|launch\w*|start\w*|begin\w*)\b.{0,60}\bcoverage\b|'
               r'\b(?:publish\w*|releas\w*|issu\w*)\b.{0,50}\b(?:research|report)\b|'
               r'\b(?:sets?|raises?|revises?)\b.{0,60}\b(?:price\s+)?target\b|'
@@ -104,7 +104,7 @@ def real_world_adoption_scope_reason(story):
         and has(r'출시|발행|\b(?:launch\w*|issu\w*|rolls? out)\b')
         and has(r'은행|발행사|규제|준수|인가|\b(?:banks?|issuer|regulated|compliant|MiCA)\b')):
         return '규제 기반 스테이블코인 출시·발행'
-    chain = r'블록체인|분산원장|카르다노|플레어|\b(?:blockchain|distributed ledger|Cardano|Flare|Ethereum|XRPL)\b'
+    chain = r'블록체인|분산원장|카르다노|(?<![A-Za-z가-힣])플레어|\b(?:blockchain|distributed ledger|Cardano|Flare|Ethereum|XRPL)\b'
     use_case = r'연료|에너지|탄소|공급망|물류|이력|추적|인증|의료|\b(?:fuel|energy|carbon|supply chain|logistics|tracing|traceability|certificates?|healthcare)\b'
     action = r'도입|채택|실증|시범|착수|연구|\b(?:taps?|adopt\w*|pilot\w*|test\w*|deploy\w*|integrat\w*|launch\w*)\b'
     return '기업·기관의 블록체인 실물 활용·연구' if has(chain) and has(use_case) and has(action) else ''
