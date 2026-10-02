@@ -9,6 +9,8 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('timestabloid.com', '/confirmed-xrp-ledger-can-be-used-to-send-iso-20022-payments-for-banks'),
+    ('bloomingbit.io', '/feed/news/121453'),
     ('cryptobriefing.com', '/bank-backed-allunity-launches-mica-compliant-us-dollar-stablecoin-usdau'),
     ('coingape.com', '/brazils-petrobras-taps-cardano-blockchain-for-low-carbon-fuel-project'),
     ('cryptobriefing.com', '/standard-chartered-initiates-ethena-coverage-sees-ena-at-2-by-2028'),
@@ -68,6 +70,7 @@ CBDC_SCOPE = '중앙은행 디지털화폐·결제 실험 진행'
 ATTRIBUTED_VIEW_SCOPE = '실명 인물의 자산 장기 선호 발언'
 MARKET_ACCESS_ENABLED_AT = datetime(2026, 9, 30, 8, 15, 38, tzinfo=timezone.utc)
 ADOPTION_RESEARCH_ENABLED_AT = datetime(2026, 9, 30, 17, 35, 18, tzinfo=timezone.utc)
+FINANCIAL_COOPERATION_ENABLED_AT = datetime(2026, 10, 2, 7, 23, 2, tzinfo=timezone.utc)
 
 
 def institutional_research_scope_reason(story):
@@ -78,7 +81,7 @@ def institutional_research_scope_reason(story):
                    r'Goldman Sachs|Bank of America|Citi(?:group)?|HSBC|UBS|Deutsche Bank|'
                    r'[A-Z][\w-]+(?:\s+[A-Z][\w-]+){0,2}\s+(?:Bank|Securities))\b|'
                    r'스탠다드\s*차타드|스탠다드\s*차터드|SC은행|모건스탠리|골드만삭스|JP모건|씨티그룹|[가-힣]{2,10}(?:은행|증권)')
-    asset = r'\b(?:Ethena|ENA|Flare|FLR|Bitcoin|BTC|Ethereum|ETH|XRP|Cardano|ADA|Stellar|XLM|crypto|cryptocurrency|token)\b|에테나|플레어|비트코인|이더리움|카르다노|스텔라|암호화폐|가상자산'
+    asset = r'\b(?:Ethena|ENA|Flare|FLR|Bitcoin|BTC|Ethereum|ETH|XRP|Cardano|ADA|Stellar|XLM|crypto|cryptocurrency|token)\b|에테나|(?<![A-Za-z가-힣])플레어|비트코인|이더리움|카르다노|스텔라|암호화폐|가상자산'
     report = (r'\b(?:initiat\w*|launch\w*|start\w*|begin\w*)\b.{0,60}\bcoverage\b|'
               r'\b(?:publish\w*|releas\w*|issu\w*)\b.{0,50}\b(?:research|report)\b|'
               r'\b(?:sets?|raises?|revises?)\b.{0,60}\b(?:price\s+)?target\b|'
@@ -101,7 +104,7 @@ def real_world_adoption_scope_reason(story):
         and has(r'출시|발행|\b(?:launch\w*|issu\w*|rolls? out)\b')
         and has(r'은행|발행사|규제|준수|인가|\b(?:banks?|issuer|regulated|compliant|MiCA)\b')):
         return '규제 기반 스테이블코인 출시·발행'
-    chain = r'블록체인|분산원장|카르다노|플레어|\b(?:blockchain|distributed ledger|Cardano|Flare|Ethereum|XRPL)\b'
+    chain = r'블록체인|분산원장|카르다노|(?<![A-Za-z가-힣])플레어|\b(?:blockchain|distributed ledger|Cardano|Flare|Ethereum|XRPL)\b'
     use_case = r'연료|에너지|탄소|공급망|물류|이력|추적|인증|의료|\b(?:fuel|energy|carbon|supply chain|logistics|tracing|traceability|certificates?|healthcare)\b'
     action = r'도입|채택|실증|시범|착수|연구|\b(?:taps?|adopt\w*|pilot\w*|test\w*|deploy\w*|integrat\w*|launch\w*)\b'
     return '기업·기관의 블록체인 실물 활용·연구' if has(chain) and has(use_case) and has(action) else ''
@@ -280,7 +283,7 @@ def crypto_ipo_intake_reason(story):
     return _scope_intake_reason(story, CRYPTO_IPO_ENABLED_AT, '암호화폐 기업공개')
 
 
-def institutional_scope_reason(story, *, expanded=True, trials=True):
+def institutional_scope_reason(story, *, expanded=True, trials=True, cooperation=True):
     """Select institutional adoption, not token recommendations or event ads."""
     title = str(story.get('title', '') or '')
     has = lambda pattern: bool(re.search(pattern, title, re.I))
@@ -302,6 +305,22 @@ def institutional_scope_reason(story, *, expanded=True, trials=True):
               r'(?:전략|계획|사업|로드맵).{0,20}(?:발표|공개)|'
               r'\b(?:launch\w*|expand\w*|enter\w*|partner\w*|adopt\w*|'
               r'build\w*|develop\w*|plans?|announc\w*|unveil\w*)\b')
+    if cooperation:
+        # Insurers are financial institutions too; no portfolio ticker needed.
+        institution += r'|보험사|생명보험|손해보험|[가-힣]{2,12}생명|교보생명|\b(?:insurers?|insurance|Kyobo Life|SBI)\b'
+        subject += r'|스테이블코인|실물\s*연계\s*자산|\bstablecoins?\b'
+        business += r'|기술\s*검증|\b(?:PoC|commerciali[sz]ation|proof.of.concept)\b'
+        action += r'|협력\s*논의|사업화\s*시동|\b(?:collaborat\w*|commerciali[sz]\w*)\b'
+        # A headline such as 'wants QR payments' needs concrete activity in
+        # the feed/source before it can qualify as more than an aspiration.
+        if (has(r'스테이블코인|\bstablecoins?\b')
+                and has(r'QR|국경\s*간|여행객|관광객|\b(?:cross.border|travel\w*)\b')
+                and has(r'결제|송금|\b(?:payments?|remittances?)\b')
+                and has(r'희망|원한다|목표|\b(?:wants?|aims?|seeks?)\b')
+                and re.search(r'실증|시연|기술검증|기본\s*합의|협약|'
+                              r'\b(?:testing|pilot\w*|demonstrat\w*|signed|agreement|proof.of.concept)\b',
+                              str(story.get('desc', '')) + '\n' + str(story.get('article_text', '')), re.I)):
+            action += r'|희망|원한다|목표|\b(?:wants?|aims?|seeks?)\b'
     if expanded:
         institution += r'|씨티그룹|시티그룹|스위프트|국제은행간통신협회|\b(?:Citigroup|Citi|SWIFT)\b'
         business += r'|예금|결제|담보|펀드|\b(?:deposits?|payments?|collateral|funds?|settlement)\b'
@@ -361,9 +380,11 @@ def institutional_intake_reason(story):
     if channel_scope_reason(story) != INSTITUTIONAL_SCOPE:
         return ''
     # New matches have a separate cutoff; do not release old manual coverage.
-    if institutional_scope_reason(story, expanded=False):
+    if not institutional_scope_reason(story, cooperation=False):
+        cutoff = FINANCIAL_COOPERATION_ENABLED_AT
+    elif institutional_scope_reason(story, expanded=False, cooperation=False):
         cutoff = INSTITUTIONAL_ENABLED_AT
-    elif institutional_scope_reason(story, trials=False):
+    elif institutional_scope_reason(story, trials=False, cooperation=False):
         cutoff = INSTITUTIONAL_SERVICES_ENABLED_AT
     else:
         cutoff = INSTITUTIONAL_TRIALS_ENABLED_AT
