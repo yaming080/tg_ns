@@ -16,6 +16,7 @@ from difflib import SequenceMatcher
 from typing import Callable, Iterable
 from news_quality import freshness_reason, source_promotion_reason, approval_stage_tokens, event_conflicts, quantity_only_update
 from news_quality import channel_scope_reason, quantity_followup_reason, manual_post_reason
+from news_quality import staking_queue_metric_reason
 from news_quality import geopolitics_intake_reason, institutional_intake_reason, institutional_scope_reason
 from news_quality import crypto_ipo_intake_reason, crypto_ipo_scope_reason
 from news_quality import regulatory_payment_intake_reason, official_oversight_context
@@ -23,10 +24,12 @@ from news_quality import tax_reporting_intake_reason
 from news_quality import editorial_expansion_intake_reason, attributed_view_scope_reason
 from news_quality import precise_event_tokens
 from news_event_review import review_event
+from news_review_cache import request_text, review_context, valid_checks, fingerprint
 from news_quality import market_access_intake_reason
 from news_quality import institutional_research_scope_reason, adoption_research_intake_reason
 
 ADOPTION_RESEARCH_GUIDANCE = '''
+인물의 인지도나 직함만으로 발언 기사를 허용하지 않는다. 실명 인물이 소개하더라도 스테이킹 출구·출금 대기열 수량, 대기일, 연중 최고치 등 지표 집계가 핵심이면 제외한다. 별도의 프로토콜 적용·출금 재개·사업 발표 등 새 조치와 구분한다. 인물 발언을 요약할 때 독자가 누구인지 알 수 있도록 원문에 명시된 소속·역할을 짧게 보존하되, 이름만 보고 직함을 추정하거나 과거 직함을 현재 직함으로 만들지 않는다.
 금융·결제 기업의 국경 간 스테이블코인 송금·여행객 QR 결제 실증과 구체적인 사업화 계획은 허용한다. wants/aims 같은 제목이어도 원문에 참여 기업·이용 대상·검증 활동이나 합의가 있으면 단순 희망 기사와 구분한다. 검증 결과 예정일은 상용 출시일이 아니며, 특정 국가 방문객 대상 실험을 양국 전체 이용자에게 개통된 서비스로 확대하지 않는다. 동일 기업의 다른 결제 프로젝트를 섞어 요약하지 않는다.
 보험사·생명보험사 등 금융기관의 스테이블코인·실물연계자산(RWA) 사업화 추진, 당사자가 밝힌 협력 논의와 기술검증도 지정 코인 없이 허용 범주다. 행사 현장이나 기념사진이 있어도 주체·사업 대상·구체적 활동이 확인되면 행사 홍보만으로 제외하지 않는다. 단순 참석·희망과 구분하고 논의를 계약 체결, 추진을 상용 출시로 확대하지 않는다.
 블록체인 결제와 기존 금융·회계 시스템을 연결하는 구체적인 데모·시연·기술검증 공개도 허용한다. 영상·문서에서 어떤 데이터를 어떻게 변환하고 어느 시스템에 연결했는지 확인해 그 기능과 시연 단계를 요약한다. XRPL 결제 정보를 ISO 20022 형식으로 변환해 회계 프로그램으로 가져온 시연은 요약할 수 있지만, 은행의 실제 도입·ISO의 코인 인증·상용화 완료로 쓰면 안 된다. 게시자가 연구자라면 중앙은행이나 은행의 공식 발표로 바꾸지 않는다. 기능 시연 자체가 근거이면 '사용 가능'이라는 제목만으로 일반 전망 기사로 제외하지 않는다.
@@ -111,6 +114,7 @@ ENTITY_SPECS = (
     EntitySpec("org", "연준", ("Federal Reserve", "Fed", "연방준비제도", "연준"), "#FederalReserve", 20),
     EntitySpec("org", "HTX", ("HTX", "Huobi", "후오비"), "#HTX", 20),
     EntitySpec("org", "모건스탠리", ("Morgan Stanley", "모건스탠리"), "#MorganStanley", 20),
+    EntitySpec("org", "피델리티", ("Fidelity", "Fidelity International", "Fidelity Investments", "피델리티"), "#Fidelity", 20),
     EntitySpec("org", "갤럭시리서치", ("Galaxy Research", "갤럭시리서치"), "#GalaxyResearch", 20),
     EntitySpec("org", "비트멕스", ("BitMEX", "비트멕스"), "#BitMEX", 20),
     EntitySpec("org", "로빈후드", ("Robinhood", "로빈후드"), "#Robinhood", 20),
@@ -228,6 +232,7 @@ ENTITY_SPECS = (
     EntitySpec("person", "제이미다이먼", ("Jamie Dimon", "제이미 다이먼", "제이미다이먼"), "#JamieDimon", 15),
     EntitySpec("person", "피터쉬프", ("Peter Schiff", "피터 쉬프", "피터쉬프"), "#PeterSchiff", 15),
     EntitySpec("person", "피터브랜트", ("Peter Brandt", "피터 브랜트", "피터브랜트"), "#PeterBrandt", 15),
+    EntitySpec("person", "장줘얼", ("Jiang Zhuoer", "Zhuoer Jiang", "Jiang Zhuo'er", "장줘얼"), "#JiangZhuoer", 15),
     EntitySpec("org", "유럽중앙은행", ("European Central Bank", "ECB", "유럽중앙은행", "유럽 중앙은행"), "#ECB", 15),
     EntitySpec("person", "일론머스크", ("Elon Musk", "일론 머스크", "일론머스크"), "#ElonMusk", 15),
     EntitySpec("person", "파벨두로프", ("Pavel Durov", "파벨 두로프", "파벨두로프"), "#PavelDurov", 15),
@@ -1160,6 +1165,9 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
     known_event = manual_post_reason(story)
     if known_event:
         return True, known_event
+    queue_metric = staking_queue_metric_reason(story)
+    if queue_metric:
+        return True, queue_metric
     new_scope_reason = adoption_research_intake_reason(story)
     if new_scope_reason:
         return True, new_scope_reason
@@ -2231,8 +2239,7 @@ def _call_openai(prompt: str) -> str:
     if not client or not model:
         return ""
     try:
-        response = client.responses.create(model=model, input=prompt)
-        return str(getattr(response, "output_text", "") or "").strip()
+        return request_text(client, model, prompt)
     except Exception as exc:
         _log(f"[도리뉴스 편집 요약 실패] {exc}")
         return ""
@@ -2625,6 +2632,10 @@ def _rewrite_summary(story: dict) -> str:
     get_source = _RUNTIME.get("get_best_source_text")
     source_text = story.get("article_text") or (get_source(story) if callable(get_source) else desc)
     source_text = str(source_text or "").strip()
+    # Include the FULL collected source in identity, even when prompt text is bounded.
+    scope = {key: str(story.get(key, '')) for key in ('url', 'title', 'pub')}
+    scope['source_sha256'] = fingerprint(source_text)
+    story['_review_source_sha256'] = scope['source_sha256']
     # A headline alone is insufficient evidence for a factual brief.
     if not source_text or source_text == title.strip():
         _log("[원문 부족 검토대기] " + title)
@@ -2634,12 +2645,14 @@ def _rewrite_summary(story: dict) -> str:
     if blocked:
         _log("[원문 제외:" + reason + "] " + title)
         return ""
-    summary = _call_openai(_summary_prompt(title, source_text) + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE)
+    with review_context('summary', scope):
+        summary = _call_openai(_summary_prompt(title, source_text) + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE)
     if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", summary or "", re.I):
         return ""
     summary = _clean_summary(summary)
     if len(summary) > HARD_SUMMARY_CHARS:
-        shorter = _call_openai(_compress_prompt(summary) + ADOPTION_RESEARCH_GUIDANCE)
+        with review_context('compression', scope):
+            shorter = _call_openai(_compress_prompt(summary) + ADOPTION_RESEARCH_GUIDANCE)
         if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", shorter or "", re.I):
             return ""
         summary = _clean_summary(shorter)
@@ -2647,7 +2660,9 @@ def _rewrite_summary(story: dict) -> str:
     if not summary or len(summary) > HARD_SUMMARY_CHARS:
         _log("[요약 길이 검토대기] " + title)
         return ""
-    if not _validate_summary_against_source(title, source_text, summary):
+    with review_context('source_review', scope):
+        approved = _validate_summary_against_source(title, source_text, summary)
+    if not approved:
         _log("[원문 대조 검토대기] " + title)
         return ""
     return summary
@@ -2685,7 +2700,11 @@ def _validate_summary_against_source(title: str, source: str, summary: str) -> b
 JSON 객체 하나만 출력하라. checks는 각 검사를 통과했을 때만 true:
 {{"publish": true 또는 false, "reason": "짧은 판정 근거", "checks": {{"faithful": true 또는 false, "conditions_preserved": true 또는 false, "allowed_category": true 또는 false, "new_substantive_fact": true 또는 false, "source_sufficient": true 또는 false, "understandable": true 또는 false}}}}
 <자료>{json.dumps({'title':title,'source':source[:9000],'summary':summary},ensure_ascii=False)}</자료>'''
-    response = _call_openai(prompt + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE)
+    required = ("faithful", "conditions_preserved", "allowed_category", "new_substantive_fact", "source_sufficient", "understandable")
+    # Carry full source identity; invalid/incomplete decisions must not be cached.
+    with review_context('source_review', {'title':title, 'source_sha256':fingerprint(source)},
+                        lambda text: valid_checks(text, 'publish', required)):
+        response = _call_openai(prompt + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE)
     try:
         decision = json.loads(response)
     except (ValueError, TypeError):

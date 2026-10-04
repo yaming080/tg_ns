@@ -483,6 +483,25 @@ def channel_scope_reason(story):
             or institutional_research_scope_reason(story) or real_world_adoption_scope_reason(story))
 
 
+def staking_queue_metric_reason(story):
+    """Queue totals/wait estimates are metrics, even when quoted by a founder."""
+    title = str(story.get('title', '') or '')
+    queue = (r'출구\s*대기|(?:스테이킹|검증자).{0,25}(?:종료|출금|인출|해제).{0,15}대기|'
+             r'\b(?:exit|withdrawal|unstaking)\s+queues?\b|'
+             r'\bqueu\w*\b.{0,35}\b(?:exit|withdraw|unstak\w*)\b')
+    metric = r'\d|최고|최저|대기\s*(?:기간|시간|물량)|급증|급감|늘|줄|\b(?:surge\w*|high\w*|low\w*|waiting|rises?|falls?)\b'
+    if not (re.search(queue, title, re.I) and re.search(metric, title, re.I)):
+        return ''
+    # A protocol change or resumed withdrawals is an action, not just a total.
+    action = (r'(?:업그레이드|프로토콜|패치).{0,30}(?:적용|활성화|배포|시행)|'
+              r'(?:출금|인출|스테이킹).{0,20}(?:재개|중단\s*발표)|'
+              r'\b(?:upgrade|protocol|patch)\b.{0,40}\b(?:activat\w*|deploy\w*|implement\w*)\b|'
+              r'\b(?:resum\w*|suspend\w*)\b.{0,25}\bwithdrawals?\b')
+    if re.search(action, title, re.I):
+        return ''
+    return '스테이킹 출구·출금 대기열 수량·대기시간 단순 지표'
+
+
 def quantity_followup_reason(story):
     """Block ongoing loss tallies even without prior channel-history access."""
     title = str(story.get('title', '') or '')

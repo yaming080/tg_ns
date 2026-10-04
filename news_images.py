@@ -14,6 +14,7 @@ import warnings
 
 from PIL import Image, ImageOps
 from news_quality import valid_caption
+from news_review_cache import request_text, valid_checks
 
 MAX_IMAGE_BYTES = 8 * 1024 * 1024
 IMAGE_CHECKS = ('relevant', 'clear', 'not_advertisement', 'not_text_screenshot', 'not_price_chart',
@@ -149,11 +150,14 @@ def review_image(client,model,story,caption,data,mime):
 {"approved":true 또는 false,"reason":"기사 핵심 주체와 이미지의 실제 중심 대상을 비교한 판정 근거","checks":{"relevant":true 또는 false,"clear":true 또는 false,"not_advertisement":true 또는 false,"not_text_screenshot":true 또는 false,"not_price_chart":true 또는 false,"primary_subject":true 또는 false,"not_incidental_asset_only":true 또는 false,"identifiable_subject":true 또는 false}}
 자료: '''+json.dumps({'title':story.get('title',''),'caption_body':_caption_body(caption)},ensure_ascii=False)
     try:
-        response=client.responses.create(model=model,input=[{'role':'user','content':[
+        answer=request_text(client,model,[{'role':'user','content':[
             {'type':'input_text','text':prompt},
             {'type':'input_image','image_url':f'data:{mime};base64,'+base64.b64encode(data).decode('ascii'),'detail':'high'},
-        ]}])
-        result=json.loads(response.output_text)
+        ]}], stage='image_review',
+            scope={'url':story.get('url',''), 'published':str(story.get('pub','')),
+                   'source_sha256':story.get('_review_source_sha256','')},
+            validator=lambda text: valid_checks(text,'approved',IMAGE_CHECKS))
+        result=json.loads(answer)
         checks=result.get('checks',{}) if isinstance(result,dict) else {}
         approved=(isinstance(result,dict) and result.get('approved') is True
                   and isinstance(checks,dict) and all(checks.get(k) is True for k in IMAGE_CHECKS)
