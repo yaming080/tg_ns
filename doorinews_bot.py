@@ -1652,10 +1652,6 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
 STATE_FILE = 'news_state.json'
 MAX_ITEMS_PER_FEED = 6
 SUMMARY_SENTENCES = 3
-OPENAI_INPUT_COST_PER_1M = 0.75
-OPENAI_OUTPUT_COST_PER_1M = 4.50
-AVG_CHARS_PER_TOKEN = 4
-SHOW_COST_LOG = True
 
 def normalize_url(url: str) -> str:
     url = (url or '').strip().lower()
@@ -1666,29 +1662,6 @@ def normalize_url(url: str) -> str:
 def log(msg: str) -> None:
     print(msg, flush=True)
 	
-def estimate_tokens_from_text(text: str) -> int:
-    if not text:
-        return 0
-    return max(1, int(len(text) / AVG_CHARS_PER_TOKEN))
-
-
-def log_openai_cost(title: str, prompt: str, output: str) -> None:
-    if not SHOW_COST_LOG:
-        return
-
-    input_tokens = estimate_tokens_from_text(prompt)
-    output_tokens = estimate_tokens_from_text(output)
-
-    input_cost = (input_tokens / 1_000_000) * OPENAI_INPUT_COST_PER_1M
-    output_cost = (output_tokens / 1_000_000) * OPENAI_OUTPUT_COST_PER_1M
-    total_cost = input_cost + output_cost
-
-    log(
-        f"[OpenAI 비용] {title[:60]} | "
-        f"입력토큰≈{input_tokens} | 출력토큰≈{output_tokens} | "
-        f"예상비용≈${total_cost:.6f}"
-    )
-
 def has_precious_metal_context(text: str, metal: str) -> bool:
     raw = text or ""
     norm = normalize_text(raw)
@@ -2824,6 +2797,9 @@ def fetch_article_text(url: str) -> str:
     except Exception:
         return ""
 
+    from news_source_cleanup import strip_page_furniture
+    html_text = strip_page_furniture(html_text)
+
     patterns = [
         r'<article[^>]*>(.*?)</article>',
         r'<main[^>]*>(.*?)</main>',
@@ -2918,12 +2894,8 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
 {source_text}
 """.strip()
 
-        response = openai_client.responses.create(
-            model=OPENAI_MODEL,
-            input=prompt,
-        )
-
-        text = (response.output_text or "").strip()
+        from news_review_cache import request_text
+        text = request_text(openai_client, OPENAI_MODEL, prompt, stage='legacy_summary')
         text = cleanup_text(text)
         text = fix_translation_terms(text)
         text = fix_truncated_phrases(text)
@@ -2937,7 +2909,6 @@ def rewrite_summary_with_gemini(title: str, article_text: str, fallback_text: st
             log(f"[요약거부/스킵 감지] {title}")
             return ""
 
-        log_openai_cost(title, prompt, text)
         return text
 
     except Exception as e:
@@ -6942,179 +6913,182 @@ def main():
     log("Bot starting...")
     log("RUNNING_BUILD=0620_general_duplicate_engine")
     state = load_state(STATE_FILE)
-    posted = state.get('posted', {})
+    from news_review_cache import review_session, record_publication
+    with review_session(state, lambda: save_state(STATE_FILE, state), log):
+        posted = state.get('posted', {})
 
-    before_cnt = len(posted)
-    posted = prune_posted_older_than(posted, days=30)
-    after_cnt = len(posted)
-    state['posted'] = posted
-    save_state(STATE_FILE, state)
-    log(f"[state 정리] 30일 초과 삭제: {before_cnt - after_cnt}개 / 유지: {after_cnt}개")
+        before_cnt = len(posted)
+        posted = prune_posted_older_than(posted, days=30)
+        after_cnt = len(posted)
+        state['posted'] = posted
+        save_state(STATE_FILE, state)
+        log(f"[state 정리] 30일 초과 삭제: {before_cnt - after_cnt}개 / 유지: {after_cnt}개")
 
-    collected = []
+        collected = []
 
-    for feed in FEEDS:
-        name, feed_url, warmup_only = _feed_unpack_final(feed)
-        stories = fetch_rss(feed_url, max_items=MAX_ITEMS_PER_FEED)
-        if warmup_only:
-            saved = 0
-            for s in stories:
-                if is_duplicate(s.get('title', ''), posted, s.get('url', '')):
-                    continue
-                _register_story_state_final(s, posted)
-                saved += 1
-            state['posted'] = posted
-            save_state(STATE_FILE, state)
-            log(f"{name}: {len(stories)}개 수집 / warmup_only / {saved}개 state 저장, 발송 없음")
-            continue
+        for feed in FEEDS:
+            name, feed_url, warmup_only = _feed_unpack_final(feed)
+            stories = fetch_rss(feed_url, max_items=MAX_ITEMS_PER_FEED)
+            if warmup_only:
+                saved = 0
+                for s in stories:
+                    if is_duplicate(s.get('title', ''), posted, s.get('url', '')):
+                        continue
+                    _register_story_state_final(s, posted)
+                    saved += 1
+                state['posted'] = posted
+                save_state(STATE_FILE, state)
+                log(f"{name}: {len(stories)}개 수집 / warmup_only / {saved}개 state 저장, 발송 없음")
+                continue
 
-        log(f"{name}: {len(stories)}개 수집")
-        collected.extend(stories)
+            log(f"{name}: {len(stories)}개 수집")
+            collected.extend(stories)
 
-    collected.extend(collect_new_sources(
-        state, http_get, lambda current: save_state(STATE_FILE, current), log))
+        collected.extend(collect_new_sources(
+            state, http_get, lambda current: save_state(STATE_FILE, current), log))
 
-    filtered = [s for s in collected if matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)]
-    log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
+        filtered = [s for s in collected if matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)]
+        log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
 
-    new_stories = []
-    # Keep raw titles so amount-aware signatures can be rebuilt from state.
-    # Normalized display titles remove decimal and thousands separators.
-    seen_titles = [
-        item.get('title', '')
-        for item in posted.values()
-        if item.get('title')
-    ]
-    seen_signatures = [
-        item.get('signature', '')
-        for item in posted.values()
-        if item.get('signature')
-    ]
-    seen_urls = {
-        item.get('url', '').strip()
-        for item in posted.values()
-        if item.get('url')
-    }
-    seen_topic_keys = {
-        item.get('signature', '')
-        for item in posted.values()
-        if item.get('signature')
-    }
-    seen_canonical_keys = {
-        item.get('canonical_key', '')
-        for item in posted.values()
-        if item.get('canonical_key')
-    }
+        new_stories = []
+        # Keep raw titles so amount-aware signatures can be rebuilt from state.
+        # Normalized display titles remove decimal and thousands separators.
+        seen_titles = [
+            item.get('title', '')
+            for item in posted.values()
+            if item.get('title')
+        ]
+        seen_signatures = [
+            item.get('signature', '')
+            for item in posted.values()
+            if item.get('signature')
+        ]
+        seen_urls = {
+            item.get('url', '').strip()
+            for item in posted.values()
+            if item.get('url')
+        }
+        seen_topic_keys = {
+            item.get('signature', '')
+            for item in posted.values()
+            if item.get('signature')
+        }
+        seen_canonical_keys = {
+            item.get('canonical_key', '')
+            for item in posted.values()
+            if item.get('canonical_key')
+        }
 
-    for s in filtered:
-        title = s.get('title', '')
-        norm_title = normalize_for_duplicate(title)
-        signature = build_story_signature(s)
-        canonical_key = build_canonical_topic_key(s)
-        url = s.get('url', '').strip()
+        for s in filtered:
+            title = s.get('title', '')
+            norm_title = normalize_for_duplicate(title)
+            signature = build_story_signature(s)
+            canonical_key = build_canonical_topic_key(s)
+            url = s.get('url', '').strip()
 
-        if signature and len(signature.split('|')) >= 3 and signature in seen_topic_keys:
-            log(f"[토픽중복 제외] {title}")
-            log(f"  └ 시그니처: {signature}")
-            continue
+            if signature and len(signature.split('|')) >= 3 and signature in seen_topic_keys:
+                log(f"[토픽중복 제외] {title}")
+                log(f"  └ 시그니처: {signature}")
+                continue
 
-        if is_canonical_duplicate(canonical_key, seen_canonical_keys):
-            log(f"[정규토픽중복 제외] {title}")
-            log(f"  └ canonical_key: {canonical_key}")
-            continue
+            if is_canonical_duplicate(canonical_key, seen_canonical_keys):
+                log(f"[정규토픽중복 제외] {title}")
+                log(f"  └ canonical_key: {canonical_key}")
+                continue
 
-        if url and url in seen_urls:
-            log(f"[URL중복 제외] {title}")
-            continue
+            if url and url in seen_urls:
+                log(f"[URL중복 제외] {title}")
+                continue
 
-        if is_duplicate(title, posted, url):
-            log(f"[제목/URL중복 제외] {title}")
-            continue
+            if is_duplicate(title, posted, url):
+                log(f"[제목/URL중복 제외] {title}")
+                continue
 
-        if is_semantically_duplicate(s, seen_signatures, seen_titles):
-            log(f"[의미중복 제외] {title}")
+            if is_semantically_duplicate(s, seen_signatures, seen_titles):
+                log(f"[의미중복 제외] {title}")
+                log(f"  └ 정규화제목: {norm_title}")
+                log(f"  └ 시그니처: {signature}")
+                continue
+
+            log(f"[통과] {title}")
             log(f"  └ 정규화제목: {norm_title}")
             log(f"  └ 시그니처: {signature}")
-            continue
+            log(f"  └ canonical_key: {canonical_key}")
 
-        log(f"[통과] {title}")
-        log(f"  └ 정규화제목: {norm_title}")
-        log(f"  └ 시그니처: {signature}")
-        log(f"  └ canonical_key: {canonical_key}")
+            new_stories.append(s)
+            seen_titles.append(title)
+            seen_signatures.append(signature)
+            if signature and len(signature.split('|')) >= 3:
+                seen_topic_keys.add(signature)
+            if canonical_key:
+                seen_canonical_keys.add(canonical_key)
+            if url:
+                seen_urls.add(url)
 
-        new_stories.append(s)
-        seen_titles.append(title)
-        seen_signatures.append(signature)
-        if signature and len(signature.split('|')) >= 3:
-            seen_topic_keys.add(signature)
-        if canonical_key:
-            seen_canonical_keys.add(canonical_key)
-        if url:
-            seen_urls.add(url)
+        log(f"중복 제거 후 {len(new_stories)}개")
+        state['posted'] = posted
+        save_state(STATE_FILE, state)
 
-    log(f"중복 제거 후 {len(new_stories)}개")
-    state['posted'] = posted
-    save_state(STATE_FILE, state)
+        if INITIAL_RUN:
+            log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
+            return
 
-    if INITIAL_RUN:
-        log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")
-        return
+        if not POST_ENABLED:
+            log("POST_ENABLED=false 상태라 텔레그램 발송 없이 종료")
+            log(f"발송 차단된 후보: {len(new_stories)}개")
 
-    if not POST_ENABLED:
-        log("POST_ENABLED=false 상태라 텔레그램 발송 없이 종료")
-        log(f"발송 차단된 후보: {len(new_stories)}개")
+            if DRY_RUN_RECORD:
+                log("DRY_RUN_RECORD=true 상태라 발송 없이 news_state.json에 기록만 진행")
+                for story in new_stories:
+                    signature = build_story_signature(story)
+                    canonical_key = build_canonical_topic_key(story)
+                    update_posted(
+                        story.get('title', ''),
+                        posted,
+                        story.get('url', ''),
+                        signature,
+                        canonical_key
+                    )
+                state['posted'] = posted
+                save_state(STATE_FILE, state)
+                log(f"발송 없이 기록 완료: {len(new_stories)}개")
+            else:
+                log("DRY_RUN_RECORD=false 상태라 기록도 하지 않음")
 
-        if DRY_RUN_RECORD:
-            log("DRY_RUN_RECORD=true 상태라 발송 없이 news_state.json에 기록만 진행")
-            for story in new_stories:
+            return
+
+        for story in new_stories:
+            prepared = prepare_publication(story, build_message, openai_client, OPENAI_MODEL,
+                event_review=lambda caption: review_article_event(story, caption, posted))
+            if prepared['status'] != 'ready':
+                log(f"[게시보류] {story.get('title','')} | {prepared['reason']}")
+                for attempt in prepared['attempts']:
+                    log(f"  이미지: {attempt['reason']}")
+                continue
+            ok = send_reviewed_photo(
+                TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID,
+                prepared['image'], prepared['caption'], log,
+            )
+
+            if ok:
                 signature = build_story_signature(story)
                 canonical_key = build_canonical_topic_key(story)
                 update_posted(
-                    story.get('title', ''),
+                    story['title'],
                     posted,
                     story.get('url', ''),
                     signature,
                     canonical_key
                 )
-            state['posted'] = posted
-            save_state(STATE_FILE, state)
-            log(f"발송 없이 기록 완료: {len(new_stories)}개")
-        else:
-            log("DRY_RUN_RECORD=false 상태라 기록도 하지 않음")
+                remember_context(posted, story, prepared['caption'])
+                state['posted'] = posted
+                save_state(STATE_FILE, state)
+                record_publication()
+                log(f"Posted: {story['title']}")
+            else:
+                log(f"Failed: {story['title']}")
 
-        return
-
-    for story in new_stories:
-        prepared = prepare_publication(story, build_message, openai_client, OPENAI_MODEL,
-            event_review=lambda caption: review_article_event(story, caption, posted))
-        if prepared['status'] != 'ready':
-            log(f"[게시보류] {story.get('title','')} | {prepared['reason']}")
-            for attempt in prepared['attempts']:
-                log(f"  이미지: {attempt['reason']}")
-            continue
-        ok = send_reviewed_photo(
-            TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID,
-            prepared['image'], prepared['caption'], log,
-        )
-
-        if ok:
-            signature = build_story_signature(story)
-            canonical_key = build_canonical_topic_key(story)
-            update_posted(
-                story['title'],
-                posted,
-                story.get('url', ''),
-                signature,
-                canonical_key
-            )
-            remember_context(posted, story, prepared['caption'])
-            state['posted'] = posted
-            save_state(STATE_FILE, state)
-            log(f"Posted: {story['title']}")
-        else:
-            log(f"Failed: {story['title']}")
-
-        time.sleep(0.3)
+            time.sleep(0.3)
 
 
 
