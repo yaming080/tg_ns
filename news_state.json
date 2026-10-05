@@ -3544,6 +3544,24 @@
       "ts": "2026-10-05T13:10:26.041279+00:00",
       "summary": "Xverse가 팀 드레이퍼의 드레이퍼 어소시에이츠 등이 참여한 전략적 투자 유치를 바탕으로, 이용자가 개인키를 직접 관리하는 비수탁형 비트코인 네오뱅크 개발을 확대한다고 밝힘\n\n조달 금액은 공개하지 않았으며, 예치 수익·결제·비트코인 담보 대출 서비스 확장에 자금을 쓸 계획이라고 전함",
       "source_pub": "Mon, 05 Oct 2026 12:00:21 +0000"
+    },
+    "b162c57d21f61f9c": {
+      "title": "1inch lists 77 bStocks tokenized equities and ETFs on BNB Chain",
+      "url": "cryptobriefing.com/1inch-lists-77-bstocks-bnb-chain",
+      "signature": "",
+      "canonical_key": "",
+      "ts": "2026-10-05T18:26:04.598263+00:00",
+      "summary": "1inch가 #바이낸스코인 Chain에서 #미국 주식· #ETF 를 1대1로 기초자산에 연동한 bStocks #토큰 77종을 dApp과 #월렛 에 추가해 거래를 지원한다고 밝힘\n\nbStocks는 BNB Chain 토큰 표준인 BEP-20으로 발행되며, 1inch는 여러 #유동성 을 비교해 주문을 연결하는 집계 서비스라고 설명함",
+      "source_pub": "Mon, 05 Oct 2026 17:20:16 +0000"
+    },
+    "c0c325e4ad046792": {
+      "title": "리플, 결제량 XRP 레저 이전·대출 연계 구상 밝혀",
+      "url": "www.tokenpost.kr/news/cryptocurrency/418534",
+      "signature": "action_develop | action_expand | action_migrate | action_propose | asset_xrp | entity_리플 | entity_모니카롱 | geo_korea | geo_seoul | object_lending | object_payment",
+      "canonical_key": "action_develop | action_expand | action_migrate | action_propose | asset_xrp | entity_리플 | entity_모니카롱 | geo_korea | geo_seoul | object_lending | object_payment",
+      "ts": "2026-10-05T18:26:27.208848+00:00",
+      "summary": "#리플 사장 #모니카롱 이 결제 고객 거래량을 #XRP 레저로 옮기고, 탈중앙화 거래소(#DEX)를 거치는 결제 파일럿과 대출 기능 연계를 구상 중이라고 밝힘\n\n대출 풀에 XRP를 넣어 결제 고객 자금 조달에 쓰는 방안도 제시했지만 적용 범위와 구체 조건은 공개되지 않았다고 전함",
+      "source_pub": "Mon, 05 Oct 2026 17:19:48 +0000"
     }
   },
   "source_baselines": {
@@ -3711,18 +3729,6 @@
   },
   "ai_review": {
     "entries": {
-      "cacc7635dacede9a3e8539453a0abe264ba82f49fd4ee128bf6f71a05a389975": {
-        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 드레이퍼 어소시에이츠의 Xverse 투자 및 Xverse의 비트코인 네오뱅크 기능 확대인데, 이미지는 정체 불명의 비트코인 네트워크 분위기 삽화일 뿐 Xverse나 Draper Associates를 식별할 수 없다. 비트코인이 배경 자산으로 언급되더라도 기사 핵심 주체·상품을 직접 보여주지 않아 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
-        "expires": 1791223886.4275358
-      },
-      "450ddac4a9a28f7920c8fc50ed2a6682c8dcc02732e36aa8dc77a7961720bb29": {
-        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 드레이퍼 어소시에이츠의 Xverse 투자 및 Xverse의 비트코인 네오뱅크 기능 확장이다. 그러나 이미지는 Xverse, Draper Associates, 투자 장면, 관련 서비스/제품을 식별할 수 없고, 비트코인 심볼이 있는 범용 네트워크 삽화만 보여준다. 기사 주체를 직접 나타내지 않는 일반 암호화폐 분위기 이미지이므로 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
-        "expires": 1791223889.9482725
-      },
-      "958385adce2667636bee1d378d3e9d93439bdd9868c852ccaa3fb93a4cfb3a67": {
-        "text": "SKIP",
-        "expires": 1791223892.0281456
-      },
       "6cc7eadcd8e97b6712d12b75724a0efe00004546ee950a7dd84a3fafa45c4942": {
         "text": "{\"publish\":false,\"reason\":\"단순 보유량·매수 수량 증가와 평가이익 수치가 핵심인 후속 보도로 게시 기준에 맞지 않음\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1791227407.0561967
@@ -3758,6 +3764,10 @@
       "af9c3ecdf1a6d4eaeb8ac63548a8ca86c066d1aaab9d98ff332f64d5433b0159": {
         "text": "SKIP",
         "expires": 1791242508.5257745
+      },
+      "768310f88c3d457db8dba01dcfba7a34588837b04a5660bd8a54e9bd6db871dd": {
+        "text": "{\"publish\": false, \"reason\": \"제목의 'framework 제안'과 본문의 '기존 권한으로 대응' 사이에 핵심 내용 불일치가 있고, 구체적 새 조치가 확인되지 않습니다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": false, \"allowed_category\": true, \"new_substantive_fact\": false, \"source_sufficient\": false, \"understandable\": true}}",
+        "expires": 1791246337.5153792
       },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
@@ -4086,6 +4096,94 @@
       "04f1b8a541ee3325ab28df03f24cccf73861c05e33315e95b3082118d421ef0f": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791480106.840132
+      },
+      "05b2e0146b5251f67330e6c6234c9e339b1cc08efa29eaef41ab6ce7b66b2683": {
+        "text": "미국 CFTC의 마이클 셀릭 의장이 의회에서 암호화폐 시장구조 법안 진전이 무산된 뒤 기존 법률 권한으로 암호화폐 규제에 대응하고 있다고 밝힘",
+        "expires": 1791483935.237861
+      },
+      "59b68a9047810c1435449edf81d25af9042e690157d5331eb4e3254aedcd22f2": {
+        "text": "1inch가 BNB Chain에서 미국 주식·ETF를 1대1로 기초자산에 연동한 bStocks 토큰 77종을 dApp과 월렛에 추가해 거래를 지원한다고 밝힘\n\nbStocks는 BNB Chain 토큰 표준인 BEP-20으로 발행되며, 1inch는 여러 유동성을 비교해 주문을 연결하는 집계 서비스라고 설명함",
+        "expires": 1791483940.551305
+      },
+      "6c4cd261fee1a76cc7fdabd0678e6269ca151514df4a6e44267fe4f62302fd67": {
+        "text": "{\"publish\":true,\"reason\":\"1inch의 새 상장·지원 사실을 원문 범위에서 대체로 정확히 요약했고, 토큰화 주식 인프라 관련 허용 범주에 해당함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791483942.8631926
+      },
+      "791b373b677d8ad74d205e773d6effa7b5da7fff93e5e92392f3a34986ac6ae2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791483946.9907167
+      },
+      "3d5019fccab06ac6953fa2dc8838662d91be865e9c70a91e46bd156780b3577e": {
+        "text": "{\"related_ids\":[\"12bf17e21c09c6ff\",\"9c2d1a0c7b5d8267\"]}",
+        "expires": 1791483951.9075615
+      },
+      "caeaf03f60ac740cb6e17ae4fd1d031ae842c18e6ede288cf8af095fa292a0e6": {
+        "text": "{\"related_ids\":[\"2a98bac1fe7e7ab5\"]}",
+        "expires": 1791483953.7568893
+      },
+      "209275dd4ebedf36954ec2ebe9ed0a39a7cdee05a7e42392594c53bcc697dcec": {
+        "text": "{\"related_ids\":[\"397833982b7ccde9\",\"b32ceca857c9f4df\",\"f58b501ce373c98d\"]}",
+        "expires": 1791483956.7999
+      },
+      "c6bf35b676245f89348cb1c0a6c3ef3749282beaef895e3b754a8db99a57e58f": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 1inch가 BNB Chain에서 bStocks 토큰화 주식·ETF 77종을 dApp·월렛에 상장/지원한 사건이다. 기존 기록들은 토큰화 주식 시장 규모, 체인별 RWA 가치, 지갑 수, xStocks 발행·예치 현황 등에 관한 통계·현황 기사로 보이며, 주체(1inch), 행동(상장/거래 지원), 대상 상품(bStocks 77종), 서비스 범위(dApp·월렛 추가)가 다르다. 같은 토큰화 주식 분야라도 별도 사업/조치이므로 중복 사건이 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1791483959.8243327
+      },
+      "62c07ac58a66d20c8373f26bed5aac7ba52145d1c60a3a3aac41f43b785410d9": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 1inch가 BNB Chain에서 bStocks 토큰화 주식·ETF 77종 거래 지원을 추가한 것이다. 이미지에는 핵심 주체인 1inch의 공식 로고/워드마크가 선명하게 중심으로 보이므로 기사 대표 이미지로 관련성이 충분하다. 단순 배경용 코인 분위기 이미지가 아니고 광고·차트·텍스트 스크린샷에도 해당하지 않는다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791483962.9599788
+      },
+      "58c7aa103bca07e9b61ecbb277e75c3e676e4ba2fcb0fc2b4f5cbf7560838e91": {
+        "text": "리플 사장 모니카 롱이 결제 고객 거래량을 XRP 레저로 옮기고, 탈중앙화 거래소(DEX)를 거치는 결제 파일럿과 대출 기능 연계를 구상 중이라고 밝힘\n\n대출 풀에 XRP를 넣어 결제 고객 자금 조달에 쓰는 방안도 제시했지만 적용 범위와 구체 조건은 공개되지 않았다고 전함",
+        "expires": 1791483967.9641263
+      },
+      "171c38b41572cc9426011abf162b4b7d4ecb3108e6fa152429d52cf3c8fe03ea": {
+        "text": "{\"publish\":true,\"reason\":\"원문은 리플 사장의 새 구상을 전한 보도이며, 요약이 구상 단계와 미공개 조건을 유지한 채 핵심을 충실히 옮겼다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791483969.8694544
+      },
+      "5efefb1d24175bf7c581dfc7d448bd74790668c35d4ed3887acadb86161cfa22": {
+        "text": "{\"related_ids\":[\"c36fddf067c90a90\",\"4007cbfa5de53293\"]}",
+        "expires": 1791483972.216861
+      },
+      "64348dc4f18e4bf243d9326774fc0c6aad807b7919c5db4f877982f8f715863d": {
+        "text": "{\"related_ids\":[\"534412ca7aac2202\"]}",
+        "expires": 1791483974.657232
+      },
+      "4a1077d7f47970c3df11f60e6eb06507b13fb6d201f88a48bd1768ea7b389474": {
+        "text": "{\"related_ids\":[\"654b42efb4a00557\"]}",
+        "expires": 1791483977.0088437
+      },
+      "46d27efbc4484b896c4ef35b98beea26c5975f6456c21e45be9cf9ba06707ef5": {
+        "text": "{\"related_ids\":[\"b656a86bbf15b4d1\"]}",
+        "expires": 1791483979.2070665
+      },
+      "c196bc92f083d920ddfd22f650b159a4d5ccd26e9d43fe595d5b7c8ca56c0e1d": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 리플 경영진이 결제 고객의 거래량을 XRP 레저로 이전하고 DEX 경유 결제 파일럿 및 대출 기능 연계를 구상한다고 밝힌 내용이다. 기존 기록들은 XRPL 대출 개정안(XLS-66) 개발·베타·메인넷 진전이나 클리어풀의 기관대출 계획에 관한 것으로, 주체(리플/모니카 롱 vs XRPL 개정안·클리어풀), 행동(결제 이전 구상·파일럿 구상 vs 프로토콜 개발·활성화 진전), 대상(리플 결제 고객 거래량 vs XRPL 대출 기능 자체)이 다르다. 같은 XRP/XRPL 관련 주제라도 별도 사업·사건으로 보는 것이 타당하다.\",\"new_fact\":\"\"}",
+        "expires": 1791483982.3396232
+      },
+      "1a812bc77af84b50a7a6cabe0b503167046064c9c9c3606d11ff19a009dba372": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 리플/XRP 레저 관련 구상 발표이며, 이미지는 XRP를 식별할 수 있는 선명한 로고 중심 삽화다. 지원 네트워크나 배경용 자산이 아니라 기사 핵심 주체와 직접 연결되는 대상이므로 대표 이미지로 적절하다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791483986.0234861
+      },
+      "dae0eb665aa7713143373525c861b89f47d8a535dfb47644b1c3cfbc22e18b8e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791483992.9196303
+      },
+      "e79d7e214efbf416d3c58b6e06eb587d55dd4c6f0f910207eeb0acff8cafd6c4": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791483998.115157
+      },
+      "044d96adbc39efa7ebbae6cfa22246233b9ded3cc41928ea19bc4782f059e9e1": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 미국 CFTC가 가상자산 시장 전반에 대한 첫 규제안을 제안한 사건이다. 이력 기사는 SEC가 투자자문사·규제 펀드의 암호화폐 보관(custody) 규정 개정안을 공개한 사건으로, 규제기관(주체), 규제 대상, 구체적 조치가 모두 다르다. 같은 미국 규제 뉴스이지만 동일 사건이나 단순 보충이 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1791484000.6710205
+      },
+      "5174f74b0d1d1b4485a1dbe081fe7ecec70a786b03badbb1730db71222776b0a": {
+        "text": "{\"related_ids\":[\"9ab2d50563c89a45\"]}",
+        "expires": 1791484007.3636038
+      },
+      "e0665940f0820b792736bf216caca0b94b2613e08f3ab1b54990174a80531871": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791484011.3830466
       }
     },
     "version": "review-cache-v29-1",
@@ -4109,77 +4207,77 @@
       "2026-10-05": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 24,
-            "cache_hits": 11,
+            "api_calls": 27,
+            "cache_hits": 14,
             "errors": 7,
             "missing_usage": 0,
-            "input_tokens": 78540,
-            "cached_input_tokens": 23296,
-            "output_tokens": 1200,
+            "input_tokens": 91739,
+            "cached_input_tokens": 26880,
+            "output_tokens": 1445,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.161934,
+            "estimated_usd": 0.1905425,
             "unpriced_calls": 0
           },
           "source_review": {
-            "api_calls": 14,
-            "cache_hits": 6,
+            "api_calls": 17,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 56676,
+            "input_tokens": 68242,
             "cached_input_tokens": 5376,
-            "output_tokens": 1230,
+            "output_tokens": 1510,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.148044,
+            "estimated_usd": 0.181159,
             "unpriced_calls": 0
           },
           "event_search": {
-            "api_calls": 49,
-            "cache_hits": 11,
+            "api_calls": 61,
+            "cache_hits": 15,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 471536,
-            "cached_input_tokens": 1792,
-            "output_tokens": 539,
+            "input_tokens": 585670,
+            "cached_input_tokens": 11264,
+            "output_tokens": 776,
             "reasoning_tokens": 0,
-            "estimated_usd": 1.182893,
+            "estimated_usd": 1.450471,
             "unpriced_calls": 0
           },
           "image_review": {
-            "api_calls": 18,
-            "cache_hits": 3,
+            "api_calls": 20,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 28843,
+            "input_tokens": 31249,
             "cached_input_tokens": 0,
-            "output_tokens": 2943,
+            "output_tokens": 3232,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.1162525,
+            "estimated_usd": 0.1266025,
             "unpriced_calls": 0
           },
           "event_decision": {
-            "api_calls": 2,
-            "cache_hits": 2,
+            "api_calls": 5,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1672,
+            "input_tokens": 4100,
             "cached_input_tokens": 0,
-            "output_tokens": 331,
+            "output_tokens": 808,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.009145,
+            "estimated_usd": 0.02237,
             "unpriced_calls": 0
           }
         },
         "gpt-5.4-mini": {
           "event_search_mini_v30": {
-            "api_calls": 52,
+            "api_calls": 68,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 506925,
+            "input_tokens": 663695,
             "cached_input_tokens": 0,
-            "output_tokens": 2152,
+            "output_tokens": 2924,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.38987775,
+            "estimated_usd": 0.51092925,
             "unpriced_calls": 0
           }
         }
@@ -4435,6 +4533,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.2129685,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T18:01:12.498891+00:00",
+        "elapsed_seconds": 1539.721,
+        "status": "completed",
+        "api_calls": 39,
+        "cache_hits": 12,
+        "errors": 0,
+        "published": 2,
+        "estimated_usd": 0.473928,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
