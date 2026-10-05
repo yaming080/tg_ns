@@ -3555,6 +3555,15 @@
       "ts": "2026-10-02T23:19:32.066290+00:00",
       "summary": "샌프란시스코 연은 연구진이 #테더 와 USD코인 발행사의 미 국채·환매조건부채권(RP) 보유액이 5년간 약 2000억달러 늘었다고 공개함\n\n다만 주로 단기 국채와 현금성 자산이 늘어난 것으로, #중국 의 장기 미 국채 보유 감소를 직접 대체한 것은 아니라고 설명함",
       "source_pub": "Fri, 02 Oct 2026 22:22:31 +0000"
+    },
+    "4bf435c7de226641": {
+      "title": "홍콩, 연내 가상자산 거래·수탁·자문·운용 라이선스 법안 제출",
+      "url": "bloomingbit.io/feed/news/121598",
+      "signature": "action_file | geo_hongkong | object_custody | object_license",
+      "canonical_key": "action_file | geo_hongkong | object_custody | object_license",
+      "ts": "2026-10-05T08:03:36.899751+00:00",
+      "summary": "#홍콩 #정부 가 연내 암호화폐 거래· #수탁·자문·운용 서비스 라이선스 제도를 담은 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략에 포함됐으며, 정부는 #AI 악용 사기 콘텐츠의 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
+      "source_pub": "Mon, 05 Oct 2026 00:02:46 -0700"
     }
   },
   "source_baselines": {
@@ -3753,6 +3762,34 @@
       "055b01741e4c58f827bd7c9db38e754256981e8a948fd20201a737203c68b264": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791443532.6170862
+      },
+      "12c56124b8e5965ba6ea41a7ed341953165d0b256a235ec423fa19e381a05531": {
+        "text": "홍콩 정부가 연내 가상자산 거래·수탁·자문·운용 서비스 라이선스 제도를 담은 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략에 포함됐으며, 정부는 AI 악용 사기 콘텐츠의 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
+        "expires": 1791446599.1848814
+      },
+      "d6ca38956e81d3ceb3707db11d96b63a2f7209b7e8965b81348147795fbf348b": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, 홍콩 정부의 연내 법안 제출 계획과 AI 사기 대응 법체계 검토라는 새 정책 발표를 정확히 전했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791446601.1674066
+      },
+      "4ae49bdf3fab68cd2f204a60748e5e7dd59acf06bfec408ba0b656c844971ab1": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791446602.264608
+      },
+      "0fe5f8d2e5a255a1f488990e187dac992a6b5ce542418ba0523210340581b927": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791446603.3440704
+      },
+      "5c64b349519be7ec604b262c636036f191613304949722f7ff75b368abb0e975": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791446604.5264106
+      },
+      "8604a94e7dbc45be6e63e11943d3f0472085c5bcfe768c31c594864e2aedc45d": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791446606.6741412
+      },
+      "0a30acaae9c46f8fa05e4ad14840e589a59f6a75c6645df3030729f677ec9f1e": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스 라이선스 법안을 추진하는 것이다. 이미지는 홍콩을 명확히 식별할 수 있는 홍콩기와 가상자산을 상징하는 비트코인 코인을 함께 보여줘 홍콩의 암호화폐 규제·정책 기사와 직접 관련된 대표 삽화로 볼 수 있다. 비트코인이 법안의 특정 상품 주체는 아니지만, 기사 주제가 특정 기업·토큰이 아니라 홍콩의 가상자산 제도 전반이므로 부수 자산 단독 이미지에 해당하지 않는다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791446614.2993674
       }
     },
     "version": "review-cache-v29-1",
@@ -3776,51 +3813,51 @@
       "2026-10-05": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 8,
+            "api_calls": 9,
             "cache_hits": 0,
             "errors": 7,
             "missing_usage": 0,
-            "input_tokens": 4533,
+            "input_tokens": 9066,
             "cached_input_tokens": 0,
-            "output_tokens": 98,
+            "output_tokens": 191,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0128025,
+            "estimated_usd": 0.02553,
             "unpriced_calls": 0
           },
           "source_review": {
-            "api_calls": 1,
-            "cache_hits": 0,
-            "errors": 0,
-            "missing_usage": 0,
-            "input_tokens": 4005,
-            "cached_input_tokens": 0,
-            "output_tokens": 92,
-            "reasoning_tokens": 0,
-            "estimated_usd": 0.0113925,
-            "unpriced_calls": 0
-          },
-          "event_search": {
-            "api_calls": 4,
-            "cache_hits": 0,
-            "errors": 0,
-            "missing_usage": 0,
-            "input_tokens": 38401,
-            "cached_input_tokens": 0,
-            "output_tokens": 36,
-            "reasoning_tokens": 0,
-            "estimated_usd": 0.0965425,
-            "unpriced_calls": 0
-          },
-          "image_review": {
             "api_calls": 2,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 4500,
-            "cached_input_tokens": 0,
-            "output_tokens": 360,
+            "input_tokens": 8005,
+            "cached_input_tokens": 1792,
+            "output_tokens": 184,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.01665,
+            "estimated_usd": 0.0187405,
+            "unpriced_calls": 0
+          },
+          "event_search": {
+            "api_calls": 8,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 76782,
+            "cached_input_tokens": 0,
+            "output_tokens": 72,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.193035,
+            "unpriced_calls": 0
+          },
+          "image_review": {
+            "api_calls": 3,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 7744,
+            "cached_input_tokens": 0,
+            "output_tokens": 564,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.02782,
             "unpriced_calls": 0
           }
         }
@@ -3956,6 +3993,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.1373875,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T08:01:12.044940+00:00",
+        "elapsed_seconds": 145.164,
+        "status": "completed",
+        "api_calls": 7,
+        "cache_hits": 0,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.127738,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
