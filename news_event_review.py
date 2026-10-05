@@ -110,7 +110,23 @@ def history_records(posted):
     return list(records.values())
 
 
-def review_event(story, caption, posted, call_model):
+def history_batches(records):
+    """Scan all records; stable buckets let unchanged groups reuse paid reviews."""
+    # Small histories need one call, not four mostly empty requests.
+    if len(records) <= 150:
+        if records:
+            yield sorted(records, key=lambda r: r['id'])
+        return
+    # One new post invalidates its own bucket instead of moving every later
+    # record between batches. No language/coin/topic/relevance pruning.
+    for bucket in range(4):
+        group = sorted((r for r in records if int(r['id'][0], 16) % 4 == bucket),
+                       key=lambda r: r['id'])
+        for start in range(0, len(group), 150):
+            yield group[start:start + 150]
+
+
+def review_event(story, caption, posted, call_model, search_model=None):
     candidate = {'title':story.get('title',''), 'summary':caption_body(caption),
                  'url':story.get('url',''), 'published':story.get('pub','')}
     records = history_records(posted)
@@ -122,8 +138,7 @@ def review_event(story, caption, posted, call_model):
     # Scan EVERY history record in bounded batches; do not narrow by a coin,
     # publisher, language, or fixed list of news topics. Old title-only state is
     # still searchable. New successful posts retain their reviewed summaries.
-    for start in range(0, len(records), 150):
-        batch = records[start:start+150]
+    for batch in history_batches(records):
         index = [dict(id=r['id'],title=r['title'],summary=r.get('summary','')[:600],
                       published=r.get('source_pub',r.get('ts',''))) for r in batch]
         prompt = ('서로 다른 매체·언어의 뉴스에서 같은 사건일 가능성이 있는 기존 기록을 모두 찾아라. '
@@ -140,9 +155,38 @@ def review_event(story, caption, posted, call_model):
                 return isinstance(ids,list) and all(isinstance(i,str) and i in allowed for i in ids)
             except (ValueError,TypeError):
                 return False
+        response = None
+        if search_model is not None:
+            # The inexpensive model only retrieves possible matches. It never
+            # makes a duplicate/supplement/update decision. Uncertainty and
+            # broken output always fall back to the original model.
+            def valid_triage(text):
+                if not valid_search(text):
+                    return False
+                value = json.loads(text)
+                return (type(value.get('uncertain')) is bool
+                        and type(value.get('checked_count')) is int
+                        and value['checked_count'] == len(batch))
+            cheap_prompt = prompt + (
+                '\n검색 추가 규칙: 모든 기록을 빠짐없이 비교하고 제목만 있는 기록도 검토하라. '
+                '동일 코인·기업의 다른 사업일 가능성이 있어도 관련 후보에는 넓게 포함한다. '
+                '번역·별칭·자료 부족으로 관련 가능성을 배제할 수 없으면 uncertain=true. '
+                '출력 JSON에 uncertain(boolean), checked_count(비교한 기록 수)를 추가한다. '
+                '확신 없는 빈 배열로 신규 기사라고 처리하지 말라.')
+            try:
+                with review_context('event_search_mini_v30', story.get('_review_source_sha256',''), valid_triage):
+                    cheap_text = search_model(cheap_prompt)
+                if valid_triage(cheap_text):
+                    cheap = json.loads(cheap_text)
+                    related.update(cheap['related_ids'])
+                    if cheap['uncertain'] is False:
+                        response = cheap
+            except Exception:
+                pass
         try:
-            with review_context('event_search', story.get('_review_source_sha256',''), valid_search):
-                response = json.loads(call_model(prompt))
+            if response is None:
+                with review_context('event_search', story.get('_review_source_sha256',''), valid_search):
+                    response = json.loads(call_model(prompt))
             ids = response['related_ids']
             allowed = {r['id'] for r in batch}
             if not isinstance(ids,list) or any(not isinstance(i,str) or i not in allowed for i in ids):

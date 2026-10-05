@@ -10,6 +10,7 @@ from __future__ import annotations
 import html
 import json
 import hashlib
+import os
 import re
 from dataclasses import dataclass
 from difflib import SequenceMatcher
@@ -1162,6 +1163,11 @@ def story_hash(title: str) -> str:
 
 
 def _is_hard_blocked(story: dict) -> tuple[bool, str]:
+    # Explicit recurring digest labels only; a single-event press briefing is
+    # still eligible. Run before source fetching, summary, or history search.
+    title = str(story.get('title', '') or '')
+    if re.search(r'^\s*\[\s*(?:(?:아침|오전|오후|저녁|모닝|데일리|주간)\s*)?(?:뉴스|시세)\s*브리핑\s*\]', title):
+        return True, '정기 뉴스·시세 모음 브리핑'
     known_event = manual_post_reason(story)
     if known_event:
         return True, known_event
@@ -2233,9 +2239,9 @@ def _compress_prompt(text: str) -> str:
 """.strip()
 
 
-def _call_openai(prompt: str) -> str:
+def _call_openai(prompt: str, *, model_override=None) -> str:
     client = _RUNTIME.get("openai_client")
-    model = _RUNTIME.get("OPENAI_MODEL")
+    model = model_override or _RUNTIME.get("OPENAI_MODEL")
     if not client or not model:
         return ""
     try:
@@ -2776,7 +2782,12 @@ def build_message(story: dict) -> str:
 
 
 def review_article_event(story, caption, posted):
-    return review_event(story, caption, posted, _call_openai)
+    search_model = os.environ.get('OPENAI_EVENT_SEARCH_MODEL', 'gpt-5.4-mini').strip()
+    # Empty or the same model restores the original one-model search path.
+    cheap_search = None
+    if search_model and search_model != _RUNTIME.get('OPENAI_MODEL'):
+        cheap_search = lambda prompt: _call_openai(prompt, model_override=search_model)
+    return review_event(story, caption, posted, _call_openai, search_model=cheap_search)
 
 
 def install_editor_overrides(runtime: dict) -> None:
