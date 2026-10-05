@@ -3750,9 +3750,9 @@
       "2026-10-05": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 6,
+            "api_calls": 7,
             "cache_hits": 0,
-            "errors": 6,
+            "errors": 7,
             "missing_usage": 0,
             "input_tokens": 0,
             "cached_input_tokens": 0,
@@ -3864,6 +3864,18 @@
       {
         "started_at_utc": "2026-10-05T05:01:03.810398+00:00",
         "elapsed_seconds": 590.196,
+        "status": "failed",
+        "api_calls": 1,
+        "cache_hits": 0,
+        "errors": 1,
+        "published": 0,
+        "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T06:01:08.763199+00:00",
+        "elapsed_seconds": 947.475,
         "status": "failed",
         "api_calls": 1,
         "cache_hits": 0,
