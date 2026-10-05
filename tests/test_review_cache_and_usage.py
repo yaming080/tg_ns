@@ -172,7 +172,9 @@ class ReviewCacheTests(unittest.TestCase):
                 approved='bmV3LWltYWdl' in str(payload)
                 return response(checks('approved',images.IMAGE_CHECKS,approved))
             if '"related_ids"' in payload:
-                return response('{"related_ids":[]}')
+                data, _ = json.JSONDecoder().raw_decode(payload[payload.index('{"candidate"'):])
+                return response(json.dumps({'related_ids':[], 'uncertain':False,
+                                            'checked_count':len(data['history'])}))
             if '"publish"' in payload:
                 return response(checks('publish',SOURCE_FIELDS))
             return response('리플이 싱가포르에서 XRP 결제 서비스 정식 라이선스를 취득했다고 밝힘')
