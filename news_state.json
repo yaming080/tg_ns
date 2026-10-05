@@ -1,12 +1,5 @@
 {
   "posted": {
-    "c30d28c82469cfe6": {
-      "title": "A privacy coin just hit $1,000 and Wall Street is buying",
-      "url": "crypto.news/zcash-1000-privacy-coin-spot-etf-grayscale-2",
-      "signature": "action_close | action_purchase | amount_usd_1000 | asset_btc | date_2026_09_04 | entity_sec | object_etf",
-      "canonical_key": "action_close | action_purchase | amount_usd_1000 | asset_btc | date_2026_09_04 | entity_sec | object_etf",
-      "ts": "2026-09-05T07:01:57.772016+00:00"
-    },
     "d394ab296e4c92f7": {
       "title": "리플 문서에 우버·에어비앤비, 지급 사례로 등장",
       "url": "www.tokenpost.kr/news/cryptocurrency/402974",
@@ -3728,7 +3721,40 @@
     }
   },
   "ai_review": {
-    "entries": {},
+    "entries": {
+      "82123190b0e01b40ca8ff5598be393e417796362e44a59427d5a2f5f16ee965b": {
+        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 홍콩 정부의 가상자산 거래·수탁·자문·운용 서비스 라이선스 법안 제출 계획이다. 이미지는 홍콩 국기와 비트코인 코인을 중심으로 한 일반적 암호화폐 삽화로, 정부의 입법 조치나 라이선스 제도를 직접적으로 보여주지 않으며 특정 기사 핵심 주체·정책 대상보다 비트코인 단일 자산을 과도하게 중심에 둔다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791205939.1006956
+      },
+      "4c78c1f02aae383b0c1da5ea2e1f31bf0b7e809fde6379f8b293f33b55c364a3": {
+        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 홍콩 정부가 가상자산 거래·수탁·자문·운용 전반에 대한 라이선스 법안을 제출한다는 정책 변화다. 이미지는 홍콩 국기와 비트코인 단독 코인 이미지로, 기사의 핵심 주체인 홍콩 정부는 일부 보이지만 핵심 사건인 라이선스 제도 자체를 직접 보여주지 못하고, 비트코인은 본문에서 특정 핵심 상품·주체로 제시되지 않은 부수적 가상자산 상징에 가깝다. 따라서 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791205948.3804467
+      },
+      "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
+        "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
+        "expires": 1791443525.353721
+      },
+      "3e9157cb44739e8511c4b892b0834c7d17df4e49358e1e70220167d0b663da57": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, 홍콩 정부의 연내 법안 제출 계획과 AI 사기 대응 법체계 검토라는 새 정책 발표를 정확히 전한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791443527.1900196
+      },
+      "4cc5a6002c747e69d5a34b8f7dc614127e68e8192dac24ed2c3899d5caab2149": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791443528.7418525
+      },
+      "738b64f980e3f05516deae26b87b17d180426632ff6c0853d7844ae986401daa": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791443529.7850502
+      },
+      "4ae98b6636ef042452e3e88b863f40863a834ff1d663337a08c7aa4ac3d551b9": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791443530.935369
+      },
+      "055b01741e4c58f827bd7c9db38e754256981e8a948fd20201a737203c68b264": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791443532.6170862
+      }
+    },
     "version": "review-cache-v29-1",
     "usage_by_day_utc": {
       "2026-10-04": {
@@ -3750,15 +3776,51 @@
       "2026-10-05": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 7,
+            "api_calls": 8,
             "cache_hits": 0,
             "errors": 7,
             "missing_usage": 0,
-            "input_tokens": 0,
+            "input_tokens": 4533,
             "cached_input_tokens": 0,
-            "output_tokens": 0,
+            "output_tokens": 98,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0,
+            "estimated_usd": 0.0128025,
+            "unpriced_calls": 0
+          },
+          "source_review": {
+            "api_calls": 1,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 4005,
+            "cached_input_tokens": 0,
+            "output_tokens": 92,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.0113925,
+            "unpriced_calls": 0
+          },
+          "event_search": {
+            "api_calls": 4,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 38401,
+            "cached_input_tokens": 0,
+            "output_tokens": 36,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.0965425,
+            "unpriced_calls": 0
+          },
+          "image_review": {
+            "api_calls": 2,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 4500,
+            "cached_input_tokens": 0,
+            "output_tokens": 360,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.01665,
             "unpriced_calls": 0
           }
         }
@@ -3882,6 +3944,18 @@
         "errors": 1,
         "published": 0,
         "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T07:08:07.418418+00:00",
+        "elapsed_seconds": 262.058,
+        "status": "completed",
+        "api_calls": 8,
+        "cache_hits": 0,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.1373875,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
