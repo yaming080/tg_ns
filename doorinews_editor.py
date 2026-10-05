@@ -135,6 +135,8 @@ ENTITY_SPECS = (
     EntitySpec("org", "업홀드", ("Uphold", "업홀드"), "#Uphold", 20),
     EntitySpec("org", "메타마스크", ("MetaMask", "Meta Mask", "메타마스크", "메타 마스크"), "#MetaMask", 20),
     EntitySpec("org", "팬텀", ("Phantom", "팬텀"), "#Phantom", 20),
+    EntitySpec("org", "엑스버스", ("Xverse", "엑스버스"), "#Xverse", 20),
+    EntitySpec("org", "드레이퍼어소시에이츠", ("Draper Associates", "드레이퍼 어소시에이츠", "드레이퍼어소시에이츠"), "#DraperAssociates", 20),
     EntitySpec("org", "실리콘밸리어퀴지션", ("Silicon Valley Acquisition", "SiliconValleyAcquisition", "실리콘밸리어퀴지션", "실리콘밸리 어퀴지션", "실리콘 밸리 어퀴지션"), "#SiliconValleyAcquisition", 20),
     EntitySpec("org", "블록체인닷컴", ("Blockchain.com", "블록체인닷컴", "블록체인 닷컴"), "#BlockchainCom", 20),
     EntitySpec("org", "씨티그룹", ("Citigroup", "Citi", "씨티그룹", "시티그룹", "씨티"), "#Citigroup", 20),
@@ -221,6 +223,7 @@ ENTITY_SPECS = (
         20,
     ),
     # People.
+    EntitySpec("person", "팀드레이퍼", ("Tim Draper", "팀 드레이퍼", "팀드레이퍼"), "#TimDraper", 15),
     EntitySpec("person", "저스틴선", ("Justin Sun", "저스틴 선", "저스틴선"), "#JustinSun", 15),
     EntitySpec("person", "아서헤이즈", ("Arthur Hayes", "아서 헤이즈", "아서헤이즈"), "#ArthurHayes", 15),
     EntitySpec("person", "블라드테네프", ("Vlad Tenev", "블라드 테네프", "블라드테네프"), "#VladTenev", 15),
@@ -2782,12 +2785,9 @@ def build_message(story: dict) -> str:
 
 
 def review_article_event(story, caption, posted):
-    search_model = os.environ.get('OPENAI_EVENT_SEARCH_MODEL', 'gpt-5.4-mini').strip()
-    # Empty or the same model restores the original one-model search path.
-    cheap_search = None
-    if search_model and search_model != _RUNTIME.get('OPENAI_MODEL'):
-        cheap_search = lambda prompt: _call_openai(prompt, model_override=search_model)
-    return review_event(story, caption, posted, _call_openai, search_model=cheap_search)
+    # Retire the v30 mini pre-pass, including any old environment override.
+    # request_text reuses a valid exact result before making a paid request.
+    return review_event(story, caption, posted, _call_openai)
 
 
 def install_editor_overrides(runtime: dict) -> None:
