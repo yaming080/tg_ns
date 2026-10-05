@@ -3561,6 +3561,15 @@
       "ts": "2026-10-05T11:07:29.420224+00:00",
       "summary": "체코 파트너스 방카가 모바일 앱에 비트코인 직접 매매 기능을 추가했으며, #유럽연합 암호자산 규정 MiCA 기반 인프라를 쓴 체코 첫 상업은행 사례라고 밝힘\n\n거래는 500체코코루나부터 가능하지만 외부 지갑 전송은 지원하지 않고 다른 암호화폐 추가 계획도 없다고 밝힘",
       "source_pub": "Mon, 05 Oct 2026 10:30:21 +0000"
+    },
+    "affebe7013333f66": {
+      "title": "Metaplanet Sells 10,000 Bitcoin, Buys 11,000 Back to Prove Liquidity",
+      "url": "news.bitcoin.com/crypto-news/metaplanet-sells-10000-bitcoin-buys-11000-back-to-prove-liquidity",
+      "signature": "action_convert | action_purchase | action_sell | action_support | amount_btc_10000 | amount_btc_11000 | amount_btc_44000 | amount_btc_approx_10000 | amount_btc_approx_11000 | amount_btc_approx_44000 | asset_btc | object_corporate_crypto_purchase | object_sale",
+      "canonical_key": "action_convert | action_purchase | action_sell | action_support | amount_btc_10000 | amount_btc_11000 | amount_btc_44000 | amount_btc_approx_10000 | amount_btc_approx_11000 | amount_btc_approx_44000 | asset_btc | object_corporate_crypto_purchase | object_sale",
+      "ts": "2026-10-05T12:11:50.837471+00:00",
+      "summary": "#메타플래닛 이 3분기에 #BTC 1만개를 7억8950만달러에 매도한 뒤 1만1000개를 다시 매수해, 9월 30일 기준 보유량이 4만4000 BTC가 됐다고 밝힘\n\n회사는 이번 매도가 부채 상환이 아니라 비트코인 재무자산을 현금화할 수 있음을 채권자에게 보여주기 위한 #유동성 입증이었다고 설명함",
+      "source_pub": "Mon, 05 Oct 2026 11:30:11 +0000"
     }
   },
   "source_baselines": {
@@ -3752,6 +3761,18 @@
         "text": "{\"approved\":false,\"reason\":\"기사 핵심은 체코 파트너스방카가 자사 모바일 앱에서 비트코인 거래를 새로 시작한 것이다. 그러나 이미지는 특정 회사나 실제 서비스가 식별되지 않는 범용 삽화로, 비트코인 아이콘이 있는 스마트폰 장면만 보일 뿐 파트너스방카 앱이나 회사 로고·인물·본사 등 핵심 주체를 확인할 수 없다. 따라서 기사 핵심 주체를 선명하게 대표하지 못한다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
         "expires": 1791220026.9448962
       },
+      "cacc7635dacede9a3e8539453a0abe264ba82f49fd4ee128bf6f71a05a389975": {
+        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 드레이퍼 어소시에이츠의 Xverse 투자 및 Xverse의 비트코인 네오뱅크 기능 확대인데, 이미지는 정체 불명의 비트코인 네트워크 분위기 삽화일 뿐 Xverse나 Draper Associates를 식별할 수 없다. 비트코인이 배경 자산으로 언급되더라도 기사 핵심 주체·상품을 직접 보여주지 않아 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
+        "expires": 1791223886.4275358
+      },
+      "450ddac4a9a28f7920c8fc50ed2a6682c8dcc02732e36aa8dc77a7961720bb29": {
+        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 드레이퍼 어소시에이츠의 Xverse 투자 및 Xverse의 비트코인 네오뱅크 기능 확장이다. 그러나 이미지는 Xverse, Draper Associates, 투자 장면, 관련 서비스/제품을 식별할 수 없고, 비트코인 심볼이 있는 범용 네트워크 삽화만 보여준다. 기사 주체를 직접 나타내지 않는 일반 암호화폐 분위기 이미지이므로 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
+        "expires": 1791223889.9482725
+      },
+      "958385adce2667636bee1d378d3e9d93439bdd9868c852ccaa3fb93a4cfb3a67": {
+        "text": "SKIP",
+        "expires": 1791223892.0281456
+      },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
         "expires": 1791443525.353721
@@ -3883,6 +3904,58 @@
       "757623d8bf4b6232dd77523582c9d5bb71fac1920cec997b6808d964442d50e3": {
         "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 체코 파트너스 방카가 비트코인 직접 매매 기능을 새로 추가한 것이다. 이미지에는 핵심 당사자인 Partners Banka의 로고와 건물 외관이 선명하게 나타나 있어 기사 주체와 직접 관련된 대표 이미지로 적절하다. 광고 배너, 텍스트 스크린샷, 가격 차트, 부수적 코인 로고 단독 이미지가 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
         "expires": 1791457646.6998143
+      },
+      "e22499d893dcd9fc1c94debfa56ffac997189841c0c4a327a7de3106ec11379f": {
+        "text": "드레이퍼 어소시에이츠가 비트코인 지갑 엑스버스에 투자해, 사용자 기기에서 개인키를 직접 보관하는 자기수탁 방식으로 비트코인 담보 USDC 대출과 스테이블코인 결제 등 온체인 금융 기능 확대를 지원한다고 밝힘",
+        "expires": 1791461468.548447
+      },
+      "e40f33b8ea425017fac2dd48e33c8316b985fc66861b5523f4cb7eafd0798903": {
+        "text": "{\"publish\":true,\"reason\":\"벤처투자사의 엑스버스 투자와 온체인 금융 기능 확대 목적을 전한 새 소식으로, 요약이 원문의 핵심 조건을 대체로 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791461470.5304651
+      },
+      "f45ed70609e293ff1f53caefa78919131b15b87aa49864b4af6f270c5d5974bc": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461474.3622792
+      },
+      "e32e6fec28c4a09d15db4d7b00f8740178e85063fce2d6a3f601b93e8b024e29": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461476.7854464
+      },
+      "e77ea43c05d0aaf65ed7d6661cfccf64d95dee1623c514cc4c285002762e0e84": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461480.4432528
+      },
+      "4b96b791fb736015fbcd14c3afbb3ebf56f2094ca6dcaf9f09f926113dbadc89": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461482.6269686
+      },
+      "973e2176e5574fd6bc50c86e95cc8b2860dcff0a36a8e7a69ff4813cc1808c41": {
+        "text": "메타플래닛이 3분기에 BTC 1만개를 7억8950만달러에 매도한 뒤 1만1000개를 다시 매수해, 9월 30일 기준 보유량이 4만4000 BTC가 됐다고 밝힘\n\n회사는 이번 매도가 부채 상환이 아니라 비트코인 재무자산을 현금화할 수 있음을 채권자에게 보여주기 위한 유동성 입증이었다고 설명함",
+        "expires": 1791461495.2861376
+      },
+      "9264355822f2ff5ed49a5cfbe964d18f4907aa6274138edb4909f54c6c276826": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 요약의 핵심 사실이 일치하고, 매도가 부채 상환이 아니었다는 중요한 단서도 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791461496.8612041
+      },
+      "0c4cda06c41230e69a2aa8f5e0057d51600a17faebbb877d620c0022a11b01cb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461498.8993263
+      },
+      "5b461b445b5c771c0817dc767f6344d4a6e6da5ec5c5dbb95fd595d4dad841ed": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461500.7484884
+      },
+      "63ba039542d1cb80bede128b2004980e2f4e64447bf8bdd86b15cb56e3431cf6": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461502.633314
+      },
+      "2ffc1bd08e6d04e8acd0e6b63d6f8ebe410e5b73d9f90f812450271cf3881357": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791461505.073208
+      },
+      "67947d5e54bb2dfad810ac38dc6f483f92e5848e3af8ca337bbb3169d1f91e96": {
+        "text": "{\"approved\":true,\"reason\":\"기사 핵심 주체는 비트코인 매도·재매수로 유동성을 입증했다고 밝힌 회사 메타플래닛이다. 이미지에는 메타플래닛 이름이 크게 선명하게 보이며 회사 브랜딩과 비트코인 관련 문구가 함께 있어 기사 핵심 주체를 직접 식별할 수 있다. 광고 배너나 가격차트, 채팅/기사 캡처가 아니며 회사 로고·브랜딩 이미지는 관련 대표 이미지로 허용 가능하다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791461508.7815413
       }
     },
     "version": "review-cache-v29-1",
@@ -3906,65 +3979,65 @@
       "2026-10-05": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 13,
-            "cache_hits": 0,
+            "api_calls": 16,
+            "cache_hits": 1,
             "errors": 7,
             "missing_usage": 0,
-            "input_tokens": 27903,
-            "cached_input_tokens": 5376,
-            "output_tokens": 463,
+            "input_tokens": 42113,
+            "cached_input_tokens": 10752,
+            "output_tokens": 657,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0646065,
+            "estimated_usd": 0.0909455,
             "unpriced_calls": 0
           },
           "source_review": {
-            "api_calls": 5,
+            "api_calls": 7,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 20451,
+            "input_tokens": 28870,
             "cached_input_tokens": 1792,
-            "output_tokens": 448,
+            "output_tokens": 621,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0538155,
+            "estimated_usd": 0.077458,
             "unpriced_calls": 0
           },
           "event_search": {
-            "api_calls": 20,
+            "api_calls": 28,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 192044,
+            "input_tokens": 269364,
             "cached_input_tokens": 0,
-            "output_tokens": 180,
+            "output_tokens": 252,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.48281,
+            "estimated_usd": 0.67719,
             "unpriced_calls": 0
           },
           "image_review": {
-            "api_calls": 8,
+            "api_calls": 11,
             "cache_hits": 1,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 17187,
+            "input_tokens": 21206,
             "cached_input_tokens": 0,
-            "output_tokens": 1350,
+            "output_tokens": 1857,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0632175,
+            "estimated_usd": 0.08087,
             "unpriced_calls": 0
           }
         },
         "gpt-5.4-mini": {
           "event_search_mini_v30": {
-            "api_calls": 12,
+            "api_calls": 20,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 116438,
+            "input_tokens": 194542,
             "cached_input_tokens": 0,
-            "output_tokens": 453,
+            "output_tokens": 793,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.089367,
+            "estimated_usd": 0.149475,
             "unpriced_calls": 0
           }
         }
@@ -4148,6 +4221,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.3280045,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T12:01:10.912390+00:00",
+        "elapsed_seconds": 641.267,
+        "status": "completed",
+        "api_calls": 24,
+        "cache_hits": 1,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.322122,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
