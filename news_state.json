@@ -3766,6 +3766,10 @@
         "text": "{\"approved\":false,\"reason\":\"기사 핵심은 미 재무부 산하 FinCEN의 자기보관 지갑·크립토 믹서 보고의무 규정 철회인데, 이미지는 오래된 증서/문서처럼 보이는 일반적 자료 사진일 뿐 재무부·FinCEN·자기보관 지갑·크립토 믹서 등 핵심 주체나 사건을 선명하게 식별해 보여주지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":false,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
         "expires": 1791234547.9017217
       },
+      "5456837da81140c48502ab1599503e1db377d7848c4fb4f92a60f9633d6421ec": {
+        "text": "{\"publish\":false,\"reason\":\"출처 신뢰성과 새 사실 확인이 부족하고, 기사 핵심이 안내문·반복 서술에 섞여 있어 게시 보류가 적절함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
+        "expires": 1791238860.6533384
+      },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
         "expires": 1791443525.353721
@@ -4057,6 +4061,10 @@
       "0a0a17173f47fffddd5bfca229eab50e7c91013908ea373567c2c85526998b98": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791472141.8886626
+      },
+      "18889d6cd0b24495b56aa2185ad7b5b747636ffd0689688ea3d63effcf7179ab": {
+        "text": "미국 CFTC가 가상자산 시장 대상 첫 규제안을 제안한다고 밝혔으며, 가상자산과 다른 상품의 차이를 반영한 규칙을 마련할 방침이라고 설명함",
+        "expires": 1791476456.6529431
       }
     },
     "version": "review-cache-v29-1",
@@ -4080,32 +4088,32 @@
       "2026-10-05": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 21,
-            "cache_hits": 6,
+            "api_calls": 22,
+            "cache_hits": 10,
             "errors": 7,
             "missing_usage": 0,
-            "input_tokens": 64901,
+            "input_tokens": 69296,
             "cached_input_tokens": 19712,
-            "output_tokens": 1096,
+            "output_tokens": 1145,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.1343405,
+            "estimated_usd": 0.146063,
             "unpriced_calls": 0
           },
           "source_review": {
-            "api_calls": 12,
-            "cache_hits": 2,
+            "api_calls": 13,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 48970,
+            "input_tokens": 52788,
             "cached_input_tokens": 3584,
-            "output_tokens": 1068,
+            "output_tokens": 1153,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.130381,
+            "estimated_usd": 0.141201,
             "unpriced_calls": 0
           },
           "event_search": {
             "api_calls": 44,
-            "cache_hits": 0,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 424133,
@@ -4117,7 +4125,7 @@
           },
           "image_review": {
             "api_calls": 16,
-            "cache_hits": 1,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 26343,
@@ -4129,7 +4137,7 @@
           },
           "event_decision": {
             "api_calls": 1,
-            "cache_hits": 0,
+            "cache_hits": 1,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 990,
@@ -4142,15 +4150,15 @@
         },
         "gpt-5.4-mini": {
           "event_search_mini_v30": {
-            "api_calls": 36,
+            "api_calls": 44,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 350879,
+            "input_tokens": 429075,
             "cached_input_tokens": 0,
-            "output_tokens": 1445,
+            "output_tokens": 1785,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.26966175,
+            "estimated_usd": 0.32983875,
             "unpriced_calls": 0
           }
         }
@@ -4382,6 +4390,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.3080255,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T16:01:11.725933+00:00",
+        "elapsed_seconds": 1206.186,
+        "status": "completed",
+        "api_calls": 10,
+        "cache_hits": 18,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0827195,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
