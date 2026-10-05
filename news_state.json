@@ -4343,6 +4343,18 @@
       "0668e9397f1fdc46cfc746ce9905756d9e7201d416f0b5f28aa63fd2bf0a7c2e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791494686.6362197
+      },
+      "5428f97856b2ba79c1b30f411f9854b4470f57d8e79508c405383e084a67460a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791497690.1430995
+      },
+      "07110f19dfbb54aa93a73104d96aa8f9a98df8992e64247d16808765e7e109e3": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791497691.3676517
+      },
+      "b3e2a722b4898316a2fe46cf7356027eb411fe40294b0159e74bfb1017947aac": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791497693.3903608
       }
     },
     "version": "review-cache-v29-1",
@@ -4367,7 +4379,7 @@
         "gpt-5.4": {
           "summary": {
             "api_calls": 32,
-            "cache_hits": 17,
+            "cache_hits": 18,
             "errors": 7,
             "missing_usage": 0,
             "input_tokens": 113808,
@@ -4379,7 +4391,7 @@
           },
           "source_review": {
             "api_calls": 22,
-            "cache_hits": 11,
+            "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 87462,
@@ -4390,20 +4402,20 @@
             "unpriced_calls": 0
           },
           "event_search": {
-            "api_calls": 81,
-            "cache_hits": 19,
+            "api_calls": 84,
+            "cache_hits": 20,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 779972,
+            "input_tokens": 808732,
             "cached_input_tokens": 11264,
-            "output_tokens": 979,
+            "output_tokens": 1006,
             "reasoning_tokens": 0,
-            "estimated_usd": 1.939271,
+            "estimated_usd": 2.011576,
             "unpriced_calls": 0
           },
           "image_review": {
             "api_calls": 30,
-            "cache_hits": 6,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 47043,
@@ -4728,6 +4740,18 @@
         "errors": 0,
         "published": 2,
         "estimated_usd": 0.63403825,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T22:01:06.495313+00:00",
+        "elapsed_seconds": 829.147,
+        "status": "completed",
+        "api_calls": 3,
+        "cache_hits": 5,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.072305,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
