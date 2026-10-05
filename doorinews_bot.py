@@ -6914,6 +6914,7 @@ def main():
     log("RUNNING_BUILD=0620_general_duplicate_engine")
     state = load_state(STATE_FILE)
     from news_review_cache import review_session, record_publication
+    from news_resume import select_resume_candidates, resume_exclusion_reason
     with review_session(state, lambda: save_state(STATE_FILE, state), log):
         posted = state.get('posted', {})
 
@@ -6947,6 +6948,8 @@ def main():
         collected.extend(collect_new_sources(
             state, http_get, lambda current: save_state(STATE_FILE, current), log))
 
+        # Before paid review or duplicate reservation: never replay outage backlog.
+        collected = select_resume_candidates(collected, log)
         filtered = [s for s in collected if matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)]
         log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
 
@@ -7064,6 +7067,11 @@ def main():
                 log(f"[게시보류] {story.get('title','')} | {prepared['reason']}")
                 for attempt in prepared['attempts']:
                     log(f"  이미지: {attempt['reason']}")
+                continue
+            # Recheck if source enrichment changed the publication timestamp.
+            resume_reason = resume_exclusion_reason(story)
+            if resume_reason:
+                log(f"[재개 발송 차단] {story.get('title', '')} | {resume_reason}")
                 continue
             ok = send_reviewed_photo(
                 TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID,

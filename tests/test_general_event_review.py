@@ -104,7 +104,9 @@ class GeneralEventReview(unittest.TestCase):
     def test_live_batch_reviews_against_successful_delivery_and_holds_repeat(self):
         source=(Path(__file__).resolve().parents[1]/'doorinews_bot.py').read_text(encoding='utf-8')
         main=[node for node in ast.parse(source).body if isinstance(node,ast.FunctionDef) and node.name=='main'][-1]
-        stories=[dict(title='Alpha launches payments network',url='https://first.example/a'),self.story]
+        stories=[dict(title='Alpha launches payments network',url='https://first.example/a'),dict(self.story)]
+        for story in stories:
+            story['pub'] = '2026-10-05T06:00:00Z'
         caption=self.caption+'\n\n🌐 <a href="https://t.me/Doorinews">도리뉴스</a>\n\n<a href="https://example.com/a">출처</a>\n\n#BTC #비트코인 #dooridoori #도리도리 #doorinati #도리나티'
         for delivered in (True,False):
             state={'posted':{}}

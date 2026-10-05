@@ -31,7 +31,7 @@ class ImagePublicationTests(unittest.TestCase):
     def test_live_main_cannot_send_held_article_or_record_it_as_posted(self):
         source=(Path(__file__).resolve().parents[1]/'doorinews_bot.py').read_text(encoding='utf-8')
         main=[n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef) and n.name=='main'][-1]
-        story={'title':'기사','url':'https://example.com/article'}
+        story={'title':'기사','url':'https://example.com/article','pub':'2026-10-05T06:00:00Z'}
         for status in ('held','ready'):
             with self.subTest(status=status):
                 sender=Mock(return_value=True);register=Mock()
