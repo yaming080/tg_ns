@@ -126,7 +126,7 @@ def history_batches(records):
             yield group[start:start + 150]
 
 
-def review_event(story, caption, posted, call_model, search_model=None):
+def review_event(story, caption, posted, call_model):
     candidate = {'title':story.get('title',''), 'summary':caption_body(caption),
                  'url':story.get('url',''), 'published':story.get('pub','')}
     records = history_records(posted)
@@ -155,38 +155,13 @@ def review_event(story, caption, posted, call_model, search_model=None):
                 return isinstance(ids,list) and all(isinstance(i,str) and i in allowed for i in ids)
             except (ValueError,TypeError):
                 return False
-        response = None
-        if search_model is not None:
-            # The inexpensive model only retrieves possible matches. It never
-            # makes a duplicate/supplement/update decision. Uncertainty and
-            # broken output always fall back to the original model.
-            def valid_triage(text):
-                if not valid_search(text):
-                    return False
-                value = json.loads(text)
-                return (type(value.get('uncertain')) is bool
-                        and type(value.get('checked_count')) is int
-                        and value['checked_count'] == len(batch))
-            cheap_prompt = prompt + (
-                '\n검색 추가 규칙: 모든 기록을 빠짐없이 비교하고 제목만 있는 기록도 검토하라. '
-                '동일 코인·기업의 다른 사업일 가능성이 있어도 관련 후보에는 넓게 포함한다. '
-                '번역·별칭·자료 부족으로 관련 가능성을 배제할 수 없으면 uncertain=true. '
-                '출력 JSON에 uncertain(boolean), checked_count(비교한 기록 수)를 추가한다. '
-                '확신 없는 빈 배열로 신규 기사라고 처리하지 말라.')
-            try:
-                with review_context('event_search_mini_v30', story.get('_review_source_sha256',''), valid_triage):
-                    cheap_text = search_model(cheap_prompt)
-                if valid_triage(cheap_text):
-                    cheap = json.loads(cheap_text)
-                    related.update(cheap['related_ids'])
-                    if cheap['uncertain'] is False:
-                        response = cheap
-            except Exception:
-                pass
+        # v32: one search path. The v30 mini pass repeatedly fell back to this
+        # same search (even on cache hits), paying for an unnecessary first pass.
+        # Keep this prompt, stage and source scope unchanged so valid paid v30
+        # results remain reusable. Do not relax validation to accept mini output.
         try:
-            if response is None:
-                with review_context('event_search', story.get('_review_source_sha256',''), valid_search):
-                    response = json.loads(call_model(prompt))
+            with review_context('event_search', story.get('_review_source_sha256',''), valid_search):
+                response = json.loads(call_model(prompt))
             ids = response['related_ids']
             allowed = {r['id'] for r in batch}
             if not isinstance(ids,list) or any(not isinstance(i,str) or i not in allowed for i in ids):
