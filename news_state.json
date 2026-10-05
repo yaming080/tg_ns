@@ -3740,10 +3740,6 @@
   },
   "ai_review": {
     "entries": {
-      "5456837da81140c48502ab1599503e1db377d7848c4fb4f92a60f9633d6421ec": {
-        "text": "{\"publish\":false,\"reason\":\"출처 신뢰성과 새 사실 확인이 부족하고, 기사 핵심이 안내문·반복 서술에 섞여 있어 게시 보류가 적절함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
-        "expires": 1791238860.6533384
-      },
       "797ad72264211a070428f84dfe376cd74bfc3caf8ecc8ce5616312e6a7c63e10": {
         "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC가 가상자산 시장에 대한 첫 규제안을 제안한 사건이다. 그러나 이미지는 비트코인 동전만 크게 보여 주며 CFTC나 규제안 자체를 식별할 수 없다. 비트코인은 기사에서 규제 대상 시장의 예시일 뿐 핵심 주체가 아니므로, 특정 코인 단독 이미지는 부수 자산 중심 이미지에 해당한다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
         "expires": 1791242489.629659
@@ -4379,7 +4375,7 @@
         "gpt-5.4": {
           "summary": {
             "api_calls": 32,
-            "cache_hits": 18,
+            "cache_hits": 19,
             "errors": 7,
             "missing_usage": 0,
             "input_tokens": 113808,
@@ -4391,7 +4387,7 @@
           },
           "source_review": {
             "api_calls": 22,
-            "cache_hits": 12,
+            "cache_hits": 13,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 87462,
@@ -4403,7 +4399,7 @@
           },
           "event_search": {
             "api_calls": 84,
-            "cache_hits": 20,
+            "cache_hits": 24,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 808732,
@@ -4415,7 +4411,7 @@
           },
           "image_review": {
             "api_calls": 30,
-            "cache_hits": 8,
+            "cache_hits": 10,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 47043,
@@ -4752,6 +4748,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.072305,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-05T23:01:04.523138+00:00",
+        "elapsed_seconds": 577.881,
+        "status": "completed",
+        "api_calls": 0,
+        "cache_hits": 8,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
