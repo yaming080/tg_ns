@@ -12,9 +12,13 @@ import json
 import time
 
 VERSION = 'review-cache-v29-1'
-MAX_ENTRIES = 1500
+MAX_ENTRIES = 6000
 TTL = 72 * 3600
 NEGATIVE_TTL = 6 * 3600
+MEMORY_TTL = 30 * 24 * 3600
+MAX_EVENT_MEMORIES = 120
+DURABLE_STAGES = {'summary', 'compression', 'source_review', 'image_review',
+                  'event_search', 'event_decision'}
 # Standard API USD / million tokens, checked 2026-10-05. Estimates, not invoices.
 PRICES = {'gpt-5.4': (2.50, .25, 15.0), 'gpt-5.4-mini': (.75, .075, 4.50)}
 _STORE = ContextVar('news_review_store', default=None)
@@ -61,12 +65,31 @@ def _number(value):
     return value if type(value) is int and value >= 0 else None
 
 
+def result_ttl(stage, text):
+    """Keep completed verdicts, including holds, until evidence changes/expiry."""
+    if stage in DURABLE_STAGES:
+        return MEMORY_TTL
+    obj = None
+    try:
+        obj = json.loads(text)
+        if isinstance(obj, dict) and obj.get('decision') == 'uncertain':
+            return NEGATIVE_TTL
+    except ValueError:
+        pass
+    if isinstance(obj, dict) and (obj.get('publish') is False or obj.get('approved') is False):
+        return NEGATIVE_TTL
+    if text.upper() in {'SKIP', '제외', '스킵'}:
+        return NEGATIVE_TTL
+    return TTL
+
+
 class ReviewStore:
     def __init__(self, state, persist, logger=print, clock=time.time):
         self.state, self.persist, self.log, self.clock = state, persist, logger, clock
         self.data = state.setdefault('ai_review', {})
         if self.data.get('version') != VERSION:
             self.data['entries'] = {}
+            self.data['event_memory_v33'] = {}
         self.data['version'] = VERSION
         self.entries = self.data.setdefault('entries', {})
         self.usage = self.data.setdefault('usage_by_day_utc', {})
@@ -74,6 +97,7 @@ class ReviewStore:
         self.started = self.clock()
         self.published = self.missing_usage = self.unpriced_calls = 0
         self.estimated_usd = 0.0
+        self.event_records_reused = self.event_records_reviewed = 0
         self.quota_error = ''
         self.prune()
 
@@ -84,6 +108,14 @@ class ReviewStore:
                         and v['expires'] > now and isinstance(v.get('text'),str)}
         self.entries = dict(sorted(self.entries.items(), key=lambda kv:kv[1]['expires'])[-MAX_ENTRIES:])
         self.data['entries'] = self.entries
+        memories = self.data.get('event_memory_v33', {})
+        if not isinstance(memories, dict):
+            memories = {}
+        memories = {k:v for k,v in memories.items() if isinstance(v,dict)
+                    and isinstance(v.get('expires'),(int,float)) and v['expires'] > now
+                    and isinstance(v.get('value'),dict)}
+        self.data['event_memory_v33'] = dict(sorted(memories.items(),
+            key=lambda kv:kv[1]['expires'])[-MAX_EVENT_MEMORIES:])
         # Daily aggregate only: bound repository state growth.
         for day in sorted(self.usage)[:-90]:
             del self.usage[day]
@@ -129,6 +161,8 @@ class ReviewStore:
         bucket = self.bucket(model,stage)
         entry = self.entries.get(key)
         if entry and entry['expires'] > self.clock() and validator(entry['text']):
+            if result_ttl(stage, entry['text']) == MEMORY_TTL:
+                entry['expires'] = self.clock() + MEMORY_TTL
             self.hits += 1
             bucket['cache_hits'] += 1
             self.log(f'[AI 검토 재사용] {stage} | {key[:12]}')
@@ -155,15 +189,7 @@ class ReviewStore:
         status = _value(response,'status')
         completed = status is None or status == 'completed'
         if completed and text and len(text) <= 16000 and validator(text):
-            ttl = TTL
-            try:
-                obj = json.loads(text)
-                if isinstance(obj,dict) and (obj.get('publish') is False or obj.get('approved') is False
-                                             or obj.get('decision') == 'uncertain'):
-                    ttl = NEGATIVE_TTL
-            except ValueError:
-                if text.upper() in {'SKIP','제외','스킵'}:
-                    ttl = NEGATIVE_TTL
+            ttl = result_ttl(stage, text)
             self.entries[key] = {'text':text,'expires':self.clock()+ttl}
             self.prune()
         self.persist()
@@ -193,6 +219,34 @@ def record_publication():
         store.published += 1
 
 
+def load_event_memory(identity):
+    store = _STORE.get()
+    if store is None:
+        return {}
+    entry = store.data.get('event_memory_v33', {}).get(identity)
+    if not entry or entry['expires'] <= store.clock():
+        return {}
+    # Work on a copy; only explicitly validated progress is persisted.
+    return json.loads(json.dumps(entry['value']))
+
+
+def save_event_memory(identity, value):
+    store = _STORE.get()
+    if store is not None:
+        store.data.setdefault('event_memory_v33', {})[identity] = {
+            'value':value, 'expires':store.clock()+MEMORY_TTL}
+        store.prune()
+        store.persist()
+
+
+def record_event_progress(reused=0, reviewed=0):
+    store = _STORE.get()
+    if store is not None:
+        store.event_records_reused += reused
+        store.event_records_reviewed += reviewed
+        store.log(f'[사건 비교 기억] 재사용 기록={reused} 검사 대상 기록={reviewed}')
+
+
 @contextmanager
 def review_session(state, persist, logger=print):
     store = ReviewStore(state,persist,logger)
@@ -212,6 +266,8 @@ def review_session(state, persist, logger=print):
                          'api_calls':store.calls,'cache_hits':store.hits,'errors':store.errors,
                          'published':store.published,'estimated_usd':round(store.estimated_usd,9),
                          'missing_usage':store.missing_usage,'unpriced_calls':store.unpriced_calls})
+            runs[-1].update(event_records_reused=store.event_records_reused,
+                            event_records_reviewed=store.event_records_reviewed)
             del runs[:-168]
             store.prune()
             persist()
