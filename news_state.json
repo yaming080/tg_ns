@@ -3545,6 +3545,15 @@
       "ts": "2026-10-05T21:24:23.582682+00:00",
       "summary": "#XRPL 개발진이 조건부 자금 해제를 더 유연하게 만드는 스마트 에스크로의 9번째 시험망 버전을 배포했으며, 정식 출시에 앞서 계속 검토·시험 중이라고 밝힘",
       "source_pub": "Mon, 05 Oct 2026 20:28:44 +0000"
+    },
+    "12a4dbfb00a41ce4": {
+      "title": "Ripple’s Schwartz Slams Fee Metric as 100x XRP Fee Hike Is Floated",
+      "url": "news.bitcoin.com/featured/ripples-schwartz-slams-fee-metric-as-100x-xrp-fee-hike-is-floated",
+      "signature": "action_enforce | asset_xrp | asset_xrpl | entity_데이비드슈워츠 | entity_리플",
+      "canonical_key": "action_enforce | asset_xrp | asset_xrpl | entity_데이비드슈워츠 | entity_리플",
+      "ts": "2026-10-06T06:22:02.183857+00:00",
+      "summary": "#리플 의 #데이비드슈워츠 가 #X 에서 #XRPL 기본 수수료를 10배·100배 올려 #XRP 소각을 늘리자는 제안에 반대하며, 수수료 수익은 블록체인이 줄이지 못한 이용자 비용을 보여주는 지표라고 밝힘\n\nXRPL 거래 수수료는 검증자 보수가 아니라 소각되며, 기본 수수료 변경은 네트워크 참여자들의 합의가 필요하다고 설명함",
+      "source_pub": "Mon, 05 Oct 2026 23:45:21 +0000"
     }
   },
   "source_baselines": {
@@ -3712,18 +3721,6 @@
   },
   "ai_review": {
     "entries": {
-      "e20c1ec1e92f325ebffe40134c0726b017af483bd53e9d7a2d640f19d2139694": {
-        "text": "{\"publish\":false,\"reason\":\"업계 인물의 수수료 논평과 이용자 제안 소개가 핵심으로, 허용 범주가 아니며 새 정책·사업 진행도 아니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791267425.3240535
-      },
-      "797ad72264211a070428f84dfe376cd74bfc3caf8ecc8ce5616312e6a7c63e10": {
-        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 미국 CFTC의 가상자산 시장 규제안 제안이라는 정책·규제 주체(CFTC)인데, 이미지는 비트코인 동전만 크게 보여주는 범용 암호화폐 사진이다. CFTC나 해당 규제 조치의 주체·상징이 식별되지 않고, 특정 자산인 비트코인만 중심이라 기사 핵심 주체를 대표하지 못한다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1791267438.2264972
-      },
-      "5e4b22fefdf0edc03054aaf59e231bf75f854f67847fd6acb8a1337b6b9d4d83": {
-        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC의 가상자산 시장 규제안 제안이라는 정책·규제 주체(CFTC)와 사건이다. 그러나 이미지는 비트코인 코인들만 중심으로 보여 주며 CFTC나 규제안 자체를 식별할 수 없다. 비트코인은 기사에서 특정 핵심 상품으로 새로 언급된 대상이 아니라 암호화폐 시장을 대표하는 범용 자산 이미지에 가깝기 때문에 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1791267446.0710247
-      },
       "46e3bc99ba2d8693b45ba126a26c5f02ee28be51db25d506fa57711fa197d998": {
         "text": "SKIP",
         "expires": 1791270469.649417
@@ -3755,6 +3752,22 @@
       "c68898af0eabc8200ac7561dbe50f935664b0c6139e9ab30a252601425ef1f2a": {
         "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC의 가상자산 시장 규제안 제안이라는 정책·규제 주체(CFTC)와 사건이다. 그러나 이미지는 비트코인 동전만 크게 보여 주며 CFTC나 규제안 자체를 식별할 수 없다. 비트코인은 기사에서 특정 핵심 상품으로 새롭게 조치된 대상이 아니라 가상자산 시장을 뭉뚱그린 범용 자산 이미지에 가깝기 때문에 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
         "expires": 1791285504.9797828
+      },
+      "e84bed32d2f0896d8ee4a52e33bc3b5017c7676bd6953ccae3a22ecb15af6a4b": {
+        "text": "{\"publish\":false,\"reason\":\"거래소 자체 이용자 보호 기금의 보유량 확대 소식으로, 제도·기관 채택·토큰화·결제 인프라 등 허용 범주에 해당한다고 보기 어렵다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791289273.9739048
+      },
+      "4c4e3035a4ee7d0f0d49520f7aa48351aabfaa9e676fd3bb1fc4b5ccba08d54e": {
+        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 CFTC의 미국 내 레버리지 암호화폐 거래 규칙 제안이라는 구체적 규제 조치인데, 이미지는 주체(CFTC)나 해당 거래/규제 맥락을 식별할 수 있는 로고·건물·인물·직접 관련 삽화가 아니라 일반적인 추상 네트워크 분위기 이미지다. 기사 핵심 주체와 사건을 선명하게 보여주지 못한다.\",\"checks\":{\"relevant\":false,\"clear\":false,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1791289291.0439146
+      },
+      "b035e3e0c016f42930bc120d73640900ed6b2cbdf74f6090758514bfce077fc4": {
+        "text": "{\"approved\":false,\"reason\":\"기사 핵심은 미국 CFTC의 레버리지 암호화폐 거래 규칙 제안인데, 이미지는 CFTC나 규제/거래 플랫폼을 식별할 수 없는 범용적인 네트워크풍 암호화폐 삽화일 뿐이다. 핵심 주체가 명확히 드러나지 않아 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":false,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1791289293.6797986
+      },
+      "b39ec194f6e24f495a7b9cec74f55fd0b5a41b3e0132222b929c2935049608b5": {
+        "text": "{\"publish\":false,\"reason\":\"여행사 결제수단 추가 소식이지만 사실 확인 근거와 새 소식성은 부족하고, 기사 핵심에 전망성 문구가 섞여 있어 게시 보류가 적절함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
+        "expires": 1791289298.4811544
       },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
@@ -4535,6 +4548,90 @@
       "c483822c8d47e46cd098e55266f2b4e9e31c0d8043cbd8a1d2d342915a1c8716": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791523097.8240469
+      },
+      "b266a7135c6cb9fad92fb74a87c00727be68e4abfd8da4846ef8e061cb211f9f": {
+        "text": "MEXC가 이용자 보호 기금인 가디언 펀드에 BTC 1,000개를 추가 편입해 총 1억 USDT와 2,000 BTC로 확대했다고 밝힘\n\n이번 편입은 5월 발표한 2년간 기금 5억달러 확대 계획의 후속 단계라고 설명함",
+        "expires": 1791526871.5256596
+      },
+      "e36ef031f281fb72d26316e62ee634562b65d7a763bb0eedd5319acd2d029fda": {
+        "text": "미국 CFTC가 소매 고객 대상 레버리지·증거금·차입 암호화폐 거래를 연방 등록 체계로 편입하는 규칙 제안 초안을 공개하고 60일간 의견을 받는다고 밝힘\n\n현물 암호화폐 거래는 대상이 아니며, 무기한 선물은 만기 없는 파생상품으로 해당 플랫폼은 별도 파생상품 시장 등록을 선택할 수 있다고 설명함",
+        "expires": 1791526877.389206
+      },
+      "59dbc6d1efee4f32e06e104429d2f134a61f9b9ff2b742bfe8b6864c3573cc65": {
+        "text": "{\"publish\":true,\"reason\":\"CFTC의 새 규칙 제안 초안 공개와 의견수렴 개시라는 구체적 제도 변화가 원문과 대체로 일치하며, 제안 단계와 적용 제외 대상도 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791526879.9875126
+      },
+      "77fe3b093e909c1f9fb55df28195ab84f8565b9810e31ca3aaa73250429b3e88": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526881.088784
+      },
+      "dc1ee3822b22105051fa5387f4b7340c695250c0f4ccb79c8c6af9f4bd2e9210": {
+        "text": "{\"related_ids\":[\"53a3c0780ca7ecd5\"]}",
+        "expires": 1791526882.6646247
+      },
+      "c983c60bcd6110cd80f2415f9d35f8a951992313c65241a305119ce8e200f7d7": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526884.1534662
+      },
+      "76df3a266f31c41c875d7c04b92869daed6a7daee9c81de9d0572df45c1f8737": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526885.052616
+      },
+      "79eb4b8e92e3c4a102e906568e83f06d54c1ec847322370cc5002b23ae0f62a5": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 미국 CFTC가 소매 대상 레버리지·증거금·차입 암호화폐 거래에 대한 연방 등록 규칙 초안을 제안하고 의견수렴을 시작한 규제 조치다. 이력은 로빈후드의 미국 트레이더 대상 10배 암호화폐 무기한 선물 출시 계획으로, 주체(CFTC vs Robinhood), 사업/대상(연방 규칙 제안 vs 개별 상품 계획), 행동(규제 제안 vs 상품 계획)이 모두 다르다. 같은 미국 암호화폐 레버리지 거래 관련 주제라도 별도 사건이다.\",\"new_fact\":\"\"}",
+        "expires": 1791526887.9578524
+      },
+      "849190096a986d0d830499f48cc72f000376f84ab1ae8d0ea1c5358d8024708a": {
+        "text": "탄자니아 여행사 자타텝 투어스가 사파리·킬리만자로 트레킹 예약 결제 수단으로 BTC를 신용카드와 함께 도입했다고 밝힘",
+        "expires": 1791526896.2271054
+      },
+      "65f26649ee0a62dc724b70537de4cf58fcb1dd4ee1de9b0f5a8df518936a9106": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526902.758876
+      },
+      "4748dc38c7f55226c012f88473c06456a015edd4f5730c98f3d2a576ff4fabf1": {
+        "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
+        "expires": 1791526903.8038754
+      },
+      "e20c1ec1e92f325ebffe40134c0726b017af483bd53e9d7a2d640f19d2139694": {
+        "text": "{\"publish\":true,\"reason\":\"원문은 슈워츠의 X 발언과 수수료 인상 제안, XRPL 수수료 구조·합의 조건을 다루며 요약이 이를 대체로 정확히 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791526906.8510222
+      },
+      "55f7e0d84857a5301546afdeb44d0a35aab1323675a9622e16f624a89ff25a52": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526907.9589167
+      },
+      "96497a1ed75100a596e6d4a993e24a549abab397a48c819da746a23530f9f2a3": {
+        "text": "{\"related_ids\":[\"9929e56ca796817c\"]}",
+        "expires": 1791526909.858449
+      },
+      "bf4f663aef22f5c1c59ffc37d7002f3a388deae607822f3e1d3c48e776a7942b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526910.7911177
+      },
+      "01b4345d1e71289f3e07046c5445043170f11b6eb73a75ee414c74018dfcd87a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526911.931412
+      },
+      "5f87284dc70b361fce7dc78a330a766f4f92d8b4ee546bcf65a373fb26a98b54": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 XRPL 기본 수수료를 10배·100배 인상하자는 제안에 대해 리플 CTO 데이비드 슈워츠가 반대 의견을 밝힌 사건이다. 이력의 기사은 로빈후드 체인과 이더리움의 수수료 규모 비교에 관한 내용으로, 주체(리플/XRPL vs 로빈후드 체인·이더리움), 대상 사업/네트워크, 행동(수수료 인상 제안 반대 vs 수수료 수치 보도), 상대방과 맥락이 모두 다르다. 같은 사건의 재보도나 보충, 후속 조치가 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1791526915.7026172
+      },
+      "ae95d0380debb6a995d7f2dc90c73f8b75580bd83d9a0c18dc1b1e1c02dadc31": {
+        "text": "{\"approved\":true,\"reason\":\"기사 핵심은 리플 CTO 데이비드 슈워츠가 XRPL/XRP 기본 수수료 인상 제안에 반대한 사건이다. 이미지에는 XRP 로고가 선명하게 중심으로 보이며, 기사의 핵심 자산·네트워크 주제(XRP/XRPL)와 직접 관련된 공식 식별 가능 이미지다. 광고나 차트, 텍스트 캡처가 아니며 부수적 자산만 단독으로 나온 경우도 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791526920.2642598
+      },
+      "9006d5ca14ec39e4af8a0550e36962a41542656bea69aee91b7552c4bed7a13f": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526926.503415
+      },
+      "ee589eae74a9bc982cd3a3f2834e50d7afa4946b7274f53ae98e42f6e8f54bfd": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526927.4631355
+      },
+      "89aae99ff39c32a1875de03c1c77c3399d5180ca2642983180b92a0608dc47bd": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791526928.431259
       }
     },
     "version": "review-cache-v29-1",
@@ -4636,63 +4733,63 @@
       "2026-10-06": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 9,
-            "cache_hits": 11,
+            "api_calls": 12,
+            "cache_hits": 15,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 43479,
-            "cached_input_tokens": 14336,
-            "output_tokens": 699,
+            "input_tokens": 57281,
+            "cached_input_tokens": 19712,
+            "output_tokens": 927,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0869265,
+            "estimated_usd": 0.1127555,
             "unpriced_calls": 0
           },
           "source_review": {
-            "api_calls": 11,
-            "cache_hits": 8,
+            "api_calls": 15,
+            "cache_hits": 11,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 46363,
+            "input_tokens": 62876,
             "cached_input_tokens": 7168,
-            "output_tokens": 1022,
+            "output_tokens": 1404,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.1151095,
+            "estimated_usd": 0.162122,
             "unpriced_calls": 0
           },
           "event_search": {
-            "api_calls": 32,
-            "cache_hits": 16,
+            "api_calls": 45,
+            "cache_hits": 23,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 311072,
+            "input_tokens": 437119,
             "cached_input_tokens": 1792,
-            "output_tokens": 338,
+            "output_tokens": 485,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.778718,
+            "estimated_usd": 1.0960405,
             "unpriced_calls": 0
           },
           "image_review": {
-            "api_calls": 8,
-            "cache_hits": 4,
+            "api_calls": 11,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 10074,
+            "input_tokens": 16708,
             "cached_input_tokens": 0,
-            "output_tokens": 1310,
+            "output_tokens": 1775,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.044835,
+            "estimated_usd": 0.068395,
             "unpriced_calls": 0
           },
           "event_decision": {
-            "api_calls": 5,
-            "cache_hits": 1,
+            "api_calls": 7,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 3319,
+            "input_tokens": 4582,
             "cached_input_tokens": 0,
-            "output_tokens": 815,
+            "output_tokens": 1141,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0205225,
+            "estimated_usd": 0.02857,
             "unpriced_calls": 0
           }
         }
@@ -5080,6 +5177,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.3137945,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-06T06:01:17.935231+00:00",
+        "elapsed_seconds": 1252.377,
+        "status": "completed",
+        "api_calls": 25,
+        "cache_hits": 18,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.4217715,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
