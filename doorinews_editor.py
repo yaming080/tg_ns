@@ -2787,7 +2787,8 @@ def build_message(story: dict) -> str:
 def review_article_event(story, caption, posted):
     # Retire the v30 mini pre-pass, including any old environment override.
     # request_text reuses a valid exact result before making a paid request.
-    return review_event(story, caption, posted, _call_openai)
+    return review_event(story, caption, posted, _call_openai,
+                        review_identity=_RUNTIME.get('OPENAI_MODEL'))
 
 
 def install_editor_overrides(runtime: dict) -> None:

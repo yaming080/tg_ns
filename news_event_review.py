@@ -8,7 +8,12 @@ import html
 import json
 import re
 from urllib.parse import urlsplit
-from news_review_cache import review_context
+from news_review_cache import (review_context, fingerprint, load_event_memory,
+                               save_event_memory, record_event_progress)
+
+# Bump whenever search/decision policy changes; model and full source are also
+# part of the identity. Never reuse comparisons under a different review policy.
+EVENT_MEMORY_VERSION = 'event-comparison-v33-1'
 
 
 # User-provided channel examples. These are comparison evidence, not keyword bans.
@@ -126,7 +131,7 @@ def history_batches(records):
             yield group[start:start + 150]
 
 
-def review_event(story, caption, posted, call_model):
+def review_event(story, caption, posted, call_model, *, review_identity=None):
     candidate = {'title':story.get('title',''), 'summary':caption_body(caption),
                  'url':story.get('url',''), 'published':story.get('pub','')}
     records = history_records(posted)
@@ -134,11 +139,44 @@ def review_event(story, caption, posted, call_model):
         return {'status':'hold','reason':'사건 비교용 본문 없음'}
     if any(url_key(candidate['url']) == url_key(r.get('url')) and url_key(candidate['url']) for r in records):
         return {'status':'duplicate','reason':'기존 게시 URL'}
-    related = set()
-    # Scan EVERY history record in bounded batches; do not narrow by a coin,
-    # publisher, language, or fixed list of news topics. Old title-only state is
-    # still searchable. New successful posts retain their reviewed summaries.
-    for batch in history_batches(records):
+    # Without an explicit model identity, stay on the original exact-request
+    # cache path. Production supplies its configured model name.
+    identity = fingerprint([EVENT_MEMORY_VERSION, review_identity,
+                            story.get('_review_source_sha256',''), candidate])
+    memory = load_event_memory(identity) if review_identity else {}
+    incremental = bool(memory)
+    # Full record facts participate in invalidation, even beyond the 600-char
+    # search excerpt. Keep dates and source IDs; never match by coin alone.
+    def record_fingerprint(r):
+        return fingerprint(dict(id=r['id'], title=r['title'], summary=r.get('summary',''),
+                                published=r.get('source_pub',r.get('ts',''))))
+    signatures = {r['id']:record_fingerprint(r) for r in records}
+    current_signatures = set(signatures.values())
+    checked = memory.get('checked', {})
+    if not isinstance(checked, dict):
+        checked = {}
+    checked = {sig:value for sig,value in checked.items()
+               if sig in current_signatures and type(value) is bool}
+    memory['checked'] = checked
+    blocked = memory.get('blocked', {})
+    if (isinstance(blocked,dict) and blocked.get('status') in {'duplicate','supplement'}
+            and isinstance(blocked.get('reason'),str) and blocked['reason'].strip()
+            and signatures.get(blocked.get('matched_id')) == memory.get('blocked_signature')
+            and memory.get('blocked_signature')):
+        # A confirmed duplicate remains a duplicate when unrelated posts arrive.
+        # Changed candidate/source or changed/deleted matched evidence invalidates it.
+        record_event_progress(reused=1)
+        save_event_memory(identity, memory)
+        return blocked
+    memory.pop('blocked', None)
+    memory.pop('blocked_signature', None)
+    related = {r['id'] for r in records if checked.get(signatures[r['id']]) is True}
+    pending = [r for r in records if signatures[r['id']] not in checked]
+    if review_identity:
+        record_event_progress(reused=len(records)-len(pending), reviewed=len(pending))
+    # Every record is either previously compared with identical evidence or sent
+    # now. An appended/changed record cannot invalidate all the other comparisons.
+    for batch in history_batches(pending):
         index = [dict(id=r['id'],title=r['title'],summary=r.get('summary','')[:600],
                       published=r.get('source_pub',r.get('ts',''))) for r in batch]
         prompt = ('서로 다른 매체·언어의 뉴스에서 같은 사건일 가능성이 있는 기존 기록을 모두 찾아라. '
@@ -160,15 +198,29 @@ def review_event(story, caption, posted, call_model):
         # Keep this prompt, stage and source scope unchanged so valid paid v30
         # results remain reusable. Do not relax validation to accept mini output.
         try:
-            with review_context('event_search', story.get('_review_source_sha256',''), valid_search):
+            search_scope = story.get('_review_source_sha256','')
+            if incremental:
+                # Changed full evidence must not hit an old exact request just
+                # because its visible 600-character excerpt stayed identical.
+                search_scope = {'source':search_scope, 'policy':EVENT_MEMORY_VERSION,
+                                'records':[signatures[r['id']] for r in batch]}
+            with review_context('event_search', search_scope, valid_search):
                 response = json.loads(call_model(prompt))
             ids = response['related_ids']
             allowed = {r['id'] for r in batch}
             if not isinstance(ids,list) or any(not isinstance(i,str) or i not in allowed for i in ids):
                 raise ValueError('invalid references')
             related.update(ids)
+            if review_identity:
+                for r in batch:
+                    checked[signatures[r['id']]] = r['id'] in ids
+                # Bound persistent state without marking evicted records checked.
+                memory['checked'] = dict(list(checked.items())[-2500:])
+                save_event_memory(identity, memory)
         except (ValueError, TypeError, KeyError):
             return {'status':'hold','reason':'기존 사건 검색 응답 확인 실패'}
+    if review_identity:
+        save_event_memory(identity, memory)
     if not related:
         return {'status':'new','reason':'전체 비교 기록에서 관련 사건 없음'}
     matches = [dict(id=r['id'],title=r['title'],summary=r.get('summary',''),
@@ -208,8 +260,13 @@ JSON만 출력: {"decision":"duplicate|supplement|update|new|uncertain", "matche
             raise ValueError('missing evidence')
         if decision == 'update' and (not isinstance(result.get('new_fact'),str) or not result['new_fact'].strip()):
             raise ValueError('missing new fact')
-        return {'status':'hold' if decision == 'uncertain' else decision,'reason':reason,
-                'matched_id':match, 'new_fact':result.get('new_fact','')}
+        verdict = {'status':'hold' if decision == 'uncertain' else decision,'reason':reason,
+                   'matched_id':match, 'new_fact':result.get('new_fact','')}
+        if review_identity and decision in {'duplicate','supplement'}:
+            memory['blocked'] = verdict
+            memory['blocked_signature'] = signatures[match]
+            save_event_memory(identity, memory)
+        return verdict
     except (ValueError,TypeError,KeyError):
         return {'status':'hold','reason':'사건 비교 판정 확인 실패'}
 
