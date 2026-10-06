@@ -13,6 +13,7 @@ import hashlib
 import os
 import re
 from dataclasses import dataclass
+from functools import lru_cache
 from difflib import SequenceMatcher
 from typing import Callable, Iterable
 from news_quality import freshness_reason, source_promotion_reason, approval_stage_tokens, event_conflicts, quantity_only_update
@@ -2784,11 +2785,52 @@ def build_message(story: dict) -> str:
     return "\n\n".join(parts)
 
 
+LOCAL_RETRIEVAL_PATTERNS = {
+    'object_accounting_integration': (r'\baccounting\b', r'회계'),
+    'reference_iso_20022': (r'\bISO[ -]?20022\b',),
+}
+
+
+def event_index_version():
+    # Alias/pattern changes rebuild the local index without any AI requests.
+    return fingerprint([repr(ENTITY_SPECS), ACTION_PATTERNS, OBJECT_PATTERNS,
+                        GEO_PATTERNS, ASSET_PATTERNS, LOCAL_RETRIEVAL_PATTERNS,
+                        _manual_translation_map()])
+
+
+@lru_cache(maxsize=4)
+def _local_index_patterns(version):
+    patterns = []
+    for spec in ENTITY_SPECS:
+        if spec.kind not in {'org', 'person'}:
+            continue
+        for alias in spec.aliases:
+            escaped = re.escape(alias)
+            if re.fullmatch(r"[A-Za-z0-9 .&'-]+", alias):
+                escaped = rf'(?<![A-Za-z0-9]){escaped}(?![A-Za-z0-9])'
+            elif alias == '플레어':
+                escaped = r'(?<![A-Za-z가-힣])플레어'
+            patterns.append(('entity_'+_normalized_entity_token(spec.label),re.compile(escaped,re.I)))
+    for table in (ACTION_PATTERNS,OBJECT_PATTERNS,GEO_PATTERNS,ASSET_PATTERNS,LOCAL_RETRIEVAL_PATTERNS):
+        for key,expressions in table.items():
+            for expression in expressions:
+                patterns.append((key,re.compile(expression,re.I)))
+    return tuple(patterns)
+
+
+def local_event_tokens(story):
+    # Compiled aliases/patterns only: no API and no expensive full editorial
+    # intake/deduplication pass for each historic article.
+    raw = str(story.get('title',''))+' '+str(story.get('desc',''))
+    return {key for key,pattern in _local_index_patterns(event_index_version()) if pattern.search(raw)}
+
+
 def review_article_event(story, caption, posted):
     # Retire the v30 mini pre-pass, including any old environment override.
     # request_text reuses a valid exact result before making a paid request.
     return review_event(story, caption, posted, _call_openai,
-                        review_identity=_RUNTIME.get('OPENAI_MODEL'))
+                        review_identity=_RUNTIME.get('OPENAI_MODEL'),
+                        token_builder=local_event_tokens, feature_version=event_index_version())
 
 
 def install_editor_overrides(runtime: dict) -> None:
