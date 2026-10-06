@@ -3726,10 +3726,6 @@
   },
   "ai_review": {
     "entries": {
-      "768310f88c3d457db8dba01dcfba7a34588837b04a5660bd8a54e9bd6db871dd": {
-        "text": "{\"publish\": false, \"reason\": \"제목의 'framework 제안'과 본문의 '기존 권한으로 대응' 사이에 핵심 내용 불일치가 있고, 구체적 새 조치가 확인되지 않습니다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": false, \"allowed_category\": true, \"new_substantive_fact\": false, \"source_sufficient\": false, \"understandable\": true}}",
-        "expires": 1791246337.5153792
-      },
       "c96a52813df31c2d4de4d4b13199429d1f99d2a4516af03d7c94f6d158022701": {
         "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC의 가상자산 시장 규제안 제안이라는 규제기관의 행위인데, 이미지는 비트코인 코인 사진만 중심으로 보여준다. CFTC 로고·기관 건물·관계자·규제안 관련 삽화가 아니라 특정 자산인 비트코인만 부각해 기사 핵심 주체를 대표하지 못한다. 또한 비트코인은 본문에서 시장 일반을 설명하는 예시 수준일 뿐, 핵심 당사자 단독 이미지로 쓰기엔 부수적 자산 이미지에 가깝다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
         "expires": 1791249342.8960683
@@ -3773,6 +3769,10 @@
       "5e4b22fefdf0edc03054aaf59e231bf75f854f67847fd6acb8a1337b6b9d4d83": {
         "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC의 가상자산 시장 규제안 제안이라는 정책·규제 주체(CFTC)와 사건이다. 그러나 이미지는 비트코인 코인들만 중심으로 보여 주며 CFTC나 규제안 자체를 식별할 수 없다. 비트코인은 기사에서 특정 핵심 상품으로 새로 언급된 대상이 아니라 암호화폐 시장을 대표하는 범용 자산 이미지에 가깝기 때문에 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
         "expires": 1791267446.0710247
+      },
+      "46e3bc99ba2d8693b45ba126a26c5f02ee28be51db25d506fa57711fa197d998": {
+        "text": "SKIP",
+        "expires": 1791270469.649417
       },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
@@ -4353,6 +4353,50 @@
       "2152c56d1d4843518e21f861b510bc5f2634ad39196bd0c84d37c014308dc1b9": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791505032.7819397
+      },
+      "f2b97e346db18e0f94d1243c811a6070c8c1e68d8a2de333fa0327cce99781b5": {
+        "text": "미 재무부 산하 FinCEN이 2023년 가상자산 믹싱 거래 보고 강화안과 2020년 비수탁형 지갑 규제안을 최종 시행 없이 철회했으며 현재 금융기관 의무는 바뀌지 않는다고 밝힘",
+        "expires": 1791508073.0763323
+      },
+      "a8706dc793c966406b72cf8b193597e379f1e2e6d48b55edc98405efd9d1c96e": {
+        "text": "{\"publish\":true,\"reason\":\"FinCEN의 2023년 믹싱 규제안과 2020년 비수탁형 지갑 규제안 철회라는 새 공식 조치를 원문과 대체로 일치하게 요약했고, 최종 시행되지 않았으며 현재 의무 변화가 없다는 핵심 조건도 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791508075.221359
+      },
+      "49136473bb28e8d34b19e4a358e3d63ebf8dc02d12594e7edd4ebed5b6a5404b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791508076.6666381
+      },
+      "77a9a02ddbb2e37065788f9097adf72f24bc4dfe6971f6f92993768147187b59": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791508077.5115895
+      },
+      "d704662d3aa3928b91fea0f6798a19f3aafacc915e5086846556a229c8eca855": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791508078.913113
+      },
+      "94b0fe6834a60f511d806f04a5e296a7b0187bdc7d8d1cc48361bb9935b5b8c7": {
+        "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
+        "expires": 1791508079.809973
+      },
+      "de740c5d0c089a39a1d0ffc410f472ebb5164aebf8573dfd693eb02839ca144d": {
+        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"b044864ba1f8b300\",\"reason\":\"후보 기사와 이력 기사는 모두 미 재무부 산하 FinCEN이 암호화폐 믹싱 규제안과 자기보관/비수탁형 지갑 관련 규정안을 최종 시행 없이 철회했다는 동일한 조치를 보도한다. 주체(FinCEN), 대상(믹싱 거래·자기보관 지갑 규정안), 행동(규제안 철회), 시점과 진행 단계가 같다. 후보의 '현재 금융기관 의무는 바뀌지 않는다'는 설명은 부연일 뿐 새 승인·시행·개정 같은 별도 조치가 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1791508083.4746182
+      },
+      "a4ffe85169aad56d3195f8f377cde59302b13f7d97e2b6f9b824607779101ebb": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, CFTC의 가상자산 시장 대상 첫 규제안 '제안'이라는 새 소식을 조건 훼손 없이 전달했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791508090.3725848
+      },
+      "007e6ec071a6d52b77b6c6a2ce34f069982dc07922fd09a3458f345c0bfb3373": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791508091.7804594
+      },
+      "c96fde78f136b987b16c8ee7a5177ec299e137ce29e689290477626b093770a9": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791508092.7549589
+      },
+      "89f3e8b137e5b35c374b53bf84ca9cf7c0c02c99845c942c3f215ab541c53149": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791508093.8633208
       }
     },
     "version": "review-cache-v29-1",
@@ -4454,44 +4498,44 @@
       "2026-10-06": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 1,
-            "cache_hits": 1,
+            "api_calls": 3,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 4872,
-            "cached_input_tokens": 1792,
-            "output_tokens": 111,
+            "input_tokens": 14333,
+            "cached_input_tokens": 3584,
+            "output_tokens": 182,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.009813,
+            "estimated_usd": 0.0304985,
             "unpriced_calls": 0
           },
           "source_review": {
-            "api_calls": 2,
-            "cache_hits": 0,
+            "api_calls": 4,
+            "cache_hits": 1,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 8246,
+            "input_tokens": 16562,
             "cached_input_tokens": 0,
-            "output_tokens": 177,
+            "output_tokens": 386,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.02327,
+            "estimated_usd": 0.047195,
             "unpriced_calls": 0
           },
           "event_search": {
-            "api_calls": 2,
-            "cache_hits": 2,
+            "api_calls": 9,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 19505,
+            "input_tokens": 87053,
             "cached_input_tokens": 1792,
-            "output_tokens": 18,
+            "output_tokens": 91,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0450005,
+            "estimated_usd": 0.2149655,
             "unpriced_calls": 0
           },
           "image_review": {
             "api_calls": 2,
-            "cache_hits": 0,
+            "cache_hits": 2,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 2500,
@@ -4499,6 +4543,18 @@
             "output_tokens": 324,
             "reasoning_tokens": 0,
             "estimated_usd": 0.01111,
+            "unpriced_calls": 0
+          },
+          "event_decision": {
+            "api_calls": 1,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 641,
+            "cached_input_tokens": 0,
+            "output_tokens": 167,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.0041075,
             "unpriced_calls": 0
           }
         }
@@ -4826,6 +4882,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0891935,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-06T01:00:55.716726+00:00",
+        "elapsed_seconds": 441.115,
+        "status": "completed",
+        "api_calls": 12,
+        "cache_hits": 6,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.218683,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
