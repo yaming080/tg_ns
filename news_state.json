@@ -3726,14 +3726,6 @@
   },
   "ai_review": {
     "entries": {
-      "c96a52813df31c2d4de4d4b13199429d1f99d2a4516af03d7c94f6d158022701": {
-        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC의 가상자산 시장 규제안 제안이라는 규제기관의 행위인데, 이미지는 비트코인 코인 사진만 중심으로 보여준다. CFTC 로고·기관 건물·관계자·규제안 관련 삽화가 아니라 특정 자산인 비트코인만 부각해 기사 핵심 주체를 대표하지 못한다. 또한 비트코인은 본문에서 시장 일반을 설명하는 예시 수준일 뿐, 핵심 당사자 단독 이미지로 쓰기엔 부수적 자산 이미지에 가깝다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1791249342.8960683
-      },
-      "f03006a1f4ee498a638da7e19fb2885d3f78a0429e00f5be006495cdbfa12c8c": {
-        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC가 가상자산 시장에 대한 첫 규제안을 제안한 사건이다. 그러나 이미지는 CFTC나 규제안과 직접 관련된 기관 로고·인물·건물·문서가 아니라 비트코인 동전만 중심으로 보여준다. 비트코인은 기사에서 특정 핵심 주체나 상품으로 제시되지 않았고, 가상자산 시장을 막연히 상징하는 수준의 범용 이미지라 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1791249351.2499247
-      },
       "0116370883fb674218c1f187480b2dc9855dfc0fb99c1ddccf69a7c4385726e0": {
         "text": "{\"approved\":false,\"reason\":\"기사 핵심은 FinCEN의 암호화폐 믹서 관련 규정안 철회라는 규제 조치인데, 이미지는 특정 기관(FinCEN)이나 규정안을 식별할 수 있는 사진이 아니라 비트코인 기호들을 믹서기에 넣은 범용 삽화다. 믹싱 개념은 연상되지만 핵심 주체가 식별되지 않고, 기사 대표 이미지로 쓰기엔 너무 일반적이다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
         "expires": 1791257000.8345165
@@ -3773,6 +3765,14 @@
       "46e3bc99ba2d8693b45ba126a26c5f02ee28be51db25d506fa57711fa197d998": {
         "text": "SKIP",
         "expires": 1791270469.649417
+      },
+      "c96a52813df31c2d4de4d4b13199429d1f99d2a4516af03d7c94f6d158022701": {
+        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC의 가상자산 시장 규제안 제안이라는 정책·규제 행위다. 그러나 이미지는 비트코인 코인들만 중심으로 보여 주며 CFTC, 규제안, 정부기관 로고/인물/관련 삽화 등 핵심 주체를 직접 나타내지 않는다. 비트코인은 기사에서 규제 대상 시장의 예시일 뿐이며, 특정 자산 단독 이미지는 부수적 자산 중심 이미지에 해당한다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791274274.226436
+      },
+      "f03006a1f4ee498a638da7e19fb2885d3f78a0429e00f5be006495cdbfa12c8c": {
+        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 미국 CFTC가 가상자산 시장에 대한 첫 규제안을 제안했다는 정책·규제 행위다. 그러나 이미지는 비트코인 동전만 크게 보여 주며 CFTC나 규제안 자체를 식별할 수 없다. 비트코인은 기사에서 시장 일반을 상징하는 부수적 자산일 뿐 핵심 주체가 아니므로 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791274276.8908315
       },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
@@ -4499,7 +4499,7 @@
         "gpt-5.4": {
           "summary": {
             "api_calls": 3,
-            "cache_hits": 3,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 14333,
@@ -4511,7 +4511,7 @@
           },
           "source_review": {
             "api_calls": 4,
-            "cache_hits": 1,
+            "cache_hits": 4,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 16562,
@@ -4523,7 +4523,7 @@
           },
           "event_search": {
             "api_calls": 9,
-            "cache_hits": 3,
+            "cache_hits": 11,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 87053,
@@ -4534,20 +4534,20 @@
             "unpriced_calls": 0
           },
           "image_review": {
-            "api_calls": 2,
+            "api_calls": 4,
             "cache_hits": 2,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 2500,
+            "input_tokens": 5020,
             "cached_input_tokens": 0,
-            "output_tokens": 324,
+            "output_tokens": 650,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.01111,
+            "estimated_usd": 0.0223,
             "unpriced_calls": 0
           },
           "event_decision": {
             "api_calls": 1,
-            "cache_hits": 0,
+            "cache_hits": 1,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 641,
@@ -4894,6 +4894,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.218683,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-06T02:01:00.399822+00:00",
+        "elapsed_seconds": 617.921,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 15,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.01119,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
