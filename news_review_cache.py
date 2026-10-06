@@ -247,6 +247,37 @@ def record_event_progress(reused=0, reviewed=0):
         store.log(f'[사건 비교 기억] 재사용 기록={reused} 검사 대상 기록={reviewed}')
 
 
+def load_local_event_index(version):
+    store = _STORE.get()
+    if store is None:
+        return {}
+    index = store.data.get('local_event_index', {})
+    if not isinstance(index,dict) or index.get('version') != version:
+        return {}
+    entries = index.get('entries', {})
+    return entries if isinstance(entries,dict) else {}
+
+
+def save_local_event_index(version, entries):
+    store = _STORE.get()
+    if store is not None:
+        store.data['local_event_index'] = {'version':version, 'entries':dict(list(entries.items())[-6000:])}
+        # v33's all-history pair ledger is superseded by the local index. Keep
+        # paid exact responses and confirmed publication history untouched.
+        memories = store.data.get('event_memory_v33', {})
+        for key in list(memories):
+            if 'checked' in memories[key].get('value', {}):
+                del memories[key]
+        store.persist()
+
+
+def record_local_retrieval(stats, held=False):
+    store = _STORE.get()
+    if store is not None:
+        store.log('[사건 로컬 검색] 전체={total} 인덱스 재사용={index_reused} '
+                  '관련={matched} AI 비교 대상={sent} 보류='.format(**stats)+str(held))
+
+
 @contextmanager
 def review_session(state, persist, logger=print):
     store = ReviewStore(state,persist,logger)
