@@ -132,7 +132,7 @@ class ReviewCacheTests(unittest.TestCase):
         clock=Mock(return_value=1000)
         store=cache.ReviewStore(self.state,self.persist,self.log,clock)
         validator=lambda text: cache.valid_checks(text,'approved',images.IMAGE_CHECKS)
-        for now in (1000,1001,1000+cache.NEGATIVE_TTL+1):
+        for now in (1000,1001,1001+cache.MEMORY_TTL+1):
             clock.return_value=now
             store.request(self.client,'gpt-5.4','same','image_review',None,validator)
         self.assertEqual(self.client.responses.create.call_count,2)
