@@ -171,6 +171,8 @@ class ReviewCacheTests(unittest.TestCase):
                 # First image is unrelated; second candidate appears on next run.
                 approved='bmV3LWltYWdl' in str(payload)
                 return response(checks('approved',images.IMAGE_CHECKS,approved))
+            if '뉴스의 사건 중복을 판정' in payload:
+                return response('{"decision":"new","matched_id":"","reason":"Separate licensing event"}')
             if '"related_ids"' in payload:
                 data, _ = json.JSONDecoder().raw_decode(payload[payload.index('{"candidate"'):])
                 return response(json.dumps({'related_ids':[], 'uncertain':False,
@@ -191,18 +193,21 @@ class ReviewCacheTests(unittest.TestCase):
                     result=prepare_publication(story,editor.build_message,self.client,'gpt-5.4',selector,
                         event_review=lambda caption: editor.review_article_event(story,caption,{}))
                     self.assertEqual(result['status'],expected)
-        self.assertEqual(sum(isinstance(p,str) for p in requests),3)
+        # Summary and source review only: no related past licensing event.
+        self.assertEqual(sum(isinstance(p,str) for p in requests),2)
         self.assertEqual(sum(isinstance(p,list) for p in requests),2)
         self.assertEqual(self.state['posted'],{'old':{'title':'posted item'}})
 
-    def test_changed_history_rechecks_event_even_with_same_candidate(self):
-        self.client.responses.create.return_value=response('{"related_ids":[]}')
-        candidate=dict(title='Ripple new project',url='https://example.com/new')
+    def test_changed_related_history_rechecks_event_even_with_same_candidate(self):
+        self.client.responses.create.return_value=response('{"decision":"new","matched_id":"","reason":"New project"}')
+        candidate=dict(title='Ripple launches payment network',url='https://example.com/new')
         runtime={'openai_client':self.client,'OPENAI_MODEL':'gpt-5.4'}
+        one={'a':dict(title='Ripple payment pilot',url='https://example.com/old',summary='Earlier pilot')}
+        two=dict(one,b=dict(title='Ripple payment launch',url='https://example.com/other',summary='New related evidence'))
         with patch.object(editor,'_RUNTIME',runtime):
             with cache.review_session(self.state,self.persist,self.log):
-                for history in ({},{},{'new':dict(title='Newly posted evidence',url='https://example.com/evidence')}):
-                    self.assertEqual(review_event(candidate,'새 프로젝트',history,editor._call_openai)['status'],'new')
+                for history in (one,one,two):
+                    self.assertEqual(review_event(candidate,'리플 결제망 출시',history,editor._call_openai)['status'],'new')
         self.assertEqual(self.client.responses.create.call_count,2)
 
 

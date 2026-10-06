@@ -1,177 +1,140 @@
-"""Repeat-run regressions with mocked verdicts: no live API or posting."""
+"""Persistent local retrieval and paid-verdict reuse; all API responses mocked."""
 import json
 import unittest
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
-
 import news_event_review as events
+import news_event_index as index
 import news_review_cache as cache
-
 
 def data(prompt):
     return json.loads(prompt[prompt.index('{"candidate"'):])
 
-
 class IncrementalMemoryTests(unittest.TestCase):
     def setUp(self):
-        self.state = {'posted':{}}
-        self.story = dict(title='New payment launch',url='https://new.example/a',
-                          pub='2026-10-06T00:00:00Z',_review_source_sha256='source-A')
-        self.caption = 'Company launches payments in a separate country'
-        self.history = {str(i):dict(title=f'Company {i} project',url=f'https://old.example/{i}',
-                                   summary=f'Confirmed project {i}') for i in range(350)}
-        self.client = Mock()
-        self.client.responses.create.side_effect = self.answer
-        self.requests=[]
-        self.verdict='new'
-        self.now=1000000
+        self.state={'posted':{}}
+        self.story=dict(title='Ripple launches payments',url='https://new.example/a',
+                        _review_source_sha256='source-A')
+        self.caption='Ripple launches payments in Korea after an earlier pilot'
+        self.history={str(i):dict(title=f'Unrelated history {i}',url=f'https://old.example/{i}') for i in range(350)}
+        self.history['match']=dict(title='Ripple payment pilot',url='https://old.example/match',summary='Ripple plans payments in Korea')
+        self.client=Mock(); self.client.responses.create.side_effect=self.answer
+        self.requests=[]; self.verdict='new'; self.now=1000000
+        self.manual=patch.object(events,'MANUAL_EVENTS',()); self.manual.start(); self.addCleanup(self.manual.stop)
 
-    def answer(self, **kwargs):
-        p=kwargs['input']; self.requests.append(p)
-        rows=data(p)['history']
-        if '"related_ids"' in p:
-            value={'related_ids':[r['id'] for r in rows if 'MATCH' in r.get('summary','')]}
-        else:
-            value={'decision':self.verdict,'matched_id':rows[0]['id'],
-                   'reason':'Compare subject, action and stage',
-                   'new_fact':'Confirmed new launch after the earlier plan'}
+    def answer(self,**kwargs):
+        prompt=kwargs['input']; self.requests.append(prompt)
+        rows=data(prompt)['history']
+        value=dict(decision=self.verdict,matched_id=rows[0]['id'],reason='Compare actor, business and stage',
+                   new_fact='Actual launch after earlier pilot')
         return SimpleNamespace(status='completed',output_text=json.dumps(value),usage=None)
 
-    def run_review(self, model='gpt-5.4'):
-        with patch.object(cache.time,'time',return_value=self.now):
-            # ReviewStore's default clock is bound at definition time.
-            original=cache.ReviewStore.__init__
-            def init(store,state,persist,logger=print):
-                original(store,state,persist,logger,clock=lambda:self.now)
-            with patch.object(cache.ReviewStore,'__init__',init):
-                with cache.review_session(self.state,lambda:None,lambda s:None):
-                    result=events.review_event(self.story,self.caption,self.history,
-                        lambda p:cache.request_text(self.client,model,p),review_identity=model)
+    def run_review(self,model='gpt-5.4'):
+        original=cache.ReviewStore.__init__
+        def init(store,state,persist,logger=print):
+            original(store,state,persist,logger,clock=lambda:self.now)
+        with patch.object(cache.ReviewStore,'__init__',init),cache.review_session(self.state,lambda:None,lambda s:None):
+            result=events.review_event(self.story,self.caption,self.history,
+                lambda p:cache.request_text(self.client,model,p),review_identity=model)
         self.state=json.loads(json.dumps(self.state))
         return result
 
-    def test_restart_unchanged_article_does_not_call_api(self):
+    def test_restart_reuses_index_and_paid_result_without_touching_posted(self):
         self.assertEqual(self.run_review()['status'],'new')
-        calls=self.client.responses.create.call_count
-        self.run_review()
-        self.assertEqual(self.client.responses.create.call_count,calls)
-        self.assertEqual(self.state['ai_review']['recent_runs'][-1]['event_records_reviewed'],0)
+        with patch.object(index,'feature',wraps=index.feature) as build:
+            self.assertEqual(self.run_review()['status'],'new')
+            self.assertEqual(build.call_count,1) # candidate only, history persisted
+        self.assertEqual(self.client.responses.create.call_count,1)
+        self.assertEqual(len(data(self.requests[0])['history']),1)
         self.assertEqual(self.state['posted'],{})
 
-    def test_appended_record_only_is_sent_not_its_old_bucket(self):
+    def test_unrelated_append_builds_only_new_feature_and_reuses_verdict(self):
         self.run_review(); self.requests.clear()
-        self.history['extra']=dict(title='New company announcement',url='https://old.example/new',summary='New facts')
+        self.history['extra']=dict(title='Unrelated new history',url='https://other.example/extra')
+        with patch.object(index,'feature',wraps=index.feature) as build:
+            self.run_review(); self.assertEqual(build.call_count,2)
+        self.assertEqual(self.requests,[])
+
+    def test_related_append_rechecks_only_related_records(self):
+        self.run_review(); self.requests.clear()
+        self.history['extra']=dict(title='Ripple payment agreement',url='https://other.example/extra')
         self.run_review()
         self.assertEqual(len(self.requests),1)
-        self.assertEqual([r['title'] for r in data(self.requests[0])['history']],['New company announcement'])
-        self.assertEqual(self.state['ai_review']['recent_runs'][-1]['event_records_reviewed'],1)
+        self.assertEqual(len(data(self.requests[0])['history']),2)
 
-    def test_changed_full_record_beyond_excerpt_is_rechecked(self):
-        self.history['0']['summary']='x'*700+'original fact'
+    def test_changed_full_evidence_beyond_old_excerpt_is_rechecked(self):
+        self.history['match']['summary']='Ripple payments '+('x'*700)+' old'
         self.run_review(); self.requests.clear()
-        self.history['0']['summary']='x'*700+'changed fact'
+        self.history['match']['summary']='Ripple payments '+('x'*700)+' new'
         self.run_review()
         self.assertEqual(len(self.requests),1)
-        self.assertEqual(len(data(self.requests[0])['history']),1)
-        self.assertEqual(data(self.requests[0])['history'][0]['title'],'Company 0 project')
+        self.assertTrue(data(self.requests[0])['history'][0]['summary'].endswith('new'))
 
-    def test_changed_candidate_source_caption_and_model_invalidate_memory(self):
+    def test_source_caption_and_model_changes_recheck_only_related_record(self):
         self.run_review()
         for change in ('source','caption','model'):
-            with self.subTest(change=change):
-                self.requests.clear()
-                if change=='source': self.story['_review_source_sha256']='source-B'
-                if change=='caption': self.caption+=' New confirmed contract.'
-                self.run_review(model='different-model' if change=='model' else 'gpt-5.4')
-                sent=sum(len(data(p)['history']) for p in self.requests)
-                self.assertEqual(sent,len(events.history_records(self.history)))
+            self.requests.clear()
+            if change=='source': self.story['_review_source_sha256']='source-B'
+            if change=='caption': self.caption+=' New separate contract.'
+            self.run_review('different-model' if change=='model' else 'gpt-5.4')
+            self.assertEqual(len(self.requests),1)
+            self.assertEqual(len(data(self.requests[0])['history']),1)
 
-    def test_same_excerpt_cannot_reuse_comparison_after_full_evidence_changes(self):
-        self.history={'one':dict(title='Record',url='https://old.example/one',summary='x'*700+'old')}
-        with patch.object(events,'MANUAL_EVENTS',()):
-            self.run_review(); self.requests.clear()
-            self.history['one']['summary']='x'*700+'new'
-            self.run_review()
-        self.assertEqual(len(self.requests),1)
-
-    def test_confirmed_duplicate_survives_other_new_posts_without_calls(self):
-        self.history['0']['summary']='MATCH already published event'
-        self.verdict='duplicate'
-        self.assertEqual(self.run_review()['status'],'duplicate')
-        self.requests.clear()
-        self.history['new']=dict(title='Other coin new project',url='https://old.example/new')
-        self.state['ai_review']['entries']={}
-        self.now+=24*3600
+    def test_confirmed_duplicate_remembered_even_after_raw_cache_eviction(self):
+        self.verdict='duplicate'; self.assertEqual(self.run_review()['status'],'duplicate')
+        self.requests.clear(); self.state['ai_review']['entries']={}
+        self.history['extra']=dict(title='Other business',url='https://old.example/extra')
         self.assertEqual(self.run_review()['status'],'duplicate')
         self.assertEqual(self.requests,[])
 
-    def test_changed_or_removed_duplicate_evidence_cannot_keep_blocking(self):
-        for remove in (True,False):
-            with self.subTest(remove=remove):
-                self.setUp()
-                self.history['0']['summary']='MATCH old event'
-                self.verdict='duplicate'
-                self.run_review(); self.requests.clear()
-                if remove: del self.history['0']
-                else: self.history['0']['summary']='Actually unrelated corrected evidence'
-                self.assertEqual(self.run_review()['status'],'new')
+    def test_changed_or_removed_duplicate_evidence_does_not_keep_blocking(self):
+        self.verdict='duplicate'; self.run_review(); self.requests.clear()
+        self.history['match']['summary']='Ripple now launches payments in Korea'
+        self.verdict='update'
+        self.assertEqual(self.run_review()['status'],'update'); self.assertTrue(self.requests)
+        del self.history['match']; self.requests.clear()
+        self.assertEqual(self.run_review()['status'],'new'); self.assertEqual(self.requests,[])
 
-    def test_new_fact_after_duplicate_gets_fresh_comparison(self):
-        self.history['0']['summary']='MATCH previous plan'
-        self.verdict='duplicate'; self.run_review()
-        self.story['_review_source_sha256']='confirmed-launch-source'
-        self.caption='Company now launches after earlier plan'
-        self.verdict='update'; self.requests.clear()
-        self.assertEqual(self.run_review()['status'],'update')
-        self.assertTrue(self.requests)
+    def test_new_fact_after_duplicate_rechecks(self):
+        self.verdict='duplicate'; self.run_review(); self.requests.clear()
+        self.story['_review_source_sha256']='confirmed-new-launch'
+        self.caption+=' New country launch confirmed.'; self.verdict='update'
+        self.assertEqual(self.run_review()['status'],'update'); self.assertTrue(self.requests)
 
-    def test_invalid_batch_does_not_mark_unreviewed_records_checked(self):
-        count=0
-        def broken(**kwargs):
-            nonlocal count
-            count+=1
-            if count==2:
-                return SimpleNamespace(status='completed',output_text='{}',usage=None)
-            return self.answer(**kwargs)
-        self.client.responses.create.side_effect=broken
+    def test_invalid_verdict_is_not_cached_as_checked(self):
+        self.client.responses.create.side_effect=None
+        self.client.responses.create.return_value=SimpleNamespace(status='completed',output_text='{}',usage=None)
         self.assertEqual(self.run_review()['status'],'hold')
-        first_ids={r['id'] for r in data(self.requests[0])['history']}
-        self.requests.clear()
         self.client.responses.create.side_effect=self.answer
         self.assertEqual(self.run_review()['status'],'new')
-        remaining={r['id'] for p in self.requests for r in data(p)['history']}
-        self.assertFalse(first_ids & remaining)
-        self.assertEqual(first_ids | remaining,{r['id'] for r in events.history_records(self.history)})
+        self.assertEqual(self.client.responses.create.call_count,2)
 
-    def test_uncertain_decision_stays_held_without_rechecking_same_evidence(self):
-        self.history['0']['summary']='MATCH ambiguous event'
-        self.verdict='uncertain'; self.run_review(); self.requests.clear()
-        self.run_review()
-        self.assertEqual(self.requests,[])
-        self.now+=cache.NEGATIVE_TTL+1
-        self.assertEqual(self.run_review()['status'],'hold')
-        self.assertEqual(self.requests,[])
-        self.story['_review_source_sha256']='new-evidence'
-        self.assertEqual(self.run_review()['status'],'hold')
+    def test_uncertain_result_reused_until_evidence_or_durable_ttl_changes(self):
+        self.verdict='uncertain'; self.assertEqual(self.run_review()['status'],'hold')
+        self.requests.clear(); self.now+=cache.NEGATIVE_TTL+1
+        self.assertEqual(self.run_review()['status'],'hold'); self.assertEqual(self.requests,[])
+        self.story['_review_source_sha256']='new-evidence'; self.run_review()
         self.assertTrue(self.requests)
 
-    def test_policy_change_invalidates_both_memory_and_exact_requests(self):
+    def test_index_policy_rebuilds_locally_without_invalidating_identical_paid_prompt(self):
         self.run_review(); self.requests.clear()
-        with patch.object(cache,'VERSION','new-cache-policy'),patch.object(events,'EVENT_MEMORY_VERSION','new-event-policy'):
-            self.run_review()
+        with patch.object(index,'INDEX_VERSION','new-index-policy'),patch.object(index,'feature',wraps=index.feature) as build:
+            self.run_review(); self.assertEqual(build.call_count,len(self.history)+1)
+        self.assertEqual(self.requests,[])
+
+    def test_cache_policy_and_expiry_require_new_paid_verdict(self):
+        self.run_review(); self.requests.clear()
+        self.now+=cache.MEMORY_TTL+1; self.run_review(); self.assertTrue(self.requests)
+        self.requests.clear()
+        with patch.object(cache,'VERSION','new-cache-policy'): self.run_review()
         self.assertTrue(self.requests)
 
-    def test_memory_is_bounded_and_stale_records_expire(self):
+    def test_legacy_pair_ledger_retired_without_deleting_posted_or_usage(self):
         self.run_review()
-        self.now+=cache.MEMORY_TTL+1
-        self.requests.clear(); self.run_review()
-        self.assertTrue(self.requests)
-        with patch.object(cache,'MAX_EVENT_MEMORIES',2):
-            for i in range(4):
-                self.story['_review_source_sha256']=f'source-{i}'
-                self.run_review()
-        self.assertEqual(len(self.state['ai_review']['event_memory_v33']),2)
-
+        self.state['ai_review']['event_memory_v33']['old']={'expires':self.now+10000,'value':{'checked':{'old':'hash'}}}
+        self.run_review()
+        self.assertNotIn('old',self.state['ai_review']['event_memory_v33'])
+        self.assertEqual(len(self.state['ai_review']['local_event_index']['entries']),len(self.history))
 
 class DurableResultsTests(unittest.TestCase):
     def test_same_rejected_source_and_image_are_reused_after_seven_hours(self):
