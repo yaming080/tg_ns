@@ -28,7 +28,7 @@ INITIAL_RUN = os.environ.get("INITIAL_RUN", "false").strip().lower() == "true"
 POST_ENABLED = os.environ.get("POST_ENABLED", "true").strip().lower() == "true"
 DRY_RUN_RECORD = os.environ.get("DRY_RUN_RECORD", "false").strip().lower() == "true"
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
-OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5.4-mini").strip() or "gpt-5.4-mini"
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-6-luna").strip() or "gpt-6-luna"
 openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
 FEEDS = [
