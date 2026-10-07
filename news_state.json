@@ -1,12 +1,5 @@
 {
   "posted": {
-    "d45d1b0f5614f8af": {
-      "title": "Ethereum targets quantum-resistant L1 by 2029",
-      "url": "crypto.news/ethereum-targets-quantum-resistant-l1-by-2029",
-      "signature": "action_publish | asset_eth | entity_이더리움재단",
-      "canonical_key": "action_publish | asset_eth | entity_이더리움재단",
-      "ts": "2026-09-07T22:01:52.176922+00:00"
-    },
     "16f9f50e14371302": {
       "title": "Liquid recovers 3,400 BTC, but its peg-out gap exposes bridge accounting risk",
       "url": "www.cryptopolitan.com/liquid-recovers-3400-btc-exposes-bridge-risk",
@@ -3647,6 +3640,14 @@
         "text": "{\"approved\":false,\"reason\":\"기사는 스트라이크가 출시한 저축 목표별 비트코인 관리 기능이 핵심인데, 이미지는 스트라이크나 기능을 보여주지 않고 일반적인 비트코인 코인만 중심에 둡니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
         "expires": 1791430256.576024
       },
+      "b164a6b7a944eb59eecbfacf177b4cbc98278ada2c69eb959bc75d156451d9ff": {
+        "text": "{\"publish\":false,\"reason\":\"제휴와 향후 통합 테스트 계획은 원문에 부합하지만, 일반 독자가 이해할 수 있도록 USDC·EURC가 각각 달러·유로 연동 스테이블코인이라는 설명이 요약에 필요합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791436388.2982044
+      },
+      "194c9e2ee83a3e28abdbe2627ddb3e9f50042401e7ae1f77c22c633113a504cc": {
+        "text": "{\"publish\": false, \"reason\": \"요약은 원문에 대체로 부합하지만, 핵심 용어인 ‘스왑 금융’이 무엇인지 설명하지 않아 일반 독자가 사업 내용을 이해하기 어렵습니다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
+        "expires": 1791436399.582145
+      },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
         "expires": 1791443525.353721
@@ -4662,6 +4663,22 @@
       "b3a6a8fe8ad3b5fd4ef88bb47c3f57c8f8819a3b4295744e09015f5a85703a49": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791670271.1098516
+      },
+      "318bd4985da64f27129e24de0a7d95f8de7a91b4a95e9d8fe26722feea5771ce": {
+        "text": "써클이 SAP 지원 금융사 테레이나와 협력해 SAP 재무 소프트웨어에서 USDC·EURC 송금과 수취를 지원하는 결제 기능을 연동할 계획이라고 밝힘\n\n양사는 향후 수개월 안에 고객사를 대상으로 국경 간 결제와 기업 자금 운용 통합 테스트를 진행할 예정임",
+        "expires": 1791673983.1978679
+      },
+      "c93f9b96811b920763ef5d5739a8c715f4007334a2cb4c525fc48363e166f0d6": {
+        "text": "리플 프라임이 레버리지 ETF 운용사들과 스왑 금융 거래를 하고, 브레반 하워드에 프라임 브로커리지·청산·금융 서비스를 제공함\n\n특정 ETF의 스왑 수수료가 연환산 펀드 자산의 약 8%인 사례가 소개됐으며, 모든 상품에 적용되는 조건은 아님",
+        "expires": 1791673993.4769032
+      },
+      "0716984183a61e886aa181ba9320eb823ef87cc77f2567dbb72f038735102c58": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791674001.6388273
+      },
+      "b0f297abbe94b0a024e02cb23ed668701647bef56cad11b673cdfc7c617e2ad4": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791674007.133645
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -6753,47 +6770,47 @@
         },
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 20,
-            "cache_hits": 41,
+            "api_calls": 22,
+            "cache_hits": 50,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 93487,
+            "input_tokens": 103124,
             "cached_input_tokens": 0,
-            "output_tokens": 2936,
-            "reasoning_tokens": 1605,
-            "estimated_usd": 0.013152375,
+            "output_tokens": 3294,
+            "reasoning_tokens": 1791,
+            "estimated_usd": 0.01453585,
             "unpriced_calls": 0,
-            "cache_write_tokens": 93427
+            "cache_write_tokens": 103058
           },
           "source_review": {
-            "api_calls": 16,
-            "cache_hits": 29,
+            "api_calls": 18,
+            "cache_hits": 35,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 66452,
+            "input_tokens": 75007,
             "cached_input_tokens": 0,
-            "output_tokens": 5814,
-            "reasoning_tokens": 4260,
-            "estimated_usd": 0.0112123,
+            "output_tokens": 6605,
+            "reasoning_tokens": 4848,
+            "estimated_usd": 0.012677025,
             "unpriced_calls": 0,
-            "cache_write_tokens": 66404
+            "cache_write_tokens": 74953
           },
           "event_search": {
-            "api_calls": 40,
-            "cache_hits": 16,
+            "api_calls": 42,
+            "cache_hits": 22,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 388970,
+            "input_tokens": 406919,
             "cached_input_tokens": 0,
-            "output_tokens": 1478,
+            "output_tokens": 1496,
             "reasoning_tokens": 962,
-            "estimated_usd": 0.04935725,
+            "estimated_usd": 0.051609725,
             "unpriced_calls": 0,
-            "cache_write_tokens": 388850
+            "cache_write_tokens": 406793
           },
           "event_decision": {
             "api_calls": 5,
-            "cache_hits": 7,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 3686,
@@ -6806,7 +6823,7 @@
           },
           "image_review": {
             "api_calls": 2,
-            "cache_hits": 2,
+            "cache_hits": 4,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 2048,
@@ -7748,6 +7765,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.007093675,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-07T23:00:57.727050+00:00",
+        "elapsed_seconds": 751.49,
+        "status": "completed",
+        "api_calls": 6,
+        "cache_hits": 24,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.005100675,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
