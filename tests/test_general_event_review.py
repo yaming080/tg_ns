@@ -11,15 +11,15 @@ from news_publication import prepare_publication
 
 class GeneralEventReview(unittest.TestCase):
     def setUp(self):
-        self.story = dict(title='새로운 리플 결제망 출시', url='https://new.example/alpha',pub='2026-09-30T00:00:00Z')
-        self.caption = '리플 기업이 결제망을 출시했다고 밝힘'
-        self.history = {'old':dict(title='Ripple launches payments network',url='https://old.example/a',summary='Ripple launched payment network')}
+        self.story = dict(title='새로운 알파 결제망 출시', url='https://new.example/alpha',pub='2026-09-30T00:00:00Z')
+        self.caption = '알파 기업이 결제망을 출시했다고 밝힘'
+        self.history = {'old':dict(title='Alpha launches payments network',url='https://old.example/a',summary='Alpha launched payment network')}
 
     def model(self, decision, new_fact=''):
         def respond(prompt):
             payload = json.loads(prompt[prompt.index('{"candidate"'):])
             if 'related_ids' in prompt:
-                ids = [r['id'] for r in payload['history'] if 'Ripple launches' in r['title']]
+                ids = [r['id'] for r in payload['history'] if 'Alpha launches' in r['title']]
                 return json.dumps({'related_ids':ids})
             return json.dumps(dict(decision=decision,matched_id=payload['history'][0]['id'],reason='사건과 진행 단계 대조',new_fact=new_fact))
         return Mock(side_effect=respond)
@@ -29,18 +29,19 @@ class GeneralEventReview(unittest.TestCase):
             result = n.review_event(self.story,self.caption,self.history,self.model(decision))
             self.assertEqual(result['status'],'hold' if decision == 'uncertain' else decision)
 
-    def test_all_history_is_locally_indexed_but_only_related_records_reach_ai(self):
-        history = {str(i):dict(title=f'Other unrelated subject {i}',url=f'https://old.example/{i}',signature='') for i in range(321)}
-        history['match']=self.history['old']
+    def test_every_history_entry_scanned_even_with_empty_signatures(self):
+        history = {str(i):dict(title=f'Other topic {i}',url=f'https://old.example/{i}',signature='') for i in range(321)}
         prompts=[]
         def model(prompt):
             prompts.append(prompt)
-            return '{"decision":"new","matched_id":"","reason":"Different project"}'
+            return '{"related_ids":[]}'
         self.assertEqual(n.review_event(self.story,self.caption,history,model)['status'],'new')
-        self.assertEqual(len(prompts),1)
-        rows=json.loads(prompts[0][prompts[0].index('{"candidate"'):])['history']
-        self.assertLessEqual(len(rows),12)
-        self.assertFalse(any(r['title'].startswith('Other unrelated') for r in rows))
+        entries=[]
+        for prompt in prompts:
+            payload=json.loads(prompt[prompt.index('{"candidate"'):])
+            entries.extend(r['title'] for r in payload['history'])
+        self.assertEqual(len([t for t in entries if t.startswith('Other topic')]),321)
+        self.assertIn(n.MANUAL_EVENTS[0][1],entries)
 
     def test_update_requires_valid_old_record_and_concrete_new_fact(self):
         self.assertEqual(n.review_event(self.story,self.caption,self.history,self.model('update'))['status'],'hold')
@@ -52,12 +53,20 @@ class GeneralEventReview(unittest.TestCase):
 
     def test_invalid_final_decision_cannot_publish(self):
         for answer in ('{}','not json','{"decision":"duplicate","matched_id":"fake","reason":"x"}'):
-            self.assertEqual(n.review_event(self.story,self.caption,self.history,lambda p:answer)['status'],'hold')
+            calls=0
+            def model(prompt):
+                nonlocal calls
+                calls+=1
+                if calls==1:
+                    index=json.loads(prompt[prompt.index('{"candidate"'):])['history']
+                    return json.dumps({'related_ids':[index[0]['id']]})
+                return answer
+            self.assertEqual(n.review_event(self.story,self.caption,self.history,model)['status'],'hold')
 
     def test_manual_examples_are_evidence_not_topic_bans(self):
         candidate=dict(self.story,title='Spain amends Form 721 deadline')
         # No static Spain/721 ban: an unrelated/fresh event can reach new verdict.
-        self.assertEqual(n.review_event(candidate,self.caption,{},lambda p:'{"decision":"new","matched_id":"","reason":"New official action"}')['status'],'new')
+        self.assertEqual(n.review_event(candidate,self.caption,{},lambda p:'{"related_ids":[]}')['status'],'new')
         first=n.MANUAL_EVENTS[0]
         same=dict(self.story,url=first[0]+'?utm_source=rss')
         model=Mock()
@@ -95,7 +104,7 @@ class GeneralEventReview(unittest.TestCase):
     def test_live_batch_reviews_against_successful_delivery_and_holds_repeat(self):
         source=(Path(__file__).resolve().parents[1]/'doorinews_bot.py').read_text(encoding='utf-8')
         main=[node for node in ast.parse(source).body if isinstance(node,ast.FunctionDef) and node.name=='main'][-1]
-        stories=[dict(title='Ripple launches payments network',url='https://first.example/a'),dict(self.story)]
+        stories=[dict(title='Alpha launches payments network',url='https://first.example/a'),dict(self.story)]
         for story in stories:
             story['pub'] = '2026-10-05T06:00:00Z'
         caption=self.caption+'\n\n🌐 <a href="https://t.me/Doorinews">도리뉴스</a>\n\n<a href="https://example.com/a">출처</a>\n\n#BTC #비트코인 #dooridoori #도리도리 #doorinati #도리나티'
