@@ -1,19 +1,5 @@
 {
   "posted": {
-    "17894a47d7fe4fcf": {
-      "title": "Coldcard Exploiter Moves 45% of Wave 3 Loot as Stolen Bitcoin Enters CoinJoins",
-      "url": "cryptopotato.com/coldcard-exploiter-moves-45-of-wave-3-loot-as-stolen-bitcoin-enters-coinjoins",
-      "signature": "action_steal | action_transfer | amount_pct_18 | amount_pct_45 | amount_pct_82 | asset_btc | entity_stolenbitcoinenterscoinjoins | entity_콜드카드",
-      "canonical_key": "action_steal | action_transfer | amount_pct_18 | amount_pct_45 | amount_pct_82 | asset_btc | entity_stolenbitcoinenterscoinjoins | entity_콜드카드",
-      "ts": "2026-09-07T19:02:05.911142+00:00"
-    },
-    "eccc652048a6fd5d": {
-      "title": "Harmony plans to move ONE to Ethereum and shut mainnet",
-      "url": "crypto.news/harmony-plans-to-move-one-to-ethereum-and-shut-mainnet",
-      "signature": "action_close | action_propose | action_transfer | asset_eth | duration_years_7 | entity_one",
-      "canonical_key": "action_close | action_propose | action_transfer | asset_eth | duration_years_7 | entity_one",
-      "ts": "2026-09-07T19:02:14.637452+00:00"
-    },
     "f70cb360543b69f0": {
       "title": "Ethereum Foundation outlines Hegotá priorities with grades for all 62 EIP proposals",
       "url": "www.cryptopolitan.com/ethereum-foundation-grades-hegota-eips",
@@ -4578,6 +4564,30 @@
         "text": "{\"decision\":\"supplement\",\"matched_id\":\"ec0eacd62913800d\",\"reason\":\"두 기사 모두 카르다노의 CIP-0113 메인넷 적용이라는 같은 사건을 다룬다. 후보는 보안 감사 후 적용했다는 점과 규칙이 토큰 이동 때마다 적용된다는 설명을 보충하지만, 별도의 새 조치는 아니다.\",\"new_fact\":\"\"}",
         "expires": 1791660755.3048055
       },
+      "d29b24c402b43dd78b137494b9ab1da75988ccf098f128d3652972949d2910d5": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791663226.121925
+      },
+      "826da214d9e66542b2d032d5e00e99b11a3120516480e7e430ff98a3764e72d0": {
+        "text": "{\"related_ids\":[\"efaa2017afd06428\"]}",
+        "expires": 1791663227.5702643
+      },
+      "9f78a7f621491c7e04af244a30b7459750d5c065d4ab6c38b65a78dbc472ede5": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791663231.9419613
+      },
+      "082c725474d0178b4c5165ab4f384b56b511685c6440191535292d31e95bded5": {
+        "text": "{\"related_ids\":[\"ec0eacd62913800d\"]}",
+        "expires": 1791663233.2643747
+      },
+      "7f1c9cbfb301391284a5bbf4268e622f0c0a0e83426daf4c8cb7c0b358a71963": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791663238.8503768
+      },
+      "16f0323a7f2f35ccecafc8c93bf6a029b3c2aef01f8461b493139774ce281151": {
+        "text": "{\"related_ids\":[\"ec0eacd62913800d\"]}",
+        "expires": 1791663241.5508475
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -6669,7 +6679,7 @@
         "gpt-6-luna": {
           "summary": {
             "api_calls": 16,
-            "cache_hits": 10,
+            "cache_hits": 22,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 75259,
@@ -6682,7 +6692,7 @@
           },
           "source_review": {
             "api_calls": 13,
-            "cache_hits": 7,
+            "cache_hits": 16,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 54145,
@@ -6694,21 +6704,21 @@
             "cache_write_tokens": 54106
           },
           "event_search": {
-            "api_calls": 20,
-            "cache_hits": 4,
+            "api_calls": 26,
+            "cache_hits": 10,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 194353,
+            "input_tokens": 255301,
             "cached_input_tokens": 0,
-            "output_tokens": 510,
-            "reasoning_tokens": 265,
-            "estimated_usd": 0.024547625,
+            "output_tokens": 737,
+            "reasoning_tokens": 408,
+            "estimated_usd": 0.032279175,
             "unpriced_calls": 0,
-            "cache_write_tokens": 194293
+            "cache_write_tokens": 255223
           },
           "event_decision": {
             "api_calls": 4,
-            "cache_hits": 2,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 2783,
@@ -7614,6 +7624,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.01405205,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-07T20:00:57.957800+00:00",
+        "elapsed_seconds": 783.803,
+        "status": "completed",
+        "api_calls": 6,
+        "cache_hits": 30,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00773155,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
