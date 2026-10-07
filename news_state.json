@@ -3518,6 +3518,15 @@
       "ts": "2026-10-06T22:31:21.045257+00:00",
       "summary": "이글루의 #이더리움 레이어2 Abstract가 2026년 12월 15일 운영을 종료하며, 이용자는 그전까지 자산 이전 도구인 마이그레이션 허브나 기본 브리지로 자산을 옮겨야 한다고 밝힘\n\n마감 뒤 네트워크에 남은 자산은 접근할 수 없고, 브리지는 약 3시간 지연될 수 있다고 설명함",
       "source_pub": "Tue, 06 Oct 2026 20:34:16 +0000"
+    },
+    "d934fb3a9f0373ec": {
+      "title": "Cardano lets token issuers freeze and seize assets under new rules",
+      "url": "crypto.news/cardano-lets-token-issuers-freeze-and-seize-assets-under-new-rules",
+      "signature": "action_launch | action_sanction | action_transfer | entity_카르다노 | object_sanctions",
+      "canonical_key": "action_launch | action_sanction | action_transfer | entity_카르다노 | object_sanctions",
+      "ts": "2026-10-07T06:30:37.374618+00:00",
+      "summary": "#카르다노 가 메인넷에 CIP-0113을 적용해 규제형 #토큰 발행사가 #KYC(고객확인), 이체 제한, 동결·압류 규칙을 토큰별로 넣을 수 있게 했다고 밝힘\n\n재단은 이 기능이 규제형 #스테이블코인 · #토큰화 펀드·채권용이며 ADA나 기존 모든 카르다노 네이티브 토큰을 동결하는 기능은 아니라고 설명함",
+      "source_pub": "Wed, 07 Oct 2026 05:46:32 +0000"
     }
   },
   "source_baselines": {
@@ -5769,14 +5778,6 @@
         "text": "{\"publish\":false,\"reason\":\"원문은 외교 현안에 대한 발언과 중재 상황을 전하지만, 출처가 불명확한 재가공 문구뿐이고 새 공식 발표의 맥락·주체 직함·구체적 발언 근거가 부족해 게시 근거로 불충분하다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
         "expires": 1793938695.3045862
       },
-      "a13358354505fca6f8e2b8b444cd8e93b03cc6d5b6540e99f4371887c3daccb9": {
-        "text": "카르다노 재단이 메인넷에 CIP-0113을 적용해 발행사가 카르다노 네이티브 토큰에 KYC·AML(자금세탁방지)과 전송 제한, 동결·회수 규칙을 직접 넣고 원장이 이를 집행할 수 있게 했다고 밝힘\n\nADA에는 적용되지 않으며 Eternl·GeroWallet·CardanoScan이 지원한다고 밝힘",
-        "expires": 1793942954.2177837
-      },
-      "97344ad2b6eee131b232de6dfdac8223936596792a34906bbbb1048f71fe4746": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 대체로 일치하는 새 기술 표준 적용 소식이며 적용 대상과 비적용 대상, 지원 지갑이 보존됨\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942956.3884625
-      },
       "287c1eeb79be4140232083d641420e0316f5d5da36b70d533a5b4a38669ecc92": {
         "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 카르다노 재단이 메인넷에 CIP-0113 토큰 표준을 적용해 규제 준수용 전송 제한·동결·회수 규칙을 원장 차원에서 집행할 수 있게 했다는 내용이다. 이력 중 카르다노 관련 기록은 UCLA와의 교육 협력, ADA 결제 플랫폼 확산으로 사업/상품·상대방·행동이 모두 다르다. 같은 재단을 다루지만 별도 사건이다.\",\"new_fact\":\"\"}",
         "expires": 1793942959.0919385
@@ -5789,121 +5790,161 @@
         "text": "{\"approved\":false,\"reason\":\"기사 핵심은 카르다노 재단의 CIP-0113 토큰 표준 출시다. 그러나 이미지는 정체가 불분명한 여러 토큰 아이콘이 나열된 범용 암호화폐 삽화로, 카르다노 재단·CIP-0113·카르다노 네이티브 토큰을 명확히 식별할 수 없다. 기사 주체를 직접 보여주지 못하는 일반적 코인 분위기 이미지이므로 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":false,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
         "expires": 1793942965.500965
       },
-      "6bc61f6e48551c52e3929656d4aeecad42436116f700fbf15bd14b91c64726ad": {
-        "text": "독일 규제당국이 futurum bank의 MiCA 인가를 거절해 Bitcoin.de의 거래 중단이 이어지고, 회사는 독일 내 규제업체와 손잡는 새 운영 구조를 추진한다고 밝힘\n\n재개 날짜는 확정되지 않았으며, 고객 자산 보관은 이전 완료 때까지 futurum bank가 계속 맡는다고 설명함",
-        "expires": 1793942968.3047037
-      },
-      "1812743cdbd011195f36f7ddd10e2c6b73204cc00f5456d092bd4ff2991fbac6": {
-        "text": "{\"publish\":true,\"reason\":\"BaFin의 MiCA 인가 거절과 이에 따른 Bitcoin.de의 새 파트너 기반 운영 전환 계획, 재개일 미정과 자산 보관 조건이 원문과 대체로 일치한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942969.839564
-      },
-      "092db3b78eb25d80bdeab1c739a10941b8307129d7cc77aa1945a28a32d6ed0d": {
-        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 Bitcoin.de가 futurum bank의 MiCA 인가 거절 이후 독일 내 다른 규제업체와 새 운영 구조를 추진한다는 내용이다. 이력에는 Bitcoin.de, futurum bank, MiCA 인가 거절, 거래 재개 구조 변경과 관련된 동일 사건이 없다. 회사·사업·상대방·행동이 모두 기존 기록들과 다르다.\",\"new_fact\":\"\"}",
-        "expires": 1793942972.1208591
-      },
-      "adc6e8f30679e56f939569153d8faf0052a7cec7018b81d10ff4bdad8c2fd296": {
-        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 Bitcoin.de와 futurum bank의 MiCA 인가 실패 이후 새 운영 구조 추진인데, 이미지는 EU 깃발과 일반적인 코인 일러스트만 보여 줄 뿐 Bitcoin.de, futurum bank, MiCA 관련 식별 가능한 주체가 없다. 규제 분위기만 암시하는 범용 삽화라 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
-        "expires": 1793942974.4993224
-      },
-      "f413241b150539659754b52aee2d2e31fd956e7ca9fbfc86e0061846d42f003d": {
-        "text": "에테나랩스 창업자 가이 영이 TOKEN2049에서 USDe 수익률은 단순 금리 경쟁이 아니라 리스크 관리와 신뢰 차이라고 주장했다고 밝힘\n\n에테나는 가격 중립 전략으로 수익을 내지만, 중앙화 거래소 상대방 위험이 있으며 거래소 익스포저의 약 48~50%가 바이낸스에 집중돼 있다고 설명함",
-        "expires": 1793942974.7552974
-      },
-      "e023720a25df140f5ca21a5d028b9dff7ac8f42bbc5b7aea2f62d6c9a90c68a8": {
-        "text": "{\"publish\":false,\"reason\":\"행사 발언 중심의 일반 논평 기사로 새 실질 조치가 없고, 요약도 발언 외 배경 설명 일부만 옮겨 게시 가치가 부족함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942974.7575593
-      },
-      "0e49adad23a24a8e324e30fa14b51db905758fe3c5437667388859e4af3fa5d6": {
-        "text": "이글루의 이더리움 레이어2 네트워크 앱스트랙트가 12월 15일 종료되며, 그날까지 체인에 남은 자금은 인출할 수 없게 된다고 밝힘\n\n사용자는 마이그레이션 허브나 기본 브리지로 자산을 옮길 수 있으며, 기본 브리지는 처리에 3시간이 걸린다고 설명함",
-        "expires": 1793942974.9459813
-      },
-      "29aae1e6daf841313f5179d4f8cac803ce3b2e9c58e8b040bbc4912c96ac6b4f": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 일치하게 종료일, 자금 접근 불가 조건, 자산 이전 방법과 3시간 지연을 보존한 새 공지 요약이다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942974.9464095
-      },
-      "73713d6103fa973359e50a0791c8a811e3de8cfc1b679d22243738ba27ce586a": {
-        "text": "미국 정부가 6주 만에 압류한 BTC 833.6개를 이동했으며, 이 중 일부는 코인베이스 프라임으로 시험 이체됐다고 밝힘\n\n이 물량은 2016년 비트파이넥스 해킹 사건과 해시플레어 사기 사건 관련 자산이며, 미국 정부는 이동 뒤에도 BTC 32만3693.83개를 보유 중이라고 전함",
-        "expires": 1793942977.087437
-      },
-      "74df6a51fc2db6523af3b121ecdc4745cc67898d1178f2a78e40b1cc2eca3a9b": {
-        "text": "{\"publish\":false,\"reason\":\"정부 지갑의 단순 자산 이동·보유량 집계가 핵심인 기사로 게시 금지 유형에 가깝고, 새 정책·제도·사업 발표가 아니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942977.0897748
-      },
-      "e7d0432ee50bd14ff1db3a0770a8d2e84606cbb33244e85dfab14a4f3cb08b4c": {
-        "text": "이더리움 L2 앱스트랙트가 성장 정체와 유동성 부족을 이유로 운영을 종료하고 12월 15일 체인을 폐쇄한다고 밝힘\n\n이용자들은 폐쇄 전 자산을 다른 네트워크로 옮기는 브리지 절차를 하지 않으면 자금에 접근하지 못할 수 있다고 안내함",
-        "expires": 1793942978.4685209
-      },
-      "adb1cfbec16737c12462b6bb149d5ab791a4550ea6c4da2307bd67505951223d": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 일치하게 앱스트랙트의 운영 종료 및 12월 15일 체인 폐쇄, 이용자 브리지 미이행 시 자금 접근 위험을 요약했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942978.4688847
-      },
-      "14448dc1bfa1a04c13f02b3157856006a6c6f276b4cca79ff195214c0b4ad265": {
-        "text": "미국 국세청이 신탁의 가상자산 스테이킹에 적용되는 세이프하버 지침을 발표했으며, 일정 요건을 충족한 신탁의 세금 처리 기준을 제시했다고 밝힘",
-        "expires": 1793942979.0536742
-      },
-      "e7b30cc3356cbf276076dc9ef26d12a85b12d39206b1499de1fbfbd3496d181f": {
-        "text": "{\"publish\":false,\"reason\":\"출처가 2차 요약·안내문 형태로 불명확하고, 새 공식 발표의 원문 근거와 지침의 구체 내용·조건을 확인하기 어렵다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}",
-        "expires": 1793942979.0556908
-      },
-      "eba30fdff6b160152951290f7a3bc994ccc86a0310cb3d5378e831a0e1eb0ebd": {
-        "text": "OKX가 Circle, Ripple, SC벤처스, QRT로부터 기업가치 250억달러 기준 전략적 투자를 유치했다고 밝힘\n\n투자 규모는 공개하지 않았으며, 추가 상품 연동 여부도 확정하지 않았다고 밝힘",
-        "expires": 1793942979.301987
-      },
-      "aec4bab1f73daa3101d85c106a423ac261fff92459057e339bce7bfaca59845b": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 핵심 사실과 미확정 조건을 정확히 반영한 새 회사 발표다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942979.3024218
-      },
       "7901589908805bdb6fde24b6b185f034771a7981946e1394413b736cea1e0ace": {
         "text": "SKIP",
         "expires": 1793942980.1102114
       },
+      "7ec01eb60fc1b398147cc9b1254cda50a798c66eb491d4e65d23a429fcd8e574": {
+        "text": "카르다노가 메인넷에 CIP-0113을 적용해 규제형 토큰 발행사가 KYC(고객확인), 이체 제한, 동결·압류 규칙을 토큰별로 넣을 수 있게 했다고 밝힘\n\n재단은 이 기능이 규제형 스테이블코인·토큰화 펀드·채권용이며 ADA나 기존 모든 카르다노 네이티브 토큰을 동결하는 기능은 아니라고 설명함",
+        "expires": 1793946625.720615
+      },
+      "8fe12b5bfff98d7bf05cfe0716044ce4de9abad31c0aa738da4fcdc2b37e99d6": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 대체로 일치하며, 카르다노 재단의 새 메인넷 적용 사실과 적용 범위·비적용 대상이 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946627.5674512
+      },
+      "1b85af76c3555378fab72fed97e2df632b5c5e8eb8be72d4378f2237d62939b8": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 카르다노 메인넷에 CIP-0113을 적용해 규제형 토큰 발행사가 KYC, 이체 제한, 자산 동결·압류 규칙을 토큰별로 설정할 수 있게 한 프로토콜/기능 도입 사건이다. 이력 중 카르다노 관련 기사들은 UCLA 교육 협력(172d7736afa60218)과 호스킨슨의 거버넌스 설명(c71d73eaca88ddfb)으로 주체는 일부 같아도 사업/행동/대상이 전혀 다르다. 자산 동결 언급이 있는 드리프트 기사(04887e7c3dd5f242)는 해킹 자금 동결 사건으로 별개다.\",\"new_fact\":\"\"}",
+        "expires": 1793946631.4659674
+      },
+      "88818019c49403938373cae519a5e76af591fab21c595d3ea2aa4f13f6512ca6": {
+        "text": "{\"approved\":true,\"reason\":\"기사 핵심 주체는 카르다노의 메인넷 규칙(CIP-0113) 적용이다. 이미지는 범용 연구실풍 삽화이지만 중앙 구조물에 'CARDANO'가 명확히 표시되어 카르다노를 직접 식별할 수 있고, 기사 주체와 일치한다. 광고 배너·텍스트 캡처·가격차트는 아니며, 지원 네트워크나 부수 자산만 단독으로 보여주는 이미지도 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1793946634.7787077
+      },
+      "43e7cf763267b03952a7ff1d3e6b9518517557968da79331d3e7b258276144e1": {
+        "text": "카르다노 재단이 규제형 토큰 표준 CIP-0113을 네트워크에 적용해 스테이블코인·펀드·채권 발행사가 보유·이전 규칙과 동결·압류 조건을 설정할 수 있게 했다고 밝힘\n\n재단은 별도 하드포크 없이 적용했으며, 규칙에 따라 승인된 주체가 보유자 동의 없이 토큰을 이동시킬 권한도 부여될 수 있다고 설명함",
+        "expires": 1793946641.1534576
+      },
+      "0899e1f0c24818ee4883ed2b74bb39fc6bc0fe7b36c7cc81027b207b5f63ff11": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 대체로 일치하며, 카르다노 재단의 새 표준 적용과 핵심 권한·조건을 보존한 요약이다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946643.9414477
+      },
+      "e0e53448c40d3f5b3c8e77bae52b9654e0c38f036974a1ea448eb9087c6090a3": {
+        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"ec0eacd62913800d\",\"reason\":\"같은 주체(카르다노/카르다노 재단), 같은 대상 사업(CIP-0113 규제형 토큰 표준의 메인넷 적용), 같은 행동(발행사가 KYC·이전 제한·동결·압류 규칙을 설정 가능), 같은 시점·진행 단계(이미 적용/도입 완료)를 다룬 동일 사건이다. 후보 기사에 있는 '하드포크 없이 적용'과 '승인된 주체가 보유자 동의 없이 이동 가능'은 같은 조치의 설명 보강일 뿐 별도 새 조치로 보기 어렵다.\",\"new_fact\":\"\"}",
+        "expires": 1793946647.5339203
+      },
+      "a13358354505fca6f8e2b8b444cd8e93b03cc6d5b6540e99f4371887c3daccb9": {
+        "text": "카르다노 재단이 메인넷에 CIP-0113을 적용해 발행사가 카르다노 네이티브 토큰에 KYC·AML(자금세탁방지)과 전송 제한, 동결·회수 규칙을 직접 넣고 원장이 이를 집행할 수 있게 했다고 밝힘\n\nADA에는 적용되지 않으며 Eternl·GeroWallet·CardanoScan이 지원한다고 밝힘",
+        "expires": 1793946647.8655207
+      },
+      "97344ad2b6eee131b232de6dfdac8223936596792a34906bbbb1048f71fe4746": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 대체로 일치하는 새 기술 표준 적용 소식이며 적용 대상과 비적용 대상, 지원 지갑이 보존됨\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946647.8676825
+      },
+      "6402969a1ff7b77513bb7924071213f863e929631908815aad3111b7aa2a1db7": {
+        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"ec0eacd62913800d\",\"reason\":\"같은 주체(카르다노 재단), 같은 사업/상품(CIP-0113 토큰 표준), 같은 행동(메인넷 적용/출시), 같은 대상(카르다노 네이티브 토큰에 KYC·AML, 전송 제한, 동결·회수 규칙 부여), 같은 시점의 동일 사건이다. 후보의 지갑·탐색기 지원(Eternl·GeroWallet·CardanoScan) 언급은 동일 사건에 대한 부가 설명 수준으로 새 승인·별도 계약·새 지역 적용 같은 중요한 새 조치가 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1793946651.0491192
+      },
+      "6bc61f6e48551c52e3929656d4aeecad42436116f700fbf15bd14b91c64726ad": {
+        "text": "독일 규제당국이 futurum bank의 MiCA 인가를 거절해 Bitcoin.de의 거래 중단이 이어지고, 회사는 독일 내 규제업체와 손잡는 새 운영 구조를 추진한다고 밝힘\n\n재개 날짜는 확정되지 않았으며, 고객 자산 보관은 이전 완료 때까지 futurum bank가 계속 맡는다고 설명함",
+        "expires": 1793946651.3658695
+      },
+      "1812743cdbd011195f36f7ddd10e2c6b73204cc00f5456d092bd4ff2991fbac6": {
+        "text": "{\"publish\":true,\"reason\":\"BaFin의 MiCA 인가 거절과 이에 따른 Bitcoin.de의 새 파트너 기반 운영 전환 계획, 재개일 미정과 자산 보관 조건이 원문과 대체로 일치한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946651.3679824
+      },
+      "092db3b78eb25d80bdeab1c739a10941b8307129d7cc77aa1945a28a32d6ed0d": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 Bitcoin.de가 futurum bank의 MiCA 인가 거절 이후 독일 내 다른 규제업체와 새 운영 구조를 추진한다는 내용이다. 이력에는 Bitcoin.de, futurum bank, MiCA 인가 거절, 거래 재개 구조 변경과 관련된 동일 사건이 없다. 회사·사업·상대방·행동이 모두 기존 기록들과 다르다.\",\"new_fact\":\"\"}",
+        "expires": 1793946651.6098647
+      },
+      "adc6e8f30679e56f939569153d8faf0052a7cec7018b81d10ff4bdad8c2fd296": {
+        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 Bitcoin.de와 futurum bank의 MiCA 인가 실패 이후 새 운영 구조 추진인데, 이미지는 EU 깃발과 일반적인 코인 일러스트만 보여 줄 뿐 Bitcoin.de, futurum bank, MiCA 관련 식별 가능한 주체가 없다. 규제 분위기만 암시하는 범용 삽화라 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1793946651.9059393
+      },
+      "f413241b150539659754b52aee2d2e31fd956e7ca9fbfc86e0061846d42f003d": {
+        "text": "에테나랩스 창업자 가이 영이 TOKEN2049에서 USDe 수익률은 단순 금리 경쟁이 아니라 리스크 관리와 신뢰 차이라고 주장했다고 밝힘\n\n에테나는 가격 중립 전략으로 수익을 내지만, 중앙화 거래소 상대방 위험이 있으며 거래소 익스포저의 약 48~50%가 바이낸스에 집중돼 있다고 설명함",
+        "expires": 1793946652.211948
+      },
+      "e023720a25df140f5ca21a5d028b9dff7ac8f42bbc5b7aea2f62d6c9a90c68a8": {
+        "text": "{\"publish\":false,\"reason\":\"행사 발언 중심의 일반 논평 기사로 새 실질 조치가 없고, 요약도 발언 외 배경 설명 일부만 옮겨 게시 가치가 부족함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946652.2141173
+      },
+      "0e49adad23a24a8e324e30fa14b51db905758fe3c5437667388859e4af3fa5d6": {
+        "text": "이글루의 이더리움 레이어2 네트워크 앱스트랙트가 12월 15일 종료되며, 그날까지 체인에 남은 자금은 인출할 수 없게 된다고 밝힘\n\n사용자는 마이그레이션 허브나 기본 브리지로 자산을 옮길 수 있으며, 기본 브리지는 처리에 3시간이 걸린다고 설명함",
+        "expires": 1793946652.4531987
+      },
+      "29aae1e6daf841313f5179d4f8cac803ce3b2e9c58e8b040bbc4912c96ac6b4f": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 일치하게 종료일, 자금 접근 불가 조건, 자산 이전 방법과 3시간 지연을 보존한 새 공지 요약이다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946652.4535851
+      },
+      "73713d6103fa973359e50a0791c8a811e3de8cfc1b679d22243738ba27ce586a": {
+        "text": "미국 정부가 6주 만에 압류한 BTC 833.6개를 이동했으며, 이 중 일부는 코인베이스 프라임으로 시험 이체됐다고 밝힘\n\n이 물량은 2016년 비트파이넥스 해킹 사건과 해시플레어 사기 사건 관련 자산이며, 미국 정부는 이동 뒤에도 BTC 32만3693.83개를 보유 중이라고 전함",
+        "expires": 1793946653.1805532
+      },
+      "74df6a51fc2db6523af3b121ecdc4745cc67898d1178f2a78e40b1cc2eca3a9b": {
+        "text": "{\"publish\":false,\"reason\":\"정부 지갑의 단순 자산 이동·보유량 집계가 핵심인 기사로 게시 금지 유형에 가깝고, 새 정책·제도·사업 발표가 아니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946653.1826427
+      },
+      "e7d0432ee50bd14ff1db3a0770a8d2e84606cbb33244e85dfab14a4f3cb08b4c": {
+        "text": "이더리움 L2 앱스트랙트가 성장 정체와 유동성 부족을 이유로 운영을 종료하고 12월 15일 체인을 폐쇄한다고 밝힘\n\n이용자들은 폐쇄 전 자산을 다른 네트워크로 옮기는 브리지 절차를 하지 않으면 자금에 접근하지 못할 수 있다고 안내함",
+        "expires": 1793946654.4563277
+      },
+      "adb1cfbec16737c12462b6bb149d5ab791a4550ea6c4da2307bd67505951223d": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 일치하게 앱스트랙트의 운영 종료 및 12월 15일 체인 폐쇄, 이용자 브리지 미이행 시 자금 접근 위험을 요약했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946654.4567156
+      },
+      "14448dc1bfa1a04c13f02b3157856006a6c6f276b4cca79ff195214c0b4ad265": {
+        "text": "미국 국세청이 신탁의 가상자산 스테이킹에 적용되는 세이프하버 지침을 발표했으며, 일정 요건을 충족한 신탁의 세금 처리 기준을 제시했다고 밝힘",
+        "expires": 1793946655.9802966
+      },
+      "e7b30cc3356cbf276076dc9ef26d12a85b12d39206b1499de1fbfbd3496d181f": {
+        "text": "{\"publish\":false,\"reason\":\"출처가 2차 요약·안내문 형태로 불명확하고, 새 공식 발표의 원문 근거와 지침의 구체 내용·조건을 확인하기 어렵다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}",
+        "expires": 1793946655.982265
+      },
+      "eba30fdff6b160152951290f7a3bc994ccc86a0310cb3d5378e831a0e1eb0ebd": {
+        "text": "OKX가 Circle, Ripple, SC벤처스, QRT로부터 기업가치 250억달러 기준 전략적 투자를 유치했다고 밝힘\n\n투자 규모는 공개하지 않았으며, 추가 상품 연동 여부도 확정하지 않았다고 밝힘",
+        "expires": 1793946656.169054
+      },
+      "aec4bab1f73daa3101d85c106a423ac261fff92459057e339bce7bfaca59845b": {
+        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 핵심 사실과 미확정 조건을 정확히 반영한 새 회사 발표다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1793946656.1694844
+      },
       "236afa1dd01ff49a502b19a3a328f788f9d1f475d2165519ef78358759c35108": {
         "text": "리플이 암호화폐 거래소 OKX의 연장 투자 라운드에 참여했으며, OKX의 기업가치는 이전과 같은 250억달러로 평가됐다고 밝힘\n\nOKX는 투자 금액은 공개하지 않았고, 자금 부족이 아닌 스테이블코인·결제·기관시장·금융 인프라 분야의 전략적 투자자 유치를 위한 라운드라고 설명함",
-        "expires": 1793942980.3060553
+        "expires": 1793946656.7119513
       },
       "be8715c9ff3f62abc4d84a6302999d537e8fb156469d33e51a5b12e773ef7293": {
         "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, OKX의 연장 투자 라운드 참여·250억달러 기업가치·투자금 비공개·전략적 투자자 유치 목적이라는 핵심 조건을 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942980.3081253
+        "expires": 1793946656.7140281
       },
       "f1a0bc524b17229f6c418298bd2a03983a71b0bf74edbe9292f1bb7cbef438e0": {
         "text": "OKX가 달러 연동 스테이블코인 저축·송금·결제 기능을 담은 별도 앱 OKX 머니를 출시했으며, 지원 지역에서는 가상·실물 카드도 함께 제공한다고 밝힘",
-        "expires": 1793942980.785827
+        "expires": 1793946657.164913
       },
       "694b87ca085cd2f3ba52335e02cebdd727e1385ee545fb78e605bc94ffaa1646": {
         "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, OKX의 별도 앱 출시와 지원 시장의 카드 제공이라는 새 사업 진행 사실을 전달한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942980.7880402
+        "expires": 1793946657.166937
       },
       "2696573fa5e5d11537445dbadbc8e50ad53b85bb4b0241399707eb5598b7bbeb": {
         "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보 기사는 OKX가 별도 앱 'OKX Money'를 출시해 스테이블코인 저축·송금·결제와 카드 기능을 제공한다는 내용이다. 이력에는 OKX의 투자 유치 및 미국 주식 토큰화 추진(acf313802c24ccfc)만 있을 뿐, 같은 상품/앱 출시나 같은 행동(소비자용 금융 앱 출시), 대상 서비스(저축·카드), 진행 단계(실제 출시)가 일치하는 기록이 없다. 같은 회사라도 사업·상품·행동이 달라 별도 사건이다.\",\"new_fact\":\"\"}",
-        "expires": 1793942981.022343
+        "expires": 1793946657.3939397
       },
       "ebfd7fc7df869108d818b38893ac482bee515fc893c329ff4e7c3fcc76c8e0e8": {
         "text": "{\"approved\":false,\"reason\":\"기사 핵심은 OKX가 별도 앱 'OKX Money'를 출시해 스테이블코인 저축·송금·결제 및 카드 기능을 제공한다는 내용이다. 그러나 이미지는 'BeMine'의 암호화폐 채굴 서비스 홍보 배너로, OKX나 OKX Money와 직접 관련된 주체·상품이 보이지 않는다. 광고성 문구와 등록 버튼이 중심이며 기사 핵심 주체와 불일치한다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":false,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1793942981.201334
+        "expires": 1793946657.756407
       },
       "77feac05480ed14492a6cb5f8ff96c62707b9aff606193ec3ac85e0cec251a65": {
         "text": "{\"approved\":false,\"reason\":\"기사 핵심은 OKX가 별도 앱 ‘OKX Money’를 출시하고 스테이블코인 저축·카드 기능을 제공한다는 내용이다. 그러나 이미지는 OKX나 OKX Money가 아니라 ‘BeMine’의 암호화폐 채굴 서비스 홍보 배너로, 핵심 주체와 무관한 제3자 광고이다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":false,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1793942981.3596964
+        "expires": 1793946657.9455214
       },
       "7e228ab4772948e20af683cc82164465e8522c853f030f256d6cacecd28014d3": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용을 포괄하는 라이선스 법안을 연내 제출하겠다는 방침을 재확인했다고 밝힘\n\n홍콩 금융관리국 HKMA는 중앙은행 격인 기관으로, 2026년 말 이전 규제 초안 제출 계획과 함께 스테이블코인 발행사 라이선스 절차를 진행 중이라고 전함",
-        "expires": 1793942982.2705548
+        "expires": 1793946659.8021433
       },
       "d50c55701b41d3135cfbda4942c1b41187bbeb7eacf3ddc5badbfa0d9775cdb9": {
         "text": "{\"publish\":false,\"reason\":\"원문 핵심은 정부의 법안 제출 방침 재확인인데, 요약이 HKMA의 역할 설명을 원문 밖 표현으로 보완했고 스테이블코인 라이선스 진행 현황도 원문 내 시점 구분이 불명확해 보수적으로 보류\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}",
-        "expires": 1793942982.2727244
+        "expires": 1793946659.8042152
       },
       "2213f1e6e189e4a31a42f05512eeec418fd6aa2610a9a247e3996291e018b442": {
         "text": "SKIP",
-        "expires": 1793942982.7025337
+        "expires": 1793946660.1640396
       },
       "5e8a44af1f2d3c9952e78607741ec37e2ed3ebee1f3b70b95abba7a47da6767e": {
         "text": "두바이 브로커 다만 버추얼이 기관용 암호화폐 거래 플랫폼을 앞세워 토큰화 거점으로서의 두바이 홍보에 나섰다고 밝힘\n\n다만 이번 포럼에서는 새 상품·제휴·수치 발표는 없었고, 플랫폼의 고객 수와 거래량도 공개되지 않았다고 전함",
-        "expires": 1793942983.5243344
+        "expires": 1793946661.1614788
       },
       "d346933bbbfa9654b719c728bfb15ec780bb0886b3e4ae1579224c3ca5d6a415": {
         "text": "{\"publish\":false,\"reason\":\"행사·포지셔닝 소개가 중심이며 새 상품·제휴·수치 등 실질적 새 사실이 부족함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793942983.5247076
+        "expires": 1793946661.1619067
       }
     },
     "version": "review-cache-v29-1",
@@ -6081,51 +6122,51 @@
       "2026-10-07": {
         "gpt-5.4": {
           "summary": {
-            "api_calls": 9,
-            "cache_hits": 68,
+            "api_calls": 11,
+            "cache_hits": 81,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 42394,
-            "cached_input_tokens": 19456,
-            "output_tokens": 722,
+            "input_tokens": 52264,
+            "cached_input_tokens": 23040,
+            "output_tokens": 946,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.073039,
+            "estimated_usd": 0.09301,
             "unpriced_calls": 0
           },
           "source_review": {
-            "api_calls": 22,
-            "cache_hits": 42,
+            "api_calls": 24,
+            "cache_hits": 54,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 89279,
-            "cached_input_tokens": 1792,
-            "output_tokens": 2050,
+            "input_tokens": 98122,
+            "cached_input_tokens": 3584,
+            "output_tokens": 2221,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.2499155,
+            "estimated_usd": 0.270556,
             "unpriced_calls": 0
           },
           "event_decision": {
-            "api_calls": 5,
-            "cache_hits": 6,
+            "api_calls": 8,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 7574,
+            "input_tokens": 13358,
             "cached_input_tokens": 0,
-            "output_tokens": 705,
+            "output_tokens": 1209,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.02951,
+            "estimated_usd": 0.05153,
             "unpriced_calls": 0
           },
           "image_review": {
-            "api_calls": 3,
-            "cache_hits": 12,
+            "api_calls": 4,
+            "cache_hits": 15,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 4291,
+            "input_tokens": 6834,
             "cached_input_tokens": 0,
-            "output_tokens": 478,
+            "output_tokens": 646,
             "reasoning_tokens": 0,
-            "estimated_usd": 0.0178975,
+            "estimated_usd": 0.026775,
             "unpriced_calls": 0
           }
         }
@@ -6847,6 +6888,20 @@
         "unpriced_calls": 0,
         "event_records_reused": 3,
         "event_records_reviewed": 0
+      },
+      {
+        "started_at_utc": "2026-10-07T06:01:21.418702+00:00",
+        "elapsed_seconds": 1779.743,
+        "status": "completed",
+        "api_calls": 8,
+        "cache_hits": 30,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.071509,
+        "missing_usage": 0,
+        "unpriced_calls": 0,
+        "event_records_reused": 3,
+        "event_records_reviewed": 0
       }
     ],
     "event_memory_v33": {
@@ -6898,6 +6953,30 @@
         },
         "expires": 1793938679.9149525
       },
+      "ea43546eef40be8c41bf40708c4ba36b036dfa1637301d39aad38688d37d9e03": {
+        "value": {
+          "blocked": {
+            "status": "duplicate",
+            "reason": "같은 주체(카르다노/카르다노 재단), 같은 대상 사업(CIP-0113 규제형 토큰 표준의 메인넷 적용), 같은 행동(발행사가 KYC·이전 제한·동결·압류 규칙을 설정 가능), 같은 시점·진행 단계(이미 적용/도입 완료)를 다룬 동일 사건이다. 후보 기사에 있는 '하드포크 없이 적용'과 '승인된 주체가 보유자 동의 없이 이동 가능'은 같은 조치의 설명 보강일 뿐 별도 새 조치로 보기 어렵다.",
+            "matched_id": "ec0eacd62913800d",
+            "new_fact": ""
+          },
+          "blocked_signature": "5c388f6d0979aee665d5d1c9c496fd7b74f66ba246cb2bfe7ac6a613652da379"
+        },
+        "expires": 1793946647.5533319
+      },
+      "e99ec33b23b3dfe0b33b2c3ba42470eaabdea673d4b66d4bf779c2eba65bfe8b": {
+        "value": {
+          "blocked": {
+            "status": "duplicate",
+            "reason": "같은 주체(카르다노 재단), 같은 사업/상품(CIP-0113 토큰 표준), 같은 행동(메인넷 적용/출시), 같은 대상(카르다노 네이티브 토큰에 KYC·AML, 전송 제한, 동결·회수 규칙 부여), 같은 시점의 동일 사건이다. 후보의 지갑·탐색기 지원(Eternl·GeroWallet·CardanoScan) 언급은 동일 사건에 대한 부가 설명 수준으로 새 승인·별도 계약·새 지역 적용 같은 중요한 새 조치가 아니다.",
+            "matched_id": "ec0eacd62913800d",
+            "new_fact": ""
+          },
+          "blocked_signature": "5c388f6d0979aee665d5d1c9c496fd7b74f66ba246cb2bfe7ac6a613652da379"
+        },
+        "expires": 1793946651.0698977
+      },
       "38741c608cefd1d1ac3c454d13959054a594eefa2d0d89553806124317c460dd": {
         "value": {
           "blocked": {
@@ -6908,7 +6987,7 @@
           },
           "blocked_signature": "594596408304bc79cb31506faa31d32a66d58b3f62ae304276e822d31222c612"
         },
-        "expires": 1793942975.1538455
+        "expires": 1793946652.6596813
       },
       "ccde3313f75605d977b27f068c5ca38bc3bd58bde31118ad7d9d6e5545f65f3c": {
         "value": {
@@ -6920,7 +6999,7 @@
           },
           "blocked_signature": "594596408304bc79cb31506faa31d32a66d58b3f62ae304276e822d31222c612"
         },
-        "expires": 1793942978.6736612
+        "expires": 1793946654.6554236
       },
       "f50b7bfc13c4b19e14f2ac6ad3b26204a7784df59f83829bcce6c486bcc839ac": {
         "value": {
@@ -6932,7 +7011,7 @@
           },
           "blocked_signature": "52378ee06fa34d04a80835087e3d11ffa9d7fc81b4d82c39c67ee5e02159f5db"
         },
-        "expires": 1793942979.516455
+        "expires": 1793946656.3794234
       }
     },
     "local_event_index": {
@@ -22251,6 +22330,70 @@
             "inc",
             "layer",
             "shut"
+          ]
+        },
+        "4f0f2663d426d21ac4f450de974717570b5b0c74f2e26021cdb70e0c7891e6e6": {
+          "tokens": [
+            "action_ban",
+            "action_issue",
+            "action_mint",
+            "asset_stablecoin",
+            "entity_카르다노",
+            "object_bond",
+            "object_fund"
+          ],
+          "words": [
+            "0113",
+            "ada",
+            "assets",
+            "cardano",
+            "cip",
+            "freeze",
+            "issuers",
+            "kyc",
+            "lets",
+            "rules",
+            "seize",
+            "token",
+            "under",
+            "고객확인",
+            "규제형",
+            "규칙",
+            "기능",
+            "기존",
+            "네이티브",
+            "동결",
+            "동결하",
+            "메인넷에",
+            "모든",
+            "발행사",
+            "설명함",
+            "스테이블코인",
+            "아니라고",
+            "압류",
+            "이체",
+            "있게",
+            "재단",
+            "적용해",
+            "제한",
+            "채권용이며",
+            "카르다노",
+            "토큰",
+            "토큰별로",
+            "토큰화",
+            "펀드",
+            "했다고"
+          ],
+          "title_words": [
+            "assets",
+            "cardano",
+            "freeze",
+            "issuers",
+            "lets",
+            "rules",
+            "seize",
+            "token",
+            "under"
           ]
         },
         "8cc0314020a388d8c9e5cc00cf3b632f9ac3de4467ddb3d4c25501965038dd37": {
