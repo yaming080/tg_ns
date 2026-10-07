@@ -3652,6 +3652,22 @@
         "text": "{\"publish\":false,\"reason\":\"협력과 검토 계획은 원문에 부합하지만, 리플 커스터디가 무엇인지 설명이 없어 일반 독자가 핵심 내용을 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791423132.0498796
       },
+      "2bc87932b103f79b2dca331f3460d15acfaf1b8261a6648a53040a8273ba24cd": {
+        "text": "{\"publish\":false,\"reason\":\"새로운 결제 기능 개발 소식은 확인되지만, 요약에서 GPU와 라이트닝 네트워크를 설명하지 않아 일반 독자가 내용을 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791430197.4654672
+      },
+      "e86019d13643b760fbcbc6ab32c9407eec42232a0c91a2fcf57ca64deee8345e": {
+        "text": "SKIP",
+        "expires": 1791430199.2309356
+      },
+      "3faf041ec017d72a714e9f7d63717ea98c31a1775fc6faeef0681b3009507bf7": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 비트코인을 알아볼 수 있게 보여주지만, 기사 핵심인 스트라이크의 새 저축 묶음 기능이나 스트라이크 자체는 드러나지 않습니다. 일반적인 비트코인 삽화만으로는 해당 기능을 대표하기 어렵습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791430249.8776422
+      },
+      "325a7f43c5b4fd6bd2ce44bf27e19b4da73eec9ea225368b0c3960ab570bbeb4": {
+        "text": "{\"approved\":false,\"reason\":\"기사는 스트라이크가 출시한 저축 목표별 비트코인 관리 기능이 핵심인데, 이미지는 스트라이크나 기능을 보여주지 않고 일반적인 비트코인 코인만 중심에 둡니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791430256.576024
+      },
       "cd2ad68a7a03b955fe331746001c718df60c4e93e78b03d695d0c994702e4603": {
         "text": "홍콩 정부가 가상자산 거래·수탁·자문·운용 서비스에 대한 라이선스 제도 도입을 위해 올해 안에 조례 개정안을 입법회에 제출하겠다고 밝힘\n\n이 조치는 2026~2030년 금융시장 발전 전략의 일부이며, 정부는 AI를 악용한 사기 콘텐츠 탐지·삭제를 강화하는 법체계 개선도 검토한다고 전함",
         "expires": 1791443525.353721
@@ -4587,6 +4603,62 @@
       "16f0323a7f2f35ccecafc8c93bf6a029b3c2aef01f8461b493139774ce281151": {
         "text": "{\"related_ids\":[\"ec0eacd62913800d\"]}",
         "expires": 1791663241.5508475
+      },
+      "1a80b48f0efbe8d4032bbc3350ed70f517664d189c45f0b60943a4be623f9ac9": {
+        "text": "Spiral이 분산형 AI 프로젝트 Mesh LLM의 GPU 연산비를 비트코인 라이트닝 네트워크로 결제하는 기능을 개발 중이라고 밝힘\n\n이 기능은 AI 에이전트가 GPU 제공자에게 추론 비용을 지급하는 구상이며, 출시 일정과 검증·분쟁 처리 방식은 공개되지 않음",
+        "expires": 1791667790.309535
+      },
+      "8e5899d72d8e3e181b5509f4d090138c7ee3587d286d5298ee7d9eccef2bbc03": {
+        "text": "이더리움 차기 업그레이드 글램스테르담이 세폴리아 테스트넷에 적용됐으며, 프리즘 7.2.1은 검증자의 기본 블록 제안 가스 한도(한 블록에서 처리할 연산량 상한)를 2억으로 설정함\n\n이는 설정값으로 실제 처리량을 뜻하지 않으며, 후디와 메인넷 적용 시점은 정해지지 않음",
+        "expires": 1791667805.0199437
+      },
+      "935148f6e65a0bdbfdaafcdbc3f740e2803c016ccb9c159cecec99dbcbf696a4": {
+        "text": "{\"publish\":true,\"reason\":\"세폴리아 테스트넷 적용과 기본 설정 변경을 정확히 요약했고, 실제 처리량이나 메인넷 적용으로 오해하지 않도록 미확정 조건을 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791667809.0884302
+      },
+      "5ca00474a2f496390956680055c2df4b4043852bff009223280eaaa83a9001b1": {
+        "text": "{\"related_ids\":[\"04109b51e1f8e65b\",\"4132b6bb90fbb954\"]}",
+        "expires": 1791667811.9346106
+      },
+      "cc729a0e844d5b5e0af11c30b62ce98a3a43afae8bc2529a737c311c75fbd083": {
+        "text": "{\"related_ids\":[\"9ab2d50563c89a45\",\"d4b74043757589b0\"]}",
+        "expires": 1791667818.7103853
+      },
+      "574e834d13d63c98b2f9b8699e8b18eb57c4c12c26903e9b7be48d6828febdf3": {
+        "text": "{\"related_ids\":[\"6a6bef3bdafd893f\"]}",
+        "expires": 1791667819.995961
+      },
+      "f1f58d2a0b3ae119e15065e07ba41b041910a40886f7372184d0e41969613b41": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791667822.2743979
+      },
+      "67fe959a3e92c0fb7b4474da05e81a89c3e2e0649c027aad9b9358727da452bd": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"d4b74043757589b0\",\"reason\":\"세폴리아 테스트넷에 글램스테르담 업그레이드가 적용된 같은 사건이다. 프리즘 7.2.1의 기본 블록 제안 가스 한도 설정을 덧붙인 설명이며, 별도의 새 조치는 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1791667825.4637964
+      },
+      "2856f669a434d6cc0ed34716ce19ccef9d3c5ca7cd7d317703d14d68b326ca3d": {
+        "text": "스트라이크가 비트코인 보유분을 저축 목표별 최대 5개 묶음으로 나누고, 각 묶음마다 수수료 없는 정기매수를 설정하는 기능을 출시함",
+        "expires": 1791667830.0731156
+      },
+      "96dd0d3b455e13fbc458b41b7f9be30228431eb80a97099ed1a7eb348a324e90": {
+        "text": "{\"publish\":true,\"reason\":\"Strike가 2026년 10월 7일 비트코인 보유분을 최대 5개 목표별 묶음으로 나누고 각 묶음에 수수료 없는 정기매수를 설정하는 기능을 출시했다는 핵심을 정확히 요약했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791667834.222124
+      },
+      "cc909760ef8810f6754839800508af9607998fe71166ad429a9407548c2989ac": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791667836.3971715
+      },
+      "f7dd8d93d6c9b6c318b2f9010cccd764c7dbf05e83d2ee866bc0404bae3ab115": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791667840.7938163
+      },
+      "8608afbfa9ec83a1633673ca4daa8ee5b2eee61b6a89701fef94e5e801313cfc": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791667842.2254648
+      },
+      "d8e02b90d2aab1a4739a3956df19aabb5702f1e19b1885daed28dbea32483673": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791667843.127625
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -6678,56 +6750,69 @@
         },
         "gpt-6-luna": {
           "summary": {
+            "api_calls": 20,
+            "cache_hits": 31,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 93487,
+            "cached_input_tokens": 0,
+            "output_tokens": 2936,
+            "reasoning_tokens": 1605,
+            "estimated_usd": 0.013152375,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 93427
+          },
+          "source_review": {
             "api_calls": 16,
             "cache_hits": 22,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 75259,
+            "input_tokens": 66452,
             "cached_input_tokens": 0,
-            "output_tokens": 2359,
-            "reasoning_tokens": 1272,
-            "estimated_usd": 0.010585675,
+            "output_tokens": 5814,
+            "reasoning_tokens": 4260,
+            "estimated_usd": 0.0112123,
             "unpriced_calls": 0,
-            "cache_write_tokens": 75211
-          },
-          "source_review": {
-            "api_calls": 13,
-            "cache_hits": 16,
-            "errors": 0,
-            "missing_usage": 0,
-            "input_tokens": 54145,
-            "cached_input_tokens": 0,
-            "output_tokens": 4837,
-            "reasoning_tokens": 3575,
-            "estimated_usd": 0.00918565,
-            "unpriced_calls": 0,
-            "cache_write_tokens": 54106
+            "cache_write_tokens": 66404
           },
           "event_search": {
-            "api_calls": 26,
-            "cache_hits": 10,
+            "api_calls": 34,
+            "cache_hits": 14,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 255301,
+            "input_tokens": 332809,
             "cached_input_tokens": 0,
-            "output_tokens": 737,
-            "reasoning_tokens": 408,
-            "estimated_usd": 0.032279175,
+            "output_tokens": 1330,
+            "reasoning_tokens": 870,
+            "estimated_usd": 0.042263575,
             "unpriced_calls": 0,
-            "cache_write_tokens": 255223
+            "cache_write_tokens": 332707
           },
           "event_decision": {
-            "api_calls": 4,
-            "cache_hits": 5,
+            "api_calls": 5,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 2783,
+            "input_tokens": 3686,
             "cached_input_tokens": 0,
-            "output_tokens": 594,
-            "reasoning_tokens": 238,
-            "estimated_usd": 0.0005753,
+            "output_tokens": 812,
+            "reasoning_tokens": 366,
+            "estimated_usd": 0.0007746,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
+          },
+          "image_review": {
+            "api_calls": 2,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 2048,
+            "cached_input_tokens": 0,
+            "output_tokens": 988,
+            "reasoning_tokens": 751,
+            "estimated_usd": 0.0007284,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 1184
           }
         }
       }
@@ -7636,6 +7721,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.00773155,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-07T21:01:16.433427+00:00",
+        "elapsed_seconds": 1786.108,
+        "status": "completed",
+        "api_calls": 18,
+        "cache_hits": 20,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.01550545,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
