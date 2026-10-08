@@ -5402,6 +5402,14 @@
         "text": "{\"related_ids\":[\"efaa2017afd06428\"]}",
         "expires": 1791757767.5564153
       },
+      "c38b8959064da1ce901d5b87e49176d24bfa6376caf0f0245d0bb776628d3a73": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791760466.216369
+      },
+      "ff65d471433bdb0a79b0c4dae06dea5569229ce9324888a1740272a373bae1ec": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791760468.14817
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -7562,7 +7570,7 @@
         "gpt-6-luna": {
           "summary": {
             "api_calls": 70,
-            "cache_hits": 145,
+            "cache_hits": 150,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 339127,
@@ -7575,7 +7583,7 @@
           },
           "source_review": {
             "api_calls": 81,
-            "cache_hits": 82,
+            "cache_hits": 83,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 348607,
@@ -7587,21 +7595,21 @@
             "cache_write_tokens": 348364
           },
           "event_search": {
-            "api_calls": 227,
-            "cache_hits": 169,
+            "api_calls": 229,
+            "cache_hits": 175,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 2182192,
+            "input_tokens": 2202552,
             "cached_input_tokens": 0,
-            "output_tokens": 14967,
-            "reasoning_tokens": 12363,
-            "estimated_usd": 0.280240475,
+            "output_tokens": 15147,
+            "reasoning_tokens": 12521,
+            "estimated_usd": 0.282875325,
             "unpriced_calls": 0,
-            "cache_write_tokens": 2181511
+            "cache_write_tokens": 2201865
           },
           "event_decision": {
             "api_calls": 14,
-            "cache_hits": 35,
+            "cache_hits": 36,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 9630,
@@ -7614,7 +7622,7 @@
           },
           "image_review": {
             "api_calls": 38,
-            "cache_hits": 64,
+            "cache_hits": 66,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 73934,
@@ -8857,6 +8865,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.00822305,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-08T23:00:59.460082+00:00",
+        "elapsed_seconds": 810.74,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 15,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00263485,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
