@@ -3562,22 +3562,6 @@
   },
   "ai_review": {
     "entries": {
-      "2bc87932b103f79b2dca331f3460d15acfaf1b8261a6648a53040a8273ba24cd": {
-        "text": "{\"publish\":false,\"reason\":\"새로운 결제 기능 개발 소식은 확인되지만, 요약에서 GPU와 라이트닝 네트워크를 설명하지 않아 일반 독자가 내용을 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791430197.4654672
-      },
-      "e86019d13643b760fbcbc6ab32c9407eec42232a0c91a2fcf57ca64deee8345e": {
-        "text": "SKIP",
-        "expires": 1791430199.2309356
-      },
-      "3faf041ec017d72a714e9f7d63717ea98c31a1775fc6faeef0681b3009507bf7": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 비트코인을 알아볼 수 있게 보여주지만, 기사 핵심인 스트라이크의 새 저축 묶음 기능이나 스트라이크 자체는 드러나지 않습니다. 일반적인 비트코인 삽화만으로는 해당 기능을 대표하기 어렵습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1791430249.8776422
-      },
-      "325a7f43c5b4fd6bd2ce44bf27e19b4da73eec9ea225368b0c3960ab570bbeb4": {
-        "text": "{\"approved\":false,\"reason\":\"기사는 스트라이크가 출시한 저축 목표별 비트코인 관리 기능이 핵심인데, 이미지는 스트라이크나 기능을 보여주지 않고 일반적인 비트코인 코인만 중심에 둡니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1791430256.576024
-      },
       "b164a6b7a944eb59eecbfacf177b4cbc98278ada2c69eb959bc75d156451d9ff": {
         "text": "{\"publish\":false,\"reason\":\"제휴와 향후 통합 테스트 계획은 원문에 부합하지만, 일반 독자가 이해할 수 있도록 USDC·EURC가 각각 달러·유로 연동 스테이블코인이라는 설명이 요약에 필요합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791436388.2982044
@@ -3721,6 +3705,14 @@
       "bb09e7ca917e71d690ab798786743dccadc7c055e1534834d5c54797f7da97f5": {
         "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 케이뱅크가 업비트와의 실명계좌 제휴를 1년 연장한 것으로, 이미지에는 케이뱅크 로고와 건물이 선명하게 보인다. 핵심 당사자인 회사의 공식 식별 요소를 직접 보여주는 관련 이미지다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
         "expires": 1791453810.9354856
+      },
+      "ea7122985b047ce0b607ff6b14bac7616ffc5efb58d5eb52384741fdde1188c3": {
+        "text": "{\"publish\":false,\"reason\":\"핵심 사업 분리와 주식 발행, 2027년 투자자 유치 계획은 원문과 대체로 일치하지만, ‘분산원장 기반 증권’이 무엇인지 설명하지 않아 일반 독자가 핵심을 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791455373.3537252
+      },
+      "dd3d42edc18334c56e000cb7a6f4221a65ff99d5639ef7dafadefab5b14909a3": {
+        "text": "{\"publish\":false,\"reason\":\"예비 승인과 미충족 조건은 정확히 요약했지만, 원문은 암호화폐·디지털자산 사업임을 밝히지 않은 일반 금융서비스 확장 소식으로 허용 범주에 해당하지 않습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791455383.7230232
       },
       "a88b9907064ba341de2fd7d4cdd271000b01dbf8dfdbbfc2cbe43e9486118fb2": {
         "text": "체코 파트너스방카가 8월 10일부터 모바일 앱에서 BTC 매매를 시작했으며 거래 수수료는 1.5%라고 밝힘\n\n앱에서 산 BTC는 외부 지갑으로 옮길 수 없고 암호자산 공통 규칙인 MiCA 라이선스 보유 업체가 거래·수탁을 맡으며 예금보험 대상도 아니라고 설명함",
@@ -4753,6 +4745,22 @@
       "c5f99731d59ad8c0f2dae29c0f04671e8de01c6647cb46bffd1b1b83ca34cef2": {
         "text": "써클과 SAP 지원 금융서비스 기업 테레이나가 SAP 재무 소프트웨어에서 USDC·EURC를 송금·수취하는 기능을 연동할 계획이라고 밝힘\n\n양사는 향후 수개월 내 고객사를 대상으로 국경 간 결제와 기업 자금 운용 분야의 통합 테스트를 진행할 예정임",
         "expires": 1791689288.4833827
+      },
+      "e7e6d25e34b031b4eae56367feb436b1e900dffdd0f12a55e7fe32b8656b3f8b": {
+        "text": "카르다노 재단이 3년간 내부에서 개발한 디지털 신원 기업 베리디안을 독립 회사로 분리했다고 밝힘\n\n베리디안 주식은 스위스 DLT법에 따른 분산원장 기반 증권으로 카르다노에 발행됐으며, 2027년 전략적 파트너와 투자자를 찾을 계획임",
+        "expires": 1791692965.849597
+      },
+      "dcf5569980caf1e6942b82fc8aeb8db9ccec0a0b70c076d67248456eab5dde85": {
+        "text": "부탄 DK은행이 아부다비 글로벌마켓(ADGM)에서 자회사 설립을 위한 예비 승인을 받았으며, 수탁·결제·중개·자문 서비스를 계획함\n\n최종 금융서비스 허가를 받으려면 예비 승인 조건을 충족해야 함",
+        "expires": 1791692979.2641335
+      },
+      "3312254ae31c5dd9d09db8dad4c0b07ff7c8f1aed17ca43d3f7613c1be879213": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791692987.46247
+      },
+      "186afce505871e460453e4ae931258d52152b191ab1faada9752c2c7adb66ccd": {
+        "text": "{\"related_ids\":[\"76ab915a36fa6e47\"]}",
+        "expires": 1791692990.0874856
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -6913,47 +6921,47 @@
       "2026-10-08": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 10,
-            "cache_hits": 35,
+            "api_calls": 12,
+            "cache_hits": 45,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 45787,
+            "input_tokens": 55332,
             "cached_input_tokens": 0,
-            "output_tokens": 1098,
-            "reasoning_tokens": 521,
-            "estimated_usd": 0.006271625,
+            "output_tokens": 1549,
+            "reasoning_tokens": 811,
+            "estimated_usd": 0.0076901,
             "unpriced_calls": 0,
-            "cache_write_tokens": 45757
+            "cache_write_tokens": 55296
           },
           "source_review": {
-            "api_calls": 12,
-            "cache_hits": 20,
+            "api_calls": 14,
+            "cache_hits": 27,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 48749,
+            "input_tokens": 57200,
             "cached_input_tokens": 0,
-            "output_tokens": 4878,
-            "reasoning_tokens": 3700,
-            "estimated_usd": 0.008531725,
+            "output_tokens": 5719,
+            "reasoning_tokens": 4329,
+            "estimated_usd": 0.01000845,
             "unpriced_calls": 0,
-            "cache_write_tokens": 48713
+            "cache_write_tokens": 57158
           },
           "event_search": {
-            "api_calls": 10,
-            "cache_hits": 10,
+            "api_calls": 12,
+            "cache_hits": 16,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 95131,
+            "input_tokens": 113230,
             "cached_input_tokens": 0,
-            "output_tokens": 738,
-            "reasoning_tokens": 604,
-            "estimated_usd": 0.012259625,
+            "output_tokens": 897,
+            "reasoning_tokens": 733,
+            "estimated_usd": 0.01460135,
             "unpriced_calls": 0,
-            "cache_write_tokens": 95101
+            "cache_write_tokens": 113194
           },
           "event_decision": {
             "api_calls": 2,
-            "cache_hits": 3,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 1363,
@@ -7955,6 +7963,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.004141425,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-08T04:01:15.898524+00:00",
+        "elapsed_seconds": 1719.754,
+        "status": "completed",
+        "api_calls": 6,
+        "cache_hits": 25,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.005236925,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
