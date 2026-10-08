@@ -3708,6 +3708,14 @@
         "text": "SKIP",
         "expires": 1791513079.7111661
       },
+      "04fdd83b29c14fa259be47f030006994f630f973734ed817a47079d930d159c7": {
+        "text": "{\"publish\":false,\"reason\":\"변경안이 충분한 지지를 받을 경우에만 10월 9일 활성화될 수 있다는 조건이 빠졌고, 핵심 기술 용어도 설명되지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791515557.2224312
+      },
+      "3161d61046c4802cd9cdb41c709dfac250f5e83fc08f0985796a78bd90732d16": {
+        "text": "{\"publish\":false,\"reason\":\"기사의 핵심은 저스틴 본스의 XRP 탈중앙화 비판이며, 요약은 이를 빼고 9월 25일 배포된 업데이트 관련 내용을 별도 새 소식처럼 제시했습니다. 개발자 확인과 계획의 발표 시점도 확인되지 않아 게시를 보류합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
+        "expires": 1791515566.5373838
+      },
       "3721de1287e74e66fd3eace12fcb51086c71f8e7a4c932ac962f2f23f7de0575": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791515665.1947849
@@ -5491,6 +5499,14 @@
       "6a9fe4df7056a836aea9a5ab862870b3a7e7cac26e1b928fc626999b6295d679": {
         "text": "유럽증권시장감독청(ESMA)은 EU 내 디지털자산 서비스 제공업체에 미카를 준수하지 않는 스테이블코인 관련 서비스 중단을 촉구했다. 각국 규제당국에는 기존 고객의 보유 포지션과 관련 서비스를 내년 1월 8일까지 정리하도록 요구했다. 기존 자산의 청산·교환·출금·이전 지원은 감독 아래 한시적으로 허용할 수 있다.",
         "expires": 1791750672.7156067
+      },
+      "0a791e56840bfc36cd77e9ed73f1cb4fa9c07bb4f289102226cde56be094b5e4": {
+        "text": "XRPL 개발자들이 9월 25일 서버 소프트웨어 긴급 업데이트를 배포했으며, 보안 수정 내용은 기술 검토 자료와 함께 공개할 계획이라고 밝힘\n\nfixBatchV1_2 변경안이 10월 9일 활성화되면 구버전 서버는 네트워크 동기화가 차단될 수 있음",
+        "expires": 1791753151.177141
+      },
+      "a2d4b93222d8c2373d602718dd9c5975fd279b41ad9e1c386db184520050aaa1": {
+        "text": "엑스알피 레저 개발자들은 9월 25일 서버 긴급 업데이트를 배포했으며, 공개되지 않은 보안 수정 사항은 기술 검토 자료와 함께 공개할 계획이라고 밝힘. fixBatchV1_2 변경안이 충분한 지지를 얻어 10월 9일 활성화되면 구버전 서버는 네트워크 동기화가 차단될 수 있음",
+        "expires": 1791753160.6930118
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7651,34 +7667,34 @@
       "2026-10-08": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 66,
-            "cache_hits": 137,
+            "api_calls": 67,
+            "cache_hits": 141,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 319583,
+            "input_tokens": 324371,
             "cached_input_tokens": 0,
-            "output_tokens": 10443,
-            "reasoning_tokens": 6476,
-            "estimated_usd": 0.045164425,
+            "output_tokens": 10823,
+            "reasoning_tokens": 6772,
+            "estimated_usd": 0.04595285,
             "unpriced_calls": 0,
-            "cache_write_tokens": 319385
+            "cache_write_tokens": 324170
           },
           "source_review": {
-            "api_calls": 75,
-            "cache_hits": 80,
+            "api_calls": 77,
+            "cache_hits": 81,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 323012,
+            "input_tokens": 331512,
             "cached_input_tokens": 0,
-            "output_tokens": 30168,
-            "reasoning_tokens": 22900,
-            "estimated_usd": 0.055454875,
+            "output_tokens": 31105,
+            "reasoning_tokens": 23627,
+            "estimated_usd": 0.056985725,
             "unpriced_calls": 0,
-            "cache_write_tokens": 322787
+            "cache_write_tokens": 331281
           },
           "event_search": {
             "api_calls": 225,
-            "cache_hits": 155,
+            "cache_hits": 167,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 2161976,
@@ -7691,7 +7707,7 @@
           },
           "event_decision": {
             "api_calls": 14,
-            "cache_hits": 33,
+            "cache_hits": 34,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 9630,
@@ -7704,7 +7720,7 @@
           },
           "image_review": {
             "api_calls": 38,
-            "cache_hits": 61,
+            "cache_hits": 64,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 73934,
@@ -7716,17 +7732,17 @@
             "cache_write_tokens": 71081
           },
           "summary_repair": {
-            "api_calls": 18,
+            "api_calls": 19,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 21016,
+            "input_tokens": 22050,
             "cached_input_tokens": 0,
-            "output_tokens": 3985,
-            "reasoning_tokens": 2384,
-            "estimated_usd": 0.004561475,
+            "output_tokens": 4283,
+            "reasoning_tokens": 2587,
+            "estimated_usd": 0.00483965,
             "unpriced_calls": 0,
-            "cache_write_tokens": 18695
+            "cache_write_tokens": 19726
           }
         }
       }
@@ -8923,6 +8939,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.01113945,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-08T21:00:58.286029+00:00",
+        "elapsed_seconds": 718.004,
+        "status": "completed",
+        "api_calls": 4,
+        "cache_hits": 21,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00259745,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -25445,6 +25473,10 @@
       "c9421bae98bed563c4720cb4760117a51513e01f0d20503b3c44d69b36bcfef2": {
         "summary": "",
         "expires": 1792096268.2032387
+      },
+      "c548f38f7e92b93f8043de262ae4c34e6d74593f309534d321ab795d17497958": {
+        "summary": "",
+        "expires": 1792098757.237744
       }
     }
   }
