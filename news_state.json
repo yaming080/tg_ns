@@ -1,12 +1,5 @@
 {
   "posted": {
-    "80fbc02752d2e39a": {
-      "title": "HashKey Cloud joins Stacks Bitcoin staking launch",
-      "url": "crypto.news/hashkey-cloud-joins-stacks-bitcoin-staking-launch",
-      "signature": "action_launch | asset_btc | entity_hashkeycloud | object_bond | object_custody | object_network",
-      "canonical_key": "action_launch | asset_btc | entity_hashkeycloud | object_bond | object_custody | object_network",
-      "ts": "2026-09-08T09:01:38.090889+00:00"
-    },
     "71a80c19c8aafb41": {
       "title": "초당 228.3건 실측된 XRP 레저, 3만 메시지와 달랐다",
       "url": "www.tokenpost.kr/news/blockchain/404421",
@@ -3403,6 +3396,15 @@
       "ts": "2026-10-08T09:35:13.399484+00:00",
       "summary": "#스탠다드차타드 가 #싱가포르 에서 기관투자자와 적격 기업 고객을 대상으로 암호화폐· #스테이블코인 · #토큰화 실물연계자산(실물자산을 #토큰 으로 표시한 자산)을 보관·관리하는 #수탁 서비스 출시를 추진한다. #규제 요건 충족이 전제이며 지원 자산과 출시 시점은 미정이다",
       "source_pub": "Thu, 08 Oct 2026 01:13:51 -0700"
+    },
+    "d7f7d00e28947307": {
+      "title": "삼성 월렛, 10월 말 미국서 USDC 송금 기능 출시",
+      "url": "bloomingbit.io/feed/news/121841",
+      "signature": "action_launch | asset_usdc | entity_삼성월렛 | geo_us",
+      "canonical_key": "action_launch | asset_usdc | entity_삼성월렛 | geo_us",
+      "ts": "2026-10-08T10:19:00.871756+00:00",
+      "summary": "삼성전자가 10월 마지막 주 #미국 내 적격 갤럭시 기기에서 #삼성월렛 의 #USDC 송금 기능을 제공할 계획이라고 밝힘\n\n이용자는 호환 암호화폐 지갑이나 60개국 이상 은행 계좌로 송금할 수 있으며, 외부 지갑 송금은 무료이고 은행 이체에는 수수료가 부과됨",
+      "source_pub": "Thu, 08 Oct 2026 05:33:02 -0400"
     }
   },
   "source_baselines": {
@@ -3570,34 +3572,6 @@
   },
   "ai_review": {
     "entries": {
-      "10861d570222aaa7606e8fb64c495c0aaacd4f6f5d9951e40776f73460f0e056": {
-        "text": "케이뱅크가 업비트와의 실명확인 입출금계정 제휴를 1년 연장해 계약 만료일이 내년 10월 5일로 바뀌었으며, 업비트 원화거래용 계좌 서비스와 이용자 예치금 보관 업무를 계속 맡는다고 밝힘",
-        "expires": 1791453790.8446782
-      },
-      "f8676ce4944ec9aedf87b09624b3101a1e408b5e39c50d05742bd007c7b000a0": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, 케이뱅크의 업비트 실명계좌 제휴 1년 연장이라는 새 사실을 전달한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791453794.117331
-      },
-      "7548b8f92040233193b3c2132fdd20faebe9f64cca84c65ababb0d638b47e6b2": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791453797.264203
-      },
-      "62231bae56a3886cf5410bec1e71c8a2403a755f294a191ffad358f0d62afa4c": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791453799.500305
-      },
-      "f6fc7fd40bcdb15d183bf8e4d5dfb4e81dd200fc28a7ed9548dd6545bd584ab9": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791453802.082352
-      },
-      "28adcb4da9acd9d936141969ae4188cd77a81145033a669396b27d1555ffe204": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791453805.1506016
-      },
-      "bb09e7ca917e71d690ab798786743dccadc7c055e1534834d5c54797f7da97f5": {
-        "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 케이뱅크가 업비트와의 실명계좌 제휴를 1년 연장한 것으로, 이미지에는 케이뱅크 로고와 건물이 선명하게 보인다. 핵심 당사자인 회사의 공식 식별 요소를 직접 보여주는 관련 이미지다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1791453810.9354856
-      },
       "ea7122985b047ce0b607ff6b14bac7616ffc5efb58d5eb52384741fdde1188c3": {
         "text": "{\"publish\":false,\"reason\":\"핵심 사업 분리와 주식 발행, 2027년 투자자 유치 계획은 원문과 대체로 일치하지만, ‘분산원장 기반 증권’이 무엇인지 설명하지 않아 일반 독자가 핵심을 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791455373.3537252
@@ -3925,6 +3899,18 @@
       "4db2b6fb9502202820805ca541c1f178dc0481a2915da46ecbd3befc746d5b0b": {
         "text": "{\"publish\":false,\"reason\":\"제휴와 향후 테스트 계획은 구체적으로 보도됐지만, ‘7일’만 적혀 있어 보도 시점이 확인되지 않는다. 요약도 USDC·EURC가 달러·유로 연동 스테이블코인이라는 설명을 생략했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":false}}",
         "expires": 1791473747.7438712
+      },
+      "5c6d8367674318c2d5f8adbc147e9685aceca600ddc52d27e8141301fa6d7f84": {
+        "text": "{\"publish\":false,\"reason\":\"새 파트너십과 지원 대상은 확인되지만, ‘토큰화 증권’ 등 핵심 용어를 설명하지 않아 일반 독자가 내용을 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791476355.2500684
+      },
+      "ba32198b6e3e5423ea3da79784028e2495983fded93519397e23e52a61cc3ef4": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 Digital Sovereignty Alliance와 DC Fintech Week의 백서 수상 홍보물이다. 기사 핵심 주체인 KoreInside·DigitalMotion이나 토큰화 증권 파트너십과 관련이 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":false,\"not_text_screenshot\":false,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1791476377.1439044
+      },
+      "98d3e5d51ac00e84f92e79978aa4cde5a98fb99d0b6bc938629a6eeb89a89395": {
+        "text": "{\"approved\":false,\"reason\":\"기사는 KoreInside와 Digital Motion의 토큰화 증권 배포·운영 파트너십에 관한 내용이지만, 이미지 중심은 Digital Sovereignty Alliance의 백서 선정 및 2026 DC Fintech Week 홍보물이다. 기사 핵심 주체나 파트너십과 직접 관련이 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":false,\"not_text_screenshot\":false,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791476381.613152
       },
       "18889d6cd0b24495b56aa2185ad7b5b747636ffd0689688ea3d63effcf7179ab": {
         "text": "미국 CFTC가 가상자산 시장 대상 첫 규제안을 제안한다고 밝혔으며, 가상자산과 다른 상품의 차이를 반영한 규칙을 마련할 방침이라고 설명함",
@@ -5213,6 +5199,106 @@
       "addd155318559335c3176cea29b3be47c7d02d6cee839749c023933b9dbbcecb": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791711375.2411284
+      },
+      "ce4a255e15fb76dbded9733fd6103931f4417b1caa393f7f2d55eb9c44827bda": {
+        "text": "삼성전자가 10월 마지막 주 미국 내 적격 갤럭시 기기에서 삼성 월렛의 USDC 송금 기능을 제공할 계획이라고 밝힘\n\n이용자는 호환 가상자산 지갑이나 60개국 이상 은행 계좌로 송금할 수 있으며, 외부 지갑 송금은 무료이고 은행 이체에는 수수료가 부과됨",
+        "expires": 1791713918.0176003
+      },
+      "6de7fad24f2aa8ee57c5599c46732ba9bb7e77796fec5246eed03b753a617707": {
+        "text": "{\"publish\":true,\"reason\":\"삼성전자가 미국 내 적격 갤럭시 기기를 대상으로 USDC 송금 기능을 10월 마지막 주에 제공할 계획이라고 밝힌 새 사업 발표다. 대상·시점·수수료 조건이 요약에 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791713924.386441
+      },
+      "b470f301e214386e675ec074f64ad91182ef973920904efaad1877147fe0d4cb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713926.946179
+      },
+      "dfbf02a4e94464e1ae1c0bfaafa77929700041889eb46ffd7f23601ad85b393e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713930.4562047
+      },
+      "e1ba5df08342785882b0d57dc798e2e4c6bf41bf077f6dc6b69a43c1ee0cdf11": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713932.4609363
+      },
+      "579b1079f290a8d52ee9eaab99fd858a297935e930a3f04bdbc39669d58ffd3d": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713934.4925938
+      },
+      "bb83f9392108a196ff2a0c743d0625d80025bb080eb22cb182ca8e76b1f6c2e5": {
+        "text": "{\"approved\":true,\"reason\":\"이미지의 중심은 선명하게 식별되는 삼성 로고이며, 삼성전자가 삼성 월렛의 USDC 송금 기능을 출시한다는 기사 핵심 주체와 직접 관련이 있다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791713938.9673483
+      },
+      "2933ce5dbfe0c1a4a656a4382b41462fce7c0773b51446e07f71f7dbb0415987": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713943.9671311
+      },
+      "1b157b81249d6e750fb462b6d3805cc1c7edc8abd84b76adb3d061897b5b05b3": {
+        "text": "코어인사이드와 디지털모션이 발행사의 규제 대상 토큰화 증권을 이더리움·솔라나·아발란체·베이스 등 퍼블릭 블록체인에 배포·운영하도록 지원하는 파트너십을 체결했다고 밝힘",
+        "expires": 1791713949.0749445
+      },
+      "66fdcda7fcc64ad7d512c6ace4be2aadfa1b76051d6c2606415f89d781b10fe5": {
+        "text": "코어인사이드와 디지털모션이 발행사의 규제 대상 토큰화 증권(토큰 형태로 만든 증권)을 이더리움·솔라나·아발란체·베이스 등 퍼블릭 블록체인에 배포하고 운영하도록 지원하는 파트너십을 맺었다.",
+        "expires": 1791713959.42609
+      },
+      "c1d3fdb54f8ac82c072b8a3feafb8e9a7c32e10e1c81aab8a6adfd0ef9a4c2fe": {
+        "text": "{\"publish\":true,\"reason\":\"두 회사의 토큰화 증권 관련 신규 파트너십과 지원 대상이 원문에 명시돼 있습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791713963.3412054
+      },
+      "8226fce8d6d011225d747d1bee526b3eb0acc6c4e0d54cc5cd8390490126a344": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713966.3216426
+      },
+      "f6e2ae42a0af4c6b29c30de605abeea015413faead0be81ab5df3121e3208d25": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713968.2872071
+      },
+      "4a328a1bb2079c50800e9f1538876be7cf6fb7cf0cdcfca553d9617170de2a69": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713970.6817827
+      },
+      "f4016536df0b2317db5f038674f78bb8529279c489f7d6f5dabb99a7a3abc91c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713971.6342218
+      },
+      "05f4fb68dd6430a6b8172db595dd81b2c317661e62229994108e3ee0594c8328": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713984.1164947
+      },
+      "5ffcd2ee61a4719b17fd6e563389f386c05cb6fb646d2f5d4ed92c06de18eed6": {
+        "text": "써클과 SAP 지원 금융서비스 기업 테레이나가 SAP 재무 소프트웨어에서 USDC·EURC를 송금·수취할 수 있도록 결제 기능을 연동할 계획이라고 밝힘\n\n양사는 향후 수개월 내 고객사를 대상으로 국경 간 결제와 기업 자금 운용 관련 통합 테스트를 진행할 예정임",
+        "expires": 1791713987.7148137
+      },
+      "1200c7d50cc1b936a2a3c308db0e8767f52ad2b6447ac3a1ac7ce9e194420129": {
+        "text": "{\"publish\":true,\"reason\":\"써클과 테레이나의 구체적인 결제 연동 계획 및 향후 고객사 대상 통합 테스트가 확인된다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791713990.522296
+      },
+      "159b5c7630371ebff320ee9877ba470fe57477c42481f489fcc63f1fbdd3842a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713992.8357084
+      },
+      "9371fd4388748a722788bd08ab8c98d2e1b1f7b03193ab735b42712ec3e5c13e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713993.5096233
+      },
+      "449bd949f8ec10863e0e786e168f59f1e6f3fe09af299d1fe835e07c57579396": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791713995.1727087
+      },
+      "c281640154494b7d10a12082ef5d85dec3d3d83473d86e84277629664e3d9788": {
+        "text": "{\"related_ids\":[\"76ab915a36fa6e47\"]}",
+        "expires": 1791713998.8470347
+      },
+      "76a560349b0647b5e51642fc0127ec880450e9141ae88d737f7595c856b6b87b": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"76ab915a36fa6e47\",\"reason\":\"같은 서클·테레이나의 SAP 내 USDC·EURC 결제 연동 사업이다. 기존 기록은 SAP Pay 출시와 지원 지역을, 후보는 송수취 기능 및 고객사 테스트 계획을 설명하며 별도 승인·출시 등 새 조치는 확인되지 않는다.\",\"new_fact\":\"\"}",
+        "expires": 1791714003.0308983
+      },
+      "7e01eef5fd038416e2748508b0cd7b61bbe212bc399a04c2c9e816effdc1893c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791714007.3073318
+      },
+      "6aa8ca732c1b1f7dfd20e5f7719f8f5d8a6fe776a9cc3a5fb3d7e1416e707557": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791714012.5086637
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7373,80 +7459,80 @@
       "2026-10-08": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 35,
-            "cache_hits": 87,
+            "api_calls": 38,
+            "cache_hits": 93,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 166717,
+            "input_tokens": 181113,
             "cached_input_tokens": 0,
-            "output_tokens": 5541,
-            "reasoning_tokens": 3487,
-            "estimated_usd": 0.0236075,
+            "output_tokens": 5881,
+            "reasoning_tokens": 3586,
+            "estimated_usd": 0.025576775,
             "unpriced_calls": 0,
-            "cache_write_tokens": 166612
+            "cache_write_tokens": 180999
           },
           "source_review": {
-            "api_calls": 37,
-            "cache_hits": 53,
+            "api_calls": 41,
+            "cache_hits": 55,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 155177,
+            "input_tokens": 171810,
             "cached_input_tokens": 0,
-            "output_tokens": 14386,
-            "reasoning_tokens": 10716,
-            "estimated_usd": 0.02658735,
+            "output_tokens": 15517,
+            "reasoning_tokens": 11498,
+            "estimated_usd": 0.029231675,
             "unpriced_calls": 0,
-            "cache_write_tokens": 155066
+            "cache_write_tokens": 171687
           },
           "event_search": {
-            "api_calls": 84,
-            "cache_hits": 36,
+            "api_calls": 100,
+            "cache_hits": 48,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 809857,
+            "input_tokens": 962058,
             "cached_input_tokens": 0,
-            "output_tokens": 5981,
-            "reasoning_tokens": 4996,
-            "estimated_usd": 0.104216325,
+            "output_tokens": 7238,
+            "reasoning_tokens": 6077,
+            "estimated_usd": 0.12386875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 809605
+            "cache_write_tokens": 961758
           },
           "event_decision": {
-            "api_calls": 8,
-            "cache_hits": 13,
+            "api_calls": 9,
+            "cache_hits": 15,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 5455,
+            "input_tokens": 6113,
             "cached_input_tokens": 0,
-            "output_tokens": 1674,
-            "reasoning_tokens": 920,
-            "estimated_usd": 0.0013825,
+            "output_tokens": 1947,
+            "reasoning_tokens": 1099,
+            "estimated_usd": 0.0015848,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 12,
-            "cache_hits": 7,
+            "api_calls": 15,
+            "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 26203,
+            "input_tokens": 34466,
             "cached_input_tokens": 0,
-            "output_tokens": 2731,
-            "reasoning_tokens": 1332,
-            "estimated_usd": 0.004639975,
+            "output_tokens": 3263,
+            "reasoning_tokens": 1519,
+            "estimated_usd": 0.005938625,
             "unpriced_calls": 0,
-            "cache_write_tokens": 26167
+            "cache_write_tokens": 34421
           },
           "summary_repair": {
-            "api_calls": 4,
+            "api_calls": 5,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 4471,
+            "input_tokens": 5130,
             "cached_input_tokens": 0,
-            "output_tokens": 928,
-            "reasoning_tokens": 578,
-            "estimated_usd": 0.001022575,
+            "output_tokens": 1156,
+            "reasoning_tokens": 728,
+            "estimated_usd": 0.001202475,
             "unpriced_calls": 0,
             "cache_write_tokens": 4459
           }
@@ -8513,6 +8599,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.03126545,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-08T10:01:06.440387+00:00",
+        "elapsed_seconds": 1146.451,
+        "status": "completed",
+        "api_calls": 28,
+        "cache_hits": 27,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.025946875,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -24979,6 +25077,10 @@
       "f7860e57ed22822774e96f385126c11516e1a572b3bfc6d33f7e2374ad25a6a9": {
         "summary": "스탠다드차타드가 싱가포르에서 기관투자자와 적격 기업 고객을 대상으로 암호화폐·스테이블코인·토큰화 실물연계자산(실물자산을 토큰으로 표시한 자산)을 보관·관리하는 수탁 서비스 출시를 추진한다. 규제 요건 충족이 전제이며 지원 자산과 출시 시점은 미정이다",
         "expires": 1792056894.3204489
+      },
+      "9726109fe86a7771b1ac02ad2c9757fa4125536c00de8c2b2386da1e33a39867": {
+        "summary": "코어인사이드와 디지털모션이 발행사의 규제 대상 토큰화 증권(토큰 형태로 만든 증권)을 이더리움·솔라나·아발란체·베이스 등 퍼블릭 블록체인에 배포하고 운영하도록 지원하는 파트너십을 맺었다",
+        "expires": 1792059563.3631601
       }
     }
   }
