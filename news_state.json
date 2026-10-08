@@ -3682,6 +3682,18 @@
         "text": "SKIP",
         "expires": 1791447932.3072681
       },
+      "bc1f077fc4872533590d0e7e34b04e75e6912e15f0cd441b205d4869bcabfeca": {
+        "text": "{\"publish\":false,\"reason\":\"604만 BTC 집계는 글래스노드의 5월 20일 연구 수치인데 요약에서 날짜가 빠져 최신 집계처럼 읽힐 수 있습니다. 공개키가 무엇인지 또는 공개키에서 개인키를 찾는 공격이 무엇인지 설명도 부족합니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791451676.4258616
+      },
+      "39ec3a14bdd37d55c0157072bdc0b34bc9e15f30fb6b9966f2423adb2448d9dc": {
+        "text": "{\"publish\":false,\"reason\":\"구체적인 토큰증권 협력 발표는 허용 범주지만, 요약에서 핵심 용어인 ‘토큰증권’을 쉽게 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791451684.3502097
+      },
+      "f8eefdc83ffca5e3cc37a99b290d71b797b4972cc948073a7023fb636aa53f3c": {
+        "text": "{\"publish\":false,\"reason\":\"사업 계획과 향후 수개월 내 통합 테스트라는 단계는 정확하지만, USDC·EURC가 스테이블코인이라는 핵심 용어를 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791451692.3770812
+      },
       "10861d570222aaa7606e8fb64c495c0aaacd4f6f5d9951e40776f73460f0e056": {
         "text": "케이뱅크가 업비트와의 실명확인 입출금계정 제휴를 1년 연장해 계약 만료일이 내년 10월 5일로 바뀌었으며, 업비트 원화거래용 계좌 서비스와 이용자 예치금 보관 업무를 계속 맡는다고 밝힘",
         "expires": 1791453790.8446782
@@ -4729,6 +4741,18 @@
       "9529023b1aa4760fd9faa434af23aa58b6f8145d4a82be49f902ec1389456ca4": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791685541.3836305
+      },
+      "a8ed2759f2b6cd32393f0bb013399353abdaaa009aad24462f8a8acf89a8d8b4": {
+        "text": "글래스노드는 비트코인 발행량의 30.2%인 604만 BTC가 공개키가 노출된 유형이라고 집계했으며, 충분히 강력한 양자컴퓨터가 등장하는 상황을 가정한 수치로 현재 공격 가능한 물량은 아니라고 밝힘\n\n오픈AI의 AI 수학 연구 결과도 블록체인 서명 체계가 깨졌다는 증거는 아니며, 실제 공격 성공 사례는 확인되지 않음",
+        "expires": 1791689268.2225022
+      },
+      "624aef2aa25825df154db112016efaf743a64481d0da72349c6b01d29ef1f36e": {
+        "text": "코어인사이드와 디지털 모션이 이더리움·솔라나·아발란체·베이스 등 퍼블릭 블록체인에 규제 대상 토큰증권을 발행할 수 있도록 지원하는 파트너십을 체결했다고 밝힘\n\n협력은 증권 규제 준수 인프라와 온체인 자산 배포·운영 기술을 결합함",
+        "expires": 1791689278.387704
+      },
+      "c5f99731d59ad8c0f2dae29c0f04671e8de01c6647cb46bffd1b1b83ca34cef2": {
+        "text": "써클과 SAP 지원 금융서비스 기업 테레이나가 SAP 재무 소프트웨어에서 USDC·EURC를 송금·수취하는 기능을 연동할 계획이라고 밝힘\n\n양사는 향후 수개월 내 고객사를 대상으로 국경 간 결제와 기업 자금 운용 분야의 통합 테스트를 진행할 예정임",
+        "expires": 1791689288.4833827
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -6889,34 +6913,34 @@
       "2026-10-08": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 7,
-            "cache_hits": 26,
+            "api_calls": 10,
+            "cache_hits": 35,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 32170,
+            "input_tokens": 45787,
             "cached_input_tokens": 0,
-            "output_tokens": 559,
-            "reasoning_tokens": 263,
-            "estimated_usd": 0.004300225,
+            "output_tokens": 1098,
+            "reasoning_tokens": 521,
+            "estimated_usd": 0.006271625,
             "unpriced_calls": 0,
-            "cache_write_tokens": 32149
+            "cache_write_tokens": 45757
           },
           "source_review": {
-            "api_calls": 9,
-            "cache_hits": 14,
+            "api_calls": 12,
+            "cache_hits": 20,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 36731,
+            "input_tokens": 48749,
             "cached_input_tokens": 0,
-            "output_tokens": 3542,
-            "reasoning_tokens": 2673,
-            "estimated_usd": 0.0063617,
+            "output_tokens": 4878,
+            "reasoning_tokens": 3700,
+            "estimated_usd": 0.008531725,
             "unpriced_calls": 0,
-            "cache_write_tokens": 36704
+            "cache_write_tokens": 48713
           },
           "event_search": {
             "api_calls": 10,
-            "cache_hits": 6,
+            "cache_hits": 10,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 95131,
@@ -6929,7 +6953,7 @@
           },
           "event_decision": {
             "api_calls": 2,
-            "cache_hits": 2,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 1363,
@@ -7919,6 +7943,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.002869025,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-08T03:01:14.593291+00:00",
+        "elapsed_seconds": 1624.472,
+        "status": "completed",
+        "api_calls": 6,
+        "cache_hits": 20,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.004141425,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
