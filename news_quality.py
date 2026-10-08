@@ -9,6 +9,13 @@ from urllib.parse import urlsplit
 # User-confirmed manual posts, not a live Telegram history integration.
 # Keep these out of the queue when an editorial rule becomes less restrictive.
 MANUALLY_POSTED_ARTICLES = frozenset({
+    ('bloomingbit.io', '/feed/news/121817'),
+    ('bloomingbit.io', '/feed/news/121797'),
+    ('bloomingbit.io', '/feed/news/121790'),
+    ('bloomingbit.io', '/feed/news/121830'),
+    ('crypto.news', '/wells-fargo-talks-with-kraken-parent-about-crypto-trading'),
+    ('crypto.news', '/hashkey-bitgo-add-eth-and-sol-staking-for-institutions'),
+    ('crypto.news', '/samsung-wallet-to-introduce-usdc-transfers-across-82-million-us-galaxy-devices'),
     ('timestabloid.com', '/confirmed-xrp-ledger-can-be-used-to-send-iso-20022-payments-for-banks'),
     ('bloomingbit.io', '/feed/news/121453'),
     ('cryptobriefing.com', '/bank-backed-allunity-launches-mica-compliant-us-dollar-stablecoin-usdau'),
@@ -447,6 +454,48 @@ def precise_event_tokens(story):
     return tokens
 
 
+FEEDBACK_SCOPE_ENABLED_AT = datetime(2026, 10, 8, 7, 45, tzinfo=timezone.utc)
+POLICY_STATEMENT_SCOPE = '정책 책임자의 디지털자산 입법·규제 입장'
+
+
+def feedback_scope_reason(story):
+    """Title establishes a specific policy speaker, business discussion or payment change."""
+    title = str(story.get('title', '') or '')
+    title = re.sub(r'\b[A-Za-z0-9]+\s*[/_-]\s*(?:USDT|USDC|RLUSD)\b', '', title, flags=re.I)
+    title = re.sub(r'(?:USDT|USDC|RLUSD|테더)\s*(?:마켓|거래쌍|페어)', '', title, flags=re.I)
+    has = lambda pattern: bool(re.search(pattern, title, re.I))
+    if has(r'목표가|가격\s*전망|가격\s*예측|루머|소문|매수\s*추천|'
+           r'\b(?:rumou?rs?|price prediction|price target|sponsored|presale)\b'):
+        return ''
+    crypto = r'crypto|digital[ -]?asset|암호화폐|가상자산|디지털\s*자산|스테이블코인|\b(?:stablecoins?|USDC|USDT|RLUSD)\b'
+    authority = (r'금융위원장|금융위\s*위원장|금융감독원장|재무장관|이억원|'
+                 r'(?:하원|상원).{0,15}(?:금융|은행).{0,10}위원장|'
+                 r'\b(?:SEC|CFTC)\b.{0,15}(?:위원장|chair)|'
+                 r'\b(?:House|Senate).{0,35}(?:chair|chairman)|'
+                 r'\b(?:French Hill|Mike Selig)\b')
+    policy = r'입법|규제|법안|기본법|증거금|위험관리|클래리티|\b(?:legislation|rules?|regulation|margin|CLARITY|risk management)\b'
+    if has(authority) and has(policy) and (has(crypto) or has(r'클래리티|\bCLARITY\b')):
+        return POLICY_STATEMENT_SCOPE
+    institution = r'은행|금융기관|웰스파고|크라켄|\b(?:banks?|Wells Fargo|Kraken|Payward|financial institution)\b'
+    business = r'거래|유동성|수탁|중개|\b(?:trading|liquidity|custody|brokerage)\b'
+    discussion = r'협력\s*논의|협의|협상|논의|\b(?:in talks|talks with|discuss\w*|negotiat\w*)\b'
+    if has(crypto) and has(institution) and has(business) and has(discussion):
+        return '금융기관 디지털자산 사업 협의'
+    stable = r'스테이블코인|\b(?:stablecoins?|USDC|USDT|RLUSD)\b'
+    payment = r'결제|송금|정산|월렛|지갑|\b(?:payments?|transfers?|remittances?|settlement|wallet)\b'
+    change = r'기술\s*검증\s*완료|실증\s*완료|도입|출시|개시|지원|\b(?:introduc\w*|launch\w*|roll\w* out|enabl\w*|support\w*)\b'
+    if has(stable) and has(payment) and has(change):
+        return '스테이블코인 송금·결제 도입 및 검증'
+    return ''
+
+
+def feedback_intake_reason(story):
+    scope = feedback_scope_reason(story)
+    if scope and channel_scope_reason(story) == scope:
+        return _scope_intake_reason(story, FEEDBACK_SCOPE_ENABLED_AT, scope)
+    return ''
+
+
 def channel_scope_reason(story):
     """Allow relevant policy/use cases without requiring a portfolio ticker.
 
@@ -480,7 +529,8 @@ def channel_scope_reason(story):
             or tax_reporting_scope_reason(title) or cbdc_scope_reason(title)
             or attributed_view_scope_reason(title) or market_access_scope_reason(story)
             or diplomatic_statement_scope_reason(story)
-            or institutional_research_scope_reason(story) or real_world_adoption_scope_reason(story))
+            or institutional_research_scope_reason(story) or real_world_adoption_scope_reason(story)
+            or feedback_scope_reason(story))
 
 
 def staking_queue_metric_reason(story):

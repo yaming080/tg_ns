@@ -217,6 +217,34 @@ def record_publication():
         store.published += 1
 
 
+def repair_memory(scope, result=None):
+    """Reserve one correction per source/model/policy, persisted before paid work.
+
+    None means no record. An empty summary means held/pending, never approved.
+    Seven days exceeds article freshness; a changed source has a new identity.
+    """
+    store = _STORE.get()
+    if store is None:
+        return None
+    records = store.data.setdefault('summary_repairs_v1', {})
+    now = store.clock()
+    records = {k: v for k, v in records.items() if isinstance(v, dict)
+               and isinstance(v.get('expires'), (int, float)) and v['expires'] > now
+               and isinstance(v.get('summary'), str)}
+    key = fingerprint(scope)
+    if result is not None:
+        records[key] = {'summary': result, 'expires': now + 7 * 86400}
+    store.data['summary_repairs_v1'] = dict(sorted(
+        records.items(), key=lambda pair: pair[1]['expires'])[-500:])
+    if result is not None:
+        store.persist()
+    return records.get(key)
+
+
+def has_review_store():
+    return _STORE.get() is not None
+
+
 @contextmanager
 def review_session(state, persist, logger=print):
     store = ReviewStore(state,persist,logger)
