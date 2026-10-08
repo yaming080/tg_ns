@@ -3395,6 +3395,24 @@
       "ts": "2026-10-07T15:16:44.218468+00:00",
       "summary": "팍소스가 10월 7일부터 자사 크립토 브로커리지에 #XRP 거래와 커스터디를 추가해, 제휴 금융기관이 #규제 인프라를 통해 XRP를 제공할 수 있게 했다고 밝힘",
       "source_pub": "Wed, 07 Oct 2026 14:49:58 +0000"
+    },
+    "4496f8cfc087f005": {
+      "title": "Polygon Open Money Stack adds TRON support for USDT payments and payouts",
+      "url": "crypto.news/polygon-open-money-stack-adds-tron-support-for-usdt-payments-and-payouts",
+      "signature": "action_integrate | action_support | asset_stablecoin | asset_usdt | entity_트론 | object_payment",
+      "canonical_key": "action_integrate | action_support | asset_stablecoin | asset_usdt | entity_트론 | object_payment",
+      "ts": "2026-10-08T05:33:13.282251+00:00",
+      "summary": "폴리곤이 Open Money Stack에 #트론 을 추가해 기업이 TRON 기반 #USDT 를 받고, 다른 블록체인으로 이체하거나 은행·카드·현금으로 지급할 수 있도록 지원한다고 밝힘\n\nTRC-20은 TRON 네트워크에서 사용하는 USDT 형식이며, 기업은 단일 연동으로 결제 서비스를 이용할 수 있음",
+      "source_pub": "Thu, 08 Oct 2026 04:49:59 +0000"
+    },
+    "e88c3b1fc30a89b3": {
+      "title": "Ripple takes aim at Wall Street with leveraged ETF financing",
+      "url": "www.cryptopolitan.com/ripple-takes-aim-at-wall-street",
+      "signature": "action_expand | action_invest | action_partner | entity_리플 | object_etf | object_leveraged_etf",
+      "canonical_key": "action_expand | action_invest | action_partner | entity_리플 | object_etf | object_leveraged_etf",
+      "ts": "2026-10-08T05:33:51.699089+00:00",
+      "summary": "#리플 이 브레번 하워드 펀드들에 리플 프라임을 통해 여러 자산군의 프라임 브로커리지(기관 대상 거래·청산·금융 서비스)를 제공하는 계약을 확대했다고 밝힘\n\n메리츠증권과는 국내 자본시장에서 수탁· #토큰화 기술 적용을 검토하는 전략적 협약을 맺었으며, 제품 출시 단계는 아님",
+      "source_pub": "Thu, 08 Oct 2026 04:25:11 +0000"
     }
   },
   "source_baselines": {
@@ -3562,14 +3580,6 @@
   },
   "ai_review": {
     "entries": {
-      "b164a6b7a944eb59eecbfacf177b4cbc98278ada2c69eb959bc75d156451d9ff": {
-        "text": "{\"publish\":false,\"reason\":\"제휴와 향후 통합 테스트 계획은 원문에 부합하지만, 일반 독자가 이해할 수 있도록 USDC·EURC가 각각 달러·유로 연동 스테이블코인이라는 설명이 요약에 필요합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791436388.2982044
-      },
-      "194c9e2ee83a3e28abdbe2627ddb3e9f50042401e7ae1f77c22c633113a504cc": {
-        "text": "{\"publish\": false, \"reason\": \"요약은 원문에 대체로 부합하지만, 핵심 용어인 ‘스왑 금융’이 무엇인지 설명하지 않아 일반 독자가 사업 내용을 이해하기 어렵습니다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
-        "expires": 1791436399.582145
-      },
       "b0f13411d381d451194436e0bcc95b0ebb613990275546da8d2adb07fc594cdc": {
         "text": "{\"publish\":false,\"reason\":\"새 통합 발표는 허용 범주지만, 결제업체의 별도 인허가·규제 의무가 사라지지 않는다는 핵심 단서가 빠졌고 ‘오픈 머니 스택’의 기능도 본문만으로 충분히 설명되지 않았습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791440714.5753531
@@ -3765,6 +3775,10 @@
       "757623d8bf4b6232dd77523582c9d5bb71fac1920cec997b6808d964442d50e3": {
         "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 체코 파트너스 방카가 비트코인 직접 매매 기능을 새로 추가한 것이다. 이미지에는 핵심 당사자인 Partners Banka의 로고와 건물 외관이 선명하게 나타나 있어 기사 주체와 직접 관련된 대표 이미지로 적절하다. 광고 배너, 텍스트 스크린샷, 가격 차트, 부수적 코인 로고 단독 이미지가 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
         "expires": 1791457646.6998143
+      },
+      "0278d4ebbef584459f90b9605b859d396fef4bd33e85d8aa348e98e34e4ac795": {
+        "text": "{\"publish\":false,\"reason\":\"협약의 구체적 수탁 대상은 HashKey Capital과 관련 펀드인데 요약은 기관 고객 전반으로 넓혔고, 스테이킹 접근 시점도 미정이다. ‘스테이킹’의 뜻도 설명되지 않았다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791459171.8825302
       },
       "e22499d893dcd9fc1c94debfa56ffac997189841c0c4a327a7de3106ec11379f": {
         "text": "드레이퍼 어소시에이츠가 비트코인 지갑 엑스버스에 투자해, 사용자 기기에서 개인키를 직접 보관하는 자기수탁 방식으로 비트코인 담보 USDC 대출과 스테이블코인 결제 등 온체인 금융 기능 확대를 지원한다고 밝힘",
@@ -4761,6 +4775,78 @@
       "186afce505871e460453e4ae931258d52152b191ab1faada9752c2c7adb66ccd": {
         "text": "{\"related_ids\":[\"76ab915a36fa6e47\"]}",
         "expires": 1791692990.0874856
+      },
+      "297e5fd5725233a8edb2e16aa1bea22a21cbbc4675763a2b7c50ef46f6a04517": {
+        "text": "HashKey Cloud와 BitGo가 10월 6일 싱가포르에서 협력을 확대해 기관 고객에게 ETH·SOL 스테이킹과 거래 지원, 수탁, 실물연계자산(RWA) 토큰화 서비스를 제공하기로 했으며, 이용은 허용된 지역의 적격 기관으로 제한됨",
+        "expires": 1791696765.0887165
+      },
+      "480248fa29f17f0ffe352e35b3e79ab467035e4a9d5e1984b9bfe17394c20341": {
+        "text": "폴리곤이 Open Money Stack에 TRON을 추가해 기업이 TRON 기반 USDT를 받고, 다른 블록체인으로 이체하거나 은행·카드·현금으로 지급할 수 있도록 지원한다고 밝힘\n\nTRC-20은 TRON 네트워크에서 사용하는 USDT 형식이며, 기업은 단일 연동으로 결제 서비스를 이용할 수 있음",
+        "expires": 1791696773.875148
+      },
+      "137346cac4efbee942f28af33e40398e098a5e6a3e199293baaf4345bf38eb91": {
+        "text": "{\"publish\":true,\"reason\":\"폴리곤이 Open Money Stack에 TRON 기반 TRC-20 USDT 결제 지원을 추가했다고 밝혔으며, 기업용 결제 인프라의 구체적인 신규 진행 상황이다. 요약은 주요 기능을 원문에 맞게 전달한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791696776.1723115
+      },
+      "a22202f9d8a2f887aee4d58b2cfa6c1838a57b20cc53ef32cecd7d4193584d4e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696779.8797247
+      },
+      "b53bcd8cecbbe39771cc4eb19f1f120c9e4c1b7cd71cc7a19172c6eacc10eed4": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696782.3708472
+      },
+      "efad9980a8f33411d181d5db443763506f3c85f8929db9095b971f8fe0897217": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696785.1662674
+      },
+      "e7fc5a8aa525a8ce8995bcadefa4a658b53ef25bbc8cbe1aa68f39d76609531c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696787.8020437
+      },
+      "44e8eb51c6bf4a5dc1cdf11b1008e5f62514760559c341c65373eee773fe846c": {
+        "text": "{\"approved\":true,\"reason\":\"이미지 중심에 폴리곤 로고가 선명하게 보이며, 기사에서 TRON 지원을 추가한 핵심 주체인 폴리곤과 직접 관련됩니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791696791.1908789
+      },
+      "b4a991e8a532b565c844a6cb661b0e9854b60fc28e7d41dae13cea910451eb15": {
+        "text": "리플이 브레번 하워드 펀드들에 리플 프라임을 통해 여러 자산군의 프라임 브로커리지(기관 대상 거래·청산·금융 서비스)를 제공하는 계약을 확대했다고 밝힘\n\n메리츠증권과는 국내 자본시장에서 수탁·토큰화 기술 적용을 검토하는 전략적 협약을 맺었으며, 제품 출시 단계는 아님",
+        "expires": 1791696800.2959816
+      },
+      "5d3dfd1925f6a96f2023f8429d8cb0638ba222ad9c3c1e701a17fd33dbf28b1c": {
+        "text": "{\"publish\":true,\"reason\":\"리플과 브레번 하워드의 구체적인 기관 서비스 계약 확대, 메리츠증권과의 기술 적용 검토 협약이라는 새 사업 소식을 원문에 맞게 요약했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791696805.6578963
+      },
+      "52c2e051e4901cc6fdf09d3728c78fb92df9c040b87d0daeaa79d7c9bf93a0c6": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696810.1322558
+      },
+      "33765997b37ee6aa8f051b90da93df60684d3836651dc94c93b4d33b087bba09": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696813.0405004
+      },
+      "1d9319034768f9c85450bcc0ce29ac8758deeedfc5547ec1b972217d26a1155b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696816.0751297
+      },
+      "f5b212ba8304acd547a2ce7bf9e0d9af3f5f75ac15499051f021de908f09eac8": {
+        "text": "{\"related_ids\":[\"bacc50fc5ad26818\"]}",
+        "expires": 1791696819.7858846
+      },
+      "d42a6429ba8430a39a85fb237170b1a6b0af04c0174149e08574060657b219e9": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"브레번하워드와의 프라임브로커리지 협력 확대는 기존 기록과 같은 사건이다. 하지만 후보에는 메리츠증권과 국내 수탁·토큰화 기술 적용을 검토하는 별도의 전략적 협약도 포함되어 있어 다른 상대방과 행동에 해당한다.\",\"new_fact\":\"메리츠증권과 국내 자본시장에서 수탁·토큰화 기술 적용을 검토하는 전략적 협약을 체결했다. 요약상 제품 출시 단계는 아니다.\"}",
+        "expires": 1791696824.9136748
+      },
+      "f19efe7be979a6411c32bac6734040fd0580c9b50e3afc8b141e5134bfd560c6": {
+        "text": "{\"approved\":true,\"reason\":\"리플이 기관 대상 프라임 브로커리지 계약을 확대했다는 기사에서 리플 로고가 이미지의 중심에 선명하게 보인다. 배경의 XRP 코인 이미지도 리플과 직접 연관된 대상이며, 범용 암호화폐 삽화가 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791696829.9443433
+      },
+      "6e98ca6200228145dc1e58ddfbde0c6586f20d81d1807afaea88d733bced492b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696839.0048714
+      },
+      "d39d717ceba0382ddeb1255e1920a8cfef3101c1ae499860933d2034a80d3cd2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791696842.4682016
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -6921,56 +7007,69 @@
       "2026-10-08": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 12,
-            "cache_hits": 45,
+            "api_calls": 15,
+            "cache_hits": 57,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 55332,
+            "input_tokens": 70101,
             "cached_input_tokens": 0,
-            "output_tokens": 1549,
-            "reasoning_tokens": 811,
-            "estimated_usd": 0.0076901,
+            "output_tokens": 2230,
+            "reasoning_tokens": 1228,
+            "estimated_usd": 0.0098765,
             "unpriced_calls": 0,
-            "cache_write_tokens": 55296
+            "cache_write_tokens": 70056
           },
           "source_review": {
-            "api_calls": 14,
-            "cache_hits": 27,
+            "api_calls": 17,
+            "cache_hits": 36,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 57200,
+            "input_tokens": 70351,
             "cached_input_tokens": 0,
-            "output_tokens": 5719,
-            "reasoning_tokens": 4329,
-            "estimated_usd": 0.01000845,
+            "output_tokens": 6646,
+            "reasoning_tokens": 4945,
+            "estimated_usd": 0.0121156,
             "unpriced_calls": 0,
-            "cache_write_tokens": 57158
+            "cache_write_tokens": 70300
           },
           "event_search": {
-            "api_calls": 12,
-            "cache_hits": 16,
+            "api_calls": 22,
+            "cache_hits": 18,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 113230,
+            "input_tokens": 210816,
             "cached_input_tokens": 0,
-            "output_tokens": 897,
-            "reasoning_tokens": 733,
-            "estimated_usd": 0.01460135,
+            "output_tokens": 2190,
+            "reasoning_tokens": 1909,
+            "estimated_usd": 0.02744535,
             "unpriced_calls": 0,
-            "cache_write_tokens": 113194
+            "cache_write_tokens": 210750
           },
           "event_decision": {
-            "api_calls": 2,
-            "cache_hits": 5,
+            "api_calls": 3,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1363,
+            "input_tokens": 2019,
             "cached_input_tokens": 0,
-            "output_tokens": 458,
-            "reasoning_tokens": 271,
-            "estimated_usd": 0.0003653,
+            "output_tokens": 843,
+            "reasoning_tokens": 528,
+            "estimated_usd": 0.0006234,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
+          },
+          "image_review": {
+            "api_calls": 2,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 4037,
+            "cached_input_tokens": 0,
+            "output_tokens": 382,
+            "reasoning_tokens": 153,
+            "estimated_usd": 0.000695475,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 4031
           }
         }
       }
@@ -7975,6 +8074,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.005236925,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-08T05:01:16.204798+00:00",
+        "elapsed_seconds": 1969.204,
+        "status": "completed",
+        "api_calls": 19,
+        "cache_hits": 24,
+        "errors": 0,
+        "published": 2,
+        "estimated_usd": 0.018091125,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
