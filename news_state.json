@@ -1,26 +1,5 @@
 {
   "posted": {
-    "e70bb6ba69fa6037": {
-      "title": "Liquid Gets 3,400 BTC Back – but What About the 598 Bitcoin Still Missing?",
-      "url": "cryptopotato.com/liquid-gets-3400-btc-back-but-what-about-the-598-bitcoin-still-missing",
-      "signature": "action_support | amount_btc_3400 | amount_btc_598 | amount_btc_600 | amount_btc_approx_3400 | amount_btc_approx_600 | asset_btc | object_network",
-      "canonical_key": "action_support | amount_btc_3400 | amount_btc_598 | amount_btc_600 | amount_btc_approx_3400 | amount_btc_approx_600 | asset_btc | object_network",
-      "ts": "2026-09-08T08:01:40.395203+00:00"
-    },
-    "c8cde91b370323e8": {
-      "title": "British man recovers £3.3M in Bitcoin lost for over a decade",
-      "url": "crypto.news/british-man-recovers-3-3m-in-bitcoin-lost-for-over-a-decade",
-      "signature": "",
-      "canonical_key": "",
-      "ts": "2026-09-08T08:01:44.058728+00:00"
-    },
-    "54bf6f97653136fe": {
-      "title": "XRP reaches Kansas fans after dominant football win",
-      "url": "crypto.news/xrp-reaches-kansas-fans-after-dominant-football-win",
-      "signature": "action_partner | action_secure | asset_xrp | entity_리플",
-      "canonical_key": "action_partner | action_secure | asset_xrp | entity_리플",
-      "ts": "2026-09-08T08:01:47.243580+00:00"
-    },
     "80fbc02752d2e39a": {
       "title": "HashKey Cloud joins Stacks Bitcoin staking launch",
       "url": "crypto.news/hashkey-cloud-joins-stacks-bitcoin-staking-launch",
@@ -3415,6 +3394,15 @@
       "ts": "2026-10-08T07:21:13.598717+00:00",
       "summary": "Oneiro가 #이더리움 레이어2 프로젝트 Revolution Network의 V2를 공개했으며, 거래 묶음의 유효성을 증명하는 영지식 증명과 이더리움 데이터 게시를 적용할 계획이라고 밝힘\n\nREVO 배분량은 2억5000만개로 유지하고 배출 기준은 블록 생성량에서 시간으로 바꾸며, 공개 테스트넷은 준비 단계라고 설명함",
       "source_pub": "Thu, 08 Oct 2026 07:00:49 +0000"
+    },
+    "623d7c3b2c3a0803": {
+      "title": "스탠다드차타드, 싱가포르서 기관 대상 디지털자산 수탁 서비스 출시 추진",
+      "url": "bloomingbit.io/feed/news/121836",
+      "signature": "action_launch | entity_스탠다드차타드 | object_custody",
+      "canonical_key": "action_launch | entity_스탠다드차타드 | object_custody",
+      "ts": "2026-10-08T09:35:13.399484+00:00",
+      "summary": "#스탠다드차타드 가 #싱가포르 에서 기관투자자와 적격 기업 고객을 대상으로 암호화폐· #스테이블코인 · #토큰화 실물연계자산(실물자산을 #토큰 으로 표시한 자산)을 보관·관리하는 #수탁 서비스 출시를 추진한다. #규제 요건 충족이 전제이며 지원 자산과 출시 시점은 미정이다",
+      "source_pub": "Thu, 08 Oct 2026 01:13:51 -0700"
     }
   },
   "source_baselines": {
@@ -3582,22 +3570,6 @@
   },
   "ai_review": {
     "entries": {
-      "0066f047def8e40a1df2e8bc5fd1e6a45789d65d1b7d737f363fa602c31eee25": {
-        "text": "SKIP",
-        "expires": 1791447932.3072681
-      },
-      "bc1f077fc4872533590d0e7e34b04e75e6912e15f0cd441b205d4869bcabfeca": {
-        "text": "{\"publish\":false,\"reason\":\"604만 BTC 집계는 글래스노드의 5월 20일 연구 수치인데 요약에서 날짜가 빠져 최신 집계처럼 읽힐 수 있습니다. 공개키가 무엇인지 또는 공개키에서 개인키를 찾는 공격이 무엇인지 설명도 부족합니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791451676.4258616
-      },
-      "39ec3a14bdd37d55c0157072bdc0b34bc9e15f30fb6b9966f2423adb2448d9dc": {
-        "text": "{\"publish\":false,\"reason\":\"구체적인 토큰증권 협력 발표는 허용 범주지만, 요약에서 핵심 용어인 ‘토큰증권’을 쉽게 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791451684.3502097
-      },
-      "f8eefdc83ffca5e3cc37a99b290d71b797b4972cc948073a7023fb636aa53f3c": {
-        "text": "{\"publish\":false,\"reason\":\"사업 계획과 향후 수개월 내 통합 테스트라는 단계는 정확하지만, USDC·EURC가 스테이블코인이라는 핵심 용어를 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791451692.3770812
-      },
       "10861d570222aaa7606e8fb64c495c0aaacd4f6f5d9951e40776f73460f0e056": {
         "text": "케이뱅크가 업비트와의 실명확인 입출금계정 제휴를 1년 연장해 계약 만료일이 내년 10월 5일로 바뀌었으며, 업비트 원화거래용 계좌 서비스와 이용자 예치금 보관 업무를 계속 맡는다고 밝힘",
         "expires": 1791453790.8446782
@@ -3945,6 +3917,14 @@
       "0a0a17173f47fffddd5bfca229eab50e7c91013908ea373567c2c85526998b98": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791472141.8886626
+      },
+      "717c89c9988d08e862cbcbc3a31baf90c5c0833631336805520fed5913dcd441": {
+        "text": "{\"publish\":false,\"reason\":\"기관 대상 수탁 서비스 계획과 규제·자산 범위 조건은 대체로 보존했지만, ‘수탁’과 ‘토큰화 실물자산’의 뜻을 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791473686.8991401
+      },
+      "4db2b6fb9502202820805ca541c1f178dc0481a2915da46ecbd3befc746d5b0b": {
+        "text": "{\"publish\":false,\"reason\":\"제휴와 향후 테스트 계획은 구체적으로 보도됐지만, ‘7일’만 적혀 있어 보도 시점이 확인되지 않는다. 요약도 USDC·EURC가 달러·유로 연동 스테이블코인이라는 설명을 생략했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":false}}",
+        "expires": 1791473747.7438712
       },
       "18889d6cd0b24495b56aa2185ad7b5b747636ffd0689688ea3d63effcf7179ab": {
         "text": "미국 CFTC가 가상자산 시장 대상 첫 규제안을 제안한다고 밝혔으며, 가상자산과 다른 상품의 차이를 반영한 규칙을 마련할 방침이라고 설명함",
@@ -5125,6 +5105,114 @@
       "7da33cc4470bd632b9867159e09ecd65cf2418d0316bd3b56ae25f8236320156": {
         "text": "{\"decision\":\"supplement\",\"matched_id\":\"ec0eacd62913800d\",\"reason\":\"둘 다 카르다노 메인넷의 CIP-0113 적용이라는 같은 출시 사건이다. 후보는 규칙이 CIP-0113으로 발행한 자산에만 적용되고 통제 내용은 발행사가 정한다는 조건을 덧붙인다.\",\"new_fact\":\"\"}",
         "expires": 1791706849.3670099
+      },
+      "e8c90373ccbd10d6cb72d98070b5606eeed7499b3e874e39f57e5f1e55b9247e": {
+        "text": "스탠다드차타드가 싱가포르에서 기관투자자와 적격 기업 고객을 대상으로 가상자산·스테이블코인·토큰화 실물자산 수탁 서비스 출시를 추진한다고 밝힘\n\n서비스는 규제 요건 충족을 전제로 하며, 지원 자산과 출시 시점은 공개되지 않음",
+        "expires": 1791711279.9957395
+      },
+      "397b224b34a9dc10269d8663be128e6bd1b559869a91e75ddacc1a173b82df0b": {
+        "text": "스탠다드차타드가 싱가포르에서 기관투자자와 적격 기업 고객을 대상으로 암호화폐·스테이블코인·토큰화 실물연계자산(실물자산을 토큰으로 표시한 자산)을 보관·관리하는 수탁 서비스 출시를 추진한다. 규제 요건 충족이 전제이며 지원 자산과 출시 시점은 미정이다.",
+        "expires": 1791711290.1511583
+      },
+      "579878ae2c7b297f8e6c16525bab8e28b996b18d66953e718d99a37663c17352": {
+        "text": "{\"publish\":true,\"reason\":\"스탠다드차타드가 싱가포르에서 기관투자자와 적격 기업 고객을 대상으로 수탁 서비스를 제공할 계획이라는 새 사업 발표다. 규제 요건 충족과 지원 자산·출시 시점 미정을 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791711294.2983394
+      },
+      "208ad3e491287eb27b0cb42d8f1a2de18891453c891a405b9ecaa8c679901362": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711297.2922084
+      },
+      "a679732b8dad36a5815144629477af048bb6a0b154b82bfba832cfc907e613f4": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711299.8763635
+      },
+      "cfbc01ad386b9c0f800034c451894bafbaaf3c180d026c00db777a461edc34dd": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711303.3014066
+      },
+      "44403fc9e7bce4126b1add589cc1d6c0c6746cdbf32f204bfe3e8523155debc6": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711306.4452963
+      },
+      "d1d2a0bdc2d7dbf73d45b31aa8299455b6c083e89a3945885ebc6fcb253b2596": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 주체인 스탠다드차타드의 공식 로고가 선명하게 중심에 있어, 기관 대상 디지털자산 수탁 서비스 추진 주체와 직접 관련됩니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791711311.0958557
+      },
+      "7647d81d67fbc568672c670e7d4add057f8be1c29bc01568f008f3c0bd109d28": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711315.3658037
+      },
+      "4ad49fec8a434d0eddfe2fc51b1215f63c1fb426381d3a362cdedd2060014ec8": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711317.4074337
+      },
+      "b688d65c9b320627194c591a431bc4abd7fb7b217f4bb40b1e83cb622a84565a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711319.4135163
+      },
+      "35ffe7bca4a9eff605a9bae1207213da7c275eb92b4922ba9b75a59f86159c07": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711323.9320872
+      },
+      "8f80aadbae373189e55ad053dba1d3614d73653eb1f909d803b511ece77dbf81": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711325.943581
+      },
+      "9166775b77742b93d08cf31ee403187b72cc81689a507a348388517dc23e9dd0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711328.3654418
+      },
+      "ba56af39c0d64a6719ca08e65aabfc660cde3d443ba194ac4a83d46b189050ed": {
+        "text": "{\"related_ids\":[\"46d57f51b2e012e7\"]}",
+        "expires": 1791711333.7030096
+      },
+      "3bbc9dc317a52e82805e71b2387beb95f61b233338933a6bf22363674b2a9e5a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711336.35736
+      },
+      "fb9b7a9845412b96f94897d48dde4193a633375a6c9335361b48f2f4d4a6e47b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711337.618312
+      },
+      "99a03b710b54244c34664ad0dd161019f6af7a8f9f026b5da2aa4820dcae8d4b": {
+        "text": "써클과 SAP 지원 금융사 테레이나가 SAP 재무 소프트웨어에서 USDC·EURC를 송금·수취하는 결제 기능을 연동할 계획이라고 밝힘\n\n양사는 향후 수개월 내 고객사를 대상으로 국경 간 결제와 기업 자금 운용 관련 통합 테스트를 진행할 예정임",
+        "expires": 1791711340.4781148
+      },
+      "d9594e36e48a1b5f12920eb45ee4eae9461794f9fbf05eed2158ffa10fb31cb2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711352.784356
+      },
+      "19f10ef9181c9ce73231e349577805922ce8fe334fc3d36672dcf7ca4988d683": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711355.2963774
+      },
+      "4856b2cb1c2536c9ea132282b599b1342db9e85b6a5a0271af863901437e2136": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711358.6478922
+      },
+      "ae58a89e00ae328b71b44713fb0bf5299ce1626886c073e1e0cf35e0fa669484": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711362.7332287
+      },
+      "7b2b478567550d74731ec121807ff5ea80be0135141a31ae490f21b47e730569": {
+        "text": "{\"related_ids\":[\"107e03a410f05529\"]}",
+        "expires": 1791711364.4020114
+      },
+      "cd6f8693af014ad1ee597902a1c3e3038168f18bd99149cfe43c52b48fe79f07": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711366.8673036
+      },
+      "5e2e83298d6658b091e41bf888dc2abaf60ba5d002a7acba896b3b3d0590e43e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711371.0807347
+      },
+      "03acb064d3fdab0c54b2b0565f020d280bd6ee990955826f5d8b56d0a71f3a40": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711373.2404468
+      },
+      "addd155318559335c3176cea29b3be47c7d02d6cee839749c023933b9dbbcecb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791711375.2411284
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7285,47 +7373,47 @@
       "2026-10-08": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 33,
-            "cache_hits": 79,
+            "api_calls": 35,
+            "cache_hits": 87,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 156890,
+            "input_tokens": 166717,
             "cached_input_tokens": 0,
-            "output_tokens": 5381,
+            "output_tokens": 5541,
             "reasoning_tokens": 3487,
-            "estimated_usd": 0.022299275,
+            "estimated_usd": 0.0236075,
             "unpriced_calls": 0,
-            "cache_write_tokens": 156791
+            "cache_write_tokens": 166612
           },
           "source_review": {
-            "api_calls": 34,
-            "cache_hits": 49,
+            "api_calls": 37,
+            "cache_hits": 53,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 142111,
+            "input_tokens": 155177,
             "cached_input_tokens": 0,
-            "output_tokens": 13107,
-            "reasoning_tokens": 9765,
-            "estimated_usd": 0.024314825,
+            "output_tokens": 14386,
+            "reasoning_tokens": 10716,
+            "estimated_usd": 0.02658735,
             "unpriced_calls": 0,
-            "cache_write_tokens": 142009
+            "cache_write_tokens": 155066
           },
           "event_search": {
-            "api_calls": 62,
-            "cache_hits": 30,
+            "api_calls": 84,
+            "cache_hits": 36,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 601257,
+            "input_tokens": 809857,
             "cached_input_tokens": 0,
-            "output_tokens": 4318,
-            "reasoning_tokens": 3586,
-            "estimated_usd": 0.077311475,
+            "output_tokens": 5981,
+            "reasoning_tokens": 4996,
+            "estimated_usd": 0.104216325,
             "unpriced_calls": 0,
-            "cache_write_tokens": 601071
+            "cache_write_tokens": 809605
           },
           "event_decision": {
             "api_calls": 8,
-            "cache_hits": 10,
+            "cache_hits": 13,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 5455,
@@ -7337,30 +7425,30 @@
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 11,
-            "cache_hits": 0,
+            "api_calls": 12,
+            "cache_hits": 7,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 22456,
+            "input_tokens": 26203,
             "cached_input_tokens": 0,
-            "output_tokens": 2626,
+            "output_tokens": 2731,
             "reasoning_tokens": 1332,
-            "estimated_usd": 0.004119175,
+            "estimated_usd": 0.004639975,
             "unpriced_calls": 0,
-            "cache_write_tokens": 22423
+            "cache_write_tokens": 26167
           },
           "summary_repair": {
-            "api_calls": 3,
+            "api_calls": 4,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 3350,
+            "input_tokens": 4471,
             "cached_input_tokens": 0,
-            "output_tokens": 690,
-            "reasoning_tokens": 441,
-            "estimated_usd": 0.000763525,
+            "output_tokens": 928,
+            "reasoning_tokens": 578,
+            "estimated_usd": 0.001022575,
             "unpriced_calls": 0,
-            "cache_write_tokens": 3341
+            "cache_write_tokens": 4459
           }
         }
       }
@@ -8413,6 +8501,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.05537855,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-08T09:01:15.570585+00:00",
+        "elapsed_seconds": 2099.938,
+        "status": "completed",
+        "api_calls": 29,
+        "cache_hits": 28,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.03126545,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -24875,6 +24975,10 @@
       "41880af865b8072845e7dfa58d8092bb5210d9c0322bed1b0791c89066087b40": {
         "summary": "카르다노 재단이 프로그래머블 토큰 표준 CIP-0113을 카르다노 실제 운영망에 출시해, 발행사가 고객확인·자금 세탁방지 절차와 이전 제한 등을 토큰에 설정할 수 있다고 밝힘. 규칙은 CIP-0113으로 발행한 자산에만 적용되며, 통제 내용은 발행사가 정함",
         "expires": 1792052439.1568313
+      },
+      "f7860e57ed22822774e96f385126c11516e1a572b3bfc6d33f7e2374ad25a6a9": {
+        "summary": "스탠다드차타드가 싱가포르에서 기관투자자와 적격 기업 고객을 대상으로 암호화폐·스테이블코인·토큰화 실물연계자산(실물자산을 토큰으로 표시한 자산)을 보관·관리하는 수탁 서비스 출시를 추진한다. 규제 요건 충족이 전제이며 지원 자산과 출시 시점은 미정이다",
+        "expires": 1792056894.3204489
       }
     }
   }
