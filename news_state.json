@@ -1,12 +1,5 @@
 {
   "posted": {
-    "7099f3f5e546d32d": {
-      "title": "Tether Freezes $39M in USDT, Stablecoin’s Centralized Control Exposed",
-      "url": "coinedition.com/tether-freezes-39m-in-usdt-stablecoins-centralized-control-exposed",
-      "signature": "action_develop | amount_usd_10000000 | amount_usd_39000000 | amount_usd_39300000 | asset_stablecoin | asset_usdt | entity_스테이블코인 | entity_테더 | object_wallet",
-      "canonical_key": "action_develop | amount_usd_10000000 | amount_usd_39000000 | amount_usd_39300000 | asset_stablecoin | asset_usdt | entity_스테이블코인 | entity_테더 | object_wallet",
-      "ts": "2026-09-09T14:01:37.788342+00:00"
-    },
     "f91f3a6b196b5112": {
       "title": "비트코인 양자보안 논의 본격화…자산 이전도 검토",
       "url": "www.tokenpost.kr/news/blockchain/405346",
@@ -3364,6 +3357,18 @@
         "text": "{\"publish\":false,\"reason\":\"원문은 2025년 6월 15일자라 DTCC의 ‘이달 상용 출시 예정’은 과거 시점의 일정입니다. 이를 현재 진행 중인 일정처럼 요약했고, 새 소식인지 확인되지 않습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1791572902.4724808
       },
+      "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
+        "text": "SKIP",
+        "expires": 1791580071.3819087
+      },
+      "cd4d9a75e3605f981d85eddcafae01eadc0f46ac2ce31e5d7049d9607507f3ab": {
+        "text": "{\"publish\":false,\"reason\":\"권한 위임 기능의 메인넷 활성화는 요약했지만, 별도 수정안 전 PaymentBurn 권한을 위임하면 특정 상황에서 대체 토큰을 발행할 수 있다는 위험과 수정안의 예상 시점(10월 23일)을 누락했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791580080.6414328
+      },
+      "3388ac4be7fd05c531fda215aaf5a8550f07d06247c3b2d8d1bbb5450113379a": {
+        "text": "{\"publish\":false,\"reason\":\"요약에서 PaymentBurn 권한으로 특정 상황에 새 대체가능 토큰을 발행할 수 있다는 위험을 ‘대체 토큰이 발행될 수 있다’고 부정확하게 표현했고, 10월 23일 수정안 활성화도 ‘예상’이라는 불확실성을 충분히 보존하지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791580090.5226748
+      },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
         "expires": 1791657117.9457552
@@ -5363,6 +5368,14 @@
       "3803b74468dba9b14d5b7525d1e0defed564529a6febae9f4e3023079ef7f03d": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791814360.7790515
+      },
+      "7097586b10f51ea106a9dce7743fa8d7c68ba0f28a0647a1d088071fc9372d73": {
+        "text": "XRP 레저가 10월 8일 메인넷에 권한 위임 기능을 활성화해 은행과 스테이블코인 발행사가 계정 키를 공유하지 않고 다른 계정에 고객 승인·결제 등 최대 10개 권한을 맡길 수 있게 됨. PaymentBurn 권한은 별도 수정안이 활성화될 때까지 위임하지 말라고 안내함",
+        "expires": 1791817674.9804292
+      },
+      "46d13cc3b13827303372c545fe691b3bd2ea44d620bcf6896e39d3b68c6e609b": {
+        "text": "엑스알피 레저가 10월 8일 메인넷에 권한 위임 기능을 활성화해 은행과 스테이블코인 발행사가 키를 공유하지 않고 다른 계정에 고객 승인·결제 등 최대 10개 권한을 맡길 수 있게 됨. 별도 수정안이 활성화될 때까지 PaymentBurn 위임은 금지해야 하며, 그 전에는 특정 상황에서 대체 토큰이 발행될 수 있음. 수정안은 10월 23일 활성화될 예정임.",
+        "expires": 1791817684.087039
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7605,30 +7618,30 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 14,
-            "cache_hits": 47,
+            "api_calls": 16,
+            "cache_hits": 49,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 69310,
+            "input_tokens": 78861,
             "cached_input_tokens": 0,
-            "output_tokens": 2722,
-            "reasoning_tokens": 2027,
-            "estimated_usd": 0.0100237,
+            "output_tokens": 2863,
+            "reasoning_tokens": 2068,
+            "estimated_usd": 0.011287925,
             "unpriced_calls": 0,
-            "cache_write_tokens": 69268
+            "cache_write_tokens": 78813
           },
           "source_review": {
-            "api_calls": 13,
-            "cache_hits": 24,
+            "api_calls": 15,
+            "cache_hits": 25,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 57848,
+            "input_tokens": 67111,
             "cached_input_tokens": 0,
-            "output_tokens": 5199,
-            "reasoning_tokens": 3911,
-            "estimated_usd": 0.009829525,
+            "output_tokens": 5987,
+            "reasoning_tokens": 4462,
+            "estimated_usd": 0.01138125,
             "unpriced_calls": 0,
-            "cache_write_tokens": 57809
+            "cache_write_tokens": 67066
           },
           "event_search": {
             "api_calls": 57,
@@ -7670,17 +7683,17 @@
             "cache_write_tokens": 19598
           },
           "summary_repair": {
-            "api_calls": 2,
+            "api_calls": 3,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 2498,
+            "input_tokens": 3925,
             "cached_input_tokens": 0,
-            "output_tokens": 419,
-            "reasoning_tokens": 234,
-            "estimated_usd": 0.0005216,
+            "output_tokens": 631,
+            "reasoning_tokens": 320,
+            "estimated_usd": 0.0008059,
             "unpriced_calls": 0,
-            "cache_write_tokens": 2492
+            "cache_write_tokens": 3916
           }
         }
       }
@@ -9093,6 +9106,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.001139175,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T15:01:08.436354+00:00",
+        "elapsed_seconds": 426.381,
+        "status": "completed",
+        "api_calls": 5,
+        "cache_hits": 3,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00310025,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -25635,6 +25660,10 @@
       "8dd6f63c56fd592766da82a5801863bb406f3c0d077433b140c6de5ff891031d": {
         "summary": "태국 증권거래위원회가 암호화폐 ETF 규정을 확정했으며, 규정은 10월 16일부터 시행된다. ETF는 태국증권거래소에만 상장되고 초기 대상은 BTC와 ETH다. 단일 자산을 추종하며 회계연도 중 평균 순노출액이 순자산가치의 80% 이상이어야 한다",
         "expires": 1792128451.7372134
+      },
+      "13ac6d9f771b2755b49264cec3d0a11597b30f12349918d0c45cbdeb625e7ca1": {
+        "summary": "",
+        "expires": 1792163280.6606228
       }
     }
   }
