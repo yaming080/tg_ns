@@ -1,12 +1,5 @@
 {
   "posted": {
-    "58c5048a9c0913af": {
-      "title": "Block applies for national trust bank charter to custody bitcoin and stablecoins",
-      "url": "www.cryptopolitan.com/jack-dorseys-block-seeks-occ-charter-for-bitcoin-and-stablecoin-custody",
-      "signature": "action_approve | asset_btc | entity_block | entity_occ | object_custody | object_payment",
-      "canonical_key": "action_approve | asset_btc | entity_block | entity_occ | object_custody | object_payment",
-      "ts": "2026-09-09T04:01:56.555968+00:00"
-    },
     "5912de7c5614c1a1": {
       "title": "Jack Dorsey’s Block files OCC application for Bitcoin and stablecoin custody bank",
       "url": "crypto.news/jack-dorseys-block-files-occ-application-for-bitcoin-and-stablecoin-custody-bank",
@@ -3269,6 +3262,15 @@
       "ts": "2026-10-09T04:11:57.735437+00:00",
       "summary": "애니모카브랜즈와 #프랭클린템플턴 이 애니모카브랜즈·누바랩스가 구축한 금고형 마켓플레이스 #누바 에서 기관의 #토큰화 실물자산 접근을 확대하기로 협력함. 문화자산 토큰화도 검토하지만 구체적인 추가 자산과 일정은 공개하지 않음",
       "source_pub": "Fri, 09 Oct 2026 00:51:37 +0000"
+    },
+    "f4ec81457f1a4ab5": {
+      "title": "Thailand’s SEC finalizes Bitcoin, Ether ETF rules with launch set for Oct. 16",
+      "url": "cryptobriefing.com/thailand-sec-finalizes-bitcoin-ether-etf-rules",
+      "signature": "action_launch | asset_btc | entity_sec | object_etf",
+      "canonical_key": "action_launch | asset_btc | entity_sec | object_etf",
+      "ts": "2026-10-09T05:27:41.777046+00:00",
+      "summary": "태국 증권거래위원회가 암호화폐 #ETF 규정을 확정했으며, 규정은 10월 16일부터 시행된다. ETF는 태국증권거래소에만 상장되고 초기 대상은 BTC와 #이더리움 다. 단일 자산을 추종하며 회계연도 중 평균 순노출액이 순자산가치의 80% 이상이어야 한다",
+      "source_pub": "Fri, 09 Oct 2026 03:22:35 +0000"
     }
   },
   "source_baselines": {
@@ -3436,110 +3438,6 @@
   },
   "ai_review": {
     "entries": {
-      "c2d6bdeca104e754d97a2b79c91b9fcf69b5b3870e8d5e661b1cade203d157c1": {
-        "text": "비탈릭 부테린이 AI 에이전트가 이용자를 대신해 온체인 거래를 처리하는 새 UI, 즉 사용자 인터페이스가 될 수 있다고 말했으며 AI 자체 보안과 명령 해석은 과제로 남는다고 밝힘",
-        "expires": 1791519217.5356297
-      },
-      "0f7026c52b11a90fcca75ace6df7cb8534f7bec7550e3f2a762fd42f431a80ea": {
-        "text": "미국 재무부 산하 FinCEN이 2023년 가상자산 믹싱 거래 보고 의무 강화 규제안과 2020년 비수탁형 지갑 규제안을 철회했다고 밝힘\n\n두 안건은 최종 시행되지 않았으며 비수탁형 지갑은 이용자가 개인키를 직접 관리하는 지갑으로, 현재 금융기관 의무는 변함없다고 설명함",
-        "expires": 1791519224.8833642
-      },
-      "eda012cb858b8f37aa09226ffa060cdebaf3fc364c88eb2c89216a940f1445da": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, FinCEN의 두 규제안 철회와 현재 의무 변화 없음이라는 새 사실을 정확히 전달한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791519226.7199876
-      },
-      "8771e9e03b1aa24ad7d240754b8a6b2fd192fba44bd2a816f083a6011615a33e": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791519228.7968035
-      },
-      "6ec7d6ba151cb72fb1cf850049116d3d8d9814387c1871f0ff259c782af4f224": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791519230.1926675
-      },
-      "e310020ab53a67e4277440313df0f1f4f9dffaddf4eed931fa3acd1eb54f6763": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791519231.2100768
-      },
-      "30e15bf27b41762ed85080bf5dec8b15d422fba9dd1f0c59191405c9a3bcdf01": {
-        "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
-        "expires": 1791519232.3416388
-      },
-      "e89a4786668e349779ef007ab139ac85678a6bce7c5431f2ae348b7499137461": {
-        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"b044864ba1f8b300\",\"reason\":\"같은 주체(FinCEN), 같은 대상 사업/규제안(암호화폐 믹싱 거래 보고 의무 강화안과 비수탁형/자기보관 지갑 규제안), 같은 행동(규제안 철회), 같은 시점의 발표를 보도한 것이다. 후보 기사의 '최종 시행되지 않았음'과 '현재 금융기관 의무는 변함없음'은 기존 사건에 대한 설명 보충일 뿐 새로운 승인·시행·개정 등 별도 조치가 아니다.\",\"new_fact\":\"\"}",
-        "expires": 1791519235.3922462
-      },
-      "d0c52842355c5df53df5842019a59ac0781eb6b71ce890aeddde4927134b57f0": {
-        "text": "미국 CFTC가 가상자산 시장 대상 첫 규제안을 제안한다고 밝혔으며, CFTC는 미국 상품선물거래위원회라고 설명함\n\n마이클 셀릭 CFTC 위원장은 가상자산과 다른 상품의 차이를 반영한 규칙을 마련할 방침이라고 밝힘",
-        "expires": 1791519241.342278
-      },
-      "26752ee4d499ca26872a556336dad09ce43a7c9be5ca32b88c8c23c6cf60a0bb": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, CFTC의 첫 가상자산 규제안 '제안' 단계와 위원장 발언이 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791519243.354656
-      },
-      "89bb9217175dcacbca1db3810692680a96508ae9cf6ce4a95a634ba7c498f6da": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791519245.090949
-      },
-      "b5f04d6a590f70a09c8fcd0523f99d97198d84655fe576049334cc7986d74e0a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791519245.9783792
-      },
-      "2cb3738b6eee7be0276019888ce90f5c67ca3f6b8b31ff1dcda77ebb6d094a26": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791519246.9527862
-      },
-      "bbf432dd882dc21924b2adf6e7f03a376065ee0797cd84a8ef26f206ec0d89c6": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791519248.0630171
-      },
-      "c541974407624679ac16618dc5a5372af9ec5b5188a34c2356a77ef43b8dcec9": {
-        "text": "{\"publish\":false,\"reason\":\"여러 거래를 묶을 때 원자적으로 처리된다는 핵심 기능이 요약에서 빠졌고, 일반 독자가 기능을 정확히 이해하기 어렵습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791520131.5537562
-      },
-      "b2558b0c3d194dc43ce23733006dbfa407a523ddbaa5107e903b9ec27041bc03": {
-        "text": "{\"publish\":false,\"reason\":\"요약은 원문과 대체로 일치하지만, ‘원자적으로 처리’가 일반 독자에게 무엇을 뜻하는지 설명하지 않아 핵심 기술 용어의 이해 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791520141.3211496
-      },
-      "6f2af433fa4f8c479786478a50015f41bec0049bebbc8090303139a15aea239f": {
-        "text": "SKIP",
-        "expires": 1791520142.948511
-      },
-      "528c68f06fa2f0e0f1c9e0adfc770df3d7790a4271238d5b765d36df82e1f058": {
-        "text": "{\"publish\":false,\"reason\":\"상원의원 참모진의 잠정 보고서와 조사 요청을 다룬 새 보도지만, 요약의 ‘USDT를 주로 이용’은 원문의 ‘heavy reliance’를 단정적으로 바꾸며, 본문에도 참모진 보고서의 주장과 공식 조사 개시 여부가 구분되어야 합니다. 요약은 조사 요청 자체는 전하지만 상무부·법무부가 조사에 착수하지 않았다는 중요한 미확정 조건을 빠뜨렸습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791520151.182631
-      },
-      "3f1ce810077dd98adf25987201be413c4ab19290d7ed67a2257a69b3fdf9d4f4": {
-        "text": "{\"publish\":false,\"reason\":\"핵심 내용은 원문과 대체로 일치하지만 USDT와 제재 지정 지갑의 의미를 설명하지 않아 이해도 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791520163.1339498
-      },
-      "38a13dbd01e91f1501cba324e5ae7d7adabac4010df8ac7adca4718ab151d2c6": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791523066.0906405
-      },
-      "6944509b7c7cc39519c0291b93a89ca1fc41ad1ee99b139e9923f088732d934a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791523068.2012362
-      },
-      "2f42247f380297eb96ffab171b09fd82a8abfe1076261a4da58c75f83cc96cf7": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791523081.973692
-      },
-      "108cee1be700dc1f76dcb867e5cb8113e5b1353db1b2c19882da655e7434f1ff": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791523083.196992
-      },
-      "4bddf80e5cf2b09d64c80c46c8cf1acb27d9e61622dfd20c39d7ed86e908177a": {
-        "text": "{\"publish\":true,\"reason\":\"원문과 요약이 대체로 일치하며, CFTC의 새 규제안 '제안' 단계라는 점이 유지됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791523094.4529197
-      },
-      "2548765b87f337363c34dd4f664e9f7fb4d6ee5b0d1ce460c334e62c79933b80": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791523096.085683
-      },
-      "c483822c8d47e46cd098e55266f2b4e9e31c0d8043cbd8a1d2d342915a1c8716": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791523097.8240469
-      },
       "b266a7135c6cb9fad92fb74a87c00727be68e4abfd8da4846ef8e061cb211f9f": {
         "text": "MEXC가 이용자 보호 기금인 가디언 펀드에 BTC 1,000개를 추가 편입해 총 1억 USDT와 2,000 BTC로 확대했다고 밝힘\n\n이번 편입은 5월 발표한 2년간 기금 5억달러 확대 계획의 후속 단계라고 설명함",
         "expires": 1791526871.5256596
@@ -3619,6 +3517,14 @@
       "67a4595eb3b03d12af0ef1a1d40d2f72f910d0fabd08fb8b13d1552ef8986e2f": {
         "text": "SKIP",
         "expires": 1791540712.4199996
+      },
+      "a2159ffc249d8f549b785151702eba836480149487ab77d8fea0061522f3e8fb": {
+        "text": "{\"decision\":\"uncertain\",\"matched_id\":\"64f6ba56f8953231\",\"reason\":\"기존 기록은 이란 연계 USDT에 관한 상원 조사라고만 설명해, 후보의 캔터 피츠제럴드·러트닉 관련 자료 요구가 같은 조사인지 별도 조사인지 확인할 수 없습니다.\",\"new_fact\":\"\"}",
+        "expires": 1791545236.5572891
+      },
+      "1f31a32983b466b4d8f2104a847d9084c94cdd17fb928ec0ca9bcfcf97689bff": {
+        "text": "{\"publish\":false,\"reason\":\"규정의 ‘순자산 대비 평균 순노출 80% 이상’을 해당 자산에 직접 투자해야 한다고 바꿔 썼습니다. 규정 시행일을 펀드 거래 시작일로 오해할 여지도 있습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791545245.350276
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5375,6 +5281,70 @@
       "7554d1c9d9abc95bddfba745ac58b67c77a2c6e7df623579baa2c6c30acff9b1": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791778325.7877624
+      },
+      "b3f4a4cae2549c250871dc8753328a5c60e4084ebe8de0d9e401d02b6bb0c726": {
+        "text": "미 상원 조사소위원회 민주당 간사 리처드 블루멘털 의원이 캔터 피츠제럴드의 테더 관계와 제재·은행 규정 준수 감독 자료, 하워드 러트닉 전 회장의 관련 서신을 브랜던 러트닉 회장에게 요구함",
+        "expires": 1791782818.3510892
+      },
+      "0769cac67027f74e246fcaaf0be5279ee05bf7082d524bb704546e9091929d2a": {
+        "text": "{\"publish\":true,\"reason\":\"블루멘털 의원이 캔터 피츠제럴드에 테더 관련 자료를 공식 요청한 새 소식이며, 조사 요청을 위법 확정이나 수사 개시로 바꾸지 않았다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791782823.7154803
+      },
+      "12b691b8ab10e66ecd0af939a1b6f9fb53962dac3c26393ac23138c53b8f57e2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782826.7143633
+      },
+      "c2b1c5ac78eda8bfe10c36ef17d796ad6c820f9a4cac209834e44bd74fc5d297": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782828.5212188
+      },
+      "86833666323297df929ba0190c62fd7ac52eab52b1fe583630eb905df127c2b4": {
+        "text": "{\"related_ids\":[\"64f6ba56f8953231\"]}",
+        "expires": 1791782831.8467453
+      },
+      "572d85342cb19a6299a04db37eaf958548215ad89d6c584cfa408898da01b1c0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782832.9501145
+      },
+      "3763c1b6a270b0cf1122356517e0db5f5b027d5a6853e236845546a744a3bd78": {
+        "text": "태국 SEC가 BTC·ETH에 투자하는 암호화폐 상장지수펀드(ETF) 규정을 확정했으며, 펀드는 태국증권거래소(SET)에만 상장되고 10월 16일부터 시행됨\n\n초기 대상은 BTC와 ETH이며, 펀드는 단일 자산을 추종하고 회계연도 평균 순자산의 80% 이상을 해당 자산에 투자해야 함",
+        "expires": 1791782841.604338
+      },
+      "04860b7094d2c6986eb6d4ddf221c824548b04609ab3cdf6b08aaf6db37acf82": {
+        "text": "태국 증권거래위원회가 암호화폐 ETF 규정을 확정했으며, 규정은 10월 16일부터 시행된다. ETF는 태국증권거래소에만 상장되고 초기 대상은 BTC와 ETH다. 단일 자산을 추종하며 회계연도 중 평균 순노출액이 순자산가치의 80% 이상이어야 한다.",
+        "expires": 1791782849.7953362
+      },
+      "73f7b37348a7083cbfe91ca964a0dca7d3c17ae4e352eabc508051f3281c7d13": {
+        "text": "{\"publish\":true,\"reason\":\"태국 SEC가 암호화폐 ETF 규정 11건을 확정하고 2026년 10월 16일 시행한다고 발표했다. 요약은 초기 대상 자산, 상장 거래소, 투자 전략과 최소 순노출 기준을 원문대로 전한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791782851.7140112
+      },
+      "d36e10b7aa6a9b6f909008fda170341eb30667a2f53314873363ed6c42bb4e86": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782853.8053234
+      },
+      "c57aa6c7a52e9545b622303d4b279524ed7599cca9cca5578c27389b68688e75": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782854.9245558
+      },
+      "191cc70a116543a75599c35cd5577db330a3ae6ed036b65db1486c6e21098029": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782855.8024054
+      },
+      "e3851b0104b5e0c37dccdf8939dbe1533a14e2f26c5b07051275a234ff138a70": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782857.546328
+      },
+      "0ddd6837a7ab72b28a162a2d1029322e4129fdd99d5dd048d3076b62663f0037": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 주체인 태국 증권거래위원회(SEC)의 건물 간판이 선명하게 보인다. 규정 확정 주체와 직접 관련된 이미지다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791782860.2031662
+      },
+      "6717ae5264f8a6e5d830229869fe075f9c4aaf599c070cb15b0857ae4f7cee9e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782865.4727018
+      },
+      "857e6c7bfa63900dc47fc15ef47d92be27438e5e87321f7755ff446b198cc8bc": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791782869.306382
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7617,81 +7587,82 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 4,
-            "cache_hits": 15,
+            "api_calls": 6,
+            "cache_hits": 17,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 18821,
+            "input_tokens": 29427,
             "cached_input_tokens": 0,
-            "output_tokens": 709,
-            "reasoning_tokens": 553,
-            "estimated_usd": 0.002706825,
+            "output_tokens": 1313,
+            "reasoning_tokens": 979,
+            "estimated_usd": 0.004334425,
             "unpriced_calls": 0,
-            "cache_write_tokens": 18809
+            "cache_write_tokens": 29409
           },
           "source_review": {
-            "api_calls": 5,
-            "cache_hits": 4,
-            "errors": 0,
-            "missing_usage": 0,
-            "input_tokens": 21572,
-            "cached_input_tokens": 0,
-            "output_tokens": 2315,
-            "reasoning_tokens": 1818,
-            "estimated_usd": 0.003853625,
-            "unpriced_calls": 0,
-            "cache_write_tokens": 21557
-          },
-          "event_search": {
-            "api_calls": 12,
-            "cache_hits": 36,
-            "errors": 0,
-            "missing_usage": 0,
-            "input_tokens": 110470,
-            "cached_input_tokens": 0,
-            "output_tokens": 599,
-            "reasoning_tokens": 453,
-            "estimated_usd": 0.01410735,
-            "unpriced_calls": 0,
-            "cache_write_tokens": 110434
-          },
-          "event_decision": {
-            "api_calls": 0,
+            "api_calls": 8,
             "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 0,
+            "input_tokens": 35548,
             "cached_input_tokens": 0,
-            "output_tokens": 0,
-            "reasoning_tokens": 0,
-            "estimated_usd": 0.0,
-            "unpriced_calls": 0
+            "output_tokens": 3194,
+            "reasoning_tokens": 2386,
+            "estimated_usd": 0.0060399,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 35524
           },
-          "image_review": {
-            "api_calls": 6,
-            "cache_hits": 4,
+          "event_search": {
+            "api_calls": 22,
+            "cache_hits": 42,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 12466,
+            "input_tokens": 203140,
             "cached_input_tokens": 0,
-            "output_tokens": 1442,
-            "reasoning_tokens": 703,
-            "estimated_usd": 0.0022562,
+            "output_tokens": 1247,
+            "reasoning_tokens": 991,
+            "estimated_usd": 0.02601435,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 203074
+          },
+          "event_decision": {
+            "api_calls": 1,
+            "cache_hits": 6,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 580,
+            "cached_input_tokens": 0,
+            "output_tokens": 210,
+            "reasoning_tokens": 128,
+            "estimated_usd": 0.000163,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 0
+          },
+          "image_review": {
+            "api_calls": 7,
+            "cache_hits": 6,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 13363,
+            "cached_input_tokens": 0,
+            "output_tokens": 1592,
+            "reasoning_tokens": 748,
+            "estimated_usd": 0.0024209,
             "unpriced_calls": 0,
             "cache_write_tokens": 11544
           },
           "summary_repair": {
-            "api_calls": 1,
+            "api_calls": 2,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1237,
+            "input_tokens": 2498,
             "cached_input_tokens": 0,
-            "output_tokens": 217,
-            "reasoning_tokens": 126,
-            "estimated_usd": 0.00026305,
+            "output_tokens": 419,
+            "reasoning_tokens": 234,
+            "estimated_usd": 0.0005216,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1234
+            "cache_write_tokens": 2492
           }
         }
       }
@@ -8984,6 +8955,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.003059225,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T05:01:12.857252+00:00",
+        "elapsed_seconds": 1598.162,
+        "status": "completed",
+        "api_calls": 18,
+        "cache_hits": 12,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.016307125,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -25522,6 +25505,10 @@
       "175c7f1b066fd82511428ff828894ee2028f919ab50d616e467ee4217fba1c7c": {
         "summary": "애니모카브랜즈와 프랭클린템플턴이 애니모카브랜즈·누바랩스가 구축한 금고형 마켓플레이스 누바에서 기관의 토큰화 실물자산 접근을 확대하기로 협력함. 문화자산 토큰화도 검토하지만 구체적인 추가 자산과 일정은 공개하지 않음",
         "expires": 1792114064.072946
+      },
+      "8dd6f63c56fd592766da82a5801863bb406f3c0d077433b140c6de5ff891031d": {
+        "summary": "태국 증권거래위원회가 암호화폐 ETF 규정을 확정했으며, 규정은 10월 16일부터 시행된다. ETF는 태국증권거래소에만 상장되고 초기 대상은 BTC와 ETH다. 단일 자산을 추종하며 회계연도 중 평균 순노출액이 순자산가치의 80% 이상이어야 한다",
+        "expires": 1792128451.7372134
       }
     }
   }
