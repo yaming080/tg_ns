@@ -1,12 +1,5 @@
 {
   "posted": {
-    "c046e264d61d4c3b": {
-      "title": "비트코인 50% 이상…창펑 자오, 국가 준비금 제안",
-      "url": "www.tokenpost.kr/news/cryptocurrency/405219",
-      "signature": "action_integrate | action_propose | amount_pct_50 | asset_btc | asset_stablecoin | entity_바이낸스 | geo_hongkong",
-      "canonical_key": "action_integrate | action_propose | amount_pct_50 | asset_btc | asset_stablecoin | entity_바이낸스 | geo_hongkong",
-      "ts": "2026-09-09T13:02:36.137712+00:00"
-    },
     "7099f3f5e546d32d": {
       "title": "Tether Freezes $39M in USDT, Stablecoin’s Centralized Control Exposed",
       "url": "coinedition.com/tether-freezes-39m-in-usdt-stablecoins-centralized-control-exposed",
@@ -5367,6 +5360,10 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1791810509.5374436
       },
+      "3803b74468dba9b14d5b7525d1e0defed564529a6febae9f4e3023079ef7f03d": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791814360.7790515
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -7609,7 +7606,7 @@
         "gpt-6-luna": {
           "summary": {
             "api_calls": 14,
-            "cache_hits": 43,
+            "cache_hits": 47,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 69310,
@@ -7622,7 +7619,7 @@
           },
           "source_review": {
             "api_calls": 13,
-            "cache_hits": 22,
+            "cache_hits": 24,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 57848,
@@ -7634,17 +7631,17 @@
             "cache_write_tokens": 57809
           },
           "event_search": {
-            "api_calls": 56,
-            "cache_hits": 72,
+            "api_calls": 57,
+            "cache_hits": 75,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 525956,
+            "input_tokens": 534642,
             "cached_input_tokens": 0,
-            "output_tokens": 3068,
-            "reasoning_tokens": 2396,
-            "estimated_usd": 0.0672743,
+            "output_tokens": 3175,
+            "reasoning_tokens": 2492,
+            "estimated_usd": 0.068413475,
             "unpriced_calls": 0,
-            "cache_write_tokens": 525788
+            "cache_write_tokens": 534471
           },
           "event_decision": {
             "api_calls": 3,
@@ -7661,7 +7658,7 @@
           },
           "image_review": {
             "api_calls": 13,
-            "cache_hits": 10,
+            "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 22305,
@@ -9084,6 +9081,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.00985825,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T14:01:14.978604+00:00",
+        "elapsed_seconds": 690.338,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 11,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.001139175,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
