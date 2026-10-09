@@ -7625,7 +7625,7 @@
         "gpt-6-luna": {
           "summary": {
             "api_calls": 2,
-            "cache_hits": 8,
+            "cache_hits": 11,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 9402,
@@ -7638,7 +7638,7 @@
           },
           "source_review": {
             "api_calls": 5,
-            "cache_hits": 1,
+            "cache_hits": 2,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 21572,
@@ -7651,7 +7651,7 @@
           },
           "event_search": {
             "api_calls": 9,
-            "cache_hits": 7,
+            "cache_hits": 15,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 83999,
@@ -7664,7 +7664,7 @@
           },
           "event_decision": {
             "api_calls": 0,
-            "cache_hits": 2,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7676,7 +7676,7 @@
           },
           "image_review": {
             "api_calls": 3,
-            "cache_hits": 0,
+            "cache_hits": 1,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 6497,
@@ -8955,6 +8955,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0090248,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T02:01:14.309425+00:00",
+        "elapsed_seconds": 1508.857,
+        "status": "completed",
+        "api_calls": 0,
+        "cache_hits": 14,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
