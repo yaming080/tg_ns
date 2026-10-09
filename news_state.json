@@ -1,26 +1,5 @@
 {
   "posted": {
-    "c845c544a509e471": {
-      "title": "448.7193 BTC 유용 주장…코인민트 CEO 상대 소송",
-      "url": "www.tokenpost.kr/news/policy/405373",
-      "signature": "action_invest | action_launch | action_mint | action_sue | amount_btc_449 | amount_btc_approx_450 | amount_btc_exact_448_7193 | asset_btc | entity_ceo | object_wallet",
-      "canonical_key": "action_invest | action_launch | action_mint | action_sue | amount_btc_449 | amount_btc_approx_450 | amount_btc_exact_448_7193 | asset_btc | entity_ceo | object_wallet",
-      "ts": "2026-09-09T17:02:56.482308+00:00"
-    },
-    "54bee784e37d1a58": {
-      "title": "퐁 레, 비트코인 접근성 80억명 확대 비전 제시",
-      "url": "www.tokenpost.kr/news/cryptocurrency/405364",
-      "signature": "action_expand | action_invest | action_propose | asset_btc | entity_스트래티지 | object_wallet",
-      "canonical_key": "action_expand | action_invest | action_propose | asset_btc | entity_스트래티지 | object_wallet",
-      "ts": "2026-09-09T17:03:04.439731+00:00"
-    },
-    "d26ff93dce1abc81": {
-      "title": "Bitcoin collateral, not trading volume, will signal real bank adoption: fintech veteran",
-      "url": "crypto.news/bitcoin-collateral-will-signal-real-bank-adoption",
-      "signature": "action_launch | asset_btc | asset_eth | entity_스탠다드차타드 | object_custody | object_lending",
-      "canonical_key": "action_launch | asset_btc | asset_eth | entity_스탠다드차타드 | object_custody | object_lending",
-      "ts": "2026-09-09T17:03:09.892222+00:00"
-    },
     "907245a29b138e85": {
       "title": "Consensys and MetaMask split to focus on different layers in rebrand",
       "url": "www.cryptopolitan.com/consensys-rebrands-main-company-as-metamask",
@@ -3307,10 +3286,6 @@
   },
   "ai_review": {
     "entries": {
-      "8c9539baf3c57c160bd8f6aaeb744aa1d40449f466af68deeecc60a5810448b9": {
-        "text": "SKIP",
-        "expires": 1791569546.8753395
-      },
       "90fb8e99cbe96f7847b8364072acf5fcdd2db3c0f8c76f6dc0e36853d6e067e2": {
         "text": "{\"approved\":false,\"reason\":\"기사는 카르다노 재단과 니코시아대학교의 강좌 협력을 다루지만, 이미지는 여러 암호화폐를 나열한 범용 아이콘 모음으로 두 핵심 주체나 강좌를 식별할 수 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
         "expires": 1791572892.7782576
@@ -3366,6 +3341,10 @@
       "296725876a49cfa323503062b74943021ac645a4250542aa82e52a2e3b5ed7ab": {
         "text": "{\"publish\":false,\"reason\":\"회수 소식과 계획은 원문에 부합하지만, 원문에 없는 LP 토큰의 정의를 덧붙였습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791588076.1783996
+      },
+      "bf2404c3b2073a766fe36e31ad3cbc6381e9b9d72386f09247b369d081edb8b6": {
+        "text": "SKIP",
+        "expires": 1791591612.0565896
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -7648,17 +7627,17 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 22,
-            "cache_hits": 52,
+            "api_calls": 23,
+            "cache_hits": 54,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 109361,
+            "input_tokens": 113759,
             "cached_input_tokens": 0,
-            "output_tokens": 3921,
-            "reasoning_tokens": 2756,
-            "estimated_usd": 0.015628975,
+            "output_tokens": 3980,
+            "reasoning_tokens": 2807,
+            "estimated_usd": 0.01620815,
             "unpriced_calls": 0,
-            "cache_write_tokens": 109295
+            "cache_write_tokens": 113690
           },
           "source_review": {
             "api_calls": 22,
@@ -9172,6 +9151,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0098587,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T18:01:15.427408+00:00",
+        "elapsed_seconds": 1142.685,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 2,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.000579175,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
