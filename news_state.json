@@ -3321,14 +3321,6 @@
   },
   "ai_review": {
     "entries": {
-      "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
-        "text": "SKIP",
-        "expires": 1791558816.6011767
-      },
-      "fe744a2820328909589c6b781755413d23cca7baef018bfa18652d3af58006fb": {
-        "text": "SKIP",
-        "expires": 1791558828.1254492
-      },
       "15cd5faadd56a8168692b31ca3b2a83c7c3b0d7e4b782f602d5004a6ecb6a0d8": {
         "text": "SKIP",
         "expires": 1791562728.4043305
@@ -3368,6 +3360,14 @@
       "3388ac4be7fd05c531fda215aaf5a8550f07d06247c3b2d8d1bbb5450113379a": {
         "text": "{\"publish\":false,\"reason\":\"요약에서 PaymentBurn 권한으로 특정 상황에 새 대체가능 토큰을 발행할 수 있다는 위험을 ‘대체 토큰이 발행될 수 있다’고 부정확하게 표현했고, 10월 23일 수정안 활성화도 ‘예상’이라는 불확실성을 충분히 보존하지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791580090.5226748
+      },
+      "a192e68345fae3eb2086a1fddab6c722e804ae8fb513ad47b5cdd3369c023ac4": {
+        "text": "SKIP",
+        "expires": 1791584111.2354817
+      },
+      "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
+        "text": "SKIP",
+        "expires": 1791584117.5035784
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -7618,17 +7618,17 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 16,
-            "cache_hits": 49,
+            "api_calls": 18,
+            "cache_hits": 50,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 78861,
+            "input_tokens": 88521,
             "cached_input_tokens": 0,
-            "output_tokens": 2863,
-            "reasoning_tokens": 2068,
-            "estimated_usd": 0.011287925,
+            "output_tokens": 2913,
+            "reasoning_tokens": 2104,
+            "estimated_usd": 0.012520275,
             "unpriced_calls": 0,
-            "cache_write_tokens": 78813
+            "cache_write_tokens": 88467
           },
           "source_review": {
             "api_calls": 15,
@@ -9118,6 +9118,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.00310025,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T16:01:14.361235+00:00",
+        "elapsed_seconds": 844.886,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 1,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00123235,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
