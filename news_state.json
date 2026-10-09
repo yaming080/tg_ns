@@ -1,26 +1,5 @@
 {
   "posted": {
-    "e3d95b55d998db33": {
-      "title": "Block Applies for US National Trust Bank Focused on Bitcoin, Stablecoin Custody",
-      "url": "thecryptobasic.com/2026/09/09/block-applies-for-us-national-trust-bank-focused-on-bitcoin-stablecoin-custody",
-      "signature": "action_propose | action_transfer | asset_btc | asset_stablecoin | entity_usnationaltrustbank | geo_us | object_custody",
-      "canonical_key": "action_propose | action_transfer | asset_btc | asset_stablecoin | entity_usnationaltrustbank | geo_us | object_custody",
-      "ts": "2026-09-09T11:02:45.843608+00:00"
-    },
-    "ba0e84f31363a7c2": {
-      "title": "100억달러 이란 가상자산 활동…USDT·트론 활용",
-      "url": "www.tokenpost.kr/news/cryptocurrency/405125",
-      "signature": "action_ban | action_enforce | action_sanction | action_transfer | amount_krw_298800000000 | amount_krw_420000000000 | amount_usd_10000000000 | amount_usd_11400000000 | asset_usdt | entity_테더 | geo_us | object_payment | object_sanctions",
-      "canonical_key": "action_ban | action_enforce | action_sanction | action_transfer | amount_krw_298800000000 | amount_krw_420000000000 | amount_usd_10000000000 | amount_usd_11400000000 | asset_usdt | entity_테더 | geo_us | object_payment | object_sanctions",
-      "ts": "2026-09-09T11:02:51.769064+00:00"
-    },
-    "908482358638b3b2": {
-      "title": "미국 암호화폐 연방 신탁은행 인가, 감독은 계속된다",
-      "url": "www.tokenpost.kr/news/policy/405115",
-      "signature": "action_approve | action_ban | action_build | action_convert | entity_occ | entity_리플 | geo_us | object_custody | object_lending | object_license | object_trust",
-      "canonical_key": "action_approve | action_ban | action_build | action_convert | entity_occ | entity_리플 | geo_us | object_custody | object_lending | object_license | object_trust",
-      "ts": "2026-09-09T11:02:55.386247+00:00"
-    },
     "45de62d7f38846ea": {
       "title": "본크 가이, 솔라나 평가 전환…커뮤니티 문화 주목",
       "url": "www.tokenpost.kr/news/cryptocurrency/405164",
@@ -3370,18 +3349,6 @@
   },
   "ai_review": {
     "entries": {
-      "a2159ffc249d8f549b785151702eba836480149487ab77d8fea0061522f3e8fb": {
-        "text": "{\"decision\":\"uncertain\",\"matched_id\":\"64f6ba56f8953231\",\"reason\":\"기존 기록은 이란 연계 USDT에 관한 상원 조사라고만 설명해, 후보의 캔터 피츠제럴드·러트닉 관련 자료 요구가 같은 조사인지 별도 조사인지 확인할 수 없습니다.\",\"new_fact\":\"\"}",
-        "expires": 1791545236.5572891
-      },
-      "1f31a32983b466b4d8f2104a847d9084c94cdd17fb928ec0ca9bcfcf97689bff": {
-        "text": "{\"publish\":false,\"reason\":\"규정의 ‘순자산 대비 평균 순노출 80% 이상’을 해당 자산에 직접 투자해야 한다고 바꿔 썼습니다. 규정 시행일을 펀드 거래 시작일로 오해할 여지도 있습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791545245.350276
-      },
-      "d2ade8752d47847733784a60663d66f2fd00d64fa4673ba95e80592c85a28958": {
-        "text": "{\"publish\":false,\"reason\":\"원문은 2025년 6월 15일자라 ‘이달’ 출시 예정은 현재 시점의 새 소식으로 게시할 수 없습니다. 요약은 날짜 맥락을 빠뜨렸고, 핵심 용어도 설명하지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791547955.589267
-      },
       "e8f52b2b8b3f4cf7e4f50d7dc9dc97555e324abad73e828f757d119f0cf80a15": {
         "text": "{\"approved\":false,\"reason\":\"기사는 JPYC의 매장 결제 도입이 핵심이지만, 이미지에는 식별 가능한 JPYC 로고나 제품 표시 없이 엔화 기호가 있는 범용 코인만 보인다. 엔화 연동 토큰을 연상시키기는 해도 JPYC를 확인할 수 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
         "expires": 1791547979.1044366
@@ -3405,6 +3372,10 @@
       "e4707d56ece1b20a8f5f30bcbd3259629946c161a3082a3bd237d794c7f8f56c": {
         "text": "{\"approved\":false,\"reason\":\"기사는 민웨일의 비트코인 생명보험 사업과 자금 조달이 핵심이지만, 이미지는 회사나 보험 서비스를 식별하지 못하는 범용 비트코인·달러 삽화다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
         "expires": 1791565936.2045379
+      },
+      "8c9539baf3c57c160bd8f6aaeb744aa1d40449f466af68deeecc60a5810448b9": {
+        "text": "SKIP",
+        "expires": 1791569546.8753395
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5357,6 +5328,14 @@
       "1deeae9f28b498e6da942aabc6ef45519ce7c1e447b03a54cf953d5115624cd8": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791803544.0198908
+      },
+      "cf7dadfc092675179aa47302178c1f76ffd265f6ff036d19673560e4b43c338b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791807153.6948807
+      },
+      "f2df9a8067e27e253bf23a5fd0f65aedd50088c624d701571ba1f0d5482542b5": {
+        "text": "{\"related_ids\":[\"efaa2017afd06428\"]}",
+        "expires": 1791807155.1010952
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7599,21 +7578,21 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 12,
-            "cache_hits": 36,
+            "api_calls": 13,
+            "cache_hits": 39,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 59426,
+            "input_tokens": 64366,
             "cached_input_tokens": 0,
-            "output_tokens": 2507,
-            "reasoning_tokens": 1884,
-            "estimated_usd": 0.00868085,
+            "output_tokens": 2546,
+            "reasoning_tokens": 1915,
+            "estimated_usd": 0.009317775,
             "unpriced_calls": 0,
-            "cache_write_tokens": 59390
+            "cache_write_tokens": 64327
           },
           "source_review": {
             "api_calls": 11,
-            "cache_hits": 19,
+            "cache_hits": 21,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 49022,
@@ -7625,21 +7604,21 @@
             "cache_write_tokens": 48989
           },
           "event_search": {
-            "api_calls": 48,
-            "cache_hits": 68,
+            "api_calls": 50,
+            "cache_hits": 70,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 450927,
+            "input_tokens": 470693,
             "cached_input_tokens": 0,
-            "output_tokens": 2800,
-            "reasoning_tokens": 2230,
-            "estimated_usd": 0.057762275,
+            "output_tokens": 2882,
+            "reasoning_tokens": 2284,
+            "estimated_usd": 0.060273875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 450783
+            "cache_write_tokens": 470543
           },
           "event_decision": {
             "api_calls": 2,
-            "cache_hits": 15,
+            "cache_hits": 16,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 1219,
@@ -9051,6 +9030,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.009513,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T12:01:13.728713+00:00",
+        "elapsed_seconds": 681.977,
+        "status": "completed",
+        "api_calls": 3,
+        "cache_hits": 8,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.003148525,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
