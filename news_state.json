@@ -3271,6 +3271,15 @@
       "ts": "2026-10-09T05:27:41.777046+00:00",
       "summary": "태국 증권거래위원회가 암호화폐 #ETF 규정을 확정했으며, 규정은 10월 16일부터 시행된다. ETF는 태국증권거래소에만 상장되고 초기 대상은 BTC와 #이더리움 다. 단일 자산을 추종하며 회계연도 중 평균 순노출액이 순자산가치의 80% 이상이어야 한다",
       "source_pub": "Fri, 09 Oct 2026 03:22:35 +0000"
+    },
+    "4821b97f04c2a23c": {
+      "title": "JPYC, 발행 1년 만에 150곳 넘는 매장서 결제 도입",
+      "url": "www.tokenpost.kr/news/cryptocurrency/420355",
+      "signature": "action_enable | action_file | action_integrate | action_issue | action_launch | action_mint | action_transfer | asset_stablecoin | duration_years_1 | entity_jpyc | geo_japan | object_commissioner | object_payment",
+      "canonical_key": "action_enable | action_file | action_integrate | action_issue | action_launch | action_mint | action_transfer | asset_stablecoin | duration_years_1 | entity_jpyc | geo_japan | object_commissioner | object_payment",
+      "ts": "2026-10-09T06:13:05.372229+00:00",
+      "summary": "엔화 연동 #스테이블코인 JPYC가 2025년 10월 발행 이후 음식점·소매점 등 150곳 넘는 매장에서 결제 수단으로 도입됐다고 밝힘\n\nJPYC는 9월 14일 #일본 공정거래위원회에 무현금 결제 시장의 경쟁 환경과 자사 결제 구조에 관한 정보를 제공했으며, 특정 사안에 대한 신고나 상담은 아니라고 설명함",
+      "source_pub": "Fri, 09 Oct 2026 05:41:03 +0000"
     }
   },
   "source_baselines": {
@@ -3525,6 +3534,14 @@
       "1f31a32983b466b4d8f2104a847d9084c94cdd17fb928ec0ca9bcfcf97689bff": {
         "text": "{\"publish\":false,\"reason\":\"규정의 ‘순자산 대비 평균 순노출 80% 이상’을 해당 자산에 직접 투자해야 한다고 바꿔 썼습니다. 규정 시행일을 펀드 거래 시작일로 오해할 여지도 있습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791545245.350276
+      },
+      "d2ade8752d47847733784a60663d66f2fd00d64fa4673ba95e80592c85a28958": {
+        "text": "{\"publish\":false,\"reason\":\"원문은 2025년 6월 15일자라 ‘이달’ 출시 예정은 현재 시점의 새 소식으로 게시할 수 없습니다. 요약은 날짜 맥락을 빠뜨렸고, 핵심 용어도 설명하지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791547955.589267
+      },
+      "e8f52b2b8b3f4cf7e4f50d7dc9dc97555e324abad73e828f757d119f0cf80a15": {
+        "text": "{\"approved\":false,\"reason\":\"기사는 JPYC의 매장 결제 도입이 핵심이지만, 이미지에는 식별 가능한 JPYC 로고나 제품 표시 없이 엔화 기호가 있는 범용 코인만 보인다. 엔화 연동 토큰을 연상시키기는 해도 JPYC를 확인할 수 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1791547979.1044366
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5345,6 +5362,54 @@
       "857e6c7bfa63900dc47fc15ef47d92be27438e5e87321f7755ff446b198cc8bc": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791782869.306382
+      },
+      "9503571bbd9964c88b8747be83a5f00201eb1706e193ba35c18853cc37c37f52": {
+        "text": "리플 커스터디가 캔톤 네트워크 통합을 완료해 기관 고객이 기존 서비스에서 캔톤 코인과 CIP-56 토큰을 보관·이전할 수 있게 됐다고 밝힘\n\nDTCC 토큰화 서비스는 이달 상용 출시 예정이며 캔톤 네트워크와 하이퍼레저 베수를 이용할 계획임",
+        "expires": 1791785550.1290553
+      },
+      "01ce0c3e72c78ea0435dddd38afeca113afeee4f1a98761e2ecf7d96b986dcf9": {
+        "text": "엔화 연동 스테이블코인 JPYC가 2025년 10월 발행 이후 음식점·소매점 등 150곳 넘는 매장에서 결제 수단으로 도입됐다고 밝힘\n\nJPYC는 9월 14일 일본 공정거래위원회에 무현금 결제 시장의 경쟁 환경과 자사 결제 구조에 관한 정보를 제공했으며, 특정 사안에 대한 신고나 상담은 아니라고 설명함",
+        "expires": 1791785560.8069525
+      },
+      "ad17288b34eb584ab72c0cd90db5ed05b1052bf700c56f4f0154f9f237146ccb": {
+        "text": "{\"publish\":true,\"reason\":\"JPYC의 매장 결제 도입 현황과 공정거래위원회 정보 제공 사실을 주체·시점·비신고 조건과 함께 정확히 전했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791785565.1938655
+      },
+      "190d1ab7861853fb0a4373c4db24811697ae446a9ddd076f6b2a21f1269462d8": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785569.0320954
+      },
+      "d6b6d83611e23329e01a7043bb6c846e3079fe473ddbc0036ef809b57f108910": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785570.8238828
+      },
+      "1688d8d737efd7c6ed981bb71c0f52f846e9764114e96f6c7258beb6009160b0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785572.5606291
+      },
+      "2b4f5b5bf51d861edef882a88d5abc854d3bc46d531a8f3b88702b554bfe5755": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785574.4062498
+      },
+      "b3d7f6bb79c4a377a4a259752e40edd8daf35e3e846216cfccc357f4758bdfb9": {
+        "text": "{\"approved\":true,\"reason\":\"이미지는 기사 핵심 주체인 JPYC의 식별 가능한 로고로 보이며, JPYC가 매장 결제에 도입됐다는 내용과 직접 관련된다. 광고나 가격 차트, 텍스트 캡처가 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791785583.8221433
+      },
+      "ccc3eb75b371a9af3a64bdc3765806006104cfe8eeec572ce993cc6b0395c7bc": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785591.6864862
+      },
+      "882ecf6d1a81ccc564e04dad316a754f32a3b2fb35d5f4355df8b56b09687860": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785593.1061506
+      },
+      "30c0caefebf861b2723022a038a00b6df89d6dbddce93deca0d472483fcf7ce7": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785597.8081534
+      },
+      "0aa2e466ce0f4eaa46c8315165a2a46586a21cff030732bcafb9392ed699bd3b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791785600.946599
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7587,47 +7652,47 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 6,
-            "cache_hits": 17,
+            "api_calls": 8,
+            "cache_hits": 20,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 29427,
+            "input_tokens": 39375,
             "cached_input_tokens": 0,
-            "output_tokens": 1313,
-            "reasoning_tokens": 979,
-            "estimated_usd": 0.004334425,
+            "output_tokens": 1696,
+            "reasoning_tokens": 1171,
+            "estimated_usd": 0.005769275,
             "unpriced_calls": 0,
-            "cache_write_tokens": 29409
+            "cache_write_tokens": 39351
           },
           "source_review": {
-            "api_calls": 8,
-            "cache_hits": 5,
+            "api_calls": 10,
+            "cache_hits": 7,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 35548,
+            "input_tokens": 44433,
             "cached_input_tokens": 0,
-            "output_tokens": 3194,
-            "reasoning_tokens": 2386,
-            "estimated_usd": 0.0060399,
+            "output_tokens": 3937,
+            "reasoning_tokens": 2930,
+            "estimated_usd": 0.007521875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 35524
+            "cache_write_tokens": 44403
           },
           "event_search": {
-            "api_calls": 22,
-            "cache_hits": 42,
+            "api_calls": 30,
+            "cache_hits": 50,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 203140,
+            "input_tokens": 279955,
             "cached_input_tokens": 0,
-            "output_tokens": 1247,
-            "reasoning_tokens": 991,
-            "estimated_usd": 0.02601435,
+            "output_tokens": 1986,
+            "reasoning_tokens": 1644,
+            "estimated_usd": 0.035985125,
             "unpriced_calls": 0,
-            "cache_write_tokens": 203074
+            "cache_write_tokens": 279865
           },
           "event_decision": {
             "api_calls": 1,
-            "cache_hits": 6,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 580,
@@ -7639,17 +7704,17 @@
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 7,
-            "cache_hits": 6,
+            "api_calls": 9,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 13363,
+            "input_tokens": 15969,
             "cached_input_tokens": 0,
-            "output_tokens": 1592,
-            "reasoning_tokens": 748,
-            "estimated_usd": 0.0024209,
+            "output_tokens": 2287,
+            "reasoning_tokens": 1199,
+            "estimated_usd": 0.003094,
             "unpriced_calls": 0,
-            "cache_write_tokens": 11544
+            "cache_write_tokens": 14144
           },
           "summary_repair": {
             "api_calls": 2,
@@ -8967,6 +9032,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.016307125,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T06:00:55.052542+00:00",
+        "elapsed_seconds": 747.304,
+        "status": "completed",
+        "api_calls": 14,
+        "cache_hits": 17,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.0135607,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
