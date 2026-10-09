@@ -1,19 +1,5 @@
 {
   "posted": {
-    "f91f3a6b196b5112": {
-      "title": "비트코인 양자보안 논의 본격화…자산 이전도 검토",
-      "url": "www.tokenpost.kr/news/blockchain/405346",
-      "signature": "action_audit | action_develop | action_disclose | action_launch | action_migrate | asset_btc | asset_eth | entity_코인베이스 | object_custody | object_disclosure | object_wallet",
-      "canonical_key": "action_audit | action_develop | action_disclose | action_launch | action_migrate | asset_btc | asset_eth | entity_코인베이스 | object_custody | object_disclosure | object_wallet",
-      "ts": "2026-09-09T16:02:18.546821+00:00"
-    },
-    "aa68466ba6e73a01": {
-      "title": "Block Applies for OCC Charter to Launch Builders Bank for Crypto Custody",
-      "url": "coinedition.com/block-applies-for-occ-charter-to-launch-builders-bank-for-crypto-custody",
-      "signature": "action_issue | action_launch | action_propose | asset_btc | entity_launchbuildersbank | entity_occ | object_custody",
-      "canonical_key": "action_issue | action_launch | action_propose | asset_btc | entity_launchbuildersbank | entity_occ | object_custody",
-      "ts": "2026-09-09T16:02:21.997105+00:00"
-    },
     "c845c544a509e471": {
       "title": "448.7193 BTC 유용 주장…코인민트 CEO 상대 소송",
       "url": "www.tokenpost.kr/news/policy/405373",
@@ -3321,18 +3307,6 @@
   },
   "ai_review": {
     "entries": {
-      "15cd5faadd56a8168692b31ca3b2a83c7c3b0d7e4b782f602d5004a6ecb6a0d8": {
-        "text": "SKIP",
-        "expires": 1791562728.4043305
-      },
-      "99d760dd6e679b5338808990dbab64813f26dd395cfb066840ec99f969a36a41": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 비트코인 코인과 지폐를 중심으로 한 범용 금융 삽화다. 기사 핵심은 비트코인 보험사 민웨일의 자금 조달과 사업 확장인데, 민웨일이나 보험 상품은 식별되지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1791565930.0904508
-      },
-      "e4707d56ece1b20a8f5f30bcbd3259629946c161a3082a3bd237d794c7f8f56c": {
-        "text": "{\"approved\":false,\"reason\":\"기사는 민웨일의 비트코인 생명보험 사업과 자금 조달이 핵심이지만, 이미지는 회사나 보험 서비스를 식별하지 못하는 범용 비트코인·달러 삽화다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1791565936.2045379
-      },
       "8c9539baf3c57c160bd8f6aaeb744aa1d40449f466af68deeecc60a5810448b9": {
         "text": "SKIP",
         "expires": 1791569546.8753395
@@ -3368,6 +3342,30 @@
       "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
         "text": "SKIP",
         "expires": 1791584117.5035784
+      },
+      "b3d7399eb0f3699816d3bc3fe548927363322b4b5397aa53b459094ce4a07e46": {
+        "text": "{\"publish\": false, \"reason\": \"명령의 핵심인 채권·채무 관계가 요약의 ‘리플 미지급금’이라는 표현에서 불분명해 리플이 돈을 갚아야 하는 것으로 오해될 수 있습니다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
+        "expires": 1791588021.147896
+      },
+      "588f4967db66bcd0af9bf03f4bfbf555b35ed380632472f1fc9a2a7b08d5b613": {
+        "text": "{\"publish\": false, \"reason\": \"새 법원 집행 조치와 별도 매각 절차 조건은 요약했지만, 핵심 법률 용어인 ‘충당명령’을 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
+        "expires": 1791588031.5364804
+      },
+      "497cc57be83d3aa3dc865ca6967a9fe56551e0abd896e2a7033bbc20ee9e5f1a": {
+        "text": "{\"publish\":false,\"reason\":\"새로운 법원 조치는 확인되지만, 담보명령의 의미가 설명되지 않았고 매각 방식·조건에도 이의를 제기할 수 있다는 단서가 빠졌습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791588043.2672856
+      },
+      "c6b86944fb16c25246b4515f873de303bd8e8f869a8fb07b017607d07c66e796": {
+        "text": "{\"publish\":false,\"reason\":\"새로운 법원 명령을 다룬 허용 범주의 보도지만, 핵심 법률 용어인 ‘담보명령’이 독자에게 설명되지 않았습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791588053.2355447
+      },
+      "8911446049d2910bb1a8b82a6479039ed17f62099ce9e64248b6686840046f80": {
+        "text": "{\"publish\":false,\"reason\":\"회수 사실과 향후 계획은 원문과 일치하지만, 일반 독자가 이해하기 어려운 ‘LP 토큰’을 설명하지 않아 게시 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791588061.6871936
+      },
+      "296725876a49cfa323503062b74943021ac645a4250542aa82e52a2e3b5ed7ab": {
+        "text": "{\"publish\":false,\"reason\":\"회수 소식과 계획은 원문에 부합하지만, 원문에 없는 LP 토큰의 정의를 덧붙였습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791588076.1783996
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5376,6 +5374,38 @@
       "46d13cc3b13827303372c545fe691b3bd2ea44d620bcf6896e39d3b68c6e609b": {
         "text": "엑스알피 레저가 10월 8일 메인넷에 권한 위임 기능을 활성화해 은행과 스테이블코인 발행사가 키를 공유하지 않고 다른 계정에 고객 승인·결제 등 최대 10개 권한을 맡길 수 있게 됨. 별도 수정안이 활성화될 때까지 PaymentBurn 위임은 금지해야 하며, 그 전에는 특정 상황에서 대체 토큰이 발행될 수 있음. 수정안은 10월 23일 활성화될 예정임.",
         "expires": 1791817684.087039
+      },
+      "6a0c37c15fa294c6440cb2485a3b3fbbad3abfc0d72236ade9fb975c4e65cf1f": {
+        "text": "말레이시아 고등법원이 리플 미지급금 2,395만 달러 회수를 위해 심리스그룹이 보유한 트랑글로 주식 10만465주에 대한 충당명령을 10월 1일 확정했다고 커런크그룹이 공시함\n\n충당명령은 자산에 법적 집행을 진행하는 조치로, 주식 매각에는 별도 법원 절차가 필요함",
+        "expires": 1791825612.4197936
+      },
+      "df4a1b8b9be416e721542bfe847a09c910cc06d93e8e0f00e3b938024c71ef5f": {
+        "text": "말레이시아 고등법원이 리플에 지급되지 않은 2,395만 달러의 회수 절차로 심리스그룹 보유 트랑글로 주식 10만465주에 대한 충당명령을 10월 1일 확정했다고 커런크그룹이 공시했다. 주식 매각에는 별도 법원 절차가 필요하다.",
+        "expires": 1791825624.6863549
+      },
+      "7d8c5f92017da3127baa3837369ea791b90589c301ffa42c3d80a2ac414b6184": {
+        "text": "말레이시아 고등법원이 미납 XRP 대금 약 2,395만 달러를 받기 위해 심리스그룹이 보유한 트랑글로 지분 60%(10만465주)에 대한 담보명령을 확정함\n\n리플은 10월 7일부터 법원 승인 매각 절차를 추진할 수 있으며, 심리스그룹은 지분 가치에 이의를 제기할 수 있음",
+        "expires": 1791825635.8497527
+      },
+      "ce43e95aa6fde79afd8c19b3a2a64076928e53f80aaf1a52cb37068be2dc2bbd": {
+        "text": "말레이시아 고등법원은 미납 XRP 대금 2,395만 달러를 회수하기 위해 심리스그룹 소유 트랑글로 주식 10만465주(지분 60%)에 대한 담보명령을 확정했다. 리플은 10월 7일부터 주식 강제매각 절차를 시작할 수 있으며, 심리스그룹은 매각 가치·방식·조건에 이의를 제기할 수 있다.",
+        "expires": 1791825647.3562636
+      },
+      "16454597fb7c4c8173837a9e26dcb428dcf6c17f464988c2dc5fdfb366f0c63b": {
+        "text": "79thVault가 10월 7일 도난당한 16,249 BNB 중 15,000 BNB를 회수했으며, 이를 유동성 풀에 돌려놓고 이에 따른 LP 토큰을 영구 소각할 계획이라고 밝힘",
+        "expires": 1791825656.9388497
+      },
+      "a913305288b4f1c8f2c8761fb5d44d957c0185dd56173d1ac41fc01cfd62976b": {
+        "text": "79스 볼트가 10월 7일 도난당한 16,249 BNB 중 15,000 BNB를 회수했으며, 이를 유동성 풀에 돌려놓고 유동성 공급 지분을 나타내는 LP 토큰을 영구 소각할 계획이라고 밝혔다.",
+        "expires": 1791825666.6114733
+      },
+      "f667dc16467213c6ee4a34c6fdc556c3408c1dcfb257742e5f7d2f9251dc1d3e": {
+        "text": "블록체인닷컴이 미국에서 예측시장과 암호화폐 파생상품을 제공하기 위해 상품선물거래위원회(CFTC)에 DCM(선물거래소 운영 지정)과 FCM(파생상품 중개업자 등록)을 신청했다고 밝힘\n\n승인 전으로, 미국 내 서비스 출시가 확정된 것은 아님",
+        "expires": 1791825680.1324813
+      },
+      "5a61b8e2af003fd5c2e6b7ffeda5c7c9b60e00b5a78771def2fbe9ff8d9bae6b": {
+        "text": "{\"publish\":true,\"reason\":\"블록체인닷컴의 미국 내 예측시장·암호화폐 파생상품 제공을 위한 신규 인허가 신청을 전하며, 승인이 나지 않아 출시가 확정되지 않았다는 조건도 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791825683.8420177
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7618,30 +7648,30 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 18,
-            "cache_hits": 50,
+            "api_calls": 22,
+            "cache_hits": 52,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 88521,
+            "input_tokens": 109361,
             "cached_input_tokens": 0,
-            "output_tokens": 2913,
-            "reasoning_tokens": 2104,
-            "estimated_usd": 0.012520275,
+            "output_tokens": 3921,
+            "reasoning_tokens": 2756,
+            "estimated_usd": 0.015628975,
             "unpriced_calls": 0,
-            "cache_write_tokens": 88467
+            "cache_write_tokens": 109295
           },
           "source_review": {
-            "api_calls": 15,
+            "api_calls": 22,
             "cache_hits": 25,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 67111,
+            "input_tokens": 100122,
             "cached_input_tokens": 0,
-            "output_tokens": 5987,
-            "reasoning_tokens": 4462,
-            "estimated_usd": 0.01138125,
+            "output_tokens": 9328,
+            "reasoning_tokens": 7133,
+            "estimated_usd": 0.0171776,
             "unpriced_calls": 0,
-            "cache_write_tokens": 67066
+            "cache_write_tokens": 100056
           },
           "event_search": {
             "api_calls": 57,
@@ -7683,17 +7713,17 @@
             "cache_write_tokens": 19598
           },
           "summary_repair": {
-            "api_calls": 3,
+            "api_calls": 6,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 3925,
+            "input_tokens": 8628,
             "cached_input_tokens": 0,
-            "output_tokens": 631,
-            "reasoning_tokens": 320,
-            "estimated_usd": 0.0008059,
+            "output_tokens": 1363,
+            "reasoning_tokens": 779,
+            "estimated_usd": 0.00175955,
             "unpriced_calls": 0,
-            "cache_write_tokens": 3916
+            "cache_write_tokens": 8610
           }
         }
       }
@@ -9130,6 +9160,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.00123235,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T17:01:15.567249+00:00",
+        "elapsed_seconds": 1213.968,
+        "status": "completed",
+        "api_calls": 14,
+        "cache_hits": 2,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0098587,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -25676,6 +25718,18 @@
       "13ac6d9f771b2755b49264cec3d0a11597b30f12349918d0c45cbdeb625e7ca1": {
         "summary": "",
         "expires": 1792163280.6606228
+      },
+      "b811abd6fbd550b355a061fee387149d9fd4a6534f50b6a6621d3eb61ffdb68a": {
+        "summary": "",
+        "expires": 1792171221.1711867
+      },
+      "3ee5d7e7b6118f65f4264b76351fddda6b3531dfbbc3bbb685b31e802e35fa64": {
+        "summary": "",
+        "expires": 1792171243.2916794
+      },
+      "95c4fb455ab213a76802ee527337669adc52049f79ba4c4042b33718b9069f79": {
+        "summary": "",
+        "expires": 1792171261.711585
       }
     }
   }
