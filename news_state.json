@@ -3119,6 +3119,15 @@
       "ts": "2026-10-09T06:13:05.372229+00:00",
       "summary": "엔화 연동 #스테이블코인 JPYC가 2025년 10월 발행 이후 음식점·소매점 등 150곳 넘는 매장에서 결제 수단으로 도입됐다고 밝힘\n\nJPYC는 9월 14일 #일본 공정거래위원회에 무현금 결제 시장의 경쟁 환경과 자사 결제 구조에 관한 정보를 제공했으며, 특정 사안에 대한 신고나 상담은 아니라고 설명함",
       "source_pub": "Fri, 09 Oct 2026 05:41:03 +0000"
+    },
+    "3167c653009f07e6": {
+      "title": "비트코인 투자자, 재판매업체서 구매한 레저 지갑으로 80BTC 이체 후 전액 탈취",
+      "url": "bloomingbit.io/feed/news/121920",
+      "signature": "action_invest | action_purchase | action_steal | amount_btc_80 | asset_btc | object_corporate_crypto_purchase | object_wallet",
+      "canonical_key": "action_invest | action_purchase | action_steal | amount_btc_80 | asset_btc | object_corporate_crypto_purchase | object_wallet",
+      "ts": "2026-10-09T19:22:11.760005+00:00",
+      "summary": "온체인 분석업체 룩온체인이 투자자가 재판매업체 크립토빌리스에서 산 레저 하드웨어 지갑으로 옮긴 80 BTC를 모두 탈취당했다고 밝힘\n\n해당 BTC의 매입액은 520만 달러였으며, 보안 침해 경위와 재판매업체의 연관성은 확인되지 않음",
+      "source_pub": "Fri, 09 Oct 2026 12:53:54 -0600"
     }
   },
   "source_baselines": {
@@ -3286,18 +3295,6 @@
   },
   "ai_review": {
     "entries": {
-      "90fb8e99cbe96f7847b8364072acf5fcdd2db3c0f8c76f6dc0e36853d6e067e2": {
-        "text": "{\"approved\":false,\"reason\":\"기사는 카르다노 재단과 니코시아대학교의 강좌 협력을 다루지만, 이미지는 여러 암호화폐를 나열한 범용 아이콘 모음으로 두 핵심 주체나 강좌를 식별할 수 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
-        "expires": 1791572892.7782576
-      },
-      "b0b391c291ced9d9726bb8dea6fd5dadab69118f4d34d8388e83b9867c5b8cd3": {
-        "text": "{\"approved\":false,\"reason\":\"기사의 핵심 주체는 카르다노 재단과 니코시아대학교의 강좌 협력이다. 이미지는 여러 암호화폐를 연상시키는 범용 아이콘 모음으로, 두 주체나 해당 강좌를 식별할 수 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
-        "expires": 1791572896.758649
-      },
-      "d2ade8752d47847733784a60663d66f2fd00d64fa4673ba95e80592c85a28958": {
-        "text": "{\"publish\":false,\"reason\":\"원문은 2025년 6월 15일자라 DTCC의 ‘이달 상용 출시 예정’은 과거 시점의 일정입니다. 이를 현재 진행 중인 일정처럼 요약했고, 새 소식인지 확인되지 않습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791572902.4724808
-      },
       "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
         "text": "SKIP",
         "expires": 1791580071.3819087
@@ -5385,6 +5382,34 @@
       "5a61b8e2af003fd5c2e6b7ffeda5c7c9b60e00b5a78771def2fbe9ff8d9bae6b": {
         "text": "{\"publish\":true,\"reason\":\"블록체인닷컴의 미국 내 예측시장·암호화폐 파생상품 제공을 위한 신규 인허가 신청을 전하며, 승인이 나지 않아 출시가 확정되지 않았다는 조건도 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1791825683.8420177
+      },
+      "783dfbd8ccebaed43eb05e162db01a42fc2c48a4fcb078cfb98c82946aa51e67": {
+        "text": "온체인 분석업체 룩온체인이 투자자가 재판매업체 크립토빌리스에서 산 레저 하드웨어 지갑으로 옮긴 80 BTC를 모두 탈취당했다고 밝힘\n\n해당 BTC의 매입액은 520만 달러였으며, 보안 침해 경위와 재판매업체의 연관성은 확인되지 않음",
+        "expires": 1791832906.6466472
+      },
+      "4bc886164a53d0ea5e3f60033b11d49f0a9890bd44ab437a40bf9452b85645a5": {
+        "text": "{\"publish\":true,\"reason\":\"룩온체인의 발표를 바탕으로 80 BTC 탈취 보도를 전하며, 침해 경위와 재판매업체 연관성이 확인되지 않았다는 단서도 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791832914.2216
+      },
+      "c4b55790a840d45b90542ed55183df2de6d8fbba395b840c326be2346d917aa1": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791832915.9272814
+      },
+      "53b28ee8c7a5b94257d250498fac8a40cd649b0fad16d81335e8c5d5ef0a3ab7": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791832918.7365131
+      },
+      "5c58864244819dab26ac66e6d26b30ef759dcae8e4c2a009a883b5683d2e94a2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791832919.890468
+      },
+      "2bf7bdeaff19f9bbdbe558ed7d2a63d994413b43db5189f905a1d826a59b7112": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791832921.0661051
+      },
+      "98502c04ca6566e11584d0daf6f87735b1cd0c0d07cda42910974b13e578cc17": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 사건은 80 BTC 탈취이며, 이미지 중앙에 식별 가능한 비트코인이 선명하게 보여 사건의 직접적인 대상과 관련된다. 레저 지갑이나 탈취 장면을 묘사하진 않지만, 비트코인은 부수적으로 언급된 자산이 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791832929.7658105
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7627,43 +7652,43 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 23,
-            "cache_hits": 54,
+            "api_calls": 24,
+            "cache_hits": 57,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 113759,
+            "input_tokens": 118560,
             "cached_input_tokens": 0,
-            "output_tokens": 3980,
-            "reasoning_tokens": 2807,
-            "estimated_usd": 0.01620815,
+            "output_tokens": 4268,
+            "reasoning_tokens": 3006,
+            "estimated_usd": 0.0169522,
             "unpriced_calls": 0,
-            "cache_write_tokens": 113690
+            "cache_write_tokens": 118488
           },
           "source_review": {
-            "api_calls": 22,
+            "api_calls": 23,
             "cache_hits": 25,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 100122,
+            "input_tokens": 104384,
             "cached_input_tokens": 0,
-            "output_tokens": 9328,
-            "reasoning_tokens": 7133,
-            "estimated_usd": 0.0171776,
+            "output_tokens": 9874,
+            "reasoning_tokens": 7585,
+            "estimated_usd": 0.017983275,
             "unpriced_calls": 0,
-            "cache_write_tokens": 100056
+            "cache_write_tokens": 104315
           },
           "event_search": {
-            "api_calls": 57,
+            "api_calls": 61,
             "cache_hits": 75,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 534642,
+            "input_tokens": 571174,
             "cached_input_tokens": 0,
-            "output_tokens": 3175,
-            "reasoning_tokens": 2492,
-            "estimated_usd": 0.068413475,
+            "output_tokens": 3316,
+            "reasoning_tokens": 2595,
+            "estimated_usd": 0.073050175,
             "unpriced_calls": 0,
-            "cache_write_tokens": 534471
+            "cache_write_tokens": 570991
           },
           "event_decision": {
             "api_calls": 3,
@@ -7679,17 +7704,17 @@
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 13,
+            "api_calls": 14,
             "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 22305,
+            "input_tokens": 23546,
             "cached_input_tokens": 0,
-            "output_tokens": 3480,
-            "reasoning_tokens": 1917,
-            "estimated_usd": 0.00446045,
+            "output_tokens": 3791,
+            "reasoning_tokens": 2096,
+            "estimated_usd": 0.004771,
             "unpriced_calls": 0,
-            "cache_write_tokens": 19598
+            "cache_write_tokens": 20836
           },
           "summary_repair": {
             "api_calls": 6,
@@ -9163,6 +9188,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.000579175,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T19:01:15.192712+00:00",
+        "elapsed_seconds": 1265.227,
+        "status": "completed",
+        "api_calls": 7,
+        "cache_hits": 3,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.006496975,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
