@@ -3283,14 +3283,6 @@
   },
   "ai_review": {
     "entries": {
-      "a192e68345fae3eb2086a1fddab6c722e804ae8fb513ad47b5cdd3369c023ac4": {
-        "text": "SKIP",
-        "expires": 1791584111.2354817
-      },
-      "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
-        "text": "SKIP",
-        "expires": 1791584117.5035784
-      },
       "b3d7399eb0f3699816d3bc3fe548927363322b4b5397aa53b459094ce4a07e46": {
         "text": "{\"publish\": false, \"reason\": \"명령의 핵심인 채권·채무 관계가 요약의 ‘리플 미지급금’이라는 표현에서 불분명해 리플이 돈을 갚아야 하는 것으로 오해될 수 있습니다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
         "expires": 1791588021.147896
@@ -3330,6 +3322,10 @@
       "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
         "text": "SKIP",
         "expires": 1791602538.1055396
+      },
+      "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
+        "text": "SKIP",
+        "expires": 1791606003.323734
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -7676,17 +7672,17 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 27,
-            "cache_hits": 62,
+            "api_calls": 28,
+            "cache_hits": 64,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 133310,
+            "input_tokens": 138528,
             "cached_input_tokens": 0,
-            "output_tokens": 4523,
+            "output_tokens": 4529,
             "reasoning_tokens": 3197,
-            "estimated_usd": 0.018923225,
+            "estimated_usd": 0.0195784,
             "unpriced_calls": 0,
-            "cache_write_tokens": 133229
+            "cache_write_tokens": 138444
           },
           "source_review": {
             "api_calls": 25,
@@ -9248,6 +9244,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.008646025,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T22:01:17.014719+00:00",
+        "elapsed_seconds": 1127.707,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 2,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.000655175,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
