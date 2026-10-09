@@ -1,12 +1,5 @@
 {
   "posted": {
-    "474342d30cb44fce": {
-      "title": "XRP ETFs enter $11.4M Schwab collateral pool",
-      "url": "crypto.news/xrp-etfs-enter-11-4m-schwab-collateral-pool",
-      "signature": "action_disclose | action_secure | amount_usd_11390000 | amount_usd_11400000 | amount_usd_2000000 | asset_xrp | object_etf | object_etf_holdings | object_fund",
-      "canonical_key": "action_disclose | action_secure | amount_usd_11390000 | amount_usd_11400000 | amount_usd_2000000 | asset_xrp | object_etf | object_etf_holdings | object_fund",
-      "ts": "2026-09-09T09:01:45.516412+00:00"
-    },
     "ca99d131eb8d664d": {
       "title": "채굴기 1204대 인수 완료…비트플래닛, 134억원 지급",
       "url": "www.tokenpost.kr/news/cryptocurrency/405083",
@@ -3398,10 +3391,6 @@
   },
   "ai_review": {
     "entries": {
-      "67a4595eb3b03d12af0ef1a1d40d2f72f910d0fabd08fb8b13d1552ef8986e2f": {
-        "text": "SKIP",
-        "expires": 1791540712.4199996
-      },
       "a2159ffc249d8f549b785151702eba836480149487ab77d8fea0061522f3e8fb": {
         "text": "{\"decision\":\"uncertain\",\"matched_id\":\"64f6ba56f8953231\",\"reason\":\"기존 기록은 이란 연계 USDT에 관한 상원 조사라고만 설명해, 후보의 캔터 피츠제럴드·러트닉 관련 자료 요구가 같은 조사인지 별도 조사인지 확인할 수 없습니다.\",\"new_fact\":\"\"}",
         "expires": 1791545236.5572891
@@ -3425,6 +3414,10 @@
       "fe744a2820328909589c6b781755413d23cca7baef018bfa18652d3af58006fb": {
         "text": "SKIP",
         "expires": 1791558828.1254492
+      },
+      "15cd5faadd56a8168692b31ca3b2a83c7c3b0d7e4b782f602d5004a6ecb6a0d8": {
+        "text": "SKIP",
+        "expires": 1791562728.4043305
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5341,6 +5334,10 @@
       "7c316fbf2190265f809fa3855809096acff8a74916f2b0f70742c3ebdf5e4c12": {
         "text": "{\"related_ids\":[\"944f07b9dbe97d3c\"]}",
         "expires": 1791796423.9956846
+      },
+      "790e500daffe82ced171d9667e52e695948c6b8ac4e7c777724f9bebd109967c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791800331.2519548
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7583,21 +7580,21 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 10,
-            "cache_hits": 30,
+            "api_calls": 11,
+            "cache_hits": 33,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 49494,
+            "input_tokens": 54282,
             "cached_input_tokens": 0,
-            "output_tokens": 1872,
-            "reasoning_tokens": 1331,
-            "estimated_usd": 0.007122,
+            "output_tokens": 2180,
+            "reasoning_tokens": 1631,
+            "estimated_usd": 0.007874425,
             "unpriced_calls": 0,
-            "cache_write_tokens": 49464
+            "cache_write_tokens": 54249
           },
           "source_review": {
             "api_calls": 10,
-            "cache_hits": 15,
+            "cache_hits": 17,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 44433,
@@ -7609,21 +7606,21 @@
             "cache_write_tokens": 44403
           },
           "event_search": {
-            "api_calls": 41,
-            "cache_hits": 63,
+            "api_calls": 42,
+            "cache_hits": 66,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 385290,
+            "input_tokens": 395110,
             "cached_input_tokens": 0,
-            "output_tokens": 2505,
-            "reasoning_tokens": 2014,
-            "estimated_usd": 0.049410675,
+            "output_tokens": 2588,
+            "reasoning_tokens": 2086,
+            "estimated_usd": 0.0506796,
             "unpriced_calls": 0,
-            "cache_write_tokens": 385167
+            "cache_write_tokens": 394984
           },
           "event_decision": {
             "api_calls": 2,
-            "cache_hits": 13,
+            "cache_hits": 14,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 1219,
@@ -9011,6 +9008,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0037317,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T10:01:10.110971+00:00",
+        "elapsed_seconds": 1061.848,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 9,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00202135,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
