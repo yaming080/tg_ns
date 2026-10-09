@@ -1,12 +1,5 @@
 {
   "posted": {
-    "13877be3188e7561": {
-      "title": "Tron Founder Reacts as First TRX ETF Goes Live",
-      "url": "u.today/tron-founder-reacts-as-first-trx-etf-goes-live",
-      "signature": "action_launch | entity_저스틴선 | geo_us | object_board | object_etf",
-      "canonical_key": "action_launch | entity_저스틴선 | geo_us | object_board | object_etf",
-      "ts": "2026-09-09T20:01:32.988318+00:00"
-    },
     "21702623dda615e2": {
       "title": "9월 10일 출근길 팟캐스트 — 연준 9월 금리 불확실성 확대…비트코인 ETF 4665만달러 유출",
       "url": "www.tokenpost.kr/news/insights/405430",
@@ -3114,6 +3107,15 @@
       "ts": "2026-10-09T19:22:11.760005+00:00",
       "summary": "온체인 분석업체 룩온체인이 투자자가 재판매업체 크립토빌리스에서 산 레저 하드웨어 지갑으로 옮긴 80 BTC를 모두 탈취당했다고 밝힘\n\n해당 BTC의 매입액은 520만 달러였으며, 보안 침해 경위와 재판매업체의 연관성은 확인되지 않음",
       "source_pub": "Fri, 09 Oct 2026 12:53:54 -0600"
+    },
+    "3f0d5f1ae9b01f00": {
+      "title": "XRP Ledger Batch goes live, enabling bundled transactions",
+      "url": "crypto.news/xrp-ledger-batch-goes-live-enable-bundled-transactions",
+      "signature": "action_enable | action_launch | action_support | asset_xrp | asset_xrpl | object_network_upgrade",
+      "canonical_key": "action_enable | action_launch | action_support | asset_xrp | asset_xrpl | object_network_upgrade",
+      "ts": "2026-10-09T21:22:12.764503+00:00",
+      "summary": "엑스알피 레저 메인넷에서 배치 기능이 활성화됐다. 엑스알피스캔 대시보드에 따르면 검증자 35명 중 30명의 지지를 받아 활성화됐으며, 2~8건의 거래를 하나의 작업으로 묶을 수 있다",
+      "source_pub": "Fri, 09 Oct 2026 20:34:21 +0000"
     }
   },
   "source_baselines": {
@@ -3281,18 +3283,6 @@
   },
   "ai_review": {
     "entries": {
-      "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
-        "text": "SKIP",
-        "expires": 1791580071.3819087
-      },
-      "cd4d9a75e3605f981d85eddcafae01eadc0f46ac2ce31e5d7049d9607507f3ab": {
-        "text": "{\"publish\":false,\"reason\":\"권한 위임 기능의 메인넷 활성화는 요약했지만, 별도 수정안 전 PaymentBurn 권한을 위임하면 특정 상황에서 대체 토큰을 발행할 수 있다는 위험과 수정안의 예상 시점(10월 23일)을 누락했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791580080.6414328
-      },
-      "3388ac4be7fd05c531fda215aaf5a8550f07d06247c3b2d8d1bbb5450113379a": {
-        "text": "{\"publish\":false,\"reason\":\"요약에서 PaymentBurn 권한으로 특정 상황에 새 대체가능 토큰을 발행할 수 있다는 위험을 ‘대체 토큰이 발행될 수 있다’고 부정확하게 표현했고, 10월 23일 수정안 활성화도 ‘예상’이라는 불확실성을 충분히 보존하지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791580090.5226748
-      },
       "a192e68345fae3eb2086a1fddab6c722e804ae8fb513ad47b5cdd3369c023ac4": {
         "text": "SKIP",
         "expires": 1791584111.2354817
@@ -3332,6 +3322,14 @@
       "6093ac5765302f5a3ba6efa032e9ca8187b6720cbb0141b16cc34f6f0bd7f254": {
         "text": "SKIP",
         "expires": 1791598326.87183
+      },
+      "11a16522ea0d9ccea378d83e43efc324cbaadd3b4b80cfa12a63175d330c237b": {
+        "text": "{\"publish\": false, \"reason\": \"기능 활성화는 확인되지만, 원문은 XRP Ledger의 발표가 아니라 XRPScan 대시보드의 amendment 데이터를 근거로 한다. 요약의 ‘밝힘’은 발표 주체를 잘못 귀속한다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": true}}",
+        "expires": 1791602504.255338
+      },
+      "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
+        "text": "SKIP",
+        "expires": 1791602538.1055396
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5400,6 +5398,42 @@
       "98502c04ca6566e11584d0daf6f87735b1cd0c0d07cda42910974b13e578cc17": {
         "text": "{\"approved\":true,\"reason\":\"기사의 핵심 사건은 80 BTC 탈취이며, 이미지 중앙에 식별 가능한 비트코인이 선명하게 보여 사건의 직접적인 대상과 관련된다. 레저 지갑이나 탈취 장면을 묘사하진 않지만, 비트코인은 부수적으로 언급된 자산이 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
         "expires": 1791832929.7658105
+      },
+      "2fc45f8860399cdd566e2d11b38150e88feafb337cfb00ea8d03c4e90704bb9b": {
+        "text": "XRP Ledger가 메인넷에 배치(Batch) 기능을 활성화해 2~8건의 거래를 하나의 작업으로 묶어 처리할 수 있게 됐다고 밝힘",
+        "expires": 1791840097.5775328
+      },
+      "f1d814bef20acaa47a84bf302472483875ee3dbb19b51f5f36de140a5c6186fa": {
+        "text": "엑스알피 레저 메인넷에서 배치 기능이 활성화됐다. 엑스알피스캔 대시보드에 따르면 검증자 35명 중 30명의 지지를 받아 활성화됐으며, 2~8건의 거래를 하나의 작업으로 묶을 수 있다.",
+        "expires": 1791840107.3042943
+      },
+      "18930feb098c288b4cdcd712b3007864f3ed9f6e5656909bdf179edaa7bdffb2": {
+        "text": "{\"publish\":true,\"reason\":\"엑스알피 레저 메인넷의 배치 기능 활성화와 거래 묶음 범위가 원문에 부합한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791840112.1672475
+      },
+      "65bbd7c40ac61b5bddb0ae5d72d02a4767f414dfc0b68c728dadcf2538a9052d": {
+        "text": "{\"related_ids\":[\"0711ff2348de10f5\"]}",
+        "expires": 1791840116.3119946
+      },
+      "0a83884834d5aa794cfc420c7f272275c64e53fd05ad7651b41a53a0070b2af1": {
+        "text": "{\"related_ids\":[\"12c5f401908b9f74\"]}",
+        "expires": 1791840117.8857853
+      },
+      "3ac330e2aa75016923555bb9a3eb7bb404f43fefceab51d097f382af3883f9ed": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791840120.044868
+      },
+      "4bee911ee76068e8ea37216b67a01c702b38ad3fe33795304d4a0d917cbc6ffb": {
+        "text": "{\"related_ids\":[\"722c0f0b744fc4aa\"]}",
+        "expires": 1791840122.208928
+      },
+      "ea7fe937367df16b60a489c06a48d9e47925a3b0818e08084f698f6a7f7af31f": {
+        "text": "{\"decision\":\"update\",\"matched_id\":\"0711ff2348de10f5\",\"reason\":\"같은 XRP Ledger Batch 기능의 활성화 사안이다. 기존 기록은 활성화 절차와 검증인 찬성 투표를 다루지만, 후보 기사는 메인넷에서 실제 활성화됐다고 보도한다.\",\"new_fact\":\"XRP Ledger 메인넷에서 Batch 기능이 활성화됐다. 후보 기사에 따르면 검증인 35명 중 30명이 지지했으며 2~8건의 거래를 하나의 작업으로 묶을 수 있다.\"}",
+        "expires": 1791840126.2969134
+      },
+      "1ea216f0bb5673d110d2a8122589bbdd282efb3a9f4972038abe1604f31b8536": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 XRP Ledger에서 배치 기능이 활성화된 사건이며, 이미지의 중심에는 XRP 로고와 디지털 네트워크를 연상시키는 배경이 있어 핵심 주체를 식별할 수 있다. 배치 기능 자체를 구체적으로 묘사하진 않지만 관련 삽화로 볼 수 있다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791840130.023022
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7642,82 +7676,82 @@
       "2026-10-09": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 25,
-            "cache_hits": 60,
+            "api_calls": 27,
+            "cache_hits": 62,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 123814,
+            "input_tokens": 133310,
             "cached_input_tokens": 0,
-            "output_tokens": 4320,
-            "reasoning_tokens": 3050,
-            "estimated_usd": 0.017634875,
+            "output_tokens": 4523,
+            "reasoning_tokens": 3197,
+            "estimated_usd": 0.018923225,
             "unpriced_calls": 0,
-            "cache_write_tokens": 123739
+            "cache_write_tokens": 133229
           },
           "source_review": {
-            "api_calls": 23,
+            "api_calls": 25,
             "cache_hits": 25,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 104384,
+            "input_tokens": 113440,
             "cached_input_tokens": 0,
-            "output_tokens": 9874,
-            "reasoning_tokens": 7585,
-            "estimated_usd": 0.017983275,
+            "output_tokens": 10804,
+            "reasoning_tokens": 8322,
+            "estimated_usd": 0.019580125,
             "unpriced_calls": 0,
-            "cache_write_tokens": 104315
+            "cache_write_tokens": 113365
           },
           "event_search": {
-            "api_calls": 61,
+            "api_calls": 65,
             "cache_hits": 75,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 571174,
+            "input_tokens": 607570,
             "cached_input_tokens": 0,
-            "output_tokens": 3316,
-            "reasoning_tokens": 2595,
-            "estimated_usd": 0.073050175,
+            "output_tokens": 3889,
+            "reasoning_tokens": 3094,
+            "estimated_usd": 0.077885875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 570991
+            "cache_write_tokens": 607375
           },
           "event_decision": {
-            "api_calls": 3,
+            "api_calls": 4,
             "cache_hits": 17,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1766,
+            "input_tokens": 2465,
             "cached_input_tokens": 0,
-            "output_tokens": 454,
-            "reasoning_tokens": 206,
-            "estimated_usd": 0.0004036,
+            "output_tokens": 778,
+            "reasoning_tokens": 400,
+            "estimated_usd": 0.0006355,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 14,
+            "api_calls": 15,
             "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 23546,
+            "input_tokens": 26042,
             "cached_input_tokens": 0,
-            "output_tokens": 3791,
-            "reasoning_tokens": 2096,
-            "estimated_usd": 0.004771,
+            "output_tokens": 3988,
+            "reasoning_tokens": 2155,
+            "estimated_usd": 0.005181425,
             "unpriced_calls": 0,
-            "cache_write_tokens": 20836
+            "cache_write_tokens": 23329
           },
           "summary_repair": {
-            "api_calls": 6,
+            "api_calls": 7,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 8628,
+            "input_tokens": 9943,
             "cached_input_tokens": 0,
-            "output_tokens": 1363,
-            "reasoning_tokens": 779,
-            "estimated_usd": 0.00175955,
+            "output_tokens": 1600,
+            "reasoning_tokens": 941,
+            "estimated_usd": 0.00204235,
             "unpriced_calls": 0,
-            "cache_write_tokens": 8610
+            "cache_write_tokens": 9922
           }
         }
       }
@@ -9202,6 +9236,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.000682675,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-09T21:01:16.595196+00:00",
+        "elapsed_seconds": 1266.673,
+        "status": "completed",
+        "api_calls": 11,
+        "cache_hits": 2,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.008646025,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -25760,6 +25806,10 @@
       "95c4fb455ab213a76802ee527337669adc52049f79ba4c4042b33718b9069f79": {
         "summary": "",
         "expires": 1792171261.711585
+      },
+      "e39bce23b72bd6544d2a4d368fe62f171ed7ddce87efa68c4f3c35eb35ed05c2": {
+        "summary": "엑스알피 레저 메인넷에서 배치 기능이 활성화됐다. 엑스알피스캔 대시보드에 따르면 검증자 35명 중 30명의 지지를 받아 활성화됐으며, 2~8건의 거래를 하나의 작업으로 묶을 수 있다",
+        "expires": 1792185712.1902757
       }
     }
   }
