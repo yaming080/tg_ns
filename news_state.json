@@ -1,12 +1,5 @@
 {
   "posted": {
-    "03d9477d8476917a": {
-      "title": "매직에덴 $ME 보유자 3명, 보상 변경 놓고 집단소송",
-      "url": "www.tokenpost.kr/news/cryptocurrency/405551",
-      "signature": "action_sue | asset_btc | asset_usdc | count_people_3 | object_class_action | object_infrastructure | object_wallet",
-      "canonical_key": "action_sue | asset_btc | asset_usdc | count_people_3 | object_class_action | object_infrastructure | object_wallet",
-      "ts": "2026-09-10T02:02:17.497281+00:00"
-    },
     "3fe0d160a1562f61": {
       "title": "BTC 순실현손익 1억7650만달러 플러스 전환",
       "url": "www.tokenpost.kr/news/cryptocurrency/405673",
@@ -3102,6 +3095,15 @@
       "ts": "2026-10-09T21:22:12.764503+00:00",
       "summary": "엑스알피 레저 메인넷에서 배치 기능이 활성화됐다. 엑스알피스캔 대시보드에 따르면 검증자 35명 중 30명의 지지를 받아 활성화됐으며, 2~8건의 거래를 하나의 작업으로 묶을 수 있다",
       "source_pub": "Fri, 09 Oct 2026 20:34:21 +0000"
+    },
+    "d58dcdd7b2301589": {
+      "title": "문페이, 카드·은행 송금으로 산 USDC 아크 전송 지원",
+      "url": "www.tokenpost.kr/news/cryptocurrency/420766",
+      "signature": "action_develop | action_integrate | action_purchase | action_transfer | asset_usdc | entity_문페이 | geo_korea | object_card | object_network | object_payment | object_wallet",
+      "canonical_key": "action_develop | action_integrate | action_purchase | action_transfer | asset_usdc | entity_문페이 | geo_korea | object_card | object_network | object_payment | object_wallet",
+      "ts": "2026-10-10T03:20:34.697620+00:00",
+      "summary": "아크가 #문페이 연동을 발표해 카드·애플페이·구글페이·은행 송금으로 구매한 #USDC 를 아크 네트워크로 보낼 수 있게 됐다. USDC는 달러 가치에 연동되도록 설계된 스테이블코인이다",
+      "source_pub": "Sat, 10 Oct 2026 02:56:45 +0000"
     }
   },
   "source_baselines": {
@@ -3296,6 +3298,22 @@
       "49bed1ef9831c3d701699d32711c7c78064b0f89407e08b7f015c7ab8d2db919": {
         "text": "SKIP",
         "expires": 1791620607.5796196
+      },
+      "1924771b50a00529dc242c0ddee2a3e214a5fbfc7546f40d2883831560019e25": {
+        "text": "SKIP",
+        "expires": 1791624005.1257093
+      },
+      "e484245fa3f54939a74e5c486da2d1224ca642020e278b59c9ae1e5663817156": {
+        "text": "{\"publish\":false,\"reason\":\"연동 발표 주체는 아크인데 요약은 문페이가 발표한 것으로 잘못 귀속했다. 요약에 USDC 설명도 빠져 있다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791624011.9950662
+      },
+      "9cc8d8b9fe785d68903bacb162b86f6b5552f50ef0b8f311106c325bfcfa18f2": {
+        "text": "{\"publish\": false, \"reason\": \"원문은 앵커리지디지털이 ‘첫 파트너’라고 하지 않고 출범 초기 파트너이자 초기 연결 기업 중 하나라고 설명합니다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": true}}",
+        "expires": 1791624048.1133885
+      },
+      "d9bbfe09f6703881bf159758e82b561d147b9ef93efa7dac2d895bc8860fb3d6": {
+        "text": "{\"publish\":false,\"reason\":\"새로운 기관용 비트코인 금융 인프라 사업 소식이며 핵심 사실과 미확정 조건은 대체로 정확하지만, 핵심 경로인 아틀라스가 어떤 시스템인지 설명이 부족해 일반 독자가 이용 방식과 의미를 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791624057.8857996
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5412,6 +5430,50 @@
       "f6a4abefc62ec979c8ae37e88c7724628906472b60960f395541f73669a9b55e": {
         "text": "{\"publish\":true,\"reason\":\"미국 내 예측시장·암호화폐 파생상품 제공을 위한 신청 사실과 출시 일정 미정을 원문에 맞게 요약했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1791846658.6081395
+      },
+      "05ac41f18242d055a6fa11f7f2b872dda2d8550b06e3e4b33d59b28c659c65d4": {
+        "text": "문페이가 카드·애플페이·구글페이·은행 송금으로 구매한 USDC를 아크 네트워크로 보낼 수 있도록 연동을 완료했다고 밝힘",
+        "expires": 1791861607.6529527
+      },
+      "77a62d5b06df24beae885d67aafcece91f3570f7b8abdbcb3fec20629ebf9de2": {
+        "text": "아크가 문페이 연동을 발표해 카드·애플페이·구글페이·은행 송금으로 구매한 USDC를 아크 네트워크로 보낼 수 있게 됐다. USDC는 달러 가치에 연동되도록 설계된 스테이블코인이다.",
+        "expires": 1791861614.6950226
+      },
+      "35cc96210391c260fa29816e60780fe1c9363fd2b5fbcfe619ffbcf44cbce644": {
+        "text": "{\"publish\":true,\"reason\":\"아크가 문페이 연동을 새로 발표했으며, 지원 결제 수단으로 USDC를 구매해 아크 네트워크로 전송할 수 있다는 구체적인 결제 경로 변경이 확인된다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791861616.8180432
+      },
+      "521036bae884d5dd5010ae720bce92c6afa48fb203809081ea58a38f44eb52fe": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791861619.7445009
+      },
+      "b9535ad77b5389587ab1d0b36c25bdede5f2ce9ec33d2756ca554b4090b463ac": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791861622.6841996
+      },
+      "212ebd740c2403bdfb43cd1d0fe08769df271e9fefb8b353d9da0b4d03afbee6": {
+        "text": "{\"related_ids\":[\"2066e3e9a31c64c5\"]}",
+        "expires": 1791861625.5350094
+      },
+      "9287b0492175cbdc02886974a5e6fa20c773525c196eeb623c1a4db9311c1606": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791861627.1971483
+      },
+      "d4798e57acc9a204ee36744229f828312f72dc67e9a24c35e4452a224f7615c5": {
+        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"후보는 문페이 결제수단으로 구매한 USDC를 아크 네트워크로 전송할 수 있도록 한 연동 발표다. 기록의 아크 온체인 앱 생성 도구 출시와는 사업·상품·행동이 다르다.\",\"new_fact\":\"\"}",
+        "expires": 1791861629.456583
+      },
+      "6bab36a0decc9474dcefb723fd3d2dd62a1c2d84a1b198a5845b32c93ab9082c": {
+        "text": "{\"approved\":true,\"reason\":\"이미지 중심에 아크(Arc) 로고가 선명하게 보이며, 문페이 연동을 발표한 핵심 네트워크인 아크와 직접 관련된 이미지다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791861633.0592656
+      },
+      "982002008dec313e693ab3cc8936a674f78268949591d954c4026e04a03b1bc8": {
+        "text": "앵커리지디지털이 수이의 비트코인 금융 네트워크 해시의 첫 파트너로 참여해 상장사와 디지털자산 재무기업이 BTC를 팔지 않고 담보로 현금을 조달하도록 아틀라스 시스템을 연결함\n\n해시는 이달 말 단계적 메인넷 출시를 시작하며, 20여 개 기업이 약정한 5억 달러 이상은 실제 예치액이 아님 񟿿",
+        "expires": 1791861641.921819
+      },
+      "260b949c8721854a7f056bb3c10503156f92af7c43769eae54f654042923779d": {
+        "text": "앵커리지디지털이 수이의 비트코인 금융 네트워크 해시의 출범 초기 파트너로 참여해, 상장사와 디지털자산 재무기업이 BTC를 팔지 않고 담보로 현금을 조달하도록 아틀라스 시스템을 연결한다.\n\n해시는 이달 말 단계적 메인넷 출시를 시작하며, 20여 개 기업이 약정한 5억 달러 이상은 실제 예치액이 아니다.",
+        "expires": 1791861651.7091417
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7736,17 +7798,82 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 2,
-            "cache_hits": 9,
+            "api_calls": 5,
+            "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 8996,
+            "input_tokens": 23837,
             "cached_input_tokens": 0,
-            "output_tokens": 84,
-            "reasoning_tokens": 70,
-            "estimated_usd": 0.00116635,
+            "output_tokens": 676,
+            "reasoning_tokens": 501,
+            "estimated_usd": 0.00331725,
             "unpriced_calls": 0,
-            "cache_write_tokens": 8990
+            "cache_write_tokens": 23822
+          },
+          "source_review": {
+            "api_calls": 4,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 17966,
+            "cached_input_tokens": 0,
+            "output_tokens": 1488,
+            "reasoning_tokens": 1096,
+            "estimated_usd": 0.00298945,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 17954
+          },
+          "summary_repair": {
+            "api_calls": 2,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 2541,
+            "cached_input_tokens": 0,
+            "output_tokens": 355,
+            "reasoning_tokens": 174,
+            "estimated_usd": 0.000474325,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 1709
+          },
+          "event_search": {
+            "api_calls": 4,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 36306,
+            "cached_input_tokens": 0,
+            "output_tokens": 257,
+            "reasoning_tokens": 202,
+            "estimated_usd": 0.00466645,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 36294
+          },
+          "event_decision": {
+            "api_calls": 1,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 567,
+            "cached_input_tokens": 0,
+            "output_tokens": 125,
+            "reasoning_tokens": 46,
+            "estimated_usd": 0.0001192,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 0
+          },
+          "image_review": {
+            "api_calls": 1,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 1454,
+            "cached_input_tokens": 0,
+            "output_tokens": 176,
+            "reasoning_tokens": 72,
+            "estimated_usd": 0.000269675,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 1451
           }
         }
       }
@@ -9303,6 +9430,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.000577675,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T03:01:11.590874+00:00",
+        "elapsed_seconds": 1196.507,
+        "status": "completed",
+        "api_calls": 15,
+        "cache_hits": 3,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.01067,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -25869,6 +26008,14 @@
       "d598854c1e7fb082e8168c815fa8b9635bcdd1c8e0e19fa8f9aad74b3cf39ade": {
         "summary": "블록체인닷컴이 미국에서 예측시장과 암호화폐 파생상품을 개인·기관 고객에게 제공하기 위해 미국 상품선물거래위원회(CFTC)에 거래소 운영·파생상품 중개 관련 인가 2건을 신청함. 출시 일정은 미정임",
         "expires": 1792192258.6239364
+      },
+      "804de988e2d467653c5fdcce2dd4aae75222bf069ea2906fb2f2e8265e90413d": {
+        "summary": "아크가 문페이 연동을 발표해 카드·애플페이·구글페이·은행 송금으로 구매한 USDC를 아크 네트워크로 보낼 수 있게 됐다. USDC는 달러 가치에 연동되도록 설계된 스테이블코인이다",
+        "expires": 1792207216.8418865
+      },
+      "73db92f6785b782faa74f54942338996a3605eba2ffa8464f59dacb88713cc5c": {
+        "summary": "",
+        "expires": 1792207248.13806
       }
     }
   }
