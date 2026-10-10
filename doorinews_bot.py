@@ -1650,7 +1650,7 @@ CRYPTO_ACRONYMS = {'XRP','XLM','SEC','CFTC','OCC','BTC','ETH','USDC','USDT','XAU
     'DEFI','NFT','WEB3','ETP','ETF','DAO','IPO','CTO','LNG','AI',
 }
 STATE_FILE = 'news_state.json'
-MAX_ITEMS_PER_FEED = 6
+MAX_ITEMS_PER_FEED = 50
 SUMMARY_SENTENCES = 3
 
 def normalize_url(url: str) -> str:
@@ -1764,11 +1764,17 @@ def fetch_rss(url: str, max_items: int = MAX_ITEMS_PER_FEED):
     try:
         data = http_get(url, timeout=12)
         root = ET.fromstring(data)
-        for item in root.findall('.//item')[:max_items]:
+        for item_index, item in enumerate(root.findall('.//item')[:max_items]):
             title = (item.findtext('title') or '').strip()
             link = (item.findtext('link') or '').strip()
             desc = (item.findtext('description') or '').strip()
             pub = (item.findtext('pubDate') or '').strip()
+            if item_index >= 6:
+                from news_sources import timestamp
+                from news_coverage import ENABLED_AT
+                published = timestamp(pub)
+                if published is None or published <= ENABLED_AT:
+                    continue
 
             desc_clean = re.sub(r'<[^>]+>', ' ', unescape(desc))
             desc_clean = re.sub(r'\s+', ' ', desc_clean).strip()
@@ -2791,13 +2797,15 @@ def filter_final_tags(tags: list[str]) -> list[str]:
     return list(dict.fromkeys(cleaned))
 
 
-def fetch_article_text(url: str) -> str:
+def fetch_article_text(url: str, metadata=None) -> str:
     try:
         html_text = http_get(url, timeout=10)
     except Exception:
         return ""
 
-    from news_source_cleanup import strip_page_furniture
+    from news_source_cleanup import strip_page_furniture, page_publication_date
+    if metadata is not None:
+        metadata['page_published_at'] = page_publication_date(html_text)
     html_text = strip_page_furniture(html_text)
 
     patterns = [
@@ -2829,7 +2837,7 @@ def fetch_article_text(url: str) -> str:
     return text[:12000]
 
 def get_best_source_text(story: dict) -> str:
-    article_text = fetch_article_text(story.get('url', ''))
+    article_text = fetch_article_text(story.get('url', ''), metadata=story)
     desc = (story.get('desc') or '').strip()
     title = (story.get('title') or '').strip()
 

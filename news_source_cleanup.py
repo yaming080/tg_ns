@@ -1,5 +1,41 @@
 """Remove explicit page furniture, preserving article facts and paragraph order."""
 from html.parser import HTMLParser
+import json
+import re
+
+
+def page_publication_date(source):
+    """Only explicit publisher metadata, never dates in tweets/body text."""
+    class Metadata(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.value = ''
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == 'meta' and (attrs.get('property') or attrs.get('name')) in (
+                    'article:published_time', 'datePublished'):
+                self.value = attrs.get('content', '')
+    parser = Metadata()
+    parser.feed(source)
+    if parser.value:
+        return parser.value
+    def find(node):
+        if isinstance(node, list):
+            return next((date for item in node if (date := find(item))), '')
+        if isinstance(node, dict):
+            kind = node.get('@type', '')
+            if any(t in (kind if isinstance(kind, list) else [kind]) for t in ('Article', 'NewsArticle', 'BlogPosting')):
+                return str(node.get('datePublished', ''))
+            return find(node.get('@graph', []))
+        return ''
+    for block in re.findall(r'<script\b[^>]*type=[\"\']application/ld\+json[\"\'][^>]*>(.*?)</script>', source, re.I | re.S):
+        try:
+            date = find(json.loads(block))
+            if date:
+                return date
+        except (ValueError, TypeError):
+            continue
+    return ''
 
 
 class _PageText(HTMLParser):
@@ -42,6 +78,10 @@ class _PageText(HTMLParser):
 
 
 def strip_page_furniture(source):
+    # Remove only publisher follow-us embeds. Actual quoted reporting is evidence.
+    source = re.sub(r'<blockquote\b[^>]*>.*?</blockquote>',
+                    lambda m: '' if re.search(r'we are on X,?\s*follow us|follow us to connect', m[0], re.I)
+                    else m[0], source, flags=re.I | re.S)
     parser = _PageText()
     try:
         parser.feed(source)

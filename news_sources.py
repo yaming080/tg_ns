@@ -7,6 +7,7 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 import xml.etree.ElementTree as ET
 
 NEW_FEEDS = (
+    ('더블록', 'https://www.theblock.co/rss.xml'),
     ('크립토브리핑', 'https://cryptobriefing.com/feed/'),
     ('코인게이프', 'https://coingape.com/feed/'),
     ('블루밍비트', 'https://bloomingbit.io/rss.xml'),
@@ -102,9 +103,16 @@ def collect_new_sources(state, fetch, save, log=print, now=None):
     collected = []
     for name, feed_url in NEW_FEEDS:
         try:
-            stories = parse_feed(fetch(feed_url))
+            try:
+                stories = parse_feed(fetch(feed_url))
+            except Exception:
+                if feed_url != 'https://coingape.com/feed/':
+                    raise
+                # Publisher's alternate RSS endpoint; same baseline, no proxy.
+                stories = parse_feed(fetch('https://coingape.com/?feed=rss2'))
+                log('코인게이프: 대체 공식 RSS 응답 사용')
         except Exception as exc:
-            log(f'{name}: 수집 실패, 발송 없음 ({type(exc).__name__})')
+            log(f'{name}: 수집 실패, 발송 없음 ({type(exc).__name__}, HTTP={getattr(exc, "code", "unknown")})')
             continue
         initialized = feed_url in state.get('source_baselines', {})
         candidates = after_baseline(state, feed_url, stories, now)

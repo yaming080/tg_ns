@@ -1367,14 +1367,16 @@ class DoorinewsEditorTests(unittest.TestCase):
                     msg=story["title"],
                 )
 
-    def test_summary_drops_interpretation_and_keeps_compact_facts(self):
+    def test_formatter_leaves_semantics_for_source_review(self):
         summary = (
             "XRPL 스테이블코인 공급량이 8억2550만달러를 기록함\n\n"
             "이번 성장은 XRP 생태계 확장을 이끌었다는 의미함\n\n"
             "XRP ETP 순유입은 2억5360만달러로 집계됨"
         )
         cleaned = editor._clean_summary(summary)
-        self.assertNotIn("의미", cleaned)
+        # Formatting must not delete an entire attributed statement or condition.
+        # Unsupported interpretation is rejected by the mandatory source review.
+        self.assertIn("의미", cleaned)
         result = editor.format_summary_for_telegram(cleaned, max_sentences=2, max_chars=45)
         self.assertEqual(result, "XRPL 스테이블코인 공급량이 8억2550만달러를 기록함")
 

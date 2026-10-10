@@ -3,6 +3,8 @@ from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 import re
+from news_coverage import coverage_scope
+from news_manual_oct10 import URLS as OCT10_POSTED_URLS
 from urllib.parse import urlsplit
 
 
@@ -48,6 +50,10 @@ MANUALLY_POSTED_ARTICLES = frozenset({
     ('crypto.news', '/circle-gains-binance-backing-in-usdc-tether-race'),
     ('crypto.news', '/south-korea-weighs-liquidity-rules-for-won-stablecoins'),
 })
+
+MANUALLY_POSTED_ARTICLES = MANUALLY_POSTED_ARTICLES | frozenset(
+    (urlsplit(url).netloc.removeprefix('www.'), urlsplit(url).path.rstrip('/'))
+    for url in OCT10_POSTED_URLS)
 
 # User-confirmed removals stay blocked beyond rolling history retention.
 EDITOR_REJECTED_ARTICLES = {
@@ -504,6 +510,9 @@ def channel_scope_reason(story):
     to publish: exclusions and source review still run.
     """
     title = str(story.get('title', '') or '')
+    expanded = coverage_scope(story)
+    if expanded:
+        return expanded
     # A quote currency in an unrelated token listing is not its subject.
     title = re.sub(r'\b[A-Za-z0-9]+\s*[/_-]\s*(?:USDT|USDC|RLUSD)\b', '', title, flags=re.I)
     title = re.sub(r'(?:USDT|USDC|RLUSD|테더)\s*(?:마켓|거래쌍|페어)', '', title, flags=re.I)
@@ -610,19 +619,24 @@ def source_promotion_reason(story):
 
 
 def approval_stage_tokens(text):
-    if not re.search(r'(?i)licen[cs]e|regulator|approval|승인|인가|라이선스', text):
-        return set()
     stages = set()
+    if re.search(r'(?i)merger|SPAC|합병|스팩', text):
+        if re.search(r'(?i)complet|clos(?:es|ed|ing completed)|완료|종결', text):
+            stages.add('stage_corporate_completed')
+        elif re.search(r'(?i)approv|vote|plan|승인|표결|계획|추진', text):
+            stages.add('stage_corporate_planned')
+    if not re.search(r'(?i)licen[cs]e|regulator|approval|승인|인가|라이선스', text):
+        return stages
     if re.search(r'(?i)preliminary|in[- ]principle|provisional|예비\s*승인|원칙적\s*승인', text):
         stages.add('stage_approval_preliminary')
     if re.search(r'(?i)(?:final|full)\s+(?:regulatory\s+)?(?:approval|licen[cs]e)|정식\s*(?:승인|인가|라이선스)|최종\s*승인', text):
         stages.add('stage_approval_final')
     # Both can occur in an article describing progress: its latest explicit stage wins.
-    return {'stage_approval_final'} if 'stage_approval_final' in stages else stages
+    return (stages - {'stage_approval_preliminary'}) if 'stage_approval_final' in stages else stages
 
 
 def event_conflicts(cur, old):
-    for prefix in ('stage_approval_', 'reference_version_', 'reference_eip_', 'reference_bip_', 'event_lab_', 'event_spain_721_', 'subject_lab_'):
+    for prefix in ('stage_corporate_', 'stage_approval_', 'reference_version_', 'reference_eip_', 'reference_bip_', 'event_lab_', 'event_spain_721_', 'subject_lab_'):
         a = {t for t in cur if t.startswith(prefix)}
         b = {t for t in old if t.startswith(prefix)}
         if a and b and a.isdisjoint(b):
