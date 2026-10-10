@@ -1,12 +1,5 @@
 {
   "posted": {
-    "12ce4613c0cead47": {
-      "title": "공식통계 게시 3~5초·검증 1~2초…BIS, XRP 레저 개념증명 공개",
-      "url": "www.tokenpost.kr/news/blockchain/405727",
-      "signature": "action_build | action_disclose | action_launch | action_propose | asset_xrp | asset_xrpl | entity_bis | object_disclosure | object_payment",
-      "canonical_key": "action_build | action_disclose | action_launch | action_propose | asset_xrp | asset_xrpl | entity_bis | object_disclosure | object_payment",
-      "ts": "2026-09-10T09:01:20.389066+00:00"
-    },
     "bf734ab09822fc93": {
       "title": "Important Ripple News and XRP Price Update: September 10",
       "url": "cryptopotato.com/important-ripple-news-and-xrp-price-update-september-10",
@@ -3076,6 +3069,15 @@
       "ts": "2026-10-10T03:20:34.697620+00:00",
       "summary": "아크가 #문페이 연동을 발표해 카드·애플페이·구글페이·은행 송금으로 구매한 #USDC 를 아크 네트워크로 보낼 수 있게 됐다. USDC는 달러 가치에 연동되도록 설계된 스테이블코인이다",
       "source_pub": "Sat, 10 Oct 2026 02:56:45 +0000"
+    },
+    "b14cc7db21b12ab7": {
+      "title": "A Decade-Old XRP Ledger Bug Could Have Minted XRP Out of Thin Air",
+      "url": "news.bitcoin.com/featured/xrp-ledger-bug-minted-xrp-overflow",
+      "signature": "action_compromise | action_mint | asset_xrp | asset_xrpl | object_network | object_payment",
+      "canonical_key": "action_compromise | action_mint | asset_xrp | asset_xrpl | object_network | object_payment",
+      "ts": "2026-10-10T10:15:16.331278+00:00",
+      "summary": "#XRP 레저에서 한 결제가 탈중앙화 거래소의 여러 매물을 거칠 때 계산 오류로 총공급량을 넘는 사용 가능 XRP가 생성될 수 있는 취약점이 공개됨\n\n리플엑스는 취약점을 치명적으로 평가했으며, 수정판 xrpld 3.4.1이 배포돼 9월 25일까지 기본 UNL(신뢰 노드 목록)의 검증자 80% 이상이 적용함. 10월 9일 공개 당시 악용 증거는 없다고 밝힘",
+      "source_pub": "Sat, 10 Oct 2026 09:00:37 +0000"
     }
   },
   "source_baselines": {
@@ -3239,26 +3241,35 @@
         "https://cryptobriefing.com/us-senate-hearing-rogue-ai-agents",
         "https://cryptobriefing.com/valor-atreides-flow-engineering-50m-series-b"
       ]
+    },
+    "https://www.theblock.co/rss.xml": {
+      "activated_at": "2026-10-10T10:01:24.106562+00:00",
+      "baseline_urls": [
+        "https://www.theblock.co/news/business/2026-10-07-samsung-to-launch-usdc-transfers-on-solana-for-us-galaxy-users-418004",
+        "https://www.theblock.co/news/business/2026-10-08-bitwise-ceo-dogecoin-etf-failure-hunter-horsley-418070",
+        "https://www.theblock.co/news/business/2026-10-08-standard-chartered-crypto-custody-singapore-418017",
+        "https://www.theblock.co/news/business/2026-10-09-blockchain-com-cftc-license-prediction-markets-derivatives-418192",
+        "https://www.theblock.co/news/business/2026-10-09-former-ftx-coo-netflix-the-altruists-trailer-418208",
+        "https://www.theblock.co/news/business/2026-10-09-ledger-cryptobilis-fund-losses-418163",
+        "https://www.theblock.co/news/deals/2026-10-09-sam-altman-backed-bitcoin-life-insurer-meanwhile-raises-37-5-million-round-led-by-bain-capital-crypto-418131",
+        "https://www.theblock.co/news/defi/2026-10-07-solanas-orca-merges-with-loopscale-push-to-finance-ai-robotics-defense-417924",
+        "https://www.theblock.co/news/defi/2026-10-08-crypto-industry-split-over-justin-drakes-ai-warning-418021",
+        "https://www.theblock.co/news/defi/2026-10-08-vitalik-buterin-warns-hasty-wallet-migrations-418007",
+        "https://www.theblock.co/news/defi/2026-10-09-tokenization-supercycle-base-jesse-pollak-418144",
+        "https://www.theblock.co/news/markets/2026-10-08-bitcoin-q4-forecast-418052",
+        "https://www.theblock.co/news/markets/2026-10-08-jpmorgan-crypto-inflows-50-billion-etf-futures-q4-418115",
+        "https://www.theblock.co/news/markets/2026-10-08-securitize-launches-tokenized-us-stocks-solana-418043",
+        "https://www.theblock.co/news/markets/2026-10-08-strategy-shareholders-face-dilution-drag-despite-brighter-bitcoin-forecasts-td-cowen-418066",
+        "https://www.theblock.co/news/regulation/2026-10-08-nfl-amicus-brief-supreme-court-kalshi-new-jersey-prediction-markets-418064",
+        "https://www.theblock.co/news/regulation/2026-10-09-ny-attorney-general-alex-mashinsky-celsius-35-million-ban-418154",
+        "https://www.theblock.co/news/regulation/2026-10-09-thailand-sec-issues-bitcoin-and-ether-etf-rules-set-to-take-effect-oct-16-418132",
+        "https://www.theblock.co/news/regulation/2026-10-09-us-targets-1-billion-iran-linked-crypto-seizure-bessent-says-we-know-where-it-is-418151",
+        "https://www.theblock.co/research/institutional/block-gcci-2026-country-profile-korea-crypto-market-418081"
+      ]
     }
   },
   "ai_review": {
     "entries": {
-      "1924771b50a00529dc242c0ddee2a3e214a5fbfc7546f40d2883831560019e25": {
-        "text": "SKIP",
-        "expires": 1791624005.1257093
-      },
-      "e484245fa3f54939a74e5c486da2d1224ca642020e278b59c9ae1e5663817156": {
-        "text": "{\"publish\":false,\"reason\":\"연동 발표 주체는 아크인데 요약은 문페이가 발표한 것으로 잘못 귀속했다. 요약에 USDC 설명도 빠져 있다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791624011.9950662
-      },
-      "9cc8d8b9fe785d68903bacb162b86f6b5552f50ef0b8f311106c325bfcfa18f2": {
-        "text": "{\"publish\": false, \"reason\": \"원문은 앵커리지디지털이 ‘첫 파트너’라고 하지 않고 출범 초기 파트너이자 초기 연결 기업 중 하나라고 설명합니다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": true}}",
-        "expires": 1791624048.1133885
-      },
-      "d9bbfe09f6703881bf159758e82b561d147b9ef93efa7dac2d895bc8860fb3d6": {
-        "text": "{\"publish\":false,\"reason\":\"새로운 기관용 비트코인 금융 인프라 사업 소식이며 핵심 사실과 미확정 조건은 대체로 정확하지만, 핵심 경로인 아틀라스가 어떤 시스템인지 설명이 부족해 일반 독자가 이용 방식과 의미를 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791624057.8857996
-      },
       "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
         "text": "SKIP",
         "expires": 1791627704.0255585
@@ -3306,6 +3317,50 @@
       "8b47048455de481f42fb20a1f134971a32894212a80669113e4bbb186ab787d6": {
         "text": "{\"publish\": false, \"reason\": \"취약점 수정과 악용 조건은 원문과 대체로 일치하지만, 일반 독자가 이해할 수 있도록 ‘정수 오버플로’가 어떤 현상인지 설명하지 않았다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
         "expires": 1791645074.7505355
+      },
+      "2bd2870e27e1ac860d7f1578e72aa257058cae600da878510511347e8c5c1585": {
+        "text": "{\"publish\":false,\"reason\":\"취약점의 핵심은 대체로 맞지만, 수정판을 적용한 ‘검증자 80% 이상’이라는 범위가 원문의 ‘기본 UNL 검증자 80% 초과’보다 넓게 표현됐고 검증자도 설명되지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791648884.8050373
+      },
+      "122ce2df8bd2939b9c191f097c524d8f987f8a7fa5a159215a5ce84a32d5d847": {
+        "text": "SKIP",
+        "expires": 1791648942.109097
+      },
+      "b876ce42b3a11657e38ed32b758781c34929fc571a6ef53f354055b11374805a": {
+        "text": "SKIP",
+        "expires": 1791648946.4752579
+      },
+      "0c4f8d422be21212990ef6afdad7f21bddc232eee3f1e5b884e081b01a80e24f": {
+        "text": "{\"publish\":false,\"reason\":\"공개 네트워크에서 악용된 증거가 없다는 한정이 빠졌고, 결함을 악용하려면 수백 계정의 특수 제작 오퍼가 필요했다는 발생 조건도 요약에 반영되지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791648980.6077104
+      },
+      "4ecc46ca2ca1a949439c68d117f739a0e3ac40c73c3588aaf2d7a3e50ff3748e": {
+        "text": "{\"publish\":false,\"reason\":\"핵심 내용은 원문과 대체로 일치하지만, 악용 조건인 ‘오퍼’가 설명되지 않아 일반 독자가 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791648990.1012301
+      },
+      "32b8528bbfda30888dfb3b3680ef1222a50c924c170da118b9871d8197fe0ee3": {
+        "text": "{\"publish\":false,\"reason\":\"취약점 수정의 근거가 된 블로그 게시물을 확인할 수 없고, 본문도 XRP 가격 전망·시장 해석에 상당 부분 의존합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
+        "expires": 1791649003.4017408
+      },
+      "5fd685ab84036881e49c36c3a84e651e72a5d3a6908281be5cca7c3f2eba3a1a": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 수이(Sui) 로고를 선명하게 보여주지만, 기사의 핵심은 앵커리지 디지털이 Hashi에 참여해 비트코인 보유 기업에 담보 대출 경로를 제공하는 일이다. 수이는 네트워크 배경으로 언급되므로 수이 로고 단독 이미지는 핵심 주체를 나타내지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791649033.2462776
+      },
+      "69278c90319c4e0da823a01d12e31b7bb1425520f36a20a1343a719cf2f4e041": {
+        "text": "{\"publish\":false,\"reason\":\"권한 위임 기능의 적용은 요약했지만, PaymentBurn 위임 시 별도 수정 전 특정 상황에서 대체 가능한 토큰을 발행할 수 있다는 주의 사유가 빠졌습니다. 핵심 기술 위험을 설명하지 않아 이해에 필요한 조건이 충분하지 않습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791649045.0814261
+      },
+      "8b6c5dc3a6ae8ca65311f9dea253bfa97b1815cc04324cb4268f2f9b15380688": {
+        "text": "{\"publish\":false,\"reason\":\"새 기능 적용과 미완료 수정 조건은 대체로 정확하지만, 핵심 제한에 등장하는 PaymentBurn과 대체 가능 토큰의 의미가 설명되지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791649057.9264214
+      },
+      "956a29d26d17ef1de890c988bdc1ed9498821c7f74a8a54d88585f758dfbca5b": {
+        "text": "SKIP",
+        "expires": 1791649061.9902349
+      },
+      "5be095b23c7b68fac4cbf078e81d926e403fcd2c462b72c9a3de450a177f906b": {
+        "text": "{\"publish\":false,\"reason\":\"10월 9일 활성화 예상 시점이 지났지만 실제 활성화 여부를 확인할 후속 정보가 없습니다. 원문만으로 현재 상태를 판단할 수 없습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":false}}",
+        "expires": 1791649076.412482
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5562,6 +5617,142 @@
       "ed5de235f708fca37551ebc2396dc629d9876eadad82e2439613802cfc3bbb0d": {
         "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
         "expires": 1791882681.3066974
+      },
+      "c9e2ebdb8cb838721c3f5839e585f240838dd242f3968fdf4b9223c0ea6fa766": {
+        "text": "XRP 레저에서 한 결제가 탈중앙화 거래소의 여러 매물을 거칠 때 계산 오류로 공급량을 넘는 사용 가능 XRP가 생성될 수 있는 취약점이 공개됨\n\n리플엑스는 취약점을 치명적으로 평가했으며, 수정판 xrpld 3.4.1이 배포돼 9월 25일 검증자의 80% 이상이 적용했고 10월 9일 공개 당시 악용 증거는 없다고 밝힘",
+        "expires": 1791886475.7943616
+      },
+      "ff9811773765c28aaa69be8a228df8ea5890685463d9cf344e4395e376169e26": {
+        "text": "XRP 레저에서 한 결제가 탈중앙화 거래소의 여러 매물을 거칠 때 계산 오류로 총공급량을 넘는 사용 가능 XRP가 생성될 수 있는 취약점이 공개됨.\n\n리플엑스는 취약점을 치명적으로 평가했으며, 수정판 xrpld 3.4.1이 배포돼 9월 25일까지 기본 UNL(신뢰 노드 목록)의 검증자 80% 이상이 적용함. 10월 9일 공개 당시 악용 증거는 없다고 밝힘.",
+        "expires": 1791886488.626079
+      },
+      "1c0e3df6e25601fd17ceaecb07347adecf23476f57dc906146f167861c28584b": {
+        "text": "{\"publish\":true,\"reason\":\"결제 처리의 조건부 취약점과 패치 적용 현황, 악용 증거가 없다는 단서를 원문대로 전달한다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791886495.6967797
+      },
+      "174fc67293481ec3af75a8de1a365591b1e59bfa025759b18f59709b516dbf3d": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886500.5974483
+      },
+      "093c0699cecf48c1cb8347797c6d473358f45c735dd7900f2610afd2c38d7498": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886504.613136
+      },
+      "77708cc43afeae40c06037a6d67c28b5cf075a752e67cdcd45bed538ebd171ac": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886507.4060066
+      },
+      "42656c667420db6ea14bda25586d416ea9dec9e7ce91ba546073873bf213a4d8": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886509.026126
+      },
+      "5a2b98fb39ce1583f61fa3e01e9b776ec1e3bfb553759e6f20548f01ba517c82": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심은 XRP 레저의 취약점과 수정판 배포이며, 이미지 중심에는 이를 운영·관리하는 Ripple과 직접 연관된 로고가 선명하게 보인다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1791886514.1644127
+      },
+      "7dce46e9bcf6c56fe11658241c2486a1b0143d93d873015d106bf7c934251ed9": {
+        "text": "비트코인 생명보험사 민와일이 기존 투자자들로부터 3,750만 달러를 추가 조달해 누적 투자액이 1억8,000만 달러를 넘어섰으며, 이번 투자 라운드는 베인캐피털 크립토가 주도했다고 밝힘\n\n민와일은 미국 외 고액 자산가를 대상으로 보험료를 한 번에 납부하는 종신보험 상품 ‘BTC Life 1-Pay’를 올해 초 출시했다고 밝힘",
+        "expires": 1791886523.72642
+      },
+      "aa2cd107194d76df44e25f92e1a8040fcef13d3dcf1ba450e8110ea1068572fc": {
+        "text": "{\"publish\":true,\"reason\":\"민와일의 신규 투자 유치가 확인되며, 요약은 금액과 상품 출시 시점을 원문에 맞게 전달합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791886530.8121102
+      },
+      "b54fddafc83c1380380bd6b5a3fbafa3f90836ca8b6d9b0295bddb01d83ea938": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886532.210743
+      },
+      "dcf96d419bcbd1ff9ec51c830c16171cdcdd30ee2f0c694f03a604454b9d842a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886533.2881577
+      },
+      "377ffe3c8e1b112662ba2e7de7845c114019c316589ae6d1763a10122ab5077b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886535.9726264
+      },
+      "84f57de33a6fcbd61db234168f1c4c08df6c0c39a4c8e1f8f66980e7bd5dc8ac": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886537.025915
+      },
+      "0e1cde79fa0c6d67721563a752e61ce7006562f90bfbd0bd8df929a61c9b97c0": {
+        "text": "미 재무부가 암호화폐 관련 신고 규정안 2건을 폐기했다고 밝힘",
+        "expires": 1791886550.578568
+      },
+      "cf86f42f34d4c07f7b7cfe7c2acc2af303af2dd303f3e770e12f70d067b43a72": {
+        "text": "{\"publish\":true,\"reason\":\"미 재무부가 암호화폐 신고 규정안 2건을 폐기했다는 새 정책 소식을 원문 범위에 맞게 요약했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791886555.4385023
+      },
+      "2c86c9e942967e6c72640b04f18b9ef3483631b26d25cea4dde8349c03b18530": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886557.9911332
+      },
+      "f938edcb304f7ab79692ac3ef5037853155ad043446d249a9ab4c9bd0e8bddc1": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886559.717047
+      },
+      "d49eb2f91153e50743e5d03ec28bbcb2d11fc493f00ca24602798dfbc84994ed": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886562.5713625
+      },
+      "290e35d963c2246fd18343689700d017ddf0324273fcfe65779a24d6d5cb32e5": {
+        "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
+        "expires": 1791886564.768857
+      },
+      "58058306f0fef78a6a52e259424d84ee489bd7dfec6768e371e6efadc7dbc80c": {
+        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"b044864ba1f8b300\",\"reason\":\"미 재무부 산하 FinCEN이 암호화폐 관련 규정안 2건을 철회한 같은 사건을 주간 요약에서 다시 보도했다.\",\"new_fact\":\"\"}",
+        "expires": 1791886567.5950634
+      },
+      "45f9d69c7c08b4566c4e5a282fe4cc3a73210a8d15ef123049bfd55abdafb854": {
+        "text": "XRP 레저가 결제액 합계가 처리 한계를 넘으면 실제보다 작게 계산되는 정수 오버플로 결함을 공개함\n\n결함은 xrpld 3.4.0 이하 버전에 있었으며, 9월 25일 배포된 3.4.1에서 긴급 수정됐고 악용된 증거는 없다고 밝힘",
+        "expires": 1791886573.4051027
+      },
+      "212aa554569e4c950cfc1f66cde9a84da219bde07df5d8841420ed98e6f81ad0": {
+        "text": "엑스알피 레저는 여러 오퍼에서 결제액을 합산할 때 정수 오버플로로 실제보다 작은 값이 계산되는 결함을 공개했다. xrpld 3.4.0 이하에 있던 결함은 수백 계정의 특수 제작 오퍼로 악용할 수 있었으며, 9월 25일 배포된 3.4.1에서 긴급 수정됐고 공개 네트워크에서 악용된 증거는 없다고 밝혔다.",
+        "expires": 1791886584.5045018
+      },
+      "a01922816447f05815705dd599af6b5cce20e5dc784fa8ada2c13ef588a1a3eb": {
+        "text": "리플이 악용될 경우 XRP 수십억 개를 무단 발행할 수 있었던 2015년 소프트웨어 취약점을 수정했다고 블로그에서 밝힘",
+        "expires": 1791886596.1072311
+      },
+      "bebf60459b9b020d471c204bf5f2b43f6a044eb3720f6c195d92f66ef5e0b000": {
+        "text": "앵커리지 디지털이 수이의 비트코인 금융 네트워크 해시에 참여해, 상장사와 비트코인 보유 기업이 BTC를 매도하지 않고 담보로 현금을 조달할 수 있는 아틀라스 경로를 제공한다고 밝힘\n\n해시는 이달 말 메인넷을 단계적으로 열 예정이며, 20곳이 넘는 기업이 5억 달러 이상을 출자하기로 약정했지만 첫날 실제 계약에 투입될 금액은 공개되지 않음",
+        "expires": 1791886608.4977584
+      },
+      "7de73e61f77e61e93cfdc8290d8cd3ba8dcbb9d38cad6c794144b82660df969d": {
+        "text": "{\"publish\":true,\"reason\":\"새로운 사업 참여와 단계적 메인넷 공개 계획, 자금 약정의 미확정 조건을 대체로 정확히 요약했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791886616.9264443
+      },
+      "15210a529b4f8379a0b6360b35c20a9bec026f0ce37cd3c293a3c9b19f83ee72": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886618.017394
+      },
+      "5f8d177cf22c675ffb496ace07ee72fe0e8c4f16e63509086c72bc36e48d3b96": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886619.4526403
+      },
+      "88d6f3fbf4c9e3781b2d3bb46c47b5b259bc672a8af7108f285d3708eb9a42eb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886623.7541566
+      },
+      "2fbf3c0ebd96bb54bf4e5bcadf743a261d2bd6befeb85eb88bd53b61d09d1ac3": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791886627.876993
+      },
+      "20e183f518e66d435a39aa740c2a16f66c2e88adc5adad03272e1af2e41056d0": {
+        "text": "XRP 레저가 10월 8일 메인넷에 권한 위임 기능을 적용해, 은행·스테이블코인 발행사가 주 계정의 키를 공유하지 않고 보조 계정에 고객 승인·결제 처리 등 최대 10개 권한을 맡길 수 있게 됨\n\n다만 별도 수정안이 활성화될 때까지는 특정 권한인 PaymentBurn을 위임하지 말라고 안내했으며, 수정안은 10월 23일 활성화가 예상됨",
+        "expires": 1791886637.9344041
+      },
+      "ebdfcb0d1fa3c69d8569e183edb586a04c68ebe5c616a90893ba5d1e48608614": {
+        "text": "XRP 레저는 10월 8일 메인넷에 권한 위임 기능을 적용해 은행·스테이블코인 발행사가 주 계정 키를 공유하지 않고 보조 계정에 고객 승인·결제 처리 등 최대 10개 권한을 맡길 수 있게 했다. 별도 수정안이 활성화될 때까지 PaymentBurn 권한은 위임하지 말라고 안내했으며, 수정 전에는 특정 상황에서 해당 권한을 받은 계정이 대체 가능 토큰을 발행할 수 있다. 수정안은 10월 23일 활성화가 예상된다.",
+        "expires": 1791886648.0869448
+      },
+      "24b72988c9d1d8540e24ac03b94de3e455ffd43f0f49c83aef45c0f910934b21": {
+        "text": "XRP 레저의 배치V1_1 업그레이드는 검증자 지지가 기준치를 유지하면 10월 9일 활성화될 예정이며, 여러 거래를 하나의 묶음으로 처리하는 기능을 추가함\n\nEarlier version bug perhaps important context but basic. Could mention previous version halted due bug, but concise and 320. Need no period. Maybe sentence implies expected. Fine. BatchV1_1 Korean transliteration? Version identifier maintain. \"BatchV1_1\" exact perhaps title. Use BatchV1_1. We translated. Done.",
+        "expires": 1791886666.1047616
+      },
+      "88feda767a0bd4b0ec0fadd80e633895189c6a9b9d6e54fabae4086c0aadc759": {
+        "text": "XRP 레저의 BatchV1_1 업그레이드는 검증자 지지가 기준치를 유지하면 10월 9일 활성화될 예정이며, 여러 거래를 한 묶음으로 처리하는 기능을 추가함",
+        "expires": 1791886670.0215557
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7886,82 +8077,95 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 17,
+            "api_calls": 28,
             "cache_hits": 30,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 82309,
+            "input_tokens": 144414,
             "cached_input_tokens": 0,
-            "output_tokens": 2549,
-            "reasoning_tokens": 1933,
-            "estimated_usd": 0.01156185,
+            "output_tokens": 5221,
+            "reasoning_tokens": 3823,
+            "estimated_usd": 0.02066015,
             "unpriced_calls": 0,
-            "cache_write_tokens": 82258
+            "cache_write_tokens": 144330
           },
           "source_review": {
-            "api_calls": 12,
+            "api_calls": 23,
             "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 52979,
+            "input_tokens": 109813,
             "cached_input_tokens": 0,
-            "output_tokens": 5082,
-            "reasoning_tokens": 3929,
-            "estimated_usd": 0.009162475,
+            "output_tokens": 10570,
+            "reasoning_tokens": 8390,
+            "estimated_usd": 0.0190099,
             "unpriced_calls": 0,
-            "cache_write_tokens": 52943
+            "cache_write_tokens": 109744
           },
           "summary_repair": {
-            "api_calls": 4,
+            "api_calls": 7,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 5324,
+            "input_tokens": 11649,
             "cached_input_tokens": 0,
-            "output_tokens": 803,
-            "reasoning_tokens": 390,
-            "estimated_usd": 0.00104605,
+            "output_tokens": 1495,
+            "reasoning_tokens": 700,
+            "estimated_usd": 0.00218245,
             "unpriced_calls": 0,
-            "cache_write_tokens": 4486
+            "cache_write_tokens": 10802
           },
           "event_search": {
-            "api_calls": 16,
+            "api_calls": 32,
             "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 143132,
+            "input_tokens": 300093,
             "cached_input_tokens": 0,
-            "output_tokens": 810,
-            "reasoning_tokens": 599,
-            "estimated_usd": 0.0182953,
+            "output_tokens": 2277,
+            "reasoning_tokens": 1892,
+            "estimated_usd": 0.038647725,
             "unpriced_calls": 0,
-            "cache_write_tokens": 143084
+            "cache_write_tokens": 299997
           },
           "event_decision": {
-            "api_calls": 3,
+            "api_calls": 4,
             "cache_hits": 1,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1913,
+            "input_tokens": 2539,
             "cached_input_tokens": 0,
-            "output_tokens": 433,
-            "reasoning_tokens": 201,
-            "estimated_usd": 0.0004078,
+            "output_tokens": 557,
+            "reasoning_tokens": 256,
+            "estimated_usd": 0.0005324,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
           "image_review": {
+            "api_calls": 3,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 5288,
+            "cached_input_tokens": 0,
+            "output_tokens": 666,
+            "reasoning_tokens": 310,
+            "estimated_usd": 0.000993775,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 5279
+          },
+          "compression": {
             "api_calls": 1,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1454,
+            "input_tokens": 2026,
             "cached_input_tokens": 0,
-            "output_tokens": 176,
-            "reasoning_tokens": 72,
-            "estimated_usd": 0.000269675,
+            "output_tokens": 301,
+            "reasoning_tokens": 246,
+            "estimated_usd": 0.000403675,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1451
+            "cache_write_tokens": 2023
           }
         }
       }
@@ -9602,6 +9806,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.004943925,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T10:01:07.367152+00:00",
+        "elapsed_seconds": 1009.069,
+        "status": "completed",
+        "api_calls": 45,
+        "cache_hits": 0,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.041686925,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -26184,6 +26400,18 @@
       "22356d67729477c6ce661fe49c6a3b6772345e75b7cf47261a5c7b8e21b55a51": {
         "summary": "",
         "expires": 1792228262.9238653
+      },
+      "c1bd1eb7a16ad7d379db4f2974ba9f3896a643f859d104a08bbad7eaab354ba9": {
+        "summary": "XRP 레저에서 한 결제가 탈중앙화 거래소의 여러 매물을 거칠 때 계산 오류로 총공급량을 넘는 사용 가능 XRP가 생성될 수 있는 취약점이 공개됨\n\n리플엑스는 취약점을 치명적으로 평가했으며, 수정판 xrpld 3.4.1이 배포돼 9월 25일까지 기본 UNL(신뢰 노드 목록)의 검증자 80% 이상이 적용함. 10월 9일 공개 당시 악용 증거는 없다고 밝힘",
+        "expires": 1792232095.7207627
+      },
+      "51fa921bb99f764b922a828a8c0b38a167320f8a010839bce378502eb0d37667": {
+        "summary": "",
+        "expires": 1792232180.6306665
+      },
+      "dc5f74069eb7f7f07da1abed5f556f53c2e083f5915aaf9e6ead141278d4e7d4": {
+        "summary": "",
+        "expires": 1792232245.1059282
       }
     }
   }
