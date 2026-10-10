@@ -3271,10 +3271,6 @@
   },
   "ai_review": {
     "entries": {
-      "bf2404c3b2073a766fe36e31ad3cbc6381e9b9d72386f09247b369d081edb8b6": {
-        "text": "SKIP",
-        "expires": 1791613319.296371
-      },
       "49bed1ef9831c3d701699d32711c7c78064b0f89407e08b7f015c7ab8d2db919": {
         "text": "SKIP",
         "expires": 1791620607.5796196
@@ -3310,6 +3306,22 @@
       "b39847ebd24df64b0dbabc79d6f5520f163984d95ce5db1d65636cd9d83b0795": {
         "text": "SKIP",
         "expires": 1791631290.942475
+      },
+      "2ab9036214639faf81ffab290074c9b9efc4f9e5902bd5be47e49f64bfff98fd": {
+        "text": "SKIP",
+        "expires": 1791637859.447386
+      },
+      "8622448cfd33a69b286f6b0e7653ed96a2bb3688425fbf1be498e8a8b9ffc82f": {
+        "text": "{\"publish\":false,\"reason\":\"취약점이 발동하는 핵심 조건인 공격자가 수백 개 계정에서 특수하게 만든 주문을 구성해야 한다는 점이 빠졌고, 계산 오류의 의미도 충분히 설명되지 않았습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791637888.3690548
+      },
+      "8639c8b21397d5b2f12e92c6161bcca24340c04228597299ee06d0c8b06f0de6": {
+        "text": "{\"publish\":false,\"reason\":\"새 취약점 공개와 수정 사실은 담았지만, 공격에 특수 주문과 수백 개 계정이 필요했다는 조건 및 64비트 정수의 의미가 빠져 기술적 위험을 충분히 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791637899.0016778
+      },
+      "bf2404c3b2073a766fe36e31ad3cbc6381e9b9d72386f09247b369d081edb8b6": {
+        "text": "SKIP",
+        "expires": 1791637903.265714
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5470,6 +5482,42 @@
       "260b949c8721854a7f056bb3c10503156f92af7c43769eae54f654042923779d": {
         "text": "앵커리지디지털이 수이의 비트코인 금융 네트워크 해시의 출범 초기 파트너로 참여해, 상장사와 디지털자산 재무기업이 BTC를 팔지 않고 담보로 현금을 조달하도록 아틀라스 시스템을 연결한다.\n\n해시는 이달 말 단계적 메인넷 출시를 시작하며, 20여 개 기업이 약정한 5억 달러 이상은 실제 예치액이 아니다.",
         "expires": 1791861651.7091417
+      },
+      "24b141abd7a0f3470c356be9764a2b0f0fb91cf13924e7165fdf95711fe1f764": {
+        "text": "미 재무부가 암호화폐 신고 규정안 2건을 철회했다고 밝힘",
+        "expires": 1791875463.2489648
+      },
+      "83fc5a3e2aba36eff1dfeae30c8155fb96e99c22de47f9afcb1e2adab6aa822a": {
+        "text": "{\"publish\":true,\"reason\":\"미 재무부가 암호화폐 신고 규정안 2건을 철회했다는 새 정책 소식을 원문이 확인하며, 요약도 제안 단계와 철회를 정확히 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791875467.203652
+      },
+      "0aaa91875e148d5bf47832859bd899e1f1c2ac6871ebcf9dbdaae34668c1c6b4": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791875469.4877222
+      },
+      "90623d095a82c44579e6d3e5265290e3bd331e7e9e6052831367dd0d7fd7022a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791875470.9218547
+      },
+      "92db41818c1c4743181a1bfc5dee6a4050cba56e7c14268443f042a21ae1caa1": {
+        "text": "{\"related_ids\":[\"acf313802c24ccfc\"]}",
+        "expires": 1791875474.346268
+      },
+      "4a759e3a7b0749c0351291929de19646bdf4bd50cd1e671e0f8edb5de272dbc1": {
+        "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
+        "expires": 1791875476.16956
+      },
+      "8dcbc4404d7e300fe43bb28b36fd6a299436404c5a393f7e6d3de08e41c0c8b5": {
+        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"b044864ba1f8b300\",\"reason\":\"주간 요약이 보도한 FinCEN의 암호화폐 규정안 2건 철회는 기존 기록과 같은 조치다. 제목의 OKX 투자 유치도 기존 OKX 투자 유치 기록과 같은 사건이며, 새 조치는 확인되지 않는다.\",\"new_fact\":\"\"}",
+        "expires": 1791875479.356448
+      },
+      "db9fd2e62bc7b1a6f682cd38594554af037d20e68416f9480f16900081daabea": {
+        "text": "XRP 레저에서 여러 주문의 금액을 합산할 때 발생하는 계산 오류로 공급량 한도인 1,000억 XRP를 넘겨 생성할 수 있는 취약점이 공개됨\n\nxrpld 3.4.0 이하에 있던 오류는 9월 25일 긴급 배포된 3.4.1에서 수정됐으며, 공개 네트워크에서 악용된 증거는 없다고 밝힘",
+        "expires": 1791875484.1189966
+      },
+      "311729fefbf81390b300e5be6622df181a4de0b981d9a57a1a405fdd30439430": {
+        "text": "XRP 레저에서 여러 주문의 XRP를 합산할 때 64비트 정수 한도를 넘으면 합계가 실제보다 작게 계산되는 취약점이 공개됨. 공격자는 수백 개 계정에서 특수 주문을 구성해 공급량 한도인 1,000억 XRP를 넘겨 생성할 수 있었음. xrpld 3.4.0 이하의 오류는 9월 25일 긴급 배포된 3.4.1에서 수정됐으며, 공개 네트워크에서 악용된 증거는 없음.",
+        "expires": 1791875492.3370876
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7794,67 +7842,67 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 9,
-            "cache_hits": 19,
+            "api_calls": 13,
+            "cache_hits": 21,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 43703,
+            "input_tokens": 62716,
             "cached_input_tokens": 0,
-            "output_tokens": 818,
-            "reasoning_tokens": 615,
-            "estimated_usd": 0.0058712,
+            "output_tokens": 1523,
+            "reasoning_tokens": 1173,
+            "estimated_usd": 0.008600025,
             "unpriced_calls": 0,
-            "cache_write_tokens": 43676
+            "cache_write_tokens": 62677
           },
           "source_review": {
-            "api_calls": 4,
+            "api_calls": 7,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 17966,
+            "input_tokens": 30997,
             "cached_input_tokens": 0,
-            "output_tokens": 1488,
-            "reasoning_tokens": 1096,
-            "estimated_usd": 0.00298945,
+            "output_tokens": 2751,
+            "reasoning_tokens": 2061,
+            "estimated_usd": 0.0052496,
             "unpriced_calls": 0,
-            "cache_write_tokens": 17954
+            "cache_write_tokens": 30976
           },
           "summary_repair": {
+            "api_calls": 3,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 3925,
+            "cached_input_tokens": 0,
+            "output_tokens": 558,
+            "reasoning_tokens": 249,
+            "estimated_usd": 0.00074875,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 3090
+          },
+          "event_search": {
+            "api_calls": 8,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 72579,
+            "cached_input_tokens": 0,
+            "output_tokens": 625,
+            "reasoning_tokens": 510,
+            "estimated_usd": 0.009384275,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 72555
+          },
+          "event_decision": {
             "api_calls": 2,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 2541,
+            "input_tokens": 1316,
             "cached_input_tokens": 0,
-            "output_tokens": 355,
-            "reasoning_tokens": 174,
-            "estimated_usd": 0.000474325,
-            "unpriced_calls": 0,
-            "cache_write_tokens": 1709
-          },
-          "event_search": {
-            "api_calls": 4,
-            "cache_hits": 0,
-            "errors": 0,
-            "missing_usage": 0,
-            "input_tokens": 36306,
-            "cached_input_tokens": 0,
-            "output_tokens": 257,
-            "reasoning_tokens": 202,
-            "estimated_usd": 0.00466645,
-            "unpriced_calls": 0,
-            "cache_write_tokens": 36294
-          },
-          "event_decision": {
-            "api_calls": 1,
-            "cache_hits": 0,
-            "errors": 0,
-            "missing_usage": 0,
-            "input_tokens": 567,
-            "cached_input_tokens": 0,
-            "output_tokens": 125,
-            "reasoning_tokens": 46,
-            "estimated_usd": 0.0001192,
+            "output_tokens": 324,
+            "reasoning_tokens": 154,
+            "estimated_usd": 0.0002936,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
@@ -9474,6 +9522,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T07:01:00.661674+00:00",
+        "elapsed_seconds": 645.647,
+        "status": "completed",
+        "api_calls": 13,
+        "cache_hits": 2,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.010155625,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -26048,6 +26108,10 @@
       "73db92f6785b782faa74f54942338996a3605eba2ffa8464f59dacb88713cc5c": {
         "summary": "",
         "expires": 1792207248.13806
+      },
+      "db2f8869b2d32601faef3ab33f2ff117e66031701d128045d9deefab79c53299": {
+        "summary": "",
+        "expires": 1792221088.3845778
       }
     }
   }
