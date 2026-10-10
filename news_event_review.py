@@ -84,6 +84,9 @@ MANUAL_EVENTS = (
 )
 
 
+from news_manual_oct10 import EVENTS as OCT10_MANUAL_EVENTS
+MANUAL_EVENTS = MANUAL_EVENTS + OCT10_MANUAL_EVENTS
+
 def url_key(url):
     value = str(url or '').strip()
     p = urlsplit(value if '://' in value else 'https://' + value)
@@ -202,7 +205,7 @@ def review_event(story, caption, posted, call_model, search_model=None):
 주체·사업/상품/법안·상대방·행동·대상·지역·발생 시점·진행 단계를 비교한다.
 다른 매체, 번역, 새 기사 발행 시각, 다른 사진, 더 긴 설명만으로 새 사건이 되지 않는다.
 duplicate: 같은 사건을 다시 보도. supplement: 같은 사건의 설명·조건·숫자 등 보충만 추가.
-update: 원문으로 확인된 새 승인·실제 출시·별도 계약·새 적용 지역·제도 개정 등 중요한 새 조치.
+update: 원문으로 확인된 새 승인·실제 출시·합병 종결·확정 거래 개시일 변경·별도 계약·새 적용 지역·제도 개정 등 중요한 새 조치. 합병 승인/예정과 합병 완료는 다른 단계다.
 new: 다른 사업/사건. 같은 회사나 코인을 다뤄도 사업·상품·상대방·행동이 다르면 별도 사건이다.
 예: 씨티·코인베이스 스테이블코인 제휴와 씨티 토큰화 예금의 지역 출시는 별도 사업일 수 있다.
 검토·계획을 출시로 바꾸거나 과거 배경을 새 발표로 보지 않는다. 본문이 없는 옛 기록 때문에
