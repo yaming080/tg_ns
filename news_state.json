@@ -3271,14 +3271,6 @@
   },
   "ai_review": {
     "entries": {
-      "92be71cecfdf2b32e83e4c40ce7802f2c081eb896fd1f4d17b68c8b98e311564": {
-        "text": "SKIP",
-        "expires": 1791609038.8229845
-      },
-      "c8ec5a690257aa4358be3aa49836821fc29bc4097be6cf55b0f7fc050765342e": {
-        "text": "{\"publish\":false,\"reason\":\"새로운 미국 내 인허가 신청 보도지만, 요약에서 CFTC가 무엇인지 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791609050.4502904
-      },
       "bf2404c3b2073a766fe36e31ad3cbc6381e9b9d72386f09247b369d081edb8b6": {
         "text": "SKIP",
         "expires": 1791613319.296371
@@ -3310,6 +3302,14 @@
       "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
         "text": "SKIP",
         "expires": 1791627708.0496507
+      },
+      "c9316c523fa1d6bae41678221df7a4ea5daebd404beafc21e18c4195926d57a1": {
+        "text": "SKIP",
+        "expires": 1791631289.4668012
+      },
+      "b39847ebd24df64b0dbabc79d6f5520f163984d95ce5db1d65636cd9d83b0795": {
+        "text": "SKIP",
+        "expires": 1791631290.942475
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -7794,17 +7794,17 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 7,
-            "cache_hits": 13,
+            "api_calls": 9,
+            "cache_hits": 16,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 33455,
+            "input_tokens": 43703,
             "cached_input_tokens": 0,
-            "output_tokens": 773,
-            "reasoning_tokens": 584,
-            "estimated_usd": 0.00456785,
+            "output_tokens": 818,
+            "reasoning_tokens": 615,
+            "estimated_usd": 0.0058712,
             "unpriced_calls": 0,
-            "cache_write_tokens": 33434
+            "cache_write_tokens": 43676
           },
           "source_review": {
             "api_calls": 4,
@@ -9450,6 +9450,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0012506,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T05:01:09.741970+00:00",
+        "elapsed_seconds": 1229.676,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 3,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00130335,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
