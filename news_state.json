@@ -3265,22 +3265,6 @@
   },
   "ai_review": {
     "entries": {
-      "54eebca744c3fbbec6f018581ca76d9571af81b7e181ad57dd247451ad4f30d8": {
-        "text": "{\"publish\":false,\"reason\":\"자금 조달과 해외 보험 상품 수요 증가는 자료에 나오지만, 암호화폐 산업의 허용 범주에 해당하는 구체적 사업 진행은 확인되지 않습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791642030.081178
-      },
-      "51977ada590d441212ff5733fd983e68627c439495f3fabdf618f468f8f6fb42": {
-        "text": "{\"publish\":false,\"reason\":\"2015년 오류 수정이라는 새 소식의 발표 시점과 원문 근거를 확인하기 어렵고, 자료가 분석·가격 전망을 포함해 사실 확인에 충분하지 않습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
-        "expires": 1791642050.7411838
-      },
-      "6a0c0a071348807f3d5c0291d0a0b63aad6413dd6d955ef6fbf55ad900cfc552": {
-        "text": "{\"publish\":false,\"reason\":\"취약점이 악용되려면 다수의 의도적으로 가격을 잘못 설정한 거래 제안을 결제에 연결해야 한다는 조건이 빠졌고, XRPL과 계산 오류의 의미도 충분히 풀어 쓰지 않았다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791645062.908346
-      },
-      "8b47048455de481f42fb20a1f134971a32894212a80669113e4bbb186ab787d6": {
-        "text": "{\"publish\": false, \"reason\": \"취약점 수정과 악용 조건은 원문과 대체로 일치하지만, 일반 독자가 이해할 수 있도록 ‘정수 오버플로’가 어떤 현상인지 설명하지 않았다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
-        "expires": 1791645074.7505355
-      },
       "2bd2870e27e1ac860d7f1578e72aa257058cae600da878510511347e8c5c1585": {
         "text": "{\"publish\":false,\"reason\":\"취약점의 핵심은 대체로 맞지만, 수정판을 적용한 ‘검증자 80% 이상’이라는 범위가 원문의 ‘기본 UNL 검증자 80% 초과’보다 넓게 표현됐고 검증자도 설명되지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791648884.8050373
@@ -3632,6 +3616,18 @@
       "e21148e6fd35ce25704e6bf0ff841b10dd195add92ade07f182acec7542f236d": {
         "text": "{\"publish\":false,\"reason\":\"비트코인 생명보험사의 자금 조달과 상품 출시가 핵심으로, 포트폴리오 코인인 비트코인 관련 사업 소식은 게시 대상에서 제외합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1791663331.4742668
+      },
+      "06295d1753be48c199bd4e4c1149313c43e1bfefcf1f12c8f70b57e870c25737": {
+        "text": "SKIP",
+        "expires": 1791667028.731388
+      },
+      "05544ce38a1a3f88aacc7f9a77d93cb594a794e7bbfe0c336ee06681de2dc1fd": {
+        "text": "{\"approved\":false,\"reason\":\"기사는 프랑스 예산안에서 스테이블코인 등 디지털자산 과세안이 부결된 사건을 다루지만, 이미지의 중심은 비트코인이다. 비트코인은 기사 핵심 주체나 특정 과세 대상 상품으로 확인되지 않아 대표 이미지로 적절하지 않다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791667060.5656705
+      },
+      "d0353d17a768cc67ab3e614799b232d551757bcb52ad33f86c24b331df90013a": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 프랑스 국기와 비트코인을 선명하게 보여주지만, 기사의 핵심은 프랑스 예산안 부결과 스테이블코인(EMT) 전환 차익 과세안입니다. 비트코인은 기사에서 핵심 주체나 상품으로 다뤄지지 않아 대표 이미지로 적합하지 않습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
+        "expires": 1791667068.9362087
       },
       "1a80b48f0efbe8d4032bbc3350ed70f517664d189c45f0b60943a4be623f9ac9": {
         "text": "Spiral이 분산형 AI 프로젝트 Mesh LLM의 GPU 연산비를 비트코인 라이트닝 네트워크로 결제하는 기능을 개발 중이라고 밝힘\n\n이 기능은 AI 에이전트가 GPU 제공자에게 추론 비용을 지급하는 구상이며, 출시 일정과 검증·분쟁 처리 방식은 공개되지 않음",
@@ -6069,6 +6065,86 @@
         "text": "비트코인 생명보험사 민와일이 기존 투자자들로부터 3,750만 달러를 추가 조달해 누적 투자 유치액이 1억8,000만 달러를 넘었다고 밝힘\n\n민와일은 올해 초 미국 외 지역의 고액 자산가를 대상으로 보험료를 한 번에 내는 종신보험 ‘BTC Life 1-Pay’를 출시함",
         "expires": 1791900929.7634308
       },
+      "2fe5348a917b32e9bbf9bf20d53b5844c6aa0351025c983ec289769ec61964e8": {
+        "text": "프랑스 하원 재정위원회가 2027년도 예산안 세입 부문을 부결해, 디지털자산을 EU 디지털자산시장규제법(MiCA)의 전자화폐토큰(EMT)으로 바꿀 때 차익에 과세하는 수정안과 고액 보유자 출국세 확대안이 본회의에 자동 반영되지 않게 됨\n\n과세안을 다시 추진하려면 수정안을 재제출해야 하며, 국민의회는 10월 13일부터 심의하고 20일 표결할 예정임",
+        "expires": 1791904634.6069067
+      },
+      "99970d8aef72016b96bbb37e54d1414ae180e43df952c24dd49091589fa70dff": {
+        "text": "{\"publish\":true,\"reason\":\"프랑스 하원 재정위원회의 예산안 세입 부문 부결로 과세 수정안이 본회의에 자동 반영되지 않게 된 새 사실을 정확히 전달했다. 재제출 필요성과 심의·표결 예정일도 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791904636.7941363
+      },
+      "d0a79e4e593568bc96aac4c641004566f709495e64cdeb6e984fc6eabc98c425": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904638.4708498
+      },
+      "34cfeb6351e281bb7c7c5a65ba153842c0b95b8ce5abaccc9dc951c4ee128f37": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904640.6860068
+      },
+      "bd5ba02959f3357c0bb40c5a7ea0307058088dd1947af71cb17a4de1b5a86232": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904642.7471507
+      },
+      "3d09c21ce5c826a75455e39133d210b692f9b3402796a3923b6f41de81fedf4b": {
+        "text": "{\"related_ids\":[\"33a3712e407ccf39\"]}",
+        "expires": 1791904645.064516
+      },
+      "5b23e708b23e321bca8c152d4f46d1d5243ec829808ce1f81a1bbf64fb2c96a5": {
+        "text": "{\"decision\":\"update\",\"matched_id\":\"33a3712e407ccf39\",\"reason\":\"기존 기록과 같은 프랑스 스테이블코인 과세·국외전출세 수정안에 관한 사안이다. 후보 기사는 그 수정안이 포함된 2027년도 예산안 세입 부문이 재정위원회에서 부결된 후속 단계를 보도한다.\",\"new_fact\":\"후보 요약에 따르면 하원 재정위원회가 예산안 세입 부문을 부결해 관련 수정안이 본회의에 자동 반영되지 않게 됐고, 재추진하려면 재제출해야 한다.\"}",
+        "expires": 1791904650.472249
+      },
+      "1935ba92d0f766394e7a1ed09b4b1caa2697600ffba8c3e38f11384dd1181923": {
+        "text": "미국 법무부가 바이낸스의 2023년 합의 조건 준수 여부를 검토 중이라고 밝혔으며, 합의 위반 여부는 언급하지 않음\n\n바이낸스는 내부 통제를 강화하고 법 집행 기관과 협력하고 있다고 밝힘",
+        "expires": 1791904681.8556197
+      },
+      "d3c89a5ee03d986ab2a961739141e08ec0670a6d85723b7f708b0a85ec4102de": {
+        "text": "{\"publish\":true,\"reason\":\"법무부 형사부장의 새 발언으로 바이낸스의 2023년 합의 이행 검토가 확인되며, 위반이 확인됐다고 단정하지 않았다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791904686.066563
+      },
+      "d2207508366d1accafeb12c3716701ef27108a06a13db021184c1c4326306fb0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904687.101262
+      },
+      "c3a4d5ac59195606a648681bb564f6e578a44c0b09205f372a367bf081bf8f0d": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904688.292671
+      },
+      "e78e15f405b2dfbfa73d72a34c2ba8d3d5e809a0b879e77165e35d2d8797b54d": {
+        "text": "{\"related_ids\":[\"2bd998e81453faa4\"]}",
+        "expires": 1791904690.5581062
+      },
+      "9db2132311b0e24b64cee96548c3866406512c18ece8d0916e6a99e8e180165e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904691.5470169
+      },
+      "7ae479528fbccd4b2f42441ab2a72103c07789712bf44bbcf44084a45de51d8f": {
+        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"2bd998e81453faa4\",\"reason\":\"두 기록 모두 미 법무부가 바이낸스의 2023년 합의 이행 여부를 조사·검토한다는 같은 사건을 다룹니다. 후보 기사에 별도의 새 조치는 제시되지 않았습니다.\",\"new_fact\":\"\"}",
+        "expires": 1791904694.7323902
+      },
+      "564f586ac6689cb188e2fd5b08a7c81b13a2fe38afaa1d35b8910c193035f41b": {
+        "text": "민와일이 베인캐피털 크립토가 주도한 투자 라운드에서 3,750만 달러를 추가 조달해 누적 투자 유치액이 1억8,000만 달러를 넘어섰다고 밝힘\n\n민와일은 미국 외 고액 자산가를 대상으로 보험료를 한 번에 내는 종신보험 상품 ‘BTC 라이프 원페이’를 올해 초 출시했다고 전함",
+        "expires": 1791904706.532424
+      },
+      "a59f261f7ca99bf4fde74deef3b53001f6db154e9356f6e97ed2109d76a1fbde": {
+        "text": "{\"publish\":true,\"reason\":\"민와일의 신규 투자 유치와 비트코인 보험 상품 출시가 원문에 확인되며, 요약이 금액과 대상·출시 시점을 정확히 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791904711.3136349
+      },
+      "b51d029c31fce5c4a6d03de4f3b50cd5b6472e3efd80429bae41432811096bce": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904712.4638577
+      },
+      "c9074cbd0036f1c8b5af0fd583257461c56b33623bee5bc3e6aa97c95d8f22c1": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904714.096382
+      },
+      "8ebe0be0fddc8b9b05570cd5b72609a32951dc1626539591853b6c02aa2c219c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904714.914094
+      },
+      "67bd3f3cebebe03d723867c0f23474374a1adbb3cc2752db12270610eafdbbaf": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791904716.1341581
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -8392,30 +8468,30 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 59,
-            "cache_hits": 52,
+            "api_calls": 63,
+            "cache_hits": 67,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 349313,
+            "input_tokens": 375970,
             "cached_input_tokens": 0,
-            "output_tokens": 10659,
-            "reasoning_tokens": 7697,
-            "estimated_usd": 0.0489892,
+            "output_tokens": 11450,
+            "reasoning_tokens": 8180,
+            "estimated_usd": 0.052716525,
             "unpriced_calls": 0,
-            "cache_write_tokens": 349136
+            "cache_write_tokens": 375781
           },
           "source_review": {
-            "api_calls": 43,
-            "cache_hits": 14,
+            "api_calls": 46,
+            "cache_hits": 22,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 229172,
+            "input_tokens": 248024,
             "cached_input_tokens": 0,
-            "output_tokens": 19024,
-            "reasoning_tokens": 14997,
-            "estimated_usd": 0.038155275,
+            "output_tokens": 19959,
+            "reasoning_tokens": 15639,
+            "estimated_usd": 0.04097905,
             "unpriced_calls": 0,
-            "cache_write_tokens": 229043
+            "cache_write_tokens": 247886
           },
           "summary_repair": {
             "api_calls": 9,
@@ -8431,43 +8507,43 @@
             "cache_write_tokens": 16525
           },
           "event_search": {
-            "api_calls": 61,
-            "cache_hits": 15,
+            "api_calls": 73,
+            "cache_hits": 23,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 584141,
+            "input_tokens": 702211,
             "cached_input_tokens": 0,
-            "output_tokens": 4494,
-            "reasoning_tokens": 3750,
-            "estimated_usd": 0.07526005,
+            "output_tokens": 4840,
+            "reasoning_tokens": 3961,
+            "estimated_usd": 0.0901909,
             "unpriced_calls": 0,
-            "cache_write_tokens": 583958
+            "cache_write_tokens": 701992
           },
           "event_decision": {
-            "api_calls": 9,
-            "cache_hits": 3,
+            "api_calls": 11,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 5800,
+            "input_tokens": 7114,
             "cached_input_tokens": 0,
-            "output_tokens": 1942,
-            "reasoning_tokens": 1181,
-            "estimated_usd": 0.001551,
+            "output_tokens": 2679,
+            "reasoning_tokens": 1691,
+            "estimated_usd": 0.0020509,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 4,
+            "api_calls": 6,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 7206,
+            "input_tokens": 12266,
             "cached_input_tokens": 0,
-            "output_tokens": 974,
-            "reasoning_tokens": 480,
-            "estimated_usd": 0.00138745,
+            "output_tokens": 1525,
+            "reasoning_tokens": 757,
+            "estimated_usd": 0.0022953,
             "unpriced_calls": 0,
-            "cache_write_tokens": 7194
+            "cache_write_tokens": 12248
           },
           "compression": {
             "api_calls": 1,
@@ -10181,6 +10257,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.02108275,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T15:01:02.116496+00:00",
+        "elapsed_seconds": 1060.185,
+        "status": "completed",
+        "api_calls": 23,
+        "cache_hits": 33,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0228897,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
