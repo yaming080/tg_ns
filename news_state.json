@@ -3211,18 +3211,6 @@
   },
   "ai_review": {
     "entries": {
-      "06295d1753be48c199bd4e4c1149313c43e1bfefcf1f12c8f70b57e870c25737": {
-        "text": "SKIP",
-        "expires": 1791667028.731388
-      },
-      "05544ce38a1a3f88aacc7f9a77d93cb594a794e7bbfe0c336ee06681de2dc1fd": {
-        "text": "{\"approved\":false,\"reason\":\"기사는 프랑스 예산안에서 스테이블코인 등 디지털자산 과세안이 부결된 사건을 다루지만, 이미지의 중심은 비트코인이다. 비트코인은 기사 핵심 주체나 특정 과세 대상 상품으로 확인되지 않아 대표 이미지로 적절하지 않다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1791667060.5656705
-      },
-      "d0353d17a768cc67ab3e614799b232d551757bcb52ad33f86c24b331df90013a": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 프랑스 국기와 비트코인을 선명하게 보여주지만, 기사의 핵심은 프랑스 예산안 부결과 스테이블코인(EMT) 전환 차익 과세안입니다. 비트코인은 기사에서 핵심 주체나 상품으로 다뤄지지 않아 대표 이미지로 적합하지 않습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1791667068.9362087
-      },
       "1a80b48f0efbe8d4032bbc3350ed70f517664d189c45f0b60943a4be623f9ac9": {
         "text": "Spiral이 분산형 AI 프로젝트 Mesh LLM의 GPU 연산비를 비트코인 라이트닝 네트워크로 결제하는 기능을 개발 중이라고 밝힘\n\n이 기능은 AI 에이전트가 GPU 제공자에게 추론 비용을 지급하는 구상이며, 출시 일정과 검증·분쟁 처리 방식은 공개되지 않음",
         "expires": 1791667790.309535
@@ -3458,6 +3446,10 @@
       "e21148e6fd35ce25704e6bf0ff841b10dd195add92ade07f182acec7542f236d": {
         "text": "{\"publish\":false,\"reason\":\"신규 투자 유치는 확인되지만, 보도 핵심이 비트코인 생명보험 사업자인 민와일의 자금 조달과 상품 출시로 포트폴리오 코인 BTC 관련 사업에 해당합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1791685715.4848037
+      },
+      "06295d1753be48c199bd4e4c1149313c43e1bfefcf1f12c8f70b57e870c25737": {
+        "text": "SKIP",
+        "expires": 1791688844.880715
       },
       "a8ed2759f2b6cd32393f0bb013399353abdaaa009aad24462f8a8acf89a8d8b4": {
         "text": "글래스노드는 비트코인 발행량의 30.2%인 604만 BTC가 공개키가 노출된 유형이라고 집계했으며, 충분히 강력한 양자컴퓨터가 등장하는 상황을 가정한 수치로 현재 공격 가능한 물량은 아니라고 밝힘\n\n오픈AI의 AI 수학 연구 결과도 블록체인 서명 체계가 깨졌다는 증거는 아니며, 실제 공격 성공 사례는 확인되지 않음",
@@ -8562,21 +8554,21 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 74,
-            "cache_hits": 150,
+            "api_calls": 75,
+            "cache_hits": 164,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 450776,
+            "input_tokens": 456987,
             "cached_input_tokens": 0,
-            "output_tokens": 13074,
+            "output_tokens": 13080,
             "reasoning_tokens": 9209,
-            "estimated_usd": 0.06287845,
+            "estimated_usd": 0.06365775,
             "unpriced_calls": 0,
-            "cache_write_tokens": 450554
+            "cache_write_tokens": 456762
           },
           "source_review": {
             "api_calls": 58,
-            "cache_hits": 71,
+            "cache_hits": 82,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 321400,
@@ -8602,7 +8594,7 @@
           },
           "event_search": {
             "api_calls": 159,
-            "cache_hits": 73,
+            "cache_hits": 101,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 1543478,
@@ -8615,7 +8607,7 @@
           },
           "event_decision": {
             "api_calls": 21,
-            "cache_hits": 26,
+            "cache_hits": 32,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 14366,
@@ -8628,7 +8620,7 @@
           },
           "image_review": {
             "api_calls": 11,
-            "cache_hits": 4,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 23922,
@@ -10423,6 +10415,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.02434795,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T21:01:09.891918+00:00",
+        "elapsed_seconds": 1181.87,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 61,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0007793,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
