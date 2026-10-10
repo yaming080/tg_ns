@@ -3269,10 +3269,6 @@
   },
   "ai_review": {
     "entries": {
-      "6093ac5765302f5a3ba6efa032e9ca8187b6720cbb0141b16cc34f6f0bd7f254": {
-        "text": "SKIP",
-        "expires": 1791598326.87183
-      },
       "11a16522ea0d9ccea378d83e43efc324cbaadd3b4b80cfa12a63175d330c237b": {
         "text": "{\"publish\": false, \"reason\": \"기능 활성화는 확인되지만, 원문은 XRP Ledger의 발표가 아니라 XRPScan 대시보드의 amendment 데이터를 근거로 한다. 요약의 ‘밝힘’은 발표 주체를 잘못 귀속한다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": true}}",
         "expires": 1791602504.255338
@@ -3296,6 +3292,10 @@
       "bf2404c3b2073a766fe36e31ad3cbc6381e9b9d72386f09247b369d081edb8b6": {
         "text": "SKIP",
         "expires": 1791613319.296371
+      },
+      "49bed1ef9831c3d701699d32711c7c78064b0f89407e08b7f015c7ab8d2db919": {
+        "text": "SKIP",
+        "expires": 1791620607.5796196
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -7736,17 +7736,17 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 1,
-            "cache_hits": 6,
+            "api_calls": 2,
+            "cache_hits": 9,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 4398,
+            "input_tokens": 8996,
             "cached_input_tokens": 0,
-            "output_tokens": 78,
+            "output_tokens": 84,
             "reasoning_tokens": 70,
-            "estimated_usd": 0.000588675,
+            "estimated_usd": 0.00116635,
             "unpriced_calls": 0,
-            "cache_write_tokens": 4395
+            "cache_write_tokens": 8990
           }
         }
       }
@@ -9291,6 +9291,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T02:01:12.033135+00:00",
+        "elapsed_seconds": 1344.659,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 3,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.000577675,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
