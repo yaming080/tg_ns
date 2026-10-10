@@ -3271,18 +3271,6 @@
   },
   "ai_review": {
     "entries": {
-      "11a16522ea0d9ccea378d83e43efc324cbaadd3b4b80cfa12a63175d330c237b": {
-        "text": "{\"publish\": false, \"reason\": \"기능 활성화는 확인되지만, 원문은 XRP Ledger의 발표가 아니라 XRPScan 대시보드의 amendment 데이터를 근거로 한다. 요약의 ‘밝힘’은 발표 주체를 잘못 귀속한다.\", \"checks\": {\"faithful\": false, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": true}}",
-        "expires": 1791602504.255338
-      },
-      "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
-        "text": "SKIP",
-        "expires": 1791602538.1055396
-      },
-      "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
-        "text": "SKIP",
-        "expires": 1791606003.323734
-      },
       "92be71cecfdf2b32e83e4c40ce7802f2c081eb896fd1f4d17b68c8b98e311564": {
         "text": "SKIP",
         "expires": 1791609038.8229845
@@ -3314,6 +3302,14 @@
       "d9bbfe09f6703881bf159758e82b561d147b9ef93efa7dac2d895bc8860fb3d6": {
         "text": "{\"publish\":false,\"reason\":\"새로운 기관용 비트코인 금융 인프라 사업 소식이며 핵심 사실과 미확정 조건은 대체로 정확하지만, 핵심 경로인 아틀라스가 어떤 시스템인지 설명이 부족해 일반 독자가 이용 방식과 의미를 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1791624057.8857996
+      },
+      "3c80b62542f3824af0e1ae6b47c4ef06187a8bb221614d7878ad91cac3b9491f": {
+        "text": "SKIP",
+        "expires": 1791627704.0255585
+      },
+      "f681f8295c06ecfe75eec800ab3c8388ba7c96f987dcf1c8338304b09d2104f9": {
+        "text": "SKIP",
+        "expires": 1791627708.0496507
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -7798,17 +7794,17 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 5,
-            "cache_hits": 12,
+            "api_calls": 7,
+            "cache_hits": 13,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 23837,
+            "input_tokens": 33455,
             "cached_input_tokens": 0,
-            "output_tokens": 676,
-            "reasoning_tokens": 501,
-            "estimated_usd": 0.00331725,
+            "output_tokens": 773,
+            "reasoning_tokens": 584,
+            "estimated_usd": 0.00456785,
             "unpriced_calls": 0,
-            "cache_write_tokens": 23822
+            "cache_write_tokens": 33434
           },
           "source_review": {
             "api_calls": 4,
@@ -9442,6 +9438,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.01067,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T04:01:13.820406+00:00",
+        "elapsed_seconds": 1235.404,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 1,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0012506,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
