@@ -1,12 +1,5 @@
 {
   "posted": {
-    "6bb514ef234f4a80": {
-      "title": "카르다노, 6개월간 게임 엔진 3번 재작성",
-      "url": "www.tokenpost.kr/news/blockchain/405687",
-      "signature": "action_build | action_develop | action_integrate | action_launch | action_migrate | action_propose | entity_찰스호스킨슨 | entity_카르다노 | object_network",
-      "canonical_key": "action_build | action_develop | action_integrate | action_launch | action_migrate | action_propose | entity_찰스호스킨슨 | entity_카르다노 | object_network",
-      "ts": "2026-09-10T08:01:26.383573+00:00"
-    },
     "12ce4613c0cead47": {
       "title": "공식통계 게시 3~5초·검증 1~2초…BIS, XRP 레저 개념증명 공개",
       "url": "www.tokenpost.kr/news/blockchain/405727",
@@ -3250,10 +3243,6 @@
   },
   "ai_review": {
     "entries": {
-      "49bed1ef9831c3d701699d32711c7c78064b0f89407e08b7f015c7ab8d2db919": {
-        "text": "SKIP",
-        "expires": 1791620607.5796196
-      },
       "1924771b50a00529dc242c0ddee2a3e214a5fbfc7546f40d2883831560019e25": {
         "text": "SKIP",
         "expires": 1791624005.1257093
@@ -3309,6 +3298,14 @@
       "51977ada590d441212ff5733fd983e68627c439495f3fabdf618f468f8f6fb42": {
         "text": "{\"publish\":false,\"reason\":\"2015년 오류 수정이라는 새 소식의 발표 시점과 원문 근거를 확인하기 어렵고, 자료가 분석·가격 전망을 포함해 사실 확인에 충분하지 않습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
         "expires": 1791642050.7411838
+      },
+      "6a0c0a071348807f3d5c0291d0a0b63aad6413dd6d955ef6fbf55ad900cfc552": {
+        "text": "{\"publish\":false,\"reason\":\"취약점이 악용되려면 다수의 의도적으로 가격을 잘못 설정한 거래 제안을 결제에 연결해야 한다는 조건이 빠졌고, XRPL과 계산 오류의 의미도 충분히 풀어 쓰지 않았다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791645062.908346
+      },
+      "8b47048455de481f42fb20a1f134971a32894212a80669113e4bbb186ab787d6": {
+        "text": "{\"publish\": false, \"reason\": \"취약점 수정과 악용 조건은 원문과 대체로 일치하지만, 일반 독자가 이해할 수 있도록 ‘정수 오버플로’가 어떤 현상인지 설명하지 않았다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": true, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": false}}",
+        "expires": 1791645074.7505355
       },
       "676ea4f684a0deec710569197e0b8fb78d61b92dd1f5593cab23f49eb33c11fc": {
         "text": "Paxos가 Crypto Brokerage에 XRP를 추가해 제휴사가 이용자에게 XRP 매매·보관·입출금 서비스를 제공할 수 있게 됐다고 밝힘",
@@ -5549,6 +5546,22 @@
       "4be71174e1706a58fcf0be7add7c9638a4d0e8df0c1edb3c6d1581716051a63e": {
         "text": "리플이 XRP 레저에서 악용될 경우 수십억 XRP를 무단 생성할 수 있었던 2015년 소프트웨어 오류를 수정했다고 공개함\n\n해당 오류는 악용되지 않았으며 XRP 공급량에도 변화가 없었다고 밝힘",
         "expires": 1791879642.8264506
+      },
+      "b5e45e2f7aab0f68daede0c8f279b28ecefd6d0389c91eab4a84a802a8358c36": {
+        "text": "XRPL 개발팀이 여러 거래 제안을 거치는 결제에서 계산 오류로 공급량을 넘는 XRP가 생성될 수 있던 취약점을 3.4.1 업데이트로 수정했으며, 공개 네트워크에서 악용된 증거는 없다고 밝힘",
+        "expires": 1791882652.5927792
+      },
+      "4ef7e0c2949d31a207a4c2588324c10ff652ac087c39fc0b2a0c2599743daf01": {
+        "text": "엑스알피 레저(XRPL)의 결제 엔진에서 여러 거래 제안의 합계가 정수 오버플로로 작아져 공급량을 넘는 XRP가 생성될 수 있는 취약점을 3.4.1 업데이트로 수정했다. 공격에는 가격을 의도적으로 잘못 설정한 수백 건의 제안을 결제 하나에 연결해야 했으며, 공개 네트워크에서 악용된 증거는 없다.",
+        "expires": 1791882667.0624673
+      },
+      "96370abd71383cfa0eb2a2fe01d72464abac89425d455368ef11acd761a5568e": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791882677.5137076
+      },
+      "ed5de235f708fca37551ebc2396dc629d9876eadad82e2439613802cfc3bbb0d": {
+        "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
+        "expires": 1791882681.3066974
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -7873,60 +7886,60 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 16,
-            "cache_hits": 24,
+            "api_calls": 17,
+            "cache_hits": 30,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 77149,
+            "input_tokens": 82309,
             "cached_input_tokens": 0,
-            "output_tokens": 2296,
-            "reasoning_tokens": 1745,
-            "estimated_usd": 0.010790425,
+            "output_tokens": 2549,
+            "reasoning_tokens": 1933,
+            "estimated_usd": 0.01156185,
             "unpriced_calls": 0,
-            "cache_write_tokens": 77101
+            "cache_write_tokens": 82258
           },
           "source_review": {
-            "api_calls": 10,
-            "cache_hits": 1,
+            "api_calls": 12,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 43747,
+            "input_tokens": 52979,
             "cached_input_tokens": 0,
-            "output_tokens": 3756,
-            "reasoning_tokens": 2810,
-            "estimated_usd": 0.007345625,
+            "output_tokens": 5082,
+            "reasoning_tokens": 3929,
+            "estimated_usd": 0.009162475,
             "unpriced_calls": 0,
-            "cache_write_tokens": 43717
+            "cache_write_tokens": 52943
           },
           "summary_repair": {
-            "api_calls": 3,
+            "api_calls": 4,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 3925,
+            "input_tokens": 5324,
             "cached_input_tokens": 0,
-            "output_tokens": 558,
-            "reasoning_tokens": 249,
-            "estimated_usd": 0.00074875,
+            "output_tokens": 803,
+            "reasoning_tokens": 390,
+            "estimated_usd": 0.00104605,
             "unpriced_calls": 0,
-            "cache_write_tokens": 3090
+            "cache_write_tokens": 4486
           },
           "event_search": {
-            "api_calls": 14,
-            "cache_hits": 2,
+            "api_calls": 16,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 126960,
+            "input_tokens": 143132,
             "cached_input_tokens": 0,
-            "output_tokens": 736,
-            "reasoning_tokens": 555,
-            "estimated_usd": 0.01623695,
+            "output_tokens": 810,
+            "reasoning_tokens": 599,
+            "estimated_usd": 0.0182953,
             "unpriced_calls": 0,
-            "cache_write_tokens": 126918
+            "cache_write_tokens": 143084
           },
           "event_decision": {
             "api_calls": 3,
-            "cache_hits": 0,
+            "cache_hits": 1,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 1913,
@@ -9577,6 +9590,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0112533,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T09:00:59.297630+00:00",
+        "elapsed_seconds": 626.378,
+        "status": "completed",
+        "api_calls": 6,
+        "cache_hits": 17,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.004943925,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -26155,6 +26180,10 @@
       "db2f8869b2d32601faef3ab33f2ff117e66031701d128045d9deefab79c53299": {
         "summary": "",
         "expires": 1792221088.3845778
+      },
+      "22356d67729477c6ce661fe49c6a3b6772345e75b7cf47261a5c7b8e21b55a51": {
+        "summary": "",
+        "expires": 1792228262.9238653
       }
     }
   }
