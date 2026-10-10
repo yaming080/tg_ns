@@ -3265,30 +3265,6 @@
   },
   "ai_review": {
     "entries": {
-      "2bd2870e27e1ac860d7f1578e72aa257058cae600da878510511347e8c5c1585": {
-        "text": "{\"publish\":false,\"reason\":\"취약점의 핵심은 대체로 맞지만, 수정판을 적용한 ‘검증자 80% 이상’이라는 범위가 원문의 ‘기본 UNL 검증자 80% 초과’보다 넓게 표현됐고 검증자도 설명되지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791648884.8050373
-      },
-      "122ce2df8bd2939b9c191f097c524d8f987f8a7fa5a159215a5ce84a32d5d847": {
-        "text": "SKIP",
-        "expires": 1791648942.109097
-      },
-      "b876ce42b3a11657e38ed32b758781c34929fc571a6ef53f354055b11374805a": {
-        "text": "SKIP",
-        "expires": 1791648946.4752579
-      },
-      "0c4f8d422be21212990ef6afdad7f21bddc232eee3f1e5b884e081b01a80e24f": {
-        "text": "{\"publish\":false,\"reason\":\"공개 네트워크에서 악용된 증거가 없다는 한정이 빠졌고, 결함을 악용하려면 수백 계정의 특수 제작 오퍼가 필요했다는 발생 조건도 요약에 반영되지 않았습니다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791648980.6077104
-      },
-      "4ecc46ca2ca1a949439c68d117f739a0e3ac40c73c3588aaf2d7a3e50ff3748e": {
-        "text": "{\"publish\":false,\"reason\":\"핵심 내용은 원문과 대체로 일치하지만, 악용 조건인 ‘오퍼’가 설명되지 않아 일반 독자가 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791648990.1012301
-      },
-      "32b8528bbfda30888dfb3b3680ef1222a50c924c170da118b9871d8197fe0ee3": {
-        "text": "{\"publish\":false,\"reason\":\"취약점 수정의 근거가 된 블로그 게시물을 확인할 수 없고, 본문도 XRP 가격 전망·시장 해석에 상당 부분 의존합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
-        "expires": 1791649003.4017408
-      },
       "5fd685ab84036881e49c36c3a84e651e72a5d3a6908281be5cca7c3f2eba3a1a": {
         "text": "{\"approved\":false,\"reason\":\"이미지는 수이(Sui) 로고를 선명하게 보여주지만, 기사의 핵심은 앵커리지 디지털이 Hashi에 참여해 비트코인 보유 기업에 담보 대출 경로를 제공하는 일이다. 수이는 네트워크 배경으로 언급되므로 수이 로고 단독 이미지는 핵심 주체를 나타내지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
         "expires": 1791649033.2462776
@@ -3708,6 +3684,10 @@
       "b3a6a8fe8ad3b5fd4ef88bb47c3f57c8f8819a3b4295744e09015f5a85703a49": {
         "text": "{\"related_ids\":[]}",
         "expires": 1791670271.1098516
+      },
+      "bb32cfdcbb69a6402f2d942e4d6e471556713edb0d5e145d7439639fe1beaba5": {
+        "text": "SKIP",
+        "expires": 1791670592.4357681
       },
       "318bd4985da64f27129e24de0a7d95f8de7a91b4a95e9d8fe26722feea5771ce": {
         "text": "써클이 SAP 지원 금융사 테레이나와 협력해 SAP 재무 소프트웨어에서 USDC·EURC 송금과 수취를 지원하는 결제 기능을 연동할 계획이라고 밝힘\n\n양사는 향후 수개월 안에 고객사를 대상으로 국경 간 결제와 기업 자금 운용 통합 테스트를 진행할 예정임",
@@ -8468,21 +8448,21 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 63,
-            "cache_hits": 67,
+            "api_calls": 64,
+            "cache_hits": 85,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 375970,
+            "input_tokens": 382804,
             "cached_input_tokens": 0,
-            "output_tokens": 11450,
-            "reasoning_tokens": 8180,
-            "estimated_usd": 0.052716525,
+            "output_tokens": 11491,
+            "reasoning_tokens": 8213,
+            "estimated_usd": 0.0535912,
             "unpriced_calls": 0,
-            "cache_write_tokens": 375781
+            "cache_write_tokens": 382612
           },
           "source_review": {
             "api_calls": 46,
-            "cache_hits": 22,
+            "cache_hits": 33,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 248024,
@@ -8508,7 +8488,7 @@
           },
           "event_search": {
             "api_calls": 73,
-            "cache_hits": 23,
+            "cache_hits": 43,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 702211,
@@ -8521,7 +8501,7 @@
           },
           "event_decision": {
             "api_calls": 11,
-            "cache_hits": 5,
+            "cache_hits": 9,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 7114,
@@ -8534,7 +8514,7 @@
           },
           "image_review": {
             "api_calls": 6,
-            "cache_hits": 0,
+            "cache_hits": 2,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 12266,
@@ -10269,6 +10249,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0228897,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T16:00:58.376191+00:00",
+        "elapsed_seconds": 950.669,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 55,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.000874675,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
