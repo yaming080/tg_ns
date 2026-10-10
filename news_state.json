@@ -3272,22 +3272,6 @@
   },
   "ai_review": {
     "entries": {
-      "2ab9036214639faf81ffab290074c9b9efc4f9e5902bd5be47e49f64bfff98fd": {
-        "text": "SKIP",
-        "expires": 1791637859.447386
-      },
-      "8622448cfd33a69b286f6b0e7653ed96a2bb3688425fbf1be498e8a8b9ffc82f": {
-        "text": "{\"publish\":false,\"reason\":\"취약점이 발동하는 핵심 조건인 공격자가 수백 개 계정에서 특수하게 만든 주문을 구성해야 한다는 점이 빠졌고, 계산 오류의 의미도 충분히 설명되지 않았습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791637888.3690548
-      },
-      "8639c8b21397d5b2f12e92c6161bcca24340c04228597299ee06d0c8b06f0de6": {
-        "text": "{\"publish\":false,\"reason\":\"새 취약점 공개와 수정 사실은 담았지만, 공격에 특수 주문과 수백 개 계정이 필요했다는 조건 및 64비트 정수의 의미가 빠져 기술적 위험을 충분히 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791637899.0016778
-      },
-      "bf2404c3b2073a766fe36e31ad3cbc6381e9b9d72386f09247b369d081edb8b6": {
-        "text": "SKIP",
-        "expires": 1791637903.265714
-      },
       "54eebca744c3fbbec6f018581ca76d9571af81b7e181ad57dd247451ad4f30d8": {
         "text": "{\"publish\":false,\"reason\":\"자금 조달과 해외 보험 상품 수요 증가는 자료에 나오지만, 암호화폐 산업의 허용 범주에 해당하는 구체적 사업 진행은 확인되지 않습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1791642030.081178
@@ -3543,6 +3527,22 @@
       "29b366a25ed56a8909440cc00afb226c6fc7095abcd21932c564dc8f18a8ecae": {
         "text": "{\"decision\":\"duplicate\",\"matched_id\":\"ec0eacd62913800d\",\"reason\":\"두 기사 모두 카르다노 메인넷에 CIP-0113을 적용해 규제형 토큰 발행사가 이체 규칙을 설정하고 토큰을 동결·압류할 수 있게 된 같은 조치를 보도한다. 차이는 설명의 범위뿐이다.\",\"new_fact\":\"\"}",
         "expires": 1791657244.7179952
+      },
+      "8606071a7699bdcccb78f61461d64286f87a40d632985ed071035de936443e0c": {
+        "text": "{\"decision\":\"uncertain\",\"matched_id\":\"84456dcc43cb32d7\",\"reason\":\"기존 기록 제목도 트론의 양자내성 전환을 다루지만 본문이 없어 같은 발표인지 확인할 수 없습니다. 후보는 메인넷 적용 준비 상태를 설명할 뿐, 거버넌스 승인이나 실제 적용을 확인하지 않습니다.\",\"new_fact\":\"\"}",
+        "expires": 1791659723.300053
+      },
+      "3f39379b76f481d2514ac180d05fc5f0b0fb5984119227c9ba39de84c46c04f6": {
+        "text": "SKIP",
+        "expires": 1791659726.1917083
+      },
+      "76c744834a7f5124e8e999a43c6f7c849d28860a91760ec5a34586a4c096eeed": {
+        "text": "SKIP",
+        "expires": 1791659731.0509667
+      },
+      "6edcedf6627f9a05d885c97d13a45b399552d9d53a522cc5150a17007f3bb947": {
+        "text": "SKIP",
+        "expires": 1791659733.3829024
       },
       "709d066c48d6fb354504b285be79a39092245f9e62dc196880fa1c3d9b30e1d9": {
         "text": "리플이 기관용 디지털자산 보관 서비스 ‘리플 커스터디’ 1.43 버전에 캔턴 네트워크 지원을 추가해 은행과 펀드가 캔턴 코인(CC)과 CIP-56 토큰을 보관할 수 있게 됐다고 밝힘",
@@ -5960,6 +5960,38 @@
         "text": "XRP레저의 배치V1_1 업그레이드가 검증자 지지가 기준치를 유지하면 10월 9일께 활성화될 예정임. 여러 거래를 하나의 묶음으로 처리하는 기능을 지원함",
         "expires": 1791894081.9896731
       },
+      "b4bec6839a3e68a3d8a52a4d4e0d849a3cc6f36db023f49598b2d84bf7041103": {
+        "text": "트론이 거래 승인에 쓰이는 양자내성 서명을 테스트넷에서 시험 중이며, 창업자 저스틴 선은 메인넷 도입 준비가 됐다고 밝힘\n\n메인넷 적용 절차와 시점은 아직 정해지지 않았으며, 양자내성 암호는 강력한 양자컴퓨터가 기존 암호 체계를 깰 가능성에 대비하는 기술임",
+        "expires": 1791897301.582185
+      },
+      "3d052dae0823fc7969adaf64cf06f86460a10623cfe97b173ba0c97e93af579e": {
+        "text": "{\"publish\":true,\"reason\":\"트론 테스트넷의 양자내성 서명 시험과 저스틴 선의 새 발언을 구분해 요약했고, 메인넷 적용 시점이 미정인 조건도 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791897305.7436528
+      },
+      "5726bcfa5dd17ab2eef469d5131293bdf40d2bd1d990382c3f76b03b9db5fde4": {
+        "text": "트론 창립자 저스틴 선은 양자컴퓨터 공격에 대비한 암호 기술을 메인넷에 언제든 적용할 준비가 됐다고 밝힘\n\n해당 기술은 7월부터 나일 테스트넷에서 선택 적용 중이며, 메인넷 적용에는 트론 거버넌스의 별도 승인이 필요함",
+        "expires": 1791897310.0424004
+      },
+      "60021a15668203aa2358750442654927edcf0cb3edf9326f5eb98661d20dfbe5": {
+        "text": "{\"publish\":true,\"reason\":\"저스틴 선의 새 발언과 테스트넷 적용 현황, 메인넷 별도 거버넌스 승인 조건을 원문대로 전달했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1791897314.0058393
+      },
+      "c338ddf7732cb4201ec2000c8f514f5ad1059bd05ad83c110faecc434dc0d28f": {
+        "text": "{\"related_ids\":[\"84456dcc43cb32d7\"]}",
+        "expires": 1791897315.8170104
+      },
+      "39a3bfa805adefef339b7690461ecbeb87d2e0e8d80ca135f02e696b77c299cf": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791897317.2661383
+      },
+      "f525f383fe13ea6f1320208986f0ef3c0b74be3b79b7535779978f21376956fe": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791897318.8369586
+      },
+      "b7ffee4fa9ce4bf98c71bb143fb5d25f40a0395320f157be93fc4017fdaed575": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1791897319.8750238
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -8283,30 +8315,30 @@
       "2026-10-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 49,
-            "cache_hits": 30,
+            "api_calls": 54,
+            "cache_hits": 40,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 281865,
+            "input_tokens": 315711,
             "cached_input_tokens": 0,
-            "output_tokens": 9070,
-            "reasoning_tokens": 6710,
-            "estimated_usd": 0.03976445,
+            "output_tokens": 9603,
+            "reasoning_tokens": 7047,
+            "estimated_usd": 0.044261325,
             "unpriced_calls": 0,
-            "cache_write_tokens": 281718
+            "cache_write_tokens": 315549
           },
           "source_review": {
-            "api_calls": 36,
-            "cache_hits": 5,
+            "api_calls": 38,
+            "cache_hits": 9,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 185976,
+            "input_tokens": 198323,
             "cached_input_tokens": 0,
-            "output_tokens": 16607,
-            "reasoning_tokens": 13195,
-            "estimated_usd": 0.0315478,
+            "output_tokens": 17205,
+            "reasoning_tokens": 13612,
+            "estimated_usd": 0.033390025,
             "unpriced_calls": 0,
-            "cache_write_tokens": 185868
+            "cache_write_tokens": 198209
           },
           "summary_repair": {
             "api_calls": 9,
@@ -8322,28 +8354,28 @@
             "cache_write_tokens": 16525
           },
           "event_search": {
-            "api_calls": 48,
-            "cache_hits": 8,
+            "api_calls": 52,
+            "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 457684,
+            "input_tokens": 497001,
             "cached_input_tokens": 0,
-            "output_tokens": 3717,
-            "reasoning_tokens": 3139,
-            "estimated_usd": 0.0590654,
+            "output_tokens": 3901,
+            "reasoning_tokens": 3274,
+            "estimated_usd": 0.064071725,
             "unpriced_calls": 0,
-            "cache_write_tokens": 457540
+            "cache_write_tokens": 496845
           },
           "event_decision": {
-            "api_calls": 6,
-            "cache_hits": 1,
+            "api_calls": 7,
+            "cache_hits": 2,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 3976,
+            "input_tokens": 4582,
             "cached_input_tokens": 0,
-            "output_tokens": 1168,
-            "reasoning_tokens": 655,
-            "estimated_usd": 0.0009816,
+            "output_tokens": 1383,
+            "reasoning_tokens": 782,
+            "estimated_usd": 0.0011497,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
@@ -10048,6 +10080,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.032558325,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-10T13:01:06.624164+00:00",
+        "elapsed_seconds": 870.081,
+        "status": "completed",
+        "api_calls": 12,
+        "cache_hits": 19,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.011513525,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
