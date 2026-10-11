@@ -5,6 +5,7 @@ from html.parser import HTMLParser
 import re
 from news_coverage import coverage_scope
 from news_manual_oct10 import URLS as OCT10_POSTED_URLS
+from news_manual_oct12 import URLS as OCT12_POSTED_URLS
 from urllib.parse import urlsplit
 
 
@@ -53,7 +54,7 @@ MANUALLY_POSTED_ARTICLES = frozenset({
 
 MANUALLY_POSTED_ARTICLES = MANUALLY_POSTED_ARTICLES | frozenset(
     (urlsplit(url).netloc.removeprefix('www.'), urlsplit(url).path.rstrip('/'))
-    for url in OCT10_POSTED_URLS)
+    for url in OCT10_POSTED_URLS + OCT12_POSTED_URLS)
 
 # User-confirmed removals stay blocked beyond rolling history retention.
 EDITOR_REJECTED_ARTICLES = {
