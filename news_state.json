@@ -3045,10 +3045,6 @@
   },
   "ai_review": {
     "entries": {
-      "0764d5ec3238970cafd5f20cdc030d2c5c7a5c2a1cb2962905d4a4adb529c3bd": {
-        "text": "SKIP",
-        "expires": 1791757205.3088865
-      },
       "314cd2df5757808ed9e7467e4a37e475b30c3aeba3e7af94efff3217f0757791": {
         "text": "XRP 레저의 BatchV1_1 업그레이드가 활성화 절차를 진행 중이며, 검증자 지지가 기준치 이상이면 10월 9일경 활성화될 예정임\n\n업그레이드는 여러 거래를 하나의 묶음으로 처리하며, 치명적 버그로 중단된 이전 Batch 버전을 대체함",
         "expires": 1791757726.7968173
@@ -5889,6 +5885,10 @@
         "text": "민와일이 기존 투자자들로부터 3,750만달러를 추가 유치해 누적 투자액이 1억8,000만달러를 넘어섰다고 밝힘\n\n민와일은 비트코인으로 보험료를 내고 보험금을 받는 종신보험 ‘BTC Life 1-Pay’를 올해 초 미국 외 고액 자산가 대상으로 출시했다고 밝힘",
         "expires": 1792013806.9794452
       },
+      "130bbb43b7fb4c22bb93c9243b525474eb67395522cbb9cd80df96e92d55fe0b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792016621.4296281
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -8308,7 +8308,7 @@
         "gpt-6-luna": {
           "summary": {
             "api_calls": 70,
-            "cache_hits": 274,
+            "cache_hits": 288,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 492034,
@@ -8321,7 +8321,7 @@
           },
           "source_review": {
             "api_calls": 62,
-            "cache_hits": 99,
+            "cache_hits": 101,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 397190,
@@ -8333,21 +8333,21 @@
             "cache_write_tokens": 397004
           },
           "event_search": {
-            "api_calls": 193,
-            "cache_hits": 179,
+            "api_calls": 194,
+            "cache_hits": 190,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1849591,
+            "input_tokens": 1859325,
             "cached_input_tokens": 0,
-            "output_tokens": 10424,
+            "output_tokens": 10433,
             "reasoning_tokens": 7976,
-            "estimated_usd": 0.2363964,
+            "estimated_usd": 0.237617575,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1849012
+            "cache_write_tokens": 1858743
           },
           "event_decision": {
             "api_calls": 24,
-            "cache_hits": 58,
+            "cache_hits": 61,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 16013,
@@ -10455,6 +10455,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.019773275,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-11T22:01:05.702770+00:00",
+        "elapsed_seconds": 1358.433,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 30,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.001221175,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
