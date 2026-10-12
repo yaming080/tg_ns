@@ -2997,38 +2997,6 @@
   },
   "ai_review": {
     "entries": {
-      "b2d1592f986a29d6f1070722ead9408bf648232949545fc64b8111da269b5a59": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 안경에 시장 차트가 비친 범용 사진으로, Evernorth·XRPN·XRP 또는 CIO 선임과 관련된 대상을 식별할 수 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":false,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
-        "expires": 1791845272.606101
-      },
-      "cc961261dca0167b26785c41e53a7402c5ca215ad36787ea8021158a347f9cef": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 인물 안경에 비친 범용 캔들 가격 차트로, 에버노스·위고 장드부아·XRPN 중 기사 핵심 주체를 식별하거나 직접 보여주지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":false,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
-        "expires": 1791845275.7225695
-      },
-      "6e1859da8ac3b5d47d776d25513672a36cb8146f95bd06e2196559d641d7c6ff": {
-        "text": "SKIP",
-        "expires": 1791845277.1105287
-      },
-      "20081bbb76f2cb7808b0319e6919e6c5a8dc5ae42e2b37dbfffd433e00027661": {
-        "text": "{\"publish\":false,\"reason\":\"이란 관리의 협상 관련 발언은 새 외교 소식이지만, 기사 발행 시점이 UTC 기준 오늘 이후로 자료의 날짜가 충돌하며 발언일도 11일로만 제시돼 날짜를 확정하기 어렵다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}",
-        "expires": 1791845281.9282372
-      },
-      "f29c19a5c731d1d2e2f856674262010266956588961db56cf649b52d1fa4a03f": {
-        "text": "SKIP",
-        "expires": 1791845285.9932723
-      },
-      "35cad78442dc775b417cbd21980ba7e12d1d247d432bb895c4b6bcae1035f01f": {
-        "text": "{\"publish\":false,\"reason\":\"재예치 용어 설명과 실사·규정 준수 조건이 요약에 빠져 있습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791845296.2431722
-      },
-      "6cfa43382cf47b7f766a32e887299fdac39de9a49e9ddffac1530debe60cb2e8": {
-        "text": "{\"publish\": false, \"reason\": \"구속력 없는 협약과 검토 단계는 대체로 보존했지만, 필요시 중국 내 기업의 해외 상장으로 간주되지 않도록 구조를 재편할 수 있다는 중요한 조건이 요약에서 빠졌습니다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": false, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": true}}",
-        "expires": 1791845306.830519
-      },
-      "5b58f90287811bb1f2f08f08a23cc173fa4c6372ac55d476f1c554832ce81274": {
-        "text": "{\"publish\":false,\"reason\":\"신규 선임 소식은 있으나 기사의 핵심은 나스닥 상장 첫날 주가 상승으로, 게시 금지 대상인 단순 가격 동향 보도입니다. 요약의 ‘CIO’도 풀어 쓰지 않았습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791845320.1878908
-      },
       "7c1aaceb328557858db8fd12b66420354b30211302bb526fd9676e9e651e66b8": {
         "text": "블록체인닷컴이 미국에서 예측시장과 암호화폐 파생상품을 개인·기관 고객에게 제공하기 위해 CFTC에 거래소 운영·파생상품 중개 관련 인가 2건을 신청함\n\n서비스 출시 일정은 정해지지 않음",
         "expires": 1791846644.4336104
@@ -8683,18 +8651,6 @@
     },
     "recent_runs": [
       {
-        "started_at_utc": "2026-10-05T22:01:06.495313+00:00",
-        "elapsed_seconds": 829.147,
-        "status": "completed",
-        "api_calls": 3,
-        "cache_hits": 5,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.072305,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
-      {
         "started_at_utc": "2026-10-05T23:01:04.523138+00:00",
         "elapsed_seconds": 577.881,
         "status": "completed",
@@ -10755,6 +10711,18 @@
       {
         "started_at_utc": "2026-10-12T22:00:59.194307+00:00",
         "elapsed_seconds": 58.534,
+        "status": "failed",
+        "api_calls": 0,
+        "cache_hits": 0,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-12T23:01:18.788298+00:00",
+        "elapsed_seconds": 225.154,
         "status": "failed",
         "api_calls": 0,
         "cache_hits": 0,
