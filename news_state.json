@@ -2997,26 +2997,6 @@
   },
   "ai_review": {
     "entries": {
-      "a544f66ff103f99e776537f649706b421a7941edcddeabf4533d12957cc96379": {
-        "text": "{\"publish\":false,\"reason\":\"새 토큰화 주식 거래 일정 변경은 확인되지만, 대체거래시스템과 토큰화 주식의 뜻을 설명하지 않아 이해 가능성 기준을 충족하지 못합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1791823106.7032447
-      },
-      "60c49f84dc6e48242817b8d1fa5a6729d2cea445b42722dfb4f81d7f2d0fa8b0": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 종목 시세판과 일반적인 차트를 보여줄 뿐, 모건스탠리나 토큰화 주식 지원 기능을 식별할 수 없다. 기사 핵심 주체·사건과 직접 관련된 이미지가 아니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":false,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
-        "expires": 1791823130.3279836
-      },
-      "f75bd989af2df4d5960ff9b0c5c4cba6863c15e3db763e71770039c2fb04c94f": {
-        "text": "{\"approved\":false,\"reason\":\"기사는 모건스탠리의 토큰화 주식 거래 기능 도입 일정 변경에 관한 내용이지만, 이미지는 특정 회사나 상품을 식별할 수 없는 흐릿한 범용 거래 화면이다. 가격·시세 화면이 중심이므로 대표 이미지로 부적절하다.\",\"checks\":{\"relevant\":false,\"clear\":false,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":false,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
-        "expires": 1791823133.7447565
-      },
-      "dd06e17eee3afbb71b2fda78e7cd32a437b7e6a1d51990c8586857e20917dc08": {
-        "text": "SKIP",
-        "expires": 1791823163.8978672
-      },
-      "188a356779176b61fce0a0d8f16a84cd57f3c408cc3fad97025eb260bfe98d67": {
-        "text": "{\"publish\":false,\"reason\":\"일정 안내 기사로, 싱가포르 의견수렴 마감 외에 새 정책 결정이나 실질적 조치가 확인되지 않습니다. 이더리움 업그레이드 논의도 예정된 회의와 테스트넷 적용 절차에 관한 내용입니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791823171.7100022
-      },
       "6a0c37c15fa294c6440cb2485a3b3fbbad3abfc0d72236ade9fb975c4e65cf1f": {
         "text": "말레이시아 고등법원이 리플 미지급금 2,395만 달러 회수를 위해 심리스그룹이 보유한 트랑글로 주식 10만465주에 대한 충당명령을 10월 1일 확정했다고 커런크그룹이 공시함\n\n충당명령은 자산에 법적 집행을 진행하는 조치로, 주식 매각에는 별도 법원 절차가 필요함",
         "expires": 1791825612.4197936
@@ -3244,6 +3224,38 @@
       "538601b1b96aee1d8bda9be8d46c74da911f4673a42fd39f9de5004e7328e667": {
         "text": "SKIP",
         "expires": 1791841974.0248768
+      },
+      "b2d1592f986a29d6f1070722ead9408bf648232949545fc64b8111da269b5a59": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 안경에 시장 차트가 비친 범용 사진으로, Evernorth·XRPN·XRP 또는 CIO 선임과 관련된 대상을 식별할 수 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":false,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1791845272.606101
+      },
+      "cc961261dca0167b26785c41e53a7402c5ca215ad36787ea8021158a347f9cef": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 인물 안경에 비친 범용 캔들 가격 차트로, 에버노스·위고 장드부아·XRPN 중 기사 핵심 주체를 식별하거나 직접 보여주지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":false,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1791845275.7225695
+      },
+      "6e1859da8ac3b5d47d776d25513672a36cb8146f95bd06e2196559d641d7c6ff": {
+        "text": "SKIP",
+        "expires": 1791845277.1105287
+      },
+      "20081bbb76f2cb7808b0319e6919e6c5a8dc5ae42e2b37dbfffd433e00027661": {
+        "text": "{\"publish\":false,\"reason\":\"이란 관리의 협상 관련 발언은 새 외교 소식이지만, 기사 발행 시점이 UTC 기준 오늘 이후로 자료의 날짜가 충돌하며 발언일도 11일로만 제시돼 날짜를 확정하기 어렵다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}",
+        "expires": 1791845281.9282372
+      },
+      "f29c19a5c731d1d2e2f856674262010266956588961db56cf649b52d1fa4a03f": {
+        "text": "SKIP",
+        "expires": 1791845285.9932723
+      },
+      "35cad78442dc775b417cbd21980ba7e12d1d247d432bb895c4b6bcae1035f01f": {
+        "text": "{\"publish\":false,\"reason\":\"재예치 용어 설명과 실사·규정 준수 조건이 요약에 빠져 있습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791845296.2431722
+      },
+      "6cfa43382cf47b7f766a32e887299fdac39de9a49e9ddffac1530debe60cb2e8": {
+        "text": "{\"publish\": false, \"reason\": \"구속력 없는 협약과 검토 단계는 대체로 보존했지만, 필요시 중국 내 기업의 해외 상장으로 간주되지 않도록 구조를 재편할 수 있다는 중요한 조건이 요약에서 빠졌습니다.\", \"checks\": {\"faithful\": true, \"conditions_preserved\": false, \"allowed_category\": true, \"new_substantive_fact\": true, \"source_sufficient\": true, \"understandable\": true}}",
+        "expires": 1791845306.830519
+      },
+      "5b58f90287811bb1f2f08f08a23cc173fa4c6372ac55d476f1c554832ce81274": {
+        "text": "{\"publish\":false,\"reason\":\"신규 선임 소식은 있으나 기사의 핵심은 나스닥 상장 첫날 주가 상승으로, 게시 금지 대상인 단순 가격 동향 보도입니다. 요약의 ‘CIO’도 풀어 쓰지 않았습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1791845320.1878908
       },
       "7c1aaceb328557858db8fd12b66420354b30211302bb526fd9676e9e651e66b8": {
         "text": "블록체인닷컴이 미국에서 예측시장과 암호화폐 파생상품을 개인·기관 고객에게 제공하기 위해 CFTC에 거래소 운영·파생상품 중개 관련 인가 2건을 신청함\n\n서비스 출시 일정은 정해지지 않음",
@@ -6141,6 +6153,58 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1792079572.433607
       },
+      "20bf87a6951c020514c5d697d22abf958bc084063e893a8c48781b58c1392461": {
+        "text": "에버노스가 위고 장드부아를 최고투자책임자(CIO)로 선임했으며, 같은 날 나스닥에서 XRPN 거래가 시작됐다고 밝힘. 장드부아는 회사의 자금 운용과 XRP 보유분 관리를 맡으며, 에버노스는 약 4억7300만 XRP와 비용 차감 전 현금 3억달러를 보유함",
+        "expires": 1792082850.2870433
+      },
+      "cf67c0e0f8e1d725e94ec53a5d368a5aa3caf53c4cad8a762431678b7751d704": {
+        "text": "{\"publish\":true,\"reason\":\"CIO 선임과 나스닥 거래 개시라는 새 소식 및 보유 자산 규모가 원문에 구체적으로 확인된다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792082855.5744884
+      },
+      "fe96259baf2ec4cf5d34afa213e1f2757c54ac1d1f4ce0071f024d7a0f1328f8": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792082857.3506167
+      },
+      "7b0f0aef270bfc58c416c0fee2b3a23811005764909b6fcc1174528528630863": {
+        "text": "{\"related_ids\":[\"d5dda14077661afa\"]}",
+        "expires": 1792082858.6294086
+      },
+      "ded7e6c9e66792c3db7ea2426654f8be36d28e04556cd3a47ab192288f3ab641": {
+        "text": "{\"related_ids\":[\"af80cdb9b74fc3e3\"]}",
+        "expires": 1792082862.4146633
+      },
+      "38f32f57b7dbb89df894fe6311495488701cb17f89b87c679e392b9fcdcb3f5a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792082865.3355706
+      },
+      "a8852390928b8d68e5572d05feb26e788b665ffa85fa510e4dc08174fd677f5e": {
+        "text": "{\"decision\":\"update\",\"matched_id\":\"af80cdb9b74fc3e3\",\"reason\":\"같은 에버노스의 XRPN 나스닥 상장 사건이지만, 기존 기록은 거래 개시를 10월 8일 예정으로 다뤘고 후보는 10월 12일 실제 거래가 시작됐다고 보도한다. 후보에는 CIO 선임이라는 새 조치도 포함돼 있다.\",\"new_fact\":\"에버노스가 위고 장드부아를 CIO로 선임했다고 밝혔고, XRPN의 나스닥 거래가 10월 12일 시작됐다고 보도했다.\"}",
+        "expires": 1792082869.4095538
+      },
+      "cdad7ffe1095217fffce4756aa3dea2233c7d3698590f996111a4033277adbfd": {
+        "text": "이란 최고국가안보회의 사무총장 모흐센 레자이가 미국의 종전 제안이 이란의 7개 조건을 충분히 반영하지 않아 불충분하다고 밝힘\n\n레자이는 미국이 쟁점을 명확히 할 때까지 답변하지 않겠다고 했으며, 호르무즈 해협 개방과 핵 문제 등을 둘러싼 협상은 교착 상태임",
+        "expires": 1792082879.7624376
+      },
+      "696915cef70aa14fb38060a66e151fa8259906415ff654fa01e1431d856ba812": {
+        "text": "지바오테크놀로지가 베드록과 협력 기본협약을 맺고 미국 등록 A종 보통주의 토큰화와 보유한 BTC 2,380개 중 일부의 재예치 인프라 투입을 검토함\n\n주식 토큰에 의결권과 배당권을 유지하는 방안도 논의하며, 실제 투입 규모와 조건은 미정이고 구속력 없는 협약임",
+        "expires": 1792082890.485533
+      },
+      "515aa05db5f02f079472bb91feff6c455bd0eaf74a56c8fadf276be14e14b26e": {
+        "text": "지바오테크놀로지는 베드록과 구속력 없는 기본협약을 맺고, 보유 BTC 2,380개 중 일부를 유니BTC 재예치 인프라에 투입하는 방안과 미국 등록 A종 보통주 토큰화를 검토한다. 재예치는 자산을 스테이킹해 추가 유동성이나 보상을 얻는 구조다. 주식 토큰의 의결권·배당권 유지도 논의하며, 실제 투입 규모와 조건은 미정이다. 실사와 중국·미국 증권거래위원회 규정 충족이 필요하고, 양사는 12개월 안에 정식 계약 체결을 목표로 한다.",
+        "expires": 1792082901.1662848
+      },
+      "9c1922d0159fdfb093fdee32379e698a1d0144400b23d6fcc5752dcf93043020": {
+        "text": "에버노스 홀딩스가 나스닥 상장 첫날 위고 장데보즈를 신임 CIO로 선임해 XRP 자산 운용과 유동성·재무 배분 전략을 맡겼다고 밝힘\n\n에버노스는 합병 후 약 4억7300만 XRP를 보유할 계획이라고 밝힘",
+        "expires": 1792082912.4626732
+      },
+      "043884791bdd100dc95764fb520248a2c4e02d3e95ca4211e69aa557b2a6fda1": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792082924.0392432
+      },
+      "b47856a373299ccaf3de1d24f586e7293b94b9594d5aa25deaaf0c1a3041028a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792082931.4974456
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -8641,99 +8705,87 @@
       "2026-10-12": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 74,
-            "cache_hits": 203,
+            "api_calls": 80,
+            "cache_hits": 224,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 539962,
+            "input_tokens": 584739,
             "cached_input_tokens": 0,
-            "output_tokens": 7529,
-            "reasoning_tokens": 5234,
-            "estimated_usd": 0.0712542,
+            "output_tokens": 8763,
+            "reasoning_tokens": 6074,
+            "estimated_usd": 0.077467875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 539740
+            "cache_write_tokens": 584499
           },
           "source_review": {
-            "api_calls": 40,
-            "cache_hits": 40,
+            "api_calls": 45,
+            "cache_hits": 47,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 275618,
+            "input_tokens": 309981,
             "cached_input_tokens": 0,
-            "output_tokens": 13117,
-            "reasoning_tokens": 9378,
-            "estimated_usd": 0.04100775,
+            "output_tokens": 15109,
+            "reasoning_tokens": 10892,
+            "estimated_usd": 0.04629875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 275498
+            "cache_write_tokens": 309846
           },
           "event_search": {
-            "api_calls": 102,
-            "cache_hits": 126,
+            "api_calls": 108,
+            "cache_hits": 140,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 965090,
+            "input_tokens": 1021207,
             "cached_input_tokens": 0,
-            "output_tokens": 7222,
-            "reasoning_tokens": 6013,
-            "estimated_usd": 0.1242396,
+            "output_tokens": 7787,
+            "reasoning_tokens": 6498,
+            "estimated_usd": 0.131536275,
             "unpriced_calls": 0,
-            "cache_write_tokens": 964784
+            "cache_write_tokens": 1020883
           },
           "event_decision": {
-            "api_calls": 8,
-            "cache_hits": 33,
+            "api_calls": 9,
+            "cache_hits": 36,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 5436,
+            "input_tokens": 6266,
             "cached_input_tokens": 0,
-            "output_tokens": 1849,
-            "reasoning_tokens": 1096,
-            "estimated_usd": 0.0014681,
+            "output_tokens": 2184,
+            "reasoning_tokens": 1288,
+            "estimated_usd": 0.0017186,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 10,
-            "cache_hits": 22,
+            "api_calls": 12,
+            "cache_hits": 24,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 22670,
+            "input_tokens": 24828,
             "cached_input_tokens": 0,
-            "output_tokens": 2348,
-            "reasoning_tokens": 1134,
-            "estimated_usd": 0.0039837,
+            "output_tokens": 2828,
+            "reasoning_tokens": 1400,
+            "estimated_usd": 0.004470475,
             "unpriced_calls": 0,
-            "cache_write_tokens": 21708
+            "cache_write_tokens": 22947
           },
           "summary_repair": {
-            "api_calls": 7,
+            "api_calls": 8,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 26456,
+            "input_tokens": 30056,
             "cached_input_tokens": 0,
-            "output_tokens": 1537,
-            "reasoning_tokens": 921,
-            "estimated_usd": 0.004074975,
+            "output_tokens": 1898,
+            "reasoning_tokens": 1121,
+            "estimated_usd": 0.0047054,
             "unpriced_calls": 0,
-            "cache_write_tokens": 26435
+            "cache_write_tokens": 30032
           }
         }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-05T14:01:05.022074+00:00",
-        "elapsed_seconds": 652.713,
-        "status": "completed",
-        "api_calls": 12,
-        "cache_hits": 3,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.15601675,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-05T15:01:03.206496+00:00",
         "elapsed_seconds": 486.289,
@@ -10801,6 +10853,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.043449225,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-12T16:01:22.536363+00:00",
+        "elapsed_seconds": 2854.948,
+        "status": "completed",
+        "api_calls": 21,
+        "cache_hits": 47,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.02016905,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -27495,6 +27559,10 @@
       "c1c2124a8137429c926af26ec37f63519251c57d4d039d545dfc41be8c71b059": {
         "summary": "캐롤라인 팸 전 미국 상품선물거래위원회 위원장 대행은 별도의 암호화폐 시장구조법 없이도 현행 규제로 디지털자산 시장을 감독할 수 있다고 밝혔다. 그는 원칙 중심 규제가 인공지능 연산 자원을 기초자산으로 삼는 파생상품과 개인투자자 대상 레버리지 암호화폐 거래까지 포괄할 수 있다고 주장했다",
         "expires": 1792425116.649048
+      },
+      "4861776310c77897134c62951e95ed4339353ee303472e7ee7a4dc96f7d666e1": {
+        "summary": "",
+        "expires": 1792428496.2688475
       }
     }
   }
