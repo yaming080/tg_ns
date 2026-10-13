@@ -90,3 +90,82 @@ def strip_page_furniture(source):
         return source if parser.blocked else ''.join(parser.parts)
     except Exception:
         return source
+
+
+def extract_article_text(source, url='', title=''):
+    """Prefer this article's structured body; don't select a related-news card.
+
+    Reads only content already delivered by the publisher. No paywall bypass,
+    external fetch, or inferred facts. Empty/short results remain reviewable.
+    """
+    from html import unescape
+    from urllib.parse import urlsplit
+    def key(value):
+        if isinstance(value, dict):
+            value = value.get('@id', '') or value.get('url', '')
+        p = urlsplit(str(value or ''))
+        return p.netloc.lower().removeprefix('www.') + p.path.rstrip('/')
+    def plain(value):
+        value = re.sub(r'<[^>]+>', ' ', str(value or ''))
+        return re.sub(r'\s+', ' ', unescape(value)).strip()
+    candidates = []
+    def visit(node):
+        if isinstance(node, list):
+            for child in node: visit(child)
+        elif isinstance(node, dict):
+            kind = node.get('@type', [])
+            kind = [kind] if isinstance(kind, str) else kind
+            if any(t in kind for t in ('Article', 'NewsArticle', 'BlogPosting')):
+                identity = node.get('url') or node.get('mainEntityOfPage')
+                body = node.get('articleBody')
+                headline = plain(node.get('headline'))
+                same_article = key(identity) == key(url) if identity else (not title or headline == plain(title))
+                if isinstance(body, str) and same_article:
+                    candidates.append((plain(node.get('headline')), plain(body)))
+            visit(node.get('@graph', []))
+    for block in re.findall(r'<script\b[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', source, re.I | re.S):
+        try: visit(json.loads(block))
+        except (ValueError, TypeError): continue
+    matching = [body for heading, body in candidates if title and plain(title) == heading]
+    bodies = matching or ([candidates[0][1]] if len(candidates) == 1 else [])
+    if bodies and len(max(bodies, key=len)) >= 180:
+        return max(bodies, key=len)[:12000]
+
+    class Paragraphs(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.stack = []; self.groups = []; self.paragraph = None; self.heading = None
+            self.all_paragraphs = []
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == 'article':
+                group = {'paragraphs': [], 'headings': []}
+                self.groups.append(group); self.stack.append(group)
+            if tag == 'p': self.paragraph = []
+            if tag == 'h1': self.heading = []
+        def handle_data(self, data):
+            if self.paragraph is not None: self.paragraph.append(data)
+            if self.heading is not None: self.heading.append(data)
+        def handle_endtag(self, tag):
+            if tag == 'p' and self.paragraph is not None:
+                text = plain(' '.join(self.paragraph)); self.paragraph = None
+                if len(text) >= 20:
+                    self.all_paragraphs.append(text)
+                    for group in self.stack: group['paragraphs'].append(text)
+            if tag == 'h1' and self.heading is not None:
+                text = plain(' '.join(self.heading)); self.heading = None
+                for group in self.stack: group['headings'].append(text)
+            if tag == 'article' and self.stack: self.stack.pop()
+    parser = Paragraphs()
+    parser.feed(strip_page_furniture(source)); parser.close()
+    exact = [g for g in parser.groups if title and plain(title) in g['headings']]
+    groups = exact or ([g for g in parser.groups if g['headings']] if not title else [])
+    if not groups and len(parser.groups) == 1 and not parser.groups[0]['headings']:
+        groups = parser.groups
+    if groups:
+        paragraphs = max(groups, key=lambda g: sum(map(len, g['paragraphs'])))['paragraphs']
+    elif parser.groups:
+        return ''  # Multiple unrelated cards are not evidence for this story.
+    else:
+        paragraphs = parser.all_paragraphs
+    return '\n'.join(dict.fromkeys(paragraphs))[:12000]

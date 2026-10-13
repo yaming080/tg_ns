@@ -9,7 +9,8 @@ import re
 from news_public_interest import public_interest_scope, ENABLED_AT as PUBLIC_INTEREST_ENABLED_AT, GUIDANCE as PUBLIC_INTEREST_GUIDANCE
 
 ENABLED_AT = datetime(2026, 10, 10, 9, 25, tzinfo=timezone.utc)
-POLICY = 'luna-coverage-20261012-3'
+POLICY = 'luna-coverage-20261013-4'
+from news_oct13_scope import scope as oct13_scope, ENABLED_AT as OCT13_ENABLED_AT, GUIDANCE as OCT13_GUIDANCE
 
 CRYPTO = r'crypto|digital.asset|blockchain|bitcoin|ethereum|stablecoin|tokeniz|\b(?:BTC|ETH|XRP|XLM|XRPL|USDC)\b|암호화폐|가상자산|디지털.?자산|블록체인|비트코인|이더리움|스테이블코인|토큰화'
 COMPANY = r'Evernorth|Evernoth|Ripple|Robinhood|Blockchain\.com|Moscow Exchange|Ledger|Binance|HashKey|BitGo|에버노스|리플|로빈후드|블록체인닷컴|모스크바거래소|레저|바이낸스|해시키|비트고'
@@ -20,6 +21,9 @@ def coverage_scope(story):
     has = lambda p: bool(re.search(p, title, re.I))
     if has(r'presale|airdrop|giveaway|referral|sponsored|technical analysis|price prediction|price target|RSI|MACD|프리세일|에어드롭|추천인|협찬|차트.?분석|목표가|지지선|저항선|뉴스.?브리핑|weekly.{0,20}recap'):
         return ''
+    new_scope = oct13_scope(story)
+    if new_scope:
+        return new_scope
     public_interest = public_interest_scope(story)
     if public_interest:
         return public_interest
@@ -63,6 +67,8 @@ def coverage_intake_reason(story):
             dt = parsedate_to_datetime(value)
         except (ValueError, TypeError):
             dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if oct13_scope(story) and (dt.tzinfo is None or dt <= OCT13_ENABLED_AT):
+            return '6차 범위 확대 전 기사: 과거 대기열 발송 방지'
         if public_interest_scope(story) and (dt.tzinfo is None or dt <= PUBLIC_INTEREST_ENABLED_AT):
             return '5차 범위 확대 전 기사: 과거 대기열 발송 방지'
         if dt.tzinfo is None or dt <= ENABLED_AT:
@@ -83,7 +89,7 @@ MARA 같은 실명 상장기업의 근거 있는 자산 이동 보도와 크리�
 본문은 기본 1~2문장, 180~220자를 목표로 하되 중요한 조건 보존에 필요하면 최대 320자까지 허용한다. 필요 없는 USDC·스테이블코인 사전식 정의는 붙이지 않는다. 기술 위험·법적 제한의 이해에 꼭 필요한 설명만 짧게 포함한다. 기술명·회사명은 통용 한국어로, V2·REVO·USDC 같은 식별자는 유지한다.
 '''
 
-GUIDANCE += PUBLIC_INTEREST_GUIDANCE
+GUIDANCE += PUBLIC_INTEREST_GUIDANCE + OCT13_GUIDANCE
 
 
 def source_packet(story, source):
@@ -91,5 +97,6 @@ def source_packet(story, source):
     import json
     return json.dumps({'rss_published_at': story.get('pub', ''),
                        'page_published_at': story.get('page_published_at', ''),
+                       'source_kind': story.get('_source_kind', 'provided_text'),
                        'source_url': story.get('url', ''),
                        'article_body': source[:8200]}, ensure_ascii=False)
