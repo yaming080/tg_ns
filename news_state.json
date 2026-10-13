@@ -2997,42 +2997,6 @@
   },
   "ai_review": {
     "entries": {
-      "24b141abd7a0f3470c356be9764a2b0f0fb91cf13924e7165fdf95711fe1f764": {
-        "text": "미 재무부가 암호화폐 신고 규정안 2건을 철회했다고 밝힘",
-        "expires": 1791875463.2489648
-      },
-      "83fc5a3e2aba36eff1dfeae30c8155fb96e99c22de47f9afcb1e2adab6aa822a": {
-        "text": "{\"publish\":true,\"reason\":\"미 재무부가 암호화폐 신고 규정안 2건을 철회했다는 새 정책 소식을 원문이 확인하며, 요약도 제안 단계와 철회를 정확히 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1791875467.203652
-      },
-      "0aaa91875e148d5bf47832859bd899e1f1c2ac6871ebcf9dbdaae34668c1c6b4": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791875469.4877222
-      },
-      "90623d095a82c44579e6d3e5265290e3bd331e7e9e6052831367dd0d7fd7022a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1791875470.9218547
-      },
-      "92db41818c1c4743181a1bfc5dee6a4050cba56e7c14268443f042a21ae1caa1": {
-        "text": "{\"related_ids\":[\"acf313802c24ccfc\"]}",
-        "expires": 1791875474.346268
-      },
-      "4a759e3a7b0749c0351291929de19646bdf4bd50cd1e671e0f8edb5de272dbc1": {
-        "text": "{\"related_ids\":[\"b044864ba1f8b300\"]}",
-        "expires": 1791875476.16956
-      },
-      "8dcbc4404d7e300fe43bb28b36fd6a299436404c5a393f7e6d3de08e41c0c8b5": {
-        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"b044864ba1f8b300\",\"reason\":\"주간 요약이 보도한 FinCEN의 암호화폐 규정안 2건 철회는 기존 기록과 같은 조치다. 제목의 OKX 투자 유치도 기존 OKX 투자 유치 기록과 같은 사건이며, 새 조치는 확인되지 않는다.\",\"new_fact\":\"\"}",
-        "expires": 1791875479.356448
-      },
-      "db9fd2e62bc7b1a6f682cd38594554af037d20e68416f9480f16900081daabea": {
-        "text": "XRP 레저에서 여러 주문의 금액을 합산할 때 발생하는 계산 오류로 공급량 한도인 1,000억 XRP를 넘겨 생성할 수 있는 취약점이 공개됨\n\nxrpld 3.4.0 이하에 있던 오류는 9월 25일 긴급 배포된 3.4.1에서 수정됐으며, 공개 네트워크에서 악용된 증거는 없다고 밝힘",
-        "expires": 1791875484.1189966
-      },
-      "311729fefbf81390b300e5be6622df181a4de0b981d9a57a1a405fdd30439430": {
-        "text": "XRP 레저에서 여러 주문의 XRP를 합산할 때 64비트 정수 한도를 넘으면 합계가 실제보다 작게 계산되는 취약점이 공개됨. 공격자는 수백 개 계정에서 특수 주문을 구성해 공급량 한도인 1,000억 XRP를 넘겨 생성할 수 있었음. xrpld 3.4.0 이하의 오류는 9월 25일 긴급 배포된 3.4.1에서 수정됐으며, 공개 네트워크에서 악용된 증거는 없음.",
-        "expires": 1791875492.3370876
-      },
       "b4e02a9cebb4036effff4d09643dbad8a812bf7a0b59fc61470686407ab937e5": {
         "text": "비트코인 생명보험사 민와일이 베인캐피털 크립토 주도로 3,750만달러를 추가 조달해 누적 투자액 1억8,000만달러를 넘겼다고 밝힘\n\n민와일은 미국 외 고액 자산가를 대상으로 보험료를 한 번에 내는 종신보험 ‘BTC 라이프 원페이’를 올해 초 출시함",
         "expires": 1791879603.5935972
@@ -8519,18 +8483,6 @@
     },
     "recent_runs": [
       {
-        "started_at_utc": "2026-10-06T06:01:17.935231+00:00",
-        "elapsed_seconds": 1252.377,
-        "status": "completed",
-        "api_calls": 25,
-        "cache_hits": 18,
-        "errors": 0,
-        "published": 1,
-        "estimated_usd": 0.4217715,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
-      {
         "started_at_utc": "2026-10-06T07:00:55.329078+00:00",
         "elapsed_seconds": 632.126,
         "status": "completed",
@@ -10591,6 +10543,18 @@
       {
         "started_at_utc": "2026-10-13T06:01:19.112104+00:00",
         "elapsed_seconds": 1093.906,
+        "status": "failed",
+        "api_calls": 0,
+        "cache_hits": 0,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-13T07:01:23.330278+00:00",
+        "elapsed_seconds": 1176.888,
         "status": "failed",
         "api_calls": 0,
         "cache_hits": 0,
