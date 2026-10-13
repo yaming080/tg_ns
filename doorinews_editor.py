@@ -86,6 +86,7 @@ class EntitySpec:
 
 
 ENTITY_SPECS = (
+    EntitySpec('org', 'KB국민카드', ('KB국민카드', 'KB 국민카드', 'KB 국민 카드', '국민카드', 'KB Kookmin Card', 'Kookmin Card'), '#KBKookminCard', 15),
     EntitySpec('person', '캐롤라인팸', ('Caroline Pham', '캐롤라인 팸', '캐롤라인 팜', '캐롤라인팸', '캐롤라인팜'), '#CarolinePham', 12),
     EntitySpec('person', '에이미올든버그', ('Amy Oldenburg', '에이미 올든버그', '에이미올든버그'), '#AmyOldenburg', 15),
     EntitySpec('org', '싱가포르걸프은행', ('Singapore Gulf Bank', '싱가포르 걸프은행', '싱가포르 걸프 은행', '싱가포르걸프은행'), '#SingaporeGulfBank', 15),
@@ -2213,6 +2214,7 @@ def _log(message: str) -> None:
 
 
 FEEDBACK_GUIDANCE = '''
+모든 서술 문장은 ~함·~음·~임 종결로 쓰고 문장 사이에는 빈 줄을 넣는다. ~했다·~않았다·~습니다 종결은 쓰지 않는다. 부정·미정·예정 조건과 시제는 보존하고 원문에 없는 '밝힘'을 덧붙이지 않는다.
 기업·기관·프로젝트·제품 이름은 한국어 표기를 사용하라. Oneiro는 오네이로, Revolution Network는 레볼루션네트워크, Open Money Stack은 오픈머니 스택, TRON은 트론으로 쓴다. BTC·ETH·USDT·REVO 같은 티커, V2 같은 버전, TRC-20 같은 표준 식별자는 유지한다. 알려지지 않은 이름도 가능한 한 한글 음역하고 영문 문구를 그대로 나열하지 말라. 이름을 번역하며 다른 회사나 코인으로 바꾸지 말라.
 기관의 구체적 사업 협의, 스테이블코인 송금 도입·기술검증 완료, 금융당국·관련 의회 위원장의 새 디지털자산 규제·입법 입장도 허용 범주다. 정책 책임자의 입장은 해당 인물의 발언으로 귀속하고 기대·추진을 법안 통과로 바꾸지 말라. 원문에서 발표 시점과 주체·대상이 확인되어야 하며 새 정보 없는 반복 발언은 제외한다.
 협약의 대상이 특정 회사나 펀드라면 기관 고객 전체로 확대하지 말라. 출시·접근 시점이 미정이면 보존하라. 스테이킹은 원문 근거가 있을 때만 코인을 맡겨 네트워크 운영에 참여하는 방식 등으로 짧게 설명한다.
@@ -2350,6 +2352,37 @@ def _fix_style_endings(text: str) -> str:
     result = re.sub(r"[.!。]+$", "", result)
     for pattern, replacement in replacements:
         result = re.sub(pattern, replacement, result)
+    for ending, replacement in (
+        ('했습니다', '했음'), ('했다', '했음'),
+        ('됐습니다', '됐음'), ('됐다', '됐음'),
+        ('않았습니다', '않았음'), ('않았다', '않았음'),
+        ('없었습니다', '없었음'), ('없었다', '없었음'),
+        ('있었습니다', '있었음'), ('있었다', '있었음'),
+        ('않습니다', '않음'), ('않는다', '않음'),
+        ('없습니다', '없음'), ('없다', '없음'),
+        ('있습니다', '있음'), ('있다', '있음'),
+        ('입니다', '임'), ('이다', '임'),
+        ('합니다', '함'), ('한다', '함'),
+        ('됩니다', '됨'), ('된다', '됨'),
+    ):
+        if result.endswith(ending):
+            result = result[:-len(ending)] + replacement
+            break
+    return result
+
+
+def _style_summary_sentences(text: str) -> str:
+    # Protect quotations, decimals, URLs and English abbreviations. Split only
+    # Korean sentence punctuation outside quotes; never rewrite quoted speech.
+    quotes = []
+    def protect(match):
+        quotes.append(match.group(0))
+        return f'\x00QUOTE{len(quotes)-1}\x00'
+    masked = re.sub(r'"[^"\n]*"|“[^”\n]*”|‘[^’\n]*’', protect, text)
+    parts = re.split(r'(?<=[가-힣])[.!。]+(?=\s|$)', masked)
+    result = '\n\n'.join(_fix_style_endings(part.strip()) for part in parts if part.strip())
+    for index, quote in enumerate(quotes):
+        result = result.replace(f'\x00QUOTE{index}\x00', quote)
     return result
 
 
@@ -2399,7 +2432,7 @@ def _clean_summary(text: str) -> str:
             if re.match(r"^[•●▪\-]\s*", line):
                 bullet = "• "
                 line = re.sub(r"^[•●▪\-]\s*", "", line)
-            line = _fix_style_endings(line)
+            line = _style_summary_sentences(line)
             if line:
                 lines.append(bullet + line)
         if lines:
@@ -2877,7 +2910,7 @@ def build_message(story: dict) -> str:
         _log(f"[전송전 편집필터 제외:{reason}] {story.get('title', '')}")
         return ""
 
-    summary = _rewrite_summary(story)
+    summary = _clean_summary(_rewrite_summary(story))
     if not summary:
         _log(f"[요약실패 스킵] {story.get('title', '')}")
         return ""
