@@ -6,6 +6,7 @@ import re
 from news_coverage import coverage_scope
 from news_manual_oct10 import URLS as OCT10_POSTED_URLS
 from news_manual_oct12 import URLS as OCT12_POSTED_URLS
+from news_manual_oct13 import URLS as OCT13_POSTED_URLS
 from urllib.parse import urlsplit
 
 
@@ -54,7 +55,7 @@ MANUALLY_POSTED_ARTICLES = frozenset({
 
 MANUALLY_POSTED_ARTICLES = MANUALLY_POSTED_ARTICLES | frozenset(
     (urlsplit(url).netloc.removeprefix('www.'), urlsplit(url).path.rstrip('/'))
-    for url in OCT10_POSTED_URLS + OCT12_POSTED_URLS)
+    for url in OCT10_POSTED_URLS + OCT12_POSTED_URLS + OCT13_POSTED_URLS)
 
 # User-confirmed removals stay blocked beyond rolling history retention.
 EDITOR_REJECTED_ARTICLES = {
@@ -621,6 +622,11 @@ def source_promotion_reason(story):
 
 def approval_stage_tokens(text):
     stages = set()
+    if re.search(r'(?i)Nasdaq|나스닥', text):
+        if re.search(r'(?i)ahead of|set for|scheduled|planned|거래\s*예정|상장\s*예정', text):
+            stages.add('stage_listing_planned')
+        elif re.search(r'(?i)opening print|trading begins|begins trading|first trading day|상장\s*첫날|첫\s*거래|거래\s*개시', text):
+            stages.add('stage_listing_trading')
     if re.search(r'(?i)merger|SPAC|합병|스팩', text):
         if re.search(r'(?i)complet|clos(?:es|ed|ing completed)|완료|종결', text):
             stages.add('stage_corporate_completed')
@@ -637,7 +643,7 @@ def approval_stage_tokens(text):
 
 
 def event_conflicts(cur, old):
-    for prefix in ('stage_corporate_', 'stage_approval_', 'reference_version_', 'reference_eip_', 'reference_bip_', 'event_lab_', 'event_spain_721_', 'subject_lab_'):
+    for prefix in ('stage_listing_', 'stage_corporate_', 'stage_approval_', 'reference_version_', 'reference_eip_', 'reference_bip_', 'event_lab_', 'event_spain_721_', 'subject_lab_'):
         a = {t for t in cur if t.startswith(prefix)}
         b = {t for t in old if t.startswith(prefix)}
         if a and b and a.isdisjoint(b):

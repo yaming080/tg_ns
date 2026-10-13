@@ -86,6 +86,11 @@ class EntitySpec:
 
 
 ENTITY_SPECS = (
+    EntitySpec('person', '캐롤라인팸', ('Caroline Pham', '캐롤라인 팸', '캐롤라인 팜', '캐롤라인팸', '캐롤라인팜'), '#CarolinePham', 12),
+    EntitySpec('person', '에이미올든버그', ('Amy Oldenburg', '에이미 올든버그', '에이미올든버그'), '#AmyOldenburg', 15),
+    EntitySpec('org', '싱가포르걸프은행', ('Singapore Gulf Bank', '싱가포르 걸프은행', '싱가포르 걸프 은행', '싱가포르걸프은행'), '#SingaporeGulfBank', 15),
+    EntitySpec('org', 'BNY', ('BNY', 'BNY Mellon', '뉴욕멜론은행'), '#BNY', 18),
+    EntitySpec('org', 'A7', ('A7', '에이세븐'), '#A7', 18),
     EntitySpec('org', '앵커리지디지털', ('Anchorage Digital', '앵커리지 디지털', '앵커리지디지털'), '#AnchorageDigital', 15),
     EntitySpec('org', '삼성전자', ('Samsung Electronics', '삼성전자'), '#Samsung', 15),
     EntitySpec('org', '트라발라', ('Travala', '트라발라'), '#Travala', 15),
@@ -140,7 +145,7 @@ ENTITY_SPECS = (
     EntitySpec("geo", "두바이", ("Dubai", "두바이"), priority=10),
     # Regulators, companies, and institutions.
     EntitySpec("org", "SEC", ("SEC", "Securities and Exchange Commission"), "#SEC", 20),
-    EntitySpec("org", "CFTC", ("CFTC", "Commodity Futures Trading Commission"), "#CFTC", 20),
+    EntitySpec("org", "CFTC", ("CFTC", "Commodity Futures Trading Commission", "상품선물거래위원회"), "#CFTC", 20),
     EntitySpec("org", "FCA", ("FCA", "Financial Conduct Authority"), "#FCA", 20),
     EntitySpec("org", "OCC", ("OCC", "Office of the Comptroller of the Currency"), "#OCC", 20),
     EntitySpec("org", "IMF", ("IMF", "International Monetary Fund", "국제통화기금"), "#IMF", 20),
@@ -1530,8 +1535,8 @@ def _amount_tokens(raw: str) -> set[str]:
         "thousand": 1_000, "k": 1_000,
     }
     money_patterns = (
-        r"\$\s*([\d,]+(?:\.\d+)?)\s*(billion|million|thousand|bn|mn|b|m|k)?\b",
-        r"\b([\d,]+(?:\.\d+)?)\s*(billion|million|thousand|bn|mn|b|m|k)"
+        r"\$\s*(\d[\d,]*(?:\.\d+)?)\s*(billion|million|thousand|bn|mn|b|m|k)?\b",
+        r"\b(\d[\d,]*(?:\.\d+)?)\s*(billion|million|thousand|bn|mn|b|m|k)"
         r"\s*(?:usd|dollars?)\b",
     )
     for pattern in money_patterns:
@@ -1597,10 +1602,10 @@ def _amount_tokens(raw: str) -> set[str]:
         out.add(f"count_shares_{value}")
 
     count_patterns = (
-        (r"\b([\d,]+)\s*developers?\b", "developers"),
-        (r"\b([\d,]+)\s*teams?\b", "teams"),
-        (r"개발자\s*([\d,]+)\s*명", "developers"),
-        (r"([\d,]+)\s*개\s*팀", "teams"),
+        (r"\b(\d[\d,]*)\s*developers?\b", "developers"),
+        (r"\b(\d[\d,]*)\s*teams?\b", "teams"),
+        (r"개발자\s*(\d[\d,]*)\s*명", "developers"),
+        (r"(\d[\d,]*)\s*개\s*팀", "teams"),
     )
     for pattern, label in count_patterns:
         for match in re.finditer(pattern, text, re.I):
@@ -1616,7 +1621,7 @@ def _amount_tokens(raw: str) -> set[str]:
         "million": 1_000_000,
     }
     for match in re.finditer(
-        r"(?:₩\s*)?([\d,]+(?:\.\d+)?)\s*(trillion|billion|million)?\s*(?:krw|won)\b",
+        r"(?:₩\s*)?(\d[\d,]*(?:\.\d+)?)\s*(trillion|billion|million)?\s*(?:krw|won)\b",
         low,
         re.I,
     ):
@@ -2352,6 +2357,9 @@ def _clean_summary(text: str) -> str:
     text = html.unescape(text or "")
     text = _remove_model_tags(text)
     for english, korean in (
+        ('Singapore Gulf Bank', '싱가포르걸프은행'),
+        ('Caroline Pham', '캐롤라인팸'), ('Amy Oldenburg', '에이미올든버그'),
+        ('Sberbank', '스베르방크'), ('Morgan Stanley', '모건스탠리'),
         ('Samsung Electronics', '삼성전자'), ('Travala', '트라발라'),
         ('MoonPay', '문페이'), ('MoneyGram', '머니그램'),
         ('CryptoBilis', '크립토빌리스'), ('Evernorth', '에버노스'),

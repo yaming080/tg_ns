@@ -2800,41 +2800,15 @@ def filter_final_tags(tags: list[str]) -> list[str]:
 def fetch_article_text(url: str, metadata=None) -> str:
     try:
         html_text = http_get(url, timeout=10)
-    except Exception:
+    except Exception as exc:
+        if metadata is not None:
+            metadata['_source_fetch_error'] = type(exc).__name__
         return ""
 
-    from news_source_cleanup import strip_page_furniture, page_publication_date
+    from news_source_cleanup import extract_article_text, page_publication_date
     if metadata is not None:
         metadata['page_published_at'] = page_publication_date(html_text)
-    html_text = strip_page_furniture(html_text)
-
-    patterns = [
-        r'<article[^>]*>(.*?)</article>',
-        r'<main[^>]*>(.*?)</main>',
-        r'<body[^>]*>(.*?)</body>',
-    ]
-
-    block = ""
-    for pat in patterns:
-        m = re.search(pat, html_text, re.I | re.S)
-        if m:
-            block = m.group(1)
-            break
-
-    if not block:
-        block = html_text
-
-    paragraphs = re.findall(r'<p[^>]*>(.*?)</p>', block, re.I | re.S)
-    cleaned = []
-    for p in paragraphs:
-        t = re.sub(r'<[^>]+>', ' ', unescape(p))
-        t = re.sub(r'\s+', ' ', t).strip()
-        if len(t) >= 40:
-            cleaned.append(t)
-
-    text = "\n".join(cleaned[:20]).strip()
-    text = cleanup_text(text)
-    return text[:12000]
+    return cleanup_text(extract_article_text(html_text, url, (metadata or {}).get('title', '')))[:12000]
 
 def get_best_source_text(story: dict) -> str:
     article_text = fetch_article_text(story.get('url', ''), metadata=story)
@@ -2842,9 +2816,14 @@ def get_best_source_text(story: dict) -> str:
     title = (story.get('title') or '').strip()
 
     if article_text and len(article_text) >= 180:
+        story['_source_kind'] = 'article_body'
         return article_text
     if desc and len(desc) >= 80:
+        story['_source_kind'] = 'rss_description'
+        log('[원문 수집 제한] RSS 설명 사용 | ' + story.get('_source_fetch_error', '본문 짧음') + ' | ' + title)
         return desc
+    story['_source_kind'] = 'title_only'
+    log('[원문 수집 제한] 제목만 확보 | ' + story.get('_source_fetch_error', '본문 부족') + ' | ' + title)
     return title
 
 
