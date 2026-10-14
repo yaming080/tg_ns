@@ -11,12 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
       - run: python -m unittest discover -s tests -v
+      - name: Reserve publication and recover confirmed state
+        id: publication_guard
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python news_state_guard.py begin
+
       - name: Save source baselines without sending
+        id: run_bot
         run: |
           python -u - <<'PY'
           from doorinews_bot import load_state, save_state, STATE_FILE, http_get
@@ -29,14 +40,23 @@ jobs:
               raise SystemExit('NOT_INITIALIZED: ' + ', '.join(missing))
           print('ALL_SOURCE_BASELINES_SAVED')
           PY
-      - name: Persist source state
+      - name: Preserve publication state for recovery
         if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication-state-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            news_state.json
+            news_publication_guard.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: news state 저장
+        id: persist_state
+        if: ${{ always() && steps.publication_guard.outcome == 'success' && steps.run_bot.outcome == 'success' }}
+        run: python news_state_guard.py finish
+
+      - name: Explain blocked or interrupted publication
+        if: ${{ always() && (steps.publication_guard.outcome != 'success' || steps.run_bot.outcome != 'success' || steps.persist_state.outcome != 'success') }}
         run: |
-          test -f news_state.json
-          python -c "import json; json.load(open('news_state.json', encoding='utf-8'))"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add news_state.json
-          git diff --cached --quiet || git commit -m 'Initialize new publisher baselines without posting'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          echo "게시 보호 절차 또는 이력 저장이 완료되지 않았습니다. 발송 성공 로그와 publication-state 백업을 확인하세요. 원격 진행 표식이 pending이면 복구 전 다음 자동 발송이 차단됩니다." >> "$GITHUB_STEP_SUMMARY"
