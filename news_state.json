@@ -1,12 +1,5 @@
 {
   "posted": {
-    "5277229f8e32331a": {
-      "title": "160만 BTC 노출…거래소 양자 대응은 주소 관리부터",
-      "url": "www.tokenpost.kr/news/blockchain/407824",
-      "signature": "action_audit | action_develop | action_disclose | action_launch | action_propose | action_upgrade | asset_btc | entity_코인베이스 | object_custody | object_disclosure | object_network | object_network_upgrade | object_wallet",
-      "canonical_key": "action_audit | action_develop | action_disclose | action_launch | action_propose | action_upgrade | asset_btc | entity_코인베이스 | object_custody | object_disclosure | object_network | object_network_upgrade | object_wallet",
-      "ts": "2026-09-14T17:02:08.691337+00:00"
-    },
     "082823bfce13f353": {
       "title": "Cardano Scores Significant Payments Integration",
       "url": "u.today/cardano-scores-significant-payments-integration",
@@ -2818,6 +2811,33 @@
       "canonical_key": "action_appoint | action_invest | action_launch | asset_xrp | entity_에버노스 | entity_코인베이스 | object_lending | stage_listing_planned",
       "ts": "2026-10-14T08:10:43.341+00:00",
       "recovery_evidence": "https://github.com/yaming080/tg_ns/actions/runs/38525599211"
+    },
+    "14306136162ed98a": {
+      "title": "Bitmex Faces $26 Million Claim Over 1,053 Losing Bitcoin Trades",
+      "url": "news.bitcoin.com/regulation-and-legal/bitmex-faces-26-million-claim-1053-losing-bitcoin-trades",
+      "signature": "action_support | amount_btc_325 | amount_btc_approx_320 | amount_btc_exact_324_8 | amount_usd_26000000 | asset_btc | duration_years_4 | entity_비트멕스 | geo_uk | object_derivatives",
+      "canonical_key": "action_support | amount_btc_325 | amount_btc_approx_320 | amount_btc_exact_324_8 | amount_usd_26000000 | asset_btc | duration_years_4 | entity_비트멕스 | geo_uk | object_derivatives",
+      "ts": "2026-10-14T18:43:14.502517+00:00",
+      "summary": "#영국 소프트웨어 엔지니어 루이스 바버가 #비트멕스 의 파생상품 거래 1,053건이 무단 금융영업에 해당한다고 주장하며 324.8 BTC, 약 2,650만 달러의 반환을 요구하는 소송을 런던 고등법원에 제기함\n\n소송은 아직 비트멕스 운영사에 정식 송달되지 않았으며, 바버의 주장은 아직 법원에서 검증되지 않음",
+      "source_pub": "Wed, 14 Oct 2026 17:40:42 +0000"
+    },
+    "155680e27348ca1b": {
+      "title": "Uniswap launches ETH/USDC pool with separate buy and sell fees",
+      "url": "cryptobriefing.com/uniswap-volatilepair-hook-eth-usdc-pool",
+      "signature": "action_launch | action_purchase | action_sell | asset_eth | asset_usdc | entity_유니스왑 | object_corporate_crypto_purchase | object_sale",
+      "canonical_key": "action_launch | action_purchase | action_sell | asset_eth | asset_usdc | entity_유니스왑 | object_corporate_crypto_purchase | object_sale",
+      "ts": "2026-10-14T18:44:39.515561+00:00",
+      "summary": "#유니스왑 이 10월 14일 #이더리움 메인넷의 #ETH/#USDC 풀에 매수·매도 수수료를 최근 가격 움직임에 따라 각각 조정하고, 큰 시장 변동 뒤 가격 괴리를 좁히는 거래에 임시 추가 수수료를 부과하는 볼라틸페어 훅을 적용함",
+      "source_pub": "Wed, 14 Oct 2026 16:41:22 +0000"
+    },
+    "003379a9f3037e19": {
+      "title": "Qivalis wins Dutch e-money license for euro stablecoin",
+      "url": "cointelegraph.com/news/qivalis-authorization-dutch-central-bank-euro-stablecoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "signature": "action_enable | action_launch | action_secure | asset_stablecoin | entity_키발리스 | object_license",
+      "canonical_key": "action_enable | action_launch | action_secure | asset_stablecoin | entity_키발리스 | object_license",
+      "ts": "2026-10-14T18:47:00.995647+00:00",
+      "summary": "#키발리스 가 네덜란드 중앙은행으로부터 전자화폐기관 인가를 받았으며, 이를 바탕으로 유로 #스테이블코인 을 출시할 수 있게 됐음\n\n발행은 향후 몇 달 내 계획돼 있으나 #미카 요건을 추가로 충족해야 함",
+      "source_pub": "Wed, 14 Oct 2026 12:53:41 +0000"
     }
   },
   "source_baselines": {
@@ -3010,441 +3030,97 @@
   },
   "ai_review": {
     "entries": {
-      "fb7684c00ab7239d76e83d0248c7b04e877832e7c9991798b3c4bed37b038ff2": {
-        "text": "{\"publish\":true,\"reason\":\"재정위원회의 부결과 수정안의 본회의 자동 반영 제외, 재제출 필요성 및 심의·표결 일정을 원문대로 요약했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792007073.4527054
+      "1bfaf0727b38470ad8286546e7ff8c12964e58875f28792fc9ef5c87163ad98d": {
+        "text": "{\"publish\":false,\"reason\":\"회사가 청구서를 받지 못했다는 요약은 원문의 ‘정식 송달되지 않았다’는 설명보다 넓은 의미이며, 혐의가 미검증 상태라는 점도 빠져 있음\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792024955.6652377
       },
-      "52a1ba65882adccdc8b501603296633ccf4b58639754eb72ac76493cd93d5de0": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007074.431273
-      },
-      "cecc9dd68b9963d0580f62d4d6559c0a8ccdb824c6596a00ebfafc60d21d29a5": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007075.7617903
-      },
-      "e4000716c036b347335968e972f0f832b74676e0ef668f8caf4a7e1e6b1c1103": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007077.3874667
-      },
-      "ef4137ae5b02a27ad7d08185aad4b577dd7ce708dfc1b5435199478c89e5ace8": {
-        "text": "{\"related_ids\":[\"33a3712e407ccf39\"]}",
-        "expires": 1792007078.5429974
-      },
-      "cfe83a4534d7645c6a3787effa4c259f13b73992ff0cf8cc2980e6696dd6d7ca": {
-        "text": "저스틴 선이 트론의 양자내성 암호화 기술이 테스트넷(시험용 네트워크)에 적용됐으며, 메인넷에도 언제든 적용할 준비가 됐다고 X에 밝힘",
-        "expires": 1792007085.447862
-      },
-      "8966fac6c2ee8004fce57dfb63185c061c66324caabd4040669445039b30048b": {
-        "text": "저스틴 선은 트론의 양자컴퓨터 공격에 대비한 암호화가 테스트넷에서 가동됐으며, 메인넷에도 언제든 적용할 준비가 됐다고 X에 밝혔다.",
-        "expires": 1792007098.699017
-      },
-      "ffdc9d9d78004fa20daad434eb9db479910892ff4acb805ebea19425d78415f9": {
-        "text": "{\"publish\":true,\"reason\":\"트론의 테스트넷 적용과 메인넷 준비에 관한 새 발언을 단계 구분과 함께 요약했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792007104.5406823
-      },
-      "dc54b5bda65325a33f7c613e7bc64d53f53733e32816b9d3aea184c3b455aafa": {
-        "text": "{\"related_ids\":[\"84456dcc43cb32d7\"]}",
-        "expires": 1792007106.6886804
-      },
-      "4c46b09a8a20e6465a20d3aa45a30727bfde2132c2d9761bca24359bae76848c": {
-        "text": "{\"related_ids\":[\"1202933944ee7a40\"]}",
-        "expires": 1792007110.66184
-      },
-      "9c5a13574685e1ac44c6ee66dc566c5596b9314e735c7ef9b97e29b9c72eaea2": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007112.3998697
-      },
-      "639a76c1e0c626f6a5294b34ab98514fa11d02e0f13458d372768d211acdda18": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007114.151128
-      },
-      "fbebbbe523f640e8c3c578731dfade680b72a0ffdfd724f0bc9dec964347a03a": {
-        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"1202933944ee7a40\",\"reason\":\"트론의 양자내성 암호화 기술이 테스트넷에 도입됐고 메인넷 적용 준비가 됐다는 동일 사건을 다른 매체가 보도했다.\",\"new_fact\":\"\"}",
-        "expires": 1792007115.951355
-      },
-      "9a37ff9112d474b4cc10e510e650c2ca756c7ed40fdbd26324d73b3c0ddf71c1": {
-        "text": "미국 법무부가 바이낸스의 2023년 합의 조건 준수 여부를 검토 중이라고 밝힘\n\n합의 위반이 확인되면 종결된 형사 사건이 재개되고 추가 기소나 벌금이 부과될 수 있지만, 법무부는 구체적인 수사 내용은 공개하지 않음",
-        "expires": 1792007118.7267144
-      },
-      "0e38d18ae7f1dfea77d5fb292539d0000f19e5f1537209ee4c2857e23d97a5d9": {
-        "text": "{\"publish\":true,\"reason\":\"미 법무부가 바이낸스의 2023년 합의 준수 여부를 검토 중이라는 새 발언을 보도했으며, 위반 확정이 아닌 조사 단계라는 점을 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792007122.578493
-      },
-      "e8cf50ca50744e07ffadc2e4ea2588039d08d719e578e85e5d94e8812a8c1c34": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007123.6242635
-      },
-      "3361f0c190603947b16ba6f5c1fd1b6e56658b59d9512f6af41810a922281ae4": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007124.381659
-      },
-      "6ee5038aadda2b3880afa780e0059ca3976c4e438b0d2381ea59ab8e917f5199": {
-        "text": "{\"related_ids\":[\"2bd998e81453faa4\"]}",
-        "expires": 1792007125.7994187
-      },
-      "8c8453f0fc00553aabf1df042ee5ee4b068361c797ec6992a7ac73ce79dae38b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792007126.5619655
-      },
-      "906103088dc2156d984a908140a1e247c4188c8287479a3086926cbc362daca4": {
-        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"2bd998e81453faa4\",\"reason\":\"두 기록 모두 미 법무부가 바이낸스의 2023년 합의 이행 여부를 조사·검토한다는 같은 사건을 다룹니다. 후보의 추가 설명은 위반 시 가능한 결과를 조건부로 언급할 뿐 새 조치를 확인하지 않습니다.\",\"new_fact\":\"\"}",
-        "expires": 1792007130.2117255
-      },
-      "a2faa42fc08d45047bd5820d83791889a2a564ce9464db44fa7eb58c649f98a8": {
-        "text": "민와일이 기존 투자자들로부터 3750만달러를 추가 조달해 누적 투자 유치액이 1억8000만달러를 넘었다고 밝힘\n\n베인캐피털 크립토가 이번 투자를 주도했으며 판테라캐피털과 모건크릭디지털 등이 참여함",
-        "expires": 1792007134.5942543
-      },
-      "6c4257b9a97ea5123c9b515b9738de41bcca792c1ee51e856b766a55a725f628": {
-        "text": "XRP 레저의 배치V1_1 업그레이드가 검증자 지지가 기준치를 넘으면 10월 9일께 활성화될 예정이라고 전해짐\n\n업그레이드가 적용되면 여러 거래를 하나의 묶음으로 처리해 모두 함께 적용하거나 취소할 수 있음",
-        "expires": 1792007149.6756885
-      },
-      "56eea21cbe661d8d3f7b04fcaa6f5f2ca9d45361b2743560b6ae144e750ec61b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792009932.6197343
-      },
-      "83e5016b5e5959201b91693df56c47f0eb9b4a97dedf058aa8d2fadda8b46115": {
-        "text": "블록체인닷컴이 미국 고객에게 예측시장·파생상품 서비스를 제공하기 위해 CFTC에 지정계약시장 인가와 선물중개업자 등록을 신청했다고 밝힘\n\n현재 폴리마켓 연계 예측시장과 하이퍼리퀴드 무기한 선물 거래는 미국 외 고객에게 제공 중임",
-        "expires": 1792009940.6927328
-      },
-      "3d7df68941539a712dd7ce142af51d69f05deaf133bb41afe960e7f54bdf641b": {
-        "text": "{\"publish\":true,\"reason\":\"블록체인닷컴이 미국 고객 대상 예측시장·파생상품 서비스 확대를 위해 CFTC에 인가 및 등록을 신청했다는 새 소식이다. 현재 미국 외 지역에서 제공 중인 서비스와 미국 내 승인이 완료되지 않은 신청 단계도 요약에 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792009942.9738984
-      },
-      "49f3ad0d0182ab712275fd6c58132917f1401c8d36723b06d52e242df19c3e4d": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792009944.6861842
-      },
-      "f04e8c0a9e4a494548dc100e5d6a3e9dba71862d175a063fc34e9825d0588491": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792009946.299668
-      },
-      "e005cb486bb0fae2c406e2cc8f808653c59079b4be190a398fd3230042848dd1": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792009948.1692698
-      },
-      "9b2d3817da3ea3e74613fa3f1d5a04a7d52b3dcf0541025c441595c0cc84e5d0": {
-        "text": "{\"related_ids\":[\"f40d8eaebe21cc3e\"]}",
-        "expires": 1792009949.5018473
-      },
-      "67ea3b32e877c48d4e0b80cce222f95b715c3837a2b74ac5f3b09f729cb5f909": {
-        "text": "{\"decision\":\"update\",\"matched_id\":\"f40d8eaebe21cc3e\",\"reason\":\"같은 블록체인닷컴의 미국 예측시장·파생상품 CFTC 등록 건이다. 기존 기록은 등록 추진 단계이고, 후보 기사는 신청을 제출했다고 밝혀 진행 단계가 구체화됐다.\",\"new_fact\":\"블록체인닷컴이 지정계약시장 인가와 선물중개업자 등록을 CFTC에 신청했다고 밝혔다.\"}",
-        "expires": 1792009954.1823015
-      },
-      "f5f5b186756a204e4faf1a13bd4b598eac3567898167bd55ee1b66b7766b0472": {
-        "text": "{\"approved\":true,\"reason\":\"블록체인닷컴의 인가 신청 대상인 CFTC의 공식 웹사이트와 로고가 선명하게 보이며, 기사 사건과 직접 관련된 이미지다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1792009967.847266
-      },
-      "174e1b99e9afec967320e0227c17d11928eb654bb90a3f0e655d2367fb074df2": {
-        "text": "프랑스 하원 재정위원회가 2027년도 예산안 세입 부문을 부결해, 디지털자산을 EU의 전자화폐토큰(EMT)으로 교환할 때 매도로 간주해 차익에 과세하는 안과 고액 보유자 출국세 확대안이 본회의에 자동 반영되지 않게 됨\n\n과세안을 다시 추진하려면 본회의 심의에서 수정안을 재제출해야 하며, 프랑스 국민의회는 10월 13일 세입 부문 심의를 시작해 20일 표결할 예정임",
-        "expires": 1792009977.0329206
-      },
-      "557c71743a8e0c640ab9e412b2be6901ca096a9ce2ad421b10ccdeed169ebd2f": {
-        "text": "프랑스 하원 재정위원회가 2027년도 예산안 세입 부문을 부결해, 디지털자산을 EU 전자화폐토큰(EMT)으로 교환할 때 매도로 간주해 차익에 과세하는 안과 고액 보유자 출국세 확대안이 본회의에 자동 반영되지 않게 됐다. 출국세 확대안은 디지털자산 보유액이 80만 유로를 초과하고 최근 10년 중 6년 이상 프랑스 세법상 거주한 투자자가 해외로 이주할 때 미실현 평가이익에 과세하는 내용이다. 두 안을 다시 추진하려면 수정안을 재제출해야 하며, 국민의회는 10월 13일 세입 부문 심의를 시작해 20일 표결할 예정이다.",
-        "expires": 1792009986.0440228
-      },
-      "70f397e4b3e449fe6df04ba15c80fc108d6367c990f77e8335d576481ccad457": {
-        "text": "{\"related_ids\":[\"84456dcc43cb32d7\"]}",
-        "expires": 1792009995.9902236
-      },
-      "6ffbb6b211fb6a7716f4abb8bb513525c58324be36aa3aa931b715a5e37d3d39": {
-        "text": "{\"related_ids\":[\"1202933944ee7a40\"]}",
-        "expires": 1792009997.9254718
-      },
-      "ccc949515c578030c664fb6079a1eb391010963de69c8f4580c1efd99b8d84d2": {
-        "text": "미국 법무부가 바이낸스의 2023년 합의 조건 준수 여부를 검토 중이라고 밝혔으며, 위반 여부나 구체적인 조사 내용은 공개하지 않음\n\n바이낸스는 내부 통제를 강화하고 법 집행기관과 협력하고 있다고 밝힘",
-        "expires": 1792010000.8239117
-      },
-      "639a23f413be4b2bab7c58acec63a300b2a4a01c059e7498f8b050d993a28f3f": {
-        "text": "미국 법무부는 바이낸스의 2023년 합의 이행 여부를 검토 중이며, 조사는 바이낸스가 이란 관련 거래를 차단하지 않아 대이란 제재를 위반했는지에 초점을 두고 있다. 합의 위반이 확인된 것은 아니며, 바이낸스는 내부 통제를 강화하고 법 집행기관과 협력하고 있다고 밝혔다.",
-        "expires": 1792010009.9596431
-      },
-      "cba5b9e2c787208c0b471f1825c2e8ae369704f9bbc23ad0e159f66a16463cec": {
-        "text": "{\"publish\":true,\"reason\":\"미 법무부 형사부장의 발언에 따른 바이낸스 합의 이행 검토라는 새 소식이다. 위반은 확인되지 않았고, 추가 기소·벌금은 조건부 가능성으로 원문에 맞게 요약됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792010011.5546758
-      },
-      "71abd6b0f95f3e826e2d57dfa3b0038c50e3ef21536d6040a3f084b30edb48a3": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792010013.6586375
-      },
-      "7087ebfbfdd8ad2fdeb9221912737dcf1773fdce0159478513676330109755be": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792010015.9132335
-      },
-      "0ecb914defab7e8659b44ffbcaa6c9997f0e3a0631e36ef65dbecf6afb7121bf": {
-        "text": "{\"related_ids\":[\"2bd998e81453faa4\"]}",
-        "expires": 1792010018.5067034
-      },
-      "c2a01de578421649411644763d41f06fa01c5c9221487b56cdc07056366a45d8": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792010019.529755
-      },
-      "99ca678773121218f87a0315f82b3364d2659e43cecd44447a4c507f8415ebbb": {
-        "text": "비트코인 생명보험사 민와일이 기존 투자자들로부터 3,750만달러를 추가 유치해 누적 조달액이 1억8,000만달러를 넘어섰다고 밝힘\n\n민와일은 미국 외 고액 자산가를 대상으로 보험료를 한 번에 내는 종신보험 상품 ‘BTC Life 1-Pay’를 올해 초 출시함",
-        "expires": 1792010027.3392031
-      },
-      "b5472d8f25fb932821b9f58af64920c7130907cb12bbecd507cb7518e4334fca": {
-        "text": "{\"publish\":false,\"reason\":\"스트라이브의 BTC 매입과 워런트 행사 대금만을 전하는 단순 매입·보유량 보도임\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792013614.0727336
-      },
-      "1f151bcfc35ae73b0280c12466838d757ec9b776dd34f34f44de8fbb207a09e3": {
-        "text": "{\"decision\":\"uncertain\",\"matched_id\":\"3bcef661e7dca51c\",\"reason\":\"기록 제목은 에버노스의 XRP 및 기관 운용 전략을 언급하지만, 본문이나 원문 근거가 없어 4억7300만 XRP를 리플·코인베이스·크라켄·비트고와 운용한다는 사건과 같은지 판단할 수 없습니다.\",\"new_fact\":\"\"}",
-        "expires": 1792013645.6494226
-      },
-      "2e35aef663d9833cfd02a6bcd102626ee6510c2472d95f99be8435c20b4d9d78": {
-        "text": "{\"approved\":false,\"reason\":\"기사는 Metric의 신규 DEX와 bStocks 거래·유동성 공급을 다루지만, 이미지는 특정 주체나 상품을 식별할 수 없는 범용 암호화폐·강세장 삽화다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
-        "expires": 1792013670.3423927
-      },
-      "6cde281b9de3953e030163b8234506c99fd1ba1f1179d5da96364a508c2e5f12": {
-        "text": "{\"publish\":false,\"reason\":\"비트코인 추가 매입과 보유량 순위 변경을 전하는 단순 보유량 업데이트로 게시 제외 대상임\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792013683.4310453
-      },
-      "dd2ce04b812b3ef6357308412ec55daa6f3ac6c1e60c2e52263b8f4ee1902f34": {
+      "eae89754f715d91fee772bbda5043aa41616d85b086c6571c12bef1522270de8": {
         "text": "SKIP",
-        "expires": 1792013685.6192422
+        "expires": 1792024998.055277
       },
-      "fa0dfdfd74aae97a9d610867a35172bc3294ef95e86bf551a90a3dee80fd56e5": {
+      "0307291b59b978cfc3c8e233cb4a6a3a754d9d1b59fe6772390fcd93fda838e7": {
         "text": "SKIP",
-        "expires": 1792013687.5734599
+        "expires": 1792025000.5242903
       },
-      "ce654de9c8245f9a5771f4e8ebd107190b6062444fc654353d665200c0c18cf7": {
-        "text": "{\"decision\":\"uncertain\",\"matched_id\":\"3bcef661e7dca51c\",\"reason\":\"기록은 에버노스의 XRP 축적·지역 진출·DeFi 운용 전략만 요약하며 본문이 없어, 후보의 기관 실행 파트너 선정이 같은 발표의 일부인지 별도 사건인지 판단할 수 없습니다.\",\"new_fact\":\"\"}",
-        "expires": 1792013713.1231458
+      "ad9c34424c3d9388c281ae9d1b714c0c64109022efdd86d954313fad65e29457": {
+        "text": "{\"publish\":false,\"reason\":\"새로운 제휴와 적용 단계는 원문에 부합하지만, RLUSD와 XRP 레저를 설명하지 않아 일반 독자가 핵심을 이해하기 어려움\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1792025014.0082042
       },
-      "febe70a1912969868da97c75707fc2b9af6bad2c439dda1a01700e09f9faea6c": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 EU 깃발과 건물을 선명하게 보여주지만, 기사 핵심인 키발리스의 인가 취득이나 스테이블코인 발행을 식별하거나 직접 나타내지 않는다. EU 규제 맥락을 연상시키는 배경 이미지에 그친다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
-        "expires": 1792013735.2410197
-      },
-      "a63546021e45e54b92bd3b523c41963016c5c2f84d0f52af81a9422c32f5d4b5": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 EU 깃발과 EU 기관 건물을 보여줘 유럽 규제 배경과는 관련 있지만, 기사의 핵심인 키발리스 컨소시엄이나 전자화폐 인가·토큰을 직접 나타내지 않는다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1792013743.1593904
-      },
-      "c49b29d7e6e47c1f093bf3ab6a6b2a0ea1400b89188c9bca52f5efae9ecd3ba8": {
+      "2186fe5c83c8e63c5ffeb960047a23f8f9751ce6609aa20ae8a1ad72962d689d": {
         "text": "SKIP",
-        "expires": 1792013744.8990896
+        "expires": 1792025052.9612792
       },
-      "29a8a7a2ba76bc16c3de10aae28b57c9e553a44c2e8e1669727e26f532120b88": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792013747.5284839
-      },
-      "e46d36323fdce93c36f108bfdd426cde6069883499c7bf73aec62b51db2f2bca": {
-        "text": "{\"publish\":false,\"reason\":\"유럽에서의 사용 계획은 원문과 일치하나, ‘수탁’ 등 핵심 용어 설명이 없어 이해 가능성 기준을 충족하지 못함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1792013753.2260146
-      },
-      "dad7e2d8150c4e29322346061329b28b6d52c20cc8afa8b1adf655057ec0839f": {
-        "text": "프랑스 하원 재정위원회가 2027년도 예산안 세입 부문을 찬성 3표, 반대 31표로 부결해 스테이블코인 교환 차익 과세와 고액 디지털자산 보유자 출국세 확대안이 본회의에 자동 반영되지 않게 됨\n\n두 과세안을 다시 추진하려면 수정안을 재제출해야 하며, 국민의회는 13일부터 심의해 20일 표결할 예정임",
-        "expires": 1792013757.3181968
-      },
-      "82ae1894dadae09330e1fbcf558bc4454ea532301c7c1657789e5ec3998c9e33": {
-        "text": "{\"publish\":true,\"reason\":\"프랑스 하원 재정위원회의 예산안 세입 부문 부결과 그에 따른 과세 수정안의 본회의 자동 반영 제외, 재제출 필요성이 명확하며 향후 심의·표결 일정도 원문과 일치합니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792013759.5508866
-      },
-      "b470d4a3cb31dd446cf548132228d0120b922292335e9e8a6ca29950245bea5d": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792013761.0312977
-      },
-      "16e6306b91309187783cab9bc85b23597b7baf8effc768613e3e0c1b0d82c8ac": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792013761.9400606
-      },
-      "c899dd47efe8a0474f34862eb2e28c91190d03a14c9520aacee9c2801ddeee92": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792013763.2450655
-      },
-      "2951dd10729d8c027c187891cd4d579cc80dfd879c4a2ebb83f6a23e6adef646": {
-        "text": "{\"related_ids\":[\"33a3712e407ccf39\"]}",
-        "expires": 1792013764.6821072
-      },
-      "79ddd981b178e9e1d913daefd899acb8052ee2d0651415e9b0db668b1828b4ab": {
-        "text": "{\"decision\":\"update\",\"matched_id\":\"33a3712e407ccf39\",\"reason\":\"기존 기록의 스테이블코인 과세·국외전출세 추진과 같은 과세안을 다루며, 이번에는 프랑스 하원 재정위원회의 예산안 세입 부문 표결 결과라는 새 절차 단계가 보도됐다.\",\"new_fact\":\"재정위원회가 2027년도 예산안 세입 부문을 찬성 3표·반대 31표로 부결해 두 과세안이 본회의안에 자동 반영되지 않게 됐다. 재추진에는 수정안 재제출이 필요하다는 내용이다.\"}",
-        "expires": 1792013769.3977156
-      },
-      "5ed36d9188b619402f862a7b108648aab86d884dbcf32a4bc23dd9d529653512": {
-        "text": "{\"related_ids\":[\"84456dcc43cb32d7\"]}",
-        "expires": 1792013783.5765877
-      },
-      "12553b354321e82c3b608c31dbb73d4802414645d1d89e5902e9299eb0271b37": {
-        "text": "미국 법무부가 바이낸스의 2023년 합의 조건 준수 여부를 검토 중이라고 밝힘. 합의 위반은 확인되지 않았으며, 바이낸스는 내부 통제를 강화하고 법 집행기관에 협조하고 있다고 전함",
-        "expires": 1792013786.5401082
-      },
-      "9f5222e9c6422a8c72c01268ab5951698583be93c9c53ff85322ccde9f7a8dd1": {
-        "text": "{\"publish\":true,\"reason\":\"법무부 형사부장의 새 발언으로 합의 이행 검토가 확인되며, 위반이 확인되지 않았다는 점도 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792013792.2479708
-      },
-      "96a3f40047ffad9d24d63948e322be96ba96f875068629ccc82e6a4cbf162891": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792013793.9036727
-      },
-      "31b977113761aa4b726d0c55514f437704f9f455ba68024e8628f11847e24fd5": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792013794.854192
-      },
-      "b95c6d63a36cab08cf42889dbf83c04402baf1e83f3d9b3527d8c989b7919e13": {
-        "text": "{\"related_ids\":[\"2bd998e81453faa4\"]}",
-        "expires": 1792013796.1248555
-      },
-      "f8263657e7c2f8dbef302f712691561b1cf39f9929e909b55d6e171441137c54": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792013796.978719
-      },
-      "4680a4b59fbce852b350aaee7b458fe7f24e9eaaa5b43bc892f36a9040f32b5c": {
-        "text": "{\"publish\":false,\"reason\":\"폐장 종 타종 행사와 XRP 생태계의 의미를 다룬 홍보성 기사이며, 새롭고 구체적인 사업 진행이나 상장 관련 후속 조치가 확인되지 않음.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792013797.0510747
-      },
-      "33e3243f1a5a3f0b7550702b802d12248e8335508bd6e8e7c53b341de56f36ad": {
-        "text": "{\"decision\":\"supplement\",\"matched_id\":\"2bd998e81453faa4\",\"reason\":\"두 기록 모두 미 법무부의 바이낸스 2023년 합의 이행 및 자금세탁방지 준수 조사에 관한 내용이다. 후보는 합의 위반이 확인되지 않았다는 점과 바이낸스의 대응을 덧붙였지만, 별도의 새 조치는 확인되지 않는다.\",\"new_fact\":\"\"}",
-        "expires": 1792013801.1611385
-      },
-      "7dac322bb9f63cf7b8fefd3b5c61cf4a1b9f7b3ec45c94ca3c9c91d913a8d009": {
-        "text": "민와일이 기존 투자자들로부터 3,750만달러를 추가 유치해 누적 투자액이 1억8,000만달러를 넘어섰다고 밝힘\n\n민와일은 비트코인으로 보험료를 내고 보험금을 받는 종신보험 ‘BTC Life 1-Pay’를 올해 초 미국 외 고액 자산가 대상으로 출시했다고 밝힘",
-        "expires": 1792013806.9794452
-      },
-      "4b5032dd4477e7e81fd48509efabce87b78d4bbc408161537dfe8b7f41c4694a": {
+      "76de3a05a6a5aafa1966142354d4f937aed65cab8378d363ff5a274c94c77dce": {
         "text": "SKIP",
-        "expires": 1792013836.3082004
+        "expires": 1792025089.7120652
       },
-      "8d1a497b5da72e059e54ac5826e7949ae91ed3ccb838414e055935f85e7cc730": {
+      "adc64f257fd38d83c32ff163c4d57047882246f248ac703ca22a60aaae0cc71a": {
+        "text": "{\"publish\":false,\"reason\":\"라이선스 승인과 발행 전 남은 요건은 정확하나, MiCA가 무엇인지 설명되지 않아 이해 가능성 기준을 충족하지 못함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1792025099.930212
+      },
+      "7aa68352c65abe5ef5d802c616fbe537eb0a010b4c421ee0221834c4fb10349a": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 EU 별과 동전 저울을 그린 범용 금융 삽화로, 기사 핵심 주체인 키발리스나 유로 스테이블코인 상품을 식별할 수 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1792025131.600441
+      },
+      "f6478556e7c94db53bdb89a9b13404e38470b5b3c7c804560764026a58d256e1": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 유럽연합 별 배경의 동전 더미와 저울을 그린 범용 금융·규제 삽화로, 기사 핵심인 키발리스나 유로 스테이블코인을 식별할 단서가 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false}}",
+        "expires": 1792025136.5869772
+      },
+      "d894545a45b468bc75c5b71f2c88d1f6bc61deb04a3449ffc6e517702f5522e2": {
+        "text": "{\"approved\":false,\"reason\":\"이미지는 EU 깃발과 건물을 선명하게 보여주지만, 기사 핵심은 키발리스 컨소시엄의 전자화폐기관 인가 취득이다. EU 규제 맥락과는 관련이 있어도 핵심 당사자나 직접 관련 상품을 나타내지는 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792025189.4959025
+      },
+      "80992079dc6162ba2d133dfb71073f3c00e5892fe241b815bcbded9fb4474d10": {
+        "text": "{\"approved\":false,\"reason\":\"사진에는 유럽연합 깃발과 건물이 선명하게 보이지만, 기사의 핵심 주체인 키발리스나 전자화폐기관 인가·유로 연동 토큰은 식별되지 않습니다. EU 규제 맥락을 나타내는 배경 이미지일 뿐 핵심 사건을 직접 보여주지 않습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
+        "expires": 1792025193.9157598
+      },
+      "8c98eccd5040bd1f101510f482705fae573647558e67ddbc3f9d0ea3aeb3fdd5": {
+        "text": "{\"decision\":\"uncertain\",\"matched_id\":\"33a3712e407ccf39\",\"reason\":\"기록 제목은 프랑스 스테이블코인 과세 추진을 언급하지만, 본문이 없어 후보의 스테이블코인 전환 과세안과 같은 법안·조치인지 확인할 수 없습니다.\",\"new_fact\":\"\"}",
+        "expires": 1792025246.5769672
+      },
+      "da796d221dcce2095508f24890d9799fbfb3a70e541c682f9f28b874c8656f54": {
         "text": "SKIP",
-        "expires": 1792013838.2503076
+        "expires": 1792025254.3524091
       },
-      "2a1839c498b3106a2ca66c98e61cd7f6c7461d4b6e20213f41477d2926d5fa1e": {
-        "text": "{\"publish\":false,\"reason\":\"제목은 중앙은행 승인을 암시하지만 본문 발췌는 신청 심사 결정이 출시일의 조건이라고 설명해 승인 여부를 확인하기 어려움\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":false,\"understandable\":true}}",
-        "expires": 1792013854.3897705
-      },
-      "9f031b6d4fcab4562942803f3e2ed967acd8f67ae4c7c99ff90d81a5dc881d95": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 스테이킹을 연상시키는 범용 네온 피라미드 삽화일 뿐, 기사 핵심 주체인 인터랙티브 브로커스나 이더리움 상품을 식별할 수 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
-        "expires": 1792013909.430025
-      },
-      "7b5a3ca3e5d9dfbb6507aafaa6e6496d03e2575ad391b1f90dd3b12fd664c515": {
+      "ac76fb6a8d8714027035f46f7b6d700e87849ce47941ff4ec3f6bdbd94028382": {
         "text": "SKIP",
-        "expires": 1792013933.6447525
+        "expires": 1792025256.133964
       },
-      "62c0db8ef86dadd959fa9a899be4a1715db6b8b5ada710e3164ee5c6f97a4373": {
-        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 에버노스 홀딩스의 XRPN 주식과 투자자 지분 배분을 담은 SEC 공시다. 이미지는 리플 로고와 인물을 중심으로 보여 주며, 에버노스나 XRPN을 직접 식별할 수 없어 핵심 주체를 나타내는 대표 이미지로 보기 어렵다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1792013959.8543336
+      "e0ab9bf1f478286e6c4636b6212420c922c0efcf80d930c8b127b3c9620b889e": {
+        "text": "SKIP",
+        "expires": 1792025278.874496
+      },
+      "ff453ec5949274618f0c5cda5862f470ca7b6d59abedead2c9eb1ceec980e72b": {
+        "text": "{\"publish\":false,\"reason\":\"비트코인 양자내성 전환 우선순위에 관한 새 내용은 확인되나, RSS 요약만 있어 유연한 설계와 자금 이전 계획의 구체적 내용 및 맥락을 검증하기 어려움.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":false}}",
+        "expires": 1792025288.1023939
       },
       "82c0fdd2987cba5f4fe9bfe11bb02fcaad2e5f094521d36ebfcd829b0305e03c": {
         "text": "SKIP",
-        "expires": 1792013962.3007748
+        "expires": 1792025345.813785
       },
       "f5ca15ce65be457fccbe74f845e1d5fec543587448789f31f2709399e8d0767c": {
         "text": "SKIP",
-        "expires": 1792013976.9009356
+        "expires": 1792025355.7456222
       },
       "6be1997b9f80b880d25a987e7eb8a70741cbc4f9dc8883895b80d30b8039c4b4": {
-        "text": "{\"publish\":false,\"reason\":\"카르다노 생태계와 ADA 이용자를 대상으로 한 카드 서비스 종료라는 부정적 소식으로, 포트폴리오 자산 관련 악재 제외 기준에 해당함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792013995.2304437
+        "text": "{\"publish\":false,\"reason\":\"카르다노(ADA) 카드 서비스 종료라는 포트폴리오 자산 관련 악재가 핵심이므로 게시 제외함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792025359.324912
       },
       "cf708d2997171ac5fe9694431ecf48d01ebfe2608ef825bd8ec51361381f0871": {
         "text": "SKIP",
-        "expires": 1792014004.656048
+        "expires": 1792025374.3303266
       },
       "5910a3a6eba175b41787e49983308f4a5ace5c75d7fbefe3069119ef03211a0f": {
         "text": "SKIP",
-        "expires": 1792014006.604188
+        "expires": 1792025376.5290334
       },
       "25b4302cf738045b4e24679f191d8333a56da723321a74bc4e5c871923b243ab": {
         "text": "SKIP",
-        "expires": 1792014009.9748223
+        "expires": 1792025378.0563986
       },
       "a3be78f5b537c4244f01ff54a0416d3ee86e6f841fa1e17d87db5c7d919baee9": {
         "text": "SKIP",
-        "expires": 1792014011.5578353
-      },
-      "130bbb43b7fb4c22bb93c9243b525474eb67395522cbb9cd80df96e92d55fe0b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792016621.4296281
-      },
-      "b9a4da5bf78b84a575472efb644930ef8f1fcdceb816ae9c11b7e8acf7f186b5": {
-        "text": "트럼프 미국 대통령은 러시아와 우크라이나가 에너지 시설 공격을 즉시 중단하는 휴전에 합의했다고 밝혔지만, 구체적인 내용과 이행 방식은 공개하지 않음\n\n젤렌스키 우크라이나 대통령은 휴전을 지지한다며 미국의 세부 설명을 기다리고 있다고 밝힘",
-        "expires": 1792021019.6336968
-      },
-      "aab2e9160b284b8272cb316f30d703277b3ddf1c4e0acfdc8b6b2ac1ce071039": {
-        "text": "트럼프 미국 대통령은 러시아와 우크라이나가 에너지 시설 공격을 즉시 중단하는 휴전에 합의했다고 밝혔으나, 구체적인 내용과 이행 방식은 공개되지 않았다. 젤렌스키 대통령은 휴전을 지지하며 미국의 설명을 기다린다고 했고, 지난 9월에도 합의 발표 뒤 최종 합의가 이뤄지지 않은 만큼 실제 이행 여부는 불투명하다.",
-        "expires": 1792021024.3875895
-      },
-      "b4a5625b5d52eec9a68d46fd85054e5aa007fc119ccb2d622cdd3e8306e6c9e9": {
-        "text": "{\"publish\":true,\"reason\":\"트럼프 대통령의 새 에너지 휴전 합의 발표와 젤렌스키 대통령의 세부 설명 대기, 실제 이행의 불확실성을 원문대로 전했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792021028.012761
-      },
-      "fd4ac53ab84f20d8b10b51b90a98fcf0e42f203a9205388fa135e12a9accb1de": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792021030.3222594
-      },
-      "74ae6ad5b27ec8b8e963deb5a01e4c65b10fc5f59bc09e7ea606540d0a6baa99": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792021031.8719432
-      },
-      "b564f193e4b22f6b44932788da62e28f15548eff8ec9a70c0591d6d4c8f308da": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792021033.8487902
-      },
-      "7ffdda93d6b6b6452347d9096fc847f1cdae5009da5a832ae7ddab4bd6727d45": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792021035.0361066
-      },
-      "9e5322d618fdcfabc1a551814805366cc1d49130a67e42b459f8bee5f63c4a0b": {
-        "text": "{\"approved\":true,\"reason\":\"기사에서 에너지 부문 휴전 합의를 발표한 핵심 주체인 트럼프의 선명한 인물 사진이다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1792021040.117333
-      },
-      "d9d57340f76958dc30ed4ea529a90f35abe9d7eacaff052fd35ed7065beb8f57": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792021047.4759014
-      },
-      "fff1948fc4e169a1d571586fe30771c4f52cab14e76725fc7b1811b12bf9142d": {
-        "text": "{\"related_ids\":[\"33a3712e407ccf39\"]}",
-        "expires": 1792021055.2873561
-      },
-      "7df1c038ba7e38740e3805a4fc3e5b35915a55b6c2d709c20d6df3b1b4ea22eb": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792021058.8386126
-      },
-      "fbb4c4873f11cb56cda791917603b9921393d82eda5e8f593de48c2b520e9d0a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792021060.630026
-      },
-      "682660f1a59eb6aaba39a7609d0265f89b324287bacdebfea3103b65affd5e8a": {
-        "text": "{\"publish\":true,\"reason\":\"프랑스 하원 재정위원회의 예산안 세입 부문 부결로 두 디지털자산 과세 수정안이 본회의에 자동 반영되지 않게 된 새 정책 소식이다. 재제출 필요성과 향후 심의·표결 일정을 요약이 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792023576.064642
-      },
-      "c48c70149814ae4a184adc53e63002e775b17514c8abf11cb1f67c4aa2c96a6d": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792023578.0597072
-      },
-      "500745d5505de8216cefe62e6d1248d8c0ef0f1d9187673a5ec4025ed254e6da": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792023579.0251753
-      },
-      "5da66faba1b7c2c2ba0afbaebbc8b65c2f2f5c067c75f58fc13d08f00b26f0e2": {
-        "text": "{\"related_ids\":[\"84456dcc43cb32d7\"]}",
-        "expires": 1792023584.2769544
-      },
-      "bd2bea66e430faf5be7b8e13df5971a7e3c1876b798826d2cbcca3c4ebb5f14b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792023585.9728382
-      },
-      "a5ec8de76b7598060968686ee24c2179ae57c07191add0614fe6afeb3bd09a76": {
-        "text": "미국 법무부는 바이낸스의 2023년 합의 이행 여부를 검토 중이며, 바이낸스 플랫폼에서 이란 관련 거래를 차단하지 않아 대이란 제재를 위반했는지가 수사의 초점이라고 밝혔다. 위반은 확인되지 않았고, 바이낸스는 내부 통제 강화와 법 집행기관 협조를 지속한다고 밝혔다.",
-        "expires": 1792023596.3617065
-      },
-      "2c350b1cbdd1221c8229de11857f7556fd711e2ca492e02b0c3d0e0131f7eaad": {
-        "text": "{\"publish\":true,\"reason\":\"미국 법무부 관계자가 바이낸스의 2023년 합의 준수 여부를 검토 중이라고 밝혔으며, 위반은 확인되지 않았다는 점과 바이낸스의 입장이 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792023598.3371782
-      },
-      "950906372a0038e02a8b350305250d8bf866bb33b4a012ab0f2313167052da53": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792023600.5005355
-      },
-      "21f70330f9e8555d84c37ee382cf35a443eeaa1f6b80fe741e3f6c1ad1ec9ae6": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792023601.477987
-      },
-      "992a23eeeb03de55e7f9c1b753003459ab2e66fb6647abaea0577c4c851ef9c7": {
-        "text": "{\"related_ids\":[\"2bd998e81453faa4\"]}",
-        "expires": 1792023603.3834033
-      },
-      "da513f0c1f3db63dcb3c9cc70805248351f9bb1c2642e9a494c5c556118843cf": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792023604.9597235
+        "expires": 1792025379.4099848
       },
       "a3649957f22e2c779d9cdfac482e7ac803b16ee3fa1e4341d9d4dded0a6a789a": {
         "text": "플랩스가 이더리움에서 USDC 준비금과 1대1로 연동하면서 송·수신자와 이체 내역을 가리는 프라이버시 스테이블코인 설계안을 제안함\n\n논문은 준비금이 들어와야 대응 토큰이 유통되도록 설계하고, 규정 준수 관리자의 자산 동결과 필요시 정보 선택 공개 기능을 담았으며 실제 구현 여부는 확인되지 않음",
@@ -7146,6 +6822,350 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1792251602.3560023
       },
+      "47711984a50e36fc4eca077bde3694c729a1eb0ea649a5a73221b4a4c3ffc291": {
+        "text": "영국 소프트웨어 엔지니어 루이스 바버가 비트멕스의 파생상품 거래 1,053건이 무단 금융영업에 해당한다며 324.8 BTC, 약 2,650만 달러의 반환을 요구하는 소송을 런던 고등법원에 제기함\n\n소송은 아직 비트멕스 운영사에 정식 송달되지 않았으며, 회사는 청구서를 받지 못했다고 밝힘",
+        "expires": 1792262547.5741868
+      },
+      "fe79cae2e44f3a76c6ce98f89a9dcf697cd9c44126894d06c06682f3b5f60b24": {
+        "text": "영국 소프트웨어 엔지니어 루이스 바버가 비트멕스의 파생상품 거래 1,053건이 무단 금융영업에 해당한다고 주장하며 324.8 BTC, 약 2,650만 달러의 반환을 요구하는 소송을 런던 고등법원에 제기함\n\n소송은 아직 비트멕스 운영사에 정식 송달되지 않았으며, 바버의 주장은 아직 법원에서 검증되지 않음",
+        "expires": 1792262560.1188705
+      },
+      "b7ef8677d5f68cd65b330e4462e5245c940487d92efcefe7c7594d7abe7168d4": {
+        "text": "{\"publish\":true,\"reason\":\"영국에서 비트멕스의 파생상품 거래 권한을 다투는 새 소송 제기 보도이며, 정식 송달 전이고 주장이 검증되지 않았다는 조건도 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792262572.489612
+      },
+      "bbbc6117aa673126912aab4b3699367d4ee15db669e68f50b242d05770ded65b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262580.0294535
+      },
+      "77d14850e37fe906a9454aabe63b69e41da5b68aa80d252fb07a667a97c4f537": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262583.1256866
+      },
+      "da51c43eaba2ec9b93762fc2baba35cda6109def97b8e45aea284f2ddad8fe23": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262585.8563476
+      },
+      "ea5c94546222c14dba7a70fd33fab4b70e27098854e0fe5c40515ba8f001f386": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262587.2221622
+      },
+      "0d21c71ca60e204e678000a956720941a820c795d464d83dc17e82e340a3bd47": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 당사자인 BitMEX 로고와 로그인 화면이 이미지의 중심에 선명하게 보입니다. 배경에 거래 차트가 있지만 가격 차트 자체가 주된 대상은 아닙니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792262592.4452946
+      },
+      "b903960e3df9793f7c0119edd1320eb6a8fcff2a64902212b1a3f9e08ffe9c52": {
+        "text": "리플이 드라이브웰스와 제휴해 유럽에서 달러 연동 스테이블코인 RLUSD를 XRP 레저에서 결제에 사용하고, 미국으로 확대할 계획임\n\n리플 페이먼츠는 드라이브웰스의 글로벌 파트너로부터 국경 간 송금을 지원하며, 양사는 유럽 디지털자산 수탁도 추진함",
+        "expires": 1792262609.7894185
+      },
+      "dd3239b72aecc9cc3666a40e689164897ffd0cadf7088bb12f49a354f3a1c9df": {
+        "text": "리플이 드라이브웰스와 제휴해 유럽에서 달러 연동 스테이블코인 RLUSD를 XRP 레저 결제에 사용하고, 유럽 통합 후 미국으로 확대할 계획임.\n\n리플 페이먼츠는 드라이브웰스 파트너들의 국경 간 송금을 지원하며, 양사는 유럽 디지털 자산 수탁도 추진함.",
+        "expires": 1792262617.9109392
+      },
+      "2ab44ad0e1376dcac188ac55f8461aa8854b17930867a7f659033a18c912ed44": {
+        "text": "{\"publish\":true,\"reason\":\"리플과 드라이브웰스가 달러 연동 스테이블코인 RLUSD를 XRP 레저 결제에 활용하는 통합을 유럽부터 시작하고 미국 확대를 계획하며, 국경 간 송금 지원과 유럽 디지털 자산 수탁도 추진함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792262625.2391138
+      },
+      "238e18c9938dac8afb526b0b1b59b78e7f70487d83f5367d29424c31e305f37f": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262630.0243313
+      },
+      "91c45a917eccbe6940590e4304febf2425f2269ab16caf0e21ad820548a13205": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262632.822614
+      },
+      "484a636cd9d0c6dfce095fa8e1b228513618ab3c6a464b0ee4e4611e5ad61cd4": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262637.7521088
+      },
+      "f91ecc6d650a3eb7c67ad5e20c0dcd68080b339e95f85097360c3bf67deb6e8a": {
+        "text": "{\"related_ids\":[\"764e432b27115b0c\"]}",
+        "expires": 1792262639.1391
+      },
+      "4f74c1da5b484cae5384f095d571581bd51471453b1a2747a3c4f04f8e569e6b": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"764e432b27115b0c\",\"reason\":\"양쪽 모두 리플과 드라이브웰스의 RLUSD 기반 결제·국경 간 송금 제휴를 다룹니다. 후보의 유럽 통합 후 미국 확대 계획은 같은 제휴의 계획을 덧붙인 설명이며, 새로 승인·출시되거나 체결된 별도 조치는 확인되지 않습니다.\",\"new_fact\":\"\"}",
+        "expires": 1792262648.7644343
+      },
+      "6aabe5ed203ea51bfabe3feab346a4927fa2ab723eaccfdcbbc917f292c29261": {
+        "text": "유니스왑이 10월 14일 이더리움 메인넷의 ETH/USDC 풀에 매수·매도 수수료를 최근 가격 움직임에 따라 각각 조정하고, 큰 시장 변동 뒤 가격 괴리를 좁히는 거래에 임시 추가 수수료를 부과하는 볼라틸페어 훅을 적용함",
+        "expires": 1792262658.1992772
+      },
+      "7051a3bccd6215758bbf0f76b7948937905011589f1e4161397b3d585a398939": {
+        "text": "{\"publish\":true,\"reason\":\"유니스왑의 새 수수료 기능 적용 사실과 적용 대상·조건이 원문에 확인됨\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792262663.793858
+      },
+      "6b856439eb613a8b4b92bf95b100588a24fbc04b81023bd47142c5d8c516375b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262668.870824
+      },
+      "832c25c8ace8b24f9a77326742282647a79cceda26af67fe5babd6cf2d6e1e51": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262670.1844409
+      },
+      "12ed65fbed0f8a782010f235f59fb6649ea685245701829e27b0de8306dce0aa": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262671.8281314
+      },
+      "c32431803d5899efe38634270abeef0652ea434a31b03558b13a789e2d7b534b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262672.851843
+      },
+      "2710e0d00e03fb3ccab9a244fc4afb5f096ad28b6e1ae0c498fa462664ee79e0": {
+        "text": "{\"approved\":true,\"reason\":\"이미지 중심에 유니스왑 로고가 선명하게 표시되어 있으며, 기사에서 새 풀과 수수료 기능을 출시한 핵심 주체와 일치한다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792262678.0025275
+      },
+      "3071e868292c63195095c0c68bb49844f6651c0be8e6b6ca11a224ea283ee475": {
+        "text": "네덜란드 중앙은행이 유럽 37개 은행 컨소시엄의 유로 스테이블코인 발행 추진사 키발리스에 전자화폐기관(EMI) 라이선스를 부여함\n\n키발리스는 MiCA 요건에 따른 백서 공개 등을 마쳐야 토큰을 발행할 수 있으며, 아직 유통은 시작되지 않았고 출시일도 확정되지 않음",
+        "expires": 1792262694.2582097
+      },
+      "f75db5241ba9bde750210d56c2379a4bd0835a97477327f8bda0284ba97e394d": {
+        "text": "네덜란드 중앙은행이 유럽 37개 은행 컨소시엄의 유로 스테이블코인 발행 추진사 키발리스에 전자화폐기관(EMI) 라이선스를 부여함\n\n키발리스는 유럽연합 암호자산시장법(MiCA) 요건에 따른 백서 공개 등을 마쳐야 토큰을 발행할 수 있으며, 아직 유통은 시작되지 않았고 출시일도 확정되지 않음",
+        "expires": 1792262704.9082954
+      },
+      "ea1702d2d3214e967670ab61750e7136632cd44e6631f11d058dc79565515a2a": {
+        "text": "{\"publish\":true,\"reason\":\"키발리스의 네덜란드 전자화폐기관 인가라는 새 사실과 발행 전 남은 요건, 미확정 출시일을 대체로 정확히 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792262716.4705064
+      },
+      "718c1671c2b77f668a5b1bbaff863d55a432e06312f5d5f6a1340968aaec51f8": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262718.1540911
+      },
+      "8d4cbcf6ca93f41542a946e784a6a7237d8aba056d8c2669c3025e470f9121a6": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262719.8290756
+      },
+      "2a5df00559c520f8b3a81864259c1ca103a16086e2453005d53af3baeda0ecc8": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262720.9129295
+      },
+      "ceb3c5f0bce4c4acb64cf2d57883e18ea8d9c28bc1091e8c3f7521be60d7f761": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262727.1492455
+      },
+      "3b77d5e27c126b51ff8692d46dcdff94392fd8d0a0e84def38b03aae1ad6ad6d": {
+        "text": "{\"related_ids\":[\"c7fa64a6bb72b8a7\"]}",
+        "expires": 1792262743.5571594
+      },
+      "dfbc5aa8f795d72b384ecae8cce8fdbadc891f2e9fb75ed5dc33ecc51be1da09": {
+        "text": "{\"related_ids\":[\"5f985c6ecb1498da\"]}",
+        "expires": 1792262749.5825882
+      },
+      "2f17966530b959d7504c0551cc77ed79024fac0fb04b65f1e80ae978c3b94417": {
+        "text": "{\"related_ids\":[\"3bcef661e7dca51c\"]}",
+        "expires": 1792262752.7291305
+      },
+      "888082bdfee9bb7f3bc3bd2d2b473a2b67630b9a81ae116e011d771fd49f6ff3": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"c7fa64a6bb72b8a7\",\"reason\":\"에버노스의 XRP 재무 전략과 리플·코인베이스 등 기관 파트너 명단을 다룬 같은 발표다. 후보는 4억7300만 XRP 일부 투입과 추가 매입 계획을 보충하지만, 이는 계획이며 별도의 확정된 새 조치는 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1792262757.1425607
+      },
+      "80893d8f60e71f98439bf36df90d056d3bcb4704c3927c45610db86717e64c87": {
+        "text": "유럽 37개 은행 컨소시엄 키발리스가 네덜란드중앙은행에서 전자화폐기관 인가를 취득함\n\n키발리스는 수개월 내 유로화 연동 전자화폐토큰(EMT) 발행을 계획하지만, 백서 공개 등 EU 미카법의 나머지 요건을 충족해야 함",
+        "expires": 1792262762.9359958
+      },
+      "2b2dade72fdbc9dc7328acf846c5dc5c4c605321f3a64e44efa073b2d970c5c7": {
+        "text": "{\"publish\":true,\"reason\":\"키발리스의 전자화폐기관 인가 취득과 조건부 발행 계획을 원문에 맞게 요약함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792262767.2963169
+      },
+      "4423611a5a57ccae87954b2aede64ce5a46cadd3bf9282f0d16fb9cb1a608ae0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262769.3307157
+      },
+      "3fd533b84dad528f6848196bf23587528863966b4b49c31cbe8bd3599a6cc219": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262770.6264844
+      },
+      "c6d63de8660a2c8a76e1a12b73c0c0cb5ed9c6dd50cf47dfe8d2a71eb87a108b": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262774.1197283
+      },
+      "b5cbf190668380501653b0e9961ce1357d106c49bb19267a6e9557e834d7ad87": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262775.9144087
+      },
+      "a06a237209333cb748f1f97defcfb61a1b3354ce53ad2cf4a9324dd464fc2815": {
+        "text": "키발리스가 네덜란드 중앙은행으로부터 전자화폐기관 인가를 받았으며, 이를 바탕으로 유로 스테이블코인을 출시할 수 있게 됐음\n\n발행은 향후 몇 달 내 계획돼 있으나 MiCA 요건을 추가로 충족해야 함",
+        "expires": 1792262798.336333
+      },
+      "f062f0561d4e1979916d389c475ebe55ac7682ed153591012f717b4368a5973b": {
+        "text": "{\"publish\":true,\"reason\":\"네덜란드 전자화폐기관 인가와 유로 스테이블코인 발행 계획이 원문에 부합하며, 추가 MiCA 요건 충족 조건도 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792262806.596936
+      },
+      "7e6f969f5b70c50bf81c796525ad0f1d0d7ce1be7992db0f34d8278a8da22abf": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262808.5448432
+      },
+      "428ac2ad96fdf1535560d3b29c03c22e42e10a56158bf232c0d4c30c29c3237c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262809.7901947
+      },
+      "7252ab81a19e8ac3b28a4fb06385668bce2b650bd01f1371261cff6b93ad2f25": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262811.721399
+      },
+      "c84babd43657d531476ebf78d2d6a1b65df4762e354227bdbf255da0447907f0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262813.6713605
+      },
+      "9802ce58e108708f19ac7a2286e9d00058c4a0559e2405c60a6d597bec28b26c": {
+        "text": "{\"approved\":true,\"reason\":\"이미지는 유로를 상징하는 인물과 MiCA 서류를 중심으로 네덜란드 전자화폐 인가 및 유로 스테이블코인의 규제 맥락을 직접 묘사한다. Qivalis 자체는 식별되지 않지만 기사 핵심 사건과 관련된 선명한 삽화다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792262817.92826
+      },
+      "90a65d63eac2f8c92f38abedeaab37289f840d3712a89cf47a9e55ceb8435c92": {
+        "text": "프랑스 하원 재정위원회가 적격 암호화폐 수익에 기존 31.4% 세금을 부과하는 스테이블코인 전환 과세안을 10월 7일 채택했으나, 법률로 확정되지는 않았으며 예산안 수입 부문 부결로 의회 심의에서 다시 발의해야 함\n\n법안이 통과되면 2027년 1월 1일부터 일부 유로·달러 연동 스테이블코인으로 바꿀 때 과세하는 방안임",
+        "expires": 1792262828.6890724
+      },
+      "48a20b658bf0088acdef13e366364352bc1f21b99ae827c4aa750ed00ab7e1b0": {
+        "text": "{\"publish\":true,\"reason\":\"재정위원회 채택과 예산안 수입 부문 부결에 따른 재발의 필요성, 법률 미확정 및 시행 조건을 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792262833.0355613
+      },
+      "d8371299e228f698026f55dfe15c179d363748694094bf1bf97650a997081dce": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262837.2285378
+      },
+      "c5c47ddfa674e29b5296f97bd2d54cf5af8175f8a9440704b6f0bfe5c868e809": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262838.6700478
+      },
+      "955baa35dd5cb2d15eed123cdb40e02cc1dd449ac579d23832340c7ccc1c43f9": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262841.0804985
+      },
+      "270faf9012123d83f6802f4b90d9882eaa7a5438e03115d0ff15fbb2e1e9e425": {
+        "text": "{\"related_ids\":[\"33a3712e407ccf39\"]}",
+        "expires": 1792262842.9531503
+      },
+      "0fd6ae8fab00f51c20900e8d9c5a79b2eb8074c0d6bcda078c2ef513c911d0af": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262864.4407337
+      },
+      "ddb80c751a34ca6d0b721e21ea331690dab1f562322f54a793e97c415fdb2604": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262866.950036
+      },
+      "d6cd9b4bab308b5f0c427c5318fbc8d2d4663824531f50c80f63c344aead5b99": {
+        "text": "{\"related_ids\":[\"abaaedeb408f9c27\"]}",
+        "expires": 1792262868.9920876
+      },
+      "6e295a35dfafadc0317ba1aa7da3def8483f35d83705fb85bf60df4e521264c9": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262870.574357
+      },
+      "5d6fff1b180ef9b2c2b16e1f0b292e888df31d5370c4eeb56dad84cdd6d18f6f": {
+        "text": "{\"related_ids\":[\"483dbe4d6afc0387\"]}",
+        "expires": 1792262893.4963765
+      },
+      "117e1a4c9ac63577e2692b9e129484feb01ec49b31ab882dff11f4f107e6d0a4": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262895.4183486
+      },
+      "d6140200acddbef30a7b8989b5fcd3e668ca236c7dacc928d49281683fd25e3d": {
+        "text": "{\"related_ids\":[\"a38eef23289a1202\",\"ac1f78f3bece4fe5\"]}",
+        "expires": 1792262896.7691364
+      },
+      "a617ef76a46caaa42fa553705292d6c5092359f71abe22e9567942e0402383a4": {
+        "text": "{\"related_ids\":[\"353e717b11eba794\"]}",
+        "expires": 1792262897.9068992
+      },
+      "54cf128e5497479216dc0310f50f378a7a923d77558b89d58dcb5044f7bb1f8c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262900.3673341
+      },
+      "ccdd0084270782d44360c0b8b35d8b4533b2249190f6eac3be7a3951e2602edb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262903.2475343
+      },
+      "9f910d093d3d20fcfdd6510d47f01fadc4e871fd4031021397601060bbc0e4ac": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262904.2433953
+      },
+      "dc0789cff023bdbbe2d541dcde6ed5f478983bc4c78cfa099a92b746e9f59d73": {
+        "text": "{\"related_ids\":[\"7edc77b919dd2e41\"]}",
+        "expires": 1792262905.5685716
+      },
+      "a6710685e73983ad5f181bd5c24233f3cb35c33b3d69d65d826b94b87d309153": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262910.3389328
+      },
+      "a56a94cc9238a9254b31f627f0fbc5ab2fb84d040e6b8f1e1a56a763b57591e8": {
+        "text": "{\"related_ids\":[\"118da45cdf5b1b36\"]}",
+        "expires": 1792262912.967701
+      },
+      "e92d3cad29b68360e169d1d8b826719ca9e60f3aa865671f7f708ab23f3ef397": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262915.6039639
+      },
+      "04e645b165c2387b6e27e9be49da7ee9505c21382d05c6fdf1b7c7fdefd18c7d": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262917.7910924
+      },
+      "9e39fbfb7ae8201e5c62dbfe4c23f0aa1df5783de0a3e82d213e39ab56bd476d": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262920.7173426
+      },
+      "f42cdc2bb003cb8ce0a3d4003afff13ee52de245b6101edde6f599e7c6f8827f": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262922.9099932
+      },
+      "bdcfdc9175f3051f9c6e5730ea88e8872b1349c074177d21d8adc298fa64ddd8": {
+        "text": "{\"related_ids\":[\"679530c68c4c5b48\"]}",
+        "expires": 1792262924.7634516
+      },
+      "1d967c23fc8d716026b08cf0068f7b54d4465127e9b9152dee8cf4ad1c06f8fe": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262926.8901055
+      },
+      "6ed0a5a044fcbfdbd85fb50c33b5382539730fcfc0fafaa03d783eecfcc71949": {
+        "text": "{\"related_ids\":[\"c7fa64a6bb72b8a7\"]}",
+        "expires": 1792262933.8900409
+      },
+      "cbfffbfad80b2d5363dcf07c638ed0760a2eca423e1245c05bc6672ae819e4a1": {
+        "text": "{\"related_ids\":[\"5f985c6ecb1498da\",\"d5dda14077661afa\"]}",
+        "expires": 1792262935.0731273
+      },
+      "92f12f756b2bb6c2a43866491e9128db2d4939e2311451921d99966364f94e02": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262936.535508
+      },
+      "f11560ab207935eac5f34bd20beda8730ea06a844604d24bb99c909beae991d1": {
+        "text": "{\"related_ids\":[\"b60f74fbbd8999a5\"]}",
+        "expires": 1792262938.0867758
+      },
+      "d731e20bf2674aeaf06e9cdc6722ba10b7bdafe4834843ba8ea74180731c7aa2": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"b60f74fbbd8999a5\",\"reason\":\"에버노스의 나스닥 실제 거래 개시라는 같은 상장 사건을 다루며, 후보는 투자자별 주식 배정과 XRP 출자 내용을 추가로 설명한다. 기존 기록의 요약은 원문 검증 자료가 아니므로, 별도의 중요 조치가 새로 확인된 것으로 보기는 어렵다.\",\"new_fact\":\"\"}",
+        "expires": 1792262944.0670178
+      },
+      "027986d3c9314dbb2b3d2576d9c124e48de215a26482ffdf25c96fc36376d219": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262948.315035
+      },
+      "ba3e5138c3d74d823a66539612afeefaa7e498f105b9fd855b76d01a9800d9ef": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262951.660715
+      },
+      "5aca78155e8375f066ae0d8f96a5ad578e0a0d7ddd8226adf5be828d5fc195be": {
+        "text": "{\"related_ids\":[\"e36e531c7543dced\"]}",
+        "expires": 1792262952.8090045
+      },
+      "579e5f3aec4c6aa1eee55a794082838a1e0f591380deef03dfdd69888266c120": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262953.9044533
+      },
+      "c86c0b187a1d7aebb40ba5f2cbc726fa069803d0a58866ef9e57b2b510d06637": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262964.00491
+      },
+      "a1b8fe6f170a59fab8cac8b5459c9954ebfd8d3f9b79ae21a5a21e42c0833931": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262966.2427373
+      },
+      "f22c2de5c7db13844c8ecf8df4a016e10d0b368593d094cabd128cacfbffd05e": {
+        "text": "{\"related_ids\":[\"a3a8663e6a834c5a\"]}",
+        "expires": 1792262970.2107735
+      },
+      "8ce504e19ce6b53ebc6309382dff504d3a458044668b2323bbfff603a4828359": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792262972.9258287
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9810,80 +9830,80 @@
       "2026-10-14": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 100,
-            "cache_hits": 165,
+            "api_calls": 120,
+            "cache_hits": 180,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 801652,
+            "input_tokens": 962626,
             "cached_input_tokens": 0,
-            "output_tokens": 15484,
-            "reasoning_tokens": 11149,
-            "estimated_usd": 0.107941,
+            "output_tokens": 17762,
+            "reasoning_tokens": 12662,
+            "estimated_usd": 0.12920025,
             "unpriced_calls": 0,
-            "cache_write_tokens": 801352
+            "cache_write_tokens": 962266
           },
           "source_review": {
-            "api_calls": 86,
-            "cache_hits": 69,
+            "api_calls": 98,
+            "cache_hits": 78,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 647888,
+            "input_tokens": 739298,
             "cached_input_tokens": 0,
-            "output_tokens": 31832,
-            "reasoning_tokens": 24117,
-            "estimated_usd": 0.09689555,
+            "output_tokens": 37205,
+            "reasoning_tokens": 28388,
+            "estimated_usd": 0.1110074,
             "unpriced_calls": 0,
-            "cache_write_tokens": 647630
+            "cache_write_tokens": 739004
           },
           "summary_repair": {
-            "api_calls": 18,
+            "api_calls": 21,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 77726,
+            "input_tokens": 91676,
             "cached_input_tokens": 0,
-            "output_tokens": 4286,
-            "reasoning_tokens": 2545,
-            "estimated_usd": 0.0118574,
+            "output_tokens": 4942,
+            "reasoning_tokens": 2882,
+            "estimated_usd": 0.013928925,
             "unpriced_calls": 0,
-            "cache_write_tokens": 77672
+            "cache_write_tokens": 91613
           },
           "event_search": {
-            "api_calls": 304,
-            "cache_hits": 186,
+            "api_calls": 367,
+            "cache_hits": 187,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 2953658,
+            "input_tokens": 3576345,
             "cached_input_tokens": 0,
-            "output_tokens": 28175,
-            "reasoning_tokens": 24079,
-            "estimated_usd": 0.38327195,
+            "output_tokens": 33059,
+            "reasoning_tokens": 28119,
+            "estimated_usd": 0.4635451,
             "unpriced_calls": 0,
-            "cache_write_tokens": 2952746
+            "cache_write_tokens": 3575244
           },
           "image_review": {
-            "api_calls": 20,
+            "api_calls": 27,
             "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 45532,
+            "input_tokens": 60051,
             "cached_input_tokens": 0,
-            "output_tokens": 5305,
-            "reasoning_tokens": 2842,
-            "estimated_usd": 0.0083425,
+            "output_tokens": 7128,
+            "reasoning_tokens": 3824,
+            "estimated_usd": 0.01104595,
             "unpriced_calls": 0,
-            "cache_write_tokens": 45472
+            "cache_write_tokens": 59074
           },
           "event_decision": {
-            "api_calls": 30,
-            "cache_hits": 79,
+            "api_calls": 34,
+            "cache_hits": 86,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 22805,
+            "input_tokens": 25856,
             "cached_input_tokens": 0,
-            "output_tokens": 6815,
-            "reasoning_tokens": 3989,
-            "estimated_usd": 0.00574065,
+            "output_tokens": 8014,
+            "reasoning_tokens": 4793,
+            "estimated_usd": 0.00664525,
             "unpriced_calls": 0,
             "cache_write_tokens": 2106
           }
@@ -9891,20 +9911,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-07T05:01:12.734757+00:00",
-        "elapsed_seconds": 1710.79,
-        "status": "completed",
-        "api_calls": 9,
-        "cache_hits": 25,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0712735,
-        "missing_usage": 0,
-        "unpriced_calls": 0,
-        "event_records_reused": 3,
-        "event_records_reviewed": 0
-      },
       {
         "started_at_utc": "2026-10-07T06:01:21.418702+00:00",
         "elapsed_seconds": 1779.743,
@@ -11928,6 +11934,18 @@
         "errors": 0,
         "published": 2,
         "estimated_usd": 0.114628125,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-14T18:01:21.901426+00:00",
+        "elapsed_seconds": 2897.539,
+        "status": "completed",
+        "api_calls": 109,
+        "cache_hits": 32,
+        "errors": 0,
+        "published": 3,
+        "estimated_usd": 0.121323825,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28742,6 +28760,18 @@
       "9030422bfd1372800762eb632c910ab33045ccc0c4e67b0e77b4363ea58eeb58": {
         "summary": "드라이브웰스가 유럽에서 리플의 RLUSD를 XRP 레저 기반 결제 정산, 담보 자금 조달 및 자산 보관(수탁)에 사용할 예정임",
         "expires": 1792596960.3094406
+      },
+      "bd97a2fce058131bbfc848a6955a006205fd3f0cc90216ca749ada3fece42ba3": {
+        "summary": "영국 소프트웨어 엔지니어 루이스 바버가 비트멕스의 파생상품 거래 1,053건이 무단 금융영업에 해당한다고 주장하며 324.8 BTC, 약 2,650만 달러의 반환을 요구하는 소송을 런던 고등법원에 제기함\n\n소송은 아직 비트멕스 운영사에 정식 송달되지 않았으며, 바버의 주장은 아직 법원에서 검증되지 않음",
+        "expires": 1792608172.6317742
+      },
+      "4939c2ef1826ace5d3e9ac717ac6d3af195d52a9a443df2992a887027c9edcbb": {
+        "summary": "리플이 드라이브웰스와 제휴해 유럽에서 달러 연동 스테이블코인 RLUSD를 XRP 레저 결제에 사용하고, 유럽 통합 후 미국으로 확대할 계획임\n\n리플 페이먼츠는 드라이브웰스 파트너들의 국경 간 송금을 지원하며, 양사는 유럽 디지털 자산 수탁도 추진함",
+        "expires": 1792608225.2874584
+      },
+      "d91df1c8f71930eda068abe96ded6390ff38479ecc70cc6578338764931ac8a5": {
+        "summary": "네덜란드 중앙은행이 유럽 37개 은행 컨소시엄의 유로 스테이블코인 발행 추진사 키발리스에 전자화폐기관(EMI) 라이선스를 부여함\n\n키발리스는 유럽연합 암호자산시장법(MiCA) 요건에 따른 백서 공개 등을 마쳐야 토큰을 발행할 수 있으며, 아직 유통은 시작되지 않았고 출시일도 확정되지 않음",
+        "expires": 1792608316.496904
       }
     }
   }
