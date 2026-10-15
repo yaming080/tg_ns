@@ -9832,21 +9832,21 @@
       "2026-10-15": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 282,
-            "cache_hits": 183,
+            "api_calls": 296,
+            "cache_hits": 193,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 2269796,
+            "input_tokens": 2381791,
             "cached_input_tokens": 0,
-            "output_tokens": 23555,
-            "reasoning_tokens": 17799,
-            "estimated_usd": 0.29548085,
+            "output_tokens": 24625,
+            "reasoning_tokens": 18761,
+            "estimated_usd": 0.310014175,
             "unpriced_calls": 0,
-            "cache_write_tokens": 2268950
+            "cache_write_tokens": 2380903
           },
           "event_search": {
             "api_calls": 444,
-            "cache_hits": 472,
+            "cache_hits": 504,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 4484649,
@@ -9858,30 +9858,30 @@
             "cache_write_tokens": 4473122
           },
           "event_decision": {
-            "api_calls": 45,
-            "cache_hits": 149,
+            "api_calls": 46,
+            "cache_hits": 154,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 34550,
+            "input_tokens": 35143,
             "cached_input_tokens": 0,
-            "output_tokens": 13074,
-            "reasoning_tokens": 8438,
-            "estimated_usd": 0.0100846,
+            "output_tokens": 13463,
+            "reasoning_tokens": 8742,
+            "estimated_usd": 0.0103384,
             "unpriced_calls": 0,
             "cache_write_tokens": 3704
           },
           "source_review": {
-            "api_calls": 145,
-            "cache_hits": 101,
+            "api_calls": 148,
+            "cache_hits": 108,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1076588,
+            "input_tokens": 1097636,
             "cached_input_tokens": 0,
-            "output_tokens": 54695,
-            "reasoning_tokens": 41569,
-            "estimated_usd": 0.161910125,
+            "output_tokens": 55768,
+            "reasoning_tokens": 42342,
+            "estimated_usd": 0.1650774,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1076153
+            "cache_write_tokens": 1097192
           },
           "summary_repair": {
             "api_calls": 16,
@@ -9897,34 +9897,22 @@
             "cache_write_tokens": 72600
           },
           "image_review": {
-            "api_calls": 72,
+            "api_calls": 76,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 134228,
+            "input_tokens": 142896,
             "cached_input_tokens": 0,
-            "output_tokens": 20909,
-            "reasoning_tokens": 11820,
-            "estimated_usd": 0.027068575,
+            "output_tokens": 21819,
+            "reasoning_tokens": 12224,
+            "estimated_usd": 0.028606775,
             "unpriced_calls": 0,
-            "cache_write_tokens": 127651
+            "cache_write_tokens": 136307
           }
         }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-08T08:00:59.267621+00:00",
-        "elapsed_seconds": 1192.139,
-        "status": "completed",
-        "api_calls": 65,
-        "cache_hits": 0,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.05537855,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-08T09:01:15.570585+00:00",
         "elapsed_seconds": 2099.938,
@@ -11926,6 +11914,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.032210675,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-15T20:01:19.047502+00:00",
+        "elapsed_seconds": 2438.903,
+        "status": "completed",
+        "api_calls": 22,
+        "cache_hits": 54,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0194926,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28377,14 +28377,6 @@
       }
     },
     "summary_repairs_v1": {
-      "f0c9c13e039efe9ae77fea66b00ae2157f5e7e72e981b533f28d33e58906097e": {
-        "summary": "개발자 올렉 포멘코가 비트코인 오프라인 지갑 ‘프로스트월렛’을 공개했다. 단일 HTML 파일로 작동하며, 여러 참여자 중 정해진 임계 수가 키 조각으로 공동 서명한다. 지갑과 칠디케이지 라이브러리는 보안감사를 받지 않았고, 칠디케이지·프로스트 제안은 초안이다",
-        "expires": 1792096240.3003666
-      },
-      "c9421bae98bed563c4720cb4760117a51513e01f0d20503b3c44d69b36bcfef2": {
-        "summary": "",
-        "expires": 1792096268.2032387
-      },
       "c548f38f7e92b93f8043de262ae4c34e6d74593f309534d321ab795d17497958": {
         "summary": "",
         "expires": 1792098757.237744
