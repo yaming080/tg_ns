@@ -2988,14 +2988,6 @@
   },
   "ai_review": {
     "entries": {
-      "b57e6222039c0cbae9ad2607aaf2d8a3588d8a829892ca307b73c1e0169cfad1": {
-        "text": "스탠다드차타드가 두바이 국제금융센터(DIFC) 지점을 통해 기관 고객에게 XRP 레저 기반 RLUSD 수탁 서비스를 시작했다고 밝힘\n\n리플·LMAX 그룹과는 은행에 보관된 RLUSD를 옮기지 않고 거래 담보로 인정하는 방안을 추진 중이며, 시험·문서화·승인 절차가 남아 출시 시점은 미정이라고 전함",
-        "expires": 1792064469.8198755
-      },
-      "c54dd1d4cddc9d36be2d2c062604456736d6c02829dbaa57f116f453a0199b96": {
-        "text": "{\"publish\":true,\"reason\":\"스탠다드차타드의 RLUSD 기관 수탁 서비스 개시와 별도 담보 활용 방안의 미확정 조건을 구분해 정확히 요약했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792064475.043746
-      },
       "a35577112df317ff92b10bcbc723dba312b424472a55adeb25b804d7a30481dd": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792064479.3825011
@@ -7124,6 +7116,14 @@
         "text": "{\"publish\":true,\"reason\":\"리플과 프리비의 새 제휴 및 XRP 레저 기반 AI 결제·지갑 통합 계획이 원문에 확인됨.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1792284163.7819862
       },
+      "ab3b34589ace82d3d0fe00991e2801687ba6d1b5389a07d2b81872533770cbc3": {
+        "text": "에버노스가 10월 14일 나스닥 폐장 종을 울리며 XRP 재무기업의 상장사 출범을 기념함\n\n회사는 합병 완료일인 10월 9일 기준 약 4억7,300만 XRP를 보유했고, 거래 비용 전 현금 약 3억 달러를 조달했으며, XRPN 주주는 회사 주식을 통해 XRP 보유 자산에 대한 투자 노출을 얻음",
+        "expires": 1792287478.3375401
+      },
+      "f32f45956f4c289638652f9070711dc6271e01db219edaaf23459cf529ba8ed9": {
+        "text": "{\"publish\":true,\"reason\":\"키발리스의 인가 취득과 발행 계획, 미카법 요건 충족 조건이 원문과 일치함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792287533.2588787
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9870,21 +9870,21 @@
       "2026-10-15": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 15,
-            "cache_hits": 12,
+            "api_calls": 31,
+            "cache_hits": 21,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 120645,
+            "input_tokens": 249438,
             "cached_input_tokens": 0,
-            "output_tokens": 739,
-            "reasoning_tokens": 625,
-            "estimated_usd": 0.015449,
+            "output_tokens": 1761,
+            "reasoning_tokens": 1425,
+            "estimated_usd": 0.032057925,
             "unpriced_calls": 0,
-            "cache_write_tokens": 120600
+            "cache_write_tokens": 249345
           },
           "event_search": {
             "api_calls": 2,
-            "cache_hits": 42,
+            "cache_hits": 86,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 20990,
@@ -9896,30 +9896,30 @@
             "cache_write_tokens": 20984
           },
           "event_decision": {
-            "api_calls": 2,
-            "cache_hits": 9,
+            "api_calls": 3,
+            "cache_hits": 19,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1381,
+            "input_tokens": 2076,
             "cached_input_tokens": 0,
-            "output_tokens": 327,
-            "reasoning_tokens": 158,
-            "estimated_usd": 0.0003016,
+            "output_tokens": 553,
+            "reasoning_tokens": 303,
+            "estimated_usd": 0.0004841,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
           "source_review": {
-            "api_calls": 14,
-            "cache_hits": 0,
+            "api_calls": 21,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 105355,
+            "input_tokens": 156147,
             "cached_input_tokens": 0,
-            "output_tokens": 4986,
-            "reasoning_tokens": 3721,
-            "estimated_usd": 0.015661325,
+            "output_tokens": 7759,
+            "reasoning_tokens": 5848,
+            "estimated_usd": 0.0233963,
             "unpriced_calls": 0,
-            "cache_write_tokens": 105313
+            "cache_write_tokens": 156084
           },
           "summary_repair": {
             "api_calls": 2,
@@ -9938,20 +9938,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-07T12:01:11.094817+00:00",
-        "elapsed_seconds": 1486.15,
-        "status": "completed",
-        "api_calls": 4,
-        "cache_hits": 29,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0413435,
-        "missing_usage": 0,
-        "unpriced_calls": 0,
-        "event_records_reused": 4,
-        "event_records_reviewed": 0
-      },
       {
         "started_at_utc": "2026-10-07T13:01:23.905597+00:00",
         "elapsed_seconds": 1973.653,
@@ -11961,6 +11947,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.035472125,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-15T01:01:07.773731+00:00",
+        "elapsed_seconds": 2343.478,
+        "status": "completed",
+        "api_calls": 24,
+        "cache_hits": 66,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0245264,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
