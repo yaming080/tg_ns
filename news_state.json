@@ -9883,34 +9883,34 @@
       "2026-10-16": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 42,
-            "cache_hits": 25,
+            "api_calls": 51,
+            "cache_hits": 34,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 339288,
+            "input_tokens": 411555,
             "cached_input_tokens": 0,
-            "output_tokens": 3974,
-            "reasoning_tokens": 3184,
-            "estimated_usd": 0.04439485,
+            "output_tokens": 4877,
+            "reasoning_tokens": 4019,
+            "estimated_usd": 0.05387905,
             "unpriced_calls": 0,
-            "cache_write_tokens": 339162
+            "cache_write_tokens": 411402
           },
           "source_review": {
-            "api_calls": 29,
-            "cache_hits": 6,
+            "api_calls": 33,
+            "cache_hits": 11,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 218408,
+            "input_tokens": 247350,
             "cached_input_tokens": 0,
-            "output_tokens": 11153,
-            "reasoning_tokens": 8555,
-            "estimated_usd": 0.032875325,
+            "output_tokens": 12803,
+            "reasoning_tokens": 9835,
+            "estimated_usd": 0.037317775,
             "unpriced_calls": 0,
-            "cache_write_tokens": 218321
+            "cache_write_tokens": 247251
           },
           "event_search": {
             "api_calls": 46,
-            "cache_hits": 46,
+            "cache_hits": 82,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 449197,
@@ -9922,17 +9922,17 @@
             "cache_write_tokens": 449059
           },
           "image_review": {
-            "api_calls": 24,
+            "api_calls": 35,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 47414,
+            "input_tokens": 65683,
             "cached_input_tokens": 0,
-            "output_tokens": 6613,
-            "reasoning_tokens": 3695,
-            "estimated_usd": 0.00923145,
+            "output_tokens": 10416,
+            "reasoning_tokens": 6135,
+            "estimated_usd": 0.01341575,
             "unpriced_calls": 0,
-            "cache_write_tokens": 47342
+            "cache_write_tokens": 65578
           },
           "summary_repair": {
             "api_calls": 5,
@@ -9949,7 +9949,7 @@
           },
           "event_decision": {
             "api_calls": 1,
-            "cache_hits": 10,
+            "cache_hits": 14,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 704,
@@ -9964,18 +9964,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-08T15:01:23.765955+00:00",
-        "elapsed_seconds": 2200.3,
-        "status": "completed",
-        "api_calls": 24,
-        "cache_hits": 35,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.02716095,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-08T16:01:06.212254+00:00",
         "elapsed_seconds": 1000.19,
@@ -11977,6 +11965,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.05404025,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-16T03:01:15.289270+00:00",
+        "elapsed_seconds": 1519.234,
+        "status": "completed",
+        "api_calls": 24,
+        "cache_hits": 54,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.01811095,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
