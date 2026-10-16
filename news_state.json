@@ -9892,34 +9892,34 @@
       "2026-10-16": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 60,
-            "cache_hits": 41,
+            "api_calls": 69,
+            "cache_hits": 47,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 484069,
+            "input_tokens": 555789,
             "cached_input_tokens": 0,
-            "output_tokens": 5283,
-            "reasoning_tokens": 4359,
-            "estimated_usd": 0.063145625,
+            "output_tokens": 5911,
+            "reasoning_tokens": 4919,
+            "estimated_usd": 0.07242395,
             "unpriced_calls": 0,
-            "cache_write_tokens": 483889
+            "cache_write_tokens": 555582
           },
           "source_review": {
-            "api_calls": 36,
-            "cache_hits": 15,
+            "api_calls": 39,
+            "cache_hits": 18,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 268938,
+            "input_tokens": 290526,
             "cached_input_tokens": 0,
-            "output_tokens": 14002,
-            "reasoning_tokens": 10722,
-            "estimated_usd": 0.04061555,
+            "output_tokens": 15067,
+            "reasoning_tokens": 11474,
+            "estimated_usd": 0.043846325,
             "unpriced_calls": 0,
-            "cache_write_tokens": 268830
+            "cache_write_tokens": 290409
           },
           "event_search": {
             "api_calls": 54,
-            "cache_hits": 110,
+            "cache_hits": 138,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 529936,
@@ -9931,17 +9931,17 @@
             "cache_write_tokens": 529774
           },
           "image_review": {
-            "api_calls": 45,
+            "api_calls": 50,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 82654,
+            "input_tokens": 93244,
             "cached_input_tokens": 0,
-            "output_tokens": 13099,
-            "reasoning_tokens": 7649,
-            "estimated_usd": 0.016877875,
+            "output_tokens": 14356,
+            "reasoning_tokens": 8291,
+            "estimated_usd": 0.01882975,
             "unpriced_calls": 0,
-            "cache_write_tokens": 82519
+            "cache_write_tokens": 93094
           },
           "summary_repair": {
             "api_calls": 5,
@@ -9958,7 +9958,7 @@
           },
           "event_decision": {
             "api_calls": 1,
-            "cache_hits": 18,
+            "cache_hits": 22,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 704,
@@ -9973,18 +9973,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-08T17:01:17.233679+00:00",
-        "elapsed_seconds": 1118.704,
-        "status": "completed",
-        "api_calls": 20,
-        "cache_hits": 16,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.017434925,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-08T18:01:11.949141+00:00",
         "elapsed_seconds": 1220.649,
@@ -11986,6 +11974,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.02655975,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-16T05:01:26.076387+00:00",
+        "elapsed_seconds": 2460.232,
+        "status": "completed",
+        "api_calls": 17,
+        "cache_hits": 41,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.014460975,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28437,10 +28437,6 @@
       }
     },
     "summary_repairs_v1": {
-      "8dd6f63c56fd592766da82a5801863bb406f3c0d077433b140c6de5ff891031d": {
-        "summary": "태국 증권거래위원회가 암호화폐 ETF 규정을 확정했으며, 규정은 10월 16일부터 시행된다. ETF는 태국증권거래소에만 상장되고 초기 대상은 BTC와 ETH다. 단일 자산을 추종하며 회계연도 중 평균 순노출액이 순자산가치의 80% 이상이어야 한다",
-        "expires": 1792128451.7372134
-      },
       "13ac6d9f771b2755b49264cec3d0a11597b30f12349918d0c45cbdeb625e7ca1": {
         "summary": "",
         "expires": 1792163280.6606228
