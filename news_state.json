@@ -9843,34 +9843,34 @@
       "2026-10-16": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 200,
-            "cache_hits": 203,
+            "api_calls": 204,
+            "cache_hits": 214,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1610053,
+            "input_tokens": 1642664,
             "cached_input_tokens": 0,
-            "output_tokens": 22999,
-            "reasoning_tokens": 18026,
-            "estimated_usd": 0.212741125,
+            "output_tokens": 23254,
+            "reasoning_tokens": 18251,
+            "estimated_usd": 0.2169447,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1609453
+            "cache_write_tokens": 1642052
           },
           "source_review": {
-            "api_calls": 148,
-            "cache_hits": 110,
+            "api_calls": 153,
+            "cache_hits": 116,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1095211,
+            "input_tokens": 1131120,
             "cached_input_tokens": 0,
-            "output_tokens": 56109,
-            "reasoning_tokens": 42341,
-            "estimated_usd": 0.164944775,
+            "output_tokens": 57879,
+            "reasoning_tokens": 43659,
+            "estimated_usd": 0.170318025,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1094767
+            "cache_write_tokens": 1130661
           },
           "event_search": {
             "api_calls": 300,
-            "cache_hits": 488,
+            "cache_hits": 512,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 2976471,
@@ -9882,17 +9882,17 @@
             "cache_write_tokens": 2975571
           },
           "image_review": {
-            "api_calls": 123,
+            "api_calls": 126,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 235834,
+            "input_tokens": 242389,
             "cached_input_tokens": 0,
-            "output_tokens": 32447,
-            "reasoning_tokens": 17704,
-            "estimated_usd": 0.04564725,
+            "output_tokens": 33207,
+            "reasoning_tokens": 18104,
+            "estimated_usd": 0.0468464,
             "unpriced_calls": 0,
-            "cache_write_tokens": 233614
+            "cache_write_tokens": 240160
           },
           "summary_repair": {
             "api_calls": 16,
@@ -9909,7 +9909,7 @@
           },
           "event_decision": {
             "api_calls": 18,
-            "cache_hits": 97,
+            "cache_hits": 101,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 12482,
@@ -9924,18 +9924,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-09T11:01:12.933365+00:00",
-        "elapsed_seconds": 671.572,
-        "status": "completed",
-        "api_calls": 10,
-        "cache_hits": 8,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.009513,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-09T12:01:13.728713+00:00",
         "elapsed_seconds": 681.977,
@@ -11937,6 +11925,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.010728475,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-16T23:01:29.950716+00:00",
+        "elapsed_seconds": 1790.177,
+        "status": "completed",
+        "api_calls": 12,
+        "cache_hits": 45,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.010775975,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28388,10 +28388,6 @@
       }
     },
     "summary_repairs_v1": {
-      "d598854c1e7fb082e8168c815fa8b9635bcdd1c8e0e19fa8f9aad74b3cf39ade": {
-        "summary": "블록체인닷컴이 미국에서 예측시장과 암호화폐 파생상품을 개인·기관 고객에게 제공하기 위해 미국 상품선물거래위원회(CFTC)에 거래소 운영·파생상품 중개 관련 인가 2건을 신청함. 출시 일정은 미정임",
-        "expires": 1792192258.6239364
-      },
       "804de988e2d467653c5fdcce2dd4aae75222bf069ea2906fb2f2e8265e90413d": {
         "summary": "아크가 문페이 연동을 발표해 카드·애플페이·구글페이·은행 송금으로 구매한 USDC를 아크 네트워크로 보낼 수 있게 됐다. USDC는 달러 가치에 연동되도록 설계된 스테이블코인이다",
         "expires": 1792207216.8418865
