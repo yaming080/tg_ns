@@ -2752,30 +2752,6 @@
   },
   "ai_review": {
     "entries": {
-      "60fc3ef82d089a5a711cc72c5372029e24c69647d3a4311d2355f50bf600a6c4": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792310204.9577453
-      },
-      "de2038acf795a503bbaa7fee00748a79aa3c2fe28d055ace26a2c3bf293adce6": {
-        "text": "{\"related_ids\":[\"764e432b27115b0c\"]}",
-        "expires": 1792310206.999067
-      },
-      "3151d3d85b200e3f5b2515f6af7932e8a17d79b475dc5ba4d9bc73125b92ce7e": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792310212.752117
-      },
-      "53082ff3a95b724d307d79fd1816738bc9da48e3ca7dceeebe0a10727dee7f44": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792310214.763569
-      },
-      "54efb20fc499c36552eb3f302adfc8fdcf58ab160bdfcc4ca865ca8871203599": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792310228.641376
-      },
-      "246c3057c7d4df8f186de8f1959caca620557025b891e93827b15e3f3d0692bf": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792310230.3184962
-      },
       "46f3f9130991dfe0c3b67e34061343026d2f958fea864cb851481e98bf8b0199": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792310252.1652882
@@ -6888,6 +6864,30 @@
         "text": "{\"related_ids\":[\"764e432b27115b0c\"]}",
         "expires": 1792514540.2758684
       },
+      "8986438c5edf7e47ab76de0e1038b34314b166b2b01e1ffa151f9f5d76baf80a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792518162.7045188
+      },
+      "c4db3b10694282cca6569144d30bb6429a0c90c9f0d034093acb31ee34f985d2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792518166.0150042
+      },
+      "c687dfa29bcc4a49d88ed2f04fb85fb9d54984d9c756770e7ddf0c9f87441621": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792518167.238491
+      },
+      "0d7baa6c73e7909e2c633c73c7f2b1d50acbdb3614d106583f2b0d5a441c4a26": {
+        "text": "{\"related_ids\":[\"1dc1b064300168cc\"]}",
+        "expires": 1792518180.3458896
+      },
+      "58845edfcec117b15b49526e67fcd732a997f7dee3ca843879af46e7977b7a57": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792518181.509636
+      },
+      "518dd19c1b9f7432e05fc6babfae7e9dc0a5d10994ce3fa901d44efca0bf0daf": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792518183.4971778
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9798,47 +9798,47 @@
       "2026-10-17": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 151,
-            "cache_hits": 124,
+            "api_calls": 160,
+            "cache_hits": 135,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1226763,
+            "input_tokens": 1299160,
             "cached_input_tokens": 0,
-            "output_tokens": 15372,
-            "reasoning_tokens": 12554,
-            "estimated_usd": 0.16102005,
+            "output_tokens": 15869,
+            "reasoning_tokens": 12985,
+            "estimated_usd": 0.1703175,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1226310
+            "cache_write_tokens": 1298680
           },
           "source_review": {
-            "api_calls": 116,
-            "cache_hits": 37,
+            "api_calls": 122,
+            "cache_hits": 42,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 847605,
+            "input_tokens": 891519,
             "cached_input_tokens": 0,
-            "output_tokens": 44546,
-            "reasoning_tokens": 33897,
-            "estimated_usd": 0.128214925,
+            "output_tokens": 46571,
+            "reasoning_tokens": 35330,
+            "estimated_usd": 0.134716225,
             "unpriced_calls": 0,
-            "cache_write_tokens": 847257
+            "cache_write_tokens": 891153
           },
           "event_search": {
-            "api_calls": 156,
-            "cache_hits": 208,
+            "api_calls": 162,
+            "cache_hits": 234,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1523768,
+            "input_tokens": 1581432,
             "cached_input_tokens": 0,
-            "output_tokens": 11662,
-            "reasoning_tokens": 9777,
-            "estimated_usd": 0.1962903,
+            "output_tokens": 12060,
+            "reasoning_tokens": 10106,
+            "estimated_usd": 0.20369685,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1523300
+            "cache_write_tokens": 1580946
           },
           "event_decision": {
             "api_calls": 6,
-            "cache_hits": 54,
+            "cache_hits": 59,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 4200,
@@ -9863,34 +9863,22 @@
             "cache_write_tokens": 39496
           },
           "image_review": {
-            "api_calls": 49,
+            "api_calls": 54,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 102159,
+            "input_tokens": 113051,
             "cached_input_tokens": 0,
-            "output_tokens": 13594,
-            "reasoning_tokens": 7441,
-            "estimated_usd": 0.0195632,
+            "output_tokens": 14794,
+            "reasoning_tokens": 8028,
+            "estimated_usd": 0.021524325,
             "unpriced_calls": 0,
-            "cache_write_tokens": 102012
+            "cache_write_tokens": 112889
           }
         }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-10T05:01:09.741970+00:00",
-        "elapsed_seconds": 1229.676,
-        "status": "completed",
-        "api_calls": 2,
-        "cache_hits": 3,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.00130335,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-10T06:01:06.161838+00:00",
         "elapsed_seconds": 813.297,
@@ -11892,6 +11880,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0442055,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-17T17:01:29.306455+00:00",
+        "elapsed_seconds": 2525.751,
+        "status": "completed",
+        "api_calls": 26,
+        "cache_hits": 47,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.025166425,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28343,10 +28343,6 @@
       }
     },
     "summary_repairs_v1": {
-      "a0b6fc116f70ca6ad283a8352c62b1e9216b4437145524a9acb6501af66d1080": {
-        "summary": "프랑스 하원 재정위원회가 2027년도 예산안 세입 부문을 찬성 3표, 반대 31표로 부결해 디지털자산을 유럽연합 규정상 전자화폐토큰(EMT)으로 교환할 때 매도로 간주해 차익에 과세하는 안과 고액 보유자 출국세 확대안이 본회의에 자동 반영되지 않게 됐다. 출국세안은 보유액이 80만 유로를 넘고 최근 10년 중 6년 이상 프랑스 세법상 거주한 투자자가 해외로 이주할 때 미실현 평가이익에도 과세하는 내용이다. 재추진하려면 수정안을 재제출해야 하며, 국민의회는 13일 심의를 시작해 20일 표결할 예정이다",
-        "expires": 1792257688.0042067
-      },
       "59b95706b453d4b6abc3355b75f7ec271816d3db6aba6c4899bd33a8bb9b67d6": {
         "summary": "",
         "expires": 1792283182.119991
