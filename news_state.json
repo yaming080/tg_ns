@@ -2698,30 +2698,6 @@
   },
   "ai_review": {
     "entries": {
-      "f5f5cfeb69ac2dfe7441fda5ffe27eacb5b27814b7adc1e2d8a6de21bc3ce3c9": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792326705.0073044
-      },
-      "f2b2b4e203ff97b5d59cd4fcbf31ed943e214ae3085bdc261ccb4540291525f2": {
-        "text": "{\"related_ids\":[\"e36e531c7543dced\"]}",
-        "expires": 1792326706.2418227
-      },
-      "22445c02d332d7421085ee8612bff046e0c884d7c20e7bb6f76a3f4e6f09526b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792330548.7723742
-      },
-      "4dc904cb51e43dcc343947ac7e39a862a81b68c0628cbd5bc7d12ac4fc40a7aa": {
-        "text": "{\"related_ids\":[\"6c54fa9966907471\"]}",
-        "expires": 1792330550.8074138
-      },
-      "d80fed3bc2d8ef7269a7e88bdac29f1a0609c6d144e731fc4b64f03f286d1a3c": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792330555.6642468
-      },
-      "dd913c5a1746f1050c22351e84849e0a68b36aaa0f103a093d985fe583ba5808": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792330589.7374818
-      },
       "5089426899d2a5d2966da9ff8770881ec0a1aed8572ac7ca71d14c166ccbf0d0": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792330611.4200735
@@ -6834,6 +6810,30 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1792553802.0430164
       },
+      "27477655917ad93f4be943a2b9ddeeee0a63ea62ae4c9459c3f611932d05ed17": {
+        "text": "{\"related_ids\":[\"46ac636c67abbe3a\"]}",
+        "expires": 1792557246.0705905
+      },
+      "9325af93ad78fb7dc4d078e0714a4f6e67fcc31f0d1fedb17fd2a4af0b2e317c": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"46ac636c67abbe3a\",\"reason\":\"두 기사는 리플 프라임이 기관 고객에게 전통자산 기반 무기한 거래를 24시간 제공하는 같은 서비스 출시를 다룹니다. 후보 기사는 자산 종류와 수, 관할권, RLUSD 담보 조건을 추가로 설명합니다.\",\"new_fact\":\"\"}",
+        "expires": 1792557248.5890517
+      },
+      "71b629b799467c8b41d199428f6cd7debfb3a16404f810772e484d5df16f70d9": {
+        "text": "{\"publish\":true,\"reason\":\"ECB의 디지털 유로 준비와 조건부 시범 운영 계획을 원문에 맞게 요약함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792557289.9507246
+      },
+      "8f7333e0f2fb00a5e7afb75e584c5c5247f80c6ed44bbca8ad457ccef127e3d2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792557291.7828116
+      },
+      "ab6014d676aabf32b444264b740f6366c17e4c3ce9ffa32ee59f442ddf5ef9a5": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792557294.1048722
+      },
+      "88abf7cc4301dc177d5896d04736091ee9783296e6b9aeb4ce24f5153bda5c95": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792557295.3387232
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9826,68 +9826,69 @@
       "2026-10-18": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 33,
-            "cache_hits": 33,
+            "api_calls": 42,
+            "cache_hits": 40,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 267809,
+            "input_tokens": 340559,
             "cached_input_tokens": 0,
-            "output_tokens": 1906,
-            "reasoning_tokens": 1650,
-            "estimated_usd": 0.03442665,
+            "output_tokens": 2338,
+            "reasoning_tokens": 2012,
+            "estimated_usd": 0.043735725,
             "unpriced_calls": 0,
-            "cache_write_tokens": 267710
+            "cache_write_tokens": 340433
           },
           "event_search": {
-            "api_calls": 45,
-            "cache_hits": 91,
+            "api_calls": 49,
+            "cache_hits": 119,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 461725,
+            "input_tokens": 501127,
             "cached_input_tokens": 0,
-            "output_tokens": 3143,
-            "reasoning_tokens": 2614,
-            "estimated_usd": 0.05928375,
+            "output_tokens": 3451,
+            "reasoning_tokens": 2870,
+            "estimated_usd": 0.0643627,
             "unpriced_calls": 0,
-            "cache_write_tokens": 461590
+            "cache_write_tokens": 500980
           },
           "image_review": {
-            "api_calls": 31,
+            "api_calls": 36,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 56372,
+            "input_tokens": 67268,
             "cached_input_tokens": 0,
-            "output_tokens": 8736,
-            "reasoning_tokens": 4952,
-            "estimated_usd": 0.011412175,
+            "output_tokens": 10017,
+            "reasoning_tokens": 5644,
+            "estimated_usd": 0.0134143,
             "unpriced_calls": 0,
-            "cache_write_tokens": 56279
+            "cache_write_tokens": 67160
           },
           "source_review": {
-            "api_calls": 24,
-            "cache_hits": 10,
+            "api_calls": 28,
+            "cache_hits": 13,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 173549,
+            "input_tokens": 201880,
             "cached_input_tokens": 0,
-            "output_tokens": 9129,
-            "reasoning_tokens": 6933,
-            "estimated_usd": 0.026256325,
+            "output_tokens": 10503,
+            "reasoning_tokens": 7924,
+            "estimated_usd": 0.0304844,
             "unpriced_calls": 0,
-            "cache_write_tokens": 173477
+            "cache_write_tokens": 201796
           },
           "event_decision": {
-            "api_calls": 0,
-            "cache_hits": 18,
+            "api_calls": 1,
+            "cache_hits": 22,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 0,
+            "input_tokens": 720,
             "cached_input_tokens": 0,
-            "output_tokens": 0,
-            "reasoning_tokens": 0,
-            "estimated_usd": 0.0,
-            "unpriced_calls": 0
+            "output_tokens": 160,
+            "reasoning_tokens": 69,
+            "estimated_usd": 0.000152,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 0
           },
           "summary_repair": {
             "api_calls": 1,
@@ -9906,18 +9907,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-10T16:00:58.376191+00:00",
-        "elapsed_seconds": 950.669,
-        "status": "completed",
-        "api_calls": 1,
-        "cache_hits": 55,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.000874675,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-10T17:01:03.396197+00:00",
         "elapsed_seconds": 1265.081,
@@ -11919,6 +11908,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.04093825,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-18T04:01:26.128892+00:00",
+        "elapsed_seconds": 2054.938,
+        "status": "completed",
+        "api_calls": 23,
+        "cache_hits": 42,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.020770225,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28370,10 +28371,6 @@
       }
     },
     "summary_repairs_v1": {
-      "5bf7865f75a1b3eb9a678075d0643859c9ce1c3c3e1de7e76e1f5fa6847fc6a0": {
-        "summary": "블록체인닷컴은 미국 고객에게 예측시장·파생상품 서비스를 제공하기 위해 미국 상품선물거래위원회(CFTC)에 파생상품 거래소에 해당하는 지정계약시장(DCM) 인가와 선물 거래 중개업자인 선물중개업자(FCM) 등록을 신청했다",
-        "expires": 1792296829.9096985
-      },
       "83ab5de88f23e2ba621ce55fdf589b5319a4aa5939f1eb27e92d42e4c3954f70": {
         "summary": "",
         "expires": 1792301259.242489
