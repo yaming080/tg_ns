@@ -1,19 +1,5 @@
 {
   "posted": {
-    "aaabc2d7d8809fa3": {
-      "title": "Ethereum Glamsterdam Testnet Faces Builder Abuse Concerns",
-      "url": "thenewscrypto.com/ethereum-glamsterdam-testnet-faces-builder-abuse-concerns",
-      "signature": "",
-      "canonical_key": "",
-      "ts": "2026-09-18T16:01:56.338268+00:00"
-    },
-    "e230b70c78bba14a": {
-      "title": "XRP Treasury Firm Lands $30 Million Raise to Buy More XRP",
-      "url": "u.today/xrp-treasury-firm-lands-30-million-raise-to-buy-more-xrp",
-      "signature": "action_invest | action_purchase | action_secure | amount_usd_30000000 | asset_xrp | geo_korea | object_corporate_crypto_purchase",
-      "canonical_key": "action_invest | action_purchase | action_secure | amount_usd_30000000 | asset_xrp | geo_korea | object_corporate_crypto_purchase",
-      "ts": "2026-09-18T16:01:59.746899+00:00"
-    },
     "904ac5bb135a41a1": {
       "title": "HYPE price hits new all-time high after Hyperliquid loan rollout",
       "url": "crypto.news/hype-price-hits-new-all-time-high-hyperliquid-loan",
@@ -2422,6 +2408,15 @@
       "ts": "2026-10-18T03:35:17.887085+00:00",
       "summary": "#리플프라임 이 하이퍼리퀴드와 연결된 인프라를 통해 적격 기관 고객에게 전통자산을 기초로 한 무기한 선물 거래를 24시간 제공함",
       "source_pub": "Sat, 17 Oct 2026 19:43:00 +0000"
+    },
+    "09d676096d93b6a0": {
+      "title": "XRPL 수정안, 검증자 지지 유지되면 23일 활성화",
+      "url": "www.tokenpost.kr/news/blockchain/424002",
+      "signature": "action_launch | action_support | action_upgrade | amount_pct_80 | asset_xrp | asset_xrpl | count_people_29 | count_people_35 | geo_korea | object_lending",
+      "canonical_key": "action_launch | action_support | action_upgrade | amount_pct_80 | asset_xrp | asset_xrpl | count_people_29 | count_people_35 | geo_korea | object_lending",
+      "ts": "2026-10-18T17:25:29.791542+00:00",
+      "summary": "#XRPL 의 fixCleanup3_4_0 수정안은 검증자 지지가 14일간 기준을 넘게 유지되면 10월 23일 오후 6시 34분 이후 활성화될 수 있으며, 대출·금고·AMM· #토큰 권한 등의 예외 동작을 정비함",
+      "source_pub": "Sun, 18 Oct 2026 16:15:24 +0000"
     }
   },
   "source_baselines": {
@@ -2614,158 +2609,6 @@
   },
   "ai_review": {
     "entries": {
-      "4ed681ebd00f7c5b4d1138d46588ae41d1dc75c4e98e462bfba39a14f828e476": {
-        "text": "러시아 중앙은행은 개인이 규제 계정에서 본인이 관리하는 지갑으로 디지털 통화를 옮길 수 없다고 재확인했으며, 이는 새 규정이 아닌 기존 법률의 해석이라고 설명함\n\n같은 날 러시아 최대 은행 스베르방크는 암호화폐 거래 서비스를 운영하도록 승인받음",
-        "expires": 1792341377.569861
-      },
-      "2c78f436e3aef650386161df08953ecb0914767ad4d35cdea4f5f30747eac523": {
-        "text": "{\"publish\":true,\"reason\":\"러시아 중앙은행의 새 공식 해석과 스베르방크의 승인 사실이 원문에 확인되며, 기존 법률의 해석이라는 조건도 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792341384.2574408
-      },
-      "f9f99e3e6180f588ce0eb10ef8f4246f964b16719b0a7034c9ec9eff10e736bc": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341387.0600622
-      },
-      "8e5480b36cb961a4c84965c515eaa5d2ba9305395e1fce06104ec3a495dde90f": {
-        "text": "{\"related_ids\":[\"118da45cdf5b1b36\"]}",
-        "expires": 1792341389.5897458
-      },
-      "348b5af1cd8054c22f895fa1e42152a3026d1aac3bebf80d0b836fee3b22e972": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341393.8585002
-      },
-      "f555298d5dea6bcf13168a06412bd693040a70533189d6218ab939e50997e744": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341395.9922507
-      },
-      "299398d3327e71e0424fe113dd98414e466ae69beabc9f912fa9b22c3032c261": {
-        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"기록은 스베르방크의 암호화폐 거래 업무 승인이고, 후보 기사의 핵심은 러시아 중앙은행의 자기수탁 지갑 이전 관련 기존 법률 해석 재확인이다. 주체와 행동이 다른 사건이다.\",\"new_fact\":\"\"}",
-        "expires": 1792341400.6421912
-      },
-      "815b43da6f4628a34b1dddc596eed2f2f4cca2dc871ec79ecf07e7f4d87d5430": {
-        "text": "리플의 기관 중개 부문 리플 프라임이 주식·ETF·지수·원자재·외환 등 100여 개 시장에서 주말에도 거래되는 실물자산(RWA) 무기한 선물 스왑 지원을 시작했으며, 트레이딩사 버투가 참여 고객으로 포함됨\n\n기관 고객은 리플 프라임의 중개망을 통해 거래하고 RLUSD를 담보로 사용할 수 있으나 지역별 이용 가능 여부가 다르며, 서비스는 현재 CIV BVI 라이선스 아래 운영되고 추가 지역 확대를 계획함",
-        "expires": 1792341417.5754383
-      },
-      "b92b258f64105f422d3dea93b0dae88d18950f95653f57b66ca750cacbeb2f62": {
-        "text": "리플의 기관 중개 부문 리플프라임이 주식·ETF·지수·원자재·외환 등 100여 개 시장의 실물자산(RWA) 무기한 스왑 지원을 시작함. 기초자산을 직접 보유하지 않고 가격 변동에 연속적으로 노출되는 파생상품이며, 트레이딩사 버투가 참여 고객에 포함됨.\n\n기관 고객은 리플프라임의 중개망을 통해 거래하고 RLUSD를 담보로 사용할 수 있으나 지역별 이용 가능 여부가 다름. 서비스는 현재 CIV BVI 라이선스 아래 운영되며, 추가 지역으로 확대할 계획임.",
-        "expires": 1792341430.207553
-      },
-      "3007dee25046f3d4b22ebf7ea4cb34648d96d0f07dc0e2a558013c63c9aac8e9": {
-        "text": "레저가 안드로이드 앱과 암호화폐 하드웨어 지갑 보안을 결합한 스마트폰 ‘아톰’을 공개했으며, 창립자 에디션은 849달러에 예약을 받고 배송은 2027년 시작할 예정임\n\n최근 크립토빌리스 유통 기기에서 복구 문구를 가로채는 부품이 발견된 뒤 나온 제품으로, 레저는 아톰에 물리적 변조 감지 기능을 추가했다고 설명함",
-        "expires": 1792341439.8765624
-      },
-      "5d4908be543f3e9244c3edfdc138661759097a74737a2a59af25847f428bf954": {
-        "text": "레저가 안드로이드 앱과 암호화폐 하드웨어 지갑 보안을 결합한 스마트폰 ‘아톰’을 공개했으며, 창립자 에디션은 849달러에 예약을 받고 배송은 2027년 시작할 예정임. 예약금 100달러는 환불 가능함\n\n최근 크립토빌리스 유통 기기에서 복구 문구를 가로채는 부품이 발견된 뒤 나온 제품으로, 레저는 아톰에 물리적 변조 감지 기능을 추가했다고 설명함",
-        "expires": 1792341450.0947232
-      },
-      "4bdbf780123a7b34434ffb65734df3a72c3aa46faa945c9b1d5270e4411476c5": {
-        "text": "크로스리버뱅크가 리플과 협력해 RLUSD를 은행 시스템에 연결하고 XRP 레저 거래를 지원함\n\n핀테크 고객은 단일 API로 RLUSD 결제와 달러·RLUSD 간 자금 이동을 할 수 있으며, 서비스는 일부 주에서 24시간 국경 간 결제와 정산을 지원함",
-        "expires": 1792341465.3090281
-      },
-      "9843f50bbc3e8a2e49bf4b61cc0de60eee7d393aad3225b1cc31c973b8f8d62b": {
-        "text": "{\"publish\":true,\"reason\":\"크로스리버뱅크와 리플의 구체적인 스테이블코인 결제·은행 시스템 연결 소식이며, 일부 주에서 제공된다는 범위도 유지됨\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792341467.2865655
-      },
-      "256d7240d0bc6b7fc0756c02ca5d9ea51604163e72b007edf0abe531b9b9d86c": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341469.2278311
-      },
-      "e650be7e3b46c646c0686188eb7fd49fc631b36d0eec0fe917580e3b19485c22": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341470.9527342
-      },
-      "a68d5e7f3d11a6d29809a3a154e973c055e69a55ac3af79001ca22260f633ab0": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341473.1563354
-      },
-      "ed5018267c38401b8a1e8b9f12a327a3b3674a5d74b0efe798c3d3289845d95b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341475.92881
-      },
-      "b8d0f80083cfa06626fbc3de52eac294b48f4e478f9bdc3815a921d3fdee2d9f": {
-        "text": "{\"approved\":true,\"reason\":\"이미지는 기사에서 협력 당사자로 핵심 등장하는 크로스리버뱅크의 식별 가능한 로고로 보이며, 기사 내용과 직접 관련된 주체를 나타낸다. 로고 단독 이미지라는 이유만으로 제외할 사유는 없다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1792341489.1224694
-      },
-      "f9d41608725fa8807a48e5844a31d19dfcdc70f647a51ec39657b3c83dc37dbf": {
-        "text": "리플 프라임이 하이퍼리퀴드에 상장된 무기한 선물을 참조하는 주식·ETF·금속·에너지·통화 관련 실물연계자산(RWA) 무기한 스왑을 추가해 24시간 거래와 결제를 지원함",
-        "expires": 1792341512.725103
-      },
-      "0b2f72457eb3293aa4dc369d6b74a572bea5ea9d6fd6746cf14dde5eff4392d3": {
-        "text": "반에크가 2025년 10월 등록한 리도 스테이킹 이더리움 ETF의 등록 철회를 SEC에 요청했으며, 해당 펀드는 효력 발생 전 단계에 머물렀고 주식도 판매되지 않았음\n\n철회 요청은 2026년 10월 14일 제출됐으며, 반에크는 펀드 주식의 계획된 배포를 진행하지 않겠다고 밝힘",
-        "expires": 1792341522.7130172
-      },
-      "dfc4ffc82ca6fcdc2ac372900130404cd489e73506d1dbf00cce278211e94a6a": {
-        "text": "{\"publish\":true,\"reason\":\"반에크의 ETF 등록 철회 요청이라는 새 조치가 확인되며, SEC의 동의가 완료된 것으로 과장하지 않고 펀드가 효력 발생 전이었고 주식이 판매되지 않았다는 조건을 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792341528.5212874
-      },
-      "78bc52a37290405479f0d460066f690cae4c54179f6b2d970839e73b3d592ab8": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341530.8418686
-      },
-      "fdbd8a6307efa9ae48e241305199927e2f8f8aa18f0f06e80654a5df59be0420": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341532.438116
-      },
-      "3229383f70eaafeb4bf689547574180b11ead41394469dee9f49976270f9c69b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341534.1176994
-      },
-      "d8f8f8d3426bbf1520c9412557956a86c3ba917c8587784b333500cbc4be77e9": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341536.2194352
-      },
-      "b30bf7496f8588e3f01880f94ea112dc2048a63c2f2ffff1a32ea75de8377d86": {
-        "text": "{\"approved\":true,\"reason\":\"이미지 중심의 다이아몬드형 이더리움 심볼은 기사에서 다룬 리도 스테이킹 이더리움 ETF의 기초 자산과 직접 관련되며, 선명하게 식별된다. 반에크나 리도 로고는 없지만 이더리움은 단순한 배경 언급이 아니라 상품의 핵심 대상이다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1792341547.6412017
-      },
-      "a04cb3ae3957152fd10e20e1f99e3c07e26da97cb5f8101a005936d1575a5af3": {
-        "text": "{\"related_ids\":[\"84f2457e7ce69cef\"]}",
-        "expires": 1792341570.3824284
-      },
-      "cdac3e3d515fd725f20a1a59fe6ac41a468ba904b55d093b21bc06750cef5812": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341576.345495
-      },
-      "7f814d5f46ffaf0cbcd95b1ec8f168a15fb372ad85a13bec5f076bba2a9e9191": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341578.3573968
-      },
-      "810f01ce05348807e945bcac895100e295fe688bae72458aa5b48c72182cb987": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341594.0006392
-      },
-      "c896ea43914e9d89f55cb81249661bb26e45ad4ad329786f9faa34711faa328a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341620.716798
-      },
-      "fa4ded2c6e48f5aa39418269aac8f2306ac44c7f4cb4a4c33b61b9e64cddf355": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341634.9937809
-      },
-      "2849488e3959f04ba6c4b11aad452db1892c9013d5350f6bdcaa20539a29447f": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341644.8053129
-      },
-      "3be8edfe08e26812d1dd65676c2214fc52f9951c07bd165764b4f6c13e56cc3a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341653.7940927
-      },
-      "2cb684429ea3716cca7f7c950a19012e72155e3cf28f6e1d433efd050d19faf8": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341656.65995
-      },
-      "cb6df8e8c0d10c307ed902e10f3d983e4880b7abbe934f084ae3e1ff132e1c64": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792341661.4345329
-      },
-      "9ad6f14da346813caa267b363eedfb10b302283f33ea57ba47a9ae8075c5741f": {
-        "text": "{\"decision\":\"new\",\"matched_id\":\"\",\"reason\":\"기록은 스탠다드차타드의 RLUSD 수탁 서비스와 LMAX 담보 활용 계획을 다룹니다. 후보 제목의 RLUSD 2천만 개 추가 발행은 행동과 사건이 달라 별개입니다.\",\"new_fact\":\"후보 제목에 Ripple Treasury가 RLUSD 2천만 개를 추가 발행했다고 명시되어 있습니다.\"}",
-        "expires": 1792341666.5268836
-      },
-      "4daa0f0842bcad3b924be2f65335b253ff10caeb240e3deb6faa7f332415c0ff": {
-        "text": "{\"approved\":true,\"reason\":\"이미지는 식별 가능한 리플 로고와 RLUSD 표기, 코인 이미지를 중심으로 보여 주어 기사 핵심 상품인 RLUSD와 직접 관련됩니다. 제목·본문의 관련 주체를 나타내며 광고나 가격차트가 아닙니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
-        "expires": 1792341670.193618
-      },
       "61561768902c54d229fbbd6f6e62936db08a18c4a771286f4ced625befc7402d": {
         "text": "레저가 솔라나 모바일 연동과 AI 에이전트 제어 기능, 하드웨어 변조 방지 기능을 갖춘 안드로이드 기반 보안 기기 ‘아톰’을 공개함",
         "expires": 1792344416.128642
@@ -3281,6 +3124,14 @@
       "d6bff8589f4ea76fc35898fdb0cf63ff9fef5a7e83b029a3b845dc6b8b342a60": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792364218.6692414
+      },
+      "947a62135e6cd0128171066bd17b8f48dcd22d7ad85a58efea7591cd6041ead9": {
+        "text": "{\"approved\":false,\"reason\":\"기사는 XRPL의 fixCleanup3_4_0 수정안 활성화에 관한 내용이지만, 이미지는 로켓 표지가 있는 시설에서 작업하는 인물을 그린 일반적인 삽화로 XRPL이나 수정안을 식별할 단서가 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
+        "expires": 1792365920.5838628
+      },
+      "202e702ce382a9b2f3603e2fd38761e78594b6a5c929f2591e4cceceafe1eda7": {
+        "text": "{\"publish\":false,\"reason\":\"요약의 브리지 중단은 제공된 본문에서 확인되지 않으며, RSS 설명만으로는 사건의 핵심 조치를 검증하기 어려움\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":false}}",
+        "expires": 1792365939.0492868
       },
       "4c881d1190c9ce23d83b9432d8794c213021d27f375b3e956739aa0a6573a81b": {
         "text": "리플 프라임이 기관투자자 대상 실물자산 연계 무기한 선물 상품을 출시함\n\n주식·지수·ETF·원자재 등 100개 이상의 기초자산을 참조하며, 만기 없이 거래되는 상품으로 하이퍼리퀴드 기반 트레이드닷엑스와이지를 통해 운영됨",
@@ -6722,6 +6573,74 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1792596844.481282
       },
+      "6aa4b7379f930afaab96df8214df3cf8694086952d4a10c76d0a3116a642b8a4": {
+        "text": "XRPL의 fixCleanup3_4_0 수정안은 검증자 지지가 14일간 기준을 넘게 유지되면 10월 23일 오후 6시 34분 이후 활성화될 수 있으며, 대출·금고·AMM·토큰 권한 등의 예외 동작을 정비함",
+        "expires": 1792603497.3905392
+      },
+      "344d34e8ae751395b20e5e44bde6d3dca0d11ff98da566d0757b4257031bd51c": {
+        "text": "{\"publish\":true,\"reason\":\"검증자 지지 현황과 조건부 활성화 일정이 확인되는 새 XRPL 수정안 진행 상황이며, 특정 권한을 설정하는 계정에 한정된 주의사항도 보존 가능함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792603505.8305645
+      },
+      "4cd2b22c74a07d15e634cac88978a62b4bc383962e0336f08ae77f29c0b9215c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603508.7509406
+      },
+      "7e95f2b1d2cc15d3f4b6749d3a69067ce2e7bd869d7ab32a84efd9ffd322c771": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603510.7227538
+      },
+      "9b93c06373fd52ca6716d5b5e676b8989d26c74da0f87de6677e17d356bb03e2": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603513.4357529
+      },
+      "369e2bc5665c5521c055b280a11e8e0d192fb8efaafaa872ba4ddc089cd135ac": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603515.740211
+      },
+      "ac56ab98ecd456df294232d21d1e18bb0ea57225a94c993069eafa73a2d02a46": {
+        "text": "{\"approved\":true,\"reason\":\"기사는 XRPL 수정안의 활성화에 관한 내용이며, 이미지 중심의 파란 원형 엠블럼은 XRPL 관련 로고로 보인다. 기사 핵심 주체와 직접 관련된 식별 가능한 이미지다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792603527.894003
+      },
+      "092aec302f98faa9a1b44f1b2ac0adef63c40964c24d19a78fcc85a83f913cec": {
+        "text": "싸이식이 공격자의 CYS 1,000만 개 발행과 약 72만7,000달러의 이더리움 이동 이후 브리지를 중단함",
+        "expires": 1792603534.7975185
+      },
+      "bcadeafaa124dba6b9c14c8c0892bff5270c5fd6fef65505ff71f4c26b522a26": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603551.915841
+      },
+      "16092e3af2ec5f5ce07f56033de141022ff2e77f1dc5b46632a7eea5861b4b96": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603553.1341941
+      },
+      "8aee1cf6120e430cd427c99fce8c87288482666e439ea34b46a9a8f90b2bab20": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603554.922604
+      },
+      "11f8f488a2e263050e0ecfe37a18625f32ea5ee97752d70081d2d011c84aa6d8": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603560.106971
+      },
+      "cc3ff26741aced7a9307a5779877a50d329e619c9b2179b06aef4b5180aeee29": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603562.0273867
+      },
+      "0458b4b02bc073b8fba7f5c7bba7af1cd09c2547c2ee472a1198572055cd40eb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603564.1422622
+      },
+      "6c834cc5465202ade5fc21e464afdd29b7383c45ea078a0447f2c2e75c4e08b3": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603571.6503384
+      },
+      "6865487e3cfc6cd800b0b08ce436ab7c2428f58b74d37f05bef12b3e825cf319": {
+        "text": "{\"related_ids\":[\"183b9c4413192793\"]}",
+        "expires": 1792603573.1763403
+      },
+      "132dac4f0f72ee745c474267eb09363dc1c82009ab0797dbd133936b5366466f": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792603575.080104
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9714,60 +9633,60 @@
       "2026-10-18": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 106,
-            "cache_hits": 161,
+            "api_calls": 108,
+            "cache_hits": 179,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 855400,
+            "input_tokens": 871268,
             "cached_input_tokens": 0,
-            "output_tokens": 7361,
-            "reasoning_tokens": 6267,
-            "estimated_usd": 0.11059755,
+            "output_tokens": 8042,
+            "reasoning_tokens": 6826,
+            "estimated_usd": 0.1129214,
             "unpriced_calls": 0,
-            "cache_write_tokens": 855082
+            "cache_write_tokens": 870944
           },
           "event_search": {
-            "api_calls": 121,
-            "cache_hits": 279,
+            "api_calls": 134,
+            "cache_hits": 282,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1183631,
+            "input_tokens": 1310999,
             "cached_input_tokens": 0,
-            "output_tokens": 8446,
-            "reasoning_tokens": 7054,
-            "estimated_usd": 0.1521678,
+            "output_tokens": 9486,
+            "reasoning_tokens": 7948,
+            "estimated_usd": 0.168607825,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1183268
+            "cache_write_tokens": 1310597
           },
           "image_review": {
-            "api_calls": 66,
-            "cache_hits": 20,
+            "api_calls": 68,
+            "cache_hits": 24,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 132648,
+            "input_tokens": 135182,
             "cached_input_tokens": 0,
-            "output_tokens": 17376,
-            "reasoning_tokens": 9312,
-            "estimated_usd": 0.02526405,
+            "output_tokens": 18042,
+            "reasoning_tokens": 9746,
+            "estimated_usd": 0.02591365,
             "unpriced_calls": 0,
-            "cache_write_tokens": 132450
+            "cache_write_tokens": 134978
           },
           "source_review": {
-            "api_calls": 54,
-            "cache_hits": 54,
+            "api_calls": 56,
+            "cache_hits": 59,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 388217,
+            "input_tokens": 402933,
             "cached_input_tokens": 0,
-            "output_tokens": 18902,
-            "reasoning_tokens": 13916,
-            "estimated_usd": 0.057974075,
+            "output_tokens": 19792,
+            "reasoning_tokens": 14623,
+            "estimated_usd": 0.060258425,
             "unpriced_calls": 0,
-            "cache_write_tokens": 388055
+            "cache_write_tokens": 402765
           },
           "event_decision": {
             "api_calls": 1,
-            "cache_hits": 50,
+            "cache_hits": 51,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 720,
@@ -9795,18 +9714,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-11T05:01:20.228345+00:00",
-        "elapsed_seconds": 1656.176,
-        "status": "completed",
-        "api_calls": 24,
-        "cache_hits": 23,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.02334105,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-11T06:01:15.019292+00:00",
         "elapsed_seconds": 1483.816,
@@ -11808,6 +11715,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.005930475,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-18T17:01:14.529921+00:00",
+        "elapsed_seconds": 1507.203,
+        "status": "completed",
+        "api_calls": 19,
+        "cache_hits": 31,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.021697825,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
