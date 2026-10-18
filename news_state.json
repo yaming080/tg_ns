@@ -2656,18 +2656,6 @@
   },
   "ai_review": {
     "entries": {
-      "4e6e88b4c1bf15249016bf448e96f0ad1e2e8c717c4512f2dad795fb8330a55d": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792335820.1824458
-      },
-      "262a540ba0391ec3d5c7cc08d4c17d2e58d10d789530d178ee1deae471692876": {
-        "text": "{\"related_ids\":[\"29d33362bc39460d\"]}",
-        "expires": 1792335821.6588082
-      },
-      "a3781acff095e1ea4fdd1abfa1b85b506e95106cba9f20d280036143d9aafba2": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792335826.2709317
-      },
       "ec1deab1393ef46eeb2eb49c836b38be9b582b45ce73f3962c427972139557d7": {
         "text": "{\"related_ids\":[\"679530c68c4c5b48\"]}",
         "expires": 1792335828.321777
@@ -3207,6 +3195,10 @@
       "b52ef49c0c384332c25de6416e355cf772a9309cec6fb81d201b6868790cabe9": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792344579.2333112
+      },
+      "476d3adb8125a1110483c298b1fc216009289eebe669c4aad49a7a8192ce50a6": {
+        "text": "{\"publish\":false,\"reason\":\"국가 BTC 보유량의 수치 증가가 핵심인 기사로, 새 정책이나 후속 조치가 확인되지 않음\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792344786.8507593
       },
       "0562000950157f30ab3642b024af575581601d9c87762da777f8bb73cf7495ca": {
         "text": "뉴욕라이프 인베스트먼트 매니지먼트와 센트리퓨지가 고수익 회사채 펀드 HYB와 디파이용 토큰 deHYB를 스텔라에 추가함\n\nHYB는 미국 외 전문 투자자를 대상으로 하며, deHYB는 기초 펀드의 경제적 구조를 유지하면서 승인된 지갑 제한 없이 디파이에서 이전할 수 있도록 설계됨",
@@ -6792,6 +6784,14 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1792578431.2150662
       },
+      "2c525c1131c67da6ce99b418e55d6abbe962ae9142559ab7114529d1bb5800ed": {
+        "text": "엘살바도르의 국가 BTC 보유량이 10월 16일 기준 7,807개로 늘었으며, IMF는 대출 프로그램 이후 추가분이 정부 매입이 아닌 민간 기부라고 설명함\n\n엘살바도르는 14억 달러 규모 IMF 대출 합의에 따라 공공 부문의 BTC 매입을 제한받고 있음",
+        "expires": 1792582382.3234346
+      },
+      "637dd6d1f842212cdf3baea1b8790548bcdc319dc3c5495ccafc9138e7c99d42": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792582408.7174187
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9784,34 +9784,34 @@
       "2026-10-18": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 89,
-            "cache_hits": 80,
+            "api_calls": 90,
+            "cache_hits": 94,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 718600,
+            "input_tokens": 726879,
             "cached_input_tokens": 0,
-            "output_tokens": 5633,
-            "reasoning_tokens": 4821,
-            "estimated_usd": 0.092634825,
+            "output_tokens": 5887,
+            "reasoning_tokens": 4988,
+            "estimated_usd": 0.093796625,
             "unpriced_calls": 0,
-            "cache_write_tokens": 718333
+            "cache_write_tokens": 726609
           },
           "event_search": {
-            "api_calls": 96,
-            "cache_hits": 204,
+            "api_calls": 97,
+            "cache_hits": 223,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 953413,
+            "input_tokens": 963823,
             "cached_input_tokens": 0,
-            "output_tokens": 6729,
-            "reasoning_tokens": 5607,
-            "estimated_usd": 0.122533925,
+            "output_tokens": 6861,
+            "reasoning_tokens": 5728,
+            "estimated_usd": 0.1239011,
             "unpriced_calls": 0,
-            "cache_write_tokens": 953125
+            "cache_write_tokens": 963532
           },
           "image_review": {
             "api_calls": 59,
-            "cache_hits": 3,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 117314,
@@ -9823,21 +9823,21 @@
             "cache_write_tokens": 117137
           },
           "source_review": {
-            "api_calls": 50,
-            "cache_hits": 27,
+            "api_calls": 51,
+            "cache_hits": 31,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 358678,
+            "input_tokens": 366408,
             "cached_input_tokens": 0,
-            "output_tokens": 17839,
-            "reasoning_tokens": 13239,
-            "estimated_usd": 0.0537505,
+            "output_tokens": 18129,
+            "reasoning_tokens": 13448,
+            "estimated_usd": 0.054861675,
             "unpriced_calls": 0,
-            "cache_write_tokens": 358528
+            "cache_write_tokens": 366255
           },
           "event_decision": {
             "api_calls": 1,
-            "cache_hits": 39,
+            "cache_hits": 42,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 720,
@@ -9865,18 +9865,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-10T23:01:08.228290+00:00",
-        "elapsed_seconds": 1008.934,
-        "status": "completed",
-        "api_calls": 16,
-        "cache_hits": 45,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.019444175,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-11T00:01:19.541775+00:00",
         "elapsed_seconds": 1577.148,
@@ -11878,6 +11866,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0161275,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-18T11:01:26.707956+00:00",
+        "elapsed_seconds": 1933.114,
+        "status": "completed",
+        "api_calls": 3,
+        "cache_hits": 43,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00364015,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
