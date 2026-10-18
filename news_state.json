@@ -2696,26 +2696,6 @@
   },
   "ai_review": {
     "entries": {
-      "8a0e1f6ea3aae586715c14bdc00be457cc8411e4cc1d6d0911e1fcc7717b008b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792326555.7415957
-      },
-      "188cf2346aeb522b1983a45afd23811dcd46bdbc1ed44d26b5432b0c1ea04fdc": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792326582.4925475
-      },
-      "b19f016a3c45cd5359dcfd50328a5780bc7d77e28702e98138a91a58340aeae0": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792326585.8255403
-      },
-      "82e31db8c2b7a030aa7501045e5d948bf4a6388934e9c09e7ed00259a0637c03": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792326587.6956453
-      },
-      "ecb7c370a43c1d37b85ca2e7328b791cef15369beff061183b7cc02430f37fad": {
-        "text": "{\"related_ids\":[\"c7fa64a6bb72b8a7\"]}",
-        "expires": 1792326607.939945
-      },
       "c0e506716a18f13aa77056ff9a54a2a63a73ce9e75810524cbdfbc115ca56f75": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792326614.9021573
@@ -6832,6 +6812,26 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1792546709.164411
       },
+      "e7d42defc1b03fbbcbb27297e06659f42c830a90f2dcbccf12d8f5c3b27166bd": {
+        "text": "{\"publish\":true,\"reason\":\"ECB의 디지털 유로 시범 운영 계획과 법률 마련 조건을 원문대로 요약함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792549485.3867297
+      },
+      "9c9552b0e2f694e5ab5fcac06d1b3061d6ef722fa3ceac504ef391ed8f41e9d9": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792549487.2440472
+      },
+      "d41e4295938f857bd1c9c3f3bebc02144550d91125edc77686c07cdd7e55bc8f": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792549489.5395303
+      },
+      "aec6d33029e27c27b6820cc82197e852769995c2b3f70f49f5c31ae3a42d8d89": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792549490.7041216
+      },
+      "6153c59ef955373ebd1df59a69ed060da24ddb6474800b122d6efe6ebbb17ffe": {
+        "text": "코인베이스와 마케타가 암호화폐·일반 기업을 포함한 마케타 기업 고객을 대상으로 스테이블코인을 결제 자금으로 쓰는 카드 서비스를 출시함.\n\n코인베이스는 스테이블코인 수탁과 법정화폐 전환, 마케타는 카드 발급·결제 처리를 맡으며, 거래 정산은 이더리움 레이어2 네트워크 베이스에서 이뤄짐. 출시 일정과 지원 스테이블코인, 수수료는 공개되지 않음",
+        "expires": 1792549514.4333253
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9824,60 +9824,60 @@
       "2026-10-18": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 17,
-            "cache_hits": 16,
+            "api_calls": 25,
+            "cache_hits": 25,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 138001,
+            "input_tokens": 202905,
             "cached_input_tokens": 0,
-            "output_tokens": 1071,
-            "reasoning_tokens": 937,
-            "estimated_usd": 0.01778435,
+            "output_tokens": 1507,
+            "reasoning_tokens": 1311,
+            "estimated_usd": 0.02611475,
             "unpriced_calls": 0,
-            "cache_write_tokens": 137950
+            "cache_write_tokens": 202830
           },
           "event_search": {
-            "api_calls": 23,
-            "cache_hits": 45,
+            "api_calls": 26,
+            "cache_hits": 74,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 237462,
+            "input_tokens": 266437,
             "cached_input_tokens": 0,
-            "output_tokens": 1514,
-            "reasoning_tokens": 1244,
-            "estimated_usd": 0.030438025,
+            "output_tokens": 1702,
+            "reasoning_tokens": 1401,
+            "estimated_usd": 0.034153675,
             "unpriced_calls": 0,
-            "cache_write_tokens": 237393
+            "cache_write_tokens": 266359
           },
           "image_review": {
-            "api_calls": 14,
+            "api_calls": 22,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 25462,
+            "input_tokens": 40402,
             "cached_input_tokens": 0,
-            "output_tokens": 3971,
-            "reasoning_tokens": 2242,
-            "estimated_usd": 0.0051672,
+            "output_tokens": 6326,
+            "reasoning_tokens": 3617,
+            "estimated_usd": 0.0082116,
             "unpriced_calls": 0,
-            "cache_write_tokens": 25420
+            "cache_write_tokens": 40336
           },
           "source_review": {
-            "api_calls": 13,
-            "cache_hits": 3,
+            "api_calls": 20,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 95083,
+            "input_tokens": 145389,
             "cached_input_tokens": 0,
-            "output_tokens": 4735,
-            "reasoning_tokens": 3567,
-            "estimated_usd": 0.0142519,
+            "output_tokens": 7577,
+            "reasoning_tokens": 5781,
+            "estimated_usd": 0.021960625,
             "unpriced_calls": 0,
-            "cache_write_tokens": 95044
+            "cache_write_tokens": 145329
           },
           "event_decision": {
             "api_calls": 0,
-            "cache_hits": 10,
+            "cache_hits": 14,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -9886,23 +9886,24 @@
             "reasoning_tokens": 0,
             "estimated_usd": 0.0,
             "unpriced_calls": 0
+          },
+          "summary_repair": {
+            "api_calls": 1,
+            "cache_hits": 0,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 4240,
+            "cached_input_tokens": 0,
+            "output_tokens": 320,
+            "reasoning_tokens": 195,
+            "estimated_usd": 0.000689925,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 4237
           }
         }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-10T14:01:01.761358+00:00",
-        "elapsed_seconds": 872.893,
-        "status": "completed",
-        "api_calls": 21,
-        "cache_hits": 21,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.02108275,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-10T15:01:02.116496+00:00",
         "elapsed_seconds": 1060.185,
@@ -11904,6 +11905,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.02579305,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-18T02:01:13.990656+00:00",
+        "elapsed_seconds": 1473.54,
+        "status": "completed",
+        "api_calls": 27,
+        "cache_hits": 45,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0234891,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28770,6 +28783,10 @@
       "f99951aef9cfcfa2249eb55c4891874a3ec0d415620add30405554507e65291a": {
         "summary": "리플프라임이 주식·지수·ETF·금속·에너지·외환 등 100여 개 전통자산 가격을 참조하는 무기한 스왑을 기관 고객에게 제공하며, 거래와 결제는 주말을 포함해 24시간 가능함\n\n이는 기초자산을 직접 보유하지 않고 가격을 기준으로 거래하는 파생상품이며, 기초자산 시장이 24시간 열린다는 뜻은 아님\n\n서비스는 영국령 버진아일랜드 라이선스 관할에서 제공되며, RLUSD를 담보로 쓸 수 있는지는 관할권에 따라 다름",
         "expires": 1792878096.6606898
+      },
+      "bd7f88078ce4d3507ebad318e5749d9c422940f101d85866bad30f3e37b5b7fe": {
+        "summary": "",
+        "expires": 1792895111.0410976
       }
     }
   }
