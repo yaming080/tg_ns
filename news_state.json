@@ -2414,6 +2414,15 @@
       "ts": "2026-10-19T18:36:35.058084+00:00",
       "summary": "메쉬가 #비자 와 협력해 지갑에 보유한 암호화폐· #스테이블코인 으로 전 세계 1억7500만 곳 이상의 오프라인 가맹점에서 결제할 수 있도록 지원함\n\n이용자가 결제 전 자산을 직접 매도하거나 법정화폐로 환전하지 않아도 되며, 메쉬가 환전과 결제를 자동 처리함",
       "source_pub": "Mon, 19 Oct 2026 10:16:19 -0700"
+    },
+    "e6fe8c0bd313ab21": {
+      "title": "Coinbase partners with Thunes to expand stablecoin payments to 140 countries",
+      "url": "cryptobriefing.com/coinbase-thunes-partnership-stablecoin-payouts",
+      "signature": "action_expand | action_partner | asset_stablecoin | count_markets_140 | entity_코인베이스 | object_payment",
+      "canonical_key": "action_expand | action_partner | asset_stablecoin | count_markets_140 | entity_코인베이스 | object_payment",
+      "ts": "2026-10-19T19:34:37.791926+00:00",
+      "summary": "#코인베이스 가 투네스와 제휴해 #스테이블코인 인프라와 투네스의 결제망을 연계하고, 국제 송금과 기업 공급업체 대금·긱 노동자 지급 등을 지원할 계획임\n\n투네스 결제망은 140여 개국과 90개 통화를 지원함\n\n코인베이스는 투네스의 결제망을 플랫폼에 통합하고 투네스는 코인베이스의 스테이블코인 인프라를 도입할 예정이며, 전체 통합 일정은 공개되지 않음",
+      "source_pub": "Mon, 19 Oct 2026 18:03:42 +0000"
     }
   },
   "source_baselines": {
@@ -2606,26 +2615,6 @@
   },
   "ai_review": {
     "entries": {
-      "b4aea00c61775ca7cd17a04cd216eed02b04121111159eddc8ab7f641bbac73f": {
-        "text": "a16z 크립토 연구진이 양자내성 전자서명 수천 건을 하나의 증명으로 묶는 연구 시스템 ‘에어리’를 공개함\n\n연구진은 격자 기반 암호 기술을 적용해 시험에서 서명 3만2768건을 0.65초에 묶었으며, 이더리움은 에어리 채택을 결정하지 않았음",
-        "expires": 1792438255.3099551
-      },
-      "daad79201b1357cd1b72c0b3b1f0096eea4079db67ef85d1483f111007dfbceb": {
-        "text": "{\"related_ids\":[\"86f6dc91a73da6e9\"]}",
-        "expires": 1792438307.2563498
-      },
-      "8fa9377de7ad9a58f2c39882f468d1dd4a5acbacfd2af7db40ffc2241b906067": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792438309.883159
-      },
-      "908434a52243fa8855b402a516da464a272cccc07177218575b7a10b08fdbf67": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792438310.861266
-      },
-      "f1c9aebe512ba98f288b1a1f5ef7fae6add1c59dacdd067e9d76ae763cfd8c1e": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792438311.9705708
-      },
       "7cae628e7073f785fd9b4b39007c0697ca3166dac44e4fc158403c985ac695d1": {
         "text": "SKIP",
         "expires": 1792439121.131759
@@ -2985,6 +2974,22 @@
       "4efe431b79970adb6a1a0304e7b13290b42f1ac3b1720145eb61a2a10bd55cec": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792459043.4337678
+      },
+      "1753d34d942edc3cd528b43523d9811e9189f160358c4ef99f783e4408d66a84": {
+        "text": "SKIP",
+        "expires": 1792459985.0657885
+      },
+      "fbb02a47b4717a66a464d56e2eae29336c5d140c1d406b79c01aea9820da497c": {
+        "text": "{\"publish\":false,\"reason\":\"요약에서 플랫폼을 BVNK를 통해 이용한다는 접근 조건이 빠져 기업이 직접 이용할 수 있는 것처럼 읽힘.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792459996.4361162
+      },
+      "3f441aa4ffdf543df5ecbb239c55ede3ec498015ef92e8722bde85b293d5afec": {
+        "text": "{\"publish\":false,\"reason\":\"투네스 결제망이 140여 개국을 지원한다는 사실을 제휴 서비스가 해당 국가에서 지급을 지원할 계획인 것으로 확대했음\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792460026.7627695
+      },
+      "a4444aa9c3b14b81674fdbf3b37662c3767d33bc12b776d791b1c00a72c6f2ae": {
+        "text": "{\"publish\":false,\"reason\":\"XRP 공식 계정 개설 소식은 확인되지만, 단순 소셜미디어 계정 개설로 허용 범주의 실질적인 사업·정책 진행에 해당하지 않음.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792460084.7248015
       },
       "fc75904d9aad67cee220b77fce8722d0a2fdaf40c24f07062e7a8de0c8b8d24b": {
         "text": "SBI홀딩스와 스타테일그룹이 오픈 스탠더드에 합류해 달러 스테이블코인 OUSD와 엔화 스테이블코인 JPYSC의 연계를 위한 파일럿을 검토함\n\n상용 서비스나 실제 정산은 시작되지 않았으며 출시 일정도 정해지지 않았고, 기술적 타당성·규제 요건·비용 효과를 검증할 예정임",
@@ -5713,6 +5718,94 @@
       "6d14793b638eea1931230782146920a61126e298153389a2b54e81bd7123d1d2": {
         "text": "{\"related_ids\":[\"ee18a15effd8ec58\"]}",
         "expires": 1792694288.4597988
+      },
+      "47a4ae25c2dc2407e69b8b1890bb85812acf4469c490f3be630802ea86130dec": {
+        "text": "마스터카드와 스테이블코인 인프라 기업 BVNK가 기업이 법정화폐와 스테이블코인을 관리·지급할 수 있는 플랫폼을 출시함\n\n기업은 단일 API로 다중 통화 계정, 환전, 스테이블코인 연계 카드와 현지 은행 계좌 지급 기능을 이용할 수 있으며, 40개 이상 통화와 200개 넘는 국가·지역으로의 확대는 2027년 목표임",
+        "expires": 1792697588.625855
+      },
+      "6fd2d1d3d07662f341285fe529f2a90f821d54a51239b980fb77db6cedee0ff7": {
+        "text": "마스터카드와 비브이엔케이가 기업의 법정화폐·스테이블코인 관리 및 지급 플랫폼을 출시함.\n\n기업은 단일 API로 다중 통화 계정, 환전, 스테이블코인 연계 카드와 현지 은행 계좌 지급 기능을 이용할 수 있으며, 플랫폼은 비브이엔케이를 통해 이용 가능함. 40개 이상 통화와 200개 넘는 국가·지역으로 확대하는 것은 2027년 목표임",
+        "expires": 1792697600.601601
+      },
+      "dac580ef4017ee591eefd79776a1fc528706934b9c244d1de1bac25184478e3c": {
+        "text": "{\"publish\":true,\"reason\":\"마스터카드와 BVNK가 기업 대상 법정화폐·스테이블코인 관리 및 지급 플랫폼을 실제 출시했으며, 2027년 확대 목표도 계획으로 구분되어 있음\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792697602.1902688
+      },
+      "dc86adbe5aa431560218ddca3ba36107292608e9df327f9a76f1727d9ebf532e": {
+        "text": "{\"related_ids\":[\"86f6dc91a73da6e9\"]}",
+        "expires": 1792697603.7764413
+      },
+      "4c088ccf84450e8005e517ccc02f50e56ec0b447dc9a94a6cdfc7e0bebe97452": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697608.1831024
+      },
+      "bbd7bde3581a79665c9995f30e58853d491fbb268318128281387aadb9c2bc99": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697610.5494027
+      },
+      "6f4236b6ca2cd6d8c662e924b411ef647b1a420bc92a64c844f18b9b594eec32": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697613.5115254
+      },
+      "050d9cdd56fabdb3eb21746a3cc9bad047ce9e57c6df440338729dd1e26d0ff1": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"86f6dc91a73da6e9\",\"reason\":\"마스터카드와 BVNK의 법정화폐·스테이블코인 통합 플랫폼 출시라는 동일 사건이다. 후보는 기존 보도에 없던 2027년 확대 목표를 덧붙였을 뿐, 별도의 새 조치는 아니다.\",\"new_fact\":\"\"}",
+        "expires": 1792697616.0388985
+      },
+      "17296b77451223503b613fa2109072cb0fd0dfa6a6006cdc9665f7d32884704d": {
+        "text": "코인베이스가 결제망 업체 투네스와 제휴해 140여 개국에서 현지 은행 계좌와 모바일 지갑으로 스테이블코인 지급을 지원할 계획임\n\n코인베이스는 투네스의 결제망을 플랫폼에 연결하고, 투네스는 코인베이스의 스테이블코인 인프라를 도입할 예정이며 전체 통합 일정은 공개되지 않음",
+        "expires": 1792697620.473472
+      },
+      "a7eaf58baad8124472fb68dc09f863fe099e59bec68084d124209617fed6447d": {
+        "text": "코인베이스가 투네스와 제휴해 스테이블코인 인프라와 투네스의 결제망을 연계하고, 국제 송금과 기업 공급업체 대금·긱 노동자 지급 등을 지원할 계획임. 투네스 결제망은 140여 개국과 90개 통화를 지원함.\n\n코인베이스는 투네스의 결제망을 플랫폼에 통합하고 투네스는 코인베이스의 스테이블코인 인프라를 도입할 예정이며, 전체 통합 일정은 공개되지 않음.",
+        "expires": 1792697660.9416258
+      },
+      "956db4e48f29ade1f4d8d712f69c137012ef1a5405008e0f5ec1997b14709b00": {
+        "text": "{\"publish\":true,\"reason\":\"코인베이스와 투네스의 새 스테이블코인 결제 제휴를 통합 계획과 일정 미정 조건에 맞게 요약함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792697664.578136
+      },
+      "ebe205a8974c6210db35a2770d61d2b96ce58d350047d142a5061a55e23dd7eb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697666.8380241
+      },
+      "92fd8f50265944f3424977857d7f9a0ede3d6e088a1c4dba66b98eebd244d11a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697669.268199
+      },
+      "ba1122c029619de04556777c62b9939402e618b45b3444c87c65b1b97e1c4f10": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697671.7401292
+      },
+      "684eaf7d5e58a3900472887cf2ce1b24bf88e1eb6773ac1a7b1cac7862dd8721": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697673.3603005
+      },
+      "cd185162e6810c9631b111a7b1ba640ce4fd7f2328ae926515f4d48afad17f6f": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 당사자인 코인베이스의 공식 로고가 선명하게 중심에 있어 관련 이미지로 적합합니다. 단순 로고 이미지이며 광고성 문구나 다른 자산 표시는 없습니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792697676.706847
+      },
+      "b8318027ed703398039b848e2556a871096a44da92cf2fceb4f5de061014e736": {
+        "text": "리플과 XRP 레저 재단이 공동 관리하는 공식 XRP 계정이 X에 개설됐다고 전함",
+        "expires": 1792697680.7915812
+      },
+      "71869eaae50a602686e73c31a100ed8be10737cb5f13042a338bed2925688cef": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697688.6687768
+      },
+      "a3863b1668dbbabe75ae34973429eded702aff18f2247fe4484f3003426c8e46": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697697.546523
+      },
+      "ce1af9794caa778b3e72f871bd370849eb9b8fe1928e660274586753071a14ba": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792697702.569681
+      },
+      "29c941be7803cab8d3637e0c631c247a85bb2e2c2712d8285ff471549d5dae90": {
+        "text": "{\"related_ids\":[\"a482184afceb1123\"]}",
+        "expires": 1792697721.6468208
+      },
+      "e7acf6f6345c0afe5a7f94acc8bd3dc10a61dd74c6092cdf0cd59bd500da71e1": {
+        "text": "{\"related_ids\":[\"ee18a15effd8ec58\"]}",
+        "expires": 1792697727.58874
       },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
@@ -8788,80 +8881,80 @@
       "2026-10-19": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 96,
-            "cache_hits": 318,
+            "api_calls": 100,
+            "cache_hits": 345,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 766822,
+            "input_tokens": 799387,
             "cached_input_tokens": 0,
-            "output_tokens": 14078,
-            "reasoning_tokens": 10595,
-            "estimated_usd": 0.10288455,
+            "output_tokens": 14568,
+            "reasoning_tokens": 10840,
+            "estimated_usd": 0.107199875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 766534
+            "cache_write_tokens": 799087
           },
           "source_review": {
-            "api_calls": 65,
-            "cache_hits": 101,
+            "api_calls": 70,
+            "cache_hits": 115,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 479463,
+            "input_tokens": 517405,
             "cached_input_tokens": 0,
-            "output_tokens": 23009,
-            "reasoning_tokens": 17275,
-            "estimated_usd": 0.0714325,
+            "output_tokens": 24655,
+            "reasoning_tokens": 18481,
+            "estimated_usd": 0.076997875,
             "unpriced_calls": 0,
-            "cache_write_tokens": 479268
+            "cache_write_tokens": 517195
           },
           "summary_repair": {
-            "api_calls": 10,
+            "api_calls": 12,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 42112,
+            "input_tokens": 50942,
             "cached_input_tokens": 0,
-            "output_tokens": 2333,
-            "reasoning_tokens": 1408,
-            "estimated_usd": 0.00642975,
+            "output_tokens": 2887,
+            "reasoning_tokens": 1714,
+            "estimated_usd": 0.00781035,
             "unpriced_calls": 0,
-            "cache_write_tokens": 42082
+            "cache_write_tokens": 50906
           },
           "event_search": {
-            "api_calls": 134,
-            "cache_hits": 166,
+            "api_calls": 147,
+            "cache_hits": 181,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 1267785,
+            "input_tokens": 1400317,
             "cached_input_tokens": 0,
-            "output_tokens": 10671,
-            "reasoning_tokens": 8982,
-            "estimated_usd": 0.163798575,
+            "output_tokens": 11689,
+            "reasoning_tokens": 9833,
+            "estimated_usd": 0.1808731,
             "unpriced_calls": 0,
-            "cache_write_tokens": 1267383
+            "cache_write_tokens": 1399876
           },
           "image_review": {
-            "api_calls": 31,
-            "cache_hits": 34,
+            "api_calls": 32,
+            "cache_hits": 36,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 65036,
+            "input_tokens": 65983,
             "cached_input_tokens": 0,
-            "output_tokens": 6852,
-            "reasoning_tokens": 3159,
-            "estimated_usd": 0.0115079,
+            "output_tokens": 7008,
+            "reasoning_tokens": 3205,
+            "estimated_usd": 0.0116806,
             "unpriced_calls": 0,
             "cache_write_tokens": 63132
           },
           "event_decision": {
-            "api_calls": 12,
-            "cache_hits": 28,
+            "api_calls": 13,
+            "cache_hits": 32,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 8937,
+            "input_tokens": 9672,
             "cached_input_tokens": 0,
-            "output_tokens": 3645,
-            "reasoning_tokens": 2455,
-            "estimated_usd": 0.0027162,
+            "output_tokens": 3770,
+            "reasoning_tokens": 2490,
+            "estimated_usd": 0.0028522,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           }
@@ -8869,18 +8962,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-12T07:01:19.988697+00:00",
-        "elapsed_seconds": 1944.521,
-        "status": "completed",
-        "api_calls": 11,
-        "cache_hits": 25,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.01054305,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-12T08:01:20.181025+00:00",
         "elapsed_seconds": 1806.455,
@@ -10882,6 +10963,18 @@
         "errors": 0,
         "published": 2,
         "estimated_usd": 0.0388254,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-19T19:01:13.280174+00:00",
+        "elapsed_seconds": 2062.315,
+        "status": "completed",
+        "api_calls": 26,
+        "cache_hits": 62,
+        "errors": 0,
+        "published": 1,
+        "estimated_usd": 0.028644525,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -27333,10 +27426,6 @@
       }
     },
     "summary_repairs_v1": {
-      "a25c480710f357a8fc19a749ee02322096958de790c31e869f5cf0f620435f6f": {
-        "summary": "",
-        "expires": 1792435683.6612332
-      },
       "1a6511a2fa23cdcd367445c77d85b56e12e0d46328643871669be639be1d6e1f": {
         "summary": "KB국민카드와 일본 SBI홀딩스가 이버스핀, SBI이버스핀과 업무협약을 맺고 일본인 관광객의 한국 가맹점 스테이블코인 결제와 사용자를 대신해 거래하는 AI 에이전트의 신원·권한 확인을 시험하기로 했다. 상용 출시일과 지원 스테이블코인은 정해지지 않았다",
         "expires": 1792494256.2581553
@@ -27712,6 +27801,14 @@
       "4010f16de6a153819eb74870f0428cd0eefd5e845be735993ee6ebed94a9f8fc": {
         "summary": "푸틴 러시아 대통령이 지난 9일 트럼프 미국 대통령과의 통화에서 다음 달 중국 선전에서 열리는 APEC 정상회의를 계기로 우크라이나 종전 논의 미·중·러 정상회담을 제안하고, 중국에도 외교 경로로 구상을 전달한 것으로 전해짐\n\n중국은 트럼프 대통령이 회담에 동의할 경우 개최에 반대하지 않겠다는 입장으로 전해졌으며, 트럼프 대통령의 참석 여부는 미정임",
         "expires": 1793035791.4503534
+      },
+      "ae767b0e957f68dd0cabb53d606629ed488b3038033271e16c6061d87389a30d": {
+        "summary": "마스터카드와 비브이엔케이가 기업의 법정화폐·스테이블코인 관리 및 지급 플랫폼을 출시함\n\n기업은 단일 API로 다중 통화 계정, 환전, 스테이블코인 연계 카드와 현지 은행 계좌 지급 기능을 이용할 수 있으며, 플랫폼은 비브이엔케이를 통해 이용 가능함\n\n40개 이상 통화와 200개 넘는 국가·지역으로 확대하는 것은 2027년 목표임",
+        "expires": 1793043202.2115753
+      },
+      "250b56501a76c4abf102899f2036edd54cb847c285bf9bda7a69d278f2f33de5": {
+        "summary": "코인베이스가 투네스와 제휴해 스테이블코인 인프라와 투네스의 결제망을 연계하고, 국제 송금과 기업 공급업체 대금·긱 노동자 지급 등을 지원할 계획임\n\n투네스 결제망은 140여 개국과 90개 통화를 지원함\n\n코인베이스는 투네스의 결제망을 플랫폼에 통합하고 투네스는 코인베이스의 스테이블코인 인프라를 도입할 예정이며, 전체 통합 일정은 공개되지 않음",
+        "expires": 1793043264.6018074
       }
     }
   }
