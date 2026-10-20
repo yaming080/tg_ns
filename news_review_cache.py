@@ -10,11 +10,15 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import time
+from functools import lru_cache
+from pathlib import Path
 
 VERSION = 'review-cache-v29-1'
 MAX_ENTRIES = 1500
 TTL = 72 * 3600
-NEGATIVE_TTL = 6 * 3600
+NEGATIVE_TTL = 7 * 86400
+CONTENT_TTL = 7 * 86400  # Exceeds the 72-hour article eligibility window.
+MAX_CONTENT_RESULTS = 4000
 # Standard API USD / million tokens, Luna checked 2026-10-08.
 # Estimates, not invoices; historical model rates retained for old records.
 PRICES = {'gpt-5.4': (2.50, .25, 15.0), 'gpt-5.4-mini': (.75, .075, 4.50),
@@ -53,6 +57,15 @@ def valid_checks(text, flag, fields):
                 and all(type(result['checks'].get(k)) is bool for k in fields))
     except (ValueError, TypeError):
         return False
+
+
+def _negative_response(text):
+    try:
+        obj = json.loads(text)
+        return isinstance(obj, dict) and (obj.get('publish') is False
+            or obj.get('approved') is False or obj.get('decision') == 'uncertain')
+    except ValueError:
+        return text.upper() in {'SKIP', '제외', '스킵'}
 
 
 def _value(obj, name, default=None):
@@ -151,8 +164,20 @@ class ReviewStore:
             key_parts.append(options)
         key = fingerprint(key_parts)
         bucket = self.bucket(model,stage)
+        # Keep completed negative decisions out of the high-churn request LRU.
+        # The key still contains exact prompt/source/image/model/options.
+        durable = content_result('negative_request', key)
+        if durable and isinstance(durable.get('text'), str) and validator(durable['text']):
+            self.hits += 1
+            bucket['cache_hits'] += 1
+            self.log(f'[제외 판정 재사용] {stage} | {key[:12]}')
+            return durable['text']
         entry = self.entries.get(key)
         if entry and entry['expires'] > self.clock() and validator(entry['text']):
+            if _negative_response(entry['text']):
+                # Promote still-valid old six-hour entries without another call.
+                content_result('negative_request', key, {'text': entry['text']})
+                entry['expires'] = self.clock() + NEGATIVE_TTL
             self.hits += 1
             bucket['cache_hits'] += 1
             self.log(f'[AI 검토 재사용] {stage} | {key[:12]}')
@@ -179,16 +204,10 @@ class ReviewStore:
         status = _value(response,'status')
         completed = status is None or status == 'completed'
         if completed and text and len(text) <= 16000 and validator(text):
-            ttl = TTL
-            try:
-                obj = json.loads(text)
-                if isinstance(obj,dict) and (obj.get('publish') is False or obj.get('approved') is False
-                                             or obj.get('decision') == 'uncertain'):
-                    ttl = NEGATIVE_TTL
-            except ValueError:
-                if text.upper() in {'SKIP','제외','스킵'}:
-                    ttl = NEGATIVE_TTL
+            ttl = NEGATIVE_TTL if _negative_response(text) else TTL
             self.entries[key] = {'text':text,'expires':self.clock()+ttl}
+            if ttl == NEGATIVE_TTL:
+                content_result('negative_request', key, {'text': text})
             self.prune()
         self.persist()
         # Partial output must never be treated as a completed review.
@@ -243,6 +262,53 @@ def repair_memory(scope, result=None):
 
 def has_review_store():
     return _STORE.get() is not None
+
+
+@lru_cache(maxsize=1)
+def editorial_identity():
+    """Invalidate semantic results on any deployed editorial code/policy change.
+
+    State/history files and the wall clock are deliberately not policy inputs.
+    A process restart after deployment recomputes this identity.
+    """
+    root = Path(__file__).resolve().parent
+    paths = sorted(set(root.glob('news_*.py')) | {
+        root / 'doorinews_editor.py', root / 'doorinews_bot.py'})
+    return fingerprint([(p.name, hashlib.sha256(p.read_bytes()).hexdigest()) for p in paths])
+
+
+def content_result(kind, scope, result=None):
+    """Persist a completed pipeline outcome independently of request-cache churn.
+
+    Callers must validate verdicts before writing. This is never a posted record,
+    a network-error blacklist, or permission to skip final publication checks.
+    """
+    store = _STORE.get()
+    if store is None:
+        return None
+    now = store.clock()
+    records = store.data.setdefault('content_results_v1', {})
+    records = {k: v for k, v in records.items() if isinstance(v, dict)
+               and type(v.get('expires')) in (int, float) and v['expires'] > now
+               and isinstance(v.get('result'), dict)}
+    key = fingerprint([VERSION, editorial_identity(), kind, scope])
+    if result is not None:
+        records[key] = {'result': result, 'expires': now + CONTENT_TTL}
+    entry = records.get(key)
+    store.data['content_results_v1'] = dict(sorted(
+        records.items(), key=lambda pair: pair[1]['expires'])[-MAX_CONTENT_RESULTS:])
+    if result is not None:
+        store.persist()
+    return dict(entry['result']) if entry else None
+
+
+def record_content_reuse(kind, model, reason):
+    store = _STORE.get()
+    if store is not None:
+        store.hits += 1
+        store.bucket(model or 'unconfigured', kind)['cache_hits'] += 1
+        # Log a bounded reason, never a full source or image payload.
+        store.log(f'[내용 판정 재사용] {kind} | ' + ' '.join(str(reason).split())[:240])
 
 
 @contextmanager

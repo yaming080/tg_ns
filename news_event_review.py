@@ -133,7 +133,8 @@ def history_batches(records):
             yield group[start:start + 150]
 
 
-def review_event(story, caption, posted, call_model, search_model=None):
+def review_event(story, caption, posted, call_model, search_model=None, *, model=None):
+    from news_review_cache import content_result, fingerprint, request_options, record_content_reuse
     candidate = {'title':story.get('title',''), 'summary':caption_body(caption),
                  'url':story.get('url',''), 'published':story.get('pub','')}
     records = history_records(posted)
@@ -141,6 +142,21 @@ def review_event(story, caption, posted, call_model, search_model=None):
         return {'status':'hold','reason':'사건 비교용 본문 없음'}
     if any(url_key(candidate['url']) == url_key(r.get('url')) and url_key(candidate['url']) for r in records):
         return {'status':'duplicate','reason':'기존 게시 URL'}
+    outcome_scope = {'candidate': candidate, 'source': story.get('_review_source_sha256', ''),
+                     'model': model, 'options': request_options(model)}
+    # A proven duplicate stays a duplicate when unrelated history is appended.
+    # Changed/deleted supporting evidence must cause a full comparison again.
+    def evidence(record):
+        return fingerprint({k: record.get(k, '') for k in
+                            ('id', 'title', 'summary', 'source_pub', 'ts')})
+    remembered = content_result('event_rejected', outcome_scope) if model else None
+    if remembered and remembered.get('status') in ('duplicate', 'supplement'):
+        dependencies = remembered.get('dependencies')
+        current = {r['id']: evidence(r) for r in records}
+        if isinstance(dependencies, dict) and dependencies and all(
+                current.get(k) == v for k, v in dependencies.items()):
+            record_content_reuse('event_rejected', model, remembered.get('reason', '기존 사건'))
+            return {k: v for k, v in remembered.items() if k != 'dependencies'}
     related = set()
     # Scan EVERY history record in bounded batches; do not narrow by a coin,
     # publisher, language, or fixed list of news topics. Old title-only state is
@@ -240,8 +256,12 @@ JSON만 출력: {"decision":"duplicate|supplement|update|new|uncertain", "matche
             raise ValueError('missing evidence')
         if decision == 'update' and (not isinstance(result.get('new_fact'),str) or not result['new_fact'].strip()):
             raise ValueError('missing new fact')
-        return {'status':'hold' if decision == 'uncertain' else decision,'reason':reason,
-                'matched_id':match, 'new_fact':result.get('new_fact','')}
+        outcome = {'status':'hold' if decision == 'uncertain' else decision,'reason':reason,
+                   'matched_id':match, 'new_fact':result.get('new_fact','')}
+        if model and decision in ('duplicate', 'supplement'):
+            dependencies = {r['id']: evidence(r) for r in records if r['id'] in related}
+            content_result('event_rejected', outcome_scope, dict(outcome, dependencies=dependencies))
+        return outcome
     except (ValueError,TypeError,KeyError):
         return {'status':'hold','reason':'사건 비교 판정 확인 실패'}
 

@@ -2751,6 +2751,7 @@ def _build_footer_tags(story: dict, selected: list[EntitySpec]) -> list[str]:
 
 
 def _rewrite_summary(story: dict) -> str:
+    from news_review_cache import content_result, record_content_reuse
     title = str(story.get("title", "") or "")
     desc = str(story.get("desc", "") or "")
     get_source = _RUNTIME.get("get_best_source_text")
@@ -2758,8 +2759,10 @@ def _rewrite_summary(story: dict) -> str:
     source_text = str(source_text or "").strip()
     # Include the FULL collected source in identity, even when prompt text is bounded.
     scope = {key: str(story.get(key, '')) for key in ('url', 'title', 'pub')}
-    scope['source_sha256'] = fingerprint(source_text)
+    scope['source_sha256'] = fingerprint(re.sub(r'\s+', ' ', source_text).strip())
     scope['page_published_at'] = story.get('page_published_at', '')
+    scope['source_kind'] = story.get('_source_kind', 'provided_text')
+    scope['description_sha256'] = fingerprint(desc)
     story['_review_source_sha256'] = scope['source_sha256']
     # A headline alone is insufficient evidence for a factual brief.
     if not source_text or source_text == title.strip():
@@ -2770,6 +2773,24 @@ def _rewrite_summary(story: dict) -> str:
     if blocked:
         _log("[원문 제외:" + reason + "] " + title)
         return ""
+    # Fetch and check the current source BEFORE consulting completed outcomes.
+    # The policy identity includes the deployed editor and all policy modules.
+    model = _RUNTIME.get('OPENAI_MODEL')
+    outcome_scope = dict(scope, model=model, options=request_options(model))
+    remembered_outcome = content_result('source_summary', outcome_scope)
+    if remembered_outcome is not None and isinstance(remembered_outcome.get('summary'), str):
+        reason = remembered_outcome.get('reason', '이전 원문 검사 결과')
+        record_content_reuse('source_summary', model, reason)
+        if not remembered_outcome['summary']:
+            story['_preparation_reason'] = reason
+        return remembered_outcome['summary']
+
+    def finish(summary, reason):
+        content_result('source_summary', outcome_scope, {'summary': summary, 'reason': reason})
+        if not summary:
+            story['_preparation_reason'] = reason
+        return summary
+
     source_text = source_packet(story, source_text)
     repair_scope = dict(scope, model=_RUNTIME.get('OPENAI_MODEL'),
                         options=request_options(_RUNTIME.get('OPENAI_MODEL')),
@@ -2781,17 +2802,19 @@ def _rewrite_summary(story: dict) -> str:
     with review_context('summary', scope):
         summary = _call_openai(_summary_prompt(title, source_text) + '\n편집 범위 보완(위 일반 원칙의 제한적 예외):\n' + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE + COVERAGE_GUIDANCE + PORTFOLIO_GUIDANCE + ASSET_SCOPE_GUIDANCE)
     if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", summary or "", re.I):
-        return ""
+        return finish('', '요약 편집 단계의 명시적 제외 판정')
     summary = _clean_summary(summary)
     if len(summary) > HARD_SUMMARY_CHARS:
         with review_context('compression', scope):
             shorter = _call_openai(_compress_prompt(summary) + ADOPTION_RESEARCH_GUIDANCE + COVERAGE_GUIDANCE + PORTFOLIO_GUIDANCE + ASSET_SCOPE_GUIDANCE)
         if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", shorter or "", re.I):
-            return ""
+            return finish('', '요약 압축 단계의 명시적 제외 판정')
         summary = _clean_summary(shorter)
     # Never silently drop a second sentence containing a condition or denial.
     if not summary or len(summary) > HARD_SUMMARY_CHARS:
         _log("[요약 길이 검토대기] " + title)
+        if summary:
+            return finish('', '요약 압축 후에도 본문 길이 제한 초과')
         return ""
     decision = {}
     with review_context('source_review', scope):
@@ -2826,10 +2849,15 @@ def _rewrite_summary(story: dict) -> str:
                     if _validate_summary_against_source(title, source_text, repaired):
                         repair_memory(repair_scope, repaired)
                         _log('[요약 1회 보완 통과] ' + title)
-                        return repaired
+                        return finish(repaired, '원문 대조 및 1회 보완 통과')
         _log("[원문 대조 검토대기] " + title)
+        required = ('faithful', 'conditions_preserved', 'allowed_category',
+                    'new_substantive_fact', 'source_sufficient', 'understandable')
+        if decision.get('publish') is False and valid_checks(
+                json.dumps(decision, ensure_ascii=False), 'publish', required):
+            return finish('', '원문 대조 제외: ' + decision['reason'])
         return ""
-    return summary
+    return finish(summary, '원문 대조 통과 요약')
 
 
 def _validate_summary_against_source(title: str, source: str, summary: str, *, decision_out=None) -> bool:
@@ -2905,6 +2933,7 @@ def _summary_is_market_only(summary: str) -> bool:
 
 
 def build_message(story: dict) -> str:
+    story.pop('_preparation_reason', None)
     blocked, reason = _is_hard_blocked(story)
     if blocked:
         _log(f"[전송전 편집필터 제외:{reason}] {story.get('title', '')}")
@@ -2952,13 +2981,14 @@ def review_article_event(story, caption, posted):
     # Luna handles both retrieval and the final decision. An old search-model
     # environment variable must not silently restore a more expensive route.
     if _RUNTIME.get('OPENAI_MODEL') == 'gpt-6-luna':
-        return review_event(story, caption, posted, _call_openai)
+        return review_event(story, caption, posted, _call_openai, model=_RUNTIME.get('OPENAI_MODEL'))
     search_model = os.environ.get('OPENAI_EVENT_SEARCH_MODEL', '').strip()
     # Empty or the same model restores the original one-model search path.
     cheap_search = None
     if search_model and search_model != _RUNTIME.get('OPENAI_MODEL'):
         cheap_search = lambda prompt: _call_openai(prompt, model_override=search_model)
-    return review_event(story, caption, posted, _call_openai, search_model=cheap_search)
+    return review_event(story, caption, posted, _call_openai, search_model=cheap_search,
+                        model=_RUNTIME.get('OPENAI_MODEL'))
 
 
 def install_editor_overrides(runtime: dict) -> None:
