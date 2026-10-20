@@ -1,19 +1,5 @@
 {
   "posted": {
-    "52fd18849bcde378": {
-      "title": "ZAMA TVL 7500만달러 돌파…연 5% 신규 발행 구조",
-      "url": "www.tokenpost.kr/news/cryptocurrency/410961",
-      "signature": "action_expand | action_issue | action_launch | action_mint | amount_krw_104000000000 | amount_krw_108500000000 | amount_pct_5 | amount_usd_75000000 | amount_usd_78280000 | asset_eth | entity_모포",
-      "canonical_key": "action_expand | action_issue | action_launch | action_mint | amount_krw_104000000000 | amount_krw_108500000000 | amount_pct_5 | amount_usd_75000000 | amount_usd_78280000 | asset_eth | entity_모포",
-      "ts": "2026-09-20T02:02:17.360773+00:00"
-    },
-    "0a4a83a5f00c2b06": {
-      "title": "리도, 정규 클러스터 72개 종료…CSM 전환",
-      "url": "www.tokenpost.kr/news/blockchain/410960",
-      "signature": "action_convert | action_disclose | action_launch | action_propose | asset_eth | count_people_240 | count_people_4 | entity_csm | entity_리도 | object_disclosure | object_infrastructure | object_staking_proposal",
-      "canonical_key": "action_convert | action_disclose | action_launch | action_propose | asset_eth | count_people_240 | count_people_4 | entity_csm | entity_리도 | object_disclosure | object_infrastructure | object_staking_proposal",
-      "ts": "2026-09-20T02:02:27.297223+00:00"
-    },
     "14ad437b7c7ec455": {
       "title": "[로빈후드 온체인] 에이전트 웜홀 보유 지갑이 하루 새 836개 늘어...넷플릭스 거래 7.6배",
       "url": "www.tokenpost.kr/news/blockchain/411005",
@@ -2431,6 +2417,24 @@
       "ts": "2026-10-19T23:36:51.820671+00:00",
       "summary": "#저스틴선 #트론 창업자가 주식 소유권을 블록체인상의 디지털 증서로 옮긴 #토큰화 주식의 2026년 4분기 공모를 첫 단계로 제시하고, #미국 국채도 트론 네트워크에 도입하는 구상을 내놓음\n\n새 입법 없이 기존 #CFTC · #SEC 지원 틀로 추진할 수 있다는 주장은 선 창업자의 견해임",
       "source_pub": "Mon, 19 Oct 2026 22:10:16 +0000"
+    },
+    "7343ce3ed6eb6bd6": {
+      "title": "영란은행 부총재, IMF 이어 한은 찾았다⋯글로벌 토큰화 실험 '동맹' 구축",
+      "url": "www.etoday.co.kr/news/view/2637817",
+      "signature": "action_build | entity_imf | geo_korea",
+      "canonical_key": "action_build | entity_imf | geo_korea",
+      "ts": "2026-10-20T04:06:54.100846+00:00",
+      "summary": "사라 브리든 영란은행 금융안정 담당 부총재가 한국은행을 방문해 프로젝트 한강의 진행 상황과 자산 #토큰화 현안을 논의하고, 양국 중앙은행이 토큰화 사업 협력을 강화하기로 함\n\n프로젝트 한강 2단계는 한국은행의 기관용 #디지털화폐 와 시중은행의 예금토큰을 활용한 지급결제를 검증하는 파일럿임",
+      "source_pub": "Tue, 20 Oct 2026 12:04:00 +0900"
+    },
+    "309784741d91ed9a": {
+      "title": "美 SEC, 가상자산 규제안 의견수렴 마감…약 140건 접수",
+      "url": "bloomingbit.io/feed/news/122531",
+      "signature": "action_propose | entity_sec",
+      "canonical_key": "action_propose | entity_sec",
+      "ts": "2026-10-20T04:08:53.498303+00:00",
+      "summary": "#미국 #SEC 가 암호화폐 규제안에 대한 공개 의견수렴을 마감했으며, 약 60일간 업계 단체와 개인으로부터 약 140건의 의견을 접수함\n\n규제안은 투자계약에 적용할 기준을 명확히 하고, 일정 요건을 충족한 #토큰 발행자에 대한 면책과 일부 소규모 발행의 #규제 면제를 제안함",
+      "source_pub": "Mon, 19 Oct 2026 15:34:00 -0700"
     }
   },
   "source_baselines": {
@@ -2623,50 +2627,6 @@
   },
   "ai_review": {
     "entries": {
-      "4aa6842f8441d6cf962b00514513b7a0d3d870893720180074fa03ea301a8a10": {
-        "text": "코인베이스와 마케타가 가상자산·일반 기업을 포함한 마케타 기업 고객을 대상으로 스테이블코인을 결제 자금으로 쓰는 카드 서비스를 출시할 계획임\n\n코인베이스는 스테이블코인 수탁과 법정화폐 전환을, 마케타는 카드 발급·결제 처리를 맡으며 온체인 정산에는 베이스를 활용함. 출시 일정과 지원 스테이블코인, 수수료는 공개되지 않음",
-        "expires": 1792466331.232866
-      },
-      "0974ea3703ba03f6df9c0c209da1b0abdd3643d4f2eb6ab0d04696bffb3dc2c3": {
-        "text": "{\"publish\":true,\"reason\":\"코인베이스와 마케타의 구체적인 기업용 스테이블코인 카드 서비스 출시 계획이며, 일정·지원 스테이블코인·수수료 미공개 조건도 보존함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792466335.796102
-      },
-      "9b759361d5c44719a0946d71e74fc05753290bbe0f13c3dc61e4f86d5f4940f1": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792466338.800335
-      },
-      "213154848fb1616f0db7be8f08bce442a8d1715041547e8cc3e1edebac4b497a": {
-        "text": "{\"related_ids\":[\"1dc1b064300168cc\"]}",
-        "expires": 1792466342.1525345
-      },
-      "dd77e9dc7b755c7e2032f45e559a215831d77386b02fb48a687ef80adaad3d7a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792466344.0871663
-      },
-      "323ce0e8e67cfe6a598454eea0ce81fc8fe01c726c6d2eaf8397ccc32fc5d16d": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1792466346.2024765
-      },
-      "4e0601e68701dbdd614d24c9f44c8ad1d9a3737a728fd7597e48eccdd23fd2c9": {
-        "text": "{\"decision\":\"duplicate\",\"matched_id\":\"1dc1b064300168cc\",\"reason\":\"코인베이스와 마케타의 기업용 스테이블코인 카드 사업 추진이라는 동일한 제휴·행동·대상이다. 후보는 출시 계획을 다시 보도했으며 새 조치를 추가하지 않았다.\",\"new_fact\":\"\"}",
-        "expires": 1792466348.987092
-      },
-      "f6b695424f66d0c0d28311de4cefb2224ecdde61a71ed99102eb1f4f8b0112f8": {
-        "text": "{\"publish\":true,\"reason\":\"일본 3대 은행의 구체적인 스테이블코인 실증 결과와 거래 개시 목표를 조건에 맞게 전달함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1792466402.818385
-      },
-      "8b223d6fe9a09c0958cc14b637a7877ea5a979ecf529549f235cd04ee6acf7fc": {
-        "text": "{\"approved\":false,\"reason\":\"이미지는 이더리움(ETH) 심볼만 보여 줍니다. 기사의 핵심은 Ethereum Institutional의 미국 책임자 선임과 데이비드 두옹이며, 심볼만으로 해당 기관이나 인물을 식별할 수 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false}}",
-        "expires": 1792467379.4300942
-      },
-      "86952120354ad0b96240080eacece76df41c852af3a7ace7af4b4740bf98d407": {
-        "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 이더리움 인스티튜셔널의 데이비드 두옹 영입인데, 이미지는 해당 회사나 인물 대신 이더리움 코인 로고만 보여준다. 이더리움은 기사 맥락의 배경 자산일 뿐 대표 이미지로 적합하지 않다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
-        "expires": 1792467383.4016633
-      },
-      "bd5a8b05902afb72c1bd950c3f56507b6d64c95c5785784a7fa1f85a5e0c50be": {
-        "text": "{\"decision\":\"uncertain\",\"matched_id\":\"03b239e6fd7a54f1\",\"reason\":\"기록 제목상 CME의 BCH·UNI 선물 출시 발표와 같은 사업으로 보이지만, 과거 기사 본문이 없어 출시 시점이 새로 확정·변경된 것인지 확인할 수 없습니다. 후보도 규제 검토를 전제로 한 예정이라고만 밝혀 새 조치가 확인되지 않습니다.\",\"new_fact\":\"\"}",
-        "expires": 1792467466.9334316
-      },
       "2e5b34bc7f15eb3d408575dacc0c061e076ead11a9a71cf34b44e524dcaec142": {
         "text": "{\"related_ids\":[]}",
         "expires": 1792470495.4696896
@@ -2994,6 +2954,26 @@
       "5f8e3c892785d781f3d36b201299aaba6c377eeaffecb46598f9eb91bf399626": {
         "text": "{\"related_ids\":[\"764e432b27115b0c\"]}",
         "expires": 1792488792.3705397
+      },
+      "7eaac2f787eb846b099aaec68d6c62a1ed73a2828c2d507dc0e153383307bd9d": {
+        "text": "{\"publish\":false,\"reason\":\"블랙록의 ETF 등록 신청이라는 새 소식은 허용 범주이나, 요약에서 SEC와 ETF를 설명하지 않아 이해 가능성 기준을 충족하지 못함.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1792490837.0843832
+      },
+      "3eb1aa09c9d9aa51746ffd7f8fd15e111225e907790419ab83ecb6b1144dfc1d": {
+        "text": "{\"publish\":false,\"reason\":\"신청 단계와 출시 승인 미확정 조건은 보존했으나, ETF와 SEC를 설명하지 않아 이해 가능성 기준을 충족하지 못함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1792490844.8651843
+      },
+      "1f327d97fdae969c03acea08899e1d765a556f2a583b0c362568c2a98833afe4": {
+        "text": "{\"publish\":false,\"reason\":\"정치자금 집행 공개는 허용 범주이나, FEC가 무엇인지 설명하지 않아 이해 가능성 기준을 충족하지 못함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1792490866.2305076
+      },
+      "168dcf92dbb45bc9555e4df305461c2a77274eb5c03bfabd9881df921eadc617": {
+        "text": "{\"publish\":false,\"reason\":\"사실관계와 금액은 원문과 일치하지만, 기관명을 한국어로 표기하라는 기준을 지키지 않음.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792490880.0488446
+      },
+      "7afaeabee54e357582fdab0810edc0ef3179c8c6fd28ba3be5b59df1634939de": {
+        "text": "{\"publish\":false,\"reason\":\"미국 우선 도입을 이미 완료한 사실로 서술해 원문의 도입 계획과 단계가 달라짐\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792490968.9693518
       },
       "f29eeb16221d44927ccf156b77e6e7f66047e33f5e9d3f52857f6d81ba4d31f4": {
         "text": "코인베이스의 암호화폐 담보 대출 잔액이 10월 17일 기준 23억달러로 집계됨\n\n뉴욕주를 제외한 미국 이용자는 비트코인과 XRP·DOGE·ADA·LTC 등을 담보로 USDC를 빌릴 수 있음",
@@ -6299,6 +6279,186 @@
         "text": "미국 증권거래위원회(SEC)가 8월 제안한 ‘암호화폐 자산 규정’의 공개 의견 수렴을 종료할 예정임",
         "expires": 1792724908.3888335
       },
+      "c968e7079bf7b63146e6fb19f73f0df9488902854143899a3d7d735544d8023e": {
+        "text": "사라 브리든 영란은행 금융안정 담당 부총재가 한국은행을 방문해 프로젝트 한강의 진행 상황과 자산 토큰화 현안을 논의하고, 양국 중앙은행이 토큰화 사업 협력을 강화하기로 함\n\n프로젝트 한강 2단계는 한국은행의 기관용 디지털화폐와 시중은행의 예금토큰을 활용한 지급결제를 검증하는 파일럿임",
+        "expires": 1792728382.4009783
+      },
+      "0da616947d447b6e331cb8728d4c4b4be05823f8070989bf47269bfc91d2b683": {
+        "text": "{\"publish\":true,\"reason\":\"영란은행 부총재의 한은 방문과 토큰화 협력 논의, 프로젝트 한강 2단계의 시범사업 내용이 원문에 확인됨.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792728394.093826
+      },
+      "ea6f25790e7fbc17a66321b1a6a37fde6337cdcbc9338e4518a89054e11563cd": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728396.6582065
+      },
+      "80f97c1b9f1d53a84cbc7dd6e4824105e707622fc9ffab8b5a7e54562964389c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728400.2781322
+      },
+      "1e64bd8c89f266767edfd424f19fd63337f264f8ea44becd82f9ed980f0ebbfb": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728402.3163993
+      },
+      "be06752763e649544a6bdd7357f26299115da8f920d194d321ccfddf77aedf76": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728405.0771463
+      },
+      "b9f2f69b741ff13dbc8a8d90a7cfda0680196605538bed26698f1ecba9cac511": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 당사자인 사라 브리든 영란은행 부총재가 선명하게 보이며, 배경의 영란은행 표기도 확인된다. 인물 사진이 기사 속 방문·협력 논의와 직접 관련 있다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792728410.8473043
+      },
+      "76704a2d1c3394d36e34b63e064318c11d76031e81b2fca9da60666df272fdd0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728419.1443996
+      },
+      "910cbf0b3ee69720230c98dd2ea3056f17cae9fe2f9ad868aa1c9725a101b74f": {
+        "text": "{\"related_ids\":[\"59181e8930d9cb4e\"]}",
+        "expires": 1792728421.4788742
+      },
+      "0da81d3a2c762b9cdec62e88da720e588a53ea92c4e1de67e2de67640943e73f": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728425.3562908
+      },
+      "35e2dd6ef34c79a65f728c8acd2d4511577173d9945d69301a10e2494b6ec431": {
+        "text": "블랙록이 기존 비트코인 현물 ETF인 IBIT를 기반으로 가격 상승 수익을 일정 한도까지 제공하고 하락 손실을 일부 방어하는 ETF의 등록 신청서를 SEC에 제출함\n\n신청서 제출 단계로, 상품 출시 승인은 확인되지 않음",
+        "expires": 1792728430.6243727
+      },
+      "ad1b0664254043de884ee7c08a96309fd5faf9f247c7db0fb9cf0a02b04eb830": {
+        "text": "블랙록이 기존 비트코인 현물 ETF인 아이셰어즈 비트코인 트러스트(IBIT)를 기반으로, 상승 수익을 일정 한도까지 제공하고 하락 손실을 일부 방어하는 상장지수펀드(ETF)의 등록 신청서를 미국 증권거래위원회(SEC)에 제출함.\n\n신청 단계이며 상품 출시 승인은 확인되지 않음",
+        "expires": 1792728440.1549923
+      },
+      "9f5b5abad4111e613e5d5a8d9752718eb4ba76331028aa91718764fc775db2dc": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728447.2447445
+      },
+      "693f2212a22f0fafae42e6ff3ecdd1d1b68afe74de8132533adeaea8ddaf393f": {
+        "text": "{\"related_ids\":[\"936c292d9decb1ed\"]}",
+        "expires": 1792728449.2151322
+      },
+      "1934065d6040d36c64411da89bd9bf5e0058479ca60eb8d9c9b4bcb020ef59e6": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728452.0033634
+      },
+      "a42811cfd8d209714755cfb06ec89413e033f9c330c904a85c84bef945d7bd58": {
+        "text": "페어셰이크 산하 프로텍트 프로그레스가 캘리포니아주 연방 하원 14선거구의 민주당 현역 의원 아이샤 와합을 지원하는 광고에 36만2000달러를 지출했다고 FEC에 신고함",
+        "expires": 1792728458.350063
+      },
+      "63a17faaf05c116b75b5dc4f28a38844befcbcd15695fd4364ecf8a1d9c06703": {
+        "text": "페어셰이크 산하 프로텍트 프로그레스가 캘리포니아주 연방 하원 제14선거구 민주당 현역 의원 아이샤 와합을 지원하는 광고에 36만2000달러를 지출했다고 연방선거위원회(FEC)에 신고함",
+        "expires": 1792728471.6362927
+      },
+      "334a9e9eeb91de12ba2bd55251e454d736927e6d55b0aab09c3f01e5c44d7145": {
+        "text": "미국 SEC가 가상자산 규제안에 대한 공개 의견수렴을 마감했으며, 약 60일간 업계 단체와 개인으로부터 약 140건의 의견을 접수함\n\n규제안은 투자계약에 적용할 기준을 명확히 하고, 일정 요건을 충족한 토큰 발행자에 대한 면책과 일부 소규모 발행의 규제 면제를 제안함",
+        "expires": 1792728492.0765665
+      },
+      "d5a71d5a52117d5f090261b7158375578a4b39aa789683f6d5035fccde50fe23": {
+        "text": "{\"publish\":true,\"reason\":\"SEC 규제안의 의견수렴 마감과 약 140건의 접수, 규제안이 제안 단계라는 점을 원문에 맞게 요약함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792728498.9559941
+      },
+      "a5670767617011020307086747d027d0e81046d215f9f7a1d82699207bca1c8a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728515.0348823
+      },
+      "7cd710eabfdb0c9d992a6ab8d6c703290e10ec45df925d097becc046c44a2e29": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728519.0052063
+      },
+      "c7f0502ad5f061751e494cc361fa2f33310d93ebb82575a043ecc1af29e55c9a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728520.5774982
+      },
+      "479757441750a2a880b768094dfb37aa96cb068be6ecc4224bdf9e8dbc912573": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728525.0627263
+      },
+      "fa6796a99e72bc35699f6e946063cac62f8d115ca5669c56c1942847ed8afcfa": {
+        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 주체는 가상자산 규제안 의견수렴을 마감한 미국 SEC이며, 이미지에는 SEC 건물과 공식 표식이 선명하게 보인다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true}}",
+        "expires": 1792728531.4975808
+      },
+      "cbf12754e0846dc0a93a013174edf98e05d8c2759dea430a9beb7102f3b059d9": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728541.754011
+      },
+      "2779aa87d5476dda4c7363f50e5ab75fe02bb25d0cd7dd7664590f112afd2673": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728544.541184
+      },
+      "6442ed07939032fdbf8f0e2c2dfba5f59f5aaa7facc8b2dc5b522537c8e080ea": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728547.8983467
+      },
+      "d142e20123f63c8d11cd32dab6066a62086d22f4adb37ccebde34b82bda0f55a": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728551.0971465
+      },
+      "b65999d09a2f0c0639fab26886fdb21e1fae57e58889025fb0bd2e890c621712": {
+        "text": "{\"related_ids\":[\"59181e8930d9cb4e\"]}",
+        "expires": 1792728553.2162735
+      },
+      "6c3929c22dda05ee753147d143bd584015a4fea159815939b3b20f279c2d8735": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728555.052099
+      },
+      "4556f2c567887da0299ec10976153f4fb99b17a833f543aa5896867e76bbaa96": {
+        "text": "마스터카드가 스테이블코인 거래의 자금 출처와 사기·제재 위반 가능성, 거래 맥락을 분석해 금융기관에 위험 점수를 제공하는 ‘스테이블코인 시큐리티’를 출시함\n\n미국에 우선 도입하고 2027년부터 전 세계에 상용화할 계획임",
+        "expires": 1792728572.9130542
+      },
+      "69f61c2c1373cb5c59f0a5da4d6f4728ba3a6363bf9edcf3a14e63e5b46b6176": {
+        "text": "{\"publish\":true,\"reason\":\"마스터카드의 스테이블코인 거래 위험 평가 서비스 출시와 미국 우선 도입, 2027년 세계 상용화 계획이 원문과 일치함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792728576.199696
+      },
+      "3a336cbf3122aa8dfc8dcab068c1e88de7a08a27b3b436b6ee212320bd37b636": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728578.0905614
+      },
+      "0b3af012cd0589c376b22a7b3de813b662935bda7b50ee8fc56ecc026e05f72b": {
+        "text": "{\"related_ids\":[\"936c292d9decb1ed\"]}",
+        "expires": 1792728581.1152358
+      },
+      "1a875d492902366d3e09881f00032a4ea9010453d130797e8bc52036cfb2b8e5": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728582.8492875
+      },
+      "6728a2cd5170b6ccfb29e107e4a7243837dca1472892ffc2ecb6359e01ddf7e1": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728584.7232597
+      },
+      "34da4d614d95b2c4511349fa983b4dcda4ca7a5e242fa8c3355bf0ad8249259a": {
+        "text": "{\"decision\":\"supplement\",\"matched_id\":\"936c292d9decb1ed\",\"reason\":\"마스터카드의 스테이블코인 위험 탐지 서비스 출시로 같은 사건이다. 후보는 위험 분석 내용과 미국 우선 도입, 2027년 세계 상용화 계획을 보충한다.\",\"new_fact\":\"\"}",
+        "expires": 1792728588.0415075
+      },
+      "329821afce12c4ebe60a802d69a17fa36913f0e0ab7c608a25ea7bd5a8c3a6ca": {
+        "text": "{\"publish\":true,\"reason\":\"푸틴의 3자 정상회담 제안과 중국의 조건부 입장, 트럼프의 미정 상태가 보도돼 외교 관련 새 소식에 해당함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1792728592.0017955
+      },
+      "e8840f1b1b98330b9e6f8db762dc5354d51e6e21b311953aeaa5cdd2959d9748": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728602.2298448
+      },
+      "0892c9ef97f4d5d23f327a500ac8d0e1027b9bb792a37b8b6435cac36768778c": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728603.6776755
+      },
+      "64b9ec40ba6bc53af0499c7e7055c3b91c62e37e4aa7bdbd833b0c136f1c51d0": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728606.0917337
+      },
+      "9e4837bec1bc3cd2e8eaa0250c93bf52dbe822c7bc1e4d42033c12186f7aaefc": {
+        "text": "{\"related_ids\":[\"77c6897eda62feeb\"]}",
+        "expires": 1792728608.3863316
+      },
+      "ac3ca547766f81816e1d28f1b6ac9fb934d3e2d7170a3a6006c3be32c83161a3": {
+        "text": "{\"related_ids\":[\"cce203cad32acc3f\"]}",
+        "expires": 1792728624.7764876
+      },
+      "30ed97992a387fa467502f86c16e42e472543f3a3e22757ce297da89df32a4db": {
+        "text": "{\"related_ids\":[]}",
+        "expires": 1792728626.8934803
+      },
+      "dd87e572b69093289edbc9c88b0fe67686f73c682c0dec3c8216eac8a0148e77": {
+        "text": "{\"related_ids\":[\"a482184afceb1123\"]}",
+        "expires": 1792728630.9298296
+      },
       "84ebef64b03bb5f55cf9d0a345dc9b279768313933de53919ce196077b02e99e": {
         "text": "{\"related_ids\":[]}",
         "expires": 1793866420.0351858
@@ -9455,98 +9615,87 @@
       "2026-10-20": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 16,
-            "cache_hits": 86,
+            "api_calls": 20,
+            "cache_hits": 117,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 130336,
+            "input_tokens": 163189,
             "cached_input_tokens": 0,
-            "output_tokens": 1784,
-            "reasoning_tokens": 1090,
-            "estimated_usd": 0.0171828,
+            "output_tokens": 2735,
+            "reasoning_tokens": 1704,
+            "estimated_usd": 0.021764625,
             "unpriced_calls": 0,
-            "cache_write_tokens": 130288
+            "cache_write_tokens": 163129
           },
           "source_review": {
-            "api_calls": 30,
-            "cache_hits": 28,
+            "api_calls": 39,
+            "cache_hits": 42,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 224592,
+            "input_tokens": 292451,
             "cached_input_tokens": 0,
-            "output_tokens": 10706,
-            "reasoning_tokens": 8057,
-            "estimated_usd": 0.03342475,
+            "output_tokens": 13862,
+            "reasoning_tokens": 10435,
+            "estimated_usd": 0.04348445,
             "unpriced_calls": 0,
-            "cache_write_tokens": 224502
+            "cache_write_tokens": 292334
           },
           "summary_repair": {
-            "api_calls": 5,
+            "api_calls": 8,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 21073,
+            "input_tokens": 33808,
             "cached_input_tokens": 0,
-            "output_tokens": 991,
-            "reasoning_tokens": 632,
-            "estimated_usd": 0.00312925,
+            "output_tokens": 1508,
+            "reasoning_tokens": 897,
+            "estimated_usd": 0.0049794,
             "unpriced_calls": 0,
-            "cache_write_tokens": 21058
+            "cache_write_tokens": 33784
           },
           "event_search": {
-            "api_calls": 34,
-            "cache_hits": 62,
+            "api_calls": 65,
+            "cache_hits": 67,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 321460,
+            "input_tokens": 631250,
             "cached_input_tokens": 0,
-            "output_tokens": 2519,
-            "reasoning_tokens": 2058,
-            "estimated_usd": 0.04143945,
+            "output_tokens": 5294,
+            "reasoning_tokens": 4432,
+            "estimated_usd": 0.081548375,
             "unpriced_calls": 0,
-            "cache_write_tokens": 321358
+            "cache_write_tokens": 631055
           },
           "event_decision": {
-            "api_calls": 6,
-            "cache_hits": 15,
+            "api_calls": 7,
+            "cache_hits": 20,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 4193,
+            "input_tokens": 4847,
             "cached_input_tokens": 0,
-            "output_tokens": 1172,
-            "reasoning_tokens": 597,
-            "estimated_usd": 0.0010053,
+            "output_tokens": 1352,
+            "reasoning_tokens": 699,
+            "estimated_usd": 0.0011607,
             "unpriced_calls": 0,
             "cache_write_tokens": 0
           },
           "image_review": {
-            "api_calls": 0,
-            "cache_hits": 6,
+            "api_calls": 2,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 0,
+            "input_tokens": 5152,
             "cached_input_tokens": 0,
-            "output_tokens": 0,
-            "reasoning_tokens": 0,
-            "estimated_usd": 0.0,
-            "unpriced_calls": 0
+            "output_tokens": 283,
+            "reasoning_tokens": 63,
+            "estimated_usd": 0.00078535,
+            "unpriced_calls": 0,
+            "cache_write_tokens": 5146
           }
         }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-12T15:04:02.460078+00:00",
-        "elapsed_seconds": 2932.92,
-        "status": "completed",
-        "api_calls": 43,
-        "cache_hits": 21,
-        "errors": 0,
-        "published": 1,
-        "estimated_usd": 0.043449225,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-12T16:01:22.536363+00:00",
         "elapsed_seconds": 2854.948,
@@ -11548,6 +11697,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.005287375,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-10-20T03:10:12.063349+00:00",
+        "elapsed_seconds": 3628.573,
+        "status": "completed",
+        "api_calls": 50,
+        "cache_hits": 57,
+        "errors": 0,
+        "published": 2,
+        "estimated_usd": 0.05754135,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -28418,6 +28579,18 @@
       "a01204da2ed0f083277f702718205bb8a0711290ebe018aef8cfa776dd7c5519": {
         "summary": "JP모건이 달러 예금 토큰 JPMD를 이더리움에서 출시함\n\nJPMD는 JP모건에 예치된 달러에 대한 청구권이며 승인된 기관 고객만 보유·이체할 수 있고, 앞서 베이스에서도 출시됐음",
         "expires": 1793065955.8379424
+      },
+      "00cbc60b947e2a485f49cf5c4d35626b557a69791e0a206028f7eb229d256ea1": {
+        "summary": "",
+        "expires": 1793074037.111413
+      },
+      "f8da956245b4494894b76ab06f78abfa73c7e475f8fe40eb16d59e234bca6a54": {
+        "summary": "",
+        "expires": 1793074066.2580686
+      },
+      "c4a8a206204d5d61bb4b52d1bc02133dfbe8e729e28e235470b06d06637ab80c": {
+        "summary": "마스터카드가 스테이블코인 거래의 자금 출처와 사기·제재 위반 가능성, 거래 맥락을 분석해 금융기관에 위험 점수를 제공하는 ‘스테이블코인 시큐리티’를 출시함\n\n미국에 우선 도입하고 2027년부터 전 세계에 상용화할 계획임",
+        "expires": 1793074176.2279654
       }
     }
   }
