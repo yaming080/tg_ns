@@ -2751,7 +2751,7 @@ def _build_footer_tags(story: dict, selected: list[EntitySpec]) -> list[str]:
 
 
 def _rewrite_summary(story: dict) -> str:
-    from news_review_cache import content_result, record_content_reuse
+    from news_review_cache import content_result, record_content_reuse, audit_source_identity
     title = str(story.get("title", "") or "")
     desc = str(story.get("desc", "") or "")
     get_source = _RUNTIME.get("get_best_source_text")
@@ -2776,8 +2776,16 @@ def _rewrite_summary(story: dict) -> str:
     # Fetch and check the current source BEFORE consulting completed outcomes.
     # The policy identity includes the deployed editor and all policy modules.
     model = _RUNTIME.get('OPENAI_MODEL')
-    outcome_scope = dict(scope, model=model, options=request_options(model))
+    legacy_scope = dict(scope, model=model, options=request_options(model))
+    # The actual source digest already covers RSS text when it is the fallback.
+    # RSS teaser edits are not new evidence when the fetched article is unchanged.
+    outcome_scope = {k: v for k, v in legacy_scope.items() if k != 'description_sha256'}
     remembered_outcome = content_result('source_summary', outcome_scope)
+    if remembered_outcome is None:
+        remembered_outcome = content_result('source_summary', legacy_scope)
+        if remembered_outcome is not None:
+            content_result('source_summary', outcome_scope, remembered_outcome)
+    audit_source_identity(legacy_scope, remembered_outcome is not None)
     if remembered_outcome is not None and isinstance(remembered_outcome.get('summary'), str):
         reason = remembered_outcome.get('reason', '이전 원문 검사 결과')
         record_content_reuse('source_summary', model, reason)

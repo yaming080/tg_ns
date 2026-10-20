@@ -277,6 +277,25 @@ def editorial_identity():
     return fingerprint([(p.name, hashlib.sha256(p.read_bytes()).hexdigest()) for p in paths])
 
 
+@lru_cache(maxsize=1)
+def compatible_identity():
+    """Allow audited release migrations only with the complete release intact.
+
+    The manifest is outside the Python policy identity to avoid a self-hash.
+    Any future/mixed source edit disables migration, including cache code edits.
+    """
+    try:
+        root = Path(__file__).resolve().parent
+        manifest = json.loads((root / 'news_cache_compatibility.json').read_text(encoding='utf8'))
+        if manifest['current_identity'] == editorial_identity():
+            previous = manifest.get('previous_identities', [manifest['previous_identity']])
+            if isinstance(previous, list) and all(isinstance(p, str) for p in previous):
+                return tuple(previous)
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    return None
+
+
 def content_result(kind, scope, result=None):
     """Persist a completed pipeline outcome independently of request-cache churn.
 
@@ -295,11 +314,55 @@ def content_result(kind, scope, result=None):
     if result is not None:
         records[key] = {'result': result, 'expires': now + CONTENT_TTL}
     entry = records.get(key)
+    migrated = False
+    if entry is None and result is None and kind in {
+            'source_summary', 'image_held', 'event_rejected', 'negative_request', 'event_search_index'}:
+        previous = compatible_identity()
+        # Check the live identity too: a changed policy never inherits this release.
+        try:
+            manifest = json.loads((Path(__file__).resolve().parent /
+                                   'news_cache_compatibility.json').read_text(encoding='utf8'))
+        except (OSError, ValueError):
+            manifest = {}
+        if previous and manifest.get('current_identity') == editorial_identity():
+            for identity in previous:
+                old_key = fingerprint([VERSION, identity, kind, scope])
+                entry = records.get(old_key)
+                if entry is not None:
+                    records[key] = records.pop(old_key)  # Preserve original expiration.
+                    migrated = True
+                    break
     store.data['content_results_v1'] = dict(sorted(
         records.items(), key=lambda pair: pair[1]['expires'])[-MAX_CONTENT_RESULTS:])
-    if result is not None:
+    if result is not None or migrated:
         store.persist()
     return dict(entry['result']) if entry else None
+
+
+def audit_source_identity(scope, reused):
+    """Bounded input-hash diagnostics; never retain source text or credentials."""
+    store = _STORE.get()
+    if store is None:
+        return
+    now = store.clock()
+    records = store.data.setdefault('source_identity_v1', {})
+    records = {k: v for k, v in records.items()
+               if isinstance(v, dict) and isinstance(v.get('expires'), (int, float))
+               and v['expires'] > now}
+    key = fingerprint(scope.get('url', ''))
+    current = {k: fingerprint(v) for k, v in scope.items() if k != 'url'}
+    current['policy'] = editorial_identity()
+    old = records.get(key, {}).get('inputs', {})
+    changed = sorted(k for k in set(old) | set(current) if old.get(k) != current.get(k))
+    if not reused:
+        reason = ','.join(changed) if old and changed else (
+            '동일 입력: 저장 결과 없음/만료 또는 미완료' if old else '입력 추적 첫 기록')
+        store.log('[재검토 후보 입력] ' + reason + ' | ' +
+                  ' '.join(str(scope.get('title', '')).split())[:160])
+    records[key] = {'inputs': current, 'expires': now + CONTENT_TTL}
+    store.data['source_identity_v1'] = dict(sorted(
+        records.items(), key=lambda pair: pair[1]['expires'])[-1000:])
+    store.persist()
 
 
 def record_content_reuse(kind, model, reason):

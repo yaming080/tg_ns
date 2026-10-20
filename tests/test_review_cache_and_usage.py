@@ -172,7 +172,7 @@ class ReviewCacheTests(unittest.TestCase):
                 approved='bmV3LWltYWdl' in str(payload)
                 return response(checks('approved',images.IMAGE_CHECKS,approved))
             if '"related_ids"' in payload:
-                data, _ = json.JSONDecoder().raw_decode(payload[payload.index('{"candidate"'):])
+                data, _ = json.JSONDecoder().raw_decode(payload.split('\n', 1)[1])
                 return response(json.dumps({'related_ids':[], 'uncertain':False,
                                             'checked_count':len(data['history'])}))
             if '"publish"' in payload:

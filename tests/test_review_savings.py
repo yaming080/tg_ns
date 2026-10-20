@@ -10,7 +10,11 @@ import news_review_cache as cache
 
 
 def payload(prompt):
-    return json.JSONDecoder().raw_decode(prompt[prompt.index('{"candidate"'):])[0]
+    # Read the actual request envelope, including the compact production form.
+    data = json.JSONDecoder().raw_decode(prompt.split('\n', 1)[1])[0]
+    if 'history_columns' in data:
+        data['history'] = [dict(zip(data['history_columns'], row)) for row in data['history']]
+    return data
 
 
 def mini_result(prompt, uncertain=False, ids=None):

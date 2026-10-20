@@ -85,8 +85,16 @@ class LunaMigrationTests(unittest.TestCase):
         match=next(r['id'] for r in history_records(posted) if r.get('url')=='https://example.org/old')
         for decision in ['new','update','duplicate','supplement','uncertain']:
             client=Mock()
-            client.responses.create.side_effect=[response(json.dumps({'related_ids':[match]})),
-                response(json.dumps({'decision':decision,'reason':'evidence','matched_id':match,'new_fact':'new launch'}))]
+            def answer(**kwargs):
+                prompt = kwargs['input']
+                if '"related_ids"' in prompt:
+                    data = json.loads(prompt.rsplit('\n', 1)[-1])
+                    rows = [dict(zip(data['history_columns'], row)) for row in data['history']]
+                    return response(json.dumps({'related_ids': [r['id'] for r in rows
+                                              if r['title'] == posted['old']['title']]}))
+                return response(json.dumps({'decision':decision,'reason':'evidence',
+                                            'matched_id':match,'new_fact':'new launch'}))
+            client.responses.create.side_effect=answer
             with patch.object(editor,'_RUNTIME',{'openai_client':client,'OPENAI_MODEL':MODEL}), \
                  patch.dict(editor.os.environ,{'OPENAI_EVENT_SEARCH_MODEL':'gpt-5.4-mini'}):
                 result=editor.review_article_event(story,'Flare launches a new service',posted)

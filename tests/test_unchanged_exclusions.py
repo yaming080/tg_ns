@@ -16,6 +16,14 @@ FIELDS = ('faithful', 'conditions_preserved', 'allowed_category',
 SUMMARY = '리플이 싱가포르에서 XRP 결제 서비스 정식 라이선스를 취득했다고 밝힘'
 
 
+def matching_reference(prompt, title):
+    data = json.loads(prompt.rsplit('\n', 1)[-1])
+    rows = data['history']
+    if 'history_columns' in data:
+        rows = [dict(zip(data['history_columns'], r)) for r in rows]
+    return [r['id'] for r in rows if r['title'] == title]
+
+
 def answer(text, status='completed'):
     return SimpleNamespace(output_text=text, status=status, usage=None)
 
@@ -70,7 +78,7 @@ class UnchangedExclusionsTests(unittest.TestCase):
         self.assertEqual(self.client.responses.create.call_count, 2)
         self.assertIn('원문 대조 제외', self.s['_preparation_reason'])
 
-    def test_changed_source_title_date_provenance_description_and_model_recheck(self):
+    def test_changed_evidence_rechecks_but_redundant_description_does_not(self):
         self.client.responses.create.return_value = answer('SKIP')
         self.run_editor()
         for changes in ({'article_text': self.s['article_text'] + ' A new country was added.'},
@@ -80,7 +88,7 @@ class UnchangedExclusionsTests(unittest.TestCase):
             self.run_editor(dict(self.s, **changes))
         self.runtime['OPENAI_MODEL'] = 'gpt-5.4'
         self.run_editor()
-        self.assertEqual(self.client.responses.create.call_count, 8)
+        self.assertEqual(self.client.responses.create.call_count, 7)
 
     def test_changed_policy_does_not_reuse_completed_source_summary(self):
         self.client.responses.create.return_value = answer('SKIP')
@@ -216,7 +224,7 @@ class UnchangedExclusionsTests(unittest.TestCase):
         def model(prompt):
             calls.append(prompt)
             if '"related_ids"' in prompt:
-                return json.dumps({'related_ids': [target]})
+                return json.dumps({'related_ids': matching_reference(prompt, history['a']['title'])})
             return json.dumps({'decision': 'duplicate', 'reason': '동일한 승인 사건', 'matched_id': target})
         s = dict(self.s, _review_source_sha256='body-one')
         def run():
@@ -243,21 +251,22 @@ class UnchangedExclusionsTests(unittest.TestCase):
         target = events.history_records(history)[0]['id']
         def model(prompt):
             if '"related_ids"' in prompt:
-                return json.dumps({'related_ids': [target]})
+                return json.dumps({'related_ids': matching_reference(prompt, history['a']['title'])})
             return json.dumps({'decision': 'supplement', 'matched_id': target, 'reason': '보충 보도'})
         with cache.review_session(self.state, lambda: None, self.logs.append):
             events.review_event(self.s, SUMMARY, history, model, model='gpt-6-luna')
             fresh = Mock(return_value='{"related_ids": []}')
             self.assertEqual(events.review_event(self.s, SUMMARY, {}, fresh, model='gpt-6-luna')['status'], 'new')
+            fresh.assert_not_called()  # Remaining history was already compared.
             self.assertEqual(events.review_event(self.s, SUMMARY, history, fresh, model='gpt-5.4')['status'], 'new')
-            self.assertEqual(fresh.call_count, 2)
+            self.assertEqual(fresh.call_count, 1)
 
     def test_uncertain_event_is_not_pinned_when_history_changes(self):
         history = {'a': {'title': 'Original', 'url': 'https://old.example/a'}}
         target = events.history_records(history)[0]['id']
         def model(prompt):
             if '"related_ids"' in prompt:
-                return json.dumps({'related_ids': [target]})
+                return json.dumps({'related_ids': matching_reference(prompt, history['a']['title'])})
             return json.dumps({'decision': 'uncertain', 'matched_id': target, 'reason': '근거 부족'})
         with cache.review_session(self.state, lambda: None, self.logs.append):
             self.assertEqual(events.review_event(self.s, SUMMARY, history, model, model='gpt-6-luna')['status'], 'hold')
