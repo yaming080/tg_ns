@@ -67,6 +67,14 @@ EDITOR_REJECTED_ARTICLES = {
     ('bloomingbit.io', '/feed/news/121125'): '사용자 제외 확인: 아서 헤이즈 전망·의견 기사',
 }
 
+# Exact URLs verified against the user's Oct 23–29 feedback and posted state.
+from news_team_oct29 import REJECTED as TEAM_REJECTED
+EDITOR_REJECTED_ARTICLES.update({
+    (urlsplit('https://' + url.removeprefix('https://')).netloc.removeprefix('www.'),
+     urlsplit('https://' + url.removeprefix('https://')).path.rstrip('/')): reason
+    for url, reason in TEAM_REJECTED.items()
+})
+
 # Only newly published geopolitical news enters review after this policy change.
 # Keep this fixed across restarts; never reset existing source/posting state.
 GEOPOLITICS_ENABLED_AT = datetime(2026, 9, 28, 8, 22, 31, tzinfo=timezone.utc)

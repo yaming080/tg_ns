@@ -18,7 +18,7 @@ from news_review_cache import request_text, valid_checks
 
 MAX_IMAGE_BYTES = 8 * 1024 * 1024
 IMAGE_CHECKS = ('relevant', 'clear', 'not_advertisement', 'not_text_screenshot', 'not_price_chart',
-                'primary_subject', 'not_incidental_asset_only', 'identifiable_subject')
+                'primary_subject', 'not_incidental_asset_only', 'identifiable_subject', 'not_publisher_placeholder')
 
 
 def public_url(url):
@@ -64,6 +64,15 @@ class SourceImages(HTMLParser):
         if tag=='article':self.in_article=max(0,self.in_article-1)
 
 
+def publisher_placeholder_url(url):
+    """Only publisher-owned default/logo assets, never every TokenPost image."""
+    parsed = urllib.parse.urlsplit(url)
+    host = (parsed.hostname or '').lower()
+    if host != 'tokenpost.kr' and not host.endswith('.tokenpost.kr'):
+        return False
+    return bool(re.search(r'(?:^|[/_.-])(?:logo|no[_-]?image|default[_-]?(?:og|image|thumb)|og[_-]?default)(?:[/_.-]|$)', parsed.path, re.I))
+
+
 def image_candidates(story, fetch=fetch_bytes):
     urls=[story.get('image_url','')]
     try:
@@ -74,7 +83,7 @@ def image_candidates(story, fetch=fetch_bytes):
         pass  # A valid RSS image may still be reviewed.
     unique=[]
     for url in urls:
-        if isinstance(url,str) and url.startswith(('https://','http://')) and url not in unique:
+        if isinstance(url,str) and url.startswith(('https://','http://')) and url not in unique and not publisher_placeholder_url(url):
             unique.append(url)
     return unique[:6]
 
@@ -145,9 +154,10 @@ def review_image(client,model,story,caption,data,mime):
 예: 코인베이스의 OUSD 입출금 지원 기사에서는 OUSD/Open USD 상품 또는 코인베이스가 중심이다. 솔라나가 여러 지원 네트워크 중 하나라는 이유로 솔라나 단독 로고를 쓰면 안 된다. 같은 원칙을 다른 회사·상품·지원 네트워크에도 적용한다.
 예: 플레어·송버드의 비공개 데이터 검증 서비스 기사에는 플레어/송버드 로고나 해당 서비스의 직접 관련 이미지가 적합하다. 단순 네온 배경·정체 불명의 코인 그림은 제외한다.
 광고·할인·가입·수익보장 배너, 글 위주 기사/채팅 캡처, 가격차트, 엉뚱한 인물/코인, 내용 불명확한 이미지는 제외한다.
+언론사·발행 매체의 기본 로고는 기사 당사자 로고와 다르다. TokenPost/토큰포스트/TP 기본 이미지, 매체 로고나 기본 썸네일만 중심인 사진은 not_publisher_placeholder=false, identifiable_subject=false, primary_subject=false로 제외한다. 토큰포스트가 기사 주체인 경우도 단순 기본 썸네일을 자동 승인하지 말라.
 작은 출처 워터마크만 있다는 이유로 제외하지는 말라. 관련 있는 기사 삽화는 허용한다.
 확신이 없으면 통과시키지 말라. JSON만 반환:
-{"approved":true 또는 false,"reason":"기사 핵심 주체와 이미지의 실제 중심 대상을 비교한 판정 근거","checks":{"relevant":true 또는 false,"clear":true 또는 false,"not_advertisement":true 또는 false,"not_text_screenshot":true 또는 false,"not_price_chart":true 또는 false,"primary_subject":true 또는 false,"not_incidental_asset_only":true 또는 false,"identifiable_subject":true 또는 false}}
+{"approved":true 또는 false,"reason":"기사 핵심 주체와 이미지의 실제 중심 대상을 비교한 판정 근거","checks":{"relevant":true 또는 false,"clear":true 또는 false,"not_advertisement":true 또는 false,"not_text_screenshot":true 또는 false,"not_price_chart":true 또는 false,"primary_subject":true 또는 false,"not_incidental_asset_only":true 또는 false,"identifiable_subject":true 또는 false,"not_publisher_placeholder":true 또는 false}}
 자료: '''+json.dumps({'title':story.get('title',''),'caption_body':_caption_body(caption)},ensure_ascii=False)
     try:
         answer=request_text(client,model,[{'role':'user','content':[

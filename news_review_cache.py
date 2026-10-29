@@ -12,6 +12,7 @@ import json
 import time
 from functools import lru_cache
 from pathlib import Path
+from news_review_identity import canonical_scope
 
 VERSION = 'review-cache-v29-1'
 MAX_ENTRIES = 1500
@@ -250,6 +251,7 @@ def repair_memory(scope, result=None):
     records = {k: v for k, v in records.items() if isinstance(v, dict)
                and isinstance(v.get('expires'), (int, float)) and v['expires'] > now
                and isinstance(v.get('summary'), str)}
+    scope = canonical_scope(scope)
     key = fingerprint(scope)
     if result is not None:
         records[key] = {'summary': result, 'expires': now + 7 * 86400}
@@ -302,6 +304,7 @@ def content_result(kind, scope, result=None):
     Callers must validate verdicts before writing. This is never a posted record,
     a network-error blacklist, or permission to skip final publication checks.
     """
+    scope = canonical_scope(scope)
     store = _STORE.get()
     if store is None:
         return None
