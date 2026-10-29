@@ -21,7 +21,7 @@ class GeneralEventReview(unittest.TestCase):
             if 'related_ids' in prompt:
                 ids = [r['id'] for r in payload['history'] if 'Alpha launches' in r['title']]
                 return json.dumps({'related_ids':ids})
-            return json.dumps(dict(decision=decision,matched_id=payload['history'][0]['id'],reason='사건과 진행 단계 대조',new_fact=new_fact))
+            return json.dumps(dict(decision=decision,matched_id=payload['history'][0]['id'],reason='사건과 진행 단계 대조',new_fact=new_fact, independent_new_action=True, candidate_evidence=self.caption))
         return Mock(side_effect=respond)
 
     def test_unlisted_topic_and_cross_language_uses_general_review(self):

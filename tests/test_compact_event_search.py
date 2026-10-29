@@ -11,6 +11,8 @@ import news_review_cache as cache
 
 class CompactSearchTests(unittest.TestCase):
     def setUp(self):
+        from cache_migration_fixture import install
+        install(self)
         self.story = dict(title='New country launch', url='https://new.example/item',
                           pub='2026-10-21', _review_source_sha256='source')
         self.history = {str(i): dict(title=f'회사 {i} / Company {i}', summary=f'Plan {i}, not launched',
@@ -130,6 +132,8 @@ class CompactSearchTests(unittest.TestCase):
         manifest = json.loads((Path(cache.__file__).parent / 'news_cache_compatibility.json').read_text('utf8'))
         with patch.object(cache, 'editorial_identity', return_value=manifest['previous_identity']):
             self.run_review(Mock(return_value='{"related_ids":[]}'), state)
+        # A deployment starts a new interpreter, including the manifest LRU.
+        cache.compatible_identity.cache_clear()
         # Discard request cache: this must use the stable semantic search index.
         state['ai_review']['entries'] = {}
         call = Mock(side_effect=AssertionError('unchanged comparisons must be reused'))
@@ -158,7 +162,7 @@ class CompactSearchTests(unittest.TestCase):
                     if '"related_ids"' in prompt:
                         return '{"related_ids":["0"]}'
                     return json.dumps({'decision':decision,'matched_id':target,
-                                       'reason':'plan versus launch', 'new_fact':'separate approved region'})
+                                       'reason':'plan versus launch', 'new_fact':'separate approved region', 'independent_new_action':True, 'candidate_evidence':'Separate approved launch'})
                 self.assertEqual(self.run_review(respond)['status'], 'hold' if decision=='uncertain' else decision)
                 self.assertEqual(len(calls), 2)
 

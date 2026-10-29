@@ -91,6 +91,9 @@ MANUAL_EVENTS = MANUAL_EVENTS + OCT12_MANUAL_EVENTS
 from news_manual_oct13 import EVENTS as OCT13_MANUAL_EVENTS
 MANUAL_EVENTS = MANUAL_EVENTS + OCT13_MANUAL_EVENTS
 
+from news_team_oct29 import EVENTS as TEAM_EVENTS, PUBLISHED as TEAM_PUBLISHED
+MANUAL_EVENTS = MANUAL_EVENTS + TEAM_EVENTS
+
 def url_key(url):
     value = str(url or '').strip()
     p = urlsplit(value if '://' in value else 'https://' + value)
@@ -110,6 +113,8 @@ def history_records(posted):
         key = url_key(item.get('url')) or str(item['title'])
         prior = records.get(key, {})
         record = dict(prior, **item)
+        if not record.get('source_pub') and item.get('url') in TEAM_PUBLISHED:
+            record['source_pub'] = TEAM_PUBLISHED[item['url']]
         if prior.get('summary') and not item.get('summary'):
             record['summary'] = prior['summary']
         record['id'] = hashlib.sha256(key.encode()).hexdigest()[:16]
@@ -155,6 +160,18 @@ def search_payload(candidate, index, compact=False):
                            for i, r in enumerate(index)],
                'candidate': candidate}
     return json.dumps(payload, ensure_ascii=False, separators=(',', ':')), refs
+
+
+def valid_update_evidence(result, candidate):
+    """A fluent new_fact sentence alone cannot promote a supplement to an update."""
+    if result.get('independent_new_action') is not True:
+        return False
+    quote = result.get('candidate_evidence')
+    if not isinstance(quote, str) or len(quote.strip()) < 8:
+        return False
+    normalize = lambda text: re.sub(r'\s+', ' ', str(text).replace('#', '')).strip()
+    quote = normalize(quote)
+    return any(quote in normalize(candidate.get(key, '')) for key in ('title', 'summary'))
 
 
 def review_event(story, caption, posted, call_model, search_model=None, *, model=None):
@@ -288,8 +305,12 @@ new: 다른 사업/사건. 같은 회사나 코인을 다뤄도 사업·상품·
 예: 씨티·코인베이스 스테이블코인 제휴와 씨티 토큰화 예금의 지역 출시는 별도 사업일 수 있다.
 검토·계획을 출시로 바꾸거나 과거 배경을 새 발표로 보지 않는다. 본문이 없는 옛 기록 때문에
 같은 사건인지 결정할 수 없거나 새 사실의 근거가 부족하면 uncertain. 추측해 통과시키지 않는다.
-update는 기존에 없던 구체적인 새 조치와 근거를 new_fact에 적어야 한다.
-JSON만 출력: {"decision":"duplicate|supplement|update|new|uncertain", "matched_id":"기록 id 또는 빈문자열", "reason":"판정 이유", "new_fact":"새 조치와 근거 또는 빈문자열"}
+같은 발표의 참여 은행·지갑 협력사 명단, 이용 계약, 적용 조건, 수치, 상품 설명은 supplement다. 뒤늦게 보도됐다는 이유로 별도 계약/진전으로 판정하지 않는다.
+예: DTCC 증권 토큰화 출시 뒤 20개 이용 기관·JP모건·뱅크오브아메리카 계약을 설명한 기사는 같은 출시의 보충이다. HSBC RedCoin 출시 뒤 PayMe 지갑 제공·향후 활용 설명도 보충이다.
+관련 기록 전체를 확인한다. 옛 계획 기사와 비교하면 새 출시여도, 다른 기록에 이미 그 출시가 있으면 duplicate/supplement다.
+update는 기존에 없던 독립적인 새 조치와 근거를 new_fact에 적어야 한다. independent_new_action=true는 이후 발생한 별도 승인·실제 개시·새 지역 확장 등의 근거가 있을 때만 쓴다. 기사 발행일 차이나 기존 요약에 없던 세부사항만으로 true를 주지 않는다.
+update라면 candidate_evidence에 후보 title 또는 summary에서 새 조치를 뒷받침하는 문구를 그대로 인용한다. 근거 불명확은 uncertain, 같은 발표의 세부사항은 supplement다.
+JSON만 출력: {"decision":"duplicate|supplement|update|new|uncertain", "matched_id":"기록 id 또는 빈문자열", "reason":"판정 이유", "new_fact":"새 조치와 근거 또는 빈문자열", "independent_new_action":true 또는 false, "candidate_evidence":"후보의 새 조치 원문 인용 또는 빈문자열"}
 ''' + json.dumps({'candidate':candidate,'history':matches},ensure_ascii=False,separators=(',', ':'))
     def valid_decision(text):
         try:
@@ -301,7 +322,8 @@ JSON만 출력: {"decision":"duplicate|supplement|update|new|uncertain", "matche
                     and isinstance(value.get('reason'),str) and bool(value['reason'].strip())
                     and isinstance(value.get('matched_id'),str)
                     and (decision not in {'duplicate','supplement','update'} or value['matched_id'] in related)
-                    and (decision != 'update' or isinstance(value.get('new_fact'),str) and bool(value['new_fact'].strip())))
+                    and (decision != 'update' or isinstance(value.get('new_fact'),str) and bool(value['new_fact'].strip())
+                        and valid_update_evidence(value, candidate)))
         except (ValueError,TypeError):
             return False
     try:
@@ -312,7 +334,8 @@ JSON만 출력: {"decision":"duplicate|supplement|update|new|uncertain", "matche
             raise ValueError('invalid decision')
         if decision in {'duplicate','supplement','update'} and match not in related:
             raise ValueError('missing evidence')
-        if decision == 'update' and (not isinstance(result.get('new_fact'),str) or not result['new_fact'].strip()):
+        if decision == 'update' and (not isinstance(result.get('new_fact'),str) or not result['new_fact'].strip()
+                                     or not valid_update_evidence(result, candidate)):
             raise ValueError('missing new fact')
         outcome = {'status':'hold' if decision == 'uncertain' else decision,'reason':reason,
                    'matched_id':match, 'new_fact':result.get('new_fact','')}

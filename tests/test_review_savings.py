@@ -72,7 +72,7 @@ class ReviewSavingsTests(unittest.TestCase):
             return mini_result(prompt,ids=ids)
         for verdict in ('duplicate','supplement','uncertain','new','update'):
             strong=Mock(return_value=json.dumps({'decision':verdict,'matched_id':target,
-                        'reason':'계획과 실제 출시를 대조','new_fact':'원문에 별도 지역 실제 출시 확인'}))
+                        'reason':'계획과 실제 출시를 대조','new_fact':'원문에 별도 지역 실제 출시 확인', 'independent_new_action':True, 'candidate_evidence':self.caption}))
             result=events.review_event(self.story,self.caption,self.history,strong,mini)
             self.assertEqual(result['status'],'hold' if verdict=='uncertain' else verdict)
             strong.assert_called_once()

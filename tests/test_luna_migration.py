@@ -93,7 +93,7 @@ class LunaMigrationTests(unittest.TestCase):
                     return response(json.dumps({'related_ids': [r['id'] for r in rows
                                               if r['title'] == posted['old']['title']]}))
                 return response(json.dumps({'decision':decision,'reason':'evidence',
-                                            'matched_id':match,'new_fact':'new launch'}))
+                                            'matched_id':match,'new_fact':'new launch', 'independent_new_action':True, 'candidate_evidence':'Flare launches a new service'}))
             client.responses.create.side_effect=answer
             with patch.object(editor,'_RUNTIME',{'openai_client':client,'OPENAI_MODEL':MODEL}), \
                  patch.dict(editor.os.environ,{'OPENAI_EVENT_SEARCH_MODEL':'gpt-5.4-mini'}):

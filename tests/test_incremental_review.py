@@ -168,6 +168,10 @@ class IncrementalReviewTests(unittest.TestCase):
 
 
 class SourceReuseTests(unittest.TestCase):
+    def setUp(self):
+        from cache_migration_fixture import install
+        install(self)
+
     def test_legacy_source_scope_migrates_then_teaser_change_costs_zero(self):
         s = story(desc='Original teaser')
         scope = {k: str(s.get(k, '')) for k in ('url', 'title', 'pub')}

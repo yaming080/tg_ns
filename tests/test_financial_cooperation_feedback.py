@@ -120,7 +120,7 @@ class FinancialCooperationFeedback(unittest.TestCase):
             if 'related_ids' in prompt:
                 return json.dumps(dict(related_ids=[row['id']]))
             return json.dumps(dict(decision='update', matched_id=row['id'], reason='new deployment',
-                                   new_fact='A named bank has now launched the previously demonstrated integration.'))
+                                   new_fact='A named bank has now launched the previously demonstrated integration.', independent_new_action=True, candidate_evidence='A named bank launched the integration after the demonstration.'))
         result = review_event(story('Named bank launches XRPL accounting integration', url='https://example.test/new-launch'),
                               'A named bank launched the integration after the demonstration.', {}, respond)
         self.assertEqual(result['status'], 'update')
