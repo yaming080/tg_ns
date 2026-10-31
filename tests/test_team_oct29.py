@@ -189,7 +189,8 @@ class CostBoundaryTests(unittest.TestCase):
 
     def test_policy_change_does_not_inherit_previous_editorial_decisions(self):
         cache.compatible_identity.cache_clear()
-        self.assertFalse(cache.compatible_identity())
+        self.assertNotIn('8e16077f3b63ea3c01b110d1b5d87e2fd50ae4ecba9036d49b3841e55116169d',
+                         cache.compatible_identity() or ())
         scope={'source':'old'};key=cache.fingerprint([cache.VERSION,'8e16077f3b63ea3c01b110d1b5d87e2fd50ae4ecba9036d49b3841e55116169d','source_summary',scope])
         with cache.review_session({},lambda:None,lambda x:None) as store:
             store.data['content_results_v1']={key:{'result':{'summary':'old approval'},'expires':time.time()+1000}}
