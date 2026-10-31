@@ -23,7 +23,7 @@ MAX_CONTENT_RESULTS = 4000
 # Standard API USD / million tokens, Luna checked 2026-10-08.
 # Estimates, not invoices; historical model rates retained for old records.
 PRICES = {'gpt-5.4': (2.50, .25, 15.0), 'gpt-5.4-mini': (.75, .075, 4.50),
-          'gpt-6-luna': (.10, .01, .50)}
+          'gpt-6-luna': (.10, .01, .50), 'gpt-6.1-sol': (2.0, .10, 10.0)}
 _STORE = ContextVar('news_review_store', default=None)
 _CONTEXT = ContextVar('news_review_context', default={})
 
@@ -80,10 +80,16 @@ def _number(value):
 def request_options(model):
     # Keep the same Responses endpoint and prompts. Bound reasoning + visible
     # output together; incomplete reviews are held, never auto-escalated.
-    if model == 'gpt-6-luna':
+    if model in {'gpt-6-luna', 'gpt-6.1-sol'}:
         return {'reasoning': {'effort': 'low'}, 'max_output_tokens': 4096,
                 'service_tier': 'default'}
     return {}
+
+
+def stage_model(model, stage):
+    if model == 'gpt-6-luna' and stage in {'source_review', 'event_decision'}:
+        return 'gpt-6.1-sol'
+    return model
 
 
 class ReviewStore:
@@ -138,13 +144,13 @@ class ReviewStore:
         rates = PRICES.get(model)
         if rates:
             cost = ((inp-cached)*rates[0] + cached*rates[1] + out*rates[2])/1_000_000
-            if model == 'gpt-6-luna':
+            if model in {'gpt-6-luna', 'gpt-6.1-sol'}:
                 # Cached reads and cache writes are distinct. Add the write
                 # premium only; their base input cost is already counted.
                 writes = _number(_value(_value(usage,'input_tokens_details'), 'cache_write_tokens')) or 0
                 writes = min(writes, inp-cached)
                 bucket['cache_write_tokens'] = bucket.get('cache_write_tokens', 0) + writes
-                input_cost = ((inp-cached)*rates[0] + cached*rates[1] + writes*.025)
+                input_cost = ((inp-cached)*rates[0] + cached*rates[1] + writes*rates[0]*.25)
                 cost = (input_cost*(2 if inp > 272000 else 1)
                         + out*rates[2]*(1.5 if inp > 272000 else 1))/1_000_000
             bucket['estimated_usd'] = round(bucket['estimated_usd'] + cost, 9)
@@ -155,6 +161,7 @@ class ReviewStore:
             self.unpriced_calls += 1
             price = '모델 단가 미등록 (비용 미확정)'
         self.log(f'[AI 사용량] {stage} | {model} | 입력={inp} 캐시입력={cached} 출력={out} | {price}')
+        return cost if rates else None
 
     def request(self, client, model, payload, stage, scope, validator):
         if self.quota_error:
@@ -183,6 +190,16 @@ class ReviewStore:
             bucket['cache_hits'] += 1
             self.log(f'[AI 검토 재사용] {stage} | {key[:12]}')
             return entry['text']
+        # Historical explicit model overrides keep their old behavior in tests;
+        # production Luna/Sol calls must reserve budget before reaching the API.
+        ticket = ledger = None
+        if model in {'gpt-6-luna', 'gpt-6.1-sol'} or type(client).__module__.startswith('openai'):
+            from news_budget import BudgetLedger
+            ledger = BudgetLedger(self)
+            ticket = ledger.reserve(key, model, payload, options, PRICES[model])
+            if ticket is None:
+                self.log('[유료검토 보류] ' + ledger.reason)
+                return ''
         self.calls += 1
         bucket['api_calls'] += 1
         try:
@@ -200,7 +217,9 @@ class ReviewStore:
                 self.quota_error = 'OpenAI 사용 중단: ' + code
             self.persist()
             raise
-        self.record_usage(response,model,stage,bucket)
+        confirmed_cost = self.record_usage(response,model,stage,bucket)
+        if ledger is not None:
+            ledger.settle(ticket, confirmed_cost)
         text = str(_value(response,'output_text','') or '').strip()
         status = _value(response,'status')
         completed = status is None or status == 'completed'
@@ -218,11 +237,16 @@ class ReviewStore:
 def request_text(client, model, payload, *, stage=None, scope=None, validator=None):
     context = _CONTEXT.get()
     stage = stage or context.get('stage','summary')
+    model = stage_model(model, stage)
     scope = scope if scope is not None else context.get('scope')
     validator = validator or context.get('validator') or (lambda value: bool(value.strip()))
     store = _STORE.get()
     if store is not None:
         return store.request(client,model,payload,stage,scope,validator)
+    # Production paid work must be tracked in a persistent review session.
+    # Mock-only callers used by the unit suite do not have a real OpenAI client.
+    if model in {'gpt-6-luna', 'gpt-6.1-sol'} and type(client).__module__.startswith('openai'):
+        raise RuntimeError('예산 기록이 없는 API 호출 차단: review_session 필요')
     response = client.responses.create(model=model,input=payload, **request_options(model))
     status = _value(response,'status')
     if status is not None and isinstance(status,str) and status != 'completed':

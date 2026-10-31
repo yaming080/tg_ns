@@ -1,0 +1,40 @@
+2026-11-01 — Current Luna 12 rules, selective Sol and monthly budget
+
+The user cancelled the v30 rollback. This release retains all deployed team
+feedback, editorial prompts, tag rules, SUI/portfolio filters, image checks,
+full-history comparison and per-record incremental comparison memory.
+
+Models (Responses API, low reasoning, max 4096 output, Standard tier):
+- Luna: drafting, compression/repair, image review, duplicate candidate search.
+- GPT-6.1 Sol: new source factual reviews and final related-event verdicts.
+- Existing complete 12th-release outcomes retain their original expiration.
+  No paid re-review solely because the deployment code hash changed.
+  Genuine source/evidence/policy changes remain subject to review.
+
+Monthly budget: USD 28, UTC calendar month, this bot's recorded API usage.
+NEWS_MONTHLY_API_BUDGET_USD overrides this limit; invalid values fail closed.
+Reserve a conservative full request bound BEFORE sending and settle actual
+usage afterward. Unknown costs retain their reservation. Disable SDK automatic
+retries, but transient failures do not permanently blacklist the article.
+At the limit: hold NEW paid checks, log the reason, keep valid cache reuse.
+Unverified source reviews never pass simply because the budget is exhausted.
+
+USD 28 is KRW 39,200 at an assumed 1400 KRW/USD, before tax/card fees, leaving
+room below the user's KRW 50,000 target. It is not an account-wide billing cap;
+other API clients, exchange movements and provider prices are outside this bot.
+Fresh-run token consumption differs by model; no fixed monthly forecast.
+The two-call no-post compatibility check has separate usage artifact accounting.
+
+Recovery: October 30 run 41068038095 completed with published=0, but its final
+state push failed. Artifact 12983389789 has identical posted history and newer
+review/usage records. Restore that state and clear only that verified run's
+pending marker. Publication transaction protection is kept.
+
+Economy backup:
+- Local 뉴스봇_가성비용_2026-11-01.zip (76 verified tracked files)
+- GitHub branch backup-economy-20261101 at 8e5c6080ec34eed2fbb12ae2582ace21c4ea0d2e
+
+Official pricing/migration references checked 2026-11-01:
+https://developers.openai.com/api/docs/models/gpt-6.1-sol
+https://developers.openai.com/api/docs/models/gpt-6-luna
+https://developers.openai.com/api/docs/guides/latest-model

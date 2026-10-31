@@ -79,7 +79,7 @@ class LunaMigrationTests(unittest.TestCase):
         self.assertEqual(client.responses.create.call_count,1)
         self.assertEqual(client.responses.create.call_args.kwargs['model'],MODEL)
 
-    def test_related_new_update_duplicate_decisions_all_use_luna(self):
+    def test_related_decisions_use_luna_search_and_sol_final_verdict(self):
         story={'title':'Flare new service','url':'https://example.org/new'}
         posted={'old':{'title':'Flare previous service','url':'https://example.org/old','summary':'previous'}}
         match=next(r['id'] for r in history_records(posted) if r.get('url')=='https://example.org/old')
@@ -100,7 +100,8 @@ class LunaMigrationTests(unittest.TestCase):
                 result=editor.review_article_event(story,'Flare launches a new service',posted)
             self.assertEqual(result['status'],'hold' if decision=='uncertain' else decision)
             self.assertEqual(client.responses.create.call_count,2)
-            self.assertEqual({c.kwargs['model'] for c in client.responses.create.call_args_list},{MODEL})
+            self.assertEqual([c.kwargs['model'] for c in client.responses.create.call_args_list],
+                             [MODEL, 'gpt-6.1-sol'])
 
     def test_invalid_search_holds_without_expensive_fallback(self):
         client=Mock();client.responses.create.return_value=response('not json')
