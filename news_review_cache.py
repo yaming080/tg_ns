@@ -351,7 +351,11 @@ def content_result(kind, scope, result=None):
                                    'news_cache_compatibility.json').read_text(encoding='utf8'))
         except (OSError, ValueError):
             manifest = {}
-        if previous and manifest.get('current_identity') == editorial_identity():
+        from news_industry_intake import industry_intake_scope
+        # Intake changed only for these headlines. Do not inherit their prior
+        # semantic exclusions, while preserving unrelated reviews and expiry.
+        affected = kind in {'source_summary', 'event_rejected', 'negative_request'} and industry_intake_scope(scope)
+        if previous and not affected and manifest.get('current_identity') == editorial_identity():
             for identity in previous:
                 old_key = fingerprint([VERSION, identity, kind, scope])
                 entry = records.get(old_key)
