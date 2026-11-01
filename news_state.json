@@ -2132,14 +2132,6 @@
   },
   "ai_review": {
     "entries": {
-      "fb5c0416e9960b0c7fa432b57507a184447a1a05cb393fe2f1b44ec6b0608fa8": {
-        "text": "SKIP",
-        "expires": 1793571401.1675436
-      },
-      "250fc3bdaa0561bf897685317da95875a08c9da766f387ccdde299b09fff88c9": {
-        "text": "SKIP",
-        "expires": 1793571404.1405368
-      },
       "8aa63e1d7597c0895b3e1b52d59e80c16776cc7a191d8cbc4b198a10559526e4": {
         "text": "SKIP",
         "expires": 1793575610.1078837
@@ -5935,6 +5927,14 @@
       "089cfbf574d8b68e010ffa0c829295ac7af1c1f6033d54016ffdc70482ca8f52": {
         "text": "SKIP",
         "expires": 1794172268.9672685
+      },
+      "20c5a4dd0b915de6fcf4d3a8c11997c65b3255a7924b6791be799a8d9de6feeb": {
+        "text": "SKIP",
+        "expires": 1794179335.028225
+      },
+      "0b1d848f1abe5586dfafbb1880a1cf7a00ea66f673e7d80819e31bcebbcf77f7": {
+        "text": "SKIP",
+        "expires": 1794179340.9678462
       }
     },
     "version": "review-cache-v29-1",
@@ -8610,21 +8610,21 @@
       "2026-11-01": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 12,
+            "api_calls": 14,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 97621,
+            "input_tokens": 113479,
             "cached_input_tokens": 0,
-            "output_tokens": 1353,
-            "reasoning_tokens": 860,
-            "estimated_usd": 0.012878225,
+            "output_tokens": 1567,
+            "reasoning_tokens": 1058,
+            "estimated_usd": 0.014967325,
             "unpriced_calls": 0,
-            "cache_write_tokens": 97585
+            "cache_write_tokens": 113437
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 53,
+            "cache_hits": 61,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -8679,18 +8679,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-24T04:01:33.007323+00:00",
-        "elapsed_seconds": 2535.117,
-        "status": "completed",
-        "api_calls": 0,
-        "cache_hits": 43,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-24T05:01:17.316543+00:00",
         "elapsed_seconds": 1838.339,
@@ -10692,6 +10680,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-01T23:01:23.385054+00:00",
+        "elapsed_seconds": 466.705,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 8,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0020891,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -27143,10 +27143,6 @@
       }
     },
     "summary_repairs_v1": {
-      "4d7fea0fa7aab65a3b06495950f87e33041fa5aa5cbf0ecfeb0a80a3b92bb0b9": {
-        "summary": "리도가 검증인 한 명의 유효 잔액을 최대 2048 ETH까지 지원하는 0x02 커뮤니티 스테이킹 모듈을 가동함\n\n초기에는 검증인 키마다 32 ETH를 배정해 활성화 절차를 진행하고, 이후 추가 지분을 배정함\n\n추가 지분 대기열은 출시 시점에 32석으로 제한되며, 모듈 배정 지분 한도는 리도 코어 총예치액의 0.01%임\n\n유효 잔액은 이더리움 합의 과정에 반영되는 검증인 잔액임",
-        "expires": 1793567842.2835193
-      },
       "79c1bfab1b839c0e482dab6755b89e71d534d6c320dc9ecd4546a9f267ac6afe": {
         "summary": "",
         "expires": 1793585641.0934234
@@ -27321,32 +27317,6 @@
       }
     },
     "content_results_v1": {
-      "73d2e0a6a0a73bb50fa735094f0f8f34e4e1f983785a88d437fce78df35a590b": {
-        "result": {
-          "text": "SKIP"
-        },
-        "expires": 1793571401.1675477
-      },
-      "9b7fcb72b5a150309ffce674e1a0e96f1e4cbc7baba531a80f81e0c495ea9000": {
-        "result": {
-          "summary": "",
-          "reason": "요약 편집 단계의 명시적 제외 판정"
-        },
-        "expires": 1793571401.5202465
-      },
-      "ddda71b3be9d7d0d8f2ad8e735901d250ff212cda2b0e24565143fc779f29bc9": {
-        "result": {
-          "text": "SKIP"
-        },
-        "expires": 1793571404.1405396
-      },
-      "c1b67daa4e394fed4fdee5a4754dde31075c8fd51a94f53be21157548ce8d029": {
-        "result": {
-          "summary": "",
-          "reason": "요약 편집 단계의 명시적 제외 판정"
-        },
-        "expires": 1793571404.4902182
-      },
       "b4a76ad7bc35b4e6a493a0e94bbfdf23966e6b7b8370cc86d64a5a85b063df6f": {
         "result": {
           "text": "SKIP"
@@ -192797,6 +192767,34 @@
           "body_entities": []
         },
         "expires": 1794172269.4760423
+      },
+      "b3a7af7b289e6f5d8e1a603000a08519467ec96e161800745af9dfa0c3fc73e5": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794179335.0282311
+      },
+      "6cf7778acc49f137824ab7ed01ad35d156706cf72dc8ded35c45174e7af43621": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794179335.5135565
+      },
+      "0d7a65da6e2929f8e6c25233e73d6b2300ed82ed2895a0a385e782a0a8765327": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794179340.9678507
+      },
+      "6aac59a867198f42048ec18762ae4973a114f08ef1e3b980d3fdc1ceb46a15a5": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794179341.456133
       }
     },
     "source_identity_v1": {
@@ -197224,6 +197222,34 @@
         },
         "expires": 1794168643.236612
       },
+      "5539256100d7e541f946700ab81046fb42d2fb299ad5ca161c6989515128c2cd": {
+        "inputs": {
+          "title": "05eb7c5596913007268a969ea29dde66bcf30d6d83d8382c3238e985369693e2",
+          "pub": "4c84a9c45c0cc3554813179ac11f06f4b654ead83c8e78ef38cb0ca460219e69",
+          "source_sha256": "ed0db6ffaf415223d2142b08c63b687bb5a26da07a85c7146217e149d2884f15",
+          "page_published_at": "bf78b267ce6ccd34db536c1c5fe272e334de3d3441ef9500304cbe5a034ba27e",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "2cb4fe27fbc7ff14468fccbcd353558bd85623faed52e29aceef180c1171b53d",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794179331.5025399
+      },
+      "4329b48282ff6b0073ebbf8bc50c971f67c4535c836610651dbe82eb0587e0e6": {
+        "inputs": {
+          "title": "99d6d4f3de4db761bd2b8eac200164ca42edf0f075b4010ff4f3e41b0b6bdfca",
+          "pub": "7216a0fd9b8fd5ca3fd578c6a763216dcb921b637d4cfad2553ba6cae52b306a",
+          "source_sha256": "b57c0df99c24085c2a5d9398ba49a40750ca28dca90d0f6771b40b0a1a0d9d54",
+          "page_published_at": "2f2bf887f292b01ddcc3d62dc9719117712d96a5c1b648972f307b33624d0bdf",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794179337.0539463
+      },
       "7187b3a745d1dbc9ef99cd327d9a36d8d958de501725a562fcb88570493cd893": {
         "inputs": {
           "title": "1ec0097dbad23a2c9252e8572cf55ce20c4054612619965c686310b637b0403d",
@@ -197236,7 +197262,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175583.0311675
+        "expires": 1794179341.7712412
       },
       "0342fe013523cfde70e882834d9939a6c60254be317fb2967344c2a7431a4024": {
         "inputs": {
@@ -197250,7 +197276,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175583.5338767
+        "expires": 1794179342.361094
       },
       "5a8ad7941e02709b4c446784dc4deddcbf53cab906f6ecb1738ae897ded86c00": {
         "inputs": {
@@ -197264,7 +197290,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175584.5454245
+        "expires": 1794179343.2702777
       },
       "1731bb63e3492e68fff466980fe8f802e5370d1ca90cb31fe001de54749c4cb3": {
         "inputs": {
@@ -197278,7 +197304,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175585.232901
+        "expires": 1794179343.9705667
       },
       "c05294e0b4db2663ff8985091592c95647772322470de2342129ba385cc8e229": {
         "inputs": {
@@ -197292,21 +197318,21 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175586.7790222
+        "expires": 1794179345.1732845
       },
       "8bcb8b383ffdbc34611a2cb993bcc6011155ee674e37f8b7fe0a38c4b30ff39c": {
         "inputs": {
           "title": "d63bc0edac3b97d8769762c710b2369910115de455cfd8eff9537f19facdf988",
-          "pub": "af54a6bd6807193e7be6ce8321128a5aa72047fbb1e3748b39831b5f0123ad39",
+          "pub": "8454b44c25da6b5ec8ee402f98e28e4a2bff5e1c0b4a23daee229865f595d273",
           "source_sha256": "d2c2970e50cd6ed76d370c3c71394777e6f31f6831d55ad99b12b97168d29df9",
-          "page_published_at": "364a181e8a0f63b36e01c13fb89e3bd60632844cb8784f8dc7106913f51f0f95",
+          "page_published_at": "cd5df5e862fbec8d586960a001e51cdc75378ee9efdb657550669314b26d1fe3",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175588.5525029
+        "expires": 1794179346.7800698
       },
       "cdc01d93b428fa2d283b5dc27c42980d2aae010ad91ac83d0b6b21884d233355": {
         "inputs": {
@@ -197320,7 +197346,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175588.9259708
+        "expires": 1794179347.425473
       },
       "b1e8949fc18fc474edf714d61eabe17ea515eac34820122b374867587f93d77f": {
         "inputs": {
@@ -197334,7 +197360,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794175590.1054873
+        "expires": 1794179349.4930491
       }
     },
     "budget_reservations_v1": {}
