@@ -50,6 +50,7 @@ jobs:
           OPENAI_MODEL: "gpt-6-luna"
           # Temporary total-use cap until free-credit balance is verified.
           NEWS_MONTHLY_API_BUDGET_USD: "5"
+          NEWS_PUBLISH_NOT_BEFORE_UTC: "2026-11-01T11:41:00Z"
           INITIAL_RUN: "false"
         run: python doorinews_bot.py
 

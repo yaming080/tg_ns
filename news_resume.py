@@ -1,6 +1,7 @@
 """Do not replay the credit-outage backlog after the October 5 restart."""
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
+import os
 
 # Fixed incident boundary (2026-10-05 14:38:43 KST), not a moving hourly window.
 # Keep this boundary on later scheduled runs so old unposted stories stay excluded.
@@ -24,11 +25,20 @@ def publication_time(story):
 
 
 def resume_exclusion_reason(story):
+    # Operational restart boundary: fixed across runs, checked before review
+    # and again before sending. Never permit an override to reopen older backlog.
+    configured = os.environ.get('NEWS_PUBLISH_NOT_BEFORE_UTC')
+    boundary = PUBLISH_NOT_BEFORE
+    if configured is not None:
+        parsed = publication_time({'pub': configured})
+        if parsed is None:
+            return '재개 기준 설정 오류: 발송 보류'
+        boundary = max(boundary, parsed)
     published = publication_time(story)
     if published is None:
         return '재개 기준 확인 불가: 발행 시각 누락 또는 오류'
-    if published < PUBLISH_NOT_BEFORE:
-        return '충전 전 밀린 기사 제외: 2026-10-05 14:38:43 KST 이전 발행'
+    if published < boundary:
+        return f'재개 전 밀린 기사 제외: {boundary.isoformat()} 이전 발행'
     return ''
 
 

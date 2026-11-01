@@ -1,6 +1,7 @@
 """Incident backlog suppression; no paid API or Telegram calls."""
 import ast
 import copy
+import os
 from pathlib import Path
 from unittest import TestCase
 from unittest.mock import Mock, patch
@@ -29,13 +30,13 @@ class ResumeTests(TestCase):
         self.assertEqual([s['title'] for s in result], ['latest', 'new'])
         self.assertEqual(stories, original)
 
-    def run_main(self, mutate=False):
+    def run_main(self, mutate=False, fresh_pub='2026-10-05T06:00:00Z'):
         # Execute the actual final main() with I/O replaced; no module startup.
         source = Path(__file__).resolve().parents[1] / 'doorinews_bot.py'
         tree = ast.parse(source.read_text(encoding='utf-8'))
         main = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'main'][-1]
         old = {'title': 'old', 'url': 'old-url', 'pub': '2026-10-04T06:00:00Z'}
-        fresh = {'title': 'fresh', 'url': 'fresh-url', 'pub': '2026-10-05T06:00:00Z'}
+        fresh = {'title': 'fresh', 'url': 'fresh-url', 'pub': fresh_pub}
         state = {'posted': {'existing': {'title': 'existing', 'url': 'existing-url'}}}
         original_posted = copy.deepcopy(state['posted'])
         def prepare(story, *args, **kwargs):
@@ -72,3 +73,24 @@ class ResumeTests(TestCase):
     def test_send_guard_blocks_changed_publication_date(self):
         ns = self.run_main(mutate=True)
         ns['send_reviewed_photo'].assert_not_called()
+
+    def test_november_restart_boundary_before_paid_review(self):
+        with patch.dict(os.environ, {'NEWS_PUBLISH_NOT_BEFORE_UTC': '2026-11-01T11:41:00Z'}):
+            self.assertTrue(resume_exclusion_reason({'pub': '2026-11-01T20:40:59+09:00'}))
+            self.assertFalse(resume_exclusion_reason({'pub': '2026-11-01T20:41:00+09:00'}))
+            ns = self.run_main(fresh_pub='2026-11-01T11:42:00Z')
+            ns['send_reviewed_photo'].assert_called_once()
+
+    def test_restart_boundary_rechecked_after_enrichment(self):
+        with patch.dict(os.environ, {'NEWS_PUBLISH_NOT_BEFORE_UTC': '2026-11-01T11:41:00Z'}):
+            ns = self.run_main(mutate=True, fresh_pub='2026-11-01T11:42:00Z')
+            ns['send_reviewed_photo'].assert_not_called()
+
+    def test_invalid_restart_config_fails_closed(self):
+        for value in ('', 'bad', '2026-11-01T11:41:00'):
+            with patch.dict(os.environ, {'NEWS_PUBLISH_NOT_BEFORE_UTC': value}):
+                self.assertTrue(resume_exclusion_reason({'pub': '2026-11-02T12:00:00Z'}))
+
+    def test_restart_config_cannot_reopen_original_backlog(self):
+        with patch.dict(os.environ, {'NEWS_PUBLISH_NOT_BEFORE_UTC': '2026-01-01T00:00:00Z'}):
+            self.assertTrue(resume_exclusion_reason({'pub': '2026-10-04T12:00:00Z'}))
