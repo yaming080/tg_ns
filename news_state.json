@@ -2177,30 +2177,6 @@
   },
   "ai_review": {
     "entries": {
-      "d95f61604d6a5878f179a23940ed695532d44a39dc9872e5ed6ee2427ae6b7dd": {
-        "text": "아부다비 소재 스탠더드 에셋 컴퍼니가 UAE 부동산과 장기 BTC 보유를 결합한 15억 달러 규모 투자 전략을 발표하고, BTC 자산운용사로 코인베이스 자산운용을 단독 지정함\n\nBTC 보유량과 부동산·디지털자산 간 투자 비중은 공개하지 않음",
-        "expires": 1793547285.100778
-      },
-      "5bd333e5087f12791cf449297767a55a11a2561504fdc7fd73d4c54c282017cc": {
-        "text": "{\"publish\":true,\"reason\":\"새로운 투자 전략 발표와 운용사 지정이 확인되며, 비트코인 보유량과 자산별 비중이 미공개라는 조건도 보존했습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true},\"body_entities\":[{\"name\":\"스탠더드 에셋 컴퍼니\",\"kind\":\"org\"},{\"name\":\"UAE\",\"kind\":\"country\"},{\"name\":\"코인베이스 자산운용\",\"kind\":\"org\"}]}",
-        "expires": 1793547293.1419284
-      },
-      "b86d339b4e116bbaaaba903c00921e5284db5b24acf42f9f89349d11e2a9a887": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1793547297.8638737
-      },
-      "70f73bda1f400a88f0f817a08d3f58466d58c5242ed7d4b18d94e331337832c2": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1793547301.691079
-      },
-      "f987e5a95ce194fb7d87a1b2061f78e4dcc4584ace7304e101189edb58b9d4fe": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1793547303.107968
-      },
-      "6294ca198feded5b50f7ec21cf536d4d57a52770044b3db8ad3aaa0170a6ae47": {
-        "text": "{\"approved\":true,\"reason\":\"기사의 핵심 전략에 장기 BTC 보유가 포함되며, 이미지 중심의 선명한 비트코인 로고가 그 핵심 자산을 직접 나타낸다. 회사나 UAE 부동산은 보이지 않지만 BTC가 단순한 배경·비교 대상은 아니다.\",\"checks\":{\"relevant\":true,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":true,\"not_incidental_asset_only\":true,\"identifiable_subject\":true,\"not_publisher_placeholder\":true}}",
-        "expires": 1793547309.8190315
-      },
       "3157c5706ee4a2a85c74a6f45d34e048d719a529588fde9bdd1a94d075c16a4d": {
         "text": "프랑스 상원이 국제 조세당국 간 암호화폐 세금 정보 자동 공유를 허용하는 법안을 통과시켰으며, 법률로 확정되려면 하원의 승인이 필요함. આ",
         "expires": 1793550144.6579256
@@ -6236,6 +6212,10 @@
       "cf663eac365b1c0c3d1ac94a2e1577799975fba889a5a2d7e4bc52ca0b6e2bb3": {
         "text": "{\"approved\":false,\"reason\":\"토큰포스트의 ‘뉴스브리핑’ 기본 썸네일이 중심이며, 넥스트테크놀로지홀딩이나 해당 매각·담보 승인 사건을 식별할 수 없다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false,\"not_publisher_placeholder\":false}}",
         "expires": 1794151564.1733606
+      },
+      "562a872524e7b00dfbf46cc524dac49e4f8fc56530a24c7a6e199bc5a9987d87": {
+        "text": "SKIP",
+        "expires": 1794154150.9241188
       }
     },
     "version": "review-cache-v29-1",
@@ -8911,21 +8891,21 @@
       "2026-11-01": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 6,
+            "api_calls": 7,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 50135,
+            "input_tokens": 58715,
             "cached_input_tokens": 0,
-            "output_tokens": 1189,
+            "output_tokens": 1195,
             "reasoning_tokens": 736,
-            "estimated_usd": 0.006860925,
+            "estimated_usd": 0.00793635,
             "unpriced_calls": 0,
-            "cache_write_tokens": 50117
+            "cache_write_tokens": 58694
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 7,
+            "cache_hits": 11,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -8980,18 +8960,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-23T21:01:41.040834+00:00",
-        "elapsed_seconds": 2445.902,
-        "status": "completed",
-        "api_calls": 2,
-        "cache_hits": 42,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.002275225,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-23T22:01:21.667303+00:00",
         "elapsed_seconds": 1718.09,
@@ -10993,6 +10961,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.029797225,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-01T16:01:39.306283+00:00",
+        "elapsed_seconds": 458.484,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 4,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.001075425,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -194316,6 +194296,20 @@
           "reason": "사용 가능한 검토 통과 이미지 없음"
         },
         "expires": 1794151564.7165108
+      },
+      "090611b87761dd4eea35db3e208b733d92edeaa9e665d08cb47e73aab0a5db74": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794154150.924124
+      },
+      "5fcb5dd467bac70168fad13145abc087fa267facb1ec957486b4068a2c11288b": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794154151.4336896
       }
     },
     "source_identity_v1": {
@@ -198897,19 +198891,33 @@
         },
         "expires": 1794151515.7423716
       },
+      "c05294e0b4db2663ff8985091592c95647772322470de2342129ba385cc8e229": {
+        "inputs": {
+          "title": "4495ce0b7d41b7981aa1eb579fff162619ffad0039087c63d4ec7ae0ee4e9078",
+          "pub": "a75740abf4f62d92170b3397cec2862e6b004ccf3ffa5db7a3c11700bbde0aa9",
+          "source_sha256": "0048d617ebf2d1755e4216db36c9bb42a26dcbc627eca6f1441cb0436ebecdc1",
+          "page_published_at": "e88992438e2f8ae7ca95b5ccdd1501f4ed231abebc831c755aff5705e42f3e30",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "c4bb8b07a3a0c8332e165a9e50f04bcd05adfad39c634b1657cef22397624993",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794154147.7792165
+      },
       "8bcb8b383ffdbc34611a2cb993bcc6011155ee674e37f8b7fe0a38c4b30ff39c": {
         "inputs": {
           "title": "d63bc0edac3b97d8769762c710b2369910115de455cfd8eff9537f19facdf988",
-          "pub": "2abfc331ef19d08be967e94dd8800b5b68a529cb8b2a530e1c59332eae01069c",
+          "pub": "af54a6bd6807193e7be6ce8321128a5aa72047fbb1e3748b39831b5f0123ad39",
           "source_sha256": "d2c2970e50cd6ed76d370c3c71394777e6f31f6831d55ad99b12b97168d29df9",
-          "page_published_at": "83c1e158af77d2ef9cd85e37e24f75e719fc979c75b628f98d47a6e08ee010dd",
+          "page_published_at": "364a181e8a0f63b36e01c13fb89e3bd60632844cb8784f8dc7106913f51f0f95",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794151567.3778734
+        "expires": 1794154153.4539502
       },
       "cdc01d93b428fa2d283b5dc27c42980d2aae010ad91ac83d0b6b21884d233355": {
         "inputs": {
@@ -198923,7 +198931,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794151568.0555806
+        "expires": 1794154153.9225671
       },
       "b3eb492fb82da444de6b2795aac20e92da0ab52ee173e89d4f35aa7bf8dbae9d": {
         "inputs": {
@@ -198937,7 +198945,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794151569.2561328
+        "expires": 1794154154.874946
       },
       "b1e8949fc18fc474edf714d61eabe17ea515eac34820122b374867587f93d77f": {
         "inputs": {
@@ -198951,7 +198959,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794151571.4565485
+        "expires": 1794154156.8267143
       }
     },
     "budget_reservations_v1": {}
