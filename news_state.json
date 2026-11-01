@@ -2168,18 +2168,6 @@
   },
   "ai_review": {
     "entries": {
-      "4304dec48b3505695870d362dec964e838adeef5a678f1e5fe8ef95d15b6ed23": {
-        "text": "SKIP",
-        "expires": 1793539309.5189946
-      },
-      "00ae6be6a19f3dc3b64cc7c2b5f7b02a6af14f61239cd33606ce7edf69b871a3": {
-        "text": "리플이 2026년 말까지 결제·수탁·RLUSD·프라임 브로커리지 사업의 연환산 매출 규모를 약 9억 달러로 끌어올릴 것으로 예상함\n\n연환산 매출 규모는 실제로 거둔 매출이 아니라 현재 매출 흐름이 1년간 이어진다고 가정한 수치임",
-        "expires": 1793540005.2719154
-      },
-      "f60d092701298367062a1be7a7f19d7c7a3a30ae491b0928177c949cf9ff375d": {
-        "text": "리플이 OCC로부터 국가 신탁은행 설립 최종 승인을 받았으며, BNY와 디지털자산 수탁 및 토큰화 무역금융 등 블록체인 활용을 검토하는 협력을 확대함\n\n스테이블코인 RLUSD는 로빈후드와 제휴했으며 코인베이스에서 XRP 레저·베이스·이더리움 입출금을 지원함",
-        "expires": 1793540028.9045637
-      },
       "13adb144615739ea6b4d038c44d116e21719967d933ccff1898ee77669c3ea96": {
         "text": "미국 통화감독청(OCC)이 리플 내셔널 트러스트 뱅크의 연방 인가를 승인했으며, 이 기관은 고객 자산 수탁과 RLUSD 준비금 관리를 맡지만 예금 수취와 대출은 할 수 없음",
         "expires": 1793542775.9905856
@@ -3779,6 +3767,10 @@
       "bda649e11477e379a55a762ef616f727b861d8f06f4f5c4dabe168eb3b8362a0": {
         "text": "SKIP",
         "expires": 1793798532.682475
+      },
+      "792ade6336fdf14a3856bf9270751a08048848133120ab20418a697229801889": {
+        "text": "미국 오하이오주 상원의원 특별선거에서 가상자산 관련 슈퍼 PAC 두 곳이 10월 31일까지 존 허스티드 후보 지지·셰러드 브라운 후보 반대 광고 등에 6390만달러를 독립지출한 것으로 집계됨. 이는 후보 선거캠프에 직접 전달한 후원금과 구분되며, 여론조사 3건에서는 브라운의 근소한 우세와 동률이 엇갈림",
+        "expires": 1793801084.7809513
       },
       "11bf1ce1434d6c54e6461486988be61f24854bc5f64d92a6729a4334b50a7b84": {
         "text": "SKIP",
@@ -6427,6 +6419,10 @@
       "0b4c6a5094ad9adbde0264bc342a6dcb486fb3d6b71eff0cd601c470ff3b119a": {
         "text": "{\"publish\":false,\"reason\":\"포트폴리오 밖 플랫폼의 해킹 사고가 핵심이며 BTC 전환은 후속 자금 이동에 불과하다. 요약은 빈 풀 생성과 플래시론 이용 순서를 부정확하게 묶었고, 옵션 볼트·플래시론의 설명도 없어 이해하기 어렵다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1794143052.3434458
+      },
+      "8d5334617f5a0e2c77c51f7fdf24e46e97d19614e0c1202ae6520bccec11a89e": {
+        "text": "{\"publish\":false,\"reason\":\"기존 선거자금 지출액의 증가를 전하는 후속 집계와 여론조사가 핵심이다. 요약은 집계 주체와 자료 간 금액 불일치를 누락했고, 원문에서 확인되지 않는 광고 용도를 추가했다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}",
+        "expires": 1794146690.8393214
       }
     },
     "version": "review-cache-v29-1",
@@ -9102,49 +9098,49 @@
       "2026-11-01": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 1,
+            "api_calls": 2,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 8501,
+            "input_tokens": 17462,
             "cached_input_tokens": 0,
-            "output_tokens": 363,
+            "output_tokens": 482,
             "reasoning_tokens": 244,
-            "estimated_usd": 0.00124405,
+            "estimated_usd": 0.0024236,
             "unpriced_calls": 0,
-            "cache_write_tokens": 8498
+            "cache_write_tokens": 17456
+          },
+          "source_summary": {
+            "api_calls": 0,
+            "cache_hits": 1,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 0,
+            "cached_input_tokens": 0,
+            "output_tokens": 0,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.0,
+            "unpriced_calls": 0
           }
         },
         "gpt-6.1-sol": {
           "source_review": {
-            "api_calls": 1,
+            "api_calls": 2,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 7964,
+            "input_tokens": 16390,
             "cached_input_tokens": 0,
-            "output_tokens": 179,
-            "reasoning_tokens": 59,
-            "estimated_usd": 0.0216985,
+            "output_tokens": 340,
+            "reasoning_tokens": 111,
+            "estimated_usd": 0.044372,
             "unpriced_calls": 0,
-            "cache_write_tokens": 7961
+            "cache_write_tokens": 16384
           }
         }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-23T18:01:43.845398+00:00",
-        "elapsed_seconds": 3002.649,
-        "status": "completed",
-        "api_calls": 29,
-        "cache_hits": 41,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.02679045,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-23T19:01:12.324832+00:00",
         "elapsed_seconds": 1793.262,
@@ -11146,6 +11142,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.02294255,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-01T14:01:35.133786+00:00",
+        "elapsed_seconds": 199.275,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 1,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.02385305,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -27775,19 +27783,6 @@
       }
     },
     "content_results_v1": {
-      "82d717f41be053742b21ac48aafca26f2edf1decd4ac8182e54a3216d8ae9c8a": {
-        "result": {
-          "text": "SKIP"
-        },
-        "expires": 1793539309.518999
-      },
-      "8423f4ff27957c87032271ee8a2bbc7894539e76e6acf36a21394fcf6898307a": {
-        "result": {
-          "summary": "",
-          "reason": "요약 편집 단계의 명시적 제외 판정"
-        },
-        "expires": 1793539309.835286
-      },
       "34a29b1732b550fed18dd95c3167995357701ed631a6ee4d5e67dde04dc728e2": {
         "result": {
           "text": "SKIP"
@@ -193314,51 +193309,23 @@
           "body_entities": []
         },
         "expires": 1794143052.8467164
+      },
+      "31dd30436fcad0f7e1aa175271a7776e25b1e96c6c6b65f2c2fd4770f4573f4b": {
+        "result": {
+          "text": "{\"publish\":false,\"reason\":\"기존 선거자금 지출액의 증가를 전하는 후속 집계와 여론조사가 핵심이다. 요약은 집계 주체와 자료 간 금액 불일치를 누락했고, 원문에서 확인되지 않는 광고 용도를 추가했다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":false,\"source_sufficient\":true,\"understandable\":true}}"
+        },
+        "expires": 1794146690.8393266
+      },
+      "c8c55288fe122bd589cfbcf82273fd0b32c18dbc9f4e04be298319acc53d4950": {
+        "result": {
+          "summary": "",
+          "reason": "원문 대조 제외: 기존 선거자금 지출액의 증가를 전하는 후속 집계와 여론조사가 핵심이다. 요약은 집계 주체와 자료 간 금액 불일치를 누락했고, 원문에서 확인되지 않는 광고 용도를 추가했다.",
+          "body_entities": []
+        },
+        "expires": 1794146691.345223
       }
     },
     "source_identity_v1": {
-      "e3e002d5278c1616404b97e565199fe49d996197f23fdb9f703ba7a297150f0a": {
-        "inputs": {
-          "title": "32e693e55d899b8a2310da99e34f6c3aeaf32fb56550fe663205710c1493fb48",
-          "pub": "6e8f56364fdb01d58b09ab3808e7d1e74104239de62a64a179293d09d19a3cb2",
-          "source_sha256": "e536ad09bb0801937796817d2b7b402a3cb36c3b1219bb87d95765ec7cf33f2b",
-          "page_published_at": "7d8cb0bb40d2b222bb4a8140d3d292909fbb1c293771dcc298f4720213a7bf10",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "7623265f8cf39f306b445cca54173d4bc42b3a55cf363548eb7fa2d86c34f7b7",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "8e16077f3b63ea3c01b110d1b5d87e2fd50ae4ecba9036d49b3841e55116169d"
-        },
-        "expires": 1793539314.2378137
-      },
-      "695795c550b13a56f6d52fd579a88f10fc8fe50de294a41fd085918dd6160c32": {
-        "inputs": {
-          "title": "fee4831051e3ebdb88796a95fde8ae7212ae8e2a8c57a9674d753a7298191744",
-          "pub": "c5200ae482a0437dea69b6b025f02bfc7a9ba3c774f0ee5b081a303a3230a386",
-          "source_sha256": "53e3ef462fd50e0aa9396d6faf594089b6d16d38741b7acf7d7b07011928d36b",
-          "page_published_at": "9fd17143ba4943adf351e9d24800f57bf667d8d39c4261c889f0c2367407d9c1",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "f72280e68530514b1dfe83107fe61cc31b7b573b16f1c8fb41dbbbc626fdda45",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "8e16077f3b63ea3c01b110d1b5d87e2fd50ae4ecba9036d49b3841e55116169d"
-        },
-        "expires": 1793539318.3846006
-      },
-      "13b42a4b75f3e63c21e0666e5be59a18777a2b002c26dcb5482e4ea8710c0e0b": {
-        "inputs": {
-          "title": "5da250f6f007866807caf1b41913f51f6ee86c9404d007d7251d8ba099447fce",
-          "pub": "7b5f2ca66476be243880881ec3b360c8d062c808c0dab1d0c51bef3cbcd7ef09",
-          "source_sha256": "ba06b8070451046788a36dd347c8e96acfc08c1013d6ac766af03176050fba59",
-          "page_published_at": "bcc963b73ea9303a61931112482cd46f59e27898d66d5f6b9868486d57244f58",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "c4797b86022705f2d35645f94d0a66ddc81179f12731d60a1dc4c93b7a4c75aa",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "8e16077f3b63ea3c01b110d1b5d87e2fd50ae4ecba9036d49b3841e55116169d"
-        },
-        "expires": 1793539343.5676262
-      },
       "24d50b55cfcf22991a3eca0620d8d12ca10e9c61892620f1990c6cebee209d9b": {
         "inputs": {
           "title": "60858a9b72ed55b41b2c205f3b88118c0143e08b90910775506f1f17926b9817",
@@ -197923,6 +197890,20 @@
         },
         "expires": 1793974922.5241354
       },
+      "b3eb492fb82da444de6b2795aac20e92da0ab52ee173e89d4f35aa7bf8dbae9d": {
+        "inputs": {
+          "title": "9b7c3023f8d2f76cb98fb62cf67e950c1510303e6bafe07c0ec58a3dd9820b77",
+          "pub": "03adacc30c74ccf7fb99f4108f3d97d526ce32ef0d4cda6ad415dc0986a8344c",
+          "source_sha256": "861d1e82c9c895bc0c8db6bed8a3abe270a20327a2dce447ce7ebc72887f6701",
+          "page_published_at": "872926b10efba21e25a46a51f5f8a45e5946bc83025f591ada220326a0966c21",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "ad56b498bfeef5707796a0405104a18ac34bbff681b2994737fc5a3f52a2e688",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "c0f9dd9db62b6bb379ac9491171790a7c106c520371a057923e2b3162cc1345d"
+        },
+        "expires": 1794146680.7985938
+      },
       "b1e8949fc18fc474edf714d61eabe17ea515eac34820122b374867587f93d77f": {
         "inputs": {
           "title": "2995ee96f6e5ffff7d098fc3ff1694c8905893dfffe15066e02b61ed4a2e9fe8",
@@ -197935,7 +197916,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "c0f9dd9db62b6bb379ac9491171790a7c106c520371a057923e2b3162cc1345d"
         },
-        "expires": 1794143038.638832
+        "expires": 1794146693.2998388
       }
     },
     "budget_reservations_v1": {}
