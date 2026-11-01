@@ -28,6 +28,7 @@ from news_quality import precise_event_tokens
 from news_coverage import coverage_scope, coverage_intake_reason, source_packet, GUIDANCE as COVERAGE_GUIDANCE, POLICY as COVERAGE_POLICY
 from news_portfolio_policy import adverse_portfolio_reason, GUIDANCE as PORTFOLIO_GUIDANCE, POLICY as PORTFOLIO_POLICY
 from news_asset_scope import outside_project_reason, GUIDANCE as ASSET_SCOPE_GUIDANCE, POLICY as ASSET_SCOPE_POLICY
+from news_industry_intake import industry_intake_scope, ENABLED_AT as INDUSTRY_INTAKE_ENABLED_AT
 from news_event_review import review_event
 from news_review_cache import request_text, review_context, valid_checks, fingerprint
 from news_review_cache import repair_memory, has_review_store, request_options
@@ -1267,6 +1268,12 @@ def _is_hard_blocked(story: dict) -> tuple[bool, str]:
     scope_reason = feedback_intake_reason(story)
     if scope_reason:
         return True, scope_reason
+    industry_scope = industry_intake_scope(story)
+    if industry_scope and channel_scope_reason(story) == industry_scope:
+        from news_resume import publication_time
+        published = publication_time(story)
+        if published is None or published <= INDUSTRY_INTAKE_ENABLED_AT:
+            return True, '업계 진입 보완 전 기사: 과거 제외 기사 재발송 방지'
     queue_metric = staking_queue_metric_reason(story)
     if queue_metric:
         return True, queue_metric

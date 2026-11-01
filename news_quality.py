@@ -4,6 +4,7 @@ from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 import re
 from news_coverage import coverage_scope
+from news_industry_intake import industry_intake_scope
 from news_manual_oct10 import URLS as OCT10_POSTED_URLS
 from news_manual_oct12 import URLS as OCT12_POSTED_URLS
 from news_manual_oct13 import URLS as OCT13_POSTED_URLS
@@ -549,7 +550,7 @@ def channel_scope_reason(story):
             or attributed_view_scope_reason(title) or market_access_scope_reason(story)
             or diplomatic_statement_scope_reason(story)
             or institutional_research_scope_reason(story) or real_world_adoption_scope_reason(story)
-            or feedback_scope_reason(story))
+            or feedback_scope_reason(story) or industry_intake_scope(story))
 
 
 def staking_queue_metric_reason(story):
