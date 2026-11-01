@@ -48,6 +48,8 @@ jobs:
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: "gpt-6-luna"
+          # Temporary total-use cap until free-credit balance is verified.
+          NEWS_MONTHLY_API_BUDGET_USD: "5"
           INITIAL_RUN: "false"
         run: python doorinews_bot.py
 
