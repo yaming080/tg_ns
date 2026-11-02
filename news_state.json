@@ -2141,22 +2141,6 @@
   },
   "ai_review": {
     "entries": {
-      "601b512b192dd05944fc01ce11a6c9db41c1f7aef6000872bd92b58de5acf8ca": {
-        "text": "SKIP",
-        "expires": 1793585627.198969
-      },
-      "4c62655bca65485c5499a52aa0605b072198cd309a8fd63eb0cd33ab9e73b6ed": {
-        "text": "SKIP",
-        "expires": 1793585630.5577571
-      },
-      "9b99f2ae2fb57d93055a7297fe893e6b49dba49b1029a43b61f6e81ac90c65e5": {
-        "text": "{\"publish\":false,\"reason\":\"새 L1 개발 및 출시 계획은 원문에 부합하나, 레이어1과 스테이킹을 설명하지 않아 이해 가능성 기준을 충족하지 못함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
-        "expires": 1793585640.826496
-      },
-      "172aa3028e5e5fa9f319eff02c38ebc0d78bb41f354508606a6ab9b8388b3eea": {
-        "text": "{\"publish\":false,\"reason\":\"스테이킹을 코인을 맡겨 네트워크 운영에 참여하는 방식으로 설명했으나 원문은 해당 방식을 설명하지 않음\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
-        "expires": 1793585652.3522828
-      },
       "1b90b809a5ab7ee18c73c46163aff2e7bec179ad4ad5ce4d22f5019c10276c23": {
         "text": "{\"approved\":false,\"reason\":\"기사는 Utexo의 비트코인 기반 USDT 기관 공급이 핵심이지만, 이미지는 일반 하드웨어 지갑과 비트코인 실물 모형을 보여줄 뿐 Utexo나 USDT를 식별할 수 없다. 비트코인은 배경 기반으로 언급된 것이므로 대표 이미지로 적합하지 않다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":true}}",
         "expires": 1793589298.0786393
@@ -5956,6 +5940,10 @@
       "aad6cd6634a791b2ca1dda5b5fecf256d99a9e5e3c1032befdd67c4343f1a87e": {
         "text": "{\"publish\":false,\"reason\":\"미승인 계정이 토큰을 수신할 수 있는 XRP 레저의 승인 검사 문제와 수정안이 핵심이므로, 포트폴리오 네트워크 자체의 취약점·악재 제외 기준에 해당한다. 코드 검토 단계와 미적용 조건은 요약에 보존됐다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":false,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}",
         "expires": 1794190162.7117972
+      },
+      "916a1b2432f2e5d7ede7d70d537ec121a48574e33e8b183414b76db825104ddd": {
+        "text": "SKIP",
+        "expires": 1794193892.8433905
       }
     },
     "version": "review-cache-v29-1",
@@ -8701,17 +8689,17 @@
       "2026-11-02": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 7,
+            "api_calls": 8,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 57787,
+            "input_tokens": 66071,
             "cached_input_tokens": 0,
-            "output_tokens": 1314,
+            "output_tokens": 1320,
             "reasoning_tokens": 945,
-            "estimated_usd": 0.00787985,
+            "estimated_usd": 0.008918275,
             "unpriced_calls": 0,
-            "cache_write_tokens": 57766
+            "cache_write_tokens": 66047
           },
           "event_search": {
             "api_calls": 4,
@@ -8741,7 +8729,7 @@
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 30,
+            "cache_hits": 42,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -8783,18 +8771,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-24T08:01:31.195581+00:00",
-        "elapsed_seconds": 2677.329,
-        "status": "completed",
-        "api_calls": 8,
-        "cache_hits": 46,
-        "errors": 0,
-        "published": 1,
-        "estimated_usd": 0.007884525,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-24T09:01:37.396074+00:00",
         "elapsed_seconds": 2382.554,
@@ -10796,6 +10772,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.052483125,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-02T03:01:36.905601+00:00",
+        "elapsed_seconds": 611.126,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 12,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.001038425,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -27247,10 +27235,6 @@
       }
     },
     "summary_repairs_v1": {
-      "79c1bfab1b839c0e482dab6755b89e71d534d6c320dc9ecd4546a9f267ac6afe": {
-        "summary": "",
-        "expires": 1793585641.0934234
-      },
       "efdace1565acbb711af59b3515b65b3c6165dde7ec92b66378d5ae0c92b7a94f": {
         "summary": "",
         "expires": 1793607676.6381488
@@ -27421,51 +27405,6 @@
       }
     },
     "content_results_v1": {
-      "67ad9d6072ac1313775d181b3c42380afcec08f60ebde27155b7c2a93c0d61b2": {
-        "result": {
-          "text": "SKIP"
-        },
-        "expires": 1793585627.1989732
-      },
-      "070929f1eb8124d119c61dff400b565b201b97486b655110e2c32c4ffbb5571d": {
-        "result": {
-          "summary": "",
-          "reason": "요약 편집 단계의 명시적 제외 판정"
-        },
-        "expires": 1793585627.4690971
-      },
-      "91282b508e562e2fe2e8d743fd344635fbe262ccb8bb90c9198e8b3cb786514d": {
-        "result": {
-          "text": "SKIP"
-        },
-        "expires": 1793585630.5577605
-      },
-      "c799413b91990875f301cf67ace6f7ac9e738cb64ecdf789cc3ffa051b644386": {
-        "result": {
-          "summary": "",
-          "reason": "요약 편집 단계의 명시적 제외 판정"
-        },
-        "expires": 1793585630.8304634
-      },
-      "ec9ba8ddd3cef07b273c8e91439ec9ab0d5ca3425b0a34b5bbdfc25336eb7781": {
-        "result": {
-          "text": "{\"publish\":false,\"reason\":\"새 L1 개발 및 출시 계획은 원문에 부합하나, 레이어1과 스테이킹을 설명하지 않아 이해 가능성 기준을 충족하지 못함\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}"
-        },
-        "expires": 1793585640.8264997
-      },
-      "e9dc0da9635c104099f62b9867b12ede8f074c8e5289a12c5841c624dc5b9523": {
-        "result": {
-          "text": "{\"publish\":false,\"reason\":\"스테이킹을 코인을 맡겨 네트워크 운영에 참여하는 방식으로 설명했으나 원문은 해당 방식을 설명하지 않음\",\"checks\":{\"faithful\":false,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true}}"
-        },
-        "expires": 1793585652.3522854
-      },
-      "a10643ee9a5bd2a3be93f83e1457b23757952baca7b926adf792ffdf0a79f82d": {
-        "result": {
-          "summary": "",
-          "reason": "원문 대조 제외: 새 L1 개발 및 출시 계획은 원문에 부합하나, 레이어1과 스테이킹을 설명하지 않아 이해 가능성 기준을 충족하지 못함"
-        },
-        "expires": 1793585652.6159236
-      },
       "c63609872e5e4455c065c93ea3b6cdc431294e8f91b3f7d3c038304e70081dc9": {
         "result": {
           "summary": "Utexo가 비트코인 기반 브리지형 USDT를 초기에는 기관에 제공하며, 개인 이용자 대상 일정은 추후 공개할 예정임\n\n제휴 지갑·거래소를 통한 공개 출시는 11월 28일로 계획됐으며, 개인이 직접 이용할 수 있는 시점과는 별개임",
@@ -190488,37 +190427,23 @@
           }
         },
         "expires": 1794190184.5198584
+      },
+      "6148f44cb7fd39e1b7a67ac1aca86f7bcdd442864879fa1060dbfc7754ed0f08": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794193892.8433964
+      },
+      "bfbf509b73ae36e8cc09da2934f7e91862990216ed0c4a7ada50315567aebda3": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794193893.3263717
       }
     },
     "source_identity_v1": {
-      "a6c3783dd78e412dce5bdf0d8f53172e7537768d3704a4b22aa32b54ce5e3855": {
-        "inputs": {
-          "title": "4f08d372ff2337fd8d16e832a914bb258fd0632849924877bb9d2381886e7590",
-          "pub": "000b506dc3fcb1e746bed671aa13349db8f89c04d00bdde92db52af8e5e8fe9a",
-          "source_sha256": "64184bc44d23f0c4388999b6af32308523ff329079cedf79bf3d5f835213cf4c",
-          "page_published_at": "9c4735256c050d0e5e0716e2e098905e85fc7a6985e17436dd51841ef3bcf9d1",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "d6a8db7b2eecb30434d3fb77f644594c79c898eb6ae744df8b6426ceee9b60e0",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "8e16077f3b63ea3c01b110d1b5d87e2fd50ae4ecba9036d49b3841e55116169d"
-        },
-        "expires": 1793585658.5950408
-      },
-      "8099b30dd3b9b1dde3e98f61fd350ee9c87d68fe2b7c878caf92d58d1e0210eb": {
-        "inputs": {
-          "title": "a4ebcb2ab9a0c1e897ee201917663fdb8fcdc83374dde0e211f2b73402d5821a",
-          "pub": "fcfbfba727e136b38ab2c385655552a81547a77303155512d2e1847666e7b349",
-          "source_sha256": "8de8f6adfe053836a78d3acb3ff600667035e3020aec7793f08a4c0ba24065e8",
-          "page_published_at": "7250fca565f22b0a99c4295e1647ab10d44fda883534e65ac059048c016076ca",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "8e16077f3b63ea3c01b110d1b5d87e2fd50ae4ecba9036d49b3841e55116169d"
-        },
-        "expires": 1793585667.246896
-      },
       "631a918eeba65458260286eeb3d9876f58aaadac5e97765f37f22729394d8fd3": {
         "inputs": {
           "title": "e7f383e9de8da16c06c887dab40dbd43c1abab5fdc92e4ecc879593cb2af44b9",
@@ -194887,34 +194812,6 @@
         },
         "expires": 1794186840.202552
       },
-      "cdc01d93b428fa2d283b5dc27c42980d2aae010ad91ac83d0b6b21884d233355": {
-        "inputs": {
-          "title": "6697b7a6ee2e9e4f5e61c2a6d17616293e5af93689b79cfc9f965c23750d1cd7",
-          "pub": "d2d9effeadfd8423c83ea14b63706b8d520acde1eb43c959ff4e3b71e73a76af",
-          "source_sha256": "eca56c34ec8a7e8294449ea353845d1688583a389c4e96a37665705aef6a0864",
-          "page_published_at": "55a0ea54efaaa5ebeb1f908a3bffe0e8bb83fe6bc125e1554dc02e64a45feb2f",
-          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
-          "description_sha256": "eca56c34ec8a7e8294449ea353845d1688583a389c4e96a37665705aef6a0864",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794186843.6060264
-      },
-      "fbd0161b5d089caedec20986949801f8d14606596519555f3248263dc12a9de6": {
-        "inputs": {
-          "title": "db37db4e4dcf3dcee54ef7fd2bc0e099c1d60b1ffbbe5e531145b691c190100c",
-          "pub": "b4dd227dd15418183defc10ae565a0a5a554270020e9ac395a4d4a8dd8fec8be",
-          "source_sha256": "a35500375605e063e12d8611e7a2f50a5a0f02df5f548fa829a88847cee25540",
-          "page_published_at": "9a7afa14bca7cf032185fccaa93f438c2b8fef46e5afda953c83d79ca17e2c2a",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "70d1af4afbe389f1fa3f8cfadb0ea0c08f1ffd937a2f4649c9f9a0e4b4606097",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190152.3728044
-      },
       "6e3bd31bd1f451617ea134414ebce03eb9774b2ea024ef99901a3aa029ef14af": {
         "inputs": {
           "title": "c9a7b25813b8535c8007277fa8a541ef420fe8ebc0ab09424b8287af257f4ab7",
@@ -194928,104 +194825,6 @@
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
         "expires": 1794190165.2812357
-      },
-      "d26c7a9119a3c0026e4914f64eddf3084270107e0c1831748eb8f22b011d6c33": {
-        "inputs": {
-          "title": "50cf5847f53d10bfe897a6fa7ba3a0b0a17f5f9f0c8e9e37b7d8cab0c963a9e2",
-          "pub": "15a0cf26e154ee5f3cdc861a4457bcd16abf92ee7707079cf3a979bd28803138",
-          "source_sha256": "a5a7bb0756dfb6aa85d757babee9c48a5672cb544ff036132e8493427e9ceefc",
-          "page_published_at": "5f3774771e55cf99687925c194fcacbb8a21520fb2a48f18181840a167e48013",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "49a9b2498044b5ca021007be618b7d06028d1e63238fa5a77cde512fa3fe24e7",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190200.1267061
-      },
-      "54a41c79bd2edfb24bdde11aa64c7d3aeec50665de8d3779c37ea91fadff963c": {
-        "inputs": {
-          "title": "d48b8089840377eb354a76a6bc047a9dbf1c998959be11a4d1c0c48ff7a7eb67",
-          "pub": "f342e6be0ecc705fef41dfec4b2edeab6f5945ae96a522d6c45d969ffc499a01",
-          "source_sha256": "77c8e0be3be26c69e5988fb2c684ce20f9d63a93b3daebf7e2fee139a34b1ceb",
-          "page_published_at": "0300a8b76642350a41e3c03567ddfb9e02dffe45d81fe076f45443c74a8a6ad4",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "ce288ee51b3c03bc14c872c3b2627d68d088027b7954743fff6f76fdde801af2",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190200.9633856
-      },
-      "5dcb797f5dff6bae807db851e4094733251df0e0539678239e7bc3d6e9177871": {
-        "inputs": {
-          "title": "9894636158221e6ef21d538732b6ac6861baddc46f4dd98f7eddf162a0e98053",
-          "pub": "aeb8929046b971397049dc20381d658cf2f1ca0b103a6a1299fdcac796d21cd2",
-          "source_sha256": "8e2611b7223decb3d925baafa5d046222f4fa88d9fd20a7190835cf1ece5e8de",
-          "page_published_at": "350e8c0921373828490dc2ec0ef60689233d831b5fa3b486a3c210e2efd35901",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "c6b7036cf3dd2cb92852d0bfebc965742590c9e8cb3afe0bb7000cade1095bc0",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190202.140971
-      },
-      "2123131fcefb9041523b7686affc8ccb4b37c9a6f488cd457dd077ee20d67a03": {
-        "inputs": {
-          "title": "9550cb7419f7faa44ca8c7e2758e4a82a8889f942668894201960cbc3441aa1a",
-          "pub": "e7f130babfd900b837c150fe52e4b3604a0cb9ae09b231fcbea193d9b7793736",
-          "source_sha256": "58e2ae7cf035009be42b168debf604e9218b97db0b764da160414fbd4bc0fa79",
-          "page_published_at": "19f3ebe92d87549ba8be81784250aea7eab48f7796cef21d7bf4f545b68d2fed",
-          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
-          "description_sha256": "58e2ae7cf035009be42b168debf604e9218b97db0b764da160414fbd4bc0fa79",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190202.47824
-      },
-      "5539256100d7e541f946700ab81046fb42d2fb299ad5ca161c6989515128c2cd": {
-        "inputs": {
-          "title": "05eb7c5596913007268a969ea29dde66bcf30d6d83d8382c3238e985369693e2",
-          "pub": "4c84a9c45c0cc3554813179ac11f06f4b654ead83c8e78ef38cb0ca460219e69",
-          "source_sha256": "ed0db6ffaf415223d2142b08c63b687bb5a26da07a85c7146217e149d2884f15",
-          "page_published_at": "bf78b267ce6ccd34db536c1c5fe272e334de3d3441ef9500304cbe5a034ba27e",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "2cb4fe27fbc7ff14468fccbcd353558bd85623faed52e29aceef180c1171b53d",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190203.613376
-      },
-      "4329b48282ff6b0073ebbf8bc50c971f67c4535c836610651dbe82eb0587e0e6": {
-        "inputs": {
-          "title": "99d6d4f3de4db761bd2b8eac200164ca42edf0f075b4010ff4f3e41b0b6bdfca",
-          "pub": "2a7d0ecf3ab0d8d7dac38c124855467bb9a08e53978a6dcc6763607ada186cd3",
-          "source_sha256": "b57c0df99c24085c2a5d9398ba49a40750ca28dca90d0f6771b40b0a1a0d9d54",
-          "page_published_at": "a362994b17630010f3825eb5f4b357d28689cf0ba8f0938e6cb1824559ecb2a7",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190205.2445993
-      },
-      "7187b3a745d1dbc9ef99cd327d9a36d8d958de501725a562fcb88570493cd893": {
-        "inputs": {
-          "title": "1ec0097dbad23a2c9252e8572cf55ce20c4054612619965c686310b637b0403d",
-          "pub": "c67d37530fbd3fc65025c3dbfbab20ab30a127e8df42d2f073b089c6c247c51f",
-          "source_sha256": "d7d2826d1f1f9640da288460f387de5d66fd05f05fccecfc1fa6e02c8a402660",
-          "page_published_at": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
-          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
-          "description_sha256": "d7d2826d1f1f9640da288460f387de5d66fd05f05fccecfc1fa6e02c8a402660",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
-        },
-        "expires": 1794190205.5258026
       },
       "0342fe013523cfde70e882834d9939a6c60254be317fb2967344c2a7431a4024": {
         "inputs": {
@@ -195041,6 +194840,132 @@
         },
         "expires": 1794190206.1035204
       },
+      "224cd3eb688deffeb241224a29e69236391148eb939b0deb46a0563588339d7b": {
+        "inputs": {
+          "title": "007e633ee8281f6a055e05614dbc6d1d40cbba135f2e08b06b03b14664caaebc",
+          "pub": "eb13ad1fc2776c30947f21f8b51072b890dc9284266f4c58c6661a8cd8968b1d",
+          "source_sha256": "f245b1de3b96aeb17fdae44b0690459d8edec305a56587a4ac59bc3cbe99cdf2",
+          "page_published_at": "3a11587078f58226e5974f52b15d08707e8465dd3200a639aad7ff2cd1227c5e",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "185c001e12d2ef04da84ca792ec01d38e6c6919b52af67e37f01d0273403dba0",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193889.751085
+      },
+      "fbd0161b5d089caedec20986949801f8d14606596519555f3248263dc12a9de6": {
+        "inputs": {
+          "title": "db37db4e4dcf3dcee54ef7fd2bc0e099c1d60b1ffbbe5e531145b691c190100c",
+          "pub": "b4dd227dd15418183defc10ae565a0a5a554270020e9ac395a4d4a8dd8fec8be",
+          "source_sha256": "a35500375605e063e12d8611e7a2f50a5a0f02df5f548fa829a88847cee25540",
+          "page_published_at": "9a7afa14bca7cf032185fccaa93f438c2b8fef46e5afda953c83d79ca17e2c2a",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "70d1af4afbe389f1fa3f8cfadb0ea0c08f1ffd937a2f4649c9f9a0e4b4606097",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193894.3889778
+      },
+      "d26c7a9119a3c0026e4914f64eddf3084270107e0c1831748eb8f22b011d6c33": {
+        "inputs": {
+          "title": "50cf5847f53d10bfe897a6fa7ba3a0b0a17f5f9f0c8e9e37b7d8cab0c963a9e2",
+          "pub": "15a0cf26e154ee5f3cdc861a4457bcd16abf92ee7707079cf3a979bd28803138",
+          "source_sha256": "a5a7bb0756dfb6aa85d757babee9c48a5672cb544ff036132e8493427e9ceefc",
+          "page_published_at": "5f3774771e55cf99687925c194fcacbb8a21520fb2a48f18181840a167e48013",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "49a9b2498044b5ca021007be618b7d06028d1e63238fa5a77cde512fa3fe24e7",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193895.9765382
+      },
+      "54a41c79bd2edfb24bdde11aa64c7d3aeec50665de8d3779c37ea91fadff963c": {
+        "inputs": {
+          "title": "d48b8089840377eb354a76a6bc047a9dbf1c998959be11a4d1c0c48ff7a7eb67",
+          "pub": "f342e6be0ecc705fef41dfec4b2edeab6f5945ae96a522d6c45d969ffc499a01",
+          "source_sha256": "77c8e0be3be26c69e5988fb2c684ce20f9d63a93b3daebf7e2fee139a34b1ceb",
+          "page_published_at": "0300a8b76642350a41e3c03567ddfb9e02dffe45d81fe076f45443c74a8a6ad4",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "ce288ee51b3c03bc14c872c3b2627d68d088027b7954743fff6f76fdde801af2",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193896.93125
+      },
+      "5dcb797f5dff6bae807db851e4094733251df0e0539678239e7bc3d6e9177871": {
+        "inputs": {
+          "title": "9894636158221e6ef21d538732b6ac6861baddc46f4dd98f7eddf162a0e98053",
+          "pub": "aeb8929046b971397049dc20381d658cf2f1ca0b103a6a1299fdcac796d21cd2",
+          "source_sha256": "8e2611b7223decb3d925baafa5d046222f4fa88d9fd20a7190835cf1ece5e8de",
+          "page_published_at": "350e8c0921373828490dc2ec0ef60689233d831b5fa3b486a3c210e2efd35901",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "c6b7036cf3dd2cb92852d0bfebc965742590c9e8cb3afe0bb7000cade1095bc0",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193898.1059675
+      },
+      "2123131fcefb9041523b7686affc8ccb4b37c9a6f488cd457dd077ee20d67a03": {
+        "inputs": {
+          "title": "9550cb7419f7faa44ca8c7e2758e4a82a8889f942668894201960cbc3441aa1a",
+          "pub": "e7f130babfd900b837c150fe52e4b3604a0cb9ae09b231fcbea193d9b7793736",
+          "source_sha256": "58e2ae7cf035009be42b168debf604e9218b97db0b764da160414fbd4bc0fa79",
+          "page_published_at": "19f3ebe92d87549ba8be81784250aea7eab48f7796cef21d7bf4f545b68d2fed",
+          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
+          "description_sha256": "58e2ae7cf035009be42b168debf604e9218b97db0b764da160414fbd4bc0fa79",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193898.8796148
+      },
+      "5539256100d7e541f946700ab81046fb42d2fb299ad5ca161c6989515128c2cd": {
+        "inputs": {
+          "title": "05eb7c5596913007268a969ea29dde66bcf30d6d83d8382c3238e985369693e2",
+          "pub": "4c84a9c45c0cc3554813179ac11f06f4b654ead83c8e78ef38cb0ca460219e69",
+          "source_sha256": "ed0db6ffaf415223d2142b08c63b687bb5a26da07a85c7146217e149d2884f15",
+          "page_published_at": "bf78b267ce6ccd34db536c1c5fe272e334de3d3441ef9500304cbe5a034ba27e",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "2cb4fe27fbc7ff14468fccbcd353558bd85623faed52e29aceef180c1171b53d",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193899.4603364
+      },
+      "4329b48282ff6b0073ebbf8bc50c971f67c4535c836610651dbe82eb0587e0e6": {
+        "inputs": {
+          "title": "99d6d4f3de4db761bd2b8eac200164ca42edf0f075b4010ff4f3e41b0b6bdfca",
+          "pub": "2a7d0ecf3ab0d8d7dac38c124855467bb9a08e53978a6dcc6763607ada186cd3",
+          "source_sha256": "b57c0df99c24085c2a5d9398ba49a40750ca28dca90d0f6771b40b0a1a0d9d54",
+          "page_published_at": "a362994b17630010f3825eb5f4b357d28689cf0ba8f0938e6cb1824559ecb2a7",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193901.0183082
+      },
+      "7187b3a745d1dbc9ef99cd327d9a36d8d958de501725a562fcb88570493cd893": {
+        "inputs": {
+          "title": "1ec0097dbad23a2c9252e8572cf55ce20c4054612619965c686310b637b0403d",
+          "pub": "c67d37530fbd3fc65025c3dbfbab20ab30a127e8df42d2f073b089c6c247c51f",
+          "source_sha256": "d7d2826d1f1f9640da288460f387de5d66fd05f05fccecfc1fa6e02c8a402660",
+          "page_published_at": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
+          "description_sha256": "d7d2826d1f1f9640da288460f387de5d66fd05f05fccecfc1fa6e02c8a402660",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193901.4768095
+      },
       "1731bb63e3492e68fff466980fe8f802e5370d1ca90cb31fe001de54749c4cb3": {
         "inputs": {
           "title": "6c094a3b4fc27b0d7f3650f73cfee8d57170265ba73d4fbf13d2299dc90bc70b",
@@ -195053,7 +194978,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794190206.7752013
+        "expires": 1794193902.6135561
       },
       "8bcb8b383ffdbc34611a2cb993bcc6011155ee674e37f8b7fe0a38c4b30ff39c": {
         "inputs": {
@@ -195067,7 +194992,21 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794190208.469974
+        "expires": 1794193904.5580373
+      },
+      "cdc01d93b428fa2d283b5dc27c42980d2aae010ad91ac83d0b6b21884d233355": {
+        "inputs": {
+          "title": "6697b7a6ee2e9e4f5e61c2a6d17616293e5af93689b79cfc9f965c23750d1cd7",
+          "pub": "d2d9effeadfd8423c83ea14b63706b8d520acde1eb43c959ff4e3b71e73a76af",
+          "source_sha256": "eca56c34ec8a7e8294449ea353845d1688583a389c4e96a37665705aef6a0864",
+          "page_published_at": "55a0ea54efaaa5ebeb1f908a3bffe0e8bb83fe6bc125e1554dc02e64a45feb2f",
+          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
+          "description_sha256": "eca56c34ec8a7e8294449ea353845d1688583a389c4e96a37665705aef6a0864",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
+        },
+        "expires": 1794193905.2664096
       },
       "b1e8949fc18fc474edf714d61eabe17ea515eac34820122b374867587f93d77f": {
         "inputs": {
@@ -195081,7 +195020,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "d871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974"
         },
-        "expires": 1794190209.5901465
+        "expires": 1794193907.1431448
       }
     },
     "budget_reservations_v1": {}
