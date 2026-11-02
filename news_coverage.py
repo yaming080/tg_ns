@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 import re
 from news_public_interest import public_interest_scope, ENABLED_AT as PUBLIC_INTEREST_ENABLED_AT, GUIDANCE as PUBLIC_INTEREST_GUIDANCE
+from news_nov2_scope import scope as nov2_scope, ENABLED_AT as NOV2_ENABLED_AT
+from news_industry_intake import industry_intake_scope, ENABLED_AT as INDUSTRY_ENABLED_AT
 
 ENABLED_AT = datetime(2026, 10, 10, 9, 25, tzinfo=timezone.utc)
 POLICY = 'luna-coverage-20261013-4'
@@ -16,11 +18,14 @@ CRYPTO = r'crypto|digital.asset|blockchain|bitcoin|ethereum|stablecoin|tokeniz|\
 COMPANY = r'Evernorth|Evernoth|Ripple|Robinhood|Blockchain\.com|Moscow Exchange|Ledger|Binance|HashKey|BitGo|에버노스|리플|로빈후드|블록체인닷컴|모스크바거래소|레저|바이낸스|해시키|비트고'
 
 
-def coverage_scope(story):
+def coverage_scope(story, *, team_feedback=True):
     title = str(story.get('title', '') or '')
     has = lambda p: bool(re.search(p, title, re.I))
     if has(r'presale|airdrop|giveaway|referral|sponsored|technical analysis|price prediction|price target|RSI|MACD|프리세일|에어드롭|추천인|협찬|차트.?분석|목표가|지지선|저항선|뉴스.?브리핑|weekly.{0,20}recap'):
         return ''
+    team_scope = nov2_scope(story) if team_feedback else ''
+    if team_scope:
+        return team_scope
     new_scope = oct13_scope(story)
     if new_scope:
         return new_scope
@@ -67,6 +72,10 @@ def coverage_intake_reason(story):
             dt = parsedate_to_datetime(value)
         except (ValueError, TypeError):
             dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if nov2_scope(story) and not coverage_scope(story, team_feedback=False):
+            cutoff = INDUSTRY_ENABLED_AT if industry_intake_scope(story) else NOV2_ENABLED_AT
+            if dt.tzinfo is None or dt <= cutoff:
+                return '11월 2일 범위 보완 전 기사: 과거 대기열 발송 방지'
         if oct13_scope(story) and (dt.tzinfo is None or dt <= OCT13_ENABLED_AT):
             return '6차 범위 확대 전 기사: 과거 대기열 발송 방지'
         if public_interest_scope(story) and (dt.tzinfo is None or dt <= PUBLIC_INTEREST_ENABLED_AT):

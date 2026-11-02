@@ -352,9 +352,11 @@ def content_result(kind, scope, result=None):
         except (OSError, ValueError):
             manifest = {}
         from news_industry_intake import industry_intake_scope
+        from news_nov2_scope import scope as nov2_scope
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
-        affected = kind in {'source_summary', 'event_rejected', 'negative_request'} and industry_intake_scope(scope)
+        affected = kind in {'source_summary', 'event_rejected', 'negative_request'} and (
+            industry_intake_scope(scope) or nov2_scope(scope))
         if previous and not affected and manifest.get('current_identity') == editorial_identity():
             for identity in previous:
                 old_key = fingerprint([VERSION, identity, kind, scope])

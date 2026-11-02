@@ -1,0 +1,37 @@
+"""User-confirmed Telegram posts on Nov 2; comparison evidence, not source facts."""
+EVENTS = (
+    ('https://bloomingbit.io/feed/news/123410',
+     '국민의힘 최은석, 코인 과세 2년 유예·기본공제 5000만원 법안 발의',
+     '팀원 게시 확인: 과세 2년 유예와 기본공제 5000만원 법안 발의. 통과·시행 확정 아님'),
+    ('https://bloomingbit.io/feed/news/123397',
+     '트럼프, 민주당 중간선거 승리하면 거부권 적극 행사 발언',
+     '팀원 게시 확인: 민주당이 의회 다수당이 되는 경우 거부권을 적극 행사하겠다는 트럼프의 조건부 발언'),
+    ('https://bloomingbit.io/feed/news/123405',
+     '금융위, 바이낸스 해킹에 국내 거래소 긴급 소집…콜드월렛 보관 확대 논의',
+     '팀원 게시 확인 및 봇 게시 이력 존재: 금융위의 국내 거래소 긴급회의와 콜드월렛 보관 확대 논의'),
+    ('https://timestabloid.com/xrp-researcher-my-full-conversation-with-tom-alaerts-who-spent-over-27-years-at-swift/',
+     'XRP Researcher: My Full Conversation With Tom Alaerts Who Spent Over 27 Years At SWIFT',
+     '팀원 게시 확인: SWIFT 표준 실무 경력자 톰 알라에르츠가 ISO 20022를 사용하는 디지털자산 네트워크의 은행 통합 이점 설명. XRP 인증이나 실제 은행 채택 발표 아님'),
+    ('https://www.etoday.co.kr/news/view/2642945?trc=main_list_pick',
+     '사전투표 마친 머스크, 민주당 승리 시 일당독재 주장하며 공화당 상원 후보 지지 요청',
+     '팀원 게시 확인: 사전투표 이후 일론 머스크의 조건부 정치적 주장 및 공화당 상원 후보 지지 요청. 봇의 정치적 판단 아님'),
+    ('https://crypto.news/btcpay-server-warns-of-wallet-drains-urges-server-shutdowns/',
+     'BTCPay Server warns of wallet drains, urges server shutdowns',
+     '팀원 게시 확인: BTCPay 서버의 지갑 자금 유출 우려와 서버 중단 긴급 공지. 비트코인 프로토콜 결함 공지 아님'),
+    ('https://x.com/cryptodotnews/status/2117081762576674848',
+     'China calls for tougher crackdown on crypto bribes, corruption',
+     '팀원 게시 확인: 중국 공산당 결의안이 암호화폐·블록체인·국경 간 자금을 이용한 부패 단속 촉구. 새로운 암호화폐 거래 금지 발표 아님'),
+    ('https://x.com/BSCNews/status/2117147444924522579',
+     'CZ says 98% of Binance users chose to stay after withdrawals resumed',
+     '팀원 게시 확인: CZ의 98% 이용자 잔류 발언과 출금 재개 후 2.1% 순유출 설명. 두 수치를 같은 통계로 해석하지 않음'),
+    ('https://x.com/cryptodotnews/status/2117160224440144040',
+     'India probes offshore crypto cards linked to Visa Mastercard and RedotPay',
+     '팀원 게시 확인: RBI·FIU-IND가 역외 암호화폐 카드의 국내 결제·외환 규정 우회 여부 검토. 위법 확정 아님'),
+    ('https://bloomingbit.io/feed/news/123429',
+     'AWS, 클라우드 기반 가상자산 거래소 설계안 공개…속도·수탁 보안 강화',
+     '팀원 게시 확인: AWS의 클라우드 기반 암호화폐 거래소 설계안 공개. 거래소 출시 완료 아님'),
+)
+URLS = tuple(row[0] for row in EVENTS) + (
+    # Same China announcement, independently matched to the article body.
+    'https://crypto.news/china-communist-party-crypto-corruption-crackdown/',
+)
