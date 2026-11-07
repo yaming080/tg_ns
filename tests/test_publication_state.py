@@ -112,7 +112,7 @@ class GuardLifecycleTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, '저장 미완료'):
                 self.begin(self.clone(name), run, attempt)
 
-    def test_failed_final_push_leaves_remote_pending_and_retains_local_backup_state(self):
+    def test_unrelated_remote_code_change_is_preserved_on_final_push(self):
         self.begin()
         other = self.clone('other')
         (other/'README.txt').write_text('concurrent code edit', encoding='utf8')
@@ -120,12 +120,12 @@ class GuardLifecycleTests(unittest.TestCase):
         state = guard.read_json(self.worker/guard.STATE)
         state['posted']['sent'] = {'title': 'Send succeeded but save failed'}
         guard.write_json(self.worker/guard.STATE, state)
-        with self.assertRaisesRegex(RuntimeError, 'Git push'):
+        with patch.object(guard.time, 'sleep'):
             guard.finish(self.worker, '100', '1')
-        self.assertEqual(self.remote_json(guard.MARKER)['status'], 'pending')
+        self.assertEqual(self.remote_json(guard.MARKER)['status'], 'complete')
         self.assertIn('sent', guard.read_json(self.worker/guard.STATE)['posted'])
-        with self.assertRaisesRegex(RuntimeError, '저장 미완료'):
-            self.begin(self.clone('next'), run='101')
+        self.assertEqual(self.raw(self.remote, 'show', 'main:README.txt'), 'concurrent code edit')
+        self.begin(self.clone('next'), run='101')
 
     def test_failed_initial_push_does_not_arm_publication(self):
         original = guard.git

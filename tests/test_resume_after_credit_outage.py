@@ -30,7 +30,7 @@ class ResumeTests(TestCase):
         self.assertEqual([s['title'] for s in result], ['latest', 'new'])
         self.assertEqual(stories, original)
 
-    def run_main(self, mutate=False, fresh_pub='2026-10-05T06:00:00Z'):
+    def run_main(self, mutate=False, fresh_pub='2026-10-05T06:00:00Z', saved_boundary=None):
         # Execute the actual final main() with I/O replaced; no module startup.
         source = Path(__file__).resolve().parents[1] / 'doorinews_bot.py'
         tree = ast.parse(source.read_text(encoding='utf-8'))
@@ -38,6 +38,8 @@ class ResumeTests(TestCase):
         old = {'title': 'old', 'url': 'old-url', 'pub': '2026-10-04T06:00:00Z'}
         fresh = {'title': 'fresh', 'url': 'fresh-url', 'pub': fresh_pub}
         state = {'posted': {'existing': {'title': 'existing', 'url': 'existing-url'}}}
+        if saved_boundary:
+            state['publish_not_before_utc'] = saved_boundary
         original_posted = copy.deepcopy(state['posted'])
         def prepare(story, *args, **kwargs):
             if mutate:
@@ -69,6 +71,11 @@ class ResumeTests(TestCase):
     def test_old_stories_never_reach_paid_review_and_new_can_send(self):
         ns = self.run_main()
         ns['send_reviewed_photo'].assert_called_once()
+
+    def test_recovered_boundary_used_by_actual_main_before_paid_review(self):
+        with patch.dict(os.environ, {}, clear=True):
+            ns = self.run_main(saved_boundary='2026-11-07T06:00:00Z', fresh_pub='2026-11-07T06:01:00Z')
+            ns['send_reviewed_photo'].assert_called_once()
 
     def test_send_guard_blocks_changed_publication_date(self):
         ns = self.run_main(mutate=True)
