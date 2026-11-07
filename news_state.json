@@ -2132,26 +2132,6 @@
   },
   "ai_review": {
     "entries": {
-      "fe5dd4792dd926fcfac652f930e26243fd80eb0564d66f052fb3746c60c361e8": {
-        "text": "라이엇플랫폼스가 10월 29일 NYDIG트러스트에 맡긴 디지털자산을 비트고로 모두 이전해 2023년 수탁 계약이 자동 종료됐으며, 조기 해지 위약금은 발생하지 않음. 이전 자산의 수량은 공시에 공개되지 않음",
-        "expires": 1794064881.1931267
-      },
-      "228f7b05a66dfcb510b8cf2dc1fe4aefc3ea1877507273f53d82ed27a9ca3930": {
-        "text": "{\"publish\":true,\"reason\":\"자산 이전 완료와 기존 수탁 계약 자동 종료라는 새 단계가 확인되며, 위약금 미발생과 이전 수량 미공개 조건도 원문대로 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true},\"body_entities\":[{\"name\":\"라이엇플랫폼스\",\"kind\":\"org\"},{\"name\":\"NYDIG트러스트\",\"kind\":\"org\"},{\"name\":\"비트고\",\"kind\":\"org\"}]}",
-        "expires": 1794064887.5633502
-      },
-      "1892f0469a2b276ed0b7b68837a21a85a12b1b69882242ec4ce99d228efc3193": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794064891.2732296
-      },
-      "b1e3dc23b2d067ff7b9812eafee8abdbca3bab722cf8f7c9c0eaea51deb655da": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794064894.3231485
-      },
-      "5908f3d1819df28c423d43cf454f3220e7be54903d0c264c559aee2bbb815f8a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794064896.0462885
-      },
       "1663bc1f32c4925c4b4e3cca1e3c54cd8e77af3c9c15752cfba70fc28178c2b6": {
         "text": "리플 CEO 브래드 갈링하우스가 11월 3일 XRP레저 검증자 베트에게 XRP와 RLUSD는 경쟁 관계가 아니라 서로 다른 결제 수요를 겨냥한 보완적 자산이라고 말함",
         "expires": 1794072811.4550173
@@ -7615,7 +7595,7 @@
           },
           "image_review": {
             "api_calls": 9,
-            "cache_hits": 32,
+            "cache_hits": 36,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 15664,
@@ -7628,7 +7608,7 @@
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 31,
+            "cache_hits": 42,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7640,7 +7620,7 @@
           },
           "image_held": {
             "api_calls": 0,
-            "cache_hits": 8,
+            "cache_hits": 9,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7682,18 +7662,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-28T12:01:20.226203+00:00",
-        "elapsed_seconds": 1527.506,
-        "status": "completed",
-        "api_calls": 28,
-        "cache_hits": 48,
-        "errors": 0,
-        "published": 2,
-        "estimated_usd": 0.02882345,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-28T13:01:16.308587+00:00",
         "elapsed_seconds": 1325.542,
@@ -9695,6 +9663,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.02973235,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-07T16:01:41.458766+00:00",
+        "elapsed_seconds": 619.934,
+        "status": "completed",
+        "api_calls": 0,
+        "cache_hits": 16,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -119364,7 +119344,7 @@
         },
         "expires": 1794647089.9761622
       },
-      "eadf35ca5fce03d44b86de43b5fbf8a0eabc959a3d58f90bdcd96dd65c5b9eff": {
+      "5b72af26d88613d4a1831fb643b29a2875542c7418a9e023616fa6a6938b5aba": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -119378,7 +119358,7 @@
         },
         "expires": 1794650713.427757
       },
-      "40f111bdb85b9b9b847f057e02af2a188242df7f31c41d869c6fb54bd1f6a39c": {
+      "6091fd243a9e0f11b02cef5efcd7357356f39db26beb08af807562b532677c8a": {
         "result": {
           "summary": "",
           "reason": "원문 대조 제외: 요약의 거래 대상과 개설 목표일은 원문과 일치하지만, 원문이 ‘However’ 이후 잘려 있어 중요한 제한·미확정 조건의 누락 여부를 확인할 수 없다.",
@@ -119392,7 +119372,7 @@
         },
         "expires": 1794654238.2918632
       },
-      "b3bcb3e17c8046f00a496f797ac34d8254e30150087fec2ffb40fc72f33c7db0": {
+      "a9860eaa1b62fd0306bbc7cb1add6651d3be097cdedabf24bab62d7e1eb1a216": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -119400,7 +119380,7 @@
         },
         "expires": 1794654238.494294
       },
-      "99b51fc4c176b7668121e55a14c00cf44fd31b181b6199e1affdf4ed61345aa9": {
+      "7f2636a8306d798e5c8c0c38de47eaabcad36632e5e715d23949fd24e7c90e22": {
         "result": {
           "summary": "미국 재무부 해외자산통제국이 11월 6일 캐나다 금융서비스 업체 8곳을 제재 대상으로 지정했으며, 명단에는 업체 4곳과 연결된 트론 주소 6개가 포함됨\n\n제재에 따라 미국 내 대상 자산은 동결 대상이며, 허가·면제된 경우를 빼면 미국인이나 미국 내에서 관련 자산이 포함된 거래가 금지됨",
           "reason": "원문 대조 통과 요약",
@@ -120668,31 +120648,31 @@
         },
         "expires": 1794657935.2387266
       },
-      "3535d3888ddefdddac1091da48aacd6b5dd604e9c609099641718832d52b9c36": {
+      "b7bce424bf67305d2aab6d44c560565092d186f4dbfd0647ddcde9e48e955e46": {
         "result": {
           "text": "{\"approved\":false,\"reason\":\"사진에는 유조선과 정유 시설이 선명하게 보이지만, 기사 핵심인 미국의 제재 대상 캐나다 금융업체와 연결된 트론 주소를 나타내지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":true,\"not_publisher_placeholder\":true}}"
         },
         "expires": 1794657941.564852
       },
-      "915631feb93911513f548a0ffaaac6a8a82c3d7301c0f571d93a57e6bd7a54f4": {
+      "043024253308b8100e595f2357840ad9fa2ec0a78964f79ddd02932588921538": {
         "result": {
           "text": "{\"approved\":false,\"reason\":\"사진은 유조선과 석유 저장 시설을 선명하게 보여주지만, 기사 핵심인 캐나다 금융서비스 업체의 제재나 연결된 트론 주소를 나타내지 않습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false,\"not_publisher_placeholder\":true}}"
         },
         "expires": 1794657946.3652415
       },
-      "e93bd18d251ea18d2869bc98818c925dd556d752e1510c24ecac2e8f2397adcc": {
+      "757c8a1bf12426d8c6ab0d581a5579e7f2169c57d3061b2d4e5941d41d64b108": {
         "result": {
           "text": "{\"approved\":false,\"reason\":\"이미지 중심은 트론 주소나 제재 대상 업체가 아니라 매체의 기본 로고로 보입니다. 기사 핵심 주체를 식별할 수 있는 관련 이미지가 아닙니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false,\"not_publisher_placeholder\":false}}"
         },
         "expires": 1794657951.904775
       },
-      "c2ea7c037b5aa4fd7ed746b7f556f0b0e64c8fff1087ac07dca620d178343176": {
+      "20021cce7db88787a148b3967543c79fe91a045a824e1fca3192c7f4bba814a3": {
         "result": {
           "text": "{\"approved\":false,\"reason\":\"기사의 핵심은 캐나다 금융서비스 업체 제재와 해당 업체에 연결된 트론 주소 6개다. 이미지는 유조선과 정유·산업 시설만 보여 직접 관련된 주체나 사건을 나타내지 않는다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false,\"not_publisher_placeholder\":true}}"
         },
         "expires": 1794657957.7321725
       },
-      "c5b0ba960d1f1e3bea9ff793dc52ed143be1f2c750e825352b87a91e9fb3b60a": {
+      "61bcf0dcb73b5c09d15ad39e2657857e37eb30fa602f2d8f0451ac95ca38f4c8": {
         "result": {
           "reason": "사용 가능한 검토 통과 이미지 없음"
         },
@@ -120704,7 +120684,7 @@
         },
         "expires": 1794657959.7347443
       },
-      "0d9828199f5c5e9a41ed2ff2647273421fbec29cd0386b851c6a5805cf5f6fc9": {
+      "5029bb890d7901e14a11e336c7dc2b64bfbb8628efa20ca701b5e807c692598f": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -120718,7 +120698,7 @@
         },
         "expires": 1794661532.7695444
       },
-      "c756ffd474c35b50849e31685e7746384533f48933fd2eaf482ac634a51fec27": {
+      "8cc1fa45970354bd18beae57eba2982354e6d93d4140e4ee9bffbb024dea24b6": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -120732,7 +120712,7 @@
         },
         "expires": 1794665278.9726756
       },
-      "3ac45145f324f4aad5afe604ac20982f8f8913a24d021d6bcbba8c26e4be075d": {
+      "7ad2114d5d12af49918d7e9322d12538be3494b116ed8213a72d76367072d8ae": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -120746,7 +120726,7 @@
         },
         "expires": 1794665282.2246547
       },
-      "3732a4dcd7bb7a0d3551d5aa77c3b0b176fedd2e15ae1d7c1618e202cb750321": {
+      "a40875e82128272352fad4ff3ba2548499a58c362889ea1848fd88112fee9905": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -120760,7 +120740,7 @@
         },
         "expires": 1794665285.8244538
       },
-      "e197a19a591b5b1a6f40f15429bf25264d4449b3e567661c9152037873815f82": {
+      "548511bf77c8ad70e88ace89e70aae3e0da7e7924b8bb13536a290eb2367dbdc": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -122034,7 +122014,7 @@
         },
         "expires": 1794669184.2152226
       },
-      "f13dd2f61a2491961ba162e0d8416270e9baf32f5644499dbfcf2037876f9b2f": {
+      "096c12f2cbafd8d76c94f7cb50149eea9e460771e78bc43173d4a362fbead09e": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -122048,7 +122028,7 @@
         },
         "expires": 1794669188.4008372
       },
-      "e276c18370b8aac5e586c26ee3d36c0144871ed579a877bc306e7f566ac21f6b": {
+      "6f603a6ecdc14a9063026d70ff0f9966b7fc3288c130137d26246d26e5c1bc83": {
         "result": {
           "summary": "",
           "reason": "요약 편집 단계의 명시적 제외 판정",
@@ -125512,9 +125492,9 @@
           "description_sha256": "eabd16451714f06008967db7b75cf894e9e0fd27a764759925be937e21d180b2",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669181.9814637
+        "expires": 1794672707.8979554
       },
       "c34ca7d1e9b461c7068b3bc949f182a2ac7977fa3d003aaaf43e5b6d61d1deb6": {
         "inputs": {
@@ -125526,9 +125506,9 @@
           "description_sha256": "e7b0cb862cff2d9deed649cf36b5549448744e2cec2e59862dd96fd0647559c5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669185.3931913
+        "expires": 1794672708.7523048
       },
       "c2b291b0dc02f4720fbbb659ed872c342098f04b4d4d32fd400ba5d3e6a5fe0e": {
         "inputs": {
@@ -125540,9 +125520,9 @@
           "description_sha256": "be200c6a71d53251d26e8c7a417bd13fb4bea571aed069b0db6b01246a62c51a",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669189.4197023
+        "expires": 1794672709.6136844
       },
       "d2b983a0adf492fae76653815d15da7cf469a5c6c3784e03743fe300cbfa3706": {
         "inputs": {
@@ -125554,9 +125534,9 @@
           "description_sha256": "bec3df2bb7517ff0ebca7ae1a614c9cbe8e702faaa9b6b3112fb7ae7c44e81fc",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669190.099566
+        "expires": 1794672710.4720178
       },
       "b74205b2a5a5be32a2dc6d836ecde2e088f78d80eb3bcfbd313f35505d9500a5": {
         "inputs": {
@@ -125568,9 +125548,9 @@
           "description_sha256": "fe171c018233ee7fcc7d0f291df2a127874aa9cac9125ad851a7a4332b21efeb",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669190.9353771
+        "expires": 1794672711.5499072
       },
       "937da68a4d2282948f439db61e709d0ba3a8ebd803b45eb2def0de57b74a577b": {
         "inputs": {
@@ -125582,9 +125562,9 @@
           "description_sha256": "23887e7312d5e3fbb0baa07c0fcb456368a95ddc655199cec13d84d4533319eb",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669191.5839028
+        "expires": 1794672712.3357863
       },
       "ed7047e9e35b3bf46f8312f6c07d92ced9bbcf12f94c98a7031f10655250f524": {
         "inputs": {
@@ -125596,9 +125576,9 @@
           "description_sha256": "b026ee874c57340f752b689506d5c6b11b90c4c572a70e7ade9528824838eae5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669192.4720144
+        "expires": 1794672713.4488633
       },
       "a4ed018c67f68e66d3fb4edf65b3897f51b601bfdac40e3554825c0dfee39408": {
         "inputs": {
@@ -125610,9 +125590,9 @@
           "description_sha256": "470b6b14ed2028c72a42a0c9f228778bb2c4be62eeb517b32db2b81354333aab",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669195.7854395
+        "expires": 1794672717.5813048
       },
       "23c758c044b678a6d3741f606de657a83f1fb5c42c39d3fd1d5d15d62a06a826": {
         "inputs": {
@@ -125624,9 +125604,9 @@
           "description_sha256": "13771af8a2ca1f0f151d9d536388df4bc9c863c204029aa9fe3b9cbb7733af83",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669196.5532656
+        "expires": 1794672718.4506273
       },
       "9b0801fc82700e3f147047eb7002c678bcdf11915584cf5b9da03b7e3c63968b": {
         "inputs": {
@@ -125638,9 +125618,9 @@
           "description_sha256": "ddd5a893ac3c9d5e9233684523432db8db3e27f5773f96e2116de00a40170857",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669196.869387
+        "expires": 1794672718.9637735
       },
       "bc61d4d26be54cdd274dc947aa3ad790d61dabf6236694e2cd471c1dd625cece": {
         "inputs": {
@@ -125652,9 +125632,9 @@
           "description_sha256": "88cf1b3b6558e6564b903f6acf04d40569797f4a8b28fbebee0477a9004a0949",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794669197.6684408
+        "expires": 1794672719.7001765
       }
     },
     "budget_reservations_v1": {}
