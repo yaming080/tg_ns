@@ -9,6 +9,7 @@ import re
 from news_public_interest import public_interest_scope, ENABLED_AT as PUBLIC_INTEREST_ENABLED_AT, GUIDANCE as PUBLIC_INTEREST_GUIDANCE
 from news_nov2_scope import scope as nov2_scope, ENABLED_AT as NOV2_ENABLED_AT
 from news_industry_intake import industry_intake_scope, ENABLED_AT as INDUSTRY_ENABLED_AT
+from news_nov7_scope import scope as nov7_scope
 
 ENABLED_AT = datetime(2026, 10, 10, 9, 25, tzinfo=timezone.utc)
 POLICY = 'luna-coverage-20261013-4'
@@ -23,6 +24,8 @@ def coverage_scope(story, *, team_feedback=True):
     has = lambda p: bool(re.search(p, title, re.I))
     if has(r'presale|airdrop|giveaway|referral|sponsored|technical analysis|price prediction|price target|RSI|MACD|프리세일|에어드롭|추천인|협찬|차트.?분석|목표가|지지선|저항선|뉴스.?브리핑|weekly.{0,20}recap'):
         return ''
+    if team_feedback and nov7_scope(story):
+        return nov7_scope(story)
     team_scope = nov2_scope(story) if team_feedback else ''
     if team_scope:
         return team_scope
@@ -72,6 +75,9 @@ def coverage_intake_reason(story):
             dt = parsedate_to_datetime(value)
         except (ValueError, TypeError):
             dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if (nov7_scope(story) and not nov2_scope(story) and not coverage_scope(story, team_feedback=False)
+                and (dt.tzinfo is None or dt <= datetime(2026, 11, 7, 6, 2, tzinfo=timezone.utc))):
+            return '11월 7일 보완 전 기사: 과거 대기열 발송 방지'
         if nov2_scope(story) and not coverage_scope(story, team_feedback=False):
             cutoff = INDUSTRY_ENABLED_AT if industry_intake_scope(story) else NOV2_ENABLED_AT
             if dt.tzinfo is None or dt <= cutoff:

@@ -6,6 +6,7 @@ concurrency:
   cancel-in-progress: false
 permissions:
   contents: write
+  actions: read
 jobs:
   initialize:
     runs-on: ubuntu-latest
@@ -21,6 +22,8 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - name: Reserve publication and recover confirmed state
         id: publication_guard
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -40,6 +43,10 @@ jobs:
               raise SystemExit('NOT_INITIALIZED: ' + ', '.join(missing))
           print('ALL_SOURCE_BASELINES_SAVED')
           PY
+      - name: Certify completed news processing
+        if: ${{ steps.publication_guard.outcome == 'success' && steps.run_bot.outcome == 'success' }}
+        run: python news_state_guard.py checkpoint
+
       - name: Preserve publication state for recovery
         if: always()
         uses: actions/upload-artifact@v4
@@ -48,6 +55,7 @@ jobs:
           path: |
             news_state.json
             news_publication_guard.json
+            news_completion_receipt.json
           if-no-files-found: error
           retention-days: 30
 

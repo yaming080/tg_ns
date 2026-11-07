@@ -353,12 +353,20 @@ def content_result(kind, scope, result=None):
             manifest = {}
         from news_industry_intake import industry_intake_scope
         from news_nov2_scope import scope as nov2_scope
+        from news_nov7_scope import scope as nov7_scope
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
-        affected = kind in {'source_summary', 'event_rejected', 'negative_request'} and (
-            industry_intake_scope(scope) or nov2_scope(scope))
-        if previous and not affected and manifest.get('current_identity') == editorial_identity():
+        semantic = kind in {'source_summary', 'event_rejected', 'negative_request'}
+        affected_now = bool(nov7_scope(scope))
+        affected_earlier = bool(industry_intake_scope(scope) or nov2_scope(scope))
+        if previous and manifest.get('current_identity') == editorial_identity():
             for identity in previous:
+                # The immediately previous release already had Nov 2 rules.
+                # Do not pay again for those unchanged exclusions on this release.
+                affected = semantic and (affected_now or (
+                    identity not in manifest.get('nov7_only_previous_identities', []) and affected_earlier))
+                if affected:
+                    continue
                 old_key = fingerprint([VERSION, identity, kind, scope])
                 entry = records.get(old_key)
                 if entry is not None:

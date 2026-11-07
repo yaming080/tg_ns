@@ -6901,7 +6901,8 @@ def main():
     log("RUNNING_BUILD=0620_general_duplicate_engine")
     state = load_state(STATE_FILE)
     from news_review_cache import review_session, record_publication
-    from news_resume import select_resume_candidates, resume_exclusion_reason
+    from news_resume import select_resume_candidates, resume_exclusion_reason, configure_resume_boundary
+    configure_resume_boundary(state)
     with review_session(state, lambda: save_state(STATE_FILE, state), log):
         posted = state.get('posted', {})
 

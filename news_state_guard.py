@@ -8,6 +8,8 @@ import argparse
 import json
 import os
 import subprocess
+import time
+import hashlib
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from doorinews_editor import story_hash
@@ -61,7 +63,16 @@ def git(root, *args):
     result = subprocess.run(['git', '-C', str(root), *args], capture_output=True, text=True, encoding='utf8')
     if result.returncode:
         # Do not print remote URLs or authentication-bearing Git output.
-        raise RuntimeError('Git ' + args[0] + ' 실패: 게시 중단, 저장 이력/진행 표식 확인 필요')
+        error = (result.stderr or '').lower()
+        category = 'unclassified'
+        for label, patterns in (
+                ('remote_changed', ('non-fast-forward', 'fetch first', 'rejected')),
+                ('authorization', ('authentication failed', 'permission denied', '403', '401')),
+                ('connection', ('could not resolve', 'timed out', 'connection reset', 'unable to access'))):
+            if any(p in error for p in patterns):
+                category = label
+                break
+        raise RuntimeError('Git ' + args[0] + ' 실패 [' + category + ']: 게시 중단, 저장 이력/진행 표식 확인 필요')
     return result.stdout.strip()
 
 
@@ -78,7 +89,35 @@ def persist(root, message):
     # by choosing one side: a rejected push must keep the remote pending marker.
     git(root, 'add', '--', STATE, MARKER)
     git(root, 'commit', '-m', message, '--', STATE, MARKER)
-    git(root, 'push', 'origin', 'HEAD:main')
+    parent = git(root, 'rev-parse', 'HEAD^')
+    for attempt in range(3):
+        try:
+            git(root, 'push', 'origin', 'HEAD:main')
+            return
+        except RuntimeError as error:
+            print('STATE_PUSH_RETRY: attempt=' + str(attempt + 1) + '; ' + str(error))
+            try:
+                git(root, 'fetch', 'origin', 'main')
+                remote = git(root, 'rev-parse', 'FETCH_HEAD')
+                if remote == git(root, 'rev-parse', 'HEAD'):
+                    return  # Server accepted the push, but response was lost.
+                changed = git(root, 'diff', '--name-only', parent, remote, '--', STATE, MARKER)
+                if changed:
+                    raise ValueError('원격 게시 이력이 변경됨: 자동 덮어쓰기 금지')
+                # Only our two state files are committed, and neither changed
+                # remotely. Preserve unrelated remote code commits without force.
+                if remote != parent:
+                    git(root, 'merge-base', '--is-ancestor', parent, remote)
+                    git(root, 'rebase', remote)
+                    parent = remote
+            except ValueError:
+                raise
+            except RuntimeError:
+                if attempt == 2:
+                    raise RuntimeError('Git push 재시도 실패: 검증된 백업으로 다음 실행에서 복구 필요') from None
+            if attempt < 2:
+                time.sleep(2 * (attempt + 1))
+    raise RuntimeError('Git push 재시도 실패: 검증된 백업으로 다음 실행에서 복구 필요')
 
 
 def begin(root, run_id, attempt, now=None, records=None):
@@ -91,14 +130,17 @@ def begin(root, run_id, attempt, now=None, records=None):
         marker = read_json(marker_path)
         validate_marker(marker)
         if marker['status'] == 'pending':
-            raise RuntimeError('이전 게시 기록 저장 미완료: 실행 ' + marker['run_id'] +
-                               '. 자동 발송 중단. 해당 실행의 state 백업과 성공 로그를 복구하세요')
+            from news_state_recovery import recover_previous
+            if not recover_previous(root, marker):
+                raise RuntimeError('이전 게시 기록 저장 미완료: 실행 ' + marker['run_id'] +
+                                   '. 자동 발송 중단. 해당 실행의 state 백업과 성공 로그를 복구하세요')
     state = read_json(root/STATE)
     recovered = recover_confirmed(state, now, records)
     now = now or datetime.now(timezone.utc)
     write_json(root/STATE, state)
     write_json(marker_path, {'schema': 1, 'status': 'pending', 'run_id': str(run_id),
-                            'attempt': str(attempt), 'started_at_utc': now.isoformat()})
+                            'attempt': str(attempt), 'started_at_utc': now.isoformat(),
+                            'state_before_sha256': hashlib.sha256((root/STATE).read_bytes()).hexdigest()})
     persist(root, 'Begin guarded news run ' + str(run_id))
     print('PUBLICATION_GUARD_ARMED; recovered=' + str(recovered))
 
@@ -118,12 +160,13 @@ def finish(root, run_id, attempt):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=('begin', 'finish'))
+    parser.add_argument('command', choices=('begin', 'finish', 'checkpoint'))
     args = parser.parse_args()
     run_id, attempt = os.environ.get('GITHUB_RUN_ID'), os.environ.get('GITHUB_RUN_ATTEMPT')
     if not run_id or not attempt:
         raise RuntimeError('GitHub 실행 식별자가 없어 게시 보호 절차를 시작할 수 없습니다')
-    {'begin': begin, 'finish': finish}[args.command](Path.cwd(), run_id, attempt)
+    from news_state_recovery import checkpoint
+    {'begin': begin, 'finish': finish, 'checkpoint': checkpoint}[args.command](Path.cwd(), run_id, attempt)
 
 
 if __name__ == '__main__':
