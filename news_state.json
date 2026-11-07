@@ -2132,34 +2132,6 @@
   },
   "ai_review": {
     "entries": {
-      "070d9575db42f088db510ef391c9dd4339afa54f9f2570ee06e36d89dca84cbe": {
-        "text": "모스크바증권거래소가 12월 1일부터 BTC·ETH·USDT 거래를 시작할 예정이며, 기존 증권시장 인프라와 국가청산센터를 이용해 시범 거래를 진행함\n\n비적격 투자자는 사전 평가를 통과해야 하며 연간 매수 한도는 중개업체당 30만 루블임",
-        "expires": 1794086669.0806928
-      },
-      "2191e768b8f49a72d69ad6ca89e1cc95bd266126da816e217e0580b7e24093bd": {
-        "text": "모스크바증권거래소는 12월 1일부터 BTC·ETH·USDT 거래를 시작할 예정이며, 기존 증권시장 인프라와 국가청산센터를 활용해 시범 거래를 진행함. 모스크바증권거래소와 국가청산센터는 제재 대상임.\n\n비적격 투자자로 분류된 투자자는 사전 평가를 거쳐야 하며, 연간 매수 한도는 중개업체당 30만 루블임.",
-        "expires": 1794086678.6095142
-      },
-      "f562c3b8f046823391df8d12eea0489ff432209067be1f6306aeda7cfed35820": {
-        "text": "{\"publish\":true,\"reason\":\"거래 개시 예정과 시범 거래 단계를 구분했고, 제재 대상이라는 조건과 비적격 투자자의 사전 평가·중개업체당 연간 매수 한도를 원문대로 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true},\"body_entities\":[{\"name\":\"모스크바증권거래소\",\"kind\":\"org\"},{\"name\":\"국가청산센터\",\"kind\":\"org\"}]}",
-        "expires": 1794086686.3205965
-      },
-      "a3fb399bf19fcc3a4060e11328accf3be2314449ed1926b1f3bd4557a336c4ca": {
-        "text": "{\"related_ids\":[\"46\"]}",
-        "expires": 1794086690.2266088
-      },
-      "9384d7d559d804278805b9834cae31cb1160d1faa141a9a79c5017ac2d288137": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794086694.6661503
-      },
-      "9487aaaabadb62e608260562ce86278fc55b7726edb62865dba837d9a7a985dd": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794086697.891481
-      },
-      "e66f6959c02b4186441d917431c020eb0ac7130059fc441f2f626740408f1659": {
-        "text": "비트코인 교육단체 이스모스(ISMOS)가 스페인어·포르투갈어·영어 교육 플랫폼을 공개함\n\n플랫폼은 일반 교육, 오픈소스 개발자 과정 B4OS, 앰배서더, 라이트닝 네트워크·AI, 펠로십 등 5개 경로로 구성함",
-        "expires": 1794086709.4046671
-      },
       "f5c5a081dd1e5fcb921b20f6ce56118dce8da9ddf55233357fae53edffdb90c8": {
         "text": "트럼프 미국 대통령은 중간선거 패배 뒤 탄핵을 걱정하지 않는다며, 민주당이 탄핵을 추진하면 민주당을 파멸시키겠다고 주장함",
         "expires": 1794090630.753335
@@ -7588,7 +7560,7 @@
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 94,
+            "cache_hits": 105,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7625,7 +7597,7 @@
           },
           "event_rejected": {
             "api_calls": 0,
-            "cache_hits": 4,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7667,18 +7639,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-28T18:01:42.556540+00:00",
-        "elapsed_seconds": 2060.152,
-        "status": "completed",
-        "api_calls": 2,
-        "cache_hits": 33,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.002242725,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-28T19:01:35.543063+00:00",
         "elapsed_seconds": 1908.922,
@@ -9680,6 +9640,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0011093,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-07T22:01:31.563666+00:00",
+        "elapsed_seconds": 560.81,
+        "status": "completed",
+        "api_calls": 0,
+        "cache_hits": 12,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -126926,16 +126898,16 @@
       "59cf14294b4a77bbe3f6e17fb577860d5cb3e6a60a0bbcb679e722d3ee8144fa": {
         "inputs": {
           "title": "0b356e923f5e0670e753c07361a315a127596a1215f15aef8602444a56fb0f5c",
-          "pub": "93f152509fcdc32e0af3e2a1ef090fcd76a0c090569e5474cb1113621bbed90c",
+          "pub": "058c847811b825e30327f03e6443dba49f94cb8d97a749ae4ff2372fe8b426a9",
           "source_sha256": "867fcfaa56d9029997c208f0625d3eb63361fa2cee9b34e9b73ea79c0b9e2bbc",
-          "page_published_at": "020b9cdedc746bc93514805667855d9d86067bcce4fa057b395621c8ad783c08",
+          "page_published_at": "aadfbf5880f1e9db2b703d7ca6a82baa7b909b0ee3df9e504c72f6f63164c2c2",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690520.0041652
+        "expires": 1794694242.4062083
       },
       "b14c1ae0ade6728570bac2a224ea784022363cad634e1d5d983c4cdbba51326a": {
         "inputs": {
@@ -126949,7 +126921,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690525.7662716
+        "expires": 1794694244.2776806
       },
       "c0a5da1b3886a12526016cd50b7938835996b6d61e6d62b03869dd721d7ef65a": {
         "inputs": {
@@ -126963,7 +126935,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690526.065502
+        "expires": 1794694244.6212332
       },
       "9656ac4cb61c2bc2e35150a63cb576b879bdc5e1d116c8f055773918f5fc47ae": {
         "inputs": {
@@ -126977,7 +126949,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690526.9449193
+        "expires": 1794694245.4701211
       },
       "a04abb05707bc7a55a434976ee6a4938192ee30f2b62d7c6e6f0257ea3e32af1": {
         "inputs": {
@@ -126991,7 +126963,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690528.598683
+        "expires": 1794694247.0365312
       },
       "4d1abc0ff5c66fc6ace9febb9c3548f1ea6fa74aa2879b072c8c728562e00283": {
         "inputs": {
@@ -127005,7 +126977,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690528.8597405
+        "expires": 1794694247.3403049
       },
       "b74205b2a5a5be32a2dc6d836ecde2e088f78d80eb3bcfbd313f35505d9500a5": {
         "inputs": {
@@ -127019,7 +126991,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690529.4516141
+        "expires": 1794694248.133479
       },
       "937da68a4d2282948f439db61e709d0ba3a8ebd803b45eb2def0de57b74a577b": {
         "inputs": {
@@ -127033,7 +127005,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690530.0302436
+        "expires": 1794694248.7730565
       },
       "a4ed018c67f68e66d3fb4edf65b3897f51b601bfdac40e3554825c0dfee39408": {
         "inputs": {
@@ -127047,7 +127019,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690530.8772287
+        "expires": 1794694249.4998846
       },
       "23c758c044b678a6d3741f606de657a83f1fb5c42c39d3fd1d5d15d62a06a826": {
         "inputs": {
@@ -127061,7 +127033,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690531.2567325
+        "expires": 1794694250.0300949
       },
       "9b0801fc82700e3f147047eb7002c678bcdf11915584cf5b9da03b7e3c63968b": {
         "inputs": {
@@ -127075,7 +127047,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794690531.547155
+        "expires": 1794694250.397169
       }
     },
     "budget_reservations_v1": {}
