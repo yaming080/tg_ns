@@ -4283,6 +4283,10 @@
       "9a4d8ec93088c6ec7699415c4f2bff3a092514364f7f8a17bd96bb823dccfbc6": {
         "text": "SKIP",
         "expires": 1794683305.3528793
+      },
+      "7d4e87ac38ffb318ade7bdd0647b619e4e3c896c742d1e14f710f8ac0c270832": {
+        "text": "SKIP",
+        "expires": 1794690523.7657466
       }
     },
     "version": "review-cache-v29-1",
@@ -7544,17 +7548,17 @@
       "2026-11-07": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 17,
+            "api_calls": 18,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 137693,
+            "input_tokens": 145996,
             "cached_input_tokens": 0,
-            "output_tokens": 1392,
-            "reasoning_tokens": 873,
-            "estimated_usd": 0.01790635,
+            "output_tokens": 1535,
+            "reasoning_tokens": 1008,
+            "estimated_usd": 0.01901565,
             "unpriced_calls": 0,
-            "cache_write_tokens": 137642
+            "cache_write_tokens": 145942
           },
           "event_search": {
             "api_calls": 12,
@@ -7584,7 +7588,7 @@
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 84,
+            "cache_hits": 94,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7621,7 +7625,7 @@
           },
           "event_rejected": {
             "api_calls": 0,
-            "cache_hits": 3,
+            "cache_hits": 4,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7663,18 +7667,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-28T17:01:36.924596+00:00",
-        "elapsed_seconds": 1906.364,
-        "status": "completed",
-        "api_calls": 3,
-        "cache_hits": 38,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.00313965,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-28T18:01:42.556540+00:00",
         "elapsed_seconds": 2060.152,
@@ -9676,6 +9668,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-07T21:01:20.921782+00:00",
+        "elapsed_seconds": 451.673,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 11,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0011093,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -123388,6 +123392,20 @@
           "body_entities": []
         },
         "expires": 1794683305.5719976
+      },
+      "0aa38fe2d5c8cde314b34deff328dd442523c4f58dc695e2fcfd4d880b7dda1c": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794690523.7657533
+      },
+      "eae0aeb006f8635cf2cdc0a75fcdf0329716e1942ed6f57df231bc5ed54c65a8": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794690523.976309
       }
     },
     "source_identity_v1": {
@@ -126891,76 +126909,6 @@
         },
         "expires": 1794680098.587049
       },
-      "b14c1ae0ade6728570bac2a224ea784022363cad634e1d5d983c4cdbba51326a": {
-        "inputs": {
-          "title": "eda2ecaf4700800fbeba411fc8fdd05ed344c89c19136a7d97ff7af789d41f50",
-          "pub": "5336ca5c699f4b9fe1af3297ea4417138a673557e413a7508e973f9122e2cc17",
-          "source_sha256": "f1c04f55388e07085037f583e9db1aeec64cdcb5529e17eb90b0b6999c9553df",
-          "page_published_at": "119dd70de160fd2d50ffbf59e88de0f0de0c2f64a6f6ab60aca52d43839bd0aa",
-          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
-          "description_sha256": "f1c04f55388e07085037f583e9db1aeec64cdcb5529e17eb90b0b6999c9553df",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
-        },
-        "expires": 1794686914.7496827
-      },
-      "c0a5da1b3886a12526016cd50b7938835996b6d61e6d62b03869dd721d7ef65a": {
-        "inputs": {
-          "title": "fa75882af4e8616bd5f01a9797afc5476e349c8aefb17e2b97a045a8174d19a3",
-          "pub": "4b36c2fd1b04ab7141d9970e4266f3a0db0b9dea7378f9f6486d35366c3a52ef",
-          "source_sha256": "c5acd86c4d46016d0d00716f4c14ef585b6684fd6fbe8d9760ee61c90e6f61d2",
-          "page_published_at": "434864043236bd8b885fe40cbd06b68f7d55314acb792a9cf9e8ada2b44e1bad",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "7c9b188ce76a5e8604e945c329040f48b73361449eba943633ee54c11dffa18c",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
-        },
-        "expires": 1794686915.0530436
-      },
-      "9656ac4cb61c2bc2e35150a63cb576b879bdc5e1d116c8f055773918f5fc47ae": {
-        "inputs": {
-          "title": "19ffc93020891d9a7d5f4f27fe06a113eb14686503e331366bf476b84e9937c5",
-          "pub": "9f71769e106faa8cae9b941e3d94dd7b2f9203175eaa3a30813985ec594162b7",
-          "source_sha256": "5a362340cf5510aecdb130dc2b708986743812b71ab68a04aa9568d2be6c68de",
-          "page_published_at": "347d6b043b919dfd0a42a51b9a794293379f2b44bd522aaff2e0082cdcafa189",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "6058f1a7a79fd2a7293769f0e99c8f2b6bc3d7e15b20771d3d694222b68c245a",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
-        },
-        "expires": 1794686915.9431615
-      },
-      "a04abb05707bc7a55a434976ee6a4938192ee30f2b62d7c6e6f0257ea3e32af1": {
-        "inputs": {
-          "title": "a73a34f1d1db1f239af9add09242bd8e04836fd4b40398805cff8cb8c7617ee5",
-          "pub": "c6e011a6a10dd6b2e69b5b4dce36b7afa8602da60d16eea279de26f47effd545",
-          "source_sha256": "344dc65f7c57a6a5808931f22f0dd09584edb886bd9950e9dc82bfa040ee520c",
-          "page_published_at": "8814a97f29156142d03f60679b97aa85b8e960d8716c5f87e741899e1fb42791",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "eabd16451714f06008967db7b75cf894e9e0fd27a764759925be937e21d180b2",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
-        },
-        "expires": 1794686917.2432272
-      },
-      "4d1abc0ff5c66fc6ace9febb9c3548f1ea6fa74aa2879b072c8c728562e00283": {
-        "inputs": {
-          "title": "a687ed392dda6d0dc2893b576d4aaec29641b690e80b7217f5d1a86a8be42725",
-          "pub": "90b6e4d85fe8f1e6eab6ec4970c2e78f55f4b31cbc9ce75875d580d236cd9307",
-          "source_sha256": "b444b3d666df9f92ee57971979689e75b8a2c2c9fa2544dadfe42c7b78cde907",
-          "page_published_at": "a23e60a5407569c0ad70f791130e1ab0292152703e91feea8a5b124ff42805da",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "08ab532a976f6946fc44efd30f506e0500d28afe0ee2e0765d7d6607871beade",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
-        },
-        "expires": 1794686917.4641974
-      },
       "c34ca7d1e9b461c7068b3bc949f182a2ac7977fa3d003aaaf43e5b6d61d1deb6": {
         "inputs": {
           "title": "22575de1cf8ccb042cc41e359d73de43c69fe73aa5c77be11c3f5b6f6f4049c4",
@@ -126975,6 +126923,90 @@
         },
         "expires": 1794686918.178545
       },
+      "59cf14294b4a77bbe3f6e17fb577860d5cb3e6a60a0bbcb679e722d3ee8144fa": {
+        "inputs": {
+          "title": "0b356e923f5e0670e753c07361a315a127596a1215f15aef8602444a56fb0f5c",
+          "pub": "93f152509fcdc32e0af3e2a1ef090fcd76a0c090569e5474cb1113621bbed90c",
+          "source_sha256": "867fcfaa56d9029997c208f0625d3eb63361fa2cee9b34e9b73ea79c0b9e2bbc",
+          "page_published_at": "020b9cdedc746bc93514805667855d9d86067bcce4fa057b395621c8ad783c08",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
+        },
+        "expires": 1794690520.0041652
+      },
+      "b14c1ae0ade6728570bac2a224ea784022363cad634e1d5d983c4cdbba51326a": {
+        "inputs": {
+          "title": "eda2ecaf4700800fbeba411fc8fdd05ed344c89c19136a7d97ff7af789d41f50",
+          "pub": "5336ca5c699f4b9fe1af3297ea4417138a673557e413a7508e973f9122e2cc17",
+          "source_sha256": "f1c04f55388e07085037f583e9db1aeec64cdcb5529e17eb90b0b6999c9553df",
+          "page_published_at": "119dd70de160fd2d50ffbf59e88de0f0de0c2f64a6f6ab60aca52d43839bd0aa",
+          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
+          "description_sha256": "f1c04f55388e07085037f583e9db1aeec64cdcb5529e17eb90b0b6999c9553df",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
+        },
+        "expires": 1794690525.7662716
+      },
+      "c0a5da1b3886a12526016cd50b7938835996b6d61e6d62b03869dd721d7ef65a": {
+        "inputs": {
+          "title": "fa75882af4e8616bd5f01a9797afc5476e349c8aefb17e2b97a045a8174d19a3",
+          "pub": "4b36c2fd1b04ab7141d9970e4266f3a0db0b9dea7378f9f6486d35366c3a52ef",
+          "source_sha256": "c5acd86c4d46016d0d00716f4c14ef585b6684fd6fbe8d9760ee61c90e6f61d2",
+          "page_published_at": "434864043236bd8b885fe40cbd06b68f7d55314acb792a9cf9e8ada2b44e1bad",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "7c9b188ce76a5e8604e945c329040f48b73361449eba943633ee54c11dffa18c",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
+        },
+        "expires": 1794690526.065502
+      },
+      "9656ac4cb61c2bc2e35150a63cb576b879bdc5e1d116c8f055773918f5fc47ae": {
+        "inputs": {
+          "title": "19ffc93020891d9a7d5f4f27fe06a113eb14686503e331366bf476b84e9937c5",
+          "pub": "9f71769e106faa8cae9b941e3d94dd7b2f9203175eaa3a30813985ec594162b7",
+          "source_sha256": "5a362340cf5510aecdb130dc2b708986743812b71ab68a04aa9568d2be6c68de",
+          "page_published_at": "347d6b043b919dfd0a42a51b9a794293379f2b44bd522aaff2e0082cdcafa189",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "6058f1a7a79fd2a7293769f0e99c8f2b6bc3d7e15b20771d3d694222b68c245a",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
+        },
+        "expires": 1794690526.9449193
+      },
+      "a04abb05707bc7a55a434976ee6a4938192ee30f2b62d7c6e6f0257ea3e32af1": {
+        "inputs": {
+          "title": "a73a34f1d1db1f239af9add09242bd8e04836fd4b40398805cff8cb8c7617ee5",
+          "pub": "c6e011a6a10dd6b2e69b5b4dce36b7afa8602da60d16eea279de26f47effd545",
+          "source_sha256": "344dc65f7c57a6a5808931f22f0dd09584edb886bd9950e9dc82bfa040ee520c",
+          "page_published_at": "8814a97f29156142d03f60679b97aa85b8e960d8716c5f87e741899e1fb42791",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "eabd16451714f06008967db7b75cf894e9e0fd27a764759925be937e21d180b2",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
+        },
+        "expires": 1794690528.598683
+      },
+      "4d1abc0ff5c66fc6ace9febb9c3548f1ea6fa74aa2879b072c8c728562e00283": {
+        "inputs": {
+          "title": "a687ed392dda6d0dc2893b576d4aaec29641b690e80b7217f5d1a86a8be42725",
+          "pub": "90b6e4d85fe8f1e6eab6ec4970c2e78f55f4b31cbc9ce75875d580d236cd9307",
+          "source_sha256": "b444b3d666df9f92ee57971979689e75b8a2c2c9fa2544dadfe42c7b78cde907",
+          "page_published_at": "a23e60a5407569c0ad70f791130e1ab0292152703e91feea8a5b124ff42805da",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "08ab532a976f6946fc44efd30f506e0500d28afe0ee2e0765d7d6607871beade",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
+        },
+        "expires": 1794690528.8597405
+      },
       "b74205b2a5a5be32a2dc6d836ecde2e088f78d80eb3bcfbd313f35505d9500a5": {
         "inputs": {
           "title": "4e51983fdc69ace76ebc55993796c99bc27d27af4bffce5d46d306fc3dd9a130",
@@ -126987,7 +127019,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794686918.7789233
+        "expires": 1794690529.4516141
       },
       "937da68a4d2282948f439db61e709d0ba3a8ebd803b45eb2def0de57b74a577b": {
         "inputs": {
@@ -127001,7 +127033,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794686919.5448616
+        "expires": 1794690530.0302436
       },
       "a4ed018c67f68e66d3fb4edf65b3897f51b601bfdac40e3554825c0dfee39408": {
         "inputs": {
@@ -127015,7 +127047,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794686920.312189
+        "expires": 1794690530.8772287
       },
       "23c758c044b678a6d3741f606de657a83f1fb5c42c39d3fd1d5d15d62a06a826": {
         "inputs": {
@@ -127029,7 +127061,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794686920.7117336
+        "expires": 1794690531.2567325
       },
       "9b0801fc82700e3f147047eb7002c678bcdf11915584cf5b9da03b7e3c63968b": {
         "inputs": {
@@ -127043,7 +127075,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794686921.2608287
+        "expires": 1794690531.547155
       }
     },
     "budget_reservations_v1": {}
