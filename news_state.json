@@ -1,14 +1,5 @@
 {
   "posted": {
-    "623d7c3b2c3a0803": {
-      "title": "스탠다드차타드, 싱가포르서 기관 대상 디지털자산 수탁 서비스 출시 추진",
-      "url": "bloomingbit.io/feed/news/121836",
-      "signature": "action_launch | entity_스탠다드차타드 | object_custody",
-      "canonical_key": "action_launch | entity_스탠다드차타드 | object_custody",
-      "ts": "2026-10-08T09:35:13.399484+00:00",
-      "summary": "#스탠다드차타드 가 #싱가포르 에서 기관투자자와 적격 기업 고객을 대상으로 암호화폐· #스테이블코인 · #토큰화 실물연계자산(실물자산을 #토큰 으로 표시한 자산)을 보관·관리하는 #수탁 서비스 출시를 추진한다. #규제 요건 충족이 전제이며 지원 자산과 출시 시점은 미정이다",
-      "source_pub": "Thu, 08 Oct 2026 01:13:51 -0700"
-    },
     "d7f7d00e28947307": {
       "title": "삼성 월렛, 10월 말 미국서 USDC 송금 기능 출시",
       "url": "bloomingbit.io/feed/news/121841",
@@ -3546,6 +3537,10 @@
         "text": "{\"approved\":false,\"reason\":\"이미지는 대만 국기와 비트코인·이더리움 코인을 보여주지만, 기사 핵심인 대만 금융당국의 스테이블코인 발행 규정 초안이나 스테이블코인 상품을 직접 나타내지 않는다. 비트코인과 이더리움은 기사에서 다룬 대상이 아니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":false,\"identifiable_subject\":false,\"not_publisher_placeholder\":true}}",
         "expires": 1794303213.9471948
       },
+      "86b620c4426f0c845cdd289aff9d1173ab332e97312e5f93670fd9e344b4b28f": {
+        "text": "모스크바거래소가 BTC·ETH·USDT 거래를 위한 디지털자산 시장을 준비 중이며, 개설 목표일은 12월 1일임",
+        "expires": 1794305108.7508545
+      },
       "4118e226d1d22ffc2ff78b627e710d1d54e14841a72691bfacb9ece6881966a8": {
         "text": "SKIP",
         "expires": 1794306005.2389874
@@ -4433,6 +4428,10 @@
       "416051cac99afb7c2d8abb8b927c85eb5eafc08a5cb5e838916b9dddfe6fe3c2": {
         "text": "SKIP",
         "expires": 1794647089.976156
+      },
+      "eb9fadba157736558a04a144994fd78f548b04a84f05f65becb2eb258fb311c0": {
+        "text": "{\"publish\":false,\"reason\":\"요약의 거래 대상과 개설 목표일은 원문과 일치하지만, 원문이 ‘However’ 이후 잘려 있어 중요한 제한·미확정 조건의 누락 여부를 확인할 수 없다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}",
+        "expires": 1794650713.4277518
       }
     },
     "version": "review-cache-v29-1",
@@ -7694,17 +7693,17 @@
       "2026-11-07": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 2,
+            "api_calls": 3,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 16459,
+            "input_tokens": 23993,
             "cached_input_tokens": 0,
-            "output_tokens": 98,
-            "reasoning_tokens": 0,
-            "estimated_usd": 0.002106225,
+            "output_tokens": 316,
+            "reasoning_tokens": 174,
+            "estimated_usd": 0.0031569,
             "unpriced_calls": 0,
-            "cache_write_tokens": 16453
+            "cache_write_tokens": 23984
           },
           "event_search": {
             "api_calls": 3,
@@ -7721,7 +7720,7 @@
           },
           "image_review": {
             "api_calls": 4,
-            "cache_hits": 4,
+            "cache_hits": 8,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 6824,
@@ -7734,7 +7733,7 @@
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 1,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7746,7 +7745,7 @@
           },
           "image_held": {
             "api_calls": 0,
-            "cache_hits": 1,
+            "cache_hits": 2,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7759,17 +7758,17 @@
         },
         "gpt-6.1-sol": {
           "source_review": {
-            "api_calls": 1,
+            "api_calls": 2,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 7642,
+            "input_tokens": 14564,
             "cached_input_tokens": 0,
-            "output_tokens": 204,
-            "reasoning_tokens": 70,
-            "estimated_usd": 0.0211435,
+            "output_tokens": 351,
+            "reasoning_tokens": 121,
+            "estimated_usd": 0.039917,
             "unpriced_calls": 0,
-            "cache_write_tokens": 7639
+            "cache_write_tokens": 14558
           },
           "event_decision": {
             "api_calls": 1,
@@ -7788,18 +7787,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-28T06:01:19.188991+00:00",
-        "elapsed_seconds": 1437.659,
-        "status": "completed",
-        "api_calls": 5,
-        "cache_hits": 43,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0056035,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-28T07:01:35.487950+00:00",
         "elapsed_seconds": 2153.899,
@@ -9801,6 +9788,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0010348,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-07T10:01:41.981301+00:00",
+        "elapsed_seconds": 218.913,
+        "status": "completed",
+        "api_calls": 2,
+        "cache_hits": 7,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.019824175,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -119477,6 +119476,20 @@
           "body_entities": []
         },
         "expires": 1794647090.2723968
+      },
+      "2e3b77f282c3f7b8a100445cc9631e2fb4d6f265ce76e0461e7184f3b6979910": {
+        "result": {
+          "text": "{\"publish\":false,\"reason\":\"요약의 거래 대상과 개설 목표일은 원문과 일치하지만, 원문이 ‘However’ 이후 잘려 있어 중요한 제한·미확정 조건의 누락 여부를 확인할 수 없다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}"
+        },
+        "expires": 1794650713.427757
+      },
+      "40f111bdb85b9b9b847f057e02af2a188242df7f31c41d869c6fb54bd1f6a39c": {
+        "result": {
+          "summary": "",
+          "reason": "원문 대조 제외: 요약의 거래 대상과 개설 목표일은 원문과 일치하지만, 원문이 ‘However’ 이후 잘려 있어 중요한 제한·미확정 조건의 누락 여부를 확인할 수 없다.",
+          "body_entities": []
+        },
+        "expires": 1794650713.7142131
       }
     },
     "source_identity_v1": {
@@ -122896,6 +122909,20 @@
         },
         "expires": 1794525661.1985915
       },
+      "9b0801fc82700e3f147047eb7002c678bcdf11915584cf5b9da03b7e3c63968b": {
+        "inputs": {
+          "title": "a8cd8926d62cbfb5e2c370b5b759466c11ac0ad3207a80eb18d0e7cb7d15a642",
+          "pub": "156f2c10ece4b61914deb1c13dd2a782e57dc08448bbbb1cb87447b2733d41f3",
+          "source_sha256": "ddd5a893ac3c9d5e9233684523432db8db3e27f5773f96e2116de00a40170857",
+          "page_published_at": "4e985e8307e3b507b8bb721b4faaec7da2550d15db73eea257f101b09e537687",
+          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
+          "description_sha256": "ddd5a893ac3c9d5e9233684523432db8db3e27f5773f96e2116de00a40170857",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+        },
+        "expires": 1794650702.9528675
+      },
       "bc61d4d26be54cdd274dc947aa3ad790d61dabf6236694e2cd471c1dd625cece": {
         "inputs": {
           "title": "ee13d47f3cdfc6cfc748e2f879e57cf6cab7a1052b7621b774e6e801ffd73d73",
@@ -122908,7 +122935,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
         },
-        "expires": 1794647086.6418955
+        "expires": 1794650714.3710074
       },
       "ed06d5d61fb46e01bcaa1ffc7b291d98fd4d49d737452d7bceb97d289d16e5d4": {
         "inputs": {
@@ -122922,7 +122949,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
         },
-        "expires": 1794647092.6712272
+        "expires": 1794650716.486919
       }
     },
     "budget_reservations_v1": {}
