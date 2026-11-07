@@ -40,7 +40,7 @@ def outside_project_reason(story):
             continue
         ownership = name + r"(?:['’]s\s+|의\s*|\s+기반\s*)"
         destination = r'\b(?:into|via|through|built on|powered by)\s+' + name
-        adoption = r'launch|mainnet|platform|ecosystem|partner|adopt|routes?|treasury|collateral|출시|메인넷|플랫폼|생태계|제휴|도입|참여|담보|금융망|서비스'
+        adoption = r'launch|mainnet|platform|ecosystem|partner|adopt|joins?|contribut|routes?|treasury|collateral|출시|메인넷|플랫폼|생태계|제휴|도입|참여|담보|금융망|서비스'
         if re.search(r'^\s*(?:\[[^\]]+\]\s*)?' + name, title, re.I) and re.search(adoption, title, re.I):
             return f'포트폴리오 외 {symbol} 사업·채택 중심'
         if (re.search(ownership, title, re.I) or re.search(destination, title, re.I)) and re.search(adoption, title, re.I):

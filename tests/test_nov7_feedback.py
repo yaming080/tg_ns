@@ -59,7 +59,7 @@ class Nov7FeedbackTests(unittest.TestCase):
 
     def test_unaffected_exclusions_keep_cached_expiry(self):
         manifest = json.loads((Path(cache.__file__).parent/'news_cache_compatibility.json').read_text('utf8'))
-        previous = manifest['previous_identity']
+        previous = manifest['nov7_only_previous_identities'][0]
         with cache.review_session({}, lambda: None, logger=lambda _: None) as store:
             expiry = store.clock()+1000
             for title, affected in [('Unchanged excluded article', False),
