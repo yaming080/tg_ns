@@ -1,14 +1,5 @@
 {
   "posted": {
-    "d7f7d00e28947307": {
-      "title": "삼성 월렛, 10월 말 미국서 USDC 송금 기능 출시",
-      "url": "bloomingbit.io/feed/news/121841",
-      "signature": "action_launch | asset_usdc | entity_삼성월렛 | geo_us",
-      "canonical_key": "action_launch | asset_usdc | entity_삼성월렛 | geo_us",
-      "ts": "2026-10-08T10:19:00.871756+00:00",
-      "summary": "삼성전자가 10월 마지막 주 #미국 내 적격 갤럭시 기기에서 #삼성월렛 의 #USDC 송금 기능을 제공할 계획이라고 밝힘\n\n이용자는 호환 암호화폐 지갑이나 60개국 이상 은행 계좌로 송금할 수 있으며, 외부 지갑 송금은 무료이고 은행 이체에는 수수료가 부과됨",
-      "source_pub": "Thu, 08 Oct 2026 05:33:02 -0400"
-    },
     "184e4ae33ab56bf8": {
       "title": "트라발라, AI 호텔 예약에 BNB 체인·바이낸스 페이 결제 지원",
       "url": "www.tokenpost.kr/news/cryptocurrency/419934",
@@ -4432,6 +4423,10 @@
       "eb9fadba157736558a04a144994fd78f548b04a84f05f65becb2eb258fb311c0": {
         "text": "{\"publish\":false,\"reason\":\"요약의 거래 대상과 개설 목표일은 원문과 일치하지만, 원문이 ‘However’ 이후 잘려 있어 중요한 제한·미확정 조건의 누락 여부를 확인할 수 없다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":false,\"understandable\":true}}",
         "expires": 1794650713.4277518
+      },
+      "9ee74e52e4c5901c7fc2acbcedf1f699c495212e70cfe17414e566a365e0dad2": {
+        "text": "SKIP",
+        "expires": 1794654238.2918572
       }
     },
     "version": "review-cache-v29-1",
@@ -7693,17 +7688,17 @@
       "2026-11-07": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 3,
+            "api_calls": 4,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 23993,
+            "input_tokens": 32228,
             "cached_input_tokens": 0,
-            "output_tokens": 316,
-            "reasoning_tokens": 174,
-            "estimated_usd": 0.0031569,
+            "output_tokens": 381,
+            "reasoning_tokens": 231,
+            "estimated_usd": 0.0042187,
             "unpriced_calls": 0,
-            "cache_write_tokens": 23984
+            "cache_write_tokens": 32216
           },
           "event_search": {
             "api_calls": 3,
@@ -7720,7 +7715,7 @@
           },
           "image_review": {
             "api_calls": 4,
-            "cache_hits": 8,
+            "cache_hits": 12,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 6824,
@@ -7733,7 +7728,7 @@
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 3,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7745,7 +7740,7 @@
           },
           "image_held": {
             "api_calls": 0,
-            "cache_hits": 2,
+            "cache_hits": 3,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7787,18 +7782,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-28T07:01:35.487950+00:00",
-        "elapsed_seconds": 2153.899,
-        "status": "completed",
-        "api_calls": 7,
-        "cache_hits": 46,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.008195225,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-28T08:01:31.169407+00:00",
         "elapsed_seconds": 2130.793,
@@ -9800,6 +9783,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.019824175,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-07T11:01:24.950608+00:00",
+        "elapsed_seconds": 156.953,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 8,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0010618,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -119490,6 +119485,20 @@
           "body_entities": []
         },
         "expires": 1794650713.7142131
+      },
+      "19dbbba217d56190af53878c7c86d05c57159ca87a0f69bdd2f2bbced057b515": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794654238.2918632
+      },
+      "b3bcb3e17c8046f00a496f797ac34d8254e30150087fec2ffb40fc72f33c7db0": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794654238.494294
       }
     },
     "source_identity_v1": {
@@ -122909,6 +122918,20 @@
         },
         "expires": 1794525661.1985915
       },
+      "23c758c044b678a6d3741f606de657a83f1fb5c42c39d3fd1d5d15d62a06a826": {
+        "inputs": {
+          "title": "e3d8a5d6342dfb0b20480b23054db5b3ebcecbd440ac41bd240acf97d6d06f35",
+          "pub": "91696f9458ab09d90a1ccb3d6e6a75f63042249eb7b5ba108b63a2ec70972a93",
+          "source_sha256": "da5a029096afe66797764ce34eafc446f6cb31fc0ae631b60823ca2ad45b85e0",
+          "page_published_at": "7bec1cf0ea99e0421484fd346af71716561dc08e68d3b7b8256e04b2dce3c2f1",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "13771af8a2ca1f0f151d9d536388df4bc9c863c204029aa9fe3b9cbb7733af83",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
+        },
+        "expires": 1794654234.37994
+      },
       "9b0801fc82700e3f147047eb7002c678bcdf11915584cf5b9da03b7e3c63968b": {
         "inputs": {
           "title": "a8cd8926d62cbfb5e2c370b5b759466c11ac0ad3207a80eb18d0e7cb7d15a642",
@@ -122921,7 +122944,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
         },
-        "expires": 1794650702.9528675
+        "expires": 1794654238.7498581
       },
       "bc61d4d26be54cdd274dc947aa3ad790d61dabf6236694e2cd471c1dd625cece": {
         "inputs": {
@@ -122935,7 +122958,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
         },
-        "expires": 1794650714.3710074
+        "expires": 1794654239.2170417
       },
       "ed06d5d61fb46e01bcaa1ffc7b291d98fd4d49d737452d7bceb97d289d16e5d4": {
         "inputs": {
@@ -122949,7 +122972,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "0bd7a6d15230e63710a9396050fa2b1ffbae245932d5d8a566ec63264d94ab2c"
         },
-        "expires": 1794650716.486919
+        "expires": 1794654240.6374955
       }
     },
     "budget_reservations_v1": {}
