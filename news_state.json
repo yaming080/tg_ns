@@ -2132,30 +2132,6 @@
   },
   "ai_review": {
     "entries": {
-      "3f702088a4e8281d92116934b6b9254a313e38bb23b3f2421e7d989af9c3463f": {
-        "text": "브라질 거래소 메르카도 비트코인이 해킹으로 발생한 고객 손실을 자체 자금으로 전액 보상하기로 했으며, 블록체인 분석가들은 탈취 규모를 4600만달러 이상으로 추산함\n\n거래소는 피해 자금 중 1500만달러 이상이 동결됐다고 밝혔으며, 자산 조회 기능부터 복구하고 출금·거래는 별도 보안 점검 후 단계적으로 재개할 계획임",
-        "expires": 1794104504.9643767
-      },
-      "a901391e1884daad05c4d28e3ccfa1882c247ef40d1defa5cda646eec7f6c90c": {
-        "text": "{\"publish\":true,\"reason\":\"고객 손실 전액 보상과 서비스 단계적 복구라는 새 조치가 확인된다. 피해액은 분석가 추산으로, 동결액은 거래소 발표로 귀속했으며 출금·거래 재개의 보안 점검 조건도 보존했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true},\"body_entities\":[{\"name\":\"브라질\",\"kind\":\"country\"},{\"name\":\"메르카도 비트코인\",\"kind\":\"org\"}]}",
-        "expires": 1794104511.6428766
-      },
-      "9acda1115000016c0da11d08dcda886836ff30e23f93b5e23ca916050de08ec8": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794104514.583245
-      },
-      "91fc08f7f1adc012db5f6182ce096010e34d7f33e3021204699e25e917cfc9e9": {
-        "text": "{\"related_ids\":[\"78\"]}",
-        "expires": 1794104516.5983088
-      },
-      "37ffaba11866b0351e98e6b49444343ff1aa93c490d36640d66c21c46fea014a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794104519.2609894
-      },
-      "e3291c1495074943ce86eaacf476d253a01d255a3f611abbbe9cfaf768b00a0b": {
-        "text": "{\"decision\":\"supplement\",\"matched_id\":\"b82d4bf94def9c3f\",\"reason\":\"동일한 메르카도 비트코인 해킹과 고객 손실 전액 보상 방침을 다룬다. 피해 추산액과 동결 자금 수치, 단계적 서비스 복구 계획이 보충됐지만 실제 서비스 재개 등 독립적인 새 조치는 확인되지 않는다.\",\"new_fact\":\"\",\"independent_new_action\":false,\"candidate_evidence\":\"\"}",
-        "expires": 1794104522.8456376
-      },
       "52d7f9a039142aaaf539df48076b21ecc0fd28d46af728ead04549a25b5ac4ab": {
         "text": "마이클 세일러 스트래티지 회장이 미국 중간선거 당선인들의 비트코인 준비금 지지 이력을 들며 비트코인 보유 논리는 초당파적이라고 주장함\n\n세일러가 지목한 바이런 도널즈는 연방 준비금 법제화를 추진했고, 제임스 탈라리코는 이미 발효된 텍사스주 준비금 법안에 찬성한 이력이 있음",
         "expires": 1794107901.0648332
@@ -4115,6 +4091,10 @@
       "fc55a9e4b7ba54f60f304c33b0488ad6019a708df16ac69e56802f200de2d31c": {
         "text": "SKIP",
         "expires": 1794708938.1452346
+      },
+      "ecc5a245290404f009dd651c42beebb519b9272b9da305173faac860a42b33b4": {
+        "text": "SKIP",
+        "expires": 1794712169.6142647
       }
     },
     "version": "review-cache-v29-1",
@@ -7497,7 +7477,7 @@
         "gpt-6-luna": {
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 32,
+            "cache_hits": 44,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7520,34 +7500,22 @@
             "unpriced_calls": 0
           },
           "summary": {
-            "api_calls": 2,
+            "api_calls": 3,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 16309,
+            "input_tokens": 24030,
             "cached_input_tokens": 0,
-            "output_tokens": 74,
+            "output_tokens": 80,
             "reasoning_tokens": 60,
-            "estimated_usd": 0.002075475,
+            "estimated_usd": 0.003043525,
             "unpriced_calls": 0,
-            "cache_write_tokens": 16303
+            "cache_write_tokens": 24021
           }
         }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-28T23:01:18.611331+00:00",
-        "elapsed_seconds": 1510.608,
-        "status": "completed",
-        "api_calls": 24,
-        "cache_hits": 35,
-        "errors": 0,
-        "published": 3,
-        "estimated_usd": 0.0256212,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-29T00:01:34.949006+00:00",
         "elapsed_seconds": 1981.131,
@@ -9549,6 +9517,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0010163,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-08T03:01:22.103984+00:00",
+        "elapsed_seconds": 497.551,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 12,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00096805,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -123303,6 +123283,20 @@
           "body_entities": []
         },
         "expires": 1794708938.4454305
+      },
+      "af1855d634b78477bd5312cd92cdd1affdf2c85877118d7c7937862a36adf8c0": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794712169.6142714
+      },
+      "fb5064077745321e2cdd63c209370d747ff19747b960acbe098d1a8205537ced": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794712169.8239088
       }
     },
     "source_identity_v1": {
@@ -126834,6 +126828,20 @@
         },
         "expires": 1794701739.185286
       },
+      "750b09f51cc85547eab6e5d8825938f741a75b25d3ee137ffdaea0c0304c1dee": {
+        "inputs": {
+          "title": "a558e9c2e1f629434297f9887e4e4450fc720bdbaae3b72d76513336c82b1c31",
+          "pub": "83dd1b72cf47680802bbc0078b2f516f800db1a8689b732d147b05ec13b0ae23",
+          "source_sha256": "b89b88e429a68e9f4f4a22b2d2654f1a5be0cf6115d1fbb17ef9bfd33355c661",
+          "page_published_at": "39ffca5bc845778ae1ec66ed071f0db6d133fe80d4477a359893dc962f6938a4",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "5ec8f9ce1d0814370e39078bef89ddd5767b74505d9b93e7687fb93da88a378f",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
+        },
+        "expires": 1794712167.2915127
+      },
       "bf9cb0c9c177f59fbbb2a6c5a4b3dae9378221bc294bb09a10a8996f60efa42e": {
         "inputs": {
           "title": "c9adfbb8273c400869156bb60660bb7cfc63af0fa561d9f694c3e712ceb8e51f",
@@ -126846,7 +126854,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708935.7494578
+        "expires": 1794712170.696455
       },
       "f5dc7a252be8f40e714a96dd035de7718dc9b44c37040312b724f591e30155ba": {
         "inputs": {
@@ -126860,21 +126868,21 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708939.2293568
+        "expires": 1794712171.3974092
       },
       "59cf14294b4a77bbe3f6e17fb577860d5cb3e6a60a0bbcb679e722d3ee8144fa": {
         "inputs": {
           "title": "0b356e923f5e0670e753c07361a315a127596a1215f15aef8602444a56fb0f5c",
-          "pub": "2f5f6fa358306cb16f05a2b7ff87321d6c2d76fc11c9b4290bedf313b6318a50",
+          "pub": "93f152509fcdc32e0af3e2a1ef090fcd76a0c090569e5474cb1113621bbed90c",
           "source_sha256": "867fcfaa56d9029997c208f0625d3eb63361fa2cee9b34e9b73ea79c0b9e2bbc",
-          "page_published_at": "fd2987dc6d89c96e1df65f284a9884ad509d784262c511c90be5eea8862162d1",
+          "page_published_at": "020b9cdedc746bc93514805667855d9d86067bcce4fa057b395621c8ad783c08",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708941.4779067
+        "expires": 1794712173.3790054
       },
       "b14c1ae0ade6728570bac2a224ea784022363cad634e1d5d983c4cdbba51326a": {
         "inputs": {
@@ -126888,7 +126896,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708943.5087533
+        "expires": 1794712174.8152716
       },
       "c0a5da1b3886a12526016cd50b7938835996b6d61e6d62b03869dd721d7ef65a": {
         "inputs": {
@@ -126902,7 +126910,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708943.811965
+        "expires": 1794712175.017944
       },
       "a04abb05707bc7a55a434976ee6a4938192ee30f2b62d7c6e6f0257ea3e32af1": {
         "inputs": {
@@ -126916,7 +126924,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708944.3087811
+        "expires": 1794712175.472283
       },
       "4d1abc0ff5c66fc6ace9febb9c3548f1ea6fa74aa2879b072c8c728562e00283": {
         "inputs": {
@@ -126930,7 +126938,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708944.614047
+        "expires": 1794712175.6983404
       },
       "b74205b2a5a5be32a2dc6d836ecde2e088f78d80eb3bcfbd313f35505d9500a5": {
         "inputs": {
@@ -126944,7 +126952,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708945.365538
+        "expires": 1794712176.323704
       },
       "937da68a4d2282948f439db61e709d0ba3a8ebd803b45eb2def0de57b74a577b": {
         "inputs": {
@@ -126958,7 +126966,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708946.3417816
+        "expires": 1794712176.9016473
       },
       "a4ed018c67f68e66d3fb4edf65b3897f51b601bfdac40e3554825c0dfee39408": {
         "inputs": {
@@ -126972,7 +126980,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708947.2322388
+        "expires": 1794712177.7953577
       },
       "23c758c044b678a6d3741f606de657a83f1fb5c42c39d3fd1d5d15d62a06a826": {
         "inputs": {
@@ -126986,7 +126994,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708948.063227
+        "expires": 1794712178.3199713
       },
       "9b0801fc82700e3f147047eb7002c678bcdf11915584cf5b9da03b7e3c63968b": {
         "inputs": {
@@ -127000,7 +127008,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794708948.3719325
+        "expires": 1794712178.5971823
       }
     },
     "budget_reservations_v1": {}
