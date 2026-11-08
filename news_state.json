@@ -2132,42 +2132,6 @@
   },
   "ai_review": {
     "entries": {
-      "1fd387c70dd3f66dcd62c63b27fbb4e045527256c187d78052025f91b394cef3": {
-        "text": "모건스탠리가 미국 예탁결제청산공사(DTCC)의 신규 토큰화 서비스를 이용해 실물자산 토큰화에 나선 초기 대형 금융기관 중 하나라고 발표함",
-        "expires": 1794094416.0580487
-      },
-      "fa948934e02f3d0708e2a99f002ccc9e618e5c414bdeb2428ca773a1c0e8634d": {
-        "text": "모건스탠리가 미국 예탁결제청산공사(DTCC)의 신규 토큰화 서비스를 이용해 실물자산을 디지털 토큰 형태로 바꾸는 초기 대형 금융기관 중 하나라고 발표함",
-        "expires": 1794094425.3998103
-      },
-      "7981a31cb3ac38198263c214721b38948432baf16d81cb73c0d4a7fa2191bbea": {
-        "text": "{\"publish\":true,\"reason\":\"원문에서 모건스탠리의 11월 4일 발표와 DTCC 신규 서비스 이용을 확인할 수 있으며, 토큰화의 의미와 초기 참여 단계도 정확히 전달했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true},\"body_entities\":[{\"name\":\"모건스탠리\",\"kind\":\"org\"},{\"name\":\"미국 예탁결제청산공사(DTCC)\",\"kind\":\"org\"}]}",
-        "expires": 1794094431.011155
-      },
-      "fa2fffb3175e8e94611d0257716ccd3e056e66aa04ac409dd3fde2f0aa1dd0a7": {
-        "text": "{\"related_ids\":[\"131\"]}",
-        "expires": 1794094434.5785706
-      },
-      "d73826070d03304b59d2522d04341dbb6f59c29c79fea0b9f7ae8df2fc95a63c": {
-        "text": "{\"related_ids\":[\"93\"]}",
-        "expires": 1794094438.6755884
-      },
-      "90ed7ff631ebcb7ce8556ed12cd34d1867833e47cbbcea707bd3736b0e6d414a": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794094441.710081
-      },
-      "bcd291917bf1fa70181ea97e7c1c8fd60e0f9168889e282a3e2a127a74a14cc6": {
-        "text": "{\"decision\":\"supplement\",\"matched_id\":\"62aeea32b81d0db9\",\"reason\":\"DTCC의 동일한 증권 토큰화 서비스 출시에 관한 보도로, 기존 기록의 초기 이용 금융기관·참여사 명단에 모건스탠리를 구체적으로 추가한 내용이다. 이후 체결된 별도 계약이나 독립적인 실제 이용 개시를 뒷받침하는 근거는 없다.\",\"new_fact\":\"\",\"independent_new_action\":false,\"candidate_evidence\":\"\"}",
-        "expires": 1794094445.9131289
-      },
-      "ba86b7735d45c241f344c97fccd2ea5dac55787b18e191051803e81d7bc9b92d": {
-        "text": "코인베이스가 바이낸스 해킹 이후 고객 자산의 99% 이상을 인터넷과 분리된 콜드월렛에 보관한다고 밝혔으며, 별도 커스터디 금고 자산은 100% 콜드월렛에 보관한다고 설명함\n\n코인베이스는 자사 시스템과 자금은 영향을 받지 않았다고 했으나, 해당 보안 조치는 기사에서 독립적으로 검증되지 않음",
-        "expires": 1794094454.1430705
-      },
-      "652ca3716079f75898fce7d0981f08e30218aca3b6e889b89f845cebe0c40ce7": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1794094469.027689
-      },
       "21475763e6c0d6720e8845f8387dc07225a8163fd91418d2a5a52729da93767c": {
         "text": "그노시스와 지스크가 주도하는 이더리움 이코노믹 존이 여러 롤업의 앱을 한 번의 거래로 연결하는 롤업 X 데브넷을 공개함. 그노시스 체인은 기존 상태와 설정을 유지한 채 2027년 봄 이 체계로 이전할 계획임",
         "expires": 1794097965.3736446
@@ -7544,21 +7508,37 @@
             "cache_write_tokens": 0
           }
         }
+      },
+      "2026-11-08": {
+        "gpt-6-luna": {
+          "source_summary": {
+            "api_calls": 0,
+            "cache_hits": 11,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 0,
+            "cached_input_tokens": 0,
+            "output_tokens": 0,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.0,
+            "unpriced_calls": 0
+          },
+          "event_rejected": {
+            "api_calls": 0,
+            "cache_hits": 1,
+            "errors": 0,
+            "missing_usage": 0,
+            "input_tokens": 0,
+            "cached_input_tokens": 0,
+            "output_tokens": 0,
+            "reasoning_tokens": 0,
+            "estimated_usd": 0.0,
+            "unpriced_calls": 0
+          }
+        }
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-10-28T20:01:15.403464+00:00",
-        "elapsed_seconds": 1139.737,
-        "status": "completed",
-        "api_calls": 26,
-        "cache_hits": 31,
-        "errors": 0,
-        "published": 1,
-        "estimated_usd": 0.02888525,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-10-28T21:01:47.586738+00:00",
         "elapsed_seconds": 2030.611,
@@ -9554,6 +9534,18 @@
       {
         "started_at_utc": "2026-11-07T23:01:48.998812+00:00",
         "elapsed_seconds": 878.058,
+        "status": "completed",
+        "api_calls": 0,
+        "cache_hits": 12,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-08T00:01:48.550470+00:00",
+        "elapsed_seconds": 838.023,
         "status": "completed",
         "api_calls": 0,
         "cache_hits": 12,
@@ -126806,16 +126798,16 @@
       "59cf14294b4a77bbe3f6e17fb577860d5cb3e6a60a0bbcb679e722d3ee8144fa": {
         "inputs": {
           "title": "0b356e923f5e0670e753c07361a315a127596a1215f15aef8602444a56fb0f5c",
-          "pub": "c6fef9ffd12e4f674d1e863037a9a5e959aaa309296a0aea2ad66ca5fb4dcd33",
+          "pub": "2f5f6fa358306cb16f05a2b7ff87321d6c2d76fc11c9b4290bedf313b6318a50",
           "source_sha256": "867fcfaa56d9029997c208f0625d3eb63361fa2cee9b34e9b73ea79c0b9e2bbc",
-          "page_published_at": "46586363ff70eab5e847d4c5dbec612c774a519cc5dcb63a376254986232c531",
+          "page_published_at": "fd2987dc6d89c96e1df65f284a9884ad509d784262c511c90be5eea8862162d1",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698177.248969
+        "expires": 1794701735.689875
       },
       "b14c1ae0ade6728570bac2a224ea784022363cad634e1d5d983c4cdbba51326a": {
         "inputs": {
@@ -126829,7 +126821,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698178.9884942
+        "expires": 1794701738.1142347
       },
       "c0a5da1b3886a12526016cd50b7938835996b6d61e6d62b03869dd721d7ef65a": {
         "inputs": {
@@ -126843,7 +126835,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698179.5528984
+        "expires": 1794701738.4458718
       },
       "9656ac4cb61c2bc2e35150a63cb576b879bdc5e1d116c8f055773918f5fc47ae": {
         "inputs": {
@@ -126857,7 +126849,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698180.3086772
+        "expires": 1794701739.185286
       },
       "a04abb05707bc7a55a434976ee6a4938192ee30f2b62d7c6e6f0257ea3e32af1": {
         "inputs": {
@@ -126871,7 +126863,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698181.7695885
+        "expires": 1794701740.8061888
       },
       "4d1abc0ff5c66fc6ace9febb9c3548f1ea6fa74aa2879b072c8c728562e00283": {
         "inputs": {
@@ -126885,7 +126877,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698182.0845592
+        "expires": 1794701741.1104825
       },
       "b74205b2a5a5be32a2dc6d836ecde2e088f78d80eb3bcfbd313f35505d9500a5": {
         "inputs": {
@@ -126899,7 +126891,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698182.8927212
+        "expires": 1794701741.8466642
       },
       "937da68a4d2282948f439db61e709d0ba3a8ebd803b45eb2def0de57b74a577b": {
         "inputs": {
@@ -126913,7 +126905,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698183.3698556
+        "expires": 1794701742.625133
       },
       "a4ed018c67f68e66d3fb4edf65b3897f51b601bfdac40e3554825c0dfee39408": {
         "inputs": {
@@ -126927,7 +126919,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698184.0579615
+        "expires": 1794701743.5584726
       },
       "23c758c044b678a6d3741f606de657a83f1fb5c42c39d3fd1d5d15d62a06a826": {
         "inputs": {
@@ -126941,7 +126933,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698184.532017
+        "expires": 1794701744.4621985
       },
       "9b0801fc82700e3f147047eb7002c678bcdf11915584cf5b9da03b7e3c63968b": {
         "inputs": {
@@ -126955,7 +126947,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "6d556a23f8b59879a7d85f9edcc56a8e1be019a421f8d022ca1b306a96fd71e6"
         },
-        "expires": 1794698184.8669932
+        "expires": 1794701744.7412598
       }
     },
     "budget_reservations_v1": {}
