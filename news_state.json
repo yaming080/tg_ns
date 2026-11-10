@@ -2096,10 +2096,6 @@
   },
   "ai_review": {
     "entries": {
-      "d031c03592651ccbfb596488f2071d910324c76bc0fbdb5cd07a135dbe6515f3": {
-        "text": "SKIP",
-        "expires": 1794338705.8522203
-      },
       "3cdc9bdfa5a216ec93c80beb53bc2b45eb3c3db5e4cd5ea81fdb3607a5373537": {
         "text": "{\"publish\":false,\"reason\":\"테스트넷 가동과 메인넷 표결 예정·일정 변경 가능성은 원문과 일치하지만, 핵심 기술 용어인 스마트계약과 양자내성 서명 검증의 의미를 쉽게 설명하지 않아 일반 독자의 이해에 부족하다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1794342067.4837706
@@ -3504,6 +3500,14 @@
         "text": "{\"related_ids\":[]}",
         "expires": 1794593712.9832163
       },
+      "0dda5829354c38bd561afb1711e131ccb9e637ec003c13092769413a7485dc4b": {
+        "text": "XRP레저재단이 계정과 검증자에 양자내성 서명 기술을 적용하는 업그레이드안을 제안했으며, 알파넷에서 시험을 진행함\n\n제안된 서명을 쓰는 거래는 기존보다 저장 공간을 약 213% 더 사용하며, 메인넷 적용일은 승인되지 않았고 2027년 상반기 이전 연구를 진행할 예정임",
+        "expires": 1794600940.2475436
+      },
+      "22222f0d0bedc5869638237cdcefb201ad728db972a3d1a2e816b818e521352d": {
+        "text": "XRP레저재단이 계정·검증자를 미래 양자컴퓨터 공격에서 보호하기 위해 양자내성 서명 기술(ML-DSA-44) 도입을 제안했으며, 알파넷에서 구현을 시험함.\n\n제안된 서명을 쓰는 거래는 기존보다 저장 공간을 약 213% 더 사용하며, 마이그레이션 연구는 2027년 상반기 예정이고 메인넷 적용일은 승인되지 않았음.",
+        "expires": 1794600954.3983502
+      },
       "68ad85cafbfbcaa9872f6c5d6ee7722ef00add70218b66c23543a834a5833416": {
         "text": "{\"approved\":false,\"reason\":\"사진은 정부 건물에서 투표용지를 넣는 일반적인 장면일 뿐, 기사 핵심인 민주당의 트럼프 관세 철회 추진이나 관련 인물·정책을 식별할 수 없습니다.\",\"checks\":{\"relevant\":false,\"clear\":true,\"not_advertisement\":true,\"not_text_screenshot\":true,\"not_price_chart\":true,\"primary_subject\":false,\"not_incidental_asset_only\":true,\"identifiable_subject\":false,\"not_publisher_placeholder\":true}}",
         "expires": 1794643473.7293506
@@ -4059,6 +4063,30 @@
       "4d50d24250cea1ebe460ce86494df15e52da363938f05df4bf753e48f97e35bd": {
         "text": "SKIP",
         "expires": 1794943010.8902695
+      },
+      "66f95fa03e15c9a555a7f3cba8dec3ffb243e29d9794a4f869166ac031cf18fb": {
+        "text": "SKIP",
+        "expires": 1794946521.2072308
+      },
+      "1f9960e3488775efc66721dfde211fd641caf7ff92ca6a6231dd61b7720754ee": {
+        "text": "SKIP",
+        "expires": 1794946529.1979148
+      },
+      "1689262456c854f350c7e136ef3ce0dc13204fa8d6cc4bf4e0e172f11dfec171": {
+        "text": "SKIP",
+        "expires": 1794946532.4721403
+      },
+      "f25c908a247360fa6b3abe9e0f857390546219e84a18034d7fe4cdacf3d737aa": {
+        "text": "{\"publish\":false,\"reason\":\"원문의 ‘2027년 상반기 마이그레이션 연구’를 ‘2027년 상반기 이전 연구’로 옮겨 일정과 연구 대상을 바꿨다. 양자내성 서명과 알파넷 시험 환경에 대한 쉬운 설명도 부족하다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1794946546.6030817
+      },
+      "e5ddc8b5a906e007cdc8bd8eda2467cbdc5772bd67a9d42225b3f9f0c39a7309": {
+        "text": "{\"publish\":false,\"reason\":\"제안·시험 단계와 메인넷 적용일 미승인은 보존했지만, 핵심 일정에 쓰인 ‘마이그레이션’과 ‘메인넷’의 뜻을 설명하지 않아 일반 독자가 적용 단계를 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
+        "expires": 1794946561.9855223
+      },
+      "90263b5f1807827be3259720782ee79474679cf72bd8c0aa55806aba97b3d3c2": {
+        "text": "SKIP",
+        "expires": 1794946565.1741488
       }
     },
     "version": "review-cache-v29-1",
@@ -7641,21 +7669,21 @@
       "2026-11-10": {
         "gpt-6-luna": {
           "summary": {
-            "api_calls": 61,
+            "api_calls": 66,
             "cache_hits": 119,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 490743,
+            "input_tokens": 531027,
             "cached_input_tokens": 0,
-            "output_tokens": 8611,
-            "reasoning_tokens": 5657,
-            "estimated_usd": 0.0656438,
+            "output_tokens": 9366,
+            "reasoning_tokens": 6291,
+            "estimated_usd": 0.071056425,
             "unpriced_calls": 0,
-            "cache_write_tokens": 490560
+            "cache_write_tokens": 530829
           },
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 256,
+            "cache_hits": 275,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7680,7 +7708,7 @@
           },
           "image_review": {
             "api_calls": 20,
-            "cache_hits": 21,
+            "cache_hits": 25,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 34237,
@@ -7693,7 +7721,7 @@
           },
           "image_held": {
             "api_calls": 0,
-            "cache_hits": 6,
+            "cache_hits": 7,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -7704,17 +7732,17 @@
             "unpriced_calls": 0
           },
           "summary_repair": {
-            "api_calls": 4,
+            "api_calls": 5,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 19087,
+            "input_tokens": 23751,
             "cached_input_tokens": 0,
-            "output_tokens": 832,
-            "reasoning_tokens": 512,
-            "estimated_usd": 0.002801575,
+            "output_tokens": 1325,
+            "reasoning_tokens": 895,
+            "estimated_usd": 0.003631,
             "unpriced_calls": 0,
-            "cache_write_tokens": 19075
+            "cache_write_tokens": 23736
           },
           "event_rejected": {
             "api_calls": 0,
@@ -7731,17 +7759,17 @@
         },
         "gpt-6.1-sol": {
           "source_review": {
-            "api_calls": 19,
+            "api_calls": 21,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 144498,
+            "input_tokens": 159986,
             "cached_input_tokens": 0,
-            "output_tokens": 3243,
-            "reasoning_tokens": 1056,
-            "estimated_usd": 0.3936465,
+            "output_tokens": 3688,
+            "reasoning_tokens": 1282,
+            "estimated_usd": 0.4368135,
             "unpriced_calls": 0,
-            "cache_write_tokens": 144441
+            "cache_write_tokens": 159923
           },
           "event_decision": {
             "api_calls": 1,
@@ -7760,18 +7788,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-11-02T13:01:42.540773+00:00",
-        "elapsed_seconds": 1148.6,
-        "status": "completed",
-        "api_calls": 5,
-        "cache_hits": 15,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0233012,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-11-02T14:01:47.319645+00:00",
         "elapsed_seconds": 1748.804,
@@ -9773,6 +9789,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.00392345,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-10T20:01:29.573933+00:00",
+        "elapsed_seconds": 897.192,
+        "status": "completed",
+        "api_calls": 8,
+        "cache_hits": 24,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.04940905,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -26355,23 +26383,13 @@
       "427b244bfe83c64102a827b1a5187e2d9e2bfd9a0d7fcedf4691c74b605a04d7": {
         "summary": "스타컴플라이언스와 RWA.xyz가 주식 등 증권과 연결된 권리나 투자 노출을 블록체인 토큰으로 나타낸 토큰화 증권의 기초 자산·발행사 정보를 임직원 거래 감시 체계에 연결하는 협력을 추진함\n\n확인된 토큰화 증권에 ‘검증됨’ 표식을 도입할 계획이며, 서비스 적용 시점은 공개되지 않음",
         "expires": 1794939302.543817
+      },
+      "05769f9a02e9ce465fe6e546a8e5ca519ccc5bf3039d409cbfd0f8ae9806ebdd": {
+        "summary": "",
+        "expires": 1794946546.80707
       }
     },
     "content_results_v1": {
-      "66f9084beb33220820159596f62cba2e4deb97382e4653f26e634fdb9f20bda5": {
-        "result": {
-          "text": "SKIP"
-        },
-        "expires": 1794338705.852226
-      },
-      "cf75513ffd4de8fba2ca2039a3685dc233fc26804038f5c631bf69c152340bfb": {
-        "result": {
-          "summary": "",
-          "reason": "요약 편집 단계의 명시적 제외 판정",
-          "body_entities": []
-        },
-        "expires": 1794338706.240362
-      },
       "86ea8f42513387693e5152d3ab1c562ce312488f5a00e6c40c66a95f3bbba74a": {
         "result": {
           "text": "{\"publish\":false,\"reason\":\"테스트넷 가동과 메인넷 표결 예정·일정 변경 가능성은 원문과 일치하지만, 핵심 기술 용어인 스마트계약과 양자내성 서명 검증의 의미를 쉽게 설명하지 않아 일반 독자의 이해에 부족하다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}"
@@ -111276,23 +111294,85 @@
           "body_entities": []
         },
         "expires": 1794943011.1297667
+      },
+      "dfe57ce59589c1bbee1d19f699107fdad23f10059014152aa3af3b460074172e": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794946521.2072368
+      },
+      "accffc3f4115d2199a68aeb690b2d0bec44fbc1c78aa0038d23f67ffa1090448": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794946521.4089477
+      },
+      "30e23b3c8a0bbc58df35a733d9d259af3e212df3bb645c634024b1603e0d15ac": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794946529.1979225
+      },
+      "6dbbf13d76b89be9c42760c03bb28ee4a0fa5bcb0e03d62af6e27b89bb69c0f3": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794946529.4014199
+      },
+      "af3457de2fe96a4985d8b50b5ae8fa06b701f8244659efeb823cc8bad5297733": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794946532.4721477
+      },
+      "655c0d8852859c06124832c48bfc30f9938575c7c1925e920bf5e997fb379c70": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794946532.667574
+      },
+      "3ee0905b0808cfe1c09cf5f26309d21a52964e46e4115a2d3e7f8b872cc51e95": {
+        "result": {
+          "text": "{\"publish\":false,\"reason\":\"원문의 ‘2027년 상반기 마이그레이션 연구’를 ‘2027년 상반기 이전 연구’로 옮겨 일정과 연구 대상을 바꿨다. 양자내성 서명과 알파넷 시험 환경에 대한 쉬운 설명도 부족하다.\",\"checks\":{\"faithful\":false,\"conditions_preserved\":false,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}"
+        },
+        "expires": 1794946546.6030889
+      },
+      "ecff85b4396e41976f5c9637073ce0dd2f3d440f4bf6787b1f5f23667317b933": {
+        "result": {
+          "text": "{\"publish\":false,\"reason\":\"제안·시험 단계와 메인넷 적용일 미승인은 보존했지만, 핵심 일정에 쓰인 ‘마이그레이션’과 ‘메인넷’의 뜻을 설명하지 않아 일반 독자가 적용 단계를 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}"
+        },
+        "expires": 1794946561.985541
+      },
+      "909ff7d15b3d34644a42214ed5b76f9ee84dead589d0430505e70d910d4983b5": {
+        "result": {
+          "summary": "",
+          "reason": "원문 대조 제외: 원문의 ‘2027년 상반기 마이그레이션 연구’를 ‘2027년 상반기 이전 연구’로 옮겨 일정과 연구 대상을 바꿨다. 양자내성 서명과 알파넷 시험 환경에 대한 쉬운 설명도 부족하다.",
+          "body_entities": []
+        },
+        "expires": 1794946562.6073987
+      },
+      "fa35a15954acddc91fd970f6a90046e0d8f918fefb56520313a14e1c1f4c075a": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1794946565.1741543
+      },
+      "84435d1c6e305f3b4cae03326bf58b521b7a0104b930848883990e47e9b34ab5": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1794946565.372225
       }
     },
     "source_identity_v1": {
-      "4c0b3ec6b3f18f4ba91ef8065ba58c85b6b096d6676ff228e564325add8ddd9f": {
-        "inputs": {
-          "title": "c948ed1dcf757167cd9d18317a6620816ac0e6d6b5d5f02a43415b511a151f95",
-          "pub": "267a2952085630eb8ce3b41838ea1d7192e9ddd337600a70c17c5090e9b13bc5",
-          "source_sha256": "8a723852c769527f88f19e6d57ee1ba7f3a10cd0ef4185c23bb24edba9b934b3",
-          "page_published_at": "758cb9ac710812f24ce46350e47ffcf345b9817c62f7d4f7db0cdcf65c5afefd",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "abd15ca866ca2d7ddeb85b67acf44cbec4f171cbef24f19b1944c88263b437e8",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "6e0dff4d6b606ae12771a0d786f6ee385fc32fd77f03a68eff03ef640cddd7d9"
-        },
-        "expires": 1794338712.2575362
-      },
       "ce4f6ab926ed72646306cc1c7b805f0965aace9d1ca412da616f807a99278e95": {
         "inputs": {
           "title": "51b839a52e3b7c7c5f5118fc465be8dc5b4be9a2b3eb04b5162c66ee1abd33f0",
@@ -115633,76 +115713,6 @@
         },
         "expires": 1794939346.063607
       },
-      "755af4028ce5079d29191e465755c726fb459365acdfe6fc2b7f1c5573412436": {
-        "inputs": {
-          "title": "3f8816effe23c5ab6d5321ef7689a6c9e43e3555ca5a7a5e5b83c1d87f68e78e",
-          "pub": "3c88ed255bf489f3ca3b86a5c5f28ac6fe81989285431a24598d5946faa45220",
-          "source_sha256": "279ac0529780271bec9cfeb261c7ccf413994e71e6debdb77c910afee18064f3",
-          "page_published_at": "72674659d3fdf423c79cc06a0335e7a24d59cce9bd6ed1b80a6df5aafe85175a",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
-        },
-        "expires": 1794942991.8358386
-      },
-      "739651a04226f5fdb2a56ffb770fd1c1b69028e7b253ac155db17d9390227eda": {
-        "inputs": {
-          "title": "eba99294a322802df61edea1e1bc6789d0c8c99113d9be0f46c5c5dfbe5901c4",
-          "pub": "d07cbf612f52f1685feccd8ba86801845969dd2b2ad035f8131d5254f0a7e3b4",
-          "source_sha256": "0fb918a1936b9bd1387fa27eccf0fd88a0246917dded6b27a5c711e0bd5e9a46",
-          "page_published_at": "b9fbf2441d7a14ba7d4e87e2411d3a020b53f711fac171fb25086d4322c93964",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
-        },
-        "expires": 1794942996.708021
-      },
-      "8c050ff14ea1b5deec77cbebbeee6358de9519d3a552fb142cb1041ec40239c0": {
-        "inputs": {
-          "title": "8bc5443ad635aa26f1e90f071190f5b40112591435adbddacf178762f1d5d15c",
-          "pub": "207f96995d9629ca9e10f8f47ca5a9f264fc408d6b7d0b5cffcbcb9d0c8de69b",
-          "source_sha256": "814404c171883d69f97224d60564a13100492c1c1d5796ccdfbd3a26f8576955",
-          "page_published_at": "5e8de68ff1c1d5efdd9083a51383d9eb540d1d23e483c83882138c8e92ff735a",
-          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
-          "description_sha256": "814404c171883d69f97224d60564a13100492c1c1d5796ccdfbd3a26f8576955",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
-        },
-        "expires": 1794942999.5350316
-      },
-      "511ddbdcd4512fee5ea95a3e32161cc07b56e32e02be3e5b1e1b18aeb02bd38a": {
-        "inputs": {
-          "title": "71e076b60ae92233c9f9c1ffe95071f8821418b7154c8db371351b436a534be1",
-          "pub": "c3a177390aadcaa4e70f7ccca666062b30a1d130fcc8521228e48f0512611b48",
-          "source_sha256": "e066a7e335a088dc86a23cafdb75c2ed8928e76b7ee871ae94049813a53ac669",
-          "page_published_at": "74f176a417dd86888f6041173ce4147191635e97a3827c0dc572dacc73befc3b",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "b9e4ddbba6713d5f7d8076962b38180df5680e6bacb830fe324b0f76d57c19d5",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
-        },
-        "expires": 1794943003.1190493
-      },
-      "1477266b9407c83ff36c25cab67c9f9aa9b3a5171c7cca1278e450b80717d4ad": {
-        "inputs": {
-          "title": "a78dfcb235e19fab8b0aec9a3bcf08d7f7de82e0b04fb15dfa1026e31c092259",
-          "pub": "7efb9d1a3af737f38523df18a48cb311dd230d9a5df73c628739757c4d8aea5f",
-          "source_sha256": "f355760675b33eaa3b9e7c9aec4b5ff0bfc8e551c156748e9a37f34c971b1600",
-          "page_published_at": "d1d9e7086c38b5298fcec2fa8b8a62df2f7eacf7bf05c45aac046e58822e2797",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "fdc82b51e71e14feb4f092417724079ae39b0a28031c67215c3a86f49c2ece98",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
-        },
-        "expires": 1794943003.8176594
-      },
       "72c2191f005090dd3e4fe0a7797799c134c78821a1e1c9835314a059e1351c3a": {
         "inputs": {
           "title": "80d405f0c3b21ae74a7875c2b1f16ddf729f00266ed4f15512e7909d3f6c31d2",
@@ -115717,6 +115727,146 @@
         },
         "expires": 1794943006.0352094
       },
+      "52b14f09182ff8c3030fd45fdadbcb8536662631efaf23d276ffbb458bce307e": {
+        "inputs": {
+          "title": "e5f6a9467a581b66148a5b2db5e89718b9a6d014ae8ae3f3e28f25f61360be85",
+          "pub": "f4505098bf33eef946f7bd3a5497ac0ca2cfa1c31f02dfff711a42526f141c62",
+          "source_sha256": "b3f7798f621604385c5ebda1ab89548e84ff3e77b75b4679db304f135f342c80",
+          "page_published_at": "89df9cc0b0372f019793d06a2b816f87fe0d04dd19eee8a3f436ff5dcef0d1b8",
+          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
+          "description_sha256": "b3f7798f621604385c5ebda1ab89548e84ff3e77b75b4679db304f135f342c80",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946518.7592313
+      },
+      "653d80a511ac93ebd74f6c91ce3c63c145b79a75debb1ec1c656b00d66da38a5": {
+        "inputs": {
+          "title": "49aff24f85c0585173bddfa86b314ae4e7d7015d5c26bfe7bdbebfa7d73d4133",
+          "pub": "89d9d04f9dff80551febeb0b1ef95d97d8c2499eacf1f49ed371c5c16185f560",
+          "source_sha256": "f90dc36f1860169b01199f282fd287f73150b87164a6a3b2e102f2dce414cf8d",
+          "page_published_at": "3f4b6bbd4c3089bdd1634b4cf5c6696cff0a0d50d5c79d1f76c8f06de8995396",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "bd2586aa14148a300c36373f870a8dea068dcae5d2bcedfc03accae93fe5b68a",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946522.3571615
+      },
+      "d8fc8b8521ef91905662baf7d09b1bae3e4acf57106c32cea4ebda05cc2418b4": {
+        "inputs": {
+          "title": "e4fdc54f618d2b28e36c268376c6c936d043f77eedc8835cbd126867cd463049",
+          "pub": "a87ef0c0ea778191dcc810c1805b009a7e1abbe50fffeceab26c7264ae95e842",
+          "source_sha256": "75415376daf14e4e76f564ed512be6cd82d5cd27725ea3cdc0ba19fa3720934a",
+          "page_published_at": "b9e1c8b0010055542f4e6b67fa5849f3342236c1e8753e87d16eab088090c96a",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946530.7960567
+      },
+      "ae322fe3f9f80fb8d28ebbef5bfb5d195f0308edf189a410bba04229d279b22c": {
+        "inputs": {
+          "title": "6166a4f72ea034f28d51b520bd5f579ef5d2b5b243268acead04931099ae1bea",
+          "pub": "28122ddfa338803ed0504ee153d82b243af135bca3c126c17f9567c1ff1459bc",
+          "source_sha256": "7b5365f23771e2cc322c3fedab5aa11ea84e3bdd66f94f140d5056dda7799552",
+          "page_published_at": "66d2e2fdde490e276d3da3488d75c31d921d7dd132fd06df56c955ed5d84a57b",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "982fdf261b623df89c66b10bbd6438dcc56a78846170f58fe324dd272bae54e8",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946533.163857
+      },
+      "c59e3c56b7176738f7b99932b7ef86051153b3bb292a3088f445b505784da4e7": {
+        "inputs": {
+          "title": "4f2180e8427e4ad0bac8a70dfda30e3e61afb5ed89271ca9d6a227cf592b6f78",
+          "pub": "9044dcc0410d89780caef2cfff00ec12ecac865af546c19becac74a4fa55cecc",
+          "source_sha256": "be4b104c317439d2bec6e5309dd3b1dcfa085a5e80be9ce8877e5280cca4ea0b",
+          "page_published_at": "453cda87631823fba02a0d9d5fcb06d269b758adc1ec4738bc60f7fc30852a2c",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946563.968002
+      },
+      "755af4028ce5079d29191e465755c726fb459365acdfe6fc2b7f1c5573412436": {
+        "inputs": {
+          "title": "3f8816effe23c5ab6d5321ef7689a6c9e43e3555ca5a7a5e5b83c1d87f68e78e",
+          "pub": "31000a438692f66aa978cfd41fb6d59231c8fc82e37daec7723829abbeb16261",
+          "source_sha256": "279ac0529780271bec9cfeb261c7ccf413994e71e6debdb77c910afee18064f3",
+          "page_published_at": "69528f57b8d259e94efefb30e791014e0a99fb40b8fa4983a8484afd1a0ec281",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946569.0071232
+      },
+      "739651a04226f5fdb2a56ffb770fd1c1b69028e7b253ac155db17d9390227eda": {
+        "inputs": {
+          "title": "eba99294a322802df61edea1e1bc6789d0c8c99113d9be0f46c5c5dfbe5901c4",
+          "pub": "d950e1e78e12817c08fa895c2af6a30d5b176e78e4b4020b4e2d6d88f58e4582",
+          "source_sha256": "0fb918a1936b9bd1387fa27eccf0fd88a0246917dded6b27a5c711e0bd5e9a46",
+          "page_published_at": "bdf77d61926327a67a9d95db9b2a1a35546980e9438870a3543066d0194f7df4",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946570.6965868
+      },
+      "8c050ff14ea1b5deec77cbebbeee6358de9519d3a552fb142cb1041ec40239c0": {
+        "inputs": {
+          "title": "8bc5443ad635aa26f1e90f071190f5b40112591435adbddacf178762f1d5d15c",
+          "pub": "207f96995d9629ca9e10f8f47ca5a9f264fc408d6b7d0b5cffcbcb9d0c8de69b",
+          "source_sha256": "814404c171883d69f97224d60564a13100492c1c1d5796ccdfbd3a26f8576955",
+          "page_published_at": "5e8de68ff1c1d5efdd9083a51383d9eb540d1d23e483c83882138c8e92ff735a",
+          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
+          "description_sha256": "814404c171883d69f97224d60564a13100492c1c1d5796ccdfbd3a26f8576955",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946571.0234008
+      },
+      "511ddbdcd4512fee5ea95a3e32161cc07b56e32e02be3e5b1e1b18aeb02bd38a": {
+        "inputs": {
+          "title": "71e076b60ae92233c9f9c1ffe95071f8821418b7154c8db371351b436a534be1",
+          "pub": "c3a177390aadcaa4e70f7ccca666062b30a1d130fcc8521228e48f0512611b48",
+          "source_sha256": "e066a7e335a088dc86a23cafdb75c2ed8928e76b7ee871ae94049813a53ac669",
+          "page_published_at": "74f176a417dd86888f6041173ce4147191635e97a3827c0dc572dacc73befc3b",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "b9e4ddbba6713d5f7d8076962b38180df5680e6bacb830fe324b0f76d57c19d5",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946571.814902
+      },
+      "1477266b9407c83ff36c25cab67c9f9aa9b3a5171c7cca1278e450b80717d4ad": {
+        "inputs": {
+          "title": "a78dfcb235e19fab8b0aec9a3bcf08d7f7de82e0b04fb15dfa1026e31c092259",
+          "pub": "7efb9d1a3af737f38523df18a48cb311dd230d9a5df73c628739757c4d8aea5f",
+          "source_sha256": "f355760675b33eaa3b9e7c9aec4b5ff0bfc8e551c156748e9a37f34c971b1600",
+          "page_published_at": "d1d9e7086c38b5298fcec2fa8b8a62df2f7eacf7bf05c45aac046e58822e2797",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "fdc82b51e71e14feb4f092417724079ae39b0a28031c67215c3a86f49c2ece98",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
+        },
+        "expires": 1794946572.5496306
+      },
       "d4ed03eadb435c076e62e2f72e6604f7c7d6ebbbf58dffd3b0a2324f494df6c4": {
         "inputs": {
           "title": "45e8f0406eb5e7aec5f20fb5417f5baebb3fefdca622b64322dd97113c4d7672",
@@ -115729,7 +115879,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943007.633289
+        "expires": 1794946579.3790631
       },
       "fe6f1495c6d773b4e1ffeea2d45376e3405ff8b8543c2c8f9e9e323df769cddf": {
         "inputs": {
@@ -115743,7 +115893,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943007.9031773
+        "expires": 1794946579.698044
       },
       "31f7d7bd315c983876a903aacdf55274829da248f79559078f9a71c6ced56191": {
         "inputs": {
@@ -115757,7 +115907,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943008.1493378
+        "expires": 1794946579.9543087
       },
       "cb9be7608823dc734d7c36e86790f6b4c06978e32abe7bcb4831818bbb6d5a24": {
         "inputs": {
@@ -115771,7 +115921,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943008.5863662
+        "expires": 1794946580.5753632
       },
       "ffeaf6c19f3dbdbd9a559f676e28bb09ee7ca07b3b8abc6686b4eb43caf99796": {
         "inputs": {
@@ -115785,7 +115935,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943009.0157883
+        "expires": 1794946580.876415
       },
       "4a7120703bcd2932840a5902fe0959daa2ef316c9c9c278fa7bf4c1dbe72d7e2": {
         "inputs": {
@@ -115799,7 +115949,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943011.7168193
+        "expires": 1794946581.3853683
       },
       "54f3ba4d3fc41fcedccd6b0361c71672a425b52baf52905bb59671181902392a": {
         "inputs": {
@@ -115813,21 +115963,21 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943012.1772413
+        "expires": 1794946582.0207164
       },
       "f3d7305f5e97495dca660ff43b32fcfcadcaf8872454dbaabd6e5d0a99f0a0b0": {
         "inputs": {
           "title": "b1c3df454c24e3a49c81ed07825b6dfa7a0fcfa79a0fdc6603dde9dfae50e425",
-          "pub": "d49e10b54c17f751a86606116bb83c50240d5d4d991397c17848bfce1173382e",
+          "pub": "9e161db2fde220eb4b3b2861fb48dd7a6cf5ede9f649f2b3362b97b8fedb9f3c",
           "source_sha256": "c2136780daf0a86e98ce0c2ea1b4be6228aa13200d577314eedfde791ad622e0",
-          "page_published_at": "d4a0d23d3ebfa8e9e6a64ce689f5359b617ac01b7ce3505b47faa13f6099bdb6",
+          "page_published_at": "8b261dcda4c48fba7cd3ad2520b8940f093d0f99359931bdc278c1cd3acb781f",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943013.2681303
+        "expires": 1794946583.376992
       },
       "4bdba622f609af17c06548eb6aa43b37ab9d2213354828f296b7273b43fa7a2d": {
         "inputs": {
@@ -115841,7 +115991,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943013.6661038
+        "expires": 1794946583.7004395
       },
       "7752d77322b9a7e6f11a2fb63f50b23de3845109e26b3078e68984cea19dbd5c": {
         "inputs": {
@@ -115855,7 +116005,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943014.91882
+        "expires": 1794946584.0692415
       },
       "56783131a8594cd0357d9bc121f3ede5ad0474d60cfd743db58750f6dd85b90c": {
         "inputs": {
@@ -115869,7 +116019,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943015.2655265
+        "expires": 1794946584.6581032
       },
       "e4ba42dd5f2af0beb2b54a1bdcb6ad4bc5152590d65685845444c11d7810ac93": {
         "inputs": {
@@ -115883,7 +116033,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943015.8306153
+        "expires": 1794946585.9785855
       },
       "8b97c91a8514448b051a91dfa8255723ccc12d0e5bfdf08cfa16572bd2fde986": {
         "inputs": {
@@ -115897,7 +116047,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943016.0443912
+        "expires": 1794946586.2081804
       },
       "af3772f74d382306fed6f48b3eff07e06c485ec78216e32870d4d87f3c5019f5": {
         "inputs": {
@@ -115911,7 +116061,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "9ca1aa6cefe265d30bb4c62241835d82d6e90ab08c688098e09d7f05703c9569"
         },
-        "expires": 1794943016.5042915
+        "expires": 1794946586.6575904
       }
     },
     "budget_reservations_v1": {}
