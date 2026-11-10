@@ -373,6 +373,9 @@ def content_result(kind, scope, result=None):
                     affected = semantic and bool(nov10_scope(scope))
                 else:
                     affected = affected or (semantic and bool(nov10_scope(scope)))
+                # A budget/restart-only release changes no editorial verdict.
+                if identity in manifest.get('operational_only_previous_identities', []):
+                    affected = False
                 if affected:
                     continue
                 old_key = fingerprint([VERSION, identity, kind, scope])

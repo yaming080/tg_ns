@@ -45,14 +45,18 @@ def resume_exclusion_reason(story):
 def configure_resume_boundary(state):
     """A recovered state can advance, but never lower, the configured cutoff."""
     saved = state.get('publish_not_before_utc')
-    if saved is None:
-        return
-    parsed = publication_time({'pub': saved})
     configured = os.environ.get('NEWS_PUBLISH_NOT_BEFORE_UTC')
+    if saved is None and configured is None:
+        return
+    parsed = publication_time({'pub': saved}) if saved is not None else PUBLISH_NOT_BEFORE
     env_time = publication_time({'pub': configured}) if configured is not None else PUBLISH_NOT_BEFORE
     if parsed is None or env_time is None:
         raise ValueError('재개 기준 설정 오류: 발송 보류')
-    os.environ['NEWS_PUBLISH_NOT_BEFORE_UTC'] = max(PUBLISH_NOT_BEFORE, parsed, env_time).isoformat()
+    boundary = max(PUBLISH_NOT_BEFORE, parsed, env_time).isoformat()
+    os.environ['NEWS_PUBLISH_NOT_BEFORE_UTC'] = boundary
+    # Persist on the normal guarded state-save path, so a restart or older
+    # environment setting cannot reopen the held backlog.
+    state['publish_not_before_utc'] = boundary
 
 
 def select_resume_candidates(stories, log):
