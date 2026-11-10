@@ -355,6 +355,7 @@ def content_result(kind, scope, result=None):
         from news_nov2_scope import scope as nov2_scope
         from news_nov7_scope import scope as nov7_scope
         from news_nov8_scope import scope as nov8_scope
+        from news_nov10_scope import scope as nov10_scope
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
         semantic = kind in {'source_summary', 'event_rejected', 'negative_request'}
@@ -367,6 +368,11 @@ def content_result(kind, scope, result=None):
                 affected = semantic and (bool(nov8_scope(scope)) or (
                     identity not in manifest.get('nov8_only_previous_identities', []) and (
                         affected_now or (identity not in manifest.get('nov7_only_previous_identities', []) and affected_earlier))))
+                # Latest release only changes Nov 10 candidate types.
+                if identity in manifest.get('nov10_only_previous_identities', []):
+                    affected = semantic and bool(nov10_scope(scope))
+                else:
+                    affected = affected or (semantic and bool(nov10_scope(scope)))
                 if affected:
                     continue
                 old_key = fingerprint([VERSION, identity, kind, scope])

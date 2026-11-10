@@ -11,6 +11,7 @@ from news_nov2_scope import scope as nov2_scope, ENABLED_AT as NOV2_ENABLED_AT
 from news_industry_intake import industry_intake_scope, ENABLED_AT as INDUSTRY_ENABLED_AT
 from news_nov7_scope import scope as nov7_scope
 from news_nov8_scope import scope as nov8_scope, ENABLED_AT as NOV8_ENABLED_AT
+from news_nov10_scope import scope as nov10_scope, ENABLED_AT as NOV10_ENABLED_AT
 
 ENABLED_AT = datetime(2026, 10, 10, 9, 25, tzinfo=timezone.utc)
 POLICY = 'luna-coverage-20261013-4'
@@ -20,11 +21,13 @@ CRYPTO = r'crypto|digital.asset|blockchain|bitcoin|ethereum|stablecoin|tokeniz|\
 COMPANY = r'Evernorth|Evernoth|Ripple|Robinhood|Blockchain\.com|Moscow Exchange|Ledger|Binance|HashKey|BitGo|에버노스|리플|로빈후드|블록체인닷컴|모스크바거래소|레저|바이낸스|해시키|비트고'
 
 
-def coverage_scope(story, *, team_feedback=True):
+def coverage_scope(story, *, team_feedback=True, nov10_feedback=True):
     title = str(story.get('title', '') or '')
     has = lambda p: bool(re.search(p, title, re.I))
     if has(r'presale|airdrop|giveaway|referral|sponsored|technical analysis|price prediction|price target|RSI|MACD|프리세일|에어드롭|추천인|협찬|차트.?분석|목표가|지지선|저항선|뉴스.?브리핑|weekly.{0,20}recap'):
         return ''
+    if team_feedback and nov10_feedback and nov10_scope(story):
+        return nov10_scope(story)
     if team_feedback and nov8_scope(story):
         return nov8_scope(story)
     if team_feedback and nov7_scope(story):
@@ -78,6 +81,9 @@ def coverage_intake_reason(story):
             dt = parsedate_to_datetime(value)
         except (ValueError, TypeError):
             dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if (nov10_scope(story) and not coverage_scope(story, nov10_feedback=False)
+                and (dt.tzinfo is None or dt <= NOV10_ENABLED_AT)):
+            return '11월 10일 보완 전 기사: 과거 대기열 발송 방지'
         if (nov8_scope(story) and not nov7_scope(story) and not nov2_scope(story)
                 and not coverage_scope(story, team_feedback=False)
                 and (dt.tzinfo is None or dt <= NOV8_ENABLED_AT)):
