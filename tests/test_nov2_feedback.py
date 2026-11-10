@@ -108,7 +108,9 @@ class Nov2FeedbackTests(unittest.TestCase):
 
     def test_cache_reuse_preserves_unaffected_rejections_and_ttl(self):
         manifest = json.loads((Path(cache.__file__).parent/'news_cache_compatibility.json').read_text('utf8'))
-        old = manifest['previous_identities'][0]
+        # This fixture predates Nov 2 intake, independent of manifest order.
+        old = 'd871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974'
+        self.assertIn(old, manifest['previous_identities'])
         with cache.review_session({}, lambda: None, logger=lambda _: None) as store:
             expiry = store.clock() + 1000
             scopes = [{'title': manual.EVENTS[9][1]}, {'title': 'Unchanged excluded article'}]

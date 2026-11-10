@@ -1,5 +1,6 @@
 """Local USD budget for this bot, not an account-wide KRW billing guarantee.
 
+An explicit unlimited mode removes only the local cap, not usage accounting.
 Reserve a conservative maximum BEFORE a paid request; settle against usage.
 Ambiguous failures keep their reservation; later retries must reserve again.
 No token-counting API, external pricing lookup or additional model call is used.
@@ -10,7 +11,7 @@ import math
 import os
 import uuid
 
-DEFAULT_MONTHLY_USD = 28.0
+DEFAULT_MONTHLY_BUDGET = 'unlimited'
 
 
 def maximum_request_usd(model, payload, options, rates):
@@ -34,10 +35,13 @@ def maximum_request_usd(model, payload, options, rates):
 class BudgetLedger:
     def __init__(self, store):
         self.store = store
-        raw = os.environ.get('NEWS_MONTHLY_API_BUDGET_USD', str(DEFAULT_MONTHLY_USD))
-        try: self.limit = float(raw)
-        except ValueError: self.limit = 0.0
-        if not math.isfinite(self.limit) or self.limit < 0: self.limit = 0.0
+        raw = os.environ.get('NEWS_MONTHLY_API_BUDGET_USD', DEFAULT_MONTHLY_BUDGET)
+        if raw.strip().lower() == 'unlimited':
+            self.limit = None
+        else:
+            try: self.limit = float(raw)
+            except ValueError: self.limit = 0.0
+            if not math.isfinite(self.limit) or self.limit < 0: self.limit = 0.0
         self.month = datetime.fromtimestamp(store.clock(), timezone.utc).strftime('%Y-%m')
         self.pending = store.data.setdefault('budget_reservations_v1', {})
         self.reason = ''
@@ -54,7 +58,7 @@ class BudgetLedger:
             self.reason = str(exc)
             return None
         used = self.spent() + sum(v['reserved_usd'] for v in current)
-        if used + amount > self.limit:
+        if self.limit is not None and used + amount > self.limit:
             self.reason = f'월 API 예산 검토보류: {self.month} 사용·예약 ${used:.4f}, 한도 ${self.limit:.2f}'
             return None
         ticket = uuid.uuid4().hex

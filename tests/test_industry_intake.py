@@ -84,7 +84,9 @@ class IndustryIntakeTests(unittest.TestCase):
 
     def test_affected_exclusion_is_not_migrated_but_unrelated_result_is(self):
         manifest = json.loads((Path(cache.__file__).parent/'news_cache_compatibility.json').read_text(encoding='utf8'))
-        old = manifest['previous_identities'][0]
+        # This fixture predates Nov 2 intake, independent of manifest order.
+        old = 'd871bb990fee31a713a3a472bec514c1ccb0797f47262f317b40f167d00d1974'
+        self.assertIn(old, manifest['previous_identities'])
         with cache.review_session({}, lambda: None, logger=lambda _: None) as store:
             expiry = store.clock()+1000
             store.data['content_results_v1'] = {}
