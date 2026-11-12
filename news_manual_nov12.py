@@ -1,0 +1,28 @@
+"""User-confirmed team posts: posting evidence, not endorsement of all claims."""
+EVENTS = (
+    ('https://bloomingbit.io/feed/news/124174',
+     '리플 "2030년까지 30조달러가 온체인으로…상호운용성 확보 필요"',
+     '팀원 게시 확인 11월 12일: 11월 11일 리플 APAC 이은진 세일즈 이사의 2030년 30조달러 자산 온체인 전환 전망. 상호운용성 필요 의견이며 현재 유입·XRP 채택 아님'),
+    ('https://bloomingbit.io/feed/news/124225',
+     '노무라, 가상자산 자회사 레이저디지털 매각 검토',
+     '팀원 게시 확인: 노무라의 레이저디지털 매각 검토 보도. 매각 확정·완료 아님'),
+    ('https://bloomingbit.io/feed/news/124221',
+     '미국 텍사스주, 지방정부 비트코인 투자 허용 법안 발의',
+     '팀원 게시 확인: 론 레이놀즈 HB 815. 시·카운티별 최대 1000만달러, 통과 시 2027년 9월 1일 시행. 봇도 11월 11일 tokenpost 436255로 같은 법안 발의를 게시함'),
+    ('https://timestabloid.com/ripple-just-deleted-an-announcement-this-xrp-pundit-called-strange/',
+     'Ripple Just Deleted an Announcement This XRP Pundit Called Strange',
+     '팀원 게시 확인: 리플이 유럽 37개 은행 Qivalis 관련 게시물·블로그를 삭제했다는 보도. BBVA·DZ BANK는 기존 고객이며 신규 Qivalis 참여·37개 은행 제휴를 확인한 기록 아님'),
+    ('https://cointelegraph.com/news/south-korea-crypto-withdrawal-freezes-suspected-hacks',
+     'South Korea to permit crypto withdrawal freezes during hacking threats',
+     '팀원 게시 확인: 금융위가 해킹 의심 시 예방적 입출금 중단을 허용하는 비조치의견서 발급을 예고. 실제 해킹 확정이나 법률 시행 완료 아님'),
+    ('https://bloomingbit.io/feed/news/124261',
+     '법인 디지털자산 개방 속도...국회 "기본법 입법 조속히 추진"',
+     '팀원 게시 확인: 11월 12일 국회 세미나에서 기본법 정부안 조속 제출·여야 합의 추진 및 기관 시장 인프라·해킹 책임 규율 검토 발언. 실제 제출·통과 아님'),
+    ('https://x.com/cryptodotnews/status/2120705643766317333',
+     'Miami-Dade County begins accepting Bitcoin for property tax payments',
+     '팀원 게시 확인: 마이애미데이드 재산세 BTC 납부 지원. 세무관실 도착 전 달러 자동 환전. X 직접 수집 추가 아님'),
+    ('https://www.hankyung.com/article/2026111085481',
+     '신현송, 디지털 지급결제 룰 메이커로 나선다',
+     '팀원 게시 확인: 신현송 한국은행 총재의 BIS CPMI 의장 선임, 임기 2029년 11월 1일까지. 원문은 XRP 채택을 확인하지 않음'),
+)
+URLS = tuple(row[0] for row in EVENTS)

@@ -246,6 +246,9 @@ class UnchangedExclusionsTests(unittest.TestCase):
         run()
         self.assertGreater(len(calls), before)
 
+    # Keep request-count fixtures independent of the growing live team history.
+    @patch('news_event_review.MANUAL_EVENTS', (('https://fixture.example/team',
+           'Previously posted team article', 'Known event'),))
     def test_deleted_event_evidence_and_new_model_do_not_keep_rejection(self):
         history = {'a': {'title': 'Original', 'url': 'https://old.example/a'}}
         target = events.history_records(history)[0]['id']

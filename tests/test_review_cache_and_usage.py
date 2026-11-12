@@ -160,6 +160,9 @@ class ReviewCacheTests(unittest.TestCase):
         malformed='<nav>bad markup<article><p>story'
         self.assertEqual(strip_page_furniture(malformed),malformed)
 
+    # Keep request-count fixtures independent of the growing live team history.
+    @patch('news_event_review.MANUAL_EVENTS', (('https://fixture.example/team',
+           'Previously posted team article', 'Known event'),))
     def test_image_only_retry_reuses_text_and_event_but_reviews_new_image(self):
         story=dict(title='Ripple receives final approval for XRP payments license in Singapore',
                    desc='Ripple received final approval for an XRP payments license in Singapore.',
@@ -195,6 +198,9 @@ class ReviewCacheTests(unittest.TestCase):
         self.assertEqual(sum(isinstance(p,list) for p in requests),2)
         self.assertEqual(self.state['posted'],{'old':{'title':'posted item'}})
 
+    # Keep request-count fixtures independent of the growing live team history.
+    @patch('news_event_review.MANUAL_EVENTS', (('https://fixture.example/team',
+           'Previously posted team article', 'Known event'),))
     def test_changed_history_rechecks_event_even_with_same_candidate(self):
         self.client.responses.create.return_value=response('{"related_ids":[]}')
         candidate=dict(title='Ripple new project',url='https://example.com/new')
