@@ -357,6 +357,7 @@ def content_result(kind, scope, result=None):
         from news_nov8_scope import scope as nov8_scope
         from news_nov10_scope import scope as nov10_scope
         from news_card_payment_scope import scope as card_scope
+        from news_nov12_scope import scope as nov12_scope
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
         semantic = kind in {'source_summary', 'event_rejected', 'negative_request'}
@@ -379,6 +380,9 @@ def content_result(kind, scope, result=None):
                     affected = False
                 # Only this newly admitted proposal type changes this release.
                 affected = affected or (semantic and bool(card_scope(scope)))
+                if identity in manifest.get('nov12_only_previous_identities', []):
+                    affected = False
+                affected = affected or (semantic and bool(nov12_scope(scope)))
                 if affected:
                     continue
                 old_key = fingerprint([VERSION, identity, kind, scope])

@@ -118,7 +118,9 @@ class FinancialCooperationFeedback(unittest.TestCase):
         row = next(r for r in history_records({}) if r['url'] == urls[0])
         def respond(prompt):
             if 'related_ids' in prompt:
-                return json.dumps(dict(related_ids=[row['id']]))
+                data = json.loads(prompt.rsplit('\n', 1)[-1])
+                ids = {r['id'] for r in data['history']}
+                return json.dumps(dict(related_ids=[row['id']] if row['id'] in ids else []))
             return json.dumps(dict(decision='update', matched_id=row['id'], reason='new deployment',
                                    new_fact='A named bank has now launched the previously demonstrated integration.', independent_new_action=True, candidate_evidence='A named bank launched the integration after the demonstration.'))
         result = review_event(story('Named bank launches XRPL accounting integration', url='https://example.test/new-launch'),

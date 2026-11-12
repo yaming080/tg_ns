@@ -101,6 +101,8 @@ from news_manual_nov8 import EVENTS as NOV8_MANUAL_EVENTS
 MANUAL_EVENTS = MANUAL_EVENTS + NOV8_MANUAL_EVENTS
 from news_manual_nov10 import EVENTS as NOV10_MANUAL_EVENTS
 MANUAL_EVENTS = MANUAL_EVENTS + NOV10_MANUAL_EVENTS
+from news_manual_nov12 import EVENTS as NOV12_MANUAL_EVENTS
+MANUAL_EVENTS = MANUAL_EVENTS + NOV12_MANUAL_EVENTS
 
 def url_key(url):
     value = str(url or '').strip()

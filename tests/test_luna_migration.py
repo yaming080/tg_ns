@@ -79,6 +79,9 @@ class LunaMigrationTests(unittest.TestCase):
         self.assertEqual(client.responses.create.call_count,1)
         self.assertEqual(client.responses.create.call_args.kwargs['model'],MODEL)
 
+    # Keep request-count fixtures independent of the growing live team history.
+    @patch('news_event_review.MANUAL_EVENTS', (('https://fixture.example/team',
+           'Previously posted team article', 'Known event'),))
     def test_related_decisions_use_luna_search_and_sol_final_verdict(self):
         story={'title':'Flare new service','url':'https://example.org/new'}
         posted={'old':{'title':'Flare previous service','url':'https://example.org/old','summary':'previous'}}

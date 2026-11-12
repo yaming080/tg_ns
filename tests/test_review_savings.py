@@ -101,6 +101,9 @@ class ReviewSavingsTests(unittest.TestCase):
         self.assertEqual(len(set(before)-set(after)),1)
         self.assertEqual(sum(len(b) for b in events.history_batches(records)),len(records))
 
+    # Keep request-count fixtures independent of the growing live team history.
+    @patch('news_event_review.MANUAL_EVENTS', (('https://fixture.example/team',
+           'Previously posted team article', 'Known event'),))
     def test_small_history_does_not_add_requests(self):
         records=events.history_records(self.history)
         self.assertEqual(len(list(events.history_batches(records))),1)

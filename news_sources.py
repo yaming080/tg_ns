@@ -15,6 +15,7 @@ NEW_FEEDS = (
     ('비트코인닷컴', 'https://news.bitcoin.com/feed/'),
     ('블록체인리포터', 'https://blockchainreporter.net/feed/'),
     ('이투데이', 'https://rss.etoday.co.kr/eto/etoday_news_all.xml'),
+    ('한국경제 경제', 'https://www.hankyung.com/feed/economy'),
 )
 
 
