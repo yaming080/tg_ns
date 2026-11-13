@@ -383,6 +383,10 @@ def content_result(kind, scope, result=None):
                 if identity in manifest.get('nov12_only_previous_identities', []):
                     affected = False
                 affected = affected or (semantic and bool(nov12_scope(scope)))
+                # Image-only release preserves semantic decisions and held status;
+                # selectors always fetch/recheck actual bytes before sending.
+                if identity in manifest.get('image_only_previous_identities', []):
+                    affected = False
                 if affected:
                     continue
                 old_key = fingerprint([VERSION, identity, kind, scope])
