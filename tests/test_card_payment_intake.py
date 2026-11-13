@@ -1,6 +1,6 @@
 import json
 import unittest
-from datetime import timedelta
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
@@ -13,7 +13,9 @@ TITLE = '신한카드 "스테이블코인 결제, 초기에는 기존 카드망 
 
 def story(title=TITLE):
     return {'title': title, 'url': 'https://example.com/new-card-proposal',
-            'pub': (card.ENABLED_AT + timedelta(minutes=1)).isoformat()}
+            # Keep valid fixtures fresh without changing the scope activation cutoff.
+            'pub': max(datetime.now(timezone.utc),
+                       card.ENABLED_AT + timedelta(minutes=1)).isoformat()}
 
 
 class CardPaymentIntakeTests(unittest.TestCase):

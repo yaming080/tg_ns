@@ -1,6 +1,6 @@
 import json
 import unittest
-from datetime import timedelta
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from unittest.mock import patch, Mock
 
@@ -15,7 +15,9 @@ from news_publication import prepare_publication
 
 def story(title, url='https://example.com/future-article'):
     return {'title': title, 'url': url,
-            'pub': (scope.ENABLED_AT + timedelta(minutes=1)).isoformat()}
+            # Keep valid fixtures fresh without changing the scope activation cutoff.
+            'pub': max(datetime.now(timezone.utc),
+                       scope.ENABLED_AT + timedelta(minutes=1)).isoformat()}
 
 
 class Nov12FeedbackTests(unittest.TestCase):
