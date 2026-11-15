@@ -156,6 +156,48 @@ def extract_article_text(source, url='', title=''):
                 text = plain(' '.join(self.heading)); self.heading = None
                 for group in self.stack: group['headings'].append(text)
             if tag == 'article' and self.stack: self.stack.pop()
+    # Cointelegraph's current template puts the actual body in a div while
+    # unrelated recommendation cards use <article>. Never select those cards.
+    # Require both the canonical URL and the actual page headline to match.
+    if urlsplit(url).hostname in ('cointelegraph.com', 'www.cointelegraph.com'):
+        class PublisherBody(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.canonical = ''; self.headline = []; self.in_heading = False
+                self.stack = []; self.parts = []; self.bodies = []
+            def handle_starttag(self, tag, attrs):
+                a = dict(attrs)
+                if tag == 'link' and a.get('rel') == 'canonical':
+                    self.canonical = a.get('href', '')
+                if tag == 'h1' and a.get('data-testid') == 'post__title':
+                    self.in_heading = True
+                if self.stack:
+                    self.parts.append(self.get_starttag_text())
+                    if tag not in _PageText.VOID: self.stack.append(tag)
+                elif tag == 'div' and a.get('data-testid') == 'post__body':
+                    self.stack = [tag]; self.parts = []
+            def handle_endtag(self, tag):
+                if tag == 'h1': self.in_heading = False
+                if tag in self.stack:
+                    index = len(self.stack) - 1 - self.stack[::-1].index(tag)
+                    del self.stack[index:]
+                    if self.stack: self.parts.append('</' + tag + '>')
+                    else: self.bodies.append(''.join(self.parts)); self.parts = []
+            def handle_data(self, data):
+                if self.in_heading: self.headline.append(data)
+                if self.stack:
+                    from html import escape
+                    self.parts.append(escape(data))
+        body = PublisherBody(); body.feed(source); body.close()
+        if (key(body.canonical) == key(url) and title
+                and plain(''.join(body.headline)) == plain(title)
+                and len(body.bodies) == 1 and not body.stack):
+            parser = Paragraphs()
+            parser.feed(strip_page_furniture(body.bodies[0])); parser.close()
+            text = '\n'.join(dict.fromkeys(parser.all_paragraphs))
+            if len(text) >= 180:
+                return text[:12000]
+
     parser = Paragraphs()
     parser.feed(strip_page_furniture(source)); parser.close()
     exact = [g for g in parser.groups if title and plain(title) in g['headings']]
