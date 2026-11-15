@@ -358,6 +358,7 @@ def content_result(kind, scope, result=None):
         from news_nov10_scope import scope as nov10_scope
         from news_card_payment_scope import scope as card_scope
         from news_nov12_scope import scope as nov12_scope
+        from news_nov15_scope import scope as nov15_scope
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
         semantic = kind in {'source_summary', 'event_rejected', 'negative_request'}
@@ -387,6 +388,9 @@ def content_result(kind, scope, result=None):
                 # selectors always fetch/recheck actual bytes before sending.
                 if identity in manifest.get('image_only_previous_identities', []):
                     affected = False
+                if identity in manifest.get('nov15_only_previous_identities', []):
+                    affected = False
+                affected = affected or (semantic and bool(nov15_scope(scope)))
                 if affected:
                     continue
                 old_key = fingerprint([VERSION, identity, kind, scope])
