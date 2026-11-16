@@ -8753,7 +8753,7 @@
         "gpt-6-luna": {
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 65,
+            "cache_hits": 82,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -8765,7 +8765,7 @@
           },
           "event_rejected": {
             "api_calls": 0,
-            "cache_hits": 12,
+            "cache_hits": 15,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -8777,7 +8777,7 @@
           },
           "image_review": {
             "api_calls": 1,
-            "cache_hits": 8,
+            "cache_hits": 10,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 1698,
@@ -8790,7 +8790,7 @@
           },
           "image_held": {
             "api_calls": 0,
-            "cache_hits": 4,
+            "cache_hits": 5,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -8845,18 +8845,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-11-09T04:01:20.610940+00:00",
-        "elapsed_seconds": 562.586,
-        "status": "completed",
-        "api_calls": 0,
-        "cache_hits": 15,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-11-09T05:01:35.446452+00:00",
         "elapsed_seconds": 767.313,
@@ -10858,6 +10846,18 @@
         "errors": 0,
         "published": 1,
         "estimated_usd": 0.0503866,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-16T04:01:25.911543+00:00",
+        "elapsed_seconds": 719.053,
+        "status": "completed",
+        "api_calls": 0,
+        "cache_hits": 23,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -159813,20 +159813,6 @@
         },
         "expires": 1795400299.3293278
       },
-      "059091e3ab39f3e415b1635824acd41944793847a233e516515b574a76a99ef3": {
-        "inputs": {
-          "title": "433a267edb664af35307325cebe0cfa92d6474f763fbc0348e797f6335cae6cc",
-          "pub": "f05e9a1e4937b17767c18fc17b0100c4629874b616dee952ab660f44cf8fb719",
-          "source_sha256": "0358fb34ad7918329cb5d2257020d0934e223236c987160bbe63b15edc12cb74",
-          "page_published_at": "601702ea7ed7b9481fad984c3c247e9044cd62f29fedf366784d23e01eee2c35",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "737fb435fb66671d16d6fb50aeb6326cbfea37858ac0992898e456fe2948c2f8",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
-        },
-        "expires": 1795403600.3943582
-      },
       "98660dd3becb29c8b3ab757c23867d4219cc0cf8dd90f1c4eafca1e89f33dd8b": {
         "inputs": {
           "title": "723720f147f1fbee49a965f154815964e1281db3ae67294e1c28a965a0c404d0",
@@ -159841,6 +159827,20 @@
         },
         "expires": 1795403605.4570644
       },
+      "059091e3ab39f3e415b1635824acd41944793847a233e516515b574a76a99ef3": {
+        "inputs": {
+          "title": "433a267edb664af35307325cebe0cfa92d6474f763fbc0348e797f6335cae6cc",
+          "pub": "f05e9a1e4937b17767c18fc17b0100c4629874b616dee952ab660f44cf8fb719",
+          "source_sha256": "0358fb34ad7918329cb5d2257020d0934e223236c987160bbe63b15edc12cb74",
+          "page_published_at": "601702ea7ed7b9481fad984c3c247e9044cd62f29fedf366784d23e01eee2c35",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "737fb435fb66671d16d6fb50aeb6326cbfea37858ac0992898e456fe2948c2f8",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
+        },
+        "expires": 1795407188.0320363
+      },
       "98cb1247ea94bf3e3da744511236a7cf6da784212322d310756d164bbf9ef942": {
         "inputs": {
           "title": "e0d193c4692d177e49ef6336d5b9e34831aad7905819d9c71c915b56c656c7b2",
@@ -159853,7 +159853,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403632.2233422
+        "expires": 1795407189.9993799
       },
       "9c5eeef47821953a2560d8d953b0f3867089eb6bb368cdf1f15683df798c3a67": {
         "inputs": {
@@ -159867,7 +159867,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403643.8400073
+        "expires": 1795407190.4534452
       },
       "758bf915831c560d350a7ba88158e41ddb4c6c690bb1cb7a87ebbce3622d8e8e": {
         "inputs": {
@@ -159881,7 +159881,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403644.3075314
+        "expires": 1795407190.9365764
       },
       "2601424f5c407d9eda22785df3c2eaa655498ec46c53fadcdec63d2bd61fb37f": {
         "inputs": {
@@ -159895,7 +159895,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403646.350041
+        "expires": 1795407193.3030539
       },
       "19d5cff2451fb9af811ad24243986a3f2622cffe583ba9a01d01b8398e972178": {
         "inputs": {
@@ -159909,7 +159909,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403647.7238057
+        "expires": 1795407194.6771822
       },
       "c93a650d4cdc56630138306520da249c71fb630dc5edc858d02c97833f959f4c": {
         "inputs": {
@@ -159923,7 +159923,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403649.3559568
+        "expires": 1795407196.618488
       },
       "4995f31412542504b74679b3495f5a0dc51cf279a767ec381d6359c309de3941": {
         "inputs": {
@@ -159937,7 +159937,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403649.5988004
+        "expires": 1795407196.8454907
       },
       "f5f60211d04573343d3da45e951ee42c850277a350dfd658ce569cf7c6a293d2": {
         "inputs": {
@@ -159951,7 +159951,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403651.6071534
+        "expires": 1795407198.1965153
       },
       "73c7f012d9e1e6967910c4715016d6d377713c78db0aa3d74594e296852444dd": {
         "inputs": {
@@ -159965,7 +159965,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403652.2048295
+        "expires": 1795407198.7882557
       },
       "9e29503a99057c96b85c9883d20acef10d223e192df8804abafbeffc435f3b87": {
         "inputs": {
@@ -159979,7 +159979,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403653.4095545
+        "expires": 1795407199.7709332
       },
       "4646d87cdf418dd291e37736a72e5f9d86f559c155bc926ec0a62dd972d4afac": {
         "inputs": {
@@ -159993,7 +159993,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403654.1835594
+        "expires": 1795407201.0284572
       },
       "ad59dc3ca08f4dd696defbf429a651f0a30558f48d33d46cab1fa7e990e5f17e": {
         "inputs": {
@@ -160007,7 +160007,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403655.0148172
+        "expires": 1795407201.971855
       },
       "64845621ed3ec700d5c4beae07b725a92bb8029232c8793b53d8b3b3ffaa05ca": {
         "inputs": {
@@ -160021,7 +160021,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403655.3775458
+        "expires": 1795407202.379269
       },
       "0456f7726fca9fd360c5aa2b8b675cd7b0dbe215f897a52e5145f800be7560d7": {
         "inputs": {
@@ -160035,7 +160035,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403656.6542788
+        "expires": 1795407203.642513
       },
       "f4de9f2c8dd26d09715c19a7ec209ad36f8ed823f3799aff5594e79fecdcc9f5": {
         "inputs": {
@@ -160049,7 +160049,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403657.3539722
+        "expires": 1795407204.433023
       },
       "2fe3dd4401ad28c4a07e9f59c055b33541449da02b9139d0122c7097a39d66da": {
         "inputs": {
@@ -160063,7 +160063,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795403657.759272
+        "expires": 1795407204.8294737
       }
     },
     "budget_reservations_v1": {}
