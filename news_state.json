@@ -1,14 +1,5 @@
 {
   "posted": {
-    "d81ca6c5a898f22c": {
-      "title": "시그넘, 비트코인 담보 대출에 멀티시그 적용",
-      "url": "www.tokenpost.kr/news/cryptocurrency/426568",
-      "signature": "action_launch | action_transfer | asset_btc | date_2026_10_23 | object_lending | object_wallet",
-      "canonical_key": "action_launch | action_transfer | asset_btc | date_2026_10_23 | object_lending | object_wallet",
-      "ts": "2026-10-23T17:24:45.350395+00:00",
-      "summary": "스위스 디지털자산은행 시그넘과 비트코인 대출 플랫폼 데비피가 BTC 담보 대출 상품 ‘멀티시그’를 출시함\n\n담보는 고객별 전용 지갑에 보관하며, 고객·시그넘·독립 기관이 나눠 가진 키의 서명이 모여야 이동할 수 있는 방식임\n\n키별 세부 구성과 담보 청산 절차는 공개되지 않음",
-      "source_pub": "Fri, 23 Oct 2026 16:17:08 +0000"
-    },
     "da70b0d46d1f655f": {
       "title": "US lifts tariffs on Canadian goods, reshuffles trade relations",
       "url": "cryptobriefing.com/us-lifts-tariffs-on-canadian-goods-reshuffles-trade-relations",
@@ -1803,30 +1794,6 @@
   },
   "ai_review": {
     "entries": {
-      "8111a72f2b7948d2b1d7e46403cc0aa42fc8e7134aa742abd2e2a7d46b295184": {
-        "text": "에테나랩스가 USDe 직접 발행·상환은 개인·기업 신원 확인(KYC·KYB)을 통과한 승인 고객에게만 허용하는 기존 방침을 재확인함\n\n이미 유통 중인 USDe의 2차 시장 거래는 열려 있지만, 보유만으로 에테나랩스에 직접 상환할 자격이 생기지는 않음",
-        "expires": 1795368523.3189092
-      },
-      "25d515b59fa130169a142e68aa0d9dc7bce2cc6a626e19369923d23db369661b": {
-        "text": "펄서 머니가 트론 네트워크의 USDT 입금을 앱 가상카드 결제 잔액에 반영하는 기능을 지원함\n\n이용자는 잔액을 온라인 구매와 구독 결제에 쓸 수 있으며, 국내는 7월 15일 기준 카드 지원 국가 목록에 포함됐지만 국내에서 트론 입금과 카드 결제를 함께 이용할 수 있는지는 확인되지 않음",
-        "expires": 1795368534.8504198
-      },
-      "f69cb2e60a0d5ecf7bb84bec5c0bcba8c06d14f80ce1864d8ea415b1fa9d543c": {
-        "text": "{\"publish\":true,\"reason\":\"트론 기반 USDT 입금의 가상카드 잔액 반영이라는 새 기능을 정확히 요약했으며, 국내 카드 지원 목록과 실제 통합 이용 가능 여부를 구분했다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true},\"body_entities\":[{\"name\":\"펄서 머니\",\"kind\":\"org\"},{\"name\":\"트론\",\"kind\":\"org\"}]}",
-        "expires": 1795368540.1076577
-      },
-      "9bfee16442b053e860c92e26455f67a683ea2e41da47c9b4a9df55cc12bbd4c3": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1795368545.130068
-      },
-      "3bc471fead0621b370be8e5491757b2e0968e5665a4c604916f3b2ae84465d75": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1795368548.4424806
-      },
-      "200e2c47a22f4e970f96fbc879d483a4154c4ce556fcafcc57be47a40f67dd29": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1795368550.2412872
-      },
       "555b547ec74fa95f111e2a30570ee114d3a61fdc05d7637cd4738294cb7b2101": {
         "text": "XRP레저재단이 글로벌 금융기관 주도의 GL1 인프라 평가 기준에 따라 XRP레저의 핵심 구조와 복원력 자료를 평가했으며, 보안업체 서틱이 이를 독립 검증함",
         "expires": 1795371769.376409
@@ -3994,6 +3961,10 @@
       "52e24e50331a02d8d6cab187163d2092f84276ba1908bbdd66ddce133d04a4f1": {
         "text": "SKIP",
         "expires": 1795965351.8445663
+      },
+      "578863da4cd930188c3147dcef4209fbac2d2f93d67436a316f23b5a35bc8ee0": {
+        "text": "SKIP",
+        "expires": 1795976487.5640206
       }
     },
     "version": "review-cache-v29-1",
@@ -9053,7 +9024,7 @@
         "gpt-6-luna": {
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 232,
+            "cache_hits": 248,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -9076,17 +9047,17 @@
             "unpriced_calls": 0
           },
           "summary": {
-            "api_calls": 9,
+            "api_calls": 10,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 72818,
+            "input_tokens": 80931,
             "cached_input_tokens": 0,
-            "output_tokens": 430,
-            "reasoning_tokens": 291,
-            "estimated_usd": 0.009316575,
+            "output_tokens": 487,
+            "reasoning_tokens": 340,
+            "estimated_usd": 0.010359125,
             "unpriced_calls": 0,
-            "cache_write_tokens": 72791
+            "cache_write_tokens": 80901
           },
           "event_search": {
             "api_calls": 3,
@@ -9145,18 +9116,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-11-15T18:01:50.490360+00:00",
-        "elapsed_seconds": 1382.941,
-        "status": "completed",
-        "api_calls": 2,
-        "cache_hits": 25,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0220428,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-11-15T19:01:55.077892+00:00",
         "elapsed_seconds": 1286.931,
@@ -11158,6 +11117,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-22T18:01:52.965247+00:00",
+        "elapsed_seconds": 1202.299,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 16,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.00104255,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -27609,10 +27580,6 @@
       }
     },
     "summary_repairs_v1": {
-      "76831edb38d974014831d081169bf8c6dc2f48b2ba26a115ff11640cf7de4010": {
-        "summary": "카르다노 창립자 찰스 호스킨슨은 11월 7일 AMA에서 자신이 약속한 로드맵은 완성됐다고 평가함\n\n기술 개발은 계속되고 있으며, 리오스 기능은 시험용 테스트넷에 구현됐지만 실제 운영 네트워크인 메인넷에는 아직 적용되지 않음",
-        "expires": 1795360710.6388357
-      },
       "a5e3fe0b5a02d1498a940cdd3bbabe524b8ddf376b2735a3afec5dae056a87b3": {
         "summary": "DBS와 JP모건체이스가 미국·싱가포르 기관 고객을 대상으로 토큰화 예금 이체 서비스를 출시함\n\n토큰화 예금은 은행 예금을 블록체인에서 디지털 토큰으로 표시한 것으로, 계좌망 안에서는 연중무휴 이체가 가능하지만 기존 은행 계좌와 연결하는 자금 이동은 매주 토요일 미국 동부시간 오후 3~6시에 중단 시간이 있음",
         "expires": 1795410901.5144773
@@ -160146,6 +160113,20 @@
           "body_entities": []
         },
         "expires": 1795965352.4073365
+      },
+      "f3e46d7ced9b71f5ae9ff75a16791fe1e9e8f422fe1a903231e078c3ff57c150": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1795976487.5640247
+      },
+      "2917adc53db2af4686fadde28b5b78a82aceb8c6533f0c22753aed0a01337a7f": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1795976487.9696488
       }
     },
     "source_identity_v1": {
@@ -164405,6 +164386,20 @@
         },
         "expires": 1795951110.3144321
       },
+      "074523d2ede1862bf22307cc20d9b2c721554e863f876ac1f0a7da0eaa4c4f56": {
+        "inputs": {
+          "title": "8e0e29d0a521900e8da4c147a09c3947e1b5af2615b272b50915c9aedb141fb0",
+          "pub": "cd33c27aa4b4367a2af3acc73c6e3947c9213db1669ff6e8ec3fb55c76a3dbd5",
+          "source_sha256": "eceb8b6d2994ea406b8e7b5874a0729aeaa80dea4033d5ee38d676edb24e54de",
+          "page_published_at": "e7f971a6dd14d9fc2625b86fd986bed0ff78129bfc0668f13728971f05910e9e",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "2b76cdf6f60b93c6b91467005cc6e1efe269831e83dc4c5604070a198c4ad2c8",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
+        },
+        "expires": 1795976484.6097865
+      },
       "a728bb80b4aa18731309e514fbf1fc7754326109722fa3fe27f181ef5b6aed71": {
         "inputs": {
           "title": "783e05a78dd8521a49aec9aef8e3185312fc57497102331e8c06d8c2be682565",
@@ -164417,7 +164412,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972857.3350081
+        "expires": 1795976491.1780806
       },
       "b3faa5a5795250e5444b2aa5dd37d0dcb28b83f7931c177bdfd2e4dd1128e4f9": {
         "inputs": {
@@ -164431,7 +164426,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972858.065107
+        "expires": 1795976491.7751336
       },
       "98d8e5e19fb6e52bf0ba0c2cf8e3357c214a27972635773b53f2801a23ad7ac8": {
         "inputs": {
@@ -164445,7 +164440,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972858.7744048
+        "expires": 1795976492.432197
       },
       "e28ee3efe9725602753b4ecfee5e0f86c375a07afad779437f26a84ac8ec0ee3": {
         "inputs": {
@@ -164459,7 +164454,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972859.1680474
+        "expires": 1795976492.818975
       },
       "d7b23149bfcac1ced1ca23220a52452e5a750db1566afabaac75d6c2cdbe3616": {
         "inputs": {
@@ -164473,7 +164468,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972860.923091
+        "expires": 1795976494.2311115
       },
       "553bcb0bf56c5f7eb9efaf1925b2bc180ebff6fc55101b7fc0a091c5824be685": {
         "inputs": {
@@ -164487,7 +164482,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972866.4978664
+        "expires": 1795976500.0717518
       },
       "a7f0e64eb2d780d3e146ffae184a2f50b33a9f0042cf920b1ba74c0b43e11f45": {
         "inputs": {
@@ -164501,7 +164496,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972867.572096
+        "expires": 1795976500.8123882
       },
       "73885664b7a86784c446d770bf48c559e75291a069da40d9156b6a32074211cc": {
         "inputs": {
@@ -164515,7 +164510,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972868.3071702
+        "expires": 1795976501.553559
       },
       "de9a2d000f9f1249063768837cf8d49293a872574b1b5b6a222b8db78aecc549": {
         "inputs": {
@@ -164529,7 +164524,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972871.8832722
+        "expires": 1795976505.345285
       },
       "3dff05674683f94871b33b7c8e43d4d452e40a4ece1350c19033e0cd006dfa03": {
         "inputs": {
@@ -164543,7 +164538,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972872.6215413
+        "expires": 1795976505.9975045
       },
       "c693c0bdc25e088b62f04efb239d96fed87eb88c78271c96993a5b14fe251c3c": {
         "inputs": {
@@ -164557,7 +164552,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972875.7748764
+        "expires": 1795976509.198
       },
       "5cfbb76660392e8a259e23703a9bacb51bf9f70fd66d71e47bbd55fcb5814a43": {
         "inputs": {
@@ -164571,7 +164566,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972876.597392
+        "expires": 1795976509.9613113
       },
       "39fa99daa8464463603c30758c686aba3ea09fec79716f42d21333bc315e49aa": {
         "inputs": {
@@ -164585,7 +164580,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972877.5620925
+        "expires": 1795976510.9867878
       },
       "986d984d83c409137b97c2beb58561c3b0f9e87a7a1bda8f5c45901d3eeef867": {
         "inputs": {
@@ -164599,7 +164594,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972877.8502722
+        "expires": 1795976511.270773
       },
       "de1fac049ac9c408e65d5f95fc13f78c3d6c21c91c5336722cc52d1abfc81d71": {
         "inputs": {
@@ -164613,7 +164608,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972881.0981061
+        "expires": 1795976514.3231266
       },
       "df011c30cedffa03c98b1ed4b7614887b4842dc689bef6c2e95639a75f2a4747": {
         "inputs": {
@@ -164627,7 +164622,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795972881.871566
+        "expires": 1795976515.0626383
       }
     },
     "budget_reservations_v1": {}
