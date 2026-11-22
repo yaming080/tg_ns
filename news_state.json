@@ -1830,30 +1830,6 @@
   },
   "ai_review": {
     "entries": {
-      "069b3b613a5111fa9394097905fafed9e93111b6e2ec7d54118f79bd3ee7936b": {
-        "text": "연준 FOMC가 10월 회의에서 기준금리를 3.75~4%로 동결했지만, 의사록에 따르면 동결에 찬성한 일부 위원도 결정이 박빙이라고 봄\n\n리사 쿡 이사와 베스 해맥 클리블랜드 연은 총재는 0.25%포인트 인상을 지지했음",
-        "expires": 1795317889.655746
-      },
-      "7ecf7c6bad63a65d144a9a391fe2a4c284f958f0aaaddc1a151599ba7efb7605": {
-        "text": "{\"publish\":true,\"reason\":\"새로 공개된 10월 FOMC 의사록의 동결 결정과 일부 참석자의 평가, 두 인사의 인상 지지 내용이 원문과 일치하며 전망을 확정 사실로 바꾸지 않았다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":true},\"body_entities\":[{\"name\":\"연준\",\"kind\":\"org\"},{\"name\":\"리사 쿡\",\"kind\":\"person\"},{\"name\":\"베스 해맥\",\"kind\":\"person\"},{\"name\":\"클리블랜드 연은\",\"kind\":\"org\"}]}",
-        "expires": 1795317899.3474178
-      },
-      "bd004a6bdb98e9fa0cef8b19f3a1bde7d968e6bfe7b168d2603ac5c4e60117da": {
-        "text": "{\"related_ids\":[\"13\"]}",
-        "expires": 1795317902.9464684
-      },
-      "bbf841350e79f5b8aa42baff9562fc93dcced85bf2b540fbec6194c2122ac738": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1795317906.7654605
-      },
-      "543b20485bd8a5e505bdb3ed5398a2606fe425121d2cceee4cdc936eee79e72b": {
-        "text": "{\"related_ids\":[]}",
-        "expires": 1795317911.1116998
-      },
-      "711ec62023d13300fb009084cb1dfda1f260e78d49be39ed69fa6a44b7b5c14b": {
-        "text": "{\"decision\":\"supplement\",\"matched_id\":\"0ae6404023f4ad22\",\"reason\":\"동일한 10월 FOMC의 기준금리 3.75~4% 동결과 두 위원의 인상 지지를 다룬다. 의사록에서 일부 동결 찬성 위원도 결정을 박빙으로 봤다는 내부 논의가 추가됐지만, 별도의 금리 결정이나 정책 조치는 아니다.\",\"new_fact\":\"\",\"independent_new_action\":false,\"candidate_evidence\":\"\"}",
-        "expires": 1795317915.3902516
-      },
       "67bac60568e5c46408032b45667339543144867a56e4a718e6d0665b42a6ace1": {
         "text": "SKIP",
         "expires": 1795321287.8901176
@@ -9540,7 +9516,7 @@
         "gpt-6-luna": {
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 50,
+            "cache_hits": 63,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -9552,7 +9528,7 @@
           },
           "event_rejected": {
             "api_calls": 0,
-            "cache_hits": 8,
+            "cache_hits": 10,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -9590,7 +9566,7 @@
           },
           "image_review": {
             "api_calls": 3,
-            "cache_hits": 3,
+            "cache_hits": 6,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 5077,
@@ -9603,7 +9579,7 @@
           },
           "image_held": {
             "api_calls": 0,
-            "cache_hits": 1,
+            "cache_hits": 2,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -9632,18 +9608,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-11-15T04:01:33.868310+00:00",
-        "elapsed_seconds": 1227.528,
-        "status": "completed",
-        "api_calls": 1,
-        "cache_hits": 27,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.00097655,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-11-15T05:01:42.040643+00:00",
         "elapsed_seconds": 1492.774,
@@ -11639,6 +11603,18 @@
       {
         "started_at_utc": "2026-11-22T03:01:56.241709+00:00",
         "elapsed_seconds": 1090.078,
+        "status": "completed",
+        "api_calls": 0,
+        "cache_hits": 19,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.0,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-22T04:01:42.379408+00:00",
+        "elapsed_seconds": 967.512,
         "status": "completed",
         "api_calls": 0,
         "cache_hits": 19,
@@ -168579,20 +168555,6 @@
       }
     },
     "source_identity_v1": {
-      "8a8cc3fe850bc9c70ffb54c8d372dd49b49a7a5d7fd3346a2e3390d640538f5d": {
-        "inputs": {
-          "title": "f9176ed45641e7e6082fe6530bdb272f8cf88c155b926776bd551ca7bbbce096",
-          "pub": "f43cd8e84e806ad79efa77ad22e42491a40bde61e7f681737e85226b5bbd269e",
-          "source_sha256": "8e3fa7bff6fa630ba63fb120e85334a4662df8599d9555dd234687df33d97779",
-          "page_published_at": "c692fdc21b88bba2c19a2f17e5ed631a70b8dd918367613b2ce2f573103f11fa",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "f52ecc09015ec753de959b64e8e3989922ef08b9a41702cfdb2a418186f51337",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "d0a232fdb79df046a67849d29e5f5fa40236fc5b0882403bad11aebc9ac0a7cf"
-        },
-        "expires": 1795318233.6602905
-      },
       "a86d54778f984b091187bb1cdf28d2d90b6fff0c04bac9f103c8436aac1b37d5": {
         "inputs": {
           "title": "115d96d0e0dd2212229b92dfd9c3d6cf036c97ec4b1fc35cb2fcbd9bf79093b2",
@@ -173057,7 +173019,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922385.6714983
+        "expires": 1795925852.5284595
       },
       "c61544ffd6006d26d16095b672224b0ec67ce4ea08438ee21a55a5ab8f923d34": {
         "inputs": {
@@ -173071,7 +173033,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922386.403354
+        "expires": 1795925853.2873318
       },
       "73885664b7a86784c446d770bf48c559e75291a069da40d9156b6a32074211cc": {
         "inputs": {
@@ -173085,7 +173047,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922387.4164336
+        "expires": 1795925854.1412468
       },
       "02371007ea4f18aefd4c839a3912a8fe82e0fd3f6e823ba5e80c7bdc41051b17": {
         "inputs": {
@@ -173099,7 +173061,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922388.8387094
+        "expires": 1795925855.2011642
       },
       "c3361c3f43fd7538b64a538c21934d9c093b9e6e219440174b5d19a04d9fcdc0": {
         "inputs": {
@@ -173113,7 +173075,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922391.3786712
+        "expires": 1795925857.1907606
       },
       "de9a2d000f9f1249063768837cf8d49293a872574b1b5b6a222b8db78aecc549": {
         "inputs": {
@@ -173127,7 +173089,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922393.2680876
+        "expires": 1795925859.1613066
       },
       "3dff05674683f94871b33b7c8e43d4d452e40a4ece1350c19033e0cd006dfa03": {
         "inputs": {
@@ -173141,7 +173103,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922394.9068658
+        "expires": 1795925860.4012306
       },
       "c693c0bdc25e088b62f04efb239d96fed87eb88c78271c96993a5b14fe251c3c": {
         "inputs": {
@@ -173155,7 +173117,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922398.4110088
+        "expires": 1795925863.1433222
       },
       "5cfbb76660392e8a259e23703a9bacb51bf9f70fd66d71e47bbd55fcb5814a43": {
         "inputs": {
@@ -173169,7 +173131,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922398.8180745
+        "expires": 1795925863.4996054
       },
       "39fa99daa8464463603c30758c686aba3ea09fec79716f42d21333bc315e49aa": {
         "inputs": {
@@ -173183,7 +173145,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922399.6853304
+        "expires": 1795925864.4943979
       },
       "986d984d83c409137b97c2beb58561c3b0f9e87a7a1bda8f5c45901d3eeef867": {
         "inputs": {
@@ -173197,7 +173159,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922399.935387
+        "expires": 1795925864.7427802
       },
       "de1fac049ac9c408e65d5f95fc13f78c3d6c21c91c5336722cc52d1abfc81d71": {
         "inputs": {
@@ -173211,7 +173173,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922402.8493948
+        "expires": 1795925867.09277
       },
       "df011c30cedffa03c98b1ed4b7614887b4842dc689bef6c2e95639a75f2a4747": {
         "inputs": {
@@ -173225,7 +173187,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795922403.367059
+        "expires": 1795925867.8248613
       }
     },
     "budget_reservations_v1": {}
