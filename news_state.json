@@ -1794,18 +1794,6 @@
   },
   "ai_review": {
     "entries": {
-      "2d1e405000e06dedc1adcc39b2a414831ba0f7bd2faff99815acea0a1b7d866a": {
-        "text": "바이낸스.US가 CFTC로부터 파생상품 청산 및 등록 신청서가 완비됐다는 통지를 받음. 이는 심사에 필요한 서류 확인 단계로, 승인은 아직 이뤄지지 않음",
-        "expires": 1795379469.0908113
-      },
-      "38f928c3491461251fa767a352b8e71d377cc8c634857aae5223d666ccf025dc": {
-        "text": "마라 홀딩스와 라이엇 플랫폼스가 2026년 들어 BTC 6만845개를 매각해 약 45억달러를 확보했으며, 마라 홀딩스는 대출·전환사채 상환에, 라이엇은 주로 데이터센터 개발에 자금을 사용함",
-        "expires": 1795379482.149226
-      },
-      "40eeb162cca295ff4502edb1cff0024d653c797f191b8ce8d68a3ea269c741e9": {
-        "text": "미국과 중국이 상호 존중과 공정성에 기반한 양국 관계 안정 행동계획을 수립하기로 합의함. 트럼프 대통령은 대만 독립을 지지하지 않는다고 밝힘",
-        "expires": 1795379522.1472514
-      },
       "51096880fc76033190bd5f4415a5546d6d2f452cf53d34359a2e0c5bd21cf752": {
         "text": "미 재무부 해외자산통제국(OFAC)이 11월 19일 국제 마약 밀매 조직 관련 제재 대상에 코만체로스 지도자 알렉상드르 바렐라 비야르를 추가하고, 그의 제재 명단에 트론 주소를 등록함. 해당 조치는 미국 내 또는 미국인의 보유·통제 아래 있는 대상 자산을 동결하며, 주소의 토큰 잔액이나 달러 가치는 공개되지 않음",
         "expires": 1795382603.179251
@@ -3953,6 +3941,10 @@
       "802198d344812623b6c41e5c3b411bbbfa6cbc896fc9985fb7f5d6f0de61e49e": {
         "text": "SKIP",
         "expires": 1795983189.362991
+      },
+      "8c5f8b6d9ca7bb246f551c7c43d7e441d8826aa497350ddc834a53466b66ff2d": {
+        "text": "SKIP",
+        "expires": 1795986850.9378908
       }
     },
     "version": "review-cache-v29-1",
@@ -9012,7 +9004,7 @@
         "gpt-6-luna": {
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 275,
+            "cache_hits": 290,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -9035,17 +9027,17 @@
             "unpriced_calls": 0
           },
           "summary": {
-            "api_calls": 12,
+            "api_calls": 13,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 96630,
+            "input_tokens": 104806,
             "cached_input_tokens": 0,
-            "output_tokens": 861,
+            "output_tokens": 867,
             "reasoning_tokens": 698,
-            "estimated_usd": 0.01250835,
+            "estimated_usd": 0.013533275,
             "unpriced_calls": 0,
-            "cache_write_tokens": 96594
+            "cache_write_tokens": 104767
           },
           "event_search": {
             "api_calls": 3,
@@ -9104,18 +9096,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-11-15T21:01:52.669039+00:00",
-        "elapsed_seconds": 1322.424,
-        "status": "completed",
-        "api_calls": 1,
-        "cache_hits": 24,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0010623,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-11-15T22:01:39.361732+00:00",
         "elapsed_seconds": 866.739,
@@ -11117,6 +11097,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0010593,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-22T21:01:28.588259+00:00",
+        "elapsed_seconds": 782.006,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 15,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.001024925,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -160129,6 +160121,20 @@
           "body_entities": []
         },
         "expires": 1795983189.6839492
+      },
+      "1c1874c9b3f333a1894fe2605dbeea3dc63d9ba9a22738cca5f288a5d8befd57": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1795986850.937897
+      },
+      "5e8dd206f88d3a534eb9ae7a8bef2c4e4ea0d4a28273649bbeeaff340ad7ba2f": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1795986851.2478695
       }
     },
     "source_identity_v1": {
@@ -164416,6 +164422,20 @@
         },
         "expires": 1795976515.0626383
       },
+      "56656eba60a05eb997463cfa3e65e94b1b52b0e2af4eac73af4068c1bf91a554": {
+        "inputs": {
+          "title": "c89edf10fb2b8bf289ebb127b60a98664b75ea48977862809a1bcebac396123d",
+          "pub": "242d91badcad944e8e64f788e63d9103b25996295ac24a9f3ba85b766b9b5788",
+          "source_sha256": "61cad6f388e3ed1a080b33f918574b032416e8355a96ffd1753e48c0a6c502b5",
+          "page_published_at": "d94a4588f3dca731c94e35ef7366acab174edd79024f2695705b9b0612641c78",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "6e7d6545e91e559a4718bc016a9417946566a301d40462311e0bd9eb503c6f80",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
+        },
+        "expires": 1795986848.5497649
+      },
       "2304e8c8f5c217faa5fa7c2ceb84ec713ef48a9b4b89c90b6e6a821cc4435a7c": {
         "inputs": {
           "title": "e74c9cb92716ad9946ffe28b3e748f26844d41f1aec811ae44621d71cfeef4fc",
@@ -164428,7 +164448,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983186.4679601
+        "expires": 1795986852.1504717
       },
       "c58616b5321eff796ac032444102c0efec1cccdf9dafff5a9f971b7ab285d625": {
         "inputs": {
@@ -164442,7 +164462,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983190.5797648
+        "expires": 1795986852.705997
       },
       "074523d2ede1862bf22307cc20d9b2c721554e863f876ac1f0a7da0eaa4c4f56": {
         "inputs": {
@@ -164456,7 +164476,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983191.368422
+        "expires": 1795986853.539667
       },
       "a728bb80b4aa18731309e514fbf1fc7754326109722fa3fe27f181ef5b6aed71": {
         "inputs": {
@@ -164470,7 +164490,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983193.3047855
+        "expires": 1795986855.4044323
       },
       "b3faa5a5795250e5444b2aa5dd37d0dcb28b83f7931c177bdfd2e4dd1128e4f9": {
         "inputs": {
@@ -164484,7 +164504,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983193.8796055
+        "expires": 1795986855.8132844
       },
       "98d8e5e19fb6e52bf0ba0c2cf8e3357c214a27972635773b53f2801a23ad7ac8": {
         "inputs": {
@@ -164498,7 +164518,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983194.5056176
+        "expires": 1795986856.2758665
       },
       "d7b23149bfcac1ced1ca23220a52452e5a750db1566afabaac75d6c2cdbe3616": {
         "inputs": {
@@ -164512,7 +164532,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983195.3711965
+        "expires": 1795986857.1880739
       },
       "553bcb0bf56c5f7eb9efaf1925b2bc180ebff6fc55101b7fc0a091c5824be685": {
         "inputs": {
@@ -164526,7 +164546,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983198.6447022
+        "expires": 1795986860.5821445
       },
       "de9a2d000f9f1249063768837cf8d49293a872574b1b5b6a222b8db78aecc549": {
         "inputs": {
@@ -164540,7 +164560,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983201.3289695
+        "expires": 1795986863.3106525
       },
       "3dff05674683f94871b33b7c8e43d4d452e40a4ece1350c19033e0cd006dfa03": {
         "inputs": {
@@ -164554,7 +164574,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983201.8718276
+        "expires": 1795986864.7048614
       },
       "c693c0bdc25e088b62f04efb239d96fed87eb88c78271c96993a5b14fe251c3c": {
         "inputs": {
@@ -164568,7 +164588,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983203.707976
+        "expires": 1795986866.63964
       },
       "5cfbb76660392e8a259e23703a9bacb51bf9f70fd66d71e47bbd55fcb5814a43": {
         "inputs": {
@@ -164582,7 +164602,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983204.1423476
+        "expires": 1795986867.0824313
       },
       "39fa99daa8464463603c30758c686aba3ea09fec79716f42d21333bc315e49aa": {
         "inputs": {
@@ -164596,7 +164616,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983205.008606
+        "expires": 1795986867.7051084
       },
       "986d984d83c409137b97c2beb58561c3b0f9e87a7a1bda8f5c45901d3eeef867": {
         "inputs": {
@@ -164610,7 +164630,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983205.24809
+        "expires": 1795986867.904943
       },
       "de1fac049ac9c408e65d5f95fc13f78c3d6c21c91c5336722cc52d1abfc81d71": {
         "inputs": {
@@ -164624,7 +164644,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795983207.1985419
+        "expires": 1795986869.7822351
       }
     },
     "budget_reservations_v1": {}
