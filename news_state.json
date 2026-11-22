@@ -1812,10 +1812,6 @@
   },
   "ai_review": {
     "entries": {
-      "7a03f7c70c46066364c839aa4ad77f6230da440954afabe7c0b87c89c71b08bd": {
-        "text": "SKIP",
-        "expires": 1795356883.6368794
-      },
       "41d93d7f11b742679b93f17bc01dbe519166906ff81341df16c69ae44f47c7f4": {
         "text": "{\"publish\":false,\"reason\":\"발언의 귀속과 개발 단계는 보존했지만, 핵심 기술 용어인 테스트넷과 메인넷의 차이를 설명하지 않아 일반 독자가 시험 구현과 실제 네트워크 적용의 차이를 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}",
         "expires": 1795360696.458533
@@ -4087,6 +4083,10 @@
       "56a631ddac1daf0ef638b8aef97d5a2ce90bfa3c55f5f15cc7946510998df2be": {
         "text": "SKIP",
         "expires": 1795958268.6560051
+      },
+      "97117907bda2aceadefc3b187a8ba9fb44f4e5ef122a58e590fc65431e1886f0": {
+        "text": "SKIP",
+        "expires": 1795961709.599362
       }
     },
     "version": "review-cache-v29-1",
@@ -9146,7 +9146,7 @@
         "gpt-6-luna": {
           "source_summary": {
             "api_calls": 0,
-            "cache_hits": 173,
+            "cache_hits": 186,
             "errors": 0,
             "missing_usage": 0,
             "input_tokens": 0,
@@ -9169,17 +9169,17 @@
             "unpriced_calls": 0
           },
           "summary": {
-            "api_calls": 6,
+            "api_calls": 7,
             "cache_hits": 0,
             "errors": 0,
             "missing_usage": 0,
-            "input_tokens": 49042,
+            "input_tokens": 57216,
             "cached_input_tokens": 0,
-            "output_tokens": 348,
+            "output_tokens": 354,
             "reasoning_tokens": 229,
-            "estimated_usd": 0.0063038,
+            "estimated_usd": 0.007328475,
             "unpriced_calls": 0,
-            "cache_write_tokens": 49024
+            "cache_write_tokens": 57195
           },
           "event_search": {
             "api_calls": 3,
@@ -9238,18 +9238,6 @@
       }
     },
     "recent_runs": [
-      {
-        "started_at_utc": "2026-11-15T14:01:22.033304+00:00",
-        "elapsed_seconds": 817.853,
-        "status": "completed",
-        "api_calls": 1,
-        "cache_hits": 27,
-        "errors": 0,
-        "published": 0,
-        "estimated_usd": 0.0010188,
-        "missing_usage": 0,
-        "unpriced_calls": 0
-      },
       {
         "started_at_utc": "2026-11-15T15:01:36.690746+00:00",
         "elapsed_seconds": 1065.745,
@@ -11251,6 +11239,18 @@
         "errors": 0,
         "published": 0,
         "estimated_usd": 0.0010343,
+        "missing_usage": 0,
+        "unpriced_calls": 0
+      },
+      {
+        "started_at_utc": "2026-11-22T14:01:37.271658+00:00",
+        "elapsed_seconds": 836.315,
+        "status": "completed",
+        "api_calls": 1,
+        "cache_hits": 13,
+        "errors": 0,
+        "published": 0,
+        "estimated_usd": 0.001024675,
         "missing_usage": 0,
         "unpriced_calls": 0
       }
@@ -27912,20 +27912,6 @@
       }
     },
     "content_results_v1": {
-      "1e28cdfeda6836b580cd324dc3d149e56274b99026f2c6f83b0584eda971666e": {
-        "result": {
-          "text": "SKIP"
-        },
-        "expires": 1795356883.6368856
-      },
-      "8a2b7ff80a53ebfd4710f034b749d23fe580551dcc162db2cb9f71ccbca202f1": {
-        "result": {
-          "summary": "",
-          "reason": "요약 편집 단계의 명시적 제외 판정",
-          "body_entities": []
-        },
-        "expires": 1795356883.9263215
-      },
       "192b76908accc68aeeaad7c4b6bb8a7f6f0a08c3edd64522ef82bfeb4e6d9cab": {
         "result": {
           "text": "{\"publish\":false,\"reason\":\"발언의 귀속과 개발 단계는 보존했지만, 핵심 기술 용어인 테스트넷과 메인넷의 차이를 설명하지 않아 일반 독자가 시험 구현과 실제 네트워크 적용의 차이를 이해하기 어렵습니다.\",\"checks\":{\"faithful\":true,\"conditions_preserved\":true,\"allowed_category\":true,\"new_substantive_fact\":true,\"source_sufficient\":true,\"understandable\":false}}"
@@ -161519,37 +161505,23 @@
           "body_entities": []
         },
         "expires": 1795958269.0787463
+      },
+      "eb76d534a336d50cdf75ef95230d8d4f98a94fb469c6e7351a964afe4b4829ee": {
+        "result": {
+          "text": "SKIP"
+        },
+        "expires": 1795961709.5993674
+      },
+      "1828123b8dcbb37b26613240584206872bac7a9e2a49322aebfa39282a5aed8e": {
+        "result": {
+          "summary": "",
+          "reason": "요약 편집 단계의 명시적 제외 판정",
+          "body_entities": []
+        },
+        "expires": 1795961709.9735043
       }
     },
     "source_identity_v1": {
-      "5a73c6199953d103ff77e46235a712337b41a50370ec312f6f1d4ec99ea6e2ce": {
-        "inputs": {
-          "title": "2f508e8c025d27abe69d5f08fb03b17bf88eb8e6321500c304b15480f92381a6",
-          "pub": "157561bd092aa439497e2917855d71a5d5d5b2aa2e44f0ae45657e893825ae9b",
-          "source_sha256": "619a6f49e2e7eb2dd6f896e7415512ecf4620c68f159e32dcd2f27887d4f7050",
-          "page_published_at": "4d672dc7f4f7d4a28c2ba5672294ce12b457db1c9dccb13e4127739eb771f1ff",
-          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
-          "description_sha256": "5c58cd90a798dce2bec1a60540be6d333d71718f85c714ae3e0bb565f9e50785",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
-        },
-        "expires": 1795356887.8210704
-      },
-      "0f3b153255bf4a508096c0122e26b61d015d92811c65cf052f0cd4ca67b0d2f9": {
-        "inputs": {
-          "title": "65bb5322ce09297890c5bbe166d53ffae97b4f8114d6e0d0ef211ff549534d77",
-          "pub": "09587d53c6af5589abff82ad9c9030984db615fcce7923f49b2f564de2aa3a44",
-          "source_sha256": "a720839ad5c0c9cd1621fb1e7d2b1481475f3b38a1722c4835636fa0d24b15bc",
-          "page_published_at": "5c58785a15a3fbbb9f3842298becd023a4e6f99b6c3cd0a83172ef3ccd3028f6",
-          "source_kind": "4c93fa85f9bef874966b1919ff035ae7d3e05c788efb3c935729e0b1558ad761",
-          "description_sha256": "a720839ad5c0c9cd1621fb1e7d2b1481475f3b38a1722c4835636fa0d24b15bc",
-          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
-          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
-          "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
-        },
-        "expires": 1795356899.3758857
-      },
       "bbdc4088238619642216d9b0133a2d5a2be40f0cd97851c728fec9b2d56f489c": {
         "inputs": {
           "title": "25681463bb3a4b4aaaf4b8d69b3cfccd0722e6cc81f0c7b3c84774f34280bd3a",
@@ -165834,6 +165806,20 @@
         },
         "expires": 1795951110.3144321
       },
+      "98d8e5e19fb6e52bf0ba0c2cf8e3357c214a27972635773b53f2801a23ad7ac8": {
+        "inputs": {
+          "title": "99459bb417644d4596b427c5ab16ccd4490ef812fdf6c829e368df00e430e6e2",
+          "pub": "9d73386be2b30cf1c75d94598e682834c899bca1d06a142de57d890640a7f707",
+          "source_sha256": "118e05febaa3fd261edb0c25cf5fda94a06baa3c465c8f38a3de6d322f7f1585",
+          "page_published_at": "e81c90df0bacae2b2e43f148d3bdb572c2cd24d9ef606881d802a93092f0fa82",
+          "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
+          "description_sha256": "bf84f70731dd57852cd017886158323c09d2b2973e3f02573cfe0bb13298f17f",
+          "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
+          "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
+          "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
+        },
+        "expires": 1795961706.8083727
+      },
       "e28ee3efe9725602753b4ecfee5e0f86c375a07afad779437f26a84ac8ec0ee3": {
         "inputs": {
           "title": "4d27134c9aa146ac3de9bf0c020b6f3fa1de0d51d8cb97bcf17be02a4d2583fa",
@@ -165846,7 +165832,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958266.016461
+        "expires": 1795961710.4199839
       },
       "d7b23149bfcac1ced1ca23220a52452e5a750db1566afabaac75d6c2cdbe3616": {
         "inputs": {
@@ -165860,7 +165846,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958270.2650962
+        "expires": 1795961711.8245342
       },
       "553bcb0bf56c5f7eb9efaf1925b2bc180ebff6fc55101b7fc0a091c5824be685": {
         "inputs": {
@@ -165874,7 +165860,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958275.2104194
+        "expires": 1795961717.528157
       },
       "a7f0e64eb2d780d3e146ffae184a2f50b33a9f0042cf920b1ba74c0b43e11f45": {
         "inputs": {
@@ -165888,7 +165874,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958276.2735553
+        "expires": 1795961718.6670277
       },
       "73885664b7a86784c446d770bf48c559e75291a069da40d9156b6a32074211cc": {
         "inputs": {
@@ -165902,35 +165888,35 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958277.433613
+        "expires": 1795961720.2834918
       },
       "de9a2d000f9f1249063768837cf8d49293a872574b1b5b6a222b8db78aecc549": {
         "inputs": {
           "title": "0d117acccb8cf398c5308d6345c122aa83cd05f0aac3124abd73016cf55f97fc",
-          "pub": "af9420ecdce8dbff4914e51323194642fb0b8cc6158a7dcd61ba1dc0c3544286",
+          "pub": "027e25a991c329ae228d5aea99cd96bdea815f13fc87860d74a1c08049e46be5",
           "source_sha256": "6aee9517d0c3b8732770df9f0aadb6a16bd438c1873196b8ff322fbc7d37bf41",
-          "page_published_at": "2b4300d66d613749652c00342608e5ce7e0b839a7af67a9235a75ca33ce82502",
+          "page_published_at": "f3b45c7dc436b987172ccaa0189c41165adbeedbcd57b4521873e285388a7eee",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958280.6750216
+        "expires": 1795961723.7212427
       },
       "3dff05674683f94871b33b7c8e43d4d452e40a4ece1350c19033e0cd006dfa03": {
         "inputs": {
           "title": "c51c658c4f534f5b7e50b0b799aeb35e6f7aa7bbc9e54dd268aac64751080dcd",
-          "pub": "1f1eb6ce7303c9c79a4b89b8604224e4cf27c2d7afd3dc0fa9b90729e9f1408f",
+          "pub": "77b501c79e39e70d19bfbe2397f0f27d4ca13ac58ef3649583742ee6e3f27faa",
           "source_sha256": "1d893152740313ea5cd0b44a46f36aa232e65bad65196603d458274a60218d93",
-          "page_published_at": "d216d8f70fe76f0c8ea36905c9f9048a0f2bb7385747004adf806e2c40baa8dd",
+          "page_published_at": "24daee154dd7784350ab8ddd2dcbffd23ff4770099c45292a965eef2f37dd628",
           "source_kind": "10170f76502999c209eaad00e1c47d9b7b9733d21d5afde930e98592328c52e3",
           "description_sha256": "8090aa9ff9358fa1d00d3202522bf14cae0095599ca562ec566416e8e20cd8d5",
           "model": "c4b5a917552265e5fafafe6cbd4330942045da42e40c70738fe20719b3c8b3d7",
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958282.475309
+        "expires": 1795961725.1960595
       },
       "c693c0bdc25e088b62f04efb239d96fed87eb88c78271c96993a5b14fe251c3c": {
         "inputs": {
@@ -165944,7 +165930,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958285.1508512
+        "expires": 1795961728.3035777
       },
       "5cfbb76660392e8a259e23703a9bacb51bf9f70fd66d71e47bbd55fcb5814a43": {
         "inputs": {
@@ -165958,7 +165944,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958285.6584644
+        "expires": 1795961728.8343086
       },
       "39fa99daa8464463603c30758c686aba3ea09fec79716f42d21333bc315e49aa": {
         "inputs": {
@@ -165972,7 +165958,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958286.3570929
+        "expires": 1795961729.7306502
       },
       "986d984d83c409137b97c2beb58561c3b0f9e87a7a1bda8f5c45901d3eeef867": {
         "inputs": {
@@ -165986,7 +165972,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958286.6145475
+        "expires": 1795961730.002303
       },
       "de1fac049ac9c408e65d5f95fc13f78c3d6c21c91c5336722cc52d1abfc81d71": {
         "inputs": {
@@ -166000,7 +165986,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958289.0416245
+        "expires": 1795961732.454102
       },
       "df011c30cedffa03c98b1ed4b7614887b4842dc689bef6c2e95639a75f2a4747": {
         "inputs": {
@@ -166014,7 +166000,7 @@
           "options": "a5f84eaeb447421ce90416db0544c23631f7c7eb28ada912c92758148cfb5910",
           "policy": "69715fa3292d7bc62b00fd1e3d7bf89d4d52a0a3bcbcf941d6e01e8277377911"
         },
-        "expires": 1795958289.947538
+        "expires": 1795961733.0710478
       }
     },
     "budget_reservations_v1": {}
