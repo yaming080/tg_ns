@@ -98,9 +98,9 @@ class LunaFeedbackTests(unittest.TestCase):
             self.assertIn(term, tagged)
         self.assertNotIn('#리플 Prime', tagged)
 
-    def test_fixed_bitcoin_tags_only_in_footer(self):
+    def test_bitcoin_first_body_mention_with_fixed_footer(self):
         tagged, selected = e._inject_inline_tags('폴리곤이 비트코인과 BTC 결제를 지원함', story())
-        self.assertNotIn('#BTC', tagged); self.assertNotIn('#비트코인', tagged)
+        self.assertNotIn('#BTC', tagged); self.assertEqual(tagged.count('#비트코인'), 1)
         footer = e._build_footer_tags(story(), selected)
         self.assertEqual(footer.count('#BTC'), 1); self.assertEqual(footer.count('#비트코인'), 1)
 

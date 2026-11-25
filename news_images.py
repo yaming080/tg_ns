@@ -14,6 +14,7 @@ import warnings
 
 from PIL import Image, ImageOps
 from news_quality import valid_caption
+from news_image_priority import prioritize
 from news_publisher_images import placeholder_url, placeholder_bytes, ancillary_image_context
 from news_review_cache import request_text, valid_checks
 
@@ -55,7 +56,7 @@ class SourceImages(HTMLParser):
 
     def __init__(self, url):
         super().__init__()
-        self.url=url; self.meta=[]; self.article=[]; self.stack=[]
+        self.url=url; self.meta=[]; self.article=[]; self.stack=[]; self.descriptions={}
 
     def handle_starttag(self, tag, attrs):
         attrs=dict(attrs)
@@ -65,7 +66,10 @@ class SourceImages(HTMLParser):
             self.meta.append(urllib.parse.urljoin(self.url,attrs.get('content','')))
         if tag=='img' and any(name=='article' for name,_ in self.stack) and not excluded:
             source=attrs.get('src') or attrs.get('data-src')
-            if source:self.article.append(urllib.parse.urljoin(self.url,source))
+            if source:
+                url = urllib.parse.urljoin(self.url,source)
+                self.article.append(url)
+                self.descriptions[url] = attrs.get('alt', '') + ' ' + attrs.get('title', '')
         if tag not in self.VOID_TAGS:
             self.stack.append((tag, excluded))
 
@@ -82,17 +86,19 @@ def publisher_placeholder_url(url):
 
 def image_candidates(story, fetch=fetch_bytes):
     urls=[story.get('image_url','')]
+    descriptions={}
     try:
         parser=SourceImages(story.get('url',''))
         parser.feed(fetch(story.get('url',''),2*1024*1024).decode('utf-8',errors='replace'))
         urls+=parser.meta+parser.article
+        descriptions=parser.descriptions
     except Exception:
         pass  # A valid RSS image may still be reviewed.
     unique=[]
     for url in urls:
         if isinstance(url,str) and url.startswith(('https://','http://')) and url not in unique and not publisher_placeholder_url(url):
             unique.append(url)
-    return unique[:6]
+    return prioritize(unique, str(story.get('title', '')), descriptions)[:6]
 
 
 @dataclass(frozen=True)
