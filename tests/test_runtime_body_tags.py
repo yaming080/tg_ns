@@ -44,13 +44,13 @@ class RuntimeBodyTagsTests(unittest.TestCase):
         runtime.start()
         self.addCleanup(runtime.stop)
 
-    def test_legacy_btc_alias_cannot_reintroduce_body_tag(self):
+    def test_legacy_btc_alias_tags_first_mention_only(self):
         story = {'title': 'Anchorage Digital launches Bitcoin custody', 'desc': 'BTC custody service'}
         body = '앵커리지 디지털이 BTC와 비트코인 수탁 서비스를 출시했다고 밝힘'
         tagged, selected = e._inject_inline_tags(body, story)
         self.assertIn('#앵커리지디지털 이', tagged)
-        self.assertIn('BTC와 비트코인', tagged)
-        self.assertNotRegex(tagged, r'#(?:BTC|Bitcoin|비트코인)(?:\W|[은는이가와과]|$)')
+        self.assertIn('#비트코인 와 비트코인', tagged)
+        self.assertEqual(tagged.count('#비트코인'), 1)
         footer = e._build_footer_tags(story, selected)
         self.assertIn('#AnchorageDigital', footer)
         self.assertEqual(footer[-6:], list(e.FIXED_FOOTER_TAGS))

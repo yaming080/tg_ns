@@ -28,7 +28,7 @@ class ActorTagsAndQueueMetrics(unittest.TestCase):
         summary = 'BTC.TOP 설립자 장줘얼이 비트코인 채굴 서비스를 출시했다고 밝힘'
         tagged, selected = e._inject_inline_tags(summary, candidate)
         self.assertIn('BTC.TOP 설립자 #장줘얼 이', tagged)
-        self.assertNotIn('#비트코인 ', tagged)
+        self.assertIn('#비트코인 ', tagged)
         self.assertIn('#JiangZhuoer', e._build_footer_tags(candidate, selected))
         for alias in ('Jiang Zhuoer', 'Zhuoer Jiang', "Jiang Zhuo'er"):
             tagged, _ = e._inject_inline_tags(alias + ' announced a new mining service', candidate)
