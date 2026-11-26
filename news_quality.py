@@ -622,16 +622,26 @@ def source_promotion_reason(story):
                   'reported advertising enforcement', text)
     disclosure = r'(?i)\b(?:sponsored\s+(?:content|article|post)|paid\s+(?:content|press release|advertisement)|advertorial)\b|유료\s*광고|협찬\s*(?:기사|콘텐츠)'
     conversion = r'(?i)(?:sign\s+up|register|가입|등록).{0,60}(?:referral\s+code|추천인\s*코드)|(?:use|enter|입력).{0,35}(?:referral\s+code|추천인\s*코드)'
-    if re.search(disclosure, text):
-        return '본문 광고·협찬 표시'
     if re.search(conversion, text):
         return '가입·추천인 유도'
+    from news_intake_audit import approved_release
+    if approved_release(story):
+        return ''  # User-approved announcement; source gate requires attribution.
+    if re.search(disclosure, text):
+        return '본문 광고·협찬 표시'
     # Funding an educational activity is not a paid placement of this article.
     # Mask only explicit noun phrases, leaving ad disclosures elsewhere intact.
     education = r'(?:fellowships?|scholarships?|certifications?|research\s+grants?)'
     sponsorship_text = re.sub(r'\bsponsored\s+' + education + r'\b', 'education funding', text, flags=re.I)
     sponsorship_text = re.sub(r'\b' + education + r'\s+(?:(?:is|are|was|were)\s+)?sponsored\s+by\b',
                               'education funded by', sponsorship_text, flags=re.I)
+    # Legislative sponsorship describes who introduced a bill, not who paid
+    # for this article. Keep independent advertising disclosures blocked above.
+    law = r'(?:bill|legislation|amendment|act|measure)'
+    sponsorship_text = re.sub(r'\b' + law + r'\s+(?:(?:is|was)\s+)?(?:co[- ]?)?sponsored\s+by\b',
+                              'legislation introduced by', sponsorship_text, flags=re.I)
+    sponsorship_text = re.sub(r'\bsponsored\s+(?:the|a|an|this)\s+' + law + r'\b',
+                              'introduced legislation', sponsorship_text, flags=re.I)
     if re.search(r'\bsponsored\b', sponsorship_text, re.I):
         return '본문 광고·협찬 표시'
     return ''

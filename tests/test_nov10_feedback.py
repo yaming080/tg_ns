@@ -69,7 +69,7 @@ class Nov10FeedbackTests(unittest.TestCase):
         for title in titles:
             self.assertFalse(scope.scope(story(title)),title)
         for title in ('Sui launches tokenized stocks via HTX',
-                      'XRP Ledger critical vulnerability revealed',manual.EVENTS[6][1]):
+                      'XRP Ledger critical vulnerability revealed','Telegram daily wallet count rises'):
             self.assertTrue(editor._is_hard_blocked(story(title))[0],title)
         sponsored=story(manual.EVENTS[0][1]); sponsored['article_text']='This is sponsored content.'
         self.assertIn('협찬',editor._is_hard_blocked(sponsored)[1])
