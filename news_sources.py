@@ -7,6 +7,8 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 import xml.etree.ElementTree as ET
 
 NEW_FEEDS = (
+    ('뉴시스 금융', 'https://www.newsis.com/RSS/bank.xml'),
+    ('뉴시스 경제', 'https://www.newsis.com/RSS/economy.xml'),
     ('더블록', 'https://www.theblock.co/rss.xml'),
     ('크립토브리핑', 'https://cryptobriefing.com/feed/'),
     ('코인게이프', 'https://coingape.com/feed/'),
