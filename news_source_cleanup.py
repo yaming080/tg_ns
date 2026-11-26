@@ -131,6 +131,10 @@ def extract_article_text(source, url='', title=''):
     if bodies and len(max(bodies, key=len)) >= 180:
         return max(bodies, key=len)[:12000]
 
+    if urlsplit(url).hostname in ('www.newsis.com', 'newsis.com'):
+        from news_newsis import article_body
+        return article_body(source, url, title)
+
     class Paragraphs(HTMLParser):
         def __init__(self):
             super().__init__()
