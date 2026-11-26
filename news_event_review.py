@@ -105,6 +105,8 @@ from news_manual_nov12 import EVENTS as NOV12_MANUAL_EVENTS
 MANUAL_EVENTS = MANUAL_EVENTS + NOV12_MANUAL_EVENTS
 from news_manual_nov15 import EVENTS as NOV15_MANUAL_EVENTS
 MANUAL_EVENTS = MANUAL_EVENTS + NOV15_MANUAL_EVENTS
+from news_manual_nov27 import EVENTS as NOV27_MANUAL_EVENTS
+MANUAL_EVENTS = MANUAL_EVENTS + NOV27_MANUAL_EVENTS
 from news_manual_nov25 import EVENTS as NOV25_MANUAL_EVENTS
 MANUAL_EVENTS = MANUAL_EVENTS + NOV25_MANUAL_EVENTS
 
@@ -314,11 +316,12 @@ def review_event(story, caption, posted, call_model, search_model=None, *, model
 주체·사업/상품/법안·상대방·행동·대상·지역·발생 시점·진행 단계를 비교한다.
 다른 매체, 번역, 새 기사 발행 시각, 다른 사진, 더 긴 설명만으로 새 사건이 되지 않는다.
 duplicate: 같은 사건을 다시 보도. supplement: 같은 사건의 설명·조건·숫자 등 보충만 추가.
-update: 원문으로 확인된 새 승인·실제 출시·합병 종결·확정 거래 개시일 변경·별도 계약·새 적용 지역·제도 개정 등 중요한 새 조치. 합병 승인/예정과 합병 완료는 다른 단계다.
+update: 원문으로 확인된 새 승인·실제 출시·합병 종결·확정 거래 개시일 변경·별도 계약·새 적용 지역·제도 개정 등 중요한 새 조치. 합병 승인/예정과 합병 완료는 다른 단계다. 은행 앱 거래가 예정 공지 이후 실제 개시된 경우도 같으며 옛 제목에 opens라고 썼어도 당시 발행일과 본문의 미래 개시일을 확인한다. 이미 같은 실제 개시 기록이 있으면 중복이다.
 new: 다른 사업/사건. 같은 회사나 코인을 다뤄도 사업·상품·상대방·행동이 다르면 별도 사건이다.
 예: 씨티·코인베이스 스테이블코인 제휴와 씨티 토큰화 예금의 지역 출시는 별도 사업일 수 있다.
 검토·계획을 출시로 바꾸거나 과거 배경을 새 발표로 보지 않는다. 본문이 없는 옛 기록 때문에
 같은 사건인지 결정할 수 없거나 새 사실의 근거가 부족하면 uncertain. 추측해 통과시키지 않는다.
+기관 13F는 보고 기간이 달라진 새로운 공식 분기 공시 자체가 새 보고 사건일 수 있다. 같은 분기 수치를 다른 매체가 재보도한 경우나 일일 보유량 변동은 새 사건이 아니다.
 같은 발표의 참여 은행·지갑 협력사 명단, 이용 계약, 적용 조건, 수치, 상품 설명은 supplement다. 뒤늦게 보도됐다는 이유로 별도 계약/진전으로 판정하지 않는다.
 예: DTCC 증권 토큰화 출시 뒤 20개 이용 기관·JP모건·뱅크오브아메리카 계약을 설명한 기사는 같은 출시의 보충이다. HSBC RedCoin 출시 뒤 PayMe 지갑 제공·향후 활용 설명도 보충이다.
 관련 기록 전체를 확인한다. 옛 계획 기사와 비교하면 새 출시여도, 다른 기록에 이미 그 출시가 있으면 duplicate/supplement다.

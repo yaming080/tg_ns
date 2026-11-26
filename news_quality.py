@@ -14,6 +14,7 @@ from news_manual_nov8 import URLS as NOV8_POSTED_URLS
 from news_manual_nov10 import URLS as NOV10_POSTED_URLS
 from news_manual_nov12 import URLS as NOV12_POSTED_URLS
 from news_manual_nov15 import URLS as NOV15_POSTED_URLS
+from news_manual_nov27 import URLS as NOV27_POSTED_URLS
 from news_manual_nov25 import URLS as NOV25_POSTED_URLS
 from urllib.parse import urlsplit
 
@@ -63,7 +64,7 @@ MANUALLY_POSTED_ARTICLES = frozenset({
 
 MANUALLY_POSTED_ARTICLES = MANUALLY_POSTED_ARTICLES | frozenset(
     (urlsplit(url).netloc.removeprefix('www.'), urlsplit(url).path.rstrip('/'))
-    for url in OCT10_POSTED_URLS + OCT12_POSTED_URLS + OCT13_POSTED_URLS + NOV2_POSTED_URLS + NOV7_POSTED_URLS + NOV8_POSTED_URLS + NOV10_POSTED_URLS + NOV12_POSTED_URLS + NOV15_POSTED_URLS + NOV25_POSTED_URLS)
+    for url in OCT10_POSTED_URLS + OCT12_POSTED_URLS + OCT13_POSTED_URLS + NOV2_POSTED_URLS + NOV7_POSTED_URLS + NOV8_POSTED_URLS + NOV10_POSTED_URLS + NOV12_POSTED_URLS + NOV15_POSTED_URLS + NOV25_POSTED_URLS + NOV27_POSTED_URLS)
 
 # User-confirmed removals stay blocked beyond rolling history retention.
 EDITOR_REJECTED_ARTICLES = {
