@@ -9,6 +9,7 @@ from contextvars import ContextVar
 from datetime import datetime, timezone
 import hashlib
 import json
+import re
 import time
 from functools import lru_cache
 from pathlib import Path
@@ -362,7 +363,7 @@ def content_result(kind, scope, result=None):
         from news_nov25_scope import scope as nov25_scope
         from news_nov26_scope import scope as nov26_scope
         from news_nov27_scope import scope as nov27_scope
-        from news_intake_audit import scope as audit_scope, style_rejection
+        from news_intake_audit import scope as audit_scope, style_rejection, team_review_scope
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
         semantic = kind in {'source_summary', 'event_rejected', 'negative_request'}
@@ -409,6 +410,15 @@ def content_result(kind, scope, result=None):
                 old_key = fingerprint([VERSION, identity, kind, scope])
                 old_entry = records.get(old_key)
                 affected = affected or (semantic and bool(audit_scope(scope))) or style_rejection(old_entry, kind)
+                if identity in manifest.get('team_review_only_previous_identities', []):
+                    # Preserve unchanged facts/duplicates and image outcomes.
+                    # Only new types or old editorial-category refusals changed.
+                    refusal = str((old_entry or {}).get('result', {}).get('reason', ''))
+                    from news_coverage import coverage_scope
+                    from news_quality import channel_scope_reason
+                    accepted = isinstance(scope, dict) and (coverage_scope(scope) or channel_scope_reason(scope))
+                    category_refusal = bool(accepted and re.search(r'요약.*명시적 제외|allowed_category|허용.*범주|전망.*제외|의견.*제외', refusal))
+                    affected = semantic and (bool(team_review_scope(scope)) or category_refusal)
                 if affected:
                     continue
                 entry = old_entry

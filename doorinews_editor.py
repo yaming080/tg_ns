@@ -250,6 +250,7 @@ ENTITY_SPECS = (
     EntitySpec("org", "모건스탠리", ("Morgan Stanley", "모건스탠리"), "#MorganStanley", 20),
     EntitySpec("org", "피델리티", ("Fidelity", "Fidelity International", "Fidelity Investments", "피델리티"), "#Fidelity", 20),
     EntitySpec("org", "갤럭시리서치", ("Galaxy Research", "갤럭시리서치"), "#GalaxyResearch", 20),
+    EntitySpec("org", "갤럭시디지털", ("Galaxy Digital", "갤럭시 디지털", "갤럭시디지털"), "#GalaxyDigital", 20),
     EntitySpec("org", "비트멕스", ("BitMEX", "비트멕스"), "#BitMEX", 20),
     EntitySpec("org", "로빈후드", ("Robinhood", "로빈후드"), "#Robinhood", 20),
     EntitySpec("org", "문페이", ("MoonPay", "문페이"), "#MoonPay", 20),
@@ -330,9 +331,9 @@ ENTITY_SPECS = (
     EntitySpec("org", "서울경찰청", ("Seoul Metropolitan Police Agency", "Seoul police", "서울경찰청"), "", 20),
     EntitySpec(
         "org",
-        "더스마트웹컴퍼니",
-        ("The Smarter Web Company", "Smarter Web Company", "더 스마트 웹 컴퍼니", "더스마트웹컴퍼니"),
-        "#TheSmarterWebCompany",
+        "스마터웹",
+        ("The Smarter Web Company", "Smarter Web Company", "Smarter Web", "더 스마트 웹 컴퍼니", "더스마트웹컴퍼니", "스마터 웹", "스마터웹", "스마트 웹"),
+        "#SmarterWeb",
         20,
     ),
     EntitySpec("org", "ZILO", ("ZILO", "Zilo"), "#ZILO", 20),
@@ -2349,7 +2350,19 @@ FACT_REVIEW_GUIDANCE = '\n'.join(FEEDBACK_GUIDANCE.strip().splitlines()[2:])
 def _scope_guidance(title=''):
     return ('편집 범위 보완(위 일반 원칙의 제한적 예외):\n'
             + EDITORIAL_SCOPE_GUIDANCE + ADOPTION_RESEARCH_GUIDANCE
-            + COVERAGE_GUIDANCE + PORTFOLIO_GUIDANCE + ASSET_SCOPE_GUIDANCE + nov2_guidance(title) + nov7_guidance(title) + nov8_guidance(title) + nov10_guidance(title) + card_guidance(title) + nov12_guidance(title) + nov15_guidance(title) + nov25_guidance(title) + nov26_guidance(title) + nov27_guidance(title) + LAYOUT_GUIDANCE + EDIT_GUIDANCE + audit_guidance(title) + STYLE_GUIDANCE)
+            + COVERAGE_GUIDANCE + PORTFOLIO_GUIDANCE + ASSET_SCOPE_GUIDANCE + nov2_guidance(title) + nov7_guidance(title) + nov8_guidance(title) + nov10_guidance(title) + card_guidance(title) + nov12_guidance(title) + nov15_guidance(title) + nov25_guidance(title) + nov26_guidance(title) + nov27_guidance(title) + LAYOUT_GUIDANCE + EDIT_GUIDANCE + audit_guidance(title) + STYLE_GUIDANCE + _accepted_category_guidance(title))
+
+
+def _accepted_category_guidance(title):
+    category = coverage_scope({'title': title}) or channel_scope_reason({'title': title})
+    if not category:
+        return ''
+    return f'''
+이번 기사에 적용하는 편집 허용 유형: {category}
+사용자가 제공한 팀원 기사와 같은 유형을 입구에서 통과시킨 뒤 요약·원문 검토에서 일반 금지 문구로 다시 막지 않는다. 원문이 이 유형의 주체·행동·대상·단계를 뒷받침하면 allowed_category=true로 판단한다. 코인명 부재, 부정적인 규제·수사 내용, 원문 배경의 주가·시장 심리 언급, 실행 전 계획·시범 단계라는 이유만으로 SKIP하지 않는다. 실명 발언을 허용한 유형이면 확인된 새 발언 자체가 심사 대상이며 봇의 전망으로 쓰지 않는다.
+단, 이 제목 분류는 원문 사실을 증명하지 않는다. 원문이 다른 내용이거나 주체·발표일·핵심 사실을 뒷받침하지 못하면 보류한다. 구체적인 포트폴리오 보안 사고와 비대상 코인 자체 홍보를 다른 소식으로 위장하지 않는다. 위의 최신 사용자 승인 유형 외에는 해당 금지 기준을 유지한다.
+중복 여부는 기존 사건과 비교해 판단한다. 계획에서 실제 개시, 신청에서 최종 승인, 기존 분석에서 명시적 철회처럼 진행 단계나 입장의 실질적인 변화는 심사하되 같은 발표의 재인용·조건 보충은 새 소식이 아니다. 팀원 사례의 숫자·날짜·회사명을 이번 원문에 옮겨 넣지 않는다. 원문 충실성·조건 보존·관련 이미지 검사는 그대로 유지한다.
+'''
 
 
 def _summary_prompt(title: str, source_text: str) -> str:
@@ -2409,6 +2422,8 @@ def _summary_prompt(title: str, source_text: str) -> str:
 출력: SKIP
 
 {_scope_guidance(title)}
+
+게시할 수 없으면 'SKIP: 짧고 구체적인 제외 사유' 한 줄을 출력하라. 제외 사유는 운영 기록용이며 게시 본문에 포함되지 않는다.
 
 제목:
 {title}
@@ -2968,8 +2983,12 @@ def _rewrite_summary(story: dict) -> str:
         return remembered['summary']
     with review_context('summary', scope):
         summary = _call_openai(_summary_prompt(title, source_text))
-    if re.fullmatch(r"\s*(?:SKIP|제외|스킵)\s*", summary or "", re.I):
-        return finish('', '요약 편집 단계의 명시적 제외 판정')
+    skip = re.match(r'^\s*(?:SKIP|제외|스킵)(?:\s*[:：]\s*(.*)|\s*$)', summary or '', re.I | re.S)
+    if skip:
+        detail = re.sub(r'\s+', ' ', skip.group(1) or '').strip()[:240]
+        reason = '요약 편집 단계의 명시적 제외 판정' + (': ' + detail if detail else '')
+        _log('[요약 제외 사유] ' + title + ' | ' + reason)
+        return finish('', reason)
     summary = _clean_summary(summary)
     if len(summary) > HARD_SUMMARY_CHARS:
         with review_context('compression', scope):

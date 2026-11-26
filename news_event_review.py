@@ -325,6 +325,7 @@ new: 다른 사업/사건. 같은 회사나 코인을 다뤄도 사업·상품·
 같은 발표의 참여 은행·지갑 협력사 명단, 이용 계약, 적용 조건, 수치, 상품 설명은 supplement다. 뒤늦게 보도됐다는 이유로 별도 계약/진전으로 판정하지 않는다.
 예: DTCC 증권 토큰화 출시 뒤 20개 이용 기관·JP모건·뱅크오브아메리카 계약을 설명한 기사는 같은 출시의 보충이다. HSBC RedCoin 출시 뒤 PayMe 지갑 제공·향후 활용 설명도 보충이다.
 관련 기록 전체를 확인한다. 옛 계획 기사와 비교하면 새 출시여도, 다른 기록에 이미 그 출시가 있으면 duplicate/supplement다.
+사용자가 허용한 실명 기관·경영자의 발언에서 기존 분석의 명시적인 철회·수정이나 다른 논거를 담은 새 발표가 확인되면 별도 심사한다. 갤럭시의 기존 저점 판단 철회처럼 입장이 바뀐 사실은 기존 분석 반복과 구분한다. 동일 인물이 같은 견해를 재인용하거나 배경 매입 수량만 덧붙인 경우는 duplicate/supplement이며, 새 발언일·변경 내용의 근거 없이 새 사건으로 보지 않는다.
 update는 기존에 없던 독립적인 새 조치와 근거를 new_fact에 적어야 한다. independent_new_action=true는 이후 발생한 별도 승인·실제 개시·새 지역 확장 등의 근거가 있을 때만 쓴다. 기사 발행일 차이나 기존 요약에 없던 세부사항만으로 true를 주지 않는다.
 update라면 candidate_evidence에 후보 title 또는 summary에서 새 조치를 뒷받침하는 문구를 그대로 인용한다. 근거 불명확은 uncertain, 같은 발표의 세부사항은 supplement다.
 JSON만 출력: {"decision":"duplicate|supplement|update|new|uncertain", "matched_id":"기록 id 또는 빈문자열", "reason":"판정 이유", "new_fact":"새 조치와 근거 또는 빈문자열", "independent_new_action":true 또는 false, "candidate_evidence":"후보의 새 조치 원문 인용 또는 빈문자열"}

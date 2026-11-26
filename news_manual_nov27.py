@@ -26,5 +26,8 @@ EVENTS = (
     ('https://cryptobriefing.com/spain-sepblac-freeze-crypto-accounts-without-judge/', 'Spain gives Sepblac power to freeze crypto accounts without a judge', '팀원 게시: 스페인 Sepblac 자금세탁 의심 계좌 최대 5영업일 동결·진행 중 거래 최대 10영업일 정지. 의회 승인·2027년 1월 시행 예정 조건 유지.'),
     ('https://coingape.com/switzerlands-first-spot-bitcoin-etf-begins-trading-on-six-swiss-exchange/', '🇨🇭 #스위스 최초 #현물 #비트코인 #ETF, #SIX 스위스 거래소에서 거래 개시 • 350 BTC를 보유한 상태로 출시, 2,000만 달러 이상 자산 확보 • 자격을 갖춘 투자자는 기존 BTC를 매도하지 않고 ETF 지분으로 교환할 수 있음', '팀원 게시: 스위스 SIX 현물 비트코인 ETF 거래 개시. CoinGape 직접 수집 제외.'),
     ('https://coingape.com/ethena-cuts-susde-unstaking-cooldown-to-zero-days/', '#에테나, 준비금 #유동성 개선에 #sUSDe 출금 #대기 기간 전격 폐지 #언스테이킹 대기 기간을 기존 1일에서 0일로 단축', '팀원 게시: 에테나 sUSDe 언스테이킹 대기기간 0일 변경. CoinGape 직접 수집 제외.'),
+    ('https://www.theblock.co/news/markets/2026-11-26-galaxy-walks-back-bitcoin-bottom-call-446786', 'Galaxy walks back bitcoin’s June-bottom call, warns of deeper losses below $58,525', '팀원 게시: 갤럭시디지털의 기존 약세장 종료 분석 철회와 조건부 하락 전망. 기관 의견에 귀속하며 가격 하락 확정으로 쓰지 않음. 사용자 최신 승인으로 실명 기관의 분석 변경도 허용 유형.'),
+    ('https://u.today/bitcoin-as-important-as-its-ever-been-if-inflation-rises-coinbase-ceo-says', 'Bitcoin As Important as It’s Ever Been if Inflation Rises, Coinbase CEO Says', '팀원 게시: 암스트롱의 인플레이션·화폐 발행 확대 시 비트코인 투자 논거. IPO 자금 이동은 그의 견해이며 객관적 투자 성과 보장 아님.'),
+    ('https://u.today/bitcoin-sentiment-can-turn-quickly-british-strategy-ceo-says', 'Bitcoin Sentiment Can Turn Quickly, British Strategy CEO Says', '팀원 게시: 스마터웹 CEO 앤드루 웨블리의 투자 심리 발언. 55 BTC 매입은 원문상 11월 17일 배경이며 이번 기사 시점의 추가 매입으로 쓰지 않음. 총보유량 2905 BTC는 해당 거래 이후 수치.'),
 )
 URLS = tuple(row[0] for row in EVENTS)
