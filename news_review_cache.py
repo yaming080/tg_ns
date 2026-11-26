@@ -362,6 +362,7 @@ def content_result(kind, scope, result=None):
         from news_nov25_scope import scope as nov25_scope
         from news_nov26_scope import scope as nov26_scope
         from news_nov27_scope import scope as nov27_scope
+        from news_intake_audit import scope as audit_scope, style_rejection
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
         semantic = kind in {'source_summary', 'event_rejected', 'negative_request'}
@@ -403,10 +404,14 @@ def content_result(kind, scope, result=None):
                 if identity in manifest.get('nov27_only_previous_identities', []):
                     affected = False
                 affected = affected or (semantic and bool(nov27_scope(scope)))
+                if identity in manifest.get('audit_only_previous_identities', []):
+                    affected = False
+                old_key = fingerprint([VERSION, identity, kind, scope])
+                old_entry = records.get(old_key)
+                affected = affected or (semantic and bool(audit_scope(scope))) or style_rejection(old_entry, kind)
                 if affected:
                     continue
-                old_key = fingerprint([VERSION, identity, kind, scope])
-                entry = records.get(old_key)
+                entry = old_entry
                 if entry is not None:
                     records[key] = records.pop(old_key)  # Preserve original expiration.
                     migrated = True

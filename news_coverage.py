@@ -16,6 +16,7 @@ from news_card_payment_scope import scope as card_scope, ENABLED_AT as CARD_ENAB
 from news_nov12_scope import scope as nov12_scope, ENABLED_AT as NOV12_ENABLED_AT
 from news_nov15_scope import scope as nov15_scope, ENABLED_AT as NOV15_ENABLED_AT
 from news_nov25_scope import scope as nov25_scope, ENABLED_AT as NOV25_ENABLED_AT
+from news_intake_audit import scope as audit_scope, ENABLED_AT as AUDIT_ENABLED_AT
 from news_nov27_scope import scope as nov27_scope, ENABLED_AT as NOV27_ENABLED_AT
 from news_nov26_scope import scope as nov26_scope, ENABLED_AT as NOV26_ENABLED_AT
 
@@ -27,11 +28,13 @@ CRYPTO = r'crypto|digital.asset|blockchain|bitcoin|ethereum|stablecoin|tokeniz|\
 COMPANY = r'Evernorth|Evernoth|Ripple|Robinhood|Blockchain\.com|Moscow Exchange|Ledger|Binance|HashKey|BitGo|에버노스|리플|로빈후드|블록체인닷컴|모스크바거래소|레저|바이낸스|해시키|비트고'
 
 
-def coverage_scope(story, *, team_feedback=True, nov10_feedback=True, card_feedback=True, nov12_feedback=True, nov15_feedback=True, nov25_feedback=True, nov26_feedback=True, nov27_feedback=True):
+def coverage_scope(story, *, team_feedback=True, nov10_feedback=True, card_feedback=True, nov12_feedback=True, nov15_feedback=True, nov25_feedback=True, nov26_feedback=True, nov27_feedback=True, audit_feedback=True):
     title = str(story.get('title', '') or '')
     has = lambda p: bool(re.search(p, title, re.I))
     if has(r'presale|airdrop|giveaway|referral|sponsored|technical analysis|price prediction|price target|RSI|MACD|프리세일|에어드롭|추천인|협찬|차트.?분석|목표가|지지선|저항선|뉴스.?브리핑|weekly.{0,20}recap'):
         return ''
+    if team_feedback and audit_feedback and audit_scope(story):
+        return audit_scope(story)
     if team_feedback and nov27_feedback and nov27_scope(story):
         return nov27_scope(story)
     if team_feedback and nov26_feedback and nov26_scope(story):
@@ -99,25 +102,28 @@ def coverage_intake_reason(story):
             dt = parsedate_to_datetime(value)
         except (ValueError, TypeError):
             dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
-        if (nov27_scope(story) and not coverage_scope(story, nov27_feedback=False)
+        if (audit_scope(story) and not coverage_scope(story, audit_feedback=False)
+                and (dt.tzinfo is None or dt <= AUDIT_ENABLED_AT)):
+            return '추가 필터 보완 전 기사: 과거 대기열 발송 방지'
+        if (nov27_scope(story) and not coverage_scope(story, nov27_feedback=False, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= NOV27_ENABLED_AT)):
             return '11월 27일 보완 전 기사: 과거 대기열 발송 방지'
-        if (nov26_scope(story) and not coverage_scope(story, nov26_feedback=False, nov27_feedback=False)
+        if (nov26_scope(story) and not coverage_scope(story, nov26_feedback=False, nov27_feedback=False, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= NOV26_ENABLED_AT)):
             return '11월 26일 제도 보완 전 기사: 과거 대기열 발송 방지'
-        if (nov25_scope(story) and not coverage_scope(story, nov25_feedback=False, nov27_feedback=False)
+        if (nov25_scope(story) and not coverage_scope(story, nov25_feedback=False, nov27_feedback=False, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= NOV25_ENABLED_AT)):
             return '11월 25일 보완 전 기사: 과거 대기열 발송 방지'
-        if (nov15_scope(story) and not coverage_scope(story, nov15_feedback=False, nov27_feedback=False)
+        if (nov15_scope(story) and not coverage_scope(story, nov15_feedback=False, nov27_feedback=False, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= NOV15_ENABLED_AT)):
             return '11월 15일 보완 전 기사: 과거 대기열 발송 방지'
-        if (nov12_scope(story) and not coverage_scope(story, nov12_feedback=False, nov27_feedback=False)
+        if (nov12_scope(story) and not coverage_scope(story, nov12_feedback=False, nov27_feedback=False, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= NOV12_ENABLED_AT)):
             return '11월 12일 보완 전 기사: 과거 대기열 발송 방지'
-        if (card_scope(story) and not coverage_scope(story, card_feedback=False, nov27_feedback=False)
+        if (card_scope(story) and not coverage_scope(story, card_feedback=False, nov27_feedback=False, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= CARD_ENABLED_AT)):
             return '카드 결제망 제안 보완 전 기사: 과거 대기열 발송 방지'
-        if (nov10_scope(story) and not coverage_scope(story, nov10_feedback=False, nov27_feedback=False)
+        if (nov10_scope(story) and not coverage_scope(story, nov10_feedback=False, nov27_feedback=False, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= NOV10_ENABLED_AT)):
             return '11월 10일 보완 전 기사: 과거 대기열 발송 방지'
         if (nov8_scope(story) and not nov7_scope(story) and not nov2_scope(story)

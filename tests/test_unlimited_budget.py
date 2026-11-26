@@ -6,6 +6,7 @@ from types import SimpleNamespace as NS
 from unittest.mock import Mock, patch
 import news_review_cache as cache
 import news_manual_nov10 as manual
+from news_intake_audit import scope as audit_scope
 from news_budget import BudgetLedger
 from news_resume import configure_resume_boundary, resume_exclusion_reason
 
@@ -53,7 +54,11 @@ class UnlimitedBudgetTests(unittest.TestCase):
                 s={'title':title,'source':'unchanged'}
                 key=cache.fingerprint([cache.VERSION,old,'source_summary',s])
                 store.data.setdefault('content_results_v1',{})[key]={'result':{'summary':'','reason':'previous exclusion'},'expires':expiry}
-                self.assertEqual(cache.content_result('source_summary',s)['reason'],'previous exclusion')
+                result = cache.content_result('source_summary',s)
+                if audit_scope(s):
+                    self.assertIsNone(result)  # Newly approved team types need a fresh verdict.
+                else:
+                    self.assertEqual(result['reason'],'previous exclusion')
             self.assertTrue(all(row['expires']==expiry for row in store.data['content_results_v1'].values()))
             self.assertEqual(store.calls,0)
 
