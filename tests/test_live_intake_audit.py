@@ -39,7 +39,7 @@ class LiveIntakeAudit(unittest.TestCase):
                 else:
                     self.assertFalse(blocked, (title, reason))
                     self.assertTrue(eligible, title)
-        self.assertEqual(tested, 79)
+        self.assertEqual(tested, 82)
 
     def test_unrelated_actors_are_not_merged_by_asset_country_and_infrastructure(self):
         cardano = 'action_develop | action_expand | action_integrate | action_secure | asset_stablecoin | entity_usfinancialmarkethere | entity_카르다노 | geo_us | object_infrastructure | object_network'

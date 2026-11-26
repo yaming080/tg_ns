@@ -5,6 +5,56 @@ from datetime import datetime, timezone
 ENABLED_AT = datetime(2026, 11, 26, 16, 55, tzinfo=timezone.utc)
 
 
+def team_review_scope(story):
+    """Earlier approved examples and Nov 27 named statements, not URL exemptions."""
+    if not isinstance(story, dict):
+        return ''
+    title = str(story.get('title', '') or '')
+    has = lambda p: bool(re.search(p, title, re.I))
+    if has(r'rumou?r|presale|giveaway|referral|sponsored|technical analysis|루머|추천인|협찬|취약점|해킹|vulnerabilit|hack(?:ed|ing)|stock price|shares?.{0,30}(?:surge|rall|fall|rise)|주가'):
+        return ''
+    categories = (
+        ((r'Tether|테더', r'Bitcoin|비트코인', r'mining|채굴', r'AI|자동화', r'backing|support|지원|협력'), '채굴 기업 AI 자동화 도입 협력'),
+        ((r'Binance|바이낸스|CZ', r'BNB', r'layer.?1|L1|레이어.?1', r'new|새|신규', r'back|support|지원'), '새 블록체인 기술망 지원 발표'),
+        ((r'Lightning Labs|라이트닝.?랩스', r'Bitcoin|비트코인', r'payment|결제', r'mainnet|메인넷', r'launch|공개|출시'), '비트코인 결제 도구 메인넷 공개'),
+        ((r'VanEck|반에크', r'Bitcoin|비트코인', r'ETF', r'launch|출시', r'stock|equity|bond|주식|채권'), '복수 자산 투자 ETF 출시'),
+        ((r'Ethena Pay|에테나.?페이', r'deposit|예치', r'launch|출시', r'dollar|달러'), '결제 플랫폼 달러 예치 기능 출시'),
+        ((r'Coinbase|코인베이스', r'Ripple USD|RLUSD|리플.?달러', r'add|support|추가|지원'), '거래소 달러 스테이블코인 지원 확대'),
+        ((r'Galaxy|갤럭시', r'Bitcoin|BTC|비트코인', r'walks? back|retract|withdraw|revis|철회|수정', r'call|analysis|outlook|bottom|분석|진단|전망'), '실명 금융기관의 기존 분석 변경'),
+        ((r'Coinbase CEO|Brian Armstrong|코인베이스.*CEO|브라이언.?암스트롱', r'Bitcoin|BTC|비트코인', r'inflation|money printing|IPO|인플레이션|화폐.?발행', r'says?|said|argu|발언|밝|주장|중요'), '실명 경영자의 비트코인 투자 논거 발언'),
+        ((r'British Strategy CEO|Smarter Web|Andrew Webley|스마터.?웹|스마트.?웹|앤드루.?웨블리', r'Bitcoin|BTC|비트코인', r'sentiment|심리', r'says?|said|발언|밝|전환|바뀔'), '실명 경영자의 시장 심리 발언'),
+        ((r'XRP|XRPL|리플', r'ISO.?20022', r'convert|demonstrat|변환|시연|데모'), '블록체인 결제 표준 연동 시연'),
+        ((r'China|중국', r'housing|mortgage|주택|주택담보', r'loan|interest|대출|이자', r'support|measure|지원|부양'), '정부 주택금융 지원 정책'),
+        ((r'Morgan Stanley|모건스탠리', r'digital.asset|디지털자산', r'lab|laboratory|연구소', r'launch|open|설립|신설'), '은행 디지털자산 연구소 신설'),
+        ((r'financial institutions|금융권|금융기관', r'tokeniz|tokenis|토큰화', r'abroad|overseas|해외', r'pursue|pilot|trial|추진|진행|실험'), '금융기관 해외 토큰화 사업 추진'),
+        ((r'Blockchain\.com|블록체인닷컴', r'IPO|기업공개|상장', r'pursue|plan|file|추진|신청'), '암호화폐 기업 기업공개 추진'),
+        ((r'Oracle|오라클', r'SWIFT|스위프트', r'blockchain|ledger|블록체인|원장', r'integrat|통합|연동'), '은행 블록체인 원장 연동'),
+        ((r'CFTC|셀리그|Selig', r'crypto|암호화폐|가상자산', r'margin|증거금', r'model|모델|입장|적용'), '금융당국 디지털자산 증거금 적용 입장'),
+        ((r'Samsung.?Wallet|삼성.?월렛', r'USDC', r'transfer|remit|송금|이체', r'plan|launch|계획|도입|출시'), '결제 지갑 스테이블코인 송금 도입'),
+        ((r'Evernorth|Evernoth|에버노스', r'XRP', r'strategy|전략', r'lend|기관.?대출|DeFi|디파이|진출'), '기관 디지털자산 운용 사업 전략'),
+        ((r'Arc|아크', r'MoonPay|문페이', r'USDC', r'integrat|연동|통합|전송'), '스테이블코인 결제 구매 경로 연동'),
+        ((r'Stellar|스텔라', r'repo|환매조건부', r'USDM1|기관|institutional', r'trad|거래|시험|실증'), '기관 토큰화 자산 담보 거래 실증'),
+        ((r'Cardone|카돈', r'Bitcoin|BTC|비트코인', r'real.estate|부동산', r'deal|거래|진행'), '실명 기업의 부동산·디지털자산 사업 진행'),
+        ((r'Lido|리도', r'validator|검증인', r'2048|2,048|0x02', r'launch|module|path|경로|모듈|가동|열어'), '스테이킹 검증인 모듈 가동'),
+        ((r'Bitcoin|BTC|비트코인', r'fraud|사기', r'sentence|prison|징역|선고'), '암호화폐 연계 사기 사건 판결'),
+        ((r'Aviva|아비바', r'XRP|XRPL|리플', r'fund|펀드', r'brings|launch|share.class|출시|지분'), '기관 펀드 토큰화 지분 도입'),
+        ((r'Ripple|리플', r'bank.charter|은행.?인가|은행.?승인', r'final|최종', r'wins|approv|승인|취득'), '디지털자산 기업 은행 최종 인가'),
+        ((r'Anchorage|앵커리지', r'stablecoin|스테이블코인', r'custody|수탁', r'gains|support|지원|확대'), '은행 스테이블코인 수탁 지원 확대'),
+        ((r'Securitize|시큐리타이즈', r'Stellar|스텔라', r'add|support|추가|지원'), '기관 토큰화 플랫폼 지원망 확대'),
+        ((r'Cardano|카르다노', r'police|경찰', r'evidence|증거', r'proposal|안|제출|weighs'), '블록체인 경찰 증거 관리 확대 제안'),
+        ((r'Stellar|스텔라', r'USDC', r'remit|송금', r'settle|정산', r'plan|계획|도입'), '스테이블코인 국경 간 송금 정산 계획'),
+    )
+    for patterns, label in categories:
+        if all(has(p) for p in patterns):
+            # Previously supported titles keep their original intake boundary.
+            # Only short/variant headlines missing those rules need this scope.
+            from news_quality import crypto_ipo_scope_reason, institutional_scope_reason, feedback_scope_reason
+            if crypto_ipo_scope_reason(story) or institutional_scope_reason(story) or feedback_scope_reason(story):
+                return ''
+            return label
+    return ''
+
+
 def scope(story):
     if not isinstance(story, dict):
         return ''
@@ -12,6 +62,9 @@ def scope(story):
     has = lambda p: bool(re.search(p, title, re.I))
     if has(r'rumou?r|price target|price prediction|giveaway|presale|referral|목표가|루머|추천인'):
         return ''
+    reviewed = team_review_scope(story)
+    if reviewed:
+        return reviewed
     categories = (
         ((r'TRON|트론', r'Backpack|백팩', r'wallet|월렛|지갑', r'integrat|통합|연동'), '팀원 허용 지갑 통합 발표'),
         ((r'Ethena|에테나', r'Stellar|스텔라', r'USDe|sUSDe', r'live|launch|출시|도입'), '스테이블코인 새 체인 출시'),
@@ -48,7 +101,13 @@ def guidance(title):
         '러시아 거래 제도 관련 원문 확인': '원문에 모스크바 거래소의 구체적인 서비스 개시·승인·자산 범위가 있어야 한다. 분석가의 XRP 기대만 있으면 제외한다. 이미 게시한 같은 개장 소식이면 중복이며 XRP 선물을 현물 상장 확정으로 바꾸지 않는다.',
         '입법부 디지털자산 감독·입법 방침': '실명 입법자의 새 공식 감독·입법 방침은 코인명 부재나 부수적인 주가 언급 때문에 제외하지 않는다. 계획과 조사 착수·가결은 구별하고 의혹은 주장 주체에 귀속한다.',
     }
-    return '\n팀원 허용 유형 보완: ' + notes[label] + '\n원문·중복·관련 이미지 검증은 그대로 적용한다.\n'
+    detail = notes.get(label, '이 유형은 과거 팀원 피드백에서 허용한 정책·사업·실명 발표 유형이다. 짧은 제목이나 부수적인 가격·기술 용어로 제외하지 말고 원문에서 주체·행동·대상·단계를 확인한다.')
+    if label in {'실명 금융기관의 기존 분석 변경', '실명 경영자의 비트코인 투자 논거 발언', '실명 경영자의 시장 심리 발언'}:
+        detail = ('최신 사용자 승인: 갤럭시의 기존 분석 철회, 암스트롱의 인플레이션·IPO 관련 비트코인 견해, 스마터웹 CEO의 시장 심리 발언 같은 실명 주체의 새 발언·보고서 변경은 허용한다. '
+                  '이 제한적 승인은 앞의 일반 전망·심리·부정적 견해 금지보다 우선한다. 투자 전망을 사실로 보증하지 말고 말한 사람에게 귀속한다. '
+                  '기사 게재일과 발언일, 배경 매입일을 구별한다. 스마터웹의 55 BTC 매입은 원문상 11월 17일 배경이며 새 매입으로 쓰지 않는다. '
+                  '갤럭시의 기존 분석 철회는 새 의견 변화지만 기존 분석 재소개는 중복이다. 익명 차트 전망·보안 취약점·추천인 광고까지 허용하는 것은 아니다.')
+    return '\n팀원 허용 유형 보완: ' + detail + '\n원문·중복·관련 이미지 검증은 그대로 적용한다.\n'
 
 
 STYLE_GUIDANCE = '''

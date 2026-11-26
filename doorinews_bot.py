@@ -6941,7 +6941,6 @@ def main():
         filtered = [s for s in collected if matches_keywords(s, PORTFOLIO_COINS, ECON_KEYWORDS, KOREAN_KEYWORDS)]
         log(f"전체 수집 {len(collected)}개 / 필터 통과 {len(filtered)}개")
 
-        new_stories = []
         # Keep raw titles so amount-aware signatures can be rebuilt from state.
         # Normalized display titles remove decimal and thousands separators.
         seen_titles = [
@@ -6970,55 +6969,64 @@ def main():
             if item.get('canonical_key')
         }
 
-        for s in filtered:
-            title = s.get('title', '')
-            norm_title = normalize_for_duplicate(title)
-            signature = build_story_signature(s)
-            canonical_key = build_canonical_topic_key(s)
-            url = s.get('url', '').strip()
+        def candidate_stories():
+            accepted_count = 0
+            for s in filtered:
+                title = s.get('title', '')
+                norm_title = normalize_for_duplicate(title)
+                signature = build_story_signature(s)
+                canonical_key = build_canonical_topic_key(s)
+                url = s.get('url', '').strip()
 
-            if signature and len(signature.split('|')) >= 3 and signature in seen_topic_keys:
-                log(f"[토픽중복 제외] {title}")
-                log(f"  └ 시그니처: {signature}")
-                continue
+                if signature and len(signature.split('|')) >= 3 and signature in seen_topic_keys:
+                    log(f"[토픽중복 제외] {title}")
+                    log(f"  └ 시그니처: {signature}")
+                    continue
 
-            if is_canonical_duplicate(canonical_key, seen_canonical_keys):
-                log(f"[정규토픽중복 제외] {title}")
-                log(f"  └ canonical_key: {canonical_key}")
-                continue
+                if is_canonical_duplicate(canonical_key, seen_canonical_keys):
+                    log(f"[정규토픽중복 제외] {title}")
+                    log(f"  └ canonical_key: {canonical_key}")
+                    continue
 
-            if url and url in seen_urls:
-                log(f"[URL중복 제외] {title}")
-                continue
+                if url and url in seen_urls:
+                    log(f"[URL중복 제외] {title}")
+                    continue
 
-            if is_duplicate(title, posted, url):
-                log(f"[제목/URL중복 제외] {title}")
-                continue
+                if is_duplicate(title, posted, url):
+                    log(f"[제목/URL중복 제외] {title}")
+                    continue
 
-            if is_semantically_duplicate(s, seen_signatures, seen_titles):
-                log(f"[의미중복 제외] {title}")
+                if is_semantically_duplicate(s, seen_signatures, seen_titles):
+                    log(f"[의미중복 제외] {title}")
+                    log(f"  └ 정규화제목: {norm_title}")
+                    log(f"  └ 시그니처: {signature}")
+                    continue
+
+                log(f"[통과] {title}")
                 log(f"  └ 정규화제목: {norm_title}")
                 log(f"  └ 시그니처: {signature}")
-                continue
+                log(f"  └ canonical_key: {canonical_key}")
 
-            log(f"[통과] {title}")
-            log(f"  └ 정규화제목: {norm_title}")
-            log(f"  └ 시그니처: {signature}")
-            log(f"  └ canonical_key: {canonical_key}")
+                accepted_count += 1
+                seen_titles.append(title)
+                seen_signatures.append(signature)
+                if signature and len(signature.split('|')) >= 3:
+                    seen_topic_keys.add(signature)
+                if canonical_key:
+                    seen_canonical_keys.add(canonical_key)
+                if url:
+                    seen_urls.add(url)
 
-            new_stories.append(s)
-            seen_titles.append(title)
-            seen_signatures.append(signature)
-            if signature and len(signature.split('|')) >= 3:
-                seen_topic_keys.add(signature)
-            if canonical_key:
-                seen_canonical_keys.add(canonical_key)
-            if url:
-                seen_urls.add(url)
+                # Complete this candidate before searching every later candidate.
+                yield s
 
-        log(f"중복 제거 후 {len(new_stories)}개")
-        state['posted'] = posted
-        save_state(STATE_FILE, state)
+            log(f"중복 제거 후 {accepted_count}개")
+            state['posted'] = posted
+            save_state(STATE_FILE, state)
+
+        new_stories = candidate_stories()
+        if INITIAL_RUN or not POST_ENABLED:
+            new_stories = list(new_stories)
 
         if INITIAL_RUN:
             log("INITIAL_RUN=true 상태라 텔레그램 발송 없이 종료")

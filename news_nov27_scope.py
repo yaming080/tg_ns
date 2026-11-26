@@ -37,7 +37,10 @@ def requires_contextual_comparison(story):
     # A token signature cannot distinguish a scheduled opening from a live
     # service, or a new reporting period from the same filing's repeat coverage.
     # Exact URLs/titles, cached verdicts and the final full-history review remain.
-    return scope(story) in {'은행 앱 암호화폐 거래 실제 개시', '기관 분기 ETF 보유 공시'}
+    from news_intake_audit import team_review_scope
+    return (scope(story) in {'은행 앱 암호화폐 거래 실제 개시', '기관 분기 ETF 보유 공시'}
+            or team_review_scope(story) in {'실명 금융기관의 기존 분석 변경',
+                '실명 경영자의 비트코인 투자 논거 발언', '실명 경영자의 시장 심리 발언'})
 
 
 def guidance(title):
