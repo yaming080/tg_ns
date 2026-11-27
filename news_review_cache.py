@@ -419,6 +419,13 @@ def content_result(kind, scope, result=None):
                     accepted = isinstance(scope, dict) and (coverage_scope(scope) or channel_scope_reason(scope))
                     category_refusal = bool(accepted and re.search(r'요약.*명시적 제외|allowed_category|허용.*범주|전망.*제외|의견.*제외', refusal))
                     affected = semantic and (bool(team_review_scope(scope)) or category_refusal)
+                if identity in manifest.get('institutional_actions_only_previous_identities', []):
+                    from news_institutional_actions import scope as action_scope
+                    refusal = str((old_entry or {}).get('result', {}).get('reason', ''))
+                    # Existing factual, duplicate and image verdicts remain valid.
+                    # Recheck only explicit old category refusals for new types.
+                    affected = semantic and bool(action_scope(scope)) and bool(re.search(
+                        r'지정 코인|핵심맥락|구체사건|허용.*범주|allowed_category|요약.*명시적 제외|과거.*(?:연구|보고서).*제외', refusal))
                 if affected:
                     continue
                 entry = old_entry

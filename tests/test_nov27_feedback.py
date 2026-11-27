@@ -45,7 +45,7 @@ class Nov27Feedback(unittest.TestCase):
                 self.assertTrue(coverage_intake_reason(candidate), (title, date))
 
     def test_known_channel_posts_never_pay_or_send_again(self):
-        self.assertEqual(len(manual.EVENTS), 29)
+        self.assertEqual(len(manual.EVENTS), 34)
         with patch.object(editor, '_call_openai') as api:
             for url, title, _ in manual.EVENTS:
                 candidate = story(title, url)
