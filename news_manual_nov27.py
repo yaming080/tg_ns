@@ -29,5 +29,10 @@ EVENTS = (
     ('https://www.theblock.co/news/markets/2026-11-26-galaxy-walks-back-bitcoin-bottom-call-446786', 'Galaxy walks back bitcoin’s June-bottom call, warns of deeper losses below $58,525', '팀원 게시: 갤럭시디지털의 기존 약세장 종료 분석 철회와 조건부 하락 전망. 기관 의견에 귀속하며 가격 하락 확정으로 쓰지 않음. 사용자 최신 승인으로 실명 기관의 분석 변경도 허용 유형.'),
     ('https://u.today/bitcoin-as-important-as-its-ever-been-if-inflation-rises-coinbase-ceo-says', 'Bitcoin As Important as It’s Ever Been if Inflation Rises, Coinbase CEO Says', '팀원 게시: 암스트롱의 인플레이션·화폐 발행 확대 시 비트코인 투자 논거. IPO 자금 이동은 그의 견해이며 객관적 투자 성과 보장 아님.'),
     ('https://u.today/bitcoin-sentiment-can-turn-quickly-british-strategy-ceo-says', 'Bitcoin Sentiment Can Turn Quickly, British Strategy CEO Says', '팀원 게시: 스마터웹 CEO 앤드루 웨블리의 투자 심리 발언. 55 BTC 매입은 원문상 11월 17일 배경이며 이번 기사 시점의 추가 매입으로 쓰지 않음. 총보유량 2905 BTC는 해당 거래 이후 수치.'),
+    ('https://timestabloid.com/heres-what-department-of-homeland-security-said-about-xrp-years-ago/', 'Here’s What Department of Homeland Security Said About XRP Years Ago', '팀원 11월 27일 14:40 게시: DHS 관련 연구기관의 과거 Ripple형 결제 수단 평가 재조명. 현재 정부의 XRP 채택 확정이나 정책 발표가 아니다. 같은 문서 재인용은 재발송하지 않음.'),
+    ('https://bloomingbit.io/feed/news/125351', '러, 시험 쳐야 코인 산다..."개인은 비트·이더·테더만 허용"', '팀원 11월 27일 15:22 게시: 러시아 개인 암호화폐 거래 시험·자격 조건과 BTC·ETH·USDT 허용 자산. 이전 거래 허용 기사와 비교할 때 시험 규정이 실제 새 조치인지 같은 제도의 설명인지 구별.'),
+    ('https://crypto.news/hong-kong-crypto-market-maker-auros-moves-to-wind-down-operations/', 'Hong Kong crypto market maker Auros moves to wind down operations', '팀원 11월 27일 15:25 게시: 소식통을 인용한 오로스 사업 정리 보도. 이유·종료 일정 미공개, 회사 확정 발표나 청산 완료로 단정하지 않음.'),
+    ('https://cointelegraph.com/news/japans-crypto-security-group-taps-seal-to-speed-up-hack-response', 'Japan’s crypto security group taps SEAL to speed up hack response', '팀원 11월 27일 16:18 게시: JPCrypto-ISAC와 SEAL의 보안 위협정보 공유·사고 대응 협약. 과거 거래소 피해는 배경이며 이번에 코인 네트워크가 해킹된 사건이 아님.'),
+    ('https://cryptobriefing.com/malaysia-first-spot-bitcoin-etf-halogen-shariah/', 'Malaysia approves first spot Bitcoin ETF from Halogen Capital', '팀원 11월 27일 23:38 게시: 말레이시아 할로겐캐피털 현물 비트코인 ETF 승인·샤리아 준수. 사용자 제공 게시 이력이며 현재 원문 수집 성공이나 실제 거래 개시 증거는 아님.'),
 )
 URLS = tuple(row[0] for row in EVENTS)

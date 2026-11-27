@@ -19,6 +19,7 @@ from news_nov25_scope import scope as nov25_scope, ENABLED_AT as NOV25_ENABLED_A
 from news_intake_audit import scope as audit_scope, ENABLED_AT as AUDIT_ENABLED_AT
 from news_nov27_scope import scope as nov27_scope, ENABLED_AT as NOV27_ENABLED_AT
 from news_nov26_scope import scope as nov26_scope, ENABLED_AT as NOV26_ENABLED_AT
+from news_institutional_actions import scope as action_scope, ENABLED_AT as ACTION_ENABLED_AT
 
 ENABLED_AT = datetime(2026, 10, 10, 9, 25, tzinfo=timezone.utc)
 POLICY = 'luna-coverage-20261013-4'
@@ -28,11 +29,13 @@ CRYPTO = r'crypto|digital.asset|blockchain|bitcoin|ethereum|stablecoin|tokeniz|\
 COMPANY = r'Evernorth|Evernoth|Ripple|Robinhood|Blockchain\.com|Moscow Exchange|Ledger|Binance|HashKey|BitGo|에버노스|리플|로빈후드|블록체인닷컴|모스크바거래소|레저|바이낸스|해시키|비트고'
 
 
-def coverage_scope(story, *, team_feedback=True, nov10_feedback=True, card_feedback=True, nov12_feedback=True, nov15_feedback=True, nov25_feedback=True, nov26_feedback=True, nov27_feedback=True, audit_feedback=True):
+def coverage_scope(story, *, team_feedback=True, nov10_feedback=True, card_feedback=True, nov12_feedback=True, nov15_feedback=True, nov25_feedback=True, nov26_feedback=True, nov27_feedback=True, audit_feedback=True, action_feedback=True):
     title = str(story.get('title', '') or '')
     has = lambda p: bool(re.search(p, title, re.I))
     if has(r'presale|airdrop|giveaway|referral|sponsored|technical analysis|price prediction|price target|RSI|MACD|프리세일|에어드롭|추천인|협찬|차트.?분석|목표가|지지선|저항선|뉴스.?브리핑|weekly.{0,20}recap'):
         return ''
+    if team_feedback and action_feedback and action_scope(story):
+        return action_scope(story)
     if team_feedback and audit_feedback and audit_scope(story):
         return audit_scope(story)
     if team_feedback and nov27_feedback and nov27_scope(story):
@@ -102,6 +105,9 @@ def coverage_intake_reason(story):
             dt = parsedate_to_datetime(value)
         except (ValueError, TypeError):
             dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if (action_scope(story) and not coverage_scope(story, action_feedback=False)
+                and (dt.tzinfo is None or dt <= ACTION_ENABLED_AT)):
+            return '기관 사건 범위 보완 전 기사: 과거 대기열 발송 방지'
         if (audit_scope(story) and not coverage_scope(story, audit_feedback=False)
                 and (dt.tzinfo is None or dt <= AUDIT_ENABLED_AT)):
             return '추가 필터 보완 전 기사: 과거 대기열 발송 방지'
