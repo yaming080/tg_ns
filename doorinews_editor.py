@@ -245,6 +245,9 @@ ENTITY_SPECS = (
     EntitySpec("org", "SEAL", ("Security Alliance", "SEAL", "시큐리티얼라이언스"), "#SEAL", 20),
     EntitySpec("org", "JPCrypto-ISAC", ("JPCrypto-ISAC", "JPCrypto ISAC"), "#JPCryptoISAC", 20),
     EntitySpec("org", "할로겐캐피털", ("Halogen Capital", "할로겐캐피털", "할로겐 캐피털"), "#HalogenCapital", 20),
+    EntitySpec("org", "국토안보부", ("Department of Homeland Security", "Homeland Security Department", "DHS", "국토안보부"), "#DHS", 20),
+    EntitySpec("topic", "글램스터담", ("Glamsterdam", "글램스터담", "글램스테르담"), priority=20),
+    EntitySpec("topic", "후디", ("Hoodi", "후디"), priority=20),
     EntitySpec("org", "CFTC", ("CFTC", "Commodity Futures Trading Commission", "상품선물거래위원회"), "#CFTC", 20),
     EntitySpec("org", "FCA", ("FCA", "Financial Conduct Authority"), "#FCA", 20),
     EntitySpec("org", "OCC", ("OCC", "Office of the Comptroller of the Currency"), "#OCC", 20),
@@ -1236,7 +1239,8 @@ GENERIC_DUPLICATE_TOKENS = {
 }
 
 PARTICLES = (
-    "에서는", "으로는", "에게는", "에서의", "으로", "에게", "에는", "에도", "에서",
+    "에서는", "으로는", "에게는", "에서의", "으로의", "로의", "과의", "와의",
+    "과는", "와는", "과도", "와도", "으로", "에게", "에는", "에도", "에서",
     "은", "는", "인", "이", "가", "을", "를", "와", "과", "도", "만", "에", "로", "의",
 )
 

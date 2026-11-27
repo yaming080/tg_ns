@@ -426,6 +426,9 @@ def content_result(kind, scope, result=None):
                     # Recheck only explicit old category refusals for new types.
                     affected = semantic and bool(action_scope(scope)) and bool(re.search(
                         r'지정 코인|핵심맥락|구체사건|허용.*범주|allowed_category|요약.*명시적 제외|과거.*(?:연구|보고서).*제외', refusal))
+                if identity in manifest.get('format_only_previous_identities', []):
+                    # Inline hashtag boundaries cannot alter source/event/image verdicts.
+                    affected = False
                 if affected:
                     continue
                 entry = old_entry
