@@ -364,6 +364,7 @@ def content_result(kind, scope, result=None):
         from news_nov26_scope import scope as nov26_scope
         from news_nov27_scope import scope as nov27_scope
         from news_intake_audit import scope as audit_scope, style_rejection, team_review_scope
+        from news_institutional_actions import etf_listing_scope
         # Intake changed only for these headlines. Do not inherit their prior
         # semantic exclusions, while preserving unrelated reviews and expiry.
         semantic = kind in {'source_summary', 'event_rejected', 'negative_request'}
@@ -429,13 +430,19 @@ def content_result(kind, scope, result=None):
                 if identity in manifest.get('format_only_previous_identities', []):
                     # Inline hashtag boundaries cannot alter source/event/image verdicts.
                     affected = False
-                if identity in manifest.get('overnight_only_previous_identities', []):
+                if identity in manifest.get('overnight_only_previous_identities', []) or identity in manifest.get('etf_listing_only_previous_identities', []):
                     affected = False
                 from news_financial_infrastructure import scope as finance_scope, date_refusal
                 refusal = str((old_entry or {}).get('result', {}).get('reason', ''))
                 affected = affected or (semantic and (date_refusal(old_entry) or (
                     bool(finance_scope(scope)) and bool(re.search(
                         r'지정 코인|핵심맥락|구체사건|허용.*범주|allowed_category|요약.*명시적 제외|과거.*인터뷰.*제외', refusal)))))
+                # A listing brief can omit incidental fees. Preserve passing summaries,
+                # unrelated failures and all prior image/event decisions.
+                if kind == 'source_summary' and etf_listing_scope(scope):
+                    old_result = (old_entry or {}).get('result', {})
+                    affected = affected or (not old_result.get('summary') and bool(re.search(
+                        r'구체사건|허용.*범주|allowed_category|수수료|총보수|주가·장중 변동성', refusal)))
                 if affected:
                     continue
                 entry = old_entry

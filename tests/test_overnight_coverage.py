@@ -11,9 +11,11 @@ import doorinews_editor as e
 import news_review_cache as cache
 from news_financial_infrastructure import ENABLED_AT, scope, date_refusal, runtime_date_guidance
 from news_coverage import coverage_intake_reason
-from news_manual_nov28 import EVENTS
+from news_manual_nov28 import EVENTS as NOV28_EVENTS
 from news_publication import prepare_publication
 from tests.test_team_full_pipeline import verdict
+
+EVENTS = NOV28_EVENTS[:7]  # Original overnight cases; later ETF feedback has its own tests.
 
 
 def story(title, **kw):

@@ -250,6 +250,7 @@ ENTITY_SPECS = (
     EntitySpec("org", "SEAL", ("Security Alliance", "SEAL", "시큐리티얼라이언스"), "#SEAL", 20),
     EntitySpec("org", "JPCrypto-ISAC", ("JPCrypto-ISAC", "JPCrypto ISAC"), "#JPCryptoISAC", 20),
     EntitySpec("org", "할로겐캐피털", ("Halogen Capital", "할로겐캐피털", "할로겐 캐피털"), "#HalogenCapital", 20),
+    EntitySpec("org", "부르사말레이시아", ("Bursa Malaysia", "부르사말레이시아", "부르사 말레이시아", "부르사 증권거래소"), "#BursaMalaysia", 20),
     EntitySpec("org", "국토안보부", ("Department of Homeland Security", "Homeland Security Department", "DHS", "국토안보부"), "#DHS", 20),
     EntitySpec("topic", "글램스터담", ("Glamsterdam", "글램스터담", "글램스테르담"), priority=20),
     EntitySpec("topic", "후디", ("Hoodi", "후디"), priority=20),
