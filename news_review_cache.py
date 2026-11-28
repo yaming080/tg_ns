@@ -429,6 +429,13 @@ def content_result(kind, scope, result=None):
                 if identity in manifest.get('format_only_previous_identities', []):
                     # Inline hashtag boundaries cannot alter source/event/image verdicts.
                     affected = False
+                if identity in manifest.get('overnight_only_previous_identities', []):
+                    affected = False
+                from news_financial_infrastructure import scope as finance_scope, date_refusal
+                refusal = str((old_entry or {}).get('result', {}).get('reason', ''))
+                affected = affected or (semantic and (date_refusal(old_entry) or (
+                    bool(finance_scope(scope)) and bool(re.search(
+                        r'지정 코인|핵심맥락|구체사건|허용.*범주|allowed_category|요약.*명시적 제외|과거.*인터뷰.*제외', refusal)))))
                 if affected:
                     continue
                 entry = old_entry

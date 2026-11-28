@@ -25,7 +25,7 @@ class LiveIntakeAudit(unittest.TestCase):
 
     def test_all_collectible_team_examples_reach_review_except_unverified_claims(self):
         tested = 0
-        for name in ('nov2', 'nov7', 'nov8', 'nov10', 'nov12', 'nov15', 'nov25', 'nov27'):
+        for name in ('nov2', 'nov7', 'nov8', 'nov10', 'nov12', 'nov15', 'nov25', 'nov27', 'nov28'):
             for url, title, _ in importlib.import_module('news_manual_'+name).EVENTS:
                 if any(host in url for host in ('x.com', 'coingape.com')):
                     continue
@@ -39,7 +39,7 @@ class LiveIntakeAudit(unittest.TestCase):
                 else:
                     self.assertFalse(blocked, (title, reason))
                     self.assertTrue(eligible, title)
-        self.assertEqual(tested, 87)
+        self.assertEqual(tested, 94)
 
     def test_unrelated_actors_are_not_merged_by_asset_country_and_infrastructure(self):
         cardano = 'action_develop | action_expand | action_integrate | action_secure | asset_stablecoin | entity_usfinancialmarkethere | entity_카르다노 | geo_us | object_infrastructure | object_network'
