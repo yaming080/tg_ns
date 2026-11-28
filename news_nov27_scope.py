@@ -39,7 +39,8 @@ def requires_contextual_comparison(story):
     # Exact URLs/titles, cached verdicts and the final full-history review remain.
     from news_intake_audit import team_review_scope
     from news_institutional_actions import contextual_comparison
-    return (contextual_comparison(story) or scope(story) in {'은행 앱 암호화폐 거래 실제 개시', '기관 분기 ETF 보유 공시'}
+    from news_financial_infrastructure import contextual_comparison as finance_comparison
+    return (finance_comparison(story) or contextual_comparison(story) or scope(story) in {'은행 앱 암호화폐 거래 실제 개시', '기관 분기 ETF 보유 공시'}
             or team_review_scope(story) in {'실명 금융기관의 기존 분석 변경',
                 '실명 경영자의 비트코인 투자 논거 발언', '실명 경영자의 시장 심리 발언'})
 
